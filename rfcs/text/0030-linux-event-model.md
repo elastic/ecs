@@ -15,9 +15,9 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 This RFC aims to introduce a significant number of additions to ECS (mostly the 'Process' fieldset) in an effort to provide a rich enough linux event model to drive Session view in Kibana, as well as provide wider context to EQL and other rule engines. Care has been taken to ensure this RFC doesn't break any existing uses of the process field set, and should be fully backwards compatible with existing endpoint agents.
 
-A recent doc (written by @ms-sample) has been added to the security-team repo that explains much of the reasoning behind these changes. It can be found here: https://github.com/elastic/security-team/blob/main/docs/adaptive-workload-protection-team/architecture/linux-event-model.md
-
-An "unofficial" ECS RFC is also open at https://github.com/elastic/security-team/pull/2071/files which is being used to discuss and prepare for an official Stage 1 submission here.
+A recent doc (written by @ms-sample) has been added to the security-team repo that explains much of the reasoning behind these changes.  
+It can be found in a private repo here: https://github.com/elastic/security-team/blob/main/docs/adaptive-workload-protection-team/architecture/linux-event-model.md  
+It has also been copied to ECS for folks who can't access security-team repo: https://github.com/elastic/ecs/blob/5f39dd86a8db49bbdddddad2035da9b0198d3651/rfcs/text/0030/linux-event-model.md 
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -60,13 +60,11 @@ observer.boot.id and observer.pid_ns_ino will be used in generating unique uuids
 
 process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service).
 
-ppid and sid were (re)added for completeness. They are staples of the linux event model, and it's important they are set for the process and each of its nested ancestors.
-
-file_description fieldset will primarily be used to render pipes and redirects, but shed light on processes file and socket activity.
+file_description fieldset will primarily be used to render pipes and redirects, but shed light on processes file and socket activities.
 
 2. Rule engines
 
-The new nested ancestor processes will provide rule engines a widened context to allow for improved specificity/scope. Rather than rely on sequences of events to decide when to take action, an informed decision can be made on a single event. This opens up the door for much quicker and pre-emptive actions. Like stopping a processes, or isolating a host.
+The new nested ancestor processes will provide rule engines a widened context to allow for improved specificity/scope. Rather than rely on sequences of events to decide when to take action, an informed decision can be made on a single event. This opens up the door for much quicker and pre-emptive actions. Like stopping of processes, or isolating hosts.
 
 KQL example:
 
@@ -123,13 +121,7 @@ Here is a mock example of these events:
     interactive: false,
     working_directory: '/',
     pid: 3,
-    ppid: 2,
-    sid: 1,
-    pgid: 2,
     start: '2021-10-14T08:05:34.853Z',
-    sid_start: '2021-10-14T08:05:34.853Z',
-    ppid_start: '2021-10-14T08:05:34.853Z',
-    pgid_start: '2021-10-14T08:05:34.853Z',
     user: {
       id: '2',
       name: 'kg',
@@ -144,13 +136,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/',
       pid: 2,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
         name: 'root',
@@ -184,13 +170,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 3,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -224,13 +204,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -264,13 +238,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -383,13 +351,7 @@ Here is a mock example of these events:
     interactive: true,
     working_directory: '/home/kg',
     pid: 3,
-    ppid: 1,
-    sid: 1,
-    pgid: 2,
     start: '2021-10-14T08:05:34.853Z',
-    sid_start: '2021-10-14T08:05:34.853Z',
-    ppid_start: '2021-10-14T08:05:34.853Z',
-    pgid_start: '2021-10-14T08:05:34.853Z',
     user: {
       id: '2',
       name: 'kg',
@@ -404,13 +366,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/',
       pid: 2,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
         name: 'root',
@@ -444,13 +400,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 3,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -484,13 +434,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -524,13 +468,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -643,14 +581,8 @@ Here is a mock example of these events:
     interactive: true,
     working_directory: '/home/kg',
     pid: 3,
-    ppid: 2,
-    sid: 1,
-    pgid: 2,
     start: '2021-10-14T08:05:34.853Z',
     end: '2021-10-14T10:05:34.853Z',
-    sid_start: '2021-10-14T08:05:34.853Z',
-    ppid_start: '2021-10-14T08:05:34.853Z',
-    pgid_start: '2021-10-14T08:05:34.853Z',
     exit_code: 137,
     user: {
       id: '2',
@@ -666,13 +598,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/',
       pid: 2,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
         name: 'root',
@@ -706,13 +632,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 3,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -746,13 +666,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -786,13 +700,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -905,13 +813,7 @@ Here is a mock example of these events:
     interactive: true,
     working_directory: '/home/kg',
     pid: 3,
-    ppid: 1,
-    sid: 1,
-    pgid: 2,
     start: '2021-10-14T08:05:34.853Z',
-    sid_start: '2021-10-14T08:05:34.853Z',
-    ppid_start: '2021-10-14T08:05:34.853Z',
-    pgid_start: '2021-10-14T08:05:34.853Z',
     user: {
       id: '2',
       name: 'kg',
@@ -926,13 +828,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/',
       pid: 2,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
         name: 'root',
@@ -966,13 +862,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -1006,13 +896,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 3,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -1046,13 +930,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -1164,13 +1042,7 @@ Here is a mock example of these events:
     interactive: true,
     working_directory: '/home/kg',
     pid: 3,
-    ppid: 2,
-    sid: 1,
-    pgid: 2,
     start: '2021-10-14T08:05:34.853Z',
-    sid_start: '2021-10-14T08:05:34.853Z',
-    ppid_start: '2021-10-14T08:05:34.853Z',
-    pgid_start: '2021-10-14T08:05:34.853Z',
     end: '2021-10-14T10:05:34.853Z',
     exit_code: 137,
     user: {
@@ -1187,13 +1059,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/',
       pid: 2,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
         name: 'root',
@@ -1227,13 +1093,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
@@ -1267,13 +1127,7 @@ Here is a mock example of these events:
       interactive: true,
       working_directory: '/home/kg',
       pid: 3,
-      ppid: 1,
-      sid: 1,
-      pgid: 2,
       start: '2021-10-14T08:05:34.853Z',
-      sid_start: '2021-10-14T08:05:34.853Z',
-      ppid_start: '2021-10-14T08:05:34.853Z',
-      pgid_start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '2',
         name: 'kg',
