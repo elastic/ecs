@@ -1,0 +1,52 @@
+[[ecs-principles-design]]
+=== Design
+
+[float]
+==== Changes come at a cost
+
+The goal of ECS is to maximize interoperability and reuse. When expanding the concepts represented in ECS,
+consideration should be given to how broad or narrow the intended use cases are.
+
+Fields with a narrow or incorrect definition or which lack understanding of semantics limit other use cases from adopting
+them later on. Adding additional fields later is easier than changing or removing existing ones.
+
+Add the fewest fields to adequately capture a concept when possible, and avoid adding fields simply because a concept exists.
+
+For example, a network protocol specification may contain many features, but some of those features are obscure and rarely seen in common use. Avoid standardization for standardization’s sake.
+
+[float]
+==== Field sets are namespaces
+
+Field sets create independent schema sections for understanding a concept in isolation. Reusing common naming across different namespaces
+also makes the schema easier to learn and memorize frequently used fields. This design pattern helps ensure that words with broad meaning
+are not limited to a single use case.
+
+Examples:
+
+* Many concepts can include a `.name` or `.id` value (for example, `event.id`, `error.id`, `group.id`, `rule.id`, `user.id`).
+* Multiple potential IP addresses in a single event (`source.ip`, `destination.ip`, `host.ip`).
+
+Complex concepts may benefit from additional nesting. A field set may contain several sub-components that make up a larger concept: `dns.question.class`, `dns.question.answer`, `dns.question.type`.
+
+[float]
+==== Avoid duplication
+
+Avoid duplicating fields across the schema. An additional field may seem necessary looking at a field set or concept individually, but when looking at the entire event,
+an existing field or reused field set could be used.
+
+If an application produces a unique ID for each log it emits, instead of adding a custom `.id` field for that application, consider the `event.id` field. Leveraging common fields across event sources
+helps build simpler queries and visualizations.
+
+Reusing a field set can also capture the same details for different entities when more than one place for a single event. The `user.*` field set and the reuse `user.target.*` allow collecting the
+same detail about a acting and target users without needing to redefine the entire `user.*` field set.
+
+[float]
+==== Custom fields
+
+As a common schema, ECS fields can be shared across many different event types and data sources. While some events
+may be entirely modeled by ECS fields, others will need custom fields to fully capture the contents of an event.
+
+Users and integrations are always encouraged to add custom fields to capture concepts not defined in ECS. Custom fields give users flexibility to add fields for their internal use cases,
+less common concepts, and experimentation.
+
+Following the <<ecs-custom-fields-in-ecs, best practices>>, users and integrations can create a simpler path for future migration if a similar concept appear in ECS.
