@@ -56,7 +56,7 @@ python scripts/generator.py --ref v1.6.0 \
 
 The generated Elasticsearch template would be output at
 
-`my-project/generated/elasticsearch/7/template.json`
+`my-project/generated/elasticsearch/legacy/template.json`
 
 If this sounds interesting, read on to learn all about each of these settings.
 
@@ -217,7 +217,7 @@ drwxr-xr-x  2 user  ecs    64B Jul  8 13:12 docs
 drwxr-xr-x  6 user  ecs   192B Jul  8 13:12 generated
 ```
 
-And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/7/template.json`, we see our custom fields are included:
+And looking at a specific artifact, `../myprojects/out/generated/elasticsearch/legacy/template.json`, we see our custom fields are included:
 
 ```json
 ...
