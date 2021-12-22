@@ -124,7 +124,7 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
 
 
 def generate_legacy_template_version(es_version, ecs_version, mappings_section, out_dir, template_settings_file):
-    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(es_version)))
+    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', "legacy"))
     template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
 
     filename = join(out_dir, "elasticsearch/legacy/template.json")
