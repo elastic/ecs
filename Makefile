@@ -27,7 +27,7 @@ check: generate experimental test fmt misspell makelint
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf build generated/elasticsearch/component experimental/generated/elasticsearch/component
+	rm -rf build generated/elasticsearch/composable/component experimental/generated/elasticsearch/composable/component
 
 # Build the asciidoc book.
 .PHONY: docs
