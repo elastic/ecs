@@ -120,12 +120,12 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
     mappings_section = mapping_settings(mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
-    generate_legacy_template_version(7, ecs_version, mappings_section, out_dir, template_settings_file)
+    generate_legacy_template_version(ecs_version, mappings_section, out_dir, template_settings_file)
 
 
-def generate_legacy_template_version(es_version, ecs_version, mappings_section, out_dir, template_settings_file):
+def generate_legacy_template_version(ecs_version, mappings_section, out_dir, template_settings_file):
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', "legacy"))
-    template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
+    template = template_settings(ecs_version, mappings_section, template_settings_file)
 
     filename = join(out_dir, "elasticsearch/legacy/template.json")
     save_json(filename, template)
@@ -199,14 +199,14 @@ def mapping_settings(mapping_settings_file):
     return mappings
 
 
-def template_settings(es_version, ecs_version, mappings_section, template_settings_file):
+def template_settings(ecs_version, mappings_section, template_settings_file):
     if template_settings_file:
         with open(template_settings_file) as f:
             template = json.load(f)
     else:
-        template = default_template_settings(ecs_version)
+        template = default_template(ecs_version)
 
-    template['mappings'] = mappings_section
+    template['template']['mappings'] = mappings_section
 
     # _meta can't be at template root in legacy templates, so moving back to mappings section
     # if present
@@ -224,13 +224,13 @@ def save_json(file, data):
         json.dump(data, jsonfile, indent=2, sort_keys=True)
         jsonfile.write('\n')
 
-
-def default_template_settings(ecs_version):
+def default_template(ecs_version):
     return {
         "index_patterns": ["try-ecs-*"],
         "_meta": {"version": ecs_version},
         "order": 1,
-        "settings": {
+        "template": {
+            "settings": {
             "index": {
                 "mapping": {
                     "total_fields": {
@@ -238,6 +238,7 @@ def default_template_settings(ecs_version):
                     }
                 },
                 "refresh_interval": "5s"
+                }
             }
         }
     }

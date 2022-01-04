@@ -2,8 +2,8 @@
   "index_patterns": [
     "acme-weblogs-*"
   ],
-  "mappings": {
-    "_doc": {
+  "template": {
+    "mappings": {
       "_meta": {
         "version": "1.6.0"
       },
@@ -1141,18 +1141,18 @@
           }
         }
       }
+    },
+    "settings": {
+      "index": {
+        "codec": "best_compression",
+        "mapping": {
+          "total_fields": {
+            "limit": 1000
+          }
+        },
+        "refresh_interval": "2s"
+      }
     }
   },
-  "order": 1,
-  "settings": {
-    "index": {
-      "codec": "best_compression",
-      "mapping": {
-        "total_fields": {
-          "limit": 1000
-        }
-      },
-      "refresh_interval": "2s"
-    }
-  }
+  "order": 1
 }
