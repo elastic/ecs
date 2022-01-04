@@ -224,6 +224,7 @@ def save_json(file, data):
         json.dump(data, jsonfile, indent=2, sort_keys=True)
         jsonfile.write('\n')
 
+
 def default_template(ecs_version):
     return {
         "index_patterns": ["try-ecs-*"],
@@ -231,13 +232,13 @@ def default_template(ecs_version):
         "order": 1,
         "template": {
             "settings": {
-            "index": {
-                "mapping": {
-                    "total_fields": {
-                        "limit": 10000
-                    }
-                },
-                "refresh_interval": "5s"
+                "index": {
+                    "mapping": {
+                        "total_fields": {
+                            "limit": 10000
+                        }
+                    },
+                    "refresh_interval": "5s"
                 }
             }
         }
