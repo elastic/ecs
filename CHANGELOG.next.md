@@ -41,7 +41,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
-* Added `email.*` beta field set. ##1688
+* Added `email.*` beta field set. ##1688, #1705
 
 #### Removed
 
@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
 
 ## 8.0.0 (Hard Feature Freeze)
 
@@ -83,17 +84,17 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-* Align input options for --include and --subset arguments #1519
-
 #### Breaking Changes
 
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
 * Remove template generation for ES6. #1680
+* Update folder structure for generated ES artifacts. #1700
 
 #### Improvements
 
+* Align input options for --include and --subset arguments #1519
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
 * Reorganize docs directory structure. #1679
