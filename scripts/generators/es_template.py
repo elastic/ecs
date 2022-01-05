@@ -45,6 +45,7 @@ def save_composable_template(ecs_version, component_names, out_dir, mapping_sett
         "template": {
             "settings": {
                 "index": {
+                    "codec" : "best_compression",
                     "mapping": {
                         "total_fields": {
                             "limit": 2000
