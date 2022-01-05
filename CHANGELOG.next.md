@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
 
 ## 8.0.0 (Hard Feature Freeze)
 
