@@ -5,17 +5,18 @@ The considerations here form the basis of ECS's design. These principles help gu
 making the appropriate decisions for the project.
 
 [float]
-==== Changes come at a cost
+==== A common schema
 
 The goal of ECS is to maximize interoperability and reuse. When expanding the concepts represented in ECS,
-consideration should be given to how broad or narrow the intended use cases are.
+consider how broad or narrow the intended use cases are.
 
-Fields with a narrow or incorrect definition or which lack understanding of semantics limit other use cases from adopting
-them later on. Adding additional fields is less complicated than changing or removing defined ones.
+Defining fields with narrow, lacking, or incorrect definitions limits later use by other use cases. The best practice is to add
+the fewest fields to capture an event adequately. Adding additional fields in the future is less complicated than changing or removing
+established ones.
 
-Add the fewest fields to capture an event adequately, and avoid adding fields simply because a concept exists.
+Also, avoid adding fields simply because a concept exists. For example, a network protocol specification may contain many features,
+but some are obscure and used infrequently. Avoid standardization for standardization’s sake.
 
-For example, a network protocol specification may contain many features, but some are obscure and used infrequently. Avoid standardization for standardization’s sake.
 
 [float]
 ==== Field sets are namespaces
