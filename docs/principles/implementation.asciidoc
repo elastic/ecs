@@ -29,7 +29,7 @@ This value is helpful to detect if data sources are falling behind, have been up
 understand why a particular data source isn't populating the same fields as another.
 
 tags and labels::
-The <<field-tags, tags>> and <<field-labels, labels>> fields can be used to add simple metadata to an event as `keyword` values.
+The <<field-tags, `tags>> and <<field-labels, `labels`>> fields can be used to add simple metadata to an event as `keyword` values.
 
 [float]
 ===== Host
@@ -63,31 +63,32 @@ ingest agent, enrichment, or other ingestion pipeline.
 
 ECS requires the `@timestamp` field on every event, but events can benefit from capturing additional timestamps.
 
-<<field-timestamp, @timestamp>>::
-All events must populate `@timestamp` with when the event originated.
+@timestamp::
+All events must populate <<field-timestamp, `@timestamp`>> with when the event originated.
 
-<<field-event-created, event.created>>::
-When an agent or pipeline first saw the event.
+event.created::
+The <<field-event-created, `event.created`>> field contains when an agent or pipeline first saw the event.
 
-<<field-event-ingested, event.ingested>>::
-When an event arrived in the central data store, like Elasticsearch. In typical processing, the
-timestamps should chronologically be:
+event.ingested::
+The timestamp of when an event arrived in the central data store, like Elasticsearch, should be place in <<field-event-ingested, `event.ingested`>>.
+
+In typical processing, these three previous timestamps should chronologically be:
 
 [source,sh]
 ----
 @timestamp < event.created < event.ingested
 ----
 
-<<field-event-start, event.start>>::
-This timestamp marks the beginning of the event activity. For example, `event.start` is the timestamp
-of the first observed packet in the flow in a network flow.
+event.start::
+This timestamp marks the beginning of the event activity. For example, in a network session, <<field-event-start, `event.start`>>
+is the timestamp of the first observed packet in the flow.
 
-<<field-event-end, event.end>>::
-This timestamp marks the end of the activity. In a network flow, `event.end` is the timestamp of the last observed packet
+event.end::
+This timestamp marks the end of the activity. In a network flow, <<field-event-end, `event.end`>> is the timestamp of the last observed packet
 in the flow.
 
-<<field-event-duration, event.duration>>::
-If `event.end` and `event.start` are both, `event.duration` should be the difference:
+event.duration::
+If `event.end` and `event.start` are both available, <<field-event-duration, `event.duration`>> should be their difference:
 
 [source,sh]
 ----
@@ -99,17 +100,17 @@ event.duration = event.end - event.start
 
 Specific `event.*` fields exist to capture where an event originated.
 
-<<field-event-provider, event.provider>>::
-The name of the software or operating subsystem that generated the event.
+event.provider::
+The <<field-event-provider, `event.provider`>> field contains the name of the software or operating subsystem that generated the event.
 
-<<field-event-module, event.module>>::
+event.module::
 If the ingest agent or pipeline has a concept of modules or plugins to process events,
-`event.module` should be populated with the name of this module or plugin.
+<<field-event-module, `event.module`>> should be populated with the name of this module or plugin.
 
-<<field-event-dataset, event.dataset>>::
+event.dataset::
 Used to define different types of logs or metrics from an event source. The recommended
 convention is `<moduleName>.<datasetName>`. For Apache web server access logs, the
-`event.dataset` value will be `apache.access`.
+<<field-event-dataset, `event.dataset`>> value will be `apache.access`.
 
 [float]
 ===== Categorization
