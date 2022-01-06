@@ -13,23 +13,23 @@ By following these conventions, ECS users can better describe, discovery identif
 ===== Base fields
 
 The group of individual fields residing outside any field set at the top-level of ECS
-are known as `base` fields.
+are known as base fields.
 
-ECS events follow these conventions with the `base` fields:
+ECS events follow these conventions with the base fields:
 
-<<field-timestamp, @timestamp>>::
-All events must populate `@timestamp` with the timestamp of when the event originated.
+@timestamp::
+All events must populate <<field-timestamp, `@timestamp`>> with the timestamp of when the event originated.
 
-<<field-message, message>>::
+message::
 Most events should populate <<field-message, `message`>>.
 
-<<field-ecs-version, ecs.version>>::
-The referenced ECS version used to develop the data sources mapping or ingest pipeline.
+ecs.version::
+The referenced <<field-ecs-version, `ecs.version`>> used to develop the data sources mapping or ingest pipeline.
 This value is helpful to detect if data sources are falling behind, have been updated, or
 understand why a particular data source isn't populating the same fields as another.
 
-<<field-tags, tags>> and <<field-labels, labels>>::
-Fields can be used to add simple metadata to an event as `keyword` values.
+tags and labels::
+The <<field-tags, tags>> and <<field-labels, labels>> fields can be used to add simple metadata to an event as `keyword` values.
 
 [float]
 ===== Host
