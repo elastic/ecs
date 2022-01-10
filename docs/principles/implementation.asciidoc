@@ -1,10 +1,10 @@
 [[ecs-principles-implementation]]
 === Implementation Patterns
 
-As part of its data model, ECS defines fields for capturing common details regardless of the original event type. Normalizing
+As part of its data model, ECS defines fields for capturing standard details regardless of the original event type. Normalizing
 data following this model allows users to have a more consistent view of data from different sources.
 
-By following these conventions, ECS users can better describe, discover, identify, and categorize their events.
+ECS users can better describe, discover, identify, and categorize their events by following these conventions.
 
 [float]
 ==== Infrastructure metadata
@@ -55,8 +55,8 @@ details are captured underneath the <<ecs-observer, `observer.*`>> field set.
 ==== Static metadata
 
 Most events will populate <<ecs-event, `event.*`>> fields to provide context metadata about the log or
-metric event. However, many fields won't contain data extracted from the original event but added by a monitoring or
-ingest agent, enrichment, or other ingestion pipeline.
+metric event. However, many fields won't contain data extracted from the original event but added by monitoring or
+ingesting agent, enrichment, or another ingestion pipeline.
 
 [float]
 ===== Timestamps
@@ -67,10 +67,10 @@ ECS requires the `@timestamp` field on every event, but events can benefit from 
 All events must populate <<field-timestamp, `@timestamp`>> with when the event originated.
 
 event.created::
-The <<field-event-created, `event.created`>> field contains when an agent or pipeline first saw the event.
+The <<field-event-created, `event.created`>> field contains when an agent or pipeline saw the event.
 
 event.ingested::
-The timestamp of when an event arrived in the central data store, like Elasticsearch, should be place in <<field-event-ingested, `event.ingested`>>.
+The timestamp of when an event arrived in the central data store, like Elasticsearch, should be placed in <<field-event-ingested, `event.ingested`>>.
 
 In typical processing, these three previous timestamps should chronologically be:
 
@@ -155,13 +155,13 @@ fields nested under network transaction fields like `source.*`, `destination.*`,
 ----
 
 Autonomous system number::
-Similar to GeoIP, Autonomous System Number (ASN) database lookup can determine the ASN associated with the IP address.
+Like GeoIP, Autonomous System Number (ASN) database lookup can determine the ASN associated with the IP address.
 
 [float]
 ==== Parsing
 
 User-agent::
-Many application and web server logs will contain the user-agent which can break down into individual fields.
+Many application and web server logs will contain the user-agent, breaking down into individual fields.
 
 [source,json]
 ----
