@@ -43,7 +43,7 @@ class TestGeneratorsBeatsFields(unittest.TestCase):
                 'type': 'keyword'
             }
         }
-        beats_fields = beats.fieldset_field_array(fields, self.df_allowlist, 'prefix')
+        beats_fields = beats.fieldset_field_array(fields, 'prefix')
         self.assertIsInstance(beats_fields, list)
         self.assertIsInstance(beats_fields[0], OrderedDict)
 
@@ -62,7 +62,7 @@ class TestGeneratorsBeatsFields(unittest.TestCase):
             }
         }
 
-        beats_fields = beats.fieldset_field_array(fields, self.df_allowlist, '')
+        beats_fields = beats.fieldset_field_array(fields, '')
         field_entry = beats_fields[0]
         self.assertEqual(field_entry['type'], 'keyword')
         self.assertEqual(field_entry['ignore_above'], 1024)
@@ -84,7 +84,7 @@ class TestGeneratorsBeatsFields(unittest.TestCase):
             }
         }
 
-        beats_fields = beats.fieldset_field_array(fields, self.df_allowlist, '')
+        beats_fields = beats.fieldset_field_array(fields, '')
         field_entry = beats_fields[0]
         self.assertEqual(field_entry['type'], 'keyword')
         self.assertFalse(field_entry['index'])
