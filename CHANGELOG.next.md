@@ -75,6 +75,10 @@ Thanks, you're awesome :-) -->
 
 * Added `faas.*` field set as beta. #1628
 
+#### Bugfixes
+
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
+
 #### Improvements
 
 * Wildcard type field migration GA. #1582
