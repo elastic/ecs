@@ -3,7 +3,7 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.12.2](https://github.com/elastic/ecs/compare/v1.12.1...v1.12.2)]
+## [1.12.2](https://github.com/elastic/ecs/compare/v1.12.1...v1.12.2)
 
 ### Tooling and Artifact Changes
 
