@@ -12,10 +12,6 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
-* Remove `host.user.*` field reuse. #1439
-* Remove deprecation notice on `http.request.method`. #1443
-* Migrate `log.origin.file.line` from `integer` to `long`. #1533
-
 #### Bugfixes
 
 #### Added
@@ -28,12 +24,7 @@ Thanks, you're awesome :-) -->
 
 #### Breaking Changes
 
-* Removing deprecated --oss from generator #1404
-* Removing use-cases directory #1405
-
 #### Bugfixes
-
-* Add `object` as fallback for `flattened` type. #1653 
 
 #### Added
 
