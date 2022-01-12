@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
+
 #### Added
 
 #### Improvements
