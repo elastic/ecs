@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 #### Improvements
@@ -76,6 +74,10 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `faas.*` field set as beta. #1628
+
+#### Bugfixes
+
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
 
 #### Improvements
 
