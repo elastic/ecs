@@ -43,6 +43,24 @@ def dict_sorted_by_keys(dct, sort_keys):
     return list(map(lambda t: t[-1], sorted(tuples)))
 
 
+def ordered_dict_insert(dct, new_key, new_value, before_key=None, after_key=None):
+    output = OrderedDict()
+    inserted = False
+    for key, value in dct.items():
+        if not inserted and before_key is not None and key == before_key:
+            output[new_key] = new_value
+            inserted = True
+        output[key] = value
+        if not inserted and after_key is not None and key == after_key:
+            output[new_key] = new_value
+            inserted = True
+    if not inserted:
+        output[new_key] = new_value
+    dct.clear()
+    for key, value in output.items():
+        dct[key] = value
+
+
 def safe_merge_dicts(a, b):
     """Merges two dictionaries into one. If duplicate keys are detected a ValueError is raised."""
     c = deepcopy(a)

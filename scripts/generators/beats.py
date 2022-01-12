@@ -4,11 +4,8 @@ from generators import ecs_helpers
 
 
 def generate(ecs_nested, ecs_version, out_dir):
-    # Load temporary allowlist for default_fields workaround.
-    df_allowlist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_allowlist.yml')
-
     # base first
-    beats_fields = fieldset_field_array(ecs_nested['base']['fields'], df_allowlist, ecs_nested['base']['prefix'])
+    beats_fields = fieldset_field_array(ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
 
     allowed_fieldset_keys = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
@@ -19,14 +16,17 @@ def generate(ecs_nested, ecs_version, out_dir):
 
         # Handle when `root:true`
         if fieldset.get('root', False):
-            beats_fields.extend(fieldset_field_array(fieldset['fields'], df_allowlist, fieldset['prefix']))
+            beats_fields.extend(fieldset_field_array(fieldset['fields'], fieldset['prefix']))
             continue
 
         beats_field = ecs_helpers.dict_copy_keys_ordered(fieldset, allowed_fieldset_keys)
-        if 'default_field' not in beats_field:
-            beats_field['default_field'] = True
-        beats_field['fields'] = fieldset_field_array(fieldset['fields'], df_allowlist, fieldset['prefix'])
+        beats_field['fields'] = fieldset_field_array(fieldset['fields'], fieldset['prefix'])
         beats_fields.append(beats_field)
+
+    # Load temporary allowlist for default_fields workaround.
+    df_allowlist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_allowlist.yml')
+    # Set default_field configuration.
+    set_default_field(beats_fields, df_allowlist)
 
     beats_file = OrderedDict()
     beats_file['key'] = 'ecs'
@@ -37,7 +37,23 @@ def generate(ecs_nested, ecs_version, out_dir):
     write_beats_yaml(beats_file, ecs_version, out_dir)
 
 
-def fieldset_field_array(source_fields, df_allowlist, fieldset_prefix):
+def set_default_field(fields, df_allowlist, df=False, path=''):
+    for fld in fields:
+        fld_df = fld.get('default_field', df)
+        fld_path = fld['name']
+        if path != '' and not fld.get('root', False):
+            fld_path = path + '.' + fld_path
+        fld_type = fld.get('type', 'keyword')
+        expected = fld_path in df_allowlist or (fld_path == fld['name'] and fld_type == 'group')
+        if fld_df != expected:
+            ecs_helpers.ordered_dict_insert(fld, 'default_field', expected, before_key='fields')
+        if fld_type == 'group':
+            set_default_field(fld['fields'], df_allowlist, df=expected, path=fld_path)
+        elif 'multi_fields' in fld:
+            set_default_field(fld['multi_fields'], df_allowlist, df=expected, path=fld_path)
+
+
+def fieldset_field_array(source_fields, fieldset_prefix):
     allowed_keys = ['name', 'level', 'required', 'type', 'object_type',
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
@@ -57,18 +73,11 @@ def fieldset_field_array(source_fields, df_allowlist, fieldset_prefix):
         cleaned_multi_fields = []
         if 'multi_fields' in ecs_field:
             for mf in ecs_field['multi_fields']:
-                # Set default_field if necessary. Avoid adding the key if the parent
-                # field already is marked with default_field: false.
-                if not mf['flat_name'] in df_allowlist and ecs_field['flat_name'] in df_allowlist:
-                    mf['default_field'] = False
                 cleaned_multi_fields.append(
                     ecs_helpers.dict_copy_keys_ordered(mf, multi_fields_allowed_keys))
             beats_field['multi_fields'] = cleaned_multi_fields
 
         beats_field['name'] = contextual_name
-
-        if not ecs_field['flat_name'] in df_allowlist:
-            beats_field['default_field'] = False
 
         fields.append(beats_field)
     return sorted(fields, key=lambda x: x['name'])
