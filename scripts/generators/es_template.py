@@ -51,10 +51,10 @@ def all_component_templates(ecs_nested, ecs_version, out_dir):
             name_parts = flat_name.split('.')
             dict_add_nested(field_mappings, name_parts, entry_for(field))
 
-        save_component_template(fieldset_name, ecs_version, component_dir, field_mappings)
+        save_component_template(fieldset_name, field['level'], ecs_version, component_dir, field_mappings)
 
 
-def save_component_template(template_name, ecs_version, out_dir, field_mappings):
+def save_component_template(template_name, field_level, ecs_version, out_dir, field_mappings):
     filename = join(out_dir, template_name) + ".json"
     reference_url = "https://www.elastic.co/guide/en/ecs/current/ecs-{}.html".format(template_name)
 
@@ -62,9 +62,13 @@ def save_component_template(template_name, ecs_version, out_dir, field_mappings)
         'template': {'mappings': {'properties': field_mappings}},
         '_meta': {
             'ecs_version': ecs_version,
-            'documentation': reference_url
         }
     }
+
+    """Only generate a documentation link for ECS fields"""
+    if (field_level != 'custom'):
+        template['_meta']['documentation'] = reference_url
+
     save_json(filename, template)
 
 
