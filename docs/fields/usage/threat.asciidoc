@@ -12,15 +12,14 @@ Threat intelligence indicators come from many sources in different types and
 formats. The ECS `threat.indicator.*` fields normalizes indicators to a common
 format and enables consistent querying and use with indicator match rules.
 
-[discrete]
-[[ecs-threat-usage-indicators-network-example]]
-===== URL Abuse Network Indicator Example
+This sample mapping contains several network indicators from a known malware URL
+ingested from an online database.
 
 ```JSON
 {
     "@timestamp": "2019-08-10T11:09:23.000Z",
-    "event": { <1>
-        "kind": "enrichment",
+    "event": {
+        "kind": "enrichment", <1>
         "category": "threat", <2>
         "type": "indicator", <3>
         "severity": 7,
@@ -40,7 +39,7 @@ format and enables consistent querying and use with indicator match rules.
             ],
             "description": "Email address, domain, port, and IP address observed during an Angler EK campaign.",
             "provider": "Abuse.ch",
-            "reference": "https://urlhaus.abuse.ch/url/1292596/",
+            "reference": "https://urlhaus.abuse.ch/url/abcdefg/",
             "confidence": "High",
             "ip": 1.2.3.4,
             "domain": "malicious.evil",
@@ -54,7 +53,7 @@ format and enables consistent querying and use with indicator match rules.
     },
     "related": { <5>
         "hosts": [
-            "nefarious.evil"
+            "malicious.evil"
         ],
         "ip": [
             1.2.3.4
@@ -62,15 +61,13 @@ format and enables consistent querying and use with indicator match rules.
     }
 }
 ```
-<1> Metadata about the indicator event.
-<2> Using the `enrichment` value for `event.kind`.
-<3> Using the `threat` value for `event.category`.
-<4> Metadata about the indicator data.
-<5> Any indicators should also be copied to relevant related.* fields.
+<1> Using the `enrichment` value for `event.kind`.
+<2> Using the `threat` value for `event.category`.
+<3> The event type is set to `indicator`.
+<4> Indicator details are captured at `threat.indicator.*`.
+<5> Any indicators should also be copied to relevant `related.*` fields.
 
-[discrete]
-[[ecs-threat-usage-indicators-file-example]]
-===== File Example
+This next example maps a file-based indicator.
 
 ```JSON
 {
@@ -125,6 +122,8 @@ format and enables consistent querying and use with indicator match rules.
 [[ecs-threat-usage-enrichments]]
 ===== Enrichments
 
+Events can be enriched if the original event's contents is associated with any known threat indicators.
+
 ```JSON
 {
   "process": {
@@ -144,9 +143,9 @@ format and enables consistent querying and use with indicator match rules.
     }
   },
   "threat": {
-    "enrichments": [
+    "enrichments": [ <1>
       {
-        "indicator": { <1>
+        "indicator": {
           "marking": {
             "tlp": "WHITE"
           },
@@ -182,5 +181,5 @@ format and enables consistent querying and use with indicator match rules.
   }
 }
 ```
-<1> Each enrichment is added as a nested object under `threat.enrichments.*` Copy all the object indicators under `indicator.*`, providing full context.
-<2> `matched` will provide context about which of the indicators above matched on the particular enrichment. If multiple matches for this indicator object, this could be a list.
+<1> Each enrichment is added as a nested object under `threat.enrichments.*`.
+<2> The `matched` object provides context about which of the included indicators matched a value in this event.
