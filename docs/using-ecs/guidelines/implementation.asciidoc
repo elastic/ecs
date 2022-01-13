@@ -1,15 +1,12 @@
 [[ecs-principles-implementation]]
-=== Implementation Patterns
+==== Implementation patterns
 
 As part of its data model, ECS defines fields for capturing standard details regardless of the original event type. Normalizing
 data following this model allows users to have a more consistent view of data from different sources.
 
 ECS users can better describe, discover, identify, and categorize their events by following these conventions.
 
-[float]
-==== Infrastructure metadata
-
-[float]
+[discrete]
 ===== Base fields
 
 The group of individual fields residing outside any field set at the top-level of ECS
@@ -31,7 +28,7 @@ understand why a particular data source isn't populating the same fields as anot
 tags and labels::
 The <<field-tags, `tags`>> and <<field-labels, `labels`>> fields can be used to add simple metadata to an event as `keyword` values.
 
-[float]
+[discrete]
 ===== Host
 
 In ECS, the `host` is the computing instance where the event happened. A `host` can be a physical device, virtual machine, container, or cloud instance.
@@ -40,7 +37,7 @@ The <<ecs-host, `host.*`>> field set contains attributes common to all types of 
 Certain host types have additional fields to capture specific details, like
 `cloud.*` or `container.*`.
 
-[float]
+[discrete]
 ===== Agent and observer
 
 An agent is the software component that collects, observes, measures, or detects the event.
@@ -51,14 +48,7 @@ External monitoring or intermediary devices, like a firewall, APM server, or web
 that observe and detect network, security, application events are known as `observers`. Observer
 details are captured underneath the <<ecs-observer, `observer.*`>> field set.
 
-[float]
-==== Static metadata
-
-Most events will populate <<ecs-event, `event.*`>> fields to provide context metadata about the log or
-metric event. However, many fields won't contain data extracted from the original event but added by monitoring or
-ingesting agent, enrichment, or another ingestion pipeline.
-
-[float]
+[discrete]
 ===== Timestamps
 
 ECS requires the `@timestamp` field on every event, but events can benefit from capturing additional timestamps.
@@ -95,7 +85,7 @@ If `event.end` and `event.start` are both available, <<field-event-duration, `ev
 event.duration = event.end - event.start
 ----
 
-[float]
+[discrete]
 ===== Origin
 
 Specific `event.*` fields exist to capture where an event originated.
@@ -112,7 +102,7 @@ Used to define different types of logs or metrics from an event source. The reco
 convention is `<moduleName>.<datasetName>`. For Apache web server access logs, the
 <<field-event-dataset, `event.dataset`>> value will be `apache.access`.
 
-[float]
+[discrete]
 ===== Categorization
 
 The event categorization fields group similar events across multiple data sources by defining a set of allowed values
@@ -125,14 +115,14 @@ for four `event.*` fields:
 
 <<ecs-using-the-categorization-fields>> covers more details on using these four fields together to categorize events.
 
-[float]
-==== Enrich events with additional data
+[discrete]
+===== Enrich events with additional data
 
 A monitoring agent or ingestion pipeline can extract values from the original event and use the values
 to enrich the original events. Some enrichment examples follow:
 
-[float]
-==== Lookup based
+[discrete]
+===== Lookup based
 
 GeoIP::
 Add information about the geographical location of an IPv4 or IPv6 address. Often used to populate the `geo.*`
@@ -157,8 +147,8 @@ fields nested under network transaction fields like `source.*`, `destination.*`,
 Autonomous system number::
 Like GeoIP, Autonomous System Number (ASN) database lookup can determine the ASN associated with the IP address.
 
-[float]
-==== Parsing
+[discrete]
+====== Parsing
 
 User-agent::
 Many application and web server logs will contain the user-agent, breaking down into individual fields.
@@ -225,8 +215,8 @@ can be extracted from a fully-qualified domain name (FQDN).
 }
 ----
 
-[float]
-==== Related fields
+[discrete]
+===== Related fields
 
 The <<ecs-related, `related.*`>> field set is for pivoting across events that may have the same content but
 different field names.
@@ -241,8 +231,3 @@ appeared:
 ----
 related.ip: 10.42.42.42
 ----
-
-[float]
-==== Network events
-
-The <<ecs-mapping-network-events>> section explores the specifics of mapping network events with examples.
