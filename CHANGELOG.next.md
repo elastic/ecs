@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
+
 #### Added
 
 #### Improvements
@@ -53,6 +55,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Add `object` as fallback for `flattened` type. #1653
+* Fix invalid documentation link generation in component templates `_meta`. #1728
 
 #### Improvements
 
