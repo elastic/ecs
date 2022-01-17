@@ -1266,6 +1266,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @mitodrummer | author
+* @mitodrummer & @m-sample | sponsor
 * @m-sample | subject matter expert
 * @norrietaylor | subject matter expert
 
