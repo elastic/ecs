@@ -30,9 +30,6 @@
       - at: process
         as: tty
         short_override: The file descriptor for the controlling tty (ctty).
-      - at: io
-        as: fd
-        short_override: The file descriptor producing the output.
 
   fields:
     - name: type
@@ -65,7 +62,7 @@
 
         Examples for Character Devices: serial ports, parallel ports, sounds cards.
 
-        This field is only populated if fd.type: char_device
+        This field is only populated if file_description.type: char_device
 
     - name: char_device.major
       level: extended
@@ -90,7 +87,7 @@
       description: >
         Specifics about a socket that an FD is referencing.
 
-        This field is only populated if fd.type: socket
+        This field is only populated if file_description.type: socket
 
     - name: socket.domain
       level: extended
