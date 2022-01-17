@@ -111,7 +111,7 @@ Here is a mock example of these events:
     }
   },
   process: {
-    id: '4321',
+    entity_id: '4321',
     args: ['/bin/sshd'],
     args_count: 1,
     command_line: 'sshd',
@@ -140,6 +140,11 @@ Here is a mock example of these events:
         id: '0',
         name: 'root',
       },
+      group_leader: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 1234, // this directly replaces parent.pgid
+        start: '2021-10-14T08:05:34.853Z',
+      },
       fds: [
         {
           descriptor:0,
@@ -160,7 +165,7 @@ Here is a mock example of these events:
       }
     },
     group_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -194,7 +199,7 @@ Here is a mock example of these events:
       }
     },
     session_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -228,7 +233,7 @@ Here is a mock example of these events:
       }
     },
     entry_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -241,6 +246,11 @@ Here is a mock example of these events:
       user: {
         id: '2',
         name: 'kg',
+      },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
       },
       entry_meta: {
         type: 'sshd',
@@ -341,7 +351,7 @@ Here is a mock example of these events:
     }
   },
   process: {
-    id: '4321',
+    entity_id: '4321',
     args: ['/bin/bash'],
     args_count: 1,
     command_line: 'bash',
@@ -370,6 +380,11 @@ Here is a mock example of these events:
         id: '0',
         name: 'root',
       },
+      group_leader: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 1234, // this directly replaces parent.pgid
+        start: '2021-10-14T08:05:34.853Z',
+      },
       fds: [
         {
           descriptor:0,
@@ -390,7 +405,7 @@ Here is a mock example of these events:
       }
     },
     group_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -424,7 +439,7 @@ Here is a mock example of these events:
       }
     },
     session_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -458,7 +473,7 @@ Here is a mock example of these events:
       }
     },
     entry_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -471,6 +486,11 @@ Here is a mock example of these events:
       user: {
         id: '2',
         name: 'kg',
+      },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
       },
       entry_meta: {
         type: 'sshd',
@@ -571,7 +591,7 @@ Here is a mock example of these events:
     }
   },
   process: {
-    id: '4321',
+    entity_id: '4321',
     args: ['/bin/bash'],
     args_count: 1,
     command_line: 'bash',
@@ -602,6 +622,11 @@ Here is a mock example of these events:
         id: '0',
         name: 'root',
       },
+      group_leader: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 1234, // this directly replaces parent.pgid
+        start: '2021-10-14T08:05:34.853Z',
+      },
       fds: [
         {
           descriptor:0,
@@ -622,7 +647,7 @@ Here is a mock example of these events:
       },
     },
     group_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -656,7 +681,7 @@ Here is a mock example of these events:
       }
     },
     session_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -690,7 +715,7 @@ Here is a mock example of these events:
       },
     },
     entry_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -703,6 +728,11 @@ Here is a mock example of these events:
       user: {
         id: '2',
         name: 'kg',
+      },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
       },
       entry_meta: {
         type: 'sshd',
@@ -803,7 +833,7 @@ Here is a mock example of these events:
     }
   },
   process: {
-    id: '4321',
+    entity_id: '4321',
     args: ['/bin/bash'],
     args_count: 1,
     command_line: 'bash',
@@ -818,7 +848,7 @@ Here is a mock example of these events:
       name: 'kg',
     },
     parent: {
-      id: '4322',
+      entity_id: '4322',
       args: ['/bin/sshd'],
       args_count: 1,
       command_line: 'sshd',
@@ -831,6 +861,11 @@ Here is a mock example of these events:
       user: {
         id: '0',
         name: 'root',
+      },
+      group_leader: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 1234, // this directly replaces parent.pgid
+        start: '2021-10-14T08:05:34.853Z',
       },
       fds: [
         {
@@ -852,7 +887,7 @@ Here is a mock example of these events:
       }
     },
     session_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -886,7 +921,7 @@ Here is a mock example of these events:
       }
     },
     group_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -920,7 +955,7 @@ Here is a mock example of these events:
       }
     },
     entry_leader: {
-      id: '4321',
+      entity_id: '4321',
       args: ['bash'],
       args_count: 1,
       command_line: 'bash',
@@ -933,6 +968,11 @@ Here is a mock example of these events:
       user: {
         id: '2',
         name: 'kg',
+      },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
       },
       entry_meta: {
         type: 'sshd',
@@ -999,228 +1039,6 @@ Here is a mock example of these events:
         minor: 1
       }
     }
-  }
-}
-```
-
-### Output event
-```json
-{
-  '@timestamp': '2021-10-14T08:05:36.853Z',
-  event: {
-    kind: 'event',
-    category: 'process',
-    action: 'output',
-  },
-  host: {
-    architecture: 'x86_64',
-    hostname: 'james-fleet-714-2',
-    id: '48c1b3f1ac5da4e0057fc9f60f4d1d5d',
-    ip: '127.0.0.1,::1,10.132.0.50,fe80::7d39:3147:4d9a:f809',
-    mac: '42:01:0a:84:00:32',
-    name: 'james-fleet-714-2',
-    os: {
-      Ext: {
-        variant: 'CentOS'
-      },
-      family: 'centos',
-      full: 'CentOS 7.9.2009',
-      kernel: '3.10.0-1160.31.1.el7.x86_64 #1 SMP Thu Jun 10 13:32:12 UTC 2021',
-      name: 'Linux',
-      platform: 'centos',
-      version: '7.9.2009'
-    }
-  },
-  process: {
-    id: '4321',
-    args: ['/bin/bash'],
-    args_count: 1,
-    command_line: 'bash',
-    executable: '/bin/bash',
-    name: 'bash',
-    interactive: true,
-    working_directory: '/home/kg',
-    pid: 3,
-    start: '2021-10-14T08:05:34.853Z',
-    end: '2021-10-14T10:05:34.853Z',
-    exit_code: 137,
-    user: {
-      id: '2',
-      name: 'kg',
-    },
-    parent: {
-      id: '4322',
-      args: ['/bin/sshd'],
-      args_count: 1,
-      command_line: 'sshd',
-      executable: '/bin/sshd',
-      name: 'sshd',
-      interactive: true,
-      working_directory: '/',
-      pid: 2,
-      start: '2021-10-14T08:05:34.853Z',
-      user: {
-        id: '0',
-        name: 'root',
-      },
-      fds: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
-      tty: {
-        descriptor: 0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-    },
-    session_leader: {
-      id: '4321',
-      args: ['bash'],
-      args_count: 1,
-      command_line: 'bash',
-      executable: '/bin/bash',
-      name: 'bash',
-      interactive: true,
-      working_directory: '/home/kg',
-      pid: 3,
-      start: '2021-10-14T08:05:34.853Z',
-      user: {
-        id: '2',
-        name: 'kg',
-      },
-      fds: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
-      tty: {
-        descriptor: 0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-    },
-    entry_leader: {
-      id: '4321',
-      args: ['bash'],
-      args_count: 1,
-      command_line: 'bash',
-      executable: '/bin/bash',
-      name: 'bash',
-      interactive: true,
-      working_directory: '/home/kg',
-      pid: 3,
-      start: '2021-10-14T08:05:34.853Z',
-      user: {
-        id: '2',
-        name: 'kg',
-      },
-      entry_meta: {
-        type: 'sshd',
-        source: {
-          ip: '10.132.0.50',
-          geo: {
-            city_name: 'Vancouver',
-            continent_code: 'NA',
-            continent_name: 'North America',
-            country_iso_code: 'CA',
-            country_name: 'Canada',
-            location: {
-              lon: -73.614830,
-              lat: 45.505918
-            },
-            postal_code: 'V9J1E3',
-            region_iso_code: 'BC',
-            region_name: 'British Columbia',
-            timezone: 'America/Los_Angeles'
-          }
-        }
-      },
-      fds: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
-      tty: {
-        descriptor: 0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-    },
-    fds: [
-      {
-        descriptor:0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-      {
-        descriptor:1,
-        type:'pipe',
-        pipe: {
-          inode: '6183207'
-        }
-      }
-    ],
-    tty: {
-      descriptor: 0,
-      type: 'char_device',
-      char_device: {
-        major: 8,
-        minor: 1
-      }
-    }
-  },
-  terminal: {
-    size: {
-      rows: 200,
-      columns: 80
-    },
-    termio: {
-      c_iflag: 0,
-      c_oflag: 1,
-      c_cflag: 2,
-      c_lflag: 3
-    }
-  },
-  output: {
-    fd: {
-      descriptor: 1,
-      type: 'char_device',
-      char_device: {
-        major: 1,
-        minor:4
-      }
-    },
-    echoed: true,
-    data: 'G1szMW10aGlzIHRleHQgaXMgcmVkCg==',
-    text: 'this text is red'
   }
 }
 ```
