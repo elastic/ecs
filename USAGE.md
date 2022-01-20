@@ -269,7 +269,8 @@ $ python scripts/generator.py --subset ../myproject/ecs/subset-fields/
 $ python scripts/generator.py --subset ../myproject/ecs/subset-fields/ ../myproject/ecs/more-subset-fields/
 $ python scripts/generator.py --subset ../myproject/ecs/custom-fields/subset.yml
 $ python scripts/generator.py --subset ../myproject/ecs/custom-fields/[some]*[re].yml
-$ python scripts/generator.py --subset ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml```
+$ python scripts/generator.py --subset ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml
+```
 
 Example subset file:
 
