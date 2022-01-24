@@ -64,7 +64,7 @@ def save_composable_template(ecs_version, component_names, out_dir, mapping_sett
         }
         for analyzer in analyzers:
             template['template']['settings']['analysis']['analyzer'] = {
-                analyzer: { }
+                analyzer: {}
             }
 
     filename = join(out_dir, "elasticsearch/composable/template.json")
@@ -79,7 +79,7 @@ def all_component_templates(ecs_nested, ecs_version, out_dir):
 
     for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
         field_mappings = {}
-        
+
         for (flat_name, field) in fieldset['fields'].items():
             name_parts = flat_name.split('.')
             field_entry = entry_for(field)
@@ -249,7 +249,7 @@ def template_settings(ecs_version, mappings_section, analyzers, template_setting
         }
         for analyzer in analyzers:
             template['settings']['analysis']['analyzer'] = {
-                analyzer: { }
+                analyzer: {}
             }
 
     # _meta can't be at template root in legacy templates, so moving back to mappings section
