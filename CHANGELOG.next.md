@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 #### Improvements
@@ -62,6 +60,7 @@ Thanks, you're awesome :-) -->
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
+* Added support for `analyzer` definitions for text fields. #1737
 
 ## 8.0.0 (Hard Feature Freeze)
 
@@ -74,6 +73,10 @@ Thanks, you're awesome :-) -->
 * Migrate `log.origin.file.line` from `integer` to `long`. #1533
 * Remove `log.original` field. #1580
 * Remove `process.ppid` field. #1596
+
+#### Bugfixes
+
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
 
 #### Added
 
