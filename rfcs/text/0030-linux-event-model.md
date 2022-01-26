@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This RFC aims to introduce a significant number of additions to ECS (mostly the 'Process' fieldset) in an effort to provide a rich enough linux event model to drive Session view in Kibana, as well as provide wider context to EQL and other rule engines. Care has been taken to ensure this RFC doesn't break any existing uses of the process field set, and should be fully backwards compatible with existing endpoint agents.
+This RFC aims to introduce a number of additions to ECS (mostly the 'Process' fieldset) in an effort to provide a rich enough Linux event model to drive Session view in Kibana, as well as provide wider context to EQL and other rule engines. The process fieldset currently has a nested 'parent' field. We want to extend upon this pattern, and include additional 'ancestor' nested processes (such as the session_leader and group_leader processes). Care has been taken to ensure this RFC doesn't break any existing uses of the process field set, and should be fully backwards compatible with existing endpoint agents.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -42,34 +42,40 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-1. Session View
+### Session View
 
-The primary use case for this data will be to drive the "Session view". A time ordered rendering of a linux session process tree. The addition of nested process ancestors entry_leader, session_leader, and group_leader will allow Session View to load only the events for a particular session.
+The primary use case for this data will be to drive the "Session view". A time ordered rendering of a Linux session process tree. The addition of nested process ancestors entry_leader, session_leader, and group_leader will allow Session View to load only the events for a particular session.
 
 KQL examples:
+```
 process.entry_leader.entity_id: &lt;entity_id of entry session leader>
 
 or
 
 process.session_leader.entity_id: &lt;entity_id of session leader>
+```
 
-group_leader process info as well as file descriptors (process.file_descriptions) will allow the Session View to properly represent pipes and redirects in a familiar (shell) way.
+#### Session/Process interactivity (is the session connected to a controlling tty?)
 
-observer.boot.id and observer.pid_ns_ino will be used in generating unique uuids for the process using fn(process.pid, process.start, observer.pid_ns_ino, observer.boot.id)
+process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service). The *process.interactive* boolean will indicate if the process itself is connected to the controlling tty. 
 
-process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service).
+#### Pipes and redirects
 
-file_description fieldset will primarily be used to render pipes and redirects, but shed light on processes file and socket activities.
+*process.group_leader* as well as *process.file_descriptions* will allow the Session View to properly represent pipes and redirects in a familiar shell like way. e.g 
+`cat /etc/hosts | grep google > somefile.txt`
 
-2. Rule engines
+### Unique process.entity_id generation
 
-The new nested ancestor processes will provide rule engines a widened context to allow for improved specificity/scope. Rather than rely on sequences of events to decide when to take action, an informed decision can be made on a single event. This opens up the door for much quicker and pre-emptive actions. Like stopping of processes, or isolating hosts.
+*host.boot.id* and *host.pid_ns_ino* will be used in generating unique *entity_id*s for the process using fn(process.pid, process.start, host.pid_ns_ino, host.boot.id)
+
+### Rule engines
+
+The new nested ancestor processes will provide rule engines a widened context to allow for more targeted alerting. 
 
 KQL example:
 
-Block a session if the user is connecting with root and trying to run mysql:
-process.entry_leader.user.name: root AND process.executable: /bin/mysql
-
+Boot a user from an ssh session if the user is connecting with root and trying to run mysql:
+`process.entry_leader.user.name: root AND process.executable: /bin/mysql`
 
 ## Source data
 
@@ -1067,9 +1073,54 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-Potential concerns for me are primary tied to message size. The nested ancestors and their many fields could add up. That being said, there is a larger concern wrt number of events that will dwarf any issue around message size. That effort will come down to defining a set of event filters to eliminate unwanted noise. Scraping /proc and sending up all process executions can be very load heavy task. This issue is probably outside of the scope of ECS though.
+### Why is this additional process context worth the extra bytes/bandwidth/storage?
 
-Another point of concern is the re-use of process.entity_id. There is nuance around how this ID is calculated, and we are proposing a new hash/calculation based of a different set of fields. This issue is being tracked here: https://github.com/elastic/security-team/issues/2458
+Each ECS process event originally had information about the process itself and its parent process. This RFC adds full process information for the following related processes to each process event.
+* the process's session leader
+  * this provides a lot of information about the execution context of a process
+  * For example, if the session leader is a webserver like nginx, process execution other than nginx can be flagged as anomalous
+  * if it's a shell (e.g. bash) with an associated controlling terminal (i.e. likely driven by a human) extra scrutiny can be applied
+* the process's entry-session leader
+  * this identifies how the host was initially accessed so one could disallow/alert on sensitive activities via SSH but allow them via IPMI/serial.
+  * this is sometimes the same as the session leader
+* the process's process group leader
+  * this is part of enabling pipelines like "cat foo | grep bar | sort | less" to be reassembled for rendering or search/detection.
+
+This RFC also adds the following *anemic* versions of the process object (i.e. those with just entity_id, pid and starttime) to allow chained queries for forensics and to help detect user-entered commands vs automatically spawned child processes.
+* the session leader's parent process
+  * allows navigating upward through sessions by querying for the parent process and its session id
+* the parent process's group leader
+  * allows checking if your parent's process group is different from the process's. If so, this process is likely a user-entered command
+
+These additions allow:
+
+* More precise alerting with less noise
+  * For example, instead of alerting on any use of sudo or nmap, alert only if the entry session type is SSH from a non-private IP address
+  * this information is in each event; multi-stage queries are not required
+  * query languages such as KQL can consider data that was only possible with EQL "sequence" queries
+  * EQL sequence queries will miss information that happened outside of the alert rule's event loading window
+* Improved readability (session view rendering) vs log lines style views
+  * Session view stitches together information-dense, collapsable views of the session's hierarchical process model
+  * The extra context allows re-assembly much of the session tree without loading every event in a session
+  * sessions can run for months (tmux) and may have events that have been deleted (such as the original session leader/bash) that will be filled in by this extra context.
+* Improved search efficiency and expressiveness
+  * the extra context allows for efficient, very targeted queries for forensics; what would have taken several queries can be done it one query
+  * (forensics and finding events for session views)
+
+### Is this the most compact representation we could use?
+
+No, we have optimized for queriability at the cost of compactness. A single process may have several roles:
+* it could be both the session leader and the entry session
+* it could be both main process and group leader
+
+In these cases, it would be more space efficient to tag the process with its roles (e.g. primary process and group leader) instead of repeating it with a different field name.   However, reduced queriability significantly reduces the value of this information.
+
+
+### If data volume becomes an issue how can it be mitigated?
+
+Rather than removing information from every process event, one can remove/filter entire process trees.  The filtered process events can still generate alerts as with existing Endpoint EventFilters.
+
+A classic example of noise people do not want to store is Kubernetes Pod health checks.  These executions can be detected and filtered at the Endpoint.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -1104,9 +1155,6 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
-
-https://github.com/elastic/security-team/blob/main/docs/adaptive-workload-protection-team/architecture/linux-event-model.md
-https://github.com/elastic/security-team/pull/2071/files
 
 ### RFC Pull Requests
 
