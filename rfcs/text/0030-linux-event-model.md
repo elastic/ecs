@@ -53,7 +53,7 @@ or
 
 process.session_leader.entity_id: &lt;entity_id of session leader>
 
-group_leader process info as well as file descriptors (process.fds) will allow the Session View to properly represent pipes and redirects in a familiar (shell) way.
+group_leader process info as well as file descriptors (process.file_descriptions) will allow the Session View to properly represent pipes and redirects in a familiar (shell) way.
 
 observer.boot.id and observer.pid_ns_ino will be used in generating unique uuids for the process using fn(process.pid, process.start, observer.pid_ns_ino, observer.boot.id)
 
@@ -77,7 +77,7 @@ process.entry_leader.user.name: root AND process.executable: /bin/mysql
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-The source of data will be via kprobes and ebpf sensors. All process execution lifecycle events will be sent up (fork, exec, end) as well as setsid, and output (tty) events.
+The source of data will be via kprobes and ebpf sensors. All process execution lifecycle events will be sent up (fork, exec, end) as well as setsid.
 
 Here is a mock example of these events:
 
@@ -145,7 +145,7 @@ Here is a mock example of these events:
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -179,7 +179,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -213,7 +213,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -273,7 +273,7 @@ Here is a mock example of these events:
           }
         }
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -292,7 +292,7 @@ Here is a mock example of these events:
         }
       }
     },
-    fds: [
+    file_descriptions: [
       {
         descriptor:0,
         type: 'char_device',
@@ -385,7 +385,7 @@ Here is a mock example of these events:
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -419,7 +419,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -453,7 +453,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -513,7 +513,7 @@ Here is a mock example of these events:
           }
         }
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -532,7 +532,7 @@ Here is a mock example of these events:
         }
       }
     },
-    fds: [
+    file_descriptions: [
       {
         descriptor:0,
         type: 'char_device',
@@ -627,7 +627,7 @@ Here is a mock example of these events:
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -661,7 +661,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -695,7 +695,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -755,7 +755,7 @@ Here is a mock example of these events:
           }
         }
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -774,7 +774,7 @@ Here is a mock example of these events:
         }
       },
     },
-    fds: [
+    file_descriptions: [
       {
         descriptor:0,
         type: 'char_device',
@@ -867,7 +867,7 @@ Here is a mock example of these events:
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -901,7 +901,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -935,7 +935,7 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -995,7 +995,7 @@ Here is a mock example of these events:
           }
         }
       },
-      fds: [
+      file_descriptions: [
         {
           descriptor:0,
           type: 'char_device',
@@ -1014,7 +1014,7 @@ Here is a mock example of these events:
         }
       }
     },
-    fds: [
+    file_descriptions: [
       {
         descriptor:0,
         type: 'char_device',
