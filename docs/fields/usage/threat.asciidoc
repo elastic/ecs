@@ -8,12 +8,13 @@ malicious events with indicator match rules and enrichment.
 [[ecs-threat-usage-indicators]]
 ===== Indicators
 
-Threat intelligence indicators come from many sources in different types and
-formats. The ECS `threat.indicator.*` fields normalizes indicators to a common
-format and enables consistent querying and use with indicator match rules.
+Threat intelligence indicators come from many sources in different structures.
+Normalize these indicators using the ECS threat.indicator.* fields.  Once
+normalized, consistently query indicators from different sources and build
+indicator match rules.
 
-This sample mapping contains several network indicators from a known malware URL
-ingested from an online database.
+The below example is from an online database. It contains several network
+indicators from a known malware site.
 
 ```JSON
 {
@@ -64,10 +65,10 @@ ingested from an online database.
 <1> Using the `enrichment` value for `event.kind`.
 <2> Using the `threat` value for `event.category`.
 <3> The event type is set to `indicator`.
-<4> Indicator details are captured at `threat.indicator.*`.
-<5> Any indicators should also be copied to relevant `related.*` fields.
+<4> Capture indicator details at `threat.indicator.*`.
+<5> Copy indicators to the relevant `related.*` fields.
 
-This next example maps a file-based indicator.
+The next example maps a file-based indicator.
 
 ```JSON
 {
@@ -115,14 +116,14 @@ This next example maps a file-based indicator.
 }
 ```
 <1> Using the `file` value for `threat.indicator.type`.
-<2> Attributes of the file are defined at `threat.indicator.file.*`
-<3> Also populate the `related.hash` field with the file hashes.
+<2> Capture file attributes at `threat.indicator.file.*`.
+<3> Again, populate the `related.hash` field with the file hashes.
 
 [discrete]
 [[ecs-threat-usage-enrichments]]
 ===== Enrichments
 
-Events can be enriched if the original event's contents is associated with any known threat indicators.
+Event enrichment searches for known threats using an event's values and, if found, adds those associated details.
 
 ```JSON
 {
@@ -181,5 +182,5 @@ Events can be enriched if the original event's contents is associated with any k
   }
 }
 ```
-<1> Each enrichment is added as a nested object under `threat.enrichments.*`.
-<2> The `matched` object provides context about which of the included indicators matched a value in this event.
+<1> Add each enrichment to a nested object under `threat.enrichments.*`.
+<2> The `matched` object provides context about the indicators this event matched on.
