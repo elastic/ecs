@@ -26,8 +26,8 @@ The `risk` fields being proposed are as follows:
 Field | Type | Example | Description | Use Case
 -- | -- | -- | -- | -- 
 risk.score | float | 88.73 | A score in the range 0-100 that quantifies the amount of risk associated with an entity. The higher the score, the higher the risk. | Can be used to indicate the risk associated with a particular host
-risk.level | keyword | High | A risk level corresponding to the risk score. | Can be used to indicate the risk associated with a particular host
-risk.info.*| group | - | Information about the riskiness of the entity. | Rules that made a host high-risk
+risk.level | keyword | High | A risk level corresponding to the risk score | Can be used to indicate the risk associated with a particular host
+risk.info.*| group | - | Information about what contributed to the risk | Rules that made a host high-risk
 
 ### Nesting `risk.*` fields under other fields
 The `risk.*` fields mentioned above can be used to quantify the amount of risk associated with entities like hosts, users etc. For example, a host with a high risk score/risk level would imply that the probability of the host being exposed to harm during a cyber attack or breach is high. Attaching a level of risk to entities can help analysts identify entities that require their immediate attention and hence drive investigations in a more systematic manner.
