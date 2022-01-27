@@ -15,23 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import copy
 import json
 import sys
 
 from os.path import join
 
 from generators import ecs_helpers
-from schema.cleaner import field_or_multi_field_datatype_defaults
-
-
-TYPE_FALLBACKS = {
-    'constant_keyword': 'keyword',
-    'wildcard': 'keyword',
-    'version': 'keyword',
-    'match_only_text': 'text',
-    'flattened': 'object'
-}
 
 # Composable Template
 
@@ -56,6 +45,7 @@ def save_composable_template(ecs_version, component_names, out_dir, mapping_sett
         "template": {
             "settings": {
                 "index": {
+                    "codec": "best_compression",
                     "mapping": {
                         "total_fields": {
                             "limit": 2000
@@ -66,13 +56,13 @@ def save_composable_template(ecs_version, component_names, out_dir, mapping_sett
             "mappings": mapping_settings(mapping_settings_file)
         }
     }
-    filename = join(out_dir, "elasticsearch/template.json")
+    filename = join(out_dir, "elasticsearch/composable/template.json")
     save_json(filename, template)
 
 
 def all_component_templates(ecs_nested, ecs_version, out_dir):
     """Generate one component template per field set"""
-    component_dir = join(out_dir, 'elasticsearch/component')
+    component_dir = join(out_dir, 'elasticsearch/composable/component')
     ecs_helpers.make_dirs(component_dir)
 
     for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
@@ -81,10 +71,10 @@ def all_component_templates(ecs_nested, ecs_version, out_dir):
             name_parts = flat_name.split('.')
             dict_add_nested(field_mappings, name_parts, entry_for(field))
 
-        save_component_template(fieldset_name, ecs_version, component_dir, field_mappings)
+        save_component_template(fieldset_name, field['level'], ecs_version, component_dir, field_mappings)
 
 
-def save_component_template(template_name, ecs_version, out_dir, field_mappings):
+def save_component_template(template_name, field_level, ecs_version, out_dir, field_mappings):
     filename = join(out_dir, template_name) + ".json"
     reference_url = "https://www.elastic.co/guide/en/ecs/current/ecs-{}.html".format(template_name)
 
@@ -92,9 +82,13 @@ def save_component_template(template_name, ecs_version, out_dir, field_mappings)
         'template': {'mappings': {'properties': field_mappings}},
         '_meta': {
             'ecs_version': ecs_version,
-            'documentation': reference_url
         }
     }
+
+    """Only generate a documentation link for ECS fields"""
+    if (field_level != 'custom'):
+        template['_meta']['documentation'] = reference_url
+
     save_json(filename, template)
 
 
@@ -131,15 +125,14 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
     mappings_section = mapping_settings(mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
-    generate_legacy_template_version(6, ecs_version, mappings_section, out_dir, template_settings_file)
     generate_legacy_template_version(7, ecs_version, mappings_section, out_dir, template_settings_file)
 
 
 def generate_legacy_template_version(es_version, ecs_version, mappings_section, out_dir, template_settings_file):
-    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', str(es_version)))
+    ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', "legacy"))
     template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
 
-    filename = join(out_dir, "elasticsearch/{}/template.json".format(es_version))
+    filename = join(out_dir, "elasticsearch/legacy/template.json")
     save_json(filename, template)
 
 
@@ -218,23 +211,7 @@ def template_settings(es_version, ecs_version, mappings_section, template_settin
     else:
         template = default_template_settings(ecs_version)
 
-    if es_version == 6:
-        mappings_section = copy.deepcopy(mappings_section)
-        es6_type_fallback(mappings_section['properties'])
-
-        # error.stack_trace needs special handling to set
-        # index: false and doc_values: false if the field
-        # is present in the mappings
-        try:
-            error_stack_trace_mappings = mappings_section['properties']['error']['properties']['stack_trace']
-            error_stack_trace_mappings.setdefault('index', False)
-            error_stack_trace_mappings.setdefault('doc_values', False)
-        except KeyError:
-            pass
-
-        template['mappings'] = {'_doc': mappings_section}
-    else:
-        template['mappings'] = mappings_section
+    template['mappings'] = mappings_section
 
     # _meta can't be at template root in legacy templates, so moving back to mappings section
     # if present
@@ -286,30 +263,3 @@ def default_mapping_settings():
             }
         ]
     }
-
-
-def es6_type_fallback(mappings):
-    """
-    Visits each leaf in mappings object and fallback to an
-    Elasticsearch 6.x supported type.
-
-    Since a field like `wildcard` won't have the same defaults as
-    a `keyword` field, we must add any missing defaults.
-    """
-
-    for (name, details) in mappings.items():
-        if 'type' in details:
-            fallback_type = TYPE_FALLBACKS.get(details['type'])
-            if fallback_type:
-                mappings[name]['type'] = fallback_type
-                field_or_multi_field_datatype_defaults(mappings[name])
-        # support multi-fields
-        if 'fields' in details:
-            # potentially multiple multi-fields
-            for field_name, field_value in details['fields'].items():
-                fallback_type = TYPE_FALLBACKS.get(field_value['type'])
-                if fallback_type:
-                    mappings[name]['fields'][field_name]['type'] = fallback_type
-                    field_or_multi_field_datatype_defaults(mappings[name]['fields'][field_name])
-        if 'properties' in details:
-            es6_type_fallback(details['properties'])

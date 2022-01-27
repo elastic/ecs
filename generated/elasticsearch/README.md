@@ -54,7 +54,7 @@ auth="elastic:elastic"
 
 ```bash
 version="$(cat version)"
-for file in `ls generated/elasticsearch/component/*.json`
+for file in `ls generated/elasticsearch/composable/component/*.json`
 do
   fieldset=`echo $file | cut -d/ -f4 | cut -d. -f1 | tr A-Z a-z`
   component_name="ecs_${version}_${fieldset}"
@@ -74,7 +74,7 @@ for experimentation:
 
 ```bash
 api="_index_template/try-ecs"
-file="generated/elasticsearch/template.json"
+file="generated/elasticsearch/composable/template.json"
 curl --user "$auth" -XPUT "localhost:9200/$api" --header "Content-Type: application/json" -d @"$file"
 ```
 
@@ -148,7 +148,7 @@ For a concrete example, an index containing your web server logs, should contain
 If you want to play with a specific version of ECS, check out the proper branch first.
 
 ```
-git checkout 1.6
+git checkout 8.0
 ```
 
 Authenticate your API calls appropriately by adjusting the username:password in this variable.
@@ -163,12 +163,7 @@ Load the template in Elasticsearch from your shell.
 # Elasticsearch 7
 curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
   --header "Content-Type: application/json" \
-  -d @'generated/elasticsearch/7/template.json'
-
-# or Elasticsearch 6
-curl --user $"$auth" -XPOST 'localhost:9200/_template/try-ecs' \
-  --header "Content-Type: application/json" \
-  -d @'generated/elasticsearch/6/template.json'
+  -d @'generated/elasticsearch/legacy/template.json'
 ```
 
 #### Play from Kibana Dev Tools

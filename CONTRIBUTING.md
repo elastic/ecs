@@ -14,8 +14,9 @@ ECS is an open source project and we love to receive contributions from our comm
   - [Forking](#forking)
   - [Commits and Merging](#commits-and-merging)
   - [Issues](#issues)
+- [Feature freezes and branching](#feature-freezes-and-branching)
+  - [Changelogs](#changelogs)
   - [Backports](#backports)
-    - [Branching](#branching)
     - [Tooling](#tooling)
 - [Documentation](#documentation)
 - [Schema Files](#schema-files)
@@ -96,15 +97,23 @@ Please follow these guidelines when submitting Issues:
 * Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
-### Branching
+## Feature freezes and branching
 
-ECS follows this branching strategy:
+ECS follows a two-stage feature freeze approach using the concepts of Soft Feature Freezes (SFF) and Hard Feature Freezes (HFF).
 
-* The `main` is the next major version. It is where all new contributions are first merged. This includes new features and bug fixes, and it may also include breaking changes.
-* The `<major>.x` is the next minor version and gets backports of most non-breaking features and fixes.
-* The `<major>.<minor>` is the next release of a minor version, including patch releases.
+Once a branch enters SFF, only minor and low-impact features can be added. The ECS team will rely on the “scope of impact” assessment in the ECS RFC process to help assess the potential impact of a proposed change.
 
-### Changelog
+When a branch enters HFF, from that point onward all new features of any size must be contributed to the next ECS version.
+
+For people contributing to the ECS repo, this change means there are two branches at any given time that are accepting at least some sort of feature changes. Here's an example using ECS 8.1:
+
+| Branch | Version | Change scope |
+| ------ | ------- | ------------ |
+| `main`  | 8.2    | Any enhancements or otherwise |
+| `8.1`   | 8.1    | SFF: Can have low impact enhancements |
+| `8.0`   | 8.0    | HFF: Only bug fixes, tooling, docs, etc |
+
+### Changelogs
 
 ECS maintains two changelog files:
 
@@ -132,14 +141,10 @@ Select target branch(es) to backport to:
 ```bash
 ? Select commit #1234 (cb79e8f5)
 ? Select branch (Press <space> to select, <a> to toggle all, <i> to invert selection)
-❯◉ 1.x
- ◯ 1.6
- ◯ 1.5
- ◯ 1.4
- ◯ 1.3
- ◯ 1.2
- ◯ 1.1
- ◯ 1.0
+❯◯ 8.1
+ ◯ 8.0
+ ◯ 1.12
+...
 ```
 
 New PR(s) will be opened against the targeted branch(es).

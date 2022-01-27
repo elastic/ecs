@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
+
 #### Added
 
 #### Improvements
@@ -22,27 +24,46 @@ Thanks, you're awesome :-) -->
 
 #### Removed
 
-- Removing `process.target.*` reuses from experimental schema. #1666
-- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
-
 ### Tooling and Artifact Changes
 
 #### Breaking changes
 
 #### Bugfixes
 
-* Add `object` as fallback for `flattened` type. #1653
-
 #### Added
 
 #### Improvements
 
-* Clean up trailing spaces and additional newlines in schemas #1667
-* Update refs from master to main in USAGE.md etc #1658
-
 #### Deprecated
 
-## 8.0.0 (Feature Freeze)
+## 8.1.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+* Added `email.*` beta field set. ##1688, #1705
+
+#### Removed
+
+- Removing `process.target.*` reuses from experimental schema. #1666
+- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Add `object` as fallback for `flattened` type. #1653
+* Fix invalid documentation link generation in component templates `_meta`. #1728
+
+#### Improvements
+
+* Update refs from master to main in USAGE.md etc #1658
+* Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
+
+## 8.0.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
@@ -57,7 +78,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `faas.*` field set as beta. #1628
-* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
 
 #### Improvements
 
@@ -72,11 +92,15 @@ Thanks, you're awesome :-) -->
 * Removing deprecated --oss from generator #1404
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
+* Remove template generation for ES6. #1680
+* Update folder structure for generated ES artifacts. #1700
 
 #### Improvements
 
+* Align input options for --include and --subset arguments #1519
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
+* Reorganize docs directory structure. #1679
 
 <!-- All empty sections:
 

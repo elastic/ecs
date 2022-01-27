@@ -1,116 +1,210 @@
----
 - name: email
   title: Email
   group: 2
-  short: Fields describing an email message.
+  short: Fields describing an email transaction.
   description: >
-    Email fields are used for information about an email message header and body.
+    Fields relating to an email transaction.
+
+    This field set focuses on the email message header, body, and attachments. Network protocols that send and receive
+    email messages such as SMTP are outside the scope of the `email.*` fields.
   type: group
   fields:
 
-    - name: to
+    - name: attachments
       level: extended
-      type: keyword
-      short: Recipient address(es)
+      type: nested
+      short: List of objects describing the attachments.
       description: >
-        Stores the `to` email address(es).
-      example: "employee@example.com"
+        A list of attachment files sent along with an email message.
+
       normalize:
         - array
 
-    - name: from
+    - name: attachments.file.extension
       level: extended
       type: keyword
-      short: Sender address
+      short: Attachment file extension.
       description: >
-        Stores the `from` email address.
-      example: "administrator@example.com"
+        Attachment file extension, excluding the leading dot.
+      example: "txt"
 
-    - name: cc
+    - name: attachments.file.mime_type
       level: extended
       type: keyword
-      short: CC recipient(s)
+      short: MIME type of the attachment file.
       description: >
-        The email address(es) of the carbon copy (CC) recipient(s).
-      example: '["cc.user@example.com", "cc.user2@example.com"]'
+        The MIME media type of the attachment.
+
+        This value will typically be extracted from the `Content-Type` MIME header field.
+      example: "text/plain"
+
+    - name: attachments.file.name
+      level: extended
+      type: keyword
+      short: Name of the attachment file.
+      description: >
+        Name of the attachment file including the file extension.
+      example: "attachment.txt"
+
+    - name: attachments.file.size
+      level: extended
+      type: long
+      short: Attachment file size.
+      description: >
+        Attachment file size in bytes.
+      example: 64329
+
+    - name: attachments.hash.md5
+      level: extended
+      type: keyword
+      short: MD5 hash of the attachment.
+      description: >
+        MD5 hash of the attachment file.
+      example: "e25f1c98ffdacf611473af364362ec48"
+
+    - name: attachments.hash.sha1
+      level: extended
+      type: keyword
+      short: SHA-1 hash of the attachment.
+      description: >
+        SHA-1 hash of the attachment file.
+      example: "8c1cd40f17109b427e61d4e72ca6d9a4fc8175f3"
+
+    - name: attachments.hash.sha256
+      level: extended
+      type: keyword
+      short: SHA-256 hash of the attachment.
+      description: >
+        SHA-256 hash of the attachment file.
+      example: "f0366b3559f577d8732f7e9cc343a4960d202e8137dcc42f9783f3963f6abc6a"
+
+    - name: bcc.address
+      level: extended
+      type: keyword
+      short: Email address of BCC recipient
+      description: >
+        The email address of BCC recipient
+      example: "bcc.user1@example.com"
       normalize:
         - array
 
-    - name: bcc
+    - name: cc.address
       level: extended
       type: keyword
-      short: BCC recipient(s)
+      short: Email address of CC recipient
       description: >
-        The email address(es) of the blind carbon copy (BCC) recipient(s).
-      example: '["bcc.user@example.com", "bcc.user2@example.com"]'
+        The email address of CC recipient
+      example: "cc.user1@example.com"
       normalize:
         - array
-
-    - name: reply_to
-      level: extended
-      type: keyword
-      short: Address for replies.
-      description: >
-        The address that replies should be delivered to.
-      example: "user@example.com"
-
-    - name: timestamp
-      level: extended
-      type: date
-      short: Date and time message was sent.
-      description: >
-        The date and time that the sender authorized delivery of the message.
-
-        For example, by pressing a "Send" button in their email client.
-      example: "2020-11-10T22:12:34.8196921Z"
-
-    - name: subject
-      level: extended
-      type: keyword
-      short: Topic of the message
-      description: >
-        A brief summary of the topic of the message.
-      example: "Status update: email fields progress"
-      multi_fields:
-      - type: match_only_text
-        name: text
 
     - name: content_type
       level: extended
       type: keyword
-      short: Content-Type header value
+      short: MIME type of the email message.
       description: >
-        Information about how the message is to be displayed. Typically a MIME type.
-      example: "multipart/mixed"
+        Information about how the message is to be displayed.
 
-    - name: message_id
+        Typically a MIME type.
+      example: "text/plain"
+
+    - name: delivery_timestamp
       level: extended
-      type: wildcard
-      short: Unique identifier of the message
+      type: date
+      short: Date and time when message was delivered.
       description: >
-        Unique identifier for the email message that refers to a particular version of a particular message.
-
-        An example would be the identifier found in the `Message-ID` email header.
-      example: "<CAO_do4n4jwcfabQcEScYd9oSjDytgm_PveKKiF_gtBEYL8a0XQ@mail.example.com>"
+        The date and time when the email message was received by the service or client.
+      example: "2020-11-10T22:12:34.8196921Z"
 
     - name: direction
       level: extended
       type: keyword
-      short: Direction of the email message
+      short: Direction of the message.
       description: >
-        The direction of the message based on the sending and received domains.
+        The direction of the message based on the sending and receiving domains.
+      example: inbound
 
-        Recommended values are:
-          * `inbound` - From external senders to internal recipients
-          * `outbound` - From internal senders to external recipients
-          * `internal` - From internal senders to internal recipients
-          * `external` - From external senders to external recipients
-          * `unknown` - Direction is unknown
+    - name: from.address
+      level: extended
+      type: keyword
+      short: The sender's email address.
+      description: >
+        The email address of the sender, typically from the RFC 5322 `From:` header field.
+      example: "sender@example.com"
+      normalize:
+        - array
 
-      - name: x_mailer
-        level: extended
-        type: keyword
-        short: The value from the X-Mailer header
-        description: >
-          The value from the `X-Mailer` header. Value captures what application was used
-          to draft and send the original email message.
+    - name: local_id
+      level: extended
+      type: keyword
+      short: Unique identifier given by the source.
+      description: >
+        Unique identifier given to the email by the source that created the event.
+
+        Identifier is not persistent across hops.
+      example: "c26dbea0-80d5-463b-b93c-4e8b708219ce"
+
+    - name: message_id
+      level: extended
+      type: keyword
+      short: Value from the Message-ID header.
+      description: >
+        Identifier from the RFC 5322 `Message-ID:` email header that refers to a particular email
+        message.
+      example: "<81ce15$8r2j59@mail01.example.com>"
+
+    - name: origination_timestamp
+      level: extended
+      type: date
+      short: Date and time the email was composed.
+      description: >
+        The date and time the email message was composed. Many email clients will fill in this value
+        automatically when the message is sent by a user.
+      example: "2020-11-10T22:12:34.8196921Z"
+
+    - name: reply_to.address
+      level: extended
+      type: keyword
+      short: Address replies should be delivered to.
+      description: >
+        The address that replies should be delivered to based on the value in the RFC 5322 `Reply-To:` header.
+      example: "reply.here@example.com"
+      normalize:
+        - array
+
+    - name: sender.address
+      level: extended
+      type: keyword
+      short: Address of the message sender.
+      description: >
+        Per RFC 5322, specifies the address responsible for the actual transmission of
+        the message.
+
+    - name: subject
+      level: extended
+      type: keyword
+      short: The subject of the email message.
+      description: >
+        A brief summary of the topic of the message.
+      example: "Please see this important message."
+      multi_fields:
+      - type: match_only_text
+        name: text
+
+    - name: to.address
+      level: extended
+      type: keyword
+      short: Email address of recipient
+      description: >
+        The email address of recipient
+      example: "user1@example.com"
+      normalize:
+        - array
+
+    - name: x_mailer
+      level: extended
+      type: keyword
+      short: Application that drafted email.
+      description: >
+        The name of the application that was used to draft and send the original email message.
+      example: "Spambot v2.5"

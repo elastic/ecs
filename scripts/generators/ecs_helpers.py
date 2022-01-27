@@ -60,6 +60,24 @@ def dict_sorted_by_keys(dct, sort_keys):
     return list(map(lambda t: t[-1], sorted(tuples)))
 
 
+def ordered_dict_insert(dct, new_key, new_value, before_key=None, after_key=None):
+    output = OrderedDict()
+    inserted = False
+    for key, value in dct.items():
+        if not inserted and before_key is not None and key == before_key:
+            output[new_key] = new_value
+            inserted = True
+        output[key] = value
+        if not inserted and after_key is not None and key == after_key:
+            output[new_key] = new_value
+            inserted = True
+    if not inserted:
+        output[new_key] = new_value
+    dct.clear()
+    for key, value in output.items():
+        dct[key] = value
+
+
 def safe_merge_dicts(a, b):
     """Merges two dictionaries into one. If duplicate keys are detected a ValueError is raised."""
     c = deepcopy(a)
@@ -114,14 +132,31 @@ def dict_clean_string_values(dict):
 # File helpers
 
 
-YAML_EXT = ('*.yml', '*.yaml')
+YAML_EXT = {'yml', 'yaml'}
 
 
-def get_glob_files(paths, file_types):
+def is_yaml(path):
+    """Returns True if path matches an element of the yaml extensions set"""
+    return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
+
+
+def safe_list(o):
+    """converts o to a list if it isn't already a list"""
+    if isinstance(o, list):
+        return o
+    else:
+        return o.split(',')
+
+
+def glob_yaml_files(paths):
+    """Accepts string, or list representing a path, wildcard or folder. Returns list of matched yaml files"""
     all_files = []
-    for path in paths:
-        for t in file_types:
-            all_files.extend(glob.glob(os.path.join(path, t)))
+    for path in safe_list(paths):
+        if is_yaml(path):
+            all_files.extend(glob.glob(path))
+        else:
+            for t in YAML_EXT:
+                all_files.extend(glob.glob(os.path.join(path, '*.' + t)))
     return sorted(all_files)
 
 
@@ -140,7 +175,7 @@ def path_exists_in_git_tree(tree, file_path):
 
 
 def usage_doc_files():
-    usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/usage')
+    usage_docs_dir = os.path.join(os.path.dirname(__file__), '../../docs/fields/usage')
     usage_docs_path = pathlib.Path(usage_docs_dir)
     if usage_docs_path.is_dir():
         return [x.name for x in usage_docs_path.glob('*.asciidoc') if x.is_file()]

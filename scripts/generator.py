@@ -16,10 +16,7 @@
 # under the License.
 
 import argparse
-import glob
 import os
-import yaml
-import time
 
 from generators import asciidoc_fields
 from generators import beats
