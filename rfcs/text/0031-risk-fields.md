@@ -1,7 +1,7 @@
-# 0000: Risk fields for multiple entities
+# 0031: Risk fields for multiple entities
 
 - Stage: **0 (strawperson)**
-- Date: **TBD**
+- Date: **2022/01/27**
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
