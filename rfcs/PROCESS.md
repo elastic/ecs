@@ -1,6 +1,6 @@
 # Proposing material changes to ECS
 
-Changes to ECS are proposed as Requests for Comments (RFC) in [rfcs/](./rfcs/) and iterated on through a series of [stages](https://elastic.github.io/ecs/stages.html). To advance to a specific stage, an RFC must meet the documented requirements for that stage. After being accepted into a given stage, there are stage-specific expectations and goals to be met. The overall goal of this process is to thoroughly evaluate and verify the assumptions being made about a change before formally committing it to the schema.
+Changes to ECS are proposed as Requests for Comments (RFC) in [rfcs/](./) and iterated on through a series of [stages](https://elastic.github.io/ecs/stages.html). To advance to a specific stage, an RFC must meet the documented requirements for that stage. After being accepted into a given stage, there are stage-specific expectations and goals to be met. The overall goal of this process is to thoroughly evaluate and verify the assumptions being made about a change before formally committing it to the schema.
 
 Each RFC is represented as a markdown document following a prescribed template that gets committed to the repo. Each stage of the RFC is represented as a pull request against that document.
 
