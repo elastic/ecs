@@ -24,19 +24,28 @@
         short_override: Information about the entry session leader process.
       - at: process
         as: session_leader
-        short_override: Information about the session leader process. In some cases this may be the same information as entry_leader.
+        short_override: Information about the session leader. In some cases this may be the same information as entry_leader.
       - at: process
         as: group_leader
-        short_override: Information about the process group leader process. In some cases this may be the same as the top level process.
+        short_override: Information about the process group leader. In some cases this may be the same as the top level process.
+      - at: process.parent
+        as: group_leader
+        short_override: Information about the parent's process group leader. Only pid, start and entity_id fields are set.
+      - at: process.entry_leader
+        as: parent
+        short_override: Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
+      - at: process.session_leader
+        as: parent
+        short_override: Information about the session leader's parent process. Only pid, start and entity_id fields are set.
+      - at: process.entry_leader.parent
+        as: session_leader
+        short_override: Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
+      - at: process.session_leader.parent
+        as: session_leader
+        short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
       - at: process
         as: previous
         short_override: An array of previous execution details for the process. Only executable, args, and args_count are set.
-      - at: process.entry_leader
-        as: parent
-        short_override: Information about the entry leaders parent. Only pid, start and entity_id fields are set.
-      - at: process.parent
-        as: group_leader
-        short_override: Information about the parent's process group leader process. Only pid, start and entity_id fields are set.
 
   fields:
     # Deprecation note: Because we are nesting process.group_leader above, it makes sense to deprecate process.pgid as this information can be accessed via process.group_leader.pid

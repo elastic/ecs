@@ -57,11 +57,11 @@ process.session_leader.entity_id: &lt;entity_id of session leader>
 
 #### Session/Process interactivity (is the session connected to a controlling tty?)
 
-process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service). The *process.interactive* boolean will indicate if the process itself is connected to the controlling tty. 
+process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service). The *process.interactive* boolean will indicate if the process itself is connected to the controlling tty.
 
 #### Pipes and redirects
 
-*process.group_leader* as well as *process.file_descriptions* will allow the Session View to properly represent pipes and redirects in a familiar shell like way. e.g 
+*process.group_leader* as well as *process.file_descriptions* will allow the Session View to properly represent pipes and redirects in a familiar shell like way. e.g
 `cat /etc/hosts | grep google > somefile.txt`
 
 ### Unique process.entity_id generation
@@ -70,7 +70,7 @@ process.tty will be used to determine if the session is interactive. If the fiel
 
 ### Rule engines
 
-The new nested ancestor processes will provide rule engines a widened context to allow for more targeted alerting. 
+The new nested ancestor processes will provide rule engines a widened context to allow for more targeted alerting.
 
 KQL example:
 
@@ -132,7 +132,7 @@ Here is a mock example of these events:
       name: 'kg',
     },
     parent: {
-      id: '4322',
+      entity_id: '4322',
       args: ['/bin/sshd'],
       args_count: 1,
       command_line: 'sshd',
@@ -219,6 +219,17 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
+      },
       file_descriptions: [
         {
           descriptor:0,
@@ -257,6 +268,12 @@ Here is a mock example of these events:
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
       },
       entry_meta: {
         type: 'sshd',
@@ -372,7 +389,7 @@ Here is a mock example of these events:
       name: 'kg',
     },
     parent: {
-      id: '4322',
+      entity_id: '4322',
       args: ['/bin/sshd'],
       args_count: 1,
       command_line: 'sshd',
@@ -459,6 +476,17 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
+      },
       file_descriptions: [
         {
           descriptor:0,
@@ -497,6 +525,12 @@ Here is a mock example of these events:
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
       },
       entry_meta: {
         type: 'sshd',
@@ -614,7 +648,7 @@ Here is a mock example of these events:
       name: 'kg',
     },
     parent: {
-      id: '4322',
+      entity_id: '4322',
       args: ['/bin/sshd'],
       args_count: 1,
       command_line: 'sshd',
@@ -701,6 +735,17 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
+      },
       file_descriptions: [
         {
           descriptor:0,
@@ -739,6 +784,12 @@ Here is a mock example of these events:
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
       },
       entry_meta: {
         type: 'sshd',
@@ -907,6 +958,17 @@ Here is a mock example of these events:
         id: '2',
         name: 'kg',
       },
+      parent: {
+        entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+        pid: 2,
+        start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
+      },
       file_descriptions: [
         {
           descriptor:0,
@@ -979,6 +1041,12 @@ Here is a mock example of these events:
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
+
+        session_leader: { // used as a foreign key to the parent session of the entry_leader
+          entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
+          pid: 4321,
+          start: '2021-10-14T08:05:34.853Z',
+        },
       },
       entry_meta: {
         type: 'sshd',
@@ -1087,10 +1155,11 @@ Each ECS process event originally had information about the process itself and i
   * this is part of enabling pipelines like "cat foo | grep bar | sort | less" to be reassembled for rendering or search/detection.
 
 This RFC also adds the following *anemic* versions of the process object (i.e. those with just entity_id, pid and starttime) to allow chained queries for forensics and to help detect user-entered commands vs automatically spawned child processes.
-* the session leader's parent process
+* the session leader's parent process (process.entry_leader.parent | process.session_leader.parent)
   * allows navigating upward through sessions by querying for the parent process and its session id
-* the parent process's group leader
+* the parent process's group leader (process.parent.group_leader)
   * allows checking if your parent's process group is different from the process's. If so, this process is likely a user-entered command
+* the parent session of the session_leader (process.session_leader.parent.session_leader | process.entry_leader.parent.session_leader)
 
 These additions allow:
 
@@ -1134,10 +1203,9 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @mitodrummer | author
+* @m-sample & @mitodrummer | author
 * @mitodrummer & @m-sample | sponsor
-* @m-sample | subject matter expert
-* @norrietaylor | subject matter expert
+* @m-sample & @norrietaylor | subject matter expert
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -1155,6 +1223,8 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
+
+https://github.com/m-sample/writing/blob/main/Linux/linux-process-model.md
 
 ### RFC Pull Requests
 
