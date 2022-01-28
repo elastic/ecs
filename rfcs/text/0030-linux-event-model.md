@@ -224,7 +224,7 @@ Here is a mock example of these events:
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
 
-        session_leader: { // used as a foreign key to the parent session of the entry_leader
+        session_leader: { // used as a foreign key to the parent session of the session_leader
           entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
           pid: 4321,
           start: '2021-10-14T08:05:34.853Z',
@@ -481,7 +481,7 @@ Here is a mock example of these events:
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
 
-        session_leader: { // used as a foreign key to the parent session of the entry_leader
+        session_leader: { // used as a foreign key to the parent session of the session_leader
           entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
           pid: 4321,
           start: '2021-10-14T08:05:34.853Z',
@@ -740,7 +740,7 @@ Here is a mock example of these events:
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
 
-        session_leader: { // used as a foreign key to the parent session of the entry_leader
+        session_leader: { // used as a foreign key to the parent session of the session_leader
           entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
           pid: 4321,
           start: '2021-10-14T08:05:34.853Z',
@@ -963,7 +963,7 @@ Here is a mock example of these events:
         pid: 2,
         start: '2021-10-14T08:05:34.853Z',
 
-        session_leader: { // used as a foreign key to the parent session of the entry_leader
+        session_leader: { // used as a foreign key to the parent session of the session_leader
           entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
           pid: 4321,
           start: '2021-10-14T08:05:34.853Z',
