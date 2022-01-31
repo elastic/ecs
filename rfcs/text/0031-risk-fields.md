@@ -1,6 +1,6 @@
 # 0031: Risk fields for multiple entities
 
-- Stage: **0 (strawperson)**
+- Stage: **1 (draft)**
 - Date: **2022/01/27**
 
 <!--
@@ -25,9 +25,11 @@ The `risk` fields being proposed are as follows:
 
 Field | Type | Example | Description | Use Case
 -- | -- | -- | -- | -- 
-risk.score | float | 88.73 | A score in the range 0-100 that quantifies the amount of risk associated with an entity. The higher the score, the higher the risk. | Can be used to indicate the risk associated with a particular host
-risk.level | keyword | High | A risk level corresponding to the risk score | Can be used to indicate the risk associated with a particular host
-risk.info.*| group | - | Information about what contributed to the risk | Rules that made a host high-risk
+risk.calculated_score | float | 88.73 | A risk classifications core (0-100) calculates by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.static_score | float | 83.0 | A risk classification score (0-100) obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
+risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+risk.calculated_info.*| group | - | Information about what contributed to the risk | Rules that made a host high-risk
 
 ### Nesting `risk.*` fields under other fields
 The `risk.*` fields mentioned above can be used to quantify the amount of risk associated with entities like hosts, users etc. For example, a host with a high risk score/risk level would imply that the probability of the host being exposed to harm during a cyber attack or breach is high. Attaching a level of risk to entities can help analysts identify entities that require their immediate attention and hence drive investigations in a more systematic manner.
