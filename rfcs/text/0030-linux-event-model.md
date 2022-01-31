@@ -116,6 +116,30 @@ Here is a mock example of these events:
       version: '7.9.2009'
     }
   },
+  user: { // To keep backwards compat and avoid data duplication. We keep user/group info for top level process at the top level 
+    id: '2', // the effective user aka euid
+    name: 'kg',
+    real: { // ruid
+      id: '2',
+      name: 'kg',
+    },
+    saved: { // suid
+      id: '2',
+      name: 'kg',
+    }
+  },
+  group: {
+    id: '1', // the effective group aka egid
+    name: 'groupA',
+    real: { // rgid
+      id: '1',
+      name: 'groupA',
+    },
+    saved: { // sgid
+      id: '1',
+      name: 'groupA',
+    }
+  },
   process: {
     entity_id: '4321',
     args: ['/bin/sshd'],
@@ -127,10 +151,6 @@ Here is a mock example of these events:
     working_directory: '/',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
-    user: {
-      id: '2',
-      name: 'kg',
-    },
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -145,6 +165,26 @@ Here is a mock example of these events:
       user: {
         id: '0',
         name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -182,8 +222,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       file_descriptions: [
         {
@@ -216,8 +276,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -261,8 +341,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -373,6 +473,30 @@ Here is a mock example of these events:
       version: '7.9.2009'
     }
   },
+  user: {
+    id: '2',
+    name: 'kg',
+    real: {
+      id: '2',
+      name: 'kg',
+    },
+    saved: {
+      id: '2',
+      name: 'kg',
+    }
+  },
+  group: {
+    id: '1',
+    name: 'groupA',
+    real: {
+      id: '1',
+      name: 'groupA',
+    },
+    saved: {
+      id: '1',
+      name: 'groupA',
+    }
+  },
   process: {
     entity_id: '4321',
     args: ['/bin/bash'],
@@ -384,10 +508,9 @@ Here is a mock example of these events:
     working_directory: '/home/kg',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
-    user: {
-      id: '2',
-      name: 'kg',
-    },
+    previous: [
+      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -402,6 +525,26 @@ Here is a mock example of these events:
       user: {
         id: '0',
         name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -439,8 +582,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       file_descriptions: [
         {
@@ -473,8 +636,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -518,8 +701,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -630,6 +833,30 @@ Here is a mock example of these events:
       version: '7.9.2009'
     }
   },
+  user: {
+    id: '2',
+    name: 'kg',
+    real: {
+      id: '2',
+      name: 'kg',
+    },
+    saved: {
+      id: '2',
+      name: 'kg',
+    }
+  },
+  group: {
+    id: '1',
+    name: 'groupA',
+    real: {
+      id: '1',
+      name: 'groupA',
+    },
+    saved: {
+      id: '1',
+      name: 'groupA',
+    }
+  },
   process: {
     entity_id: '4321',
     args: ['/bin/bash'],
@@ -643,10 +870,9 @@ Here is a mock example of these events:
     start: '2021-10-14T08:05:34.853Z',
     end: '2021-10-14T10:05:34.853Z',
     exit_code: 137,
-    user: {
-      id: '2',
-      name: 'kg',
-    },
+    previous: [
+      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -661,6 +887,26 @@ Here is a mock example of these events:
       user: {
         id: '0',
         name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -698,8 +944,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       file_descriptions: [
         {
@@ -732,8 +998,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -777,8 +1063,28 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        }
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -889,6 +1195,30 @@ Here is a mock example of these events:
       version: '7.9.2009'
     }
   },
+  user: {
+    id: '2',
+    name: 'kg',
+    real: {
+      id: '2',
+      name: 'kg',
+    },
+    saved: {
+      id: '2',
+      name: 'kg',
+    }
+  },
+  group: {
+    id: '1',
+    name: 'groupA',
+    real: {
+      id: '1',
+      name: 'groupA',
+    },
+    saved: {
+      id: '1',
+      name: 'groupA',
+    }
+  },
   process: {
     entity_id: '4321',
     args: ['/bin/bash'],
@@ -900,10 +1230,9 @@ Here is a mock example of these events:
     working_directory: '/home/kg',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
-    user: {
-      id: '2',
-      name: 'kg',
-    },
+    previous: [
+      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],

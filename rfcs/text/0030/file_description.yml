@@ -18,18 +18,18 @@
 - name: file_description
   title: File description
   group: 2
-  short: These fields contain information about a file descriptor.
+  short: These fields contain information about a file. Linux uses the file abstraction for files, pipes, fifos, network sockets and more.
   description: >
-    These fields contain information about a file descriptor.
+    These fields contain information about a file. Linux uses the file abstraction for files, pipes, fifos, network sockets and more.
 
-    In Unix and Unix-like computer operating systems, a file descriptor (FD, less frequently fildes) is a unique identifier (handle) for a file or other input/output resource, such as a pipe or network socket.
+    In Linux and POSIX-oriented computer operating systems, a file is used to access files on disk, pipes, fifos, network sockets and almost everything else.
   type: group
   reusable:
     top_level: false
     expected:
       - at: process
         as: tty
-        short_override: The file descriptor for the controlling tty (ctty).
+        short_override: The file description for the controlling tty (ctty).
       - at: process
         as: file_descriptions
         short_override: An array of the lowest file descriptors for the process.
@@ -38,9 +38,9 @@
     - name: type
       level: extended
       type: keyword
-      short: The type of file descriptor.
+      short: The type of file.
       description: >
-        The type of file descriptor.
+        The type of file.
 
         One of: file, char_device, pipe, fifo, socket, epoll, signal, inotify, bpf, event, perf_event, timer, userfault, namespace, io_uring
       example: char_device

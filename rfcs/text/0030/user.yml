@@ -17,12 +17,25 @@
 ---
 - name: user
   reusable:
-    top_level: true
+    top_level: true # the top level user relates to the top level process
     expected:
-      - process
+      - at: process.entry_leader
+        as: user
+        short_override: The effective user (euid) of the entry leader.
+      - at: process.session_leader
+        as: user
+        short_override: The effective user (euid) of the session leader.
+      - at: process.group_leader
+        as: user
+        short_override: The effective user (euid) of the group leader.
+      - at: process.parent
+        as: user
+        short_override: The effective user (euid) of the parent process.
       - at: user
         as: saved
         short_override: The saved user (suid).
       - at: user
         as: real
         short_override: The real user (ruid). Identifies the real owner of the process.
+
+      # note we would like to drop user.effective nesting (since this is same info as user.id & user.name)
