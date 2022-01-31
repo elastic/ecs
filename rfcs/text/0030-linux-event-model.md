@@ -184,7 +184,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -243,7 +253,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       file_descriptions: [
         {
@@ -297,7 +317,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -362,7 +392,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -495,7 +535,17 @@ Here is a mock example of these events:
     saved: {
       id: '1',
       name: 'groupA',
-    }
+    },
+    supplemental: [
+      {
+        id: '2',
+        name: 'groupB',
+      },
+      {
+        id: '3',
+        name: 'groupC',
+      }
+    ]
   },
   process: {
     entity_id: '4321',
@@ -544,7 +594,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -603,7 +663,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       file_descriptions: [
         {
@@ -657,7 +727,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -722,7 +802,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -855,7 +945,17 @@ Here is a mock example of these events:
     saved: {
       id: '1',
       name: 'groupA',
-    }
+    },
+    supplemental: [
+      {
+        id: '2',
+        name: 'groupB',
+      },
+      {
+        id: '3',
+        name: 'groupC',
+      }
+    ]
   },
   process: {
     entity_id: '4321',
@@ -906,7 +1006,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -965,7 +1075,18 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
+
       },
       file_descriptions: [
         {
@@ -1019,7 +1140,18 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
+
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -1084,7 +1216,17 @@ Here is a mock example of these events:
         saved: {
           id: '1',
           name: 'groupA',
-        }
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -1217,7 +1359,17 @@ Here is a mock example of these events:
     saved: {
       id: '1',
       name: 'groupA',
-    }
+    },
+    supplemental: [
+      {
+        id: '2',
+        name: 'groupB',
+      },
+      {
+        id: '3',
+        name: 'groupC',
+      }
+    ]
   },
   process: {
     entity_id: '4321',
@@ -1247,6 +1399,36 @@ Here is a mock example of these events:
       user: {
         id: '0',
         name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -1284,8 +1466,38 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
@@ -1329,8 +1541,38 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       file_descriptions: [
         {
@@ -1363,8 +1605,38 @@ Here is a mock example of these events:
       pid: 3,
       start: '2021-10-14T08:05:34.853Z',
       user: {
-        id: '2',
-        name: 'kg',
+        id: '0',
+        name: 'root',
+        real: {
+          id: '0',
+          name: 'root',
+        },
+        saved: {
+          id: '0',
+          name: 'root',
+        }
+      },
+      group: {
+        id: '1',
+        name: 'groupA',
+        real: {
+          id: '1',
+          name: 'groupA',
+        },
+        saved: {
+          id: '1',
+          name: 'groupA',
+        },
+        supplemental: [
+          {
+            id: '2',
+            name: 'groupB',
+          },
+          {
+            id: '3',
+            name: 'groupC',
+          }
+        ]
       },
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
