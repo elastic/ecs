@@ -71,7 +71,7 @@ def main():
     if args.intermediate_only:
         exit()
 
-    if args.template_settings: 
+    if args.template_settings:
         warn("--template-settings is now deprecated, defaulting to --template-settings-v1", DeprecationWarning)
         args.template_settings_v1 = args.template_settings
 

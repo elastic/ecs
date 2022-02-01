@@ -198,6 +198,7 @@ def template_settings(ecs_version, template_version, mappings_section, template_
 
     return template
 
+
 def finalize_template(template, ecs_version, template_version, mappings_section, component_names):
     if template_version == 1:
         template['mappings'] = mappings_section
@@ -206,7 +207,7 @@ def finalize_template(template, ecs_version, template_version, mappings_section,
         # if present
         if '_meta' in template:
             mappings_section['_meta'] = template.pop('_meta')
-        
+
     if template_version == 2:
         template['template']['mappings'] = mappings_section
         template['composed_of'] = component_names
@@ -223,6 +224,7 @@ def save_json(file, data):
     with open(file, open_mode) as jsonfile:
         json.dump(data, jsonfile, indent=2, sort_keys=True)
         jsonfile.write('\n')
+
 
 def default_v2_template_settings(ecs_version):
     return {
