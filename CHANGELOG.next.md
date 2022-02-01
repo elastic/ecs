@@ -61,6 +61,7 @@ Thanks, you're awesome :-) -->
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
 * Added support for `analyzer` definitions for text fields. #1737
+* Added support for overridable composable settings template. #1737
 
 ## 8.0.0 (Hard Feature Freeze)
 
