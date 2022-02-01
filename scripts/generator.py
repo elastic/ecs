@@ -18,6 +18,8 @@
 import argparse
 import os
 
+from warnings import warn
+
 from generators import asciidoc_fields
 from generators import beats
 from generators import csv_generator
@@ -69,9 +71,13 @@ def main():
     if args.intermediate_only:
         exit()
 
+    if args.template_settings: 
+        warn("--template-settings is now deprecated, defaulting to --template-settings-v1", DeprecationWarning)
+        args.template_settings_v1 = args.template_settings
+
     csv_generator.generate(flat, ecs_generated_version, out_dir)
-    es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings)
-    es_template.generate_legacy(flat, ecs_generated_version, out_dir, args.template_settings, args.mapping_settings)
+    es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings_v2)
+    es_template.generate_legacy(flat, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings_v1)
     beats.generate(nested, ecs_generated_version, out_dir)
     if args.include or args.subset or args.exclude:
         exit()
@@ -92,13 +98,17 @@ def argument_parser():
                         help='render a subset of the schema')
     parser.add_argument('--out', action='store', help='directory to output the generated files')
     parser.add_argument('--template-settings', action='store',
-                        help='index template settings to use when generating elasticsearch template')
+                        help=argparse.SUPPRESS)
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
     parser.add_argument('--strict', action='store_true',
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
+    parser.add_argument('--template-settings-v1', action='store',
+                        help='v1 (legacy) index template settings to use when generating elasticsearch template')
+    parser.add_argument('--template-settings-v2', action='store',
+                        help='v2 index template settings to use when generating elasticsearch template')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:
