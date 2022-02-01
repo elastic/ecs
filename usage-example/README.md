@@ -12,7 +12,8 @@ python scripts/generator.py --ref v1.6.0 \
   --subset            usage-example/fields/subset.yml \
   --include           usage-example/fields/custom/ \
   --out               usage-example/ \
-  --template-settings usage-example/fields/template-settings.json \
+  --template-settings-v1 ../my-project/fields/template-settings-v1.json \
+  --template-settings-v2 ../my-project/fields/template-settings-v2.json \
   --mapping-settings  usage-example/fields/mapping-settings.json
 ```
 
