@@ -45,7 +45,7 @@
         short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
       - at: process
         as: previous
-        short_override: An array of previous execution details for the process. Only executable, args, and args_count are set.
+        short_override: An array of all previous executions for the process, including the initial fork details. Only executable, args, and args_count are set. This field is only set on events where event.action = exec.
 
   fields:
     # Deprecation note: Because we are nesting process.group_leader above, it makes sense to deprecate process.pgid as this information can be accessed via process.group_leader.pid
