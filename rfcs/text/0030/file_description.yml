@@ -1,0 +1,178 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: file_description
+  title: File description
+  group: 2
+  short: These fields contain information about a file. Linux uses the file abstraction for files, pipes, fifos, network sockets and more.
+  description: >
+    These fields contain information about a file. Linux uses the file abstraction for files, pipes, fifos, network sockets and more.
+
+    In Linux and POSIX-oriented computer operating systems, a file is used to access files on disk, pipes, fifos, network sockets and almost everything else.
+  type: group
+  reusable:
+    top_level: false
+    expected:
+      - at: process
+        as: tty
+        short_override: The file description for the controlling tty (ctty).
+      - at: process
+        as: file_descriptions
+        short_override: An array of the lowest file descriptors for the process.
+
+  fields:
+    - name: type
+      level: extended
+      type: keyword
+      short: The type of file.
+      description: >
+        The type of file.
+
+        One of: file, char_device, pipe, fifo, socket, epoll, signal, inotify, bpf, event, perf_event, timer, userfault, namespace, io_uring
+      example: char_device
+
+    - name: descriptor
+      level: extended
+      type: long
+      short: The integer representation of the FD.
+      description: >
+        File descriptors typically have non-negative integer values, with negative values being reserved to indicate "no value" or error conditions.
+
+        File descriptors are a part of the POSIX API. Each Unix process (except perhaps daemons) should have three standard POSIX file descriptors, corresponding to the three standard streams: 0 - Standard input (stdin), 1 - Standard output (stdout), 2 - Standard error (stderr).
+
+      example: 1
+
+    - name: char_device
+      level: extended
+      type: object
+      short: Character device major and minor numbers.
+      description: >
+        A Character ('c') Device is one with which the Driver communicates by sending and receiving single characters (bytes, octets).
+
+        Examples for Character Devices: serial ports, parallel ports, sounds cards.
+
+        This field is only populated if file_description.type: char_device
+
+    - name: char_device.major
+      level: extended
+      type: long
+      short: The major character device number.
+      description: >
+        The major number identifies the driver associated with the device.
+      example: 1
+
+    - name: char_device.minor
+      level: extended
+      type: long
+      short: The minor character device number.
+      description: >
+        The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
+      example: 128
+
+    - name: socket
+      level: extended
+      type: object
+      short: Socket information for the FD.
+      description: >
+        Specifics about a socket that an FD is referencing.
+
+        This field is only populated if file_description.type: socket
+
+    - name: socket.domain
+      level: extended
+      type: long
+      short: The socket domain.
+      description: >
+        The integer representation of the socket domain. For unix domain sockets the value is 1 (AF_UNIX see sys/socket.h). TCP and UDP sockets will have a value of 2 (AF_INET)
+      example: 2
+
+    - name: socket.type
+      level: extended
+      type: long
+      short: The socket type.
+      description: >
+        The integer representation of the socket type. Typically 0 e.g AF_INET+SOCK_STREAM+0 is TCP
+      example: 0
+
+    - name: socket.local
+      level: extended
+      type: object
+      short: The local connection info for a socket.
+      description: >
+        The local connection info for a socket.
+
+        Present if socket bind() function called.
+
+    - name: socket.local.ip
+      level: extended
+      type: ip
+      description: >
+        The local IP address of the socket connection.
+
+    - name: socket.local.port
+      level: extended
+      type: long
+      description: >
+        The local port of the socket connection.
+
+    - name: socket.local.inode
+      level: extended
+      type: keyword
+      short: The local inode of the socket connection.
+      description: >
+        The local inode of the socket connection.
+
+        Only set for Unix domain sockets.
+
+    - name: socket.remote
+      level: extended
+      type: object
+      short: The remote port of the socket connection.
+      description: >
+        The local connection info for a socket.
+
+        Present if socket connect() function called.
+
+    - name: socket.remote.ip
+      level: extended
+      type: ip
+      description: >
+        The remote IP address of the socket connection.
+
+    - name: socket.remote.port
+      level: extended
+      type: long
+      description: >
+        The local remote of the socket connection.
+
+    - name: socket.remote.inode
+      level: extended
+      type: keyword
+      short: The remote inode of the socket connection.
+      description: >
+        The remote inode of the socket connection.
+
+        Only set for Unix domain sockets.
+
+    - name: socket.listening
+      level: extended
+      type: boolean
+      short: Whether a TCP socket is listening for connections.
+      description: >
+        Whether a TCP socket is listening for connections.
+
+        Only set for TCP sockets.

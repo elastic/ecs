@@ -1,0 +1,97 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: process
+  reusable:
+    top_level: true
+    expected:
+      - at: process
+        as: entry_leader
+        short_override: Information about the entry session leader process.
+      - at: process
+        as: session_leader
+        short_override: Information about the session leader. In some cases this may be the same information as entry_leader.
+      - at: process
+        as: group_leader
+        short_override: Information about the process group leader. In some cases this may be the same as the top level process.
+      - at: process.parent
+        as: group_leader
+        short_override: Information about the parent's process group leader. Only pid, start and entity_id fields are set.
+      - at: process.entry_leader
+        as: parent
+        short_override: Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
+      - at: process.session_leader
+        as: parent
+        short_override: Information about the session leader's parent process. Only pid, start and entity_id fields are set.
+      - at: process.entry_leader.parent
+        as: session_leader
+        short_override: Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
+      - at: process.session_leader.parent
+        as: session_leader
+        short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
+      - at: process
+        as: previous
+        short_override: An array of all previous executions for the process, including the initial fork details. Only executable, args, and args_count are set. This field is only set on events where event.action = exec.
+
+  fields:
+    # Deprecation note: Because we are nesting process.group_leader above, it makes sense to deprecate process.pgid as this information can be accessed via process.group_leader.pid
+    # - name: pgid  #to be removed
+
+    - name: interactive
+      level: extended
+      type: boolean
+      example: true
+      short: Whether the process is connected to an interactive shell.
+      description: >
+        Whether the process is connected to an interactive shell.
+
+        Process interactivity is infered from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
+
+    - name: env_vars
+      level: extended
+      type: object
+      short: Environment variables set at the time of the event.
+      description: >
+        Environment variables set at the time of the event.
+
+        May be filtered to protect sensitive information.
+      example: >
+        {
+          "USER": "elastic",
+          "LANG": "en_US.UTF-8",
+          "HOME": "/home/elastic"
+        }
+
+    - name: entry_meta.type
+      level: extended
+      type: keyword
+      short: The entry type for the entry session leader.
+      description: >
+        The entry type for the entry session leader.
+
+        Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
+
+    - name: entry_meta.source
+      level: extended
+      type: source
+      short: Entry point information for a session.
+      description: >
+        Entry point information for a session.
+
+        Remote client information such as ip, port and geo location.
