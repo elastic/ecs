@@ -401,4 +401,4 @@ Common Fields for Container Inventory Schema: https://github.com/elastic/beats/i
 -->
 * Stage 1: https://github.com/elastic/ecs/pull/1529
 
-* Stage 2: https://github.com/elastic/ecs/pull/1529
+* Stage 2: https://github.com/elastic/ecs/pull/1747
