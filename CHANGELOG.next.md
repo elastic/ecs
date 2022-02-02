@@ -36,7 +36,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.1.0 (Soft Feature Freeze)
+## 8.1.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
