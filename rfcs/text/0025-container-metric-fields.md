@@ -343,6 +343,10 @@ This is a new field set, and the changes introduced will not affect existing ECS
 
 Integrations or other data sources mapping to ECS will need to map their original events to the new fields as well.
 
+The new field names will allow Kibana Docker containers metrics UI to
+display data collected from different container sources, therefore it should be renamed to
+a more generic title.
+Currently, it can only display data from Docker.
 ## Concerns
 
 <!--
