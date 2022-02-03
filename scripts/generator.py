@@ -73,7 +73,8 @@ def main():
 
     csv_generator.generate(flat, ecs_generated_version, out_dir)
     es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings)
-    es_template.generate_legacy(flat, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings_legacy)
+    es_template.generate_legacy(flat, ecs_generated_version, out_dir,
+                                args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)
     if args.include or args.subset or args.exclude:
         exit()
@@ -96,7 +97,7 @@ def argument_parser():
     parser.add_argument('--template-settings', action='store',
                         help='index template settings to use when generating elasticsearch template')
     parser.add_argument('--template-settings-legacy', action='store',
-                        help='legacy index template settings to use when generating elasticsearch template')                    
+                        help='legacy index template settings to use when generating elasticsearch template')
     parser.add_argument('--mapping-settings', action='store',
                         help='mapping settings to use when generating elasticsearch template')
     parser.add_argument('--strict', action='store_true',

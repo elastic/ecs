@@ -185,7 +185,6 @@ def mapping_settings(mapping_settings_file):
 
 
 def template_settings(ecs_version, mappings_section, template_settings_file, isLegacy=False, component_names=None):
-    print(template_settings_file)
     if template_settings_file:
         with open(template_settings_file) as f:
             template = json.load(f)
