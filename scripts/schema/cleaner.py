@@ -16,9 +16,20 @@
 # under the License.
 
 import re
+from typing import (
+    Dict,
+    List,
+    Optional,
+    Union,
+)
 
 from generators import ecs_helpers
 from schema import visitor
+from .types import (
+    Field,
+    FieldDetails,
+    FieldEntry,
+)
 
 # This script performs a few cleanup functions in place, within the deeply nested
 # 'fields' structure passed to `clean(fields)`.
@@ -36,7 +47,7 @@ from schema import visitor
 # deal with final field names either.
 
 
-def clean(fields, strict=False):
+def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
     global strict_mode
     strict_mode = strict
     visitor.visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
@@ -45,7 +56,7 @@ def clean(fields, strict=False):
 # Schema level cleanup
 
 
-def schema_cleanup(schema):
+def schema_cleanup(schema: FieldEntry) -> None:
     # Sanity check first
     schema_mandatory_attributes(schema)
     # trailing space cleanup
@@ -72,25 +83,25 @@ def schema_cleanup(schema):
 SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
-def schema_mandatory_attributes(schema):
+def schema_mandatory_attributes(schema: FieldEntry) -> None:
     """Ensures for the presence of the mandatory schema attributes and raises if any are missing"""
-    current_schema_attributes = sorted(list(schema['field_details'].keys()) +
+    current_schema_attributes: List[str] = sorted(list(schema['field_details'].keys()) +
                                        list(schema['schema_details'].keys()))
-    missing_attributes = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
+    missing_attributes: List[str] = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
     if len(missing_attributes) > 0:
-        msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
+        msg: str = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
             schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
         raise ValueError(msg)
     if 'reusable' in schema['schema_details']:
-        reuse_attributes = sorted(schema['schema_details']['reusable'].keys())
-        missing_reuse_attributes = ecs_helpers.list_subtract(['expected', 'top_level'], reuse_attributes)
+        reuse_attributes: List[str] = sorted(schema['schema_details']['reusable'].keys())
+        missing_reuse_attributes: List[str] = ecs_helpers.list_subtract(['expected', 'top_level'], reuse_attributes)
         if len(missing_reuse_attributes) > 0:
-            msg = "Reusable schema {} is missing the following reuse attributes: {}.\nFound these: {}".format(
+            msg: str = "Reusable schema {} is missing the following reuse attributes: {}.\nFound these: {}".format(
                 schema['field_details']['name'], ', '.join(missing_reuse_attributes), reuse_attributes)
             raise ValueError(msg)
 
 
-def schema_assertions_and_warnings(schema):
+def schema_assertions_and_warnings(schema: FieldEntry) -> None:
     """Additional checks on a fleshed out schema"""
     single_line_short_description(schema, strict=strict_mode)
     if 'beta' in schema['field_details']:
@@ -99,7 +110,7 @@ def schema_assertions_and_warnings(schema):
         single_line_short_override_description(schema, strict=strict_mode)
 
 
-def normalize_reuse_notation(schema):
+def normalize_reuse_notation(schema: FieldEntry) -> None:
     """
     Replace single word reuse shorthands from the schema YAMLs with the explicit {at: , as:} notation.
 
@@ -116,18 +127,18 @@ def normalize_reuse_notation(schema):
     """
     if 'reusable' not in schema['schema_details']:
         return
-    schema_name = schema['field_details']['name']
-    reuse_entries = []
+    schema_name: str = schema['field_details']['name']
+    reuse_entries: List[str] = []
     for reuse_entry in schema['schema_details']['reusable']['expected']:
         if type(reuse_entry) is dict:  # Already explicit
             if 'at' in reuse_entry and 'as' in reuse_entry:
-                explicit_entry = reuse_entry
+                explicit_entry: Dict[str, str] = reuse_entry
             else:
                 raise ValueError("When specifying reusable expected locations for {} " +
                                  "with the dictionary notation, keys 'as' and 'at' are required. " +
                                  "Got {}.".format(schema_name, reuse_entry))
         else:  # Make it explicit
-            explicit_entry = {'at': reuse_entry, 'as': schema_name}
+            explicit_entry: Dict[str, str] = {'at': reuse_entry, 'as': schema_name}
         explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
         reuse_entries.append(explicit_entry)
     schema['schema_details']['reusable']['expected'] = reuse_entries
@@ -136,7 +147,7 @@ def normalize_reuse_notation(schema):
 # Field level cleanup
 
 
-def field_cleanup(field):
+def field_cleanup(field: FieldDetails) -> None:
     field_mandatory_attributes(field)
     if ecs_helpers.is_intermediate(field):
         return
@@ -148,7 +159,7 @@ def field_cleanup(field):
     field_assertions_and_warnings(field)
 
 
-def field_defaults(field):
+def field_defaults(field: FieldDetails) -> None:
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
     field_or_multi_field_datatype_defaults(field['field_details'])
@@ -159,7 +170,7 @@ def field_defaults(field):
                 mf['name'] = mf['type']
 
 
-def field_or_multi_field_datatype_defaults(field_details):
+def field_or_multi_field_datatype_defaults(field_details: Field) -> None:
     """Sets datatype-related defaults on a canonical field or multi-field entries."""
     if field_details['type'] == 'keyword':
         field_details.setdefault('ignore_above', 1024)
@@ -177,12 +188,12 @@ FIELD_MANDATORY_ATTRIBUTES = ['name', 'description', 'type', 'level']
 ACCEPTABLE_FIELD_LEVELS = ['core', 'extended', 'custom']
 
 
-def field_mandatory_attributes(field):
+def field_mandatory_attributes(field: FieldDetails) -> None:
     """Ensures for the presence of the mandatory field attributes and raises if any are missing"""
     if ecs_helpers.is_intermediate(field):
         return
-    current_field_attributes = sorted(field['field_details'].keys())
-    missing_attributes = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
+    current_field_attributes: List[str] = sorted(field['field_details'].keys())
+    missing_attributes: List[str] = ecs_helpers.list_subtract(FIELD_MANDATORY_ATTRIBUTES, current_field_attributes)
 
     # `alias` fields require a target `path` attribute.
     if field['field_details'].get('type') == 'alias' and 'path' not in current_field_attributes:
@@ -192,12 +203,12 @@ def field_mandatory_attributes(field):
         missing_attributes.append('scaling_factor')
 
     if len(missing_attributes) > 0:
-        msg = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}"
+        msg: str = "Field is missing the following mandatory attributes: {}.\nFound these: {}.\nField details: {}"
         raise ValueError(msg.format(', '.join(missing_attributes),
                                     current_field_attributes, field))
 
 
-def field_assertions_and_warnings(field):
+def field_assertions_and_warnings(field: FieldDetails) -> None:
     """Additional checks on a fleshed out field"""
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
@@ -208,7 +219,7 @@ def field_assertions_and_warnings(field):
             validate_pattern_regex(field['field_details'], strict=strict_mode)
         check_example_value(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
-            msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
+            msg: str = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
                 ACCEPTABLE_FIELD_LEVELS)
             raise ValueError(msg)
@@ -219,10 +230,10 @@ def field_assertions_and_warnings(field):
 SHORT_LIMIT = 120
 
 
-def single_line_short_check(short_to_check, short_name):
-    short_length = len(short_to_check)
+def single_line_short_check(short_to_check: str, short_name: str) -> Union[str, None]:
+    short_length: int = len(short_to_check)
     if "\n" in short_to_check or short_length > SHORT_LIMIT:
-        msg = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
+        msg: str = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
             SHORT_LIMIT, short_length)
         msg += "Offending field or field set: {}\nShort description:\n  {}".format(
             short_name,
@@ -239,32 +250,33 @@ def strict_warning_handler(message, strict):
         ecs_helpers.strict_warning(message)
 
 
-def single_line_short_description(schema_or_field, strict=True):
-    error = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
+def single_line_short_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
+    error: str = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
         strict_warning_handler(error, strict)
 
 
-def single_line_short_override_description(schema_or_field, strict=True):
+def single_line_short_override_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
     for field in schema_or_field['schema_details']['reusable']['expected']:
         if not 'short_override' in field:
             continue
-        error = single_line_short_check(field['short_override'], field['full'])
+        error: str = single_line_short_check(field['short_override'], field['full'])
         if error:
             strict_warning_handler(error, strict)
 
 
-def check_example_value(field, strict=True):
+def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] = True) -> None:
     """
     Checks if value of the example field is of type list or dict.
     Fails or warns (depending on strict mode) if so.
     """
-    example_value = field['field_details'].get('example', None)
+    example_value: Union[List, FieldEntry] = field['field_details'].get('example', None)
     pattern = field['field_details'].get('pattern', None)
     name = field['field_details']['name']
 
     if isinstance(example_value, (list, dict)):
-        msg = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
+        name: str = field['field_details']['name']
+        msg: str = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
         strict_warning_handler(msg, strict)
 
     if pattern:
@@ -274,9 +286,9 @@ def check_example_value(field, strict=True):
             strict_warning_handler(msg, strict)
 
 
-def single_line_beta_description(schema_or_field, strict=True):
+def single_line_beta_description(schema_or_field: FieldEntry, strict: Optional[bool] = True) -> None:
     if "\n" in schema_or_field['field_details']['beta']:
-        msg = "Beta descriptions must be single line.\n"
+        msg: str = "Beta descriptions must be single line.\n"
         msg += f"Offending field or field set: {schema_or_field['field_details']['name']}"
         strict_warning_handler(msg, strict)
 
