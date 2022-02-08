@@ -22,6 +22,7 @@ from typing import (
     Union
 )
 
+
 class Field(TypedDict, total=False):
     description: str
     example: str

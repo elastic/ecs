@@ -37,6 +37,7 @@ from schema.types import (
     FieldEntry
 )
 
+
 def main() -> None:
     args = argument_parser()
 
@@ -87,7 +88,7 @@ def main() -> None:
 
 
 def argument_parser() -> argparse.Namespace:
-    parser= argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
                                                        Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',

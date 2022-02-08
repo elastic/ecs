@@ -86,7 +86,7 @@ SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 def schema_mandatory_attributes(schema: FieldEntry) -> None:
     """Ensures for the presence of the mandatory schema attributes and raises if any are missing"""
     current_schema_attributes: List[str] = sorted(list(schema['field_details'].keys()) +
-                                       list(schema['schema_details'].keys()))
+                                                  list(schema['schema_details'].keys()))
     missing_attributes: List[str] = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
     if len(missing_attributes) > 0:
         msg: str = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
@@ -251,7 +251,8 @@ def strict_warning_handler(message, strict):
 
 
 def single_line_short_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
-    error: str = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
+    error: str = single_line_short_check(
+        schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
         strict_warning_handler(error, strict)
 
