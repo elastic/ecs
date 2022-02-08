@@ -17,6 +17,9 @@
 
 import argparse
 import os
+from typing import (
+    Optional,
+)
 
 from generators import asciidoc_fields
 from generators import beats
@@ -30,12 +33,14 @@ from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
 from schema import exclude_filter
+from schema.types import (
+    FieldEntry
+)
 
-
-def main():
+def main() -> None:
     args = argument_parser()
 
-    ecs_generated_version = read_version(args.ref)
+    ecs_generated_version: str = read_version(args.ref)
     print('Running generator. ECS version ' + ecs_generated_version)
 
     # default location to save files
@@ -59,7 +64,7 @@ def main():
         ecs_generated_version += "+exp"
         print('Experimental ECS version ' + ecs_generated_version)
 
-    fields = loader.load_schemas(ref=args.ref, included_files=args.include)
+    fields: dict[str, FieldEntry] = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields = subset_filter.filter(fields, args.subset, out_dir)
@@ -81,8 +86,8 @@ def main():
     asciidoc_fields.generate(nested, ecs_generated_version, docs_dir)
 
 
-def argument_parser():
-    parser = argparse.ArgumentParser()
+def argument_parser() -> argparse.Namespace:
+    parser= argparse.ArgumentParser()
     parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
                                                        Note that "--include experimental/schemas" will also respect this git ref.')
     parser.add_argument('--include', nargs='+',
@@ -109,7 +114,7 @@ def argument_parser():
     return args
 
 
-def read_version(ref=None):
+def read_version(ref: Optional[str] = None) -> str:
     if ref:
         print('Loading schemas from git ref ' + ref)
         tree = ecs_helpers.get_tree_by_ref(ref)
