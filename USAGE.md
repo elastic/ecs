@@ -50,6 +50,7 @@ python scripts/generator.py --ref v1.6.0 \
   --subset            ../my-project/fields/subset.yml \
   --include           ../my-project/fields/custom/ \
   --out               ../my-project/ \
+  --template-settings-legacy ../my-project/fields/template-settings-legacy.json \
   --template-settings ../my-project/fields/template-settings.json \
   --mapping-settings  ../my-project/fields/mapping-settings.json
 ```
@@ -352,13 +353,16 @@ The command above will produce artifacts based on:
 
 #### Mapping & Template Settings
 
-The `--template-settings` and `--mapping-settings` arguments allow overriding the default template and mapping settings, respectively, in the generated Elasticsearch template artifacts. Both artifacts expect a JSON file which contains custom settings defined.
+The `--template-settings-legacy` / `--template-settings` and `--mapping-settings` arguments allow overriding the default template and mapping settings, respectively, in the generated Elasticsearch template artifacts. Both artifacts expect a JSON file which contains custom settings defined.
 
 ```
-$ python scripts/generator.py --template-settings ../myproject/es-overrides/template.json --mapping-settings ../myproject/es-overrides/mappings.json
+$ python scripts/generator.py --template-settings-legacy ../myproject/es-overrides/template.json --mapping-settings ../myproject/es-overrides/mappings.json
 ```
 
-The `--template-settings` argument defines [index level settings](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html#index-modules-settings) that will be applied to the index template in the generated artifacts. This is an example `template.json` to be passed with `--template-setting`:
+The `--template-settings-legacy` argument defines [index level settings](https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html#index-modules-settings) that will be applied to the legacy index template in the generated artifacts. The `--template-settings` argument now defines those same settings, but for the composable template in the generated artifacts.
+
+
+This is an example `template.json` to be passed with `--template-setting-legacy`:
 
 ```json
 {
