@@ -125,7 +125,7 @@ base:
     events. These fields are common across all types of events.
   fields:
     '@timestamp':
-      dashed_name: -timestamp
+      dashed_name: timestamp
       description: 'Date/time when the event originated.
 
         This is the date/time extracted from the event, typically representing when
@@ -173,9 +173,8 @@ base:
       level: core
       name: message
       normalize: []
-      norms: false
       short: Log message optimized for viewing in a log viewer.
-      type: text
+      type: match_only_text
     tags:
       dashed_name: tags
       description: List of keywords used to tag each event.
@@ -249,8 +248,7 @@ client:
       multi_fields:
       - flat_name: client.as.organization.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: organization.name
       normalize: []
       original_fieldset: as
@@ -269,13 +267,18 @@ client:
       type: long
     client.domain:
       dashed_name: client-domain
-      description: Client domain.
+      description: 'The domain name of the client system.
+
+        This value may be a host name, a fully qualified domain name, or another host
+        naming format. The value may derive from the original event or be added from
+        enrichment.'
+      example: foo.example.com
       flat_name: client.domain
       ignore_above: 1024
       level: core
       name: domain
       normalize: []
-      short: Client domain.
+      short: The domain name of the client.
       type: keyword
     client.geo.city_name:
       dashed_name: client-geo-city-name
@@ -288,6 +291,18 @@ client:
       normalize: []
       original_fieldset: geo
       short: City name.
+      type: keyword
+    client.geo.continent_code:
+      dashed_name: client-geo-continent-code
+      description: Two-letter code representing continent's name.
+      example: NA
+      flat_name: client.geo.continent_code
+      ignore_above: 1024
+      level: core
+      name: continent_code
+      normalize: []
+      original_fieldset: geo
+      short: Continent code.
       type: keyword
     client.geo.continent_name:
       dashed_name: client-geo-continent-name
@@ -354,6 +369,21 @@ client:
       original_fieldset: geo
       short: User-defined description of a location.
       type: keyword
+    client.geo.postal_code:
+      dashed_name: client-geo-postal-code
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      flat_name: client.geo.postal_code
+      ignore_above: 1024
+      level: core
+      name: postal_code
+      normalize: []
+      original_fieldset: geo
+      short: Postal code.
+      type: keyword
     client.geo.region_iso_code:
       dashed_name: client-geo-region-iso-code
       description: Region ISO code.
@@ -378,6 +408,18 @@ client:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    client.geo.timezone:
+      dashed_name: client-geo-timezone
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      flat_name: client.geo.timezone
+      ignore_above: 1024
+      level: core
+      name: timezone
+      normalize: []
+      original_fieldset: geo
+      short: Time zone.
+      type: keyword
     client.ip:
       dashed_name: client-ip
       description: IP address of the client (IPv4 or IPv6).
@@ -389,7 +431,13 @@ client:
       type: ip
     client.mac:
       dashed_name: client-mac
-      description: MAC address of the client.
+      description: 'MAC address of the client.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit
+        byte) is represented by two [uppercase] hexadecimal digits giving the value
+        of the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.'
+      example: 00-00-5E-00-53-23
       flat_name: client.mac
       ignore_above: 1024
       level: core
@@ -459,6 +507,24 @@ client:
       normalize: []
       short: The highest registered client domain, stripped of the subdomain.
       type: keyword
+    client.subdomain:
+      dashed_name: client-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: client.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     client.top_level_domain:
       dashed_name: client-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -510,8 +576,7 @@ client:
       multi_fields:
       - flat_name: client.user.full_name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full_name
       normalize: []
       original_fieldset: user
@@ -570,6 +635,7 @@ client:
     client.user.id:
       dashed_name: client-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: client.user.id
       ignore_above: 1024
       level: core
@@ -581,15 +647,14 @@ client:
     client.user.name:
       dashed_name: client-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: client.user.name
       ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: client.user.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       original_fieldset: user
@@ -629,9 +694,15 @@ client:
   title: Client
   type: group
 destination:
-  description: 'Destination fields describe details about the destination of a packet/event.
+  description: 'Destination fields capture details about the receiver of a network
+    exchange/packet. These fields are populated from a network event, packet, or other
+    event containing details of a network transaction.
 
-    Destination fields are usually populated in conjunction with source fields.'
+    Destination fields are usually populated in conjunction with source fields. The
+    source and destination fields are considered the baseline and should always be
+    filled if an event contains source and destination details from a network transaction.
+    If the event also contains identification of the client and server roles, then
+    the client and server fields should also be populated.'
   fields:
     destination.address:
       dashed_name: destination-address
@@ -670,8 +741,7 @@ destination:
       multi_fields:
       - flat_name: destination.as.organization.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: organization.name
       normalize: []
       original_fieldset: as
@@ -690,13 +760,18 @@ destination:
       type: long
     destination.domain:
       dashed_name: destination-domain
-      description: Destination domain.
+      description: 'The domain name of the destination system.
+
+        This value may be a host name, a fully qualified domain name, or another host
+        naming format. The value may derive from the original event or be added from
+        enrichment.'
+      example: foo.example.com
       flat_name: destination.domain
       ignore_above: 1024
       level: core
       name: domain
       normalize: []
-      short: Destination domain.
+      short: The domain name of the destination.
       type: keyword
     destination.geo.city_name:
       dashed_name: destination-geo-city-name
@@ -709,6 +784,18 @@ destination:
       normalize: []
       original_fieldset: geo
       short: City name.
+      type: keyword
+    destination.geo.continent_code:
+      dashed_name: destination-geo-continent-code
+      description: Two-letter code representing continent's name.
+      example: NA
+      flat_name: destination.geo.continent_code
+      ignore_above: 1024
+      level: core
+      name: continent_code
+      normalize: []
+      original_fieldset: geo
+      short: Continent code.
       type: keyword
     destination.geo.continent_name:
       dashed_name: destination-geo-continent-name
@@ -775,6 +862,21 @@ destination:
       original_fieldset: geo
       short: User-defined description of a location.
       type: keyword
+    destination.geo.postal_code:
+      dashed_name: destination-geo-postal-code
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      flat_name: destination.geo.postal_code
+      ignore_above: 1024
+      level: core
+      name: postal_code
+      normalize: []
+      original_fieldset: geo
+      short: Postal code.
+      type: keyword
     destination.geo.region_iso_code:
       dashed_name: destination-geo-region-iso-code
       description: Region ISO code.
@@ -799,6 +901,18 @@ destination:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    destination.geo.timezone:
+      dashed_name: destination-geo-timezone
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      flat_name: destination.geo.timezone
+      ignore_above: 1024
+      level: core
+      name: timezone
+      normalize: []
+      original_fieldset: geo
+      short: Time zone.
+      type: keyword
     destination.ip:
       dashed_name: destination-ip
       description: IP address of the destination (IPv4 or IPv6).
@@ -810,7 +924,13 @@ destination:
       type: ip
     destination.mac:
       dashed_name: destination-mac
-      description: MAC address of the destination.
+      description: 'MAC address of the destination.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit
+        byte) is represented by two [uppercase] hexadecimal digits giving the value
+        of the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.'
+      example: 00-00-5E-00-53-23
       flat_name: destination.mac
       ignore_above: 1024
       level: core
@@ -879,6 +999,24 @@ destination:
       normalize: []
       short: The highest registered destination domain, stripped of the subdomain.
       type: keyword
+    destination.subdomain:
+      dashed_name: destination-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: destination.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     destination.top_level_domain:
       dashed_name: destination-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -930,8 +1068,7 @@ destination:
       multi_fields:
       - flat_name: destination.user.full_name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full_name
       normalize: []
       original_fieldset: user
@@ -990,6 +1127,7 @@ destination:
     destination.user.id:
       dashed_name: destination-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: destination.user.id
       ignore_above: 1024
       level: core
@@ -1001,15 +1139,14 @@ destination:
     destination.user.name:
       dashed_name: destination-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: destination.user.name
       ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: destination.user.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       original_fieldset: user
@@ -1103,6 +1240,41 @@ event:
       normalize: []
       short: The action captured by the event.
       type: keyword
+    event.agent_id_status:
+      dashed_name: event-agent-id-status
+      description: 'Agents are normally responsible for populating the `agent.id`
+        field value. If the system receiving events is capable of validating the value
+        based on authentication information for the client then this field can be
+        used to reflect the outcome of that validation.
+
+        For example if the agent''s connection is authenticated with mTLS and the
+        client cert contains the ID of the agent to which the cert was issued then
+        the `agent.id` value in events can be checked against the certificate. If
+        the values match then `event.agent_id_status: verified` is added to the event,
+        otherwise one of the other allowed values should be used.
+
+        If no validation is performed then the field should be omitted.
+
+        The allowed values are:
+
+        `verified` - The `agent.id` field value matches expected value obtained from
+        auth metadata.
+
+        `mismatch` - The `agent.id` field value does not match the expected value
+        obtained from auth metadata.
+
+        `missing` - There was no `agent.id` field in the event to validate.
+
+        `auth_metadata_missing` - There was no auth metadata or it was missing information
+        about the agent ID.'
+      example: verified
+      flat_name: event.agent_id_status
+      ignore_above: 1024
+      level: extended
+      name: agent_id_status
+      normalize: []
+      short: Validation status of the event's agent.id field.
+      type: keyword
     event.category:
       allowed_values:
       - description: Events in this category are related to the challenge and response
@@ -1115,6 +1287,19 @@ event:
         - end
         - info
         name: authentication
+      - description: 'Events in the configuration category have to deal with creating,
+          modifying, or deleting the settings or parameters of an application, process,
+          or system.
+
+          Example sources include security policy change logs, configuration auditing
+          logging, and system integrity monitoring.'
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        - info
+        name: configuration
       - description: The database category denotes events and metrics relating to
           a data storage and retrieval system. Note that use of this category is not
           limited to relational database systems. Examples include event logs from
@@ -1231,6 +1416,30 @@ event:
         - info
         - start
         name: process
+      - description: Having to do with settings and assets stored in the Windows registry.
+          Use this category to visualize and analyze activity such as registry access
+          and modifications.
+        expected_event_types:
+        - access
+        - change
+        - creation
+        - deletion
+        name: registry
+      - description: The session category is applied to events and metrics regarding
+          logical persistent connections to hosts and services. Use this category
+          to visualize and analyze interactive or automated persistent connections
+          between assets. Data for this category may come from Windows Event logs,
+          SSH logs, or stateless sessions such as HTTP cookie-based sessions, etc.
+        expected_event_types:
+        - start
+        - end
+        - info
+        name: session
+      - description: Use this category to visualize and analyze events describing
+          threat actors' targets, motives, or behaviors.
+        expected_event_types:
+        - indicator
+        name: threat
       - description: 'Relating to web server access. Use this category to create a
           dashboard of web server/proxy activity from apache, IIS, nginx web servers,
           etc. Note: events from network observers such as Zeek http log may also
@@ -1384,13 +1593,23 @@ event:
       type: date
     event.kind:
       allowed_values:
-      - description: 'This value indicates an event that describes an alert or notable
-          event, triggered by a detection rule.
+      - description: 'This value indicates an event such as an alert or notable event,
+          triggered by a detection rule executing externally to the Elastic Stack.
 
           `event.kind:alert` is often populated for events coming from firewalls,
           intrusion detection systems, endpoint detection and response systems, and
-          so on.'
+          so on.
+
+          This value is not used by Elastic solutions for alert documents that are
+          created by rules executing within the Kibana alerting framework.'
         name: alert
+      - description: 'The `enrichment` value indicates an event collected to provide
+          additional context, often to other events.
+
+          An example is collecting indicators of compromise (IOCs) from a threat intelligence
+          provider with the intent to use those values to enrich other events. The
+          IOC events from the intelligence provider should be categorized as `event.kind:enrichment`.'
+        name: enrichment
       - description: This value is the most general and most common value for this
           field. It is used to represent events that indicate that something happened.
         name: event
@@ -1426,14 +1645,12 @@ event:
           of this event, and that event data may be missing, inconsistent, or incorrect.
           `event.kind:pipeline_error` is often associated with parsing errors.
         name: pipeline_error
-      - description: 'This value is used by the Elastic SIEM app to denote an Elasticsearch
-          document that was created by a SIEM detection engine rule.
+      - description: 'This value is used by Elastic solutions (e.g., Security, Observability)
+          for alert documents that are created by rules executing within the Kibana
+          alerting framework.
 
-          A signal will typically trigger a notification that something meaningful
-          happened and should be investigated.
-
-          Usage of this value is reserved, and pipelines should not populate `event.kind`
-          with the value "signal".'
+          Usage of this value is reserved, and data ingestion pipelines must not populate
+          `event.kind` with the value "signal".'
         name: signal
       dashed_name: event-kind
       description: 'This is one of four ECS Categorization Fields, and indicates the
@@ -1472,15 +1689,17 @@ event:
       type: keyword
     event.original:
       dashed_name: event-original
-      description: 'Raw text message of entire event. Used to demonstrate log integrity.
+      description: 'Raw text message of entire event. Used to demonstrate log integrity
+        or where the full log message (before splitting it up in multiple parts) may
+        be required, e.g. for reindex.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
-        but it can be retrieved from `_source`.'
+        but it can be retrieved from `_source`. If users wish to override this and
+        index this field, please see `Field data types` in the `Elasticsearch Reference`.'
       doc_values: false
       example: Sep 19 08:26:10 host CEF:0&#124;Security&#124; threatmanager&#124;1.0&#124;100&#124;
         worm successfully stopped&#124;10&#124;src=10.0.0.1 dst=2.1.2.2spt=1232
       flat_name: event.original
-      ignore_above: 1024
       index: false
       level: core
       name: original
@@ -1570,7 +1789,7 @@ event:
       dashed_name: event-reference
       description: 'Reference URL linking to additional information about this event.
 
-        This URL links to a static definition of the this event. Alert events, indicated
+        This URL links to a static definition of this event. Alert events, indicated
         by `event.kind:alert`, are a common use case for this field.'
       example: https://system.example.com/event/#0001234
       flat_name: event.reference
@@ -1749,6 +1968,11 @@ event:
           AND event.type:creation AND event.type:group`. You can further distinguish
           group operations using the ECS `event.action` field.'
         name: group
+      - description: 'The indicator event type is used for the subset of events within
+          a category that contain details about indicators of compromise (IOCs).
+
+          A common example is `event.category:threat AND event.type:indicator`.'
+        name: indicator
       - description: The info event type is used for the subset of events within a
           category that indicate that they are purely informational, and don't report
           a state change, or any type of action. For example, an initial run of a
@@ -1774,12 +1998,6 @@ event:
           should not use the protocol value. Further note that when the protocol subcategory
           is used, the identified protocol is populated in the ECS `network.protocol`
           field.
-        expected_event_types:
-        - access
-        - change
-        - end
-        - info
-        - start
         name: protocol
       - description: The start event type is used for the subset of events within
           a category that indicate something has started. A common example is `event.category:process
@@ -1850,17 +2068,15 @@ http:
       description: The full HTTP request body.
       example: Hello world
       flat_name: http.request.body.content
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: http.request.body.content.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: request.body.content
       normalize: []
       short: The full HTTP request body.
-      type: keyword
+      type: wildcard
     http.request.bytes:
       dashed_name: http-request-bytes
       description: Total size in bytes of the request (body and headers).
@@ -1872,24 +2088,50 @@ http:
       normalize: []
       short: Total size in bytes of the request (body and headers).
       type: long
+    http.request.id:
+      dashed_name: http-request-id
+      description: 'A unique identifier for each HTTP request to correlate logs between
+        clients and servers in transactions.
+
+        The id may be contained in a non-standard HTTP header, such as `X-Request-ID`
+        or `X-Correlation-ID`.'
+      example: 123e4567-e89b-12d3-a456-426614174000
+      flat_name: http.request.id
+      ignore_above: 1024
+      level: extended
+      name: request.id
+      normalize: []
+      short: HTTP request ID.
+      type: keyword
     http.request.method:
       dashed_name: http-request-method
       description: 'HTTP request method.
 
-        Prior to ECS 1.6.0 the following guidance was provided:
-
-        "The field value must be normalized to lowercase for querying."
-
-        As of ECS 1.6.0, the guidance is deprecated because the original case of the
-        method may be useful in anomaly detection.  Original case will be mandated
-        in ECS 2.0.0'
-      example: GET, POST, PUT, PoST
+        The value should retain its casing from the original event. For example, `GET`,
+        `get`, and `GeT` are all considered valid values for this field.'
+      example: POST
       flat_name: http.request.method
       ignore_above: 1024
       level: extended
       name: request.method
       normalize: []
       short: HTTP request method.
+      type: keyword
+    http.request.mime_type:
+      dashed_name: http-request-mime-type
+      description: 'Mime type of the body of the request.
+
+        This value must only be populated based on the content of the request body,
+        not on the `Content-Type` header. Comparing the mime type of a request with
+        the request''s Content-Type header can be helpful in detecting threats or
+        misconfigured clients.'
+      example: image/gif
+      flat_name: http.request.mime_type
+      ignore_above: 1024
+      level: extended
+      name: request.mime_type
+      normalize: []
+      short: Mime type of the body of the request.
       type: keyword
     http.request.referrer:
       dashed_name: http-request-referrer
@@ -1918,17 +2160,15 @@ http:
       description: The full HTTP response body.
       example: Hello world
       flat_name: http.response.body.content
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: http.response.body.content.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: response.body.content
       normalize: []
       short: The full HTTP response body.
-      type: keyword
+      type: wildcard
     http.response.bytes:
       dashed_name: http-response-bytes
       description: Total size in bytes of the response (body and headers).
@@ -1940,6 +2180,22 @@ http:
       normalize: []
       short: Total size in bytes of the response (body and headers).
       type: long
+    http.response.mime_type:
+      dashed_name: http-response-mime-type
+      description: 'Mime type of the body of the response.
+
+        This value must only be populated based on the content of the response body,
+        not on the `Content-Type` header. Comparing the mime type of a response with
+        the response''s Content-Type header can be helpful in detecting misconfigured
+        servers.'
+      example: image/gif
+      flat_name: http.response.mime_type
+      ignore_above: 1024
+      level: extended
+      name: response.mime_type
+      normalize: []
+      short: Mime type of the body of the response.
+      type: keyword
     http.response.status_code:
       dashed_name: http-response-status-code
       description: HTTP response status code.
@@ -1977,14 +2233,15 @@ network:
   fields:
     network.application:
       dashed_name: network-application
-      description: 'A name given to an application level protocol. This can be arbitrarily
-        assigned for things like microservices, but also apply to things like skype,
-        icq, facebook, twitter. This would be used in situations where the vendor
-        or service can be decoded such as from the source/dest IP owners, ports, or
-        wire format.
+      description: 'When a specific application or service is identified from network
+        connection details (source/dest IPs, ports, certificates, or wire format),
+        this field captures the application''s or service''s name.
 
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+        For example, the original event identifies the network connection being from
+        a specific web service in a `https` network connection, like `facebook` or
+        `twitter`.
+
+        The field value must be normalized to lowercase for querying.'
       example: aim
       flat_name: network.application
       ignore_above: 1024
@@ -2025,11 +2282,17 @@ network:
     network.direction:
       dashed_name: network-direction
       description: "Direction of the network traffic.\nRecommended values are:\n \
-        \ * inbound\n  * outbound\n  * internal\n  * external\n  * unknown\n\nWhen\
-        \ mapping events from a host-based monitoring context, populate this field\
-        \ from the host's point of view.\nWhen mapping events from a network or perimeter-based\
-        \ monitoring context, populate this field from the point of view of your network\
-        \ perimeter."
+        \ * ingress\n  * egress\n  * inbound\n  * outbound\n  * internal\n  * external\n\
+        \  * unknown\n\nWhen mapping events from a host-based monitoring context,\
+        \ populate this field from the host's point of view, using the values \"ingress\"\
+        \ or \"egress\".\nWhen mapping events from a network or perimeter-based monitoring\
+        \ context, populate this field from the point of view of the network perimeter,\
+        \ using the values \"inbound\", \"outbound\", \"internal\" or \"external\"\
+        .\nNote that \"internal\" is not crossing perimeter boundaries, and is meant\
+        \ to describe communication between two hosts within the perimeter. Note also\
+        \ that \"external\" is meant to describe traffic between two hosts that are\
+        \ external to the perimeter. This could for example be useful for ISPs or\
+        \ VPN service providers."
       example: inbound
       flat_name: network.direction
       ignore_above: 1024
@@ -2064,8 +2327,8 @@ network:
     network.inner:
       dashed_name: network-inner
       description: Network.inner fields are added in addition to network.vlan fields
-        to describe  the innermost VLAN when q-in-q VLAN tagging is present. Allowed
-        fields include  vlan.id and vlan.name. Inner vlan fields are typically used
+        to describe the innermost VLAN when q-in-q VLAN tagging is present. Allowed
+        fields include vlan.id and vlan.name. Inner vlan fields are typically used
         when sending traffic with multiple 802.1q encapsulations to a network sensor
         (e.g. Zeek, Wireshark.)
       flat_name: network.inner
@@ -2124,25 +2387,24 @@ network:
       type: long
     network.protocol:
       dashed_name: network-protocol
-      description: 'L7 Network protocol name. ex. http, lumberjack, transport protocol.
+      description: 'In the OSI Model this would be the Application Layer protocol.
+        For example, `http`, `dns`, or `ssh`.
 
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+        The field value must be normalized to lowercase for querying.'
       example: http
       flat_name: network.protocol
       ignore_above: 1024
       level: core
       name: protocol
       normalize: []
-      short: L7 Network protocol name.
+      short: Application protocol name.
       type: keyword
     network.transport:
       dashed_name: network-transport
       description: 'Same as network.iana_number, but instead using the Keyword name
         of the transport layer (udp, tcp, ipv6-icmp, etc.)
 
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+        The field value must be normalized to lowercase for querying.'
       example: tcp
       flat_name: network.transport
       ignore_above: 1024
@@ -2156,8 +2418,7 @@ network:
       description: 'In the OSI Model this would be the Network Layer. ipv4, ipv6,
         ipsec, pim, etc
 
-        The field value must be normalized to lowercase for querying. See the documentation
-        section "Implementing ECS".'
+        The field value must be normalized to lowercase for querying.'
       example: ipv4
       flat_name: network.type
       ignore_above: 1024
@@ -2231,14 +2492,14 @@ related:
       type: ip
     related.user:
       dashed_name: related-user
-      description: All the user names seen on your event.
+      description: All the user names or other user identifiers seen on the event.
       flat_name: related.user
       ignore_above: 1024
       level: extended
       name: user
       normalize:
       - array
-      short: All the user names seen on your event.
+      short: All the user names or other user identifiers seen on the event.
       type: keyword
   group: 2
   name: related
@@ -2300,8 +2561,7 @@ server:
       multi_fields:
       - flat_name: server.as.organization.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: organization.name
       normalize: []
       original_fieldset: as
@@ -2320,13 +2580,18 @@ server:
       type: long
     server.domain:
       dashed_name: server-domain
-      description: Server domain.
+      description: 'The domain name of the server system.
+
+        This value may be a host name, a fully qualified domain name, or another host
+        naming format. The value may derive from the original event or be added from
+        enrichment.'
+      example: foo.example.com
       flat_name: server.domain
       ignore_above: 1024
       level: core
       name: domain
       normalize: []
-      short: Server domain.
+      short: The domain name of the server.
       type: keyword
     server.geo.city_name:
       dashed_name: server-geo-city-name
@@ -2339,6 +2604,18 @@ server:
       normalize: []
       original_fieldset: geo
       short: City name.
+      type: keyword
+    server.geo.continent_code:
+      dashed_name: server-geo-continent-code
+      description: Two-letter code representing continent's name.
+      example: NA
+      flat_name: server.geo.continent_code
+      ignore_above: 1024
+      level: core
+      name: continent_code
+      normalize: []
+      original_fieldset: geo
+      short: Continent code.
       type: keyword
     server.geo.continent_name:
       dashed_name: server-geo-continent-name
@@ -2405,6 +2682,21 @@ server:
       original_fieldset: geo
       short: User-defined description of a location.
       type: keyword
+    server.geo.postal_code:
+      dashed_name: server-geo-postal-code
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      flat_name: server.geo.postal_code
+      ignore_above: 1024
+      level: core
+      name: postal_code
+      normalize: []
+      original_fieldset: geo
+      short: Postal code.
+      type: keyword
     server.geo.region_iso_code:
       dashed_name: server-geo-region-iso-code
       description: Region ISO code.
@@ -2429,6 +2721,18 @@ server:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    server.geo.timezone:
+      dashed_name: server-geo-timezone
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      flat_name: server.geo.timezone
+      ignore_above: 1024
+      level: core
+      name: timezone
+      normalize: []
+      original_fieldset: geo
+      short: Time zone.
+      type: keyword
     server.ip:
       dashed_name: server-ip
       description: IP address of the server (IPv4 or IPv6).
@@ -2440,7 +2744,13 @@ server:
       type: ip
     server.mac:
       dashed_name: server-mac
-      description: MAC address of the server.
+      description: 'MAC address of the server.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit
+        byte) is represented by two [uppercase] hexadecimal digits giving the value
+        of the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.'
+      example: 00-00-5E-00-53-23
       flat_name: server.mac
       ignore_above: 1024
       level: core
@@ -2510,6 +2820,24 @@ server:
       normalize: []
       short: The highest registered server domain, stripped of the subdomain.
       type: keyword
+    server.subdomain:
+      dashed_name: server-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: server.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     server.top_level_domain:
       dashed_name: server-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -2561,8 +2889,7 @@ server:
       multi_fields:
       - flat_name: server.user.full_name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full_name
       normalize: []
       original_fieldset: user
@@ -2621,6 +2948,7 @@ server:
     server.user.id:
       dashed_name: server-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: server.user.id
       ignore_above: 1024
       level: core
@@ -2632,15 +2960,14 @@ server:
     server.user.name:
       dashed_name: server-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: server.user.name
       ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: server.user.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       original_fieldset: user
@@ -2680,9 +3007,15 @@ server:
   title: Server
   type: group
 source:
-  description: 'Source fields describe details about the source of a packet/event.
+  description: 'Source fields capture details about the sender of a network exchange/packet.
+    These fields are populated from a network event, packet, or other event containing
+    details of a network transaction.
 
-    Source fields are usually populated in conjunction with destination fields.'
+    Source fields are usually populated in conjunction with destination fields. The
+    source and destination fields are considered the baseline and should always be
+    filled if an event contains source and destination details from a network transaction.
+    If the event also contains identification of the client and server roles, then
+    the client and server fields should also be populated.'
   fields:
     source.address:
       dashed_name: source-address
@@ -2721,8 +3054,7 @@ source:
       multi_fields:
       - flat_name: source.as.organization.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: organization.name
       normalize: []
       original_fieldset: as
@@ -2741,13 +3073,18 @@ source:
       type: long
     source.domain:
       dashed_name: source-domain
-      description: Source domain.
+      description: 'The domain name of the source system.
+
+        This value may be a host name, a fully qualified domain name, or another host
+        naming format. The value may derive from the original event or be added from
+        enrichment.'
+      example: foo.example.com
       flat_name: source.domain
       ignore_above: 1024
       level: core
       name: domain
       normalize: []
-      short: Source domain.
+      short: The domain name of the source.
       type: keyword
     source.geo.city_name:
       dashed_name: source-geo-city-name
@@ -2760,6 +3097,18 @@ source:
       normalize: []
       original_fieldset: geo
       short: City name.
+      type: keyword
+    source.geo.continent_code:
+      dashed_name: source-geo-continent-code
+      description: Two-letter code representing continent's name.
+      example: NA
+      flat_name: source.geo.continent_code
+      ignore_above: 1024
+      level: core
+      name: continent_code
+      normalize: []
+      original_fieldset: geo
+      short: Continent code.
       type: keyword
     source.geo.continent_name:
       dashed_name: source-geo-continent-name
@@ -2826,6 +3175,21 @@ source:
       original_fieldset: geo
       short: User-defined description of a location.
       type: keyword
+    source.geo.postal_code:
+      dashed_name: source-geo-postal-code
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      flat_name: source.geo.postal_code
+      ignore_above: 1024
+      level: core
+      name: postal_code
+      normalize: []
+      original_fieldset: geo
+      short: Postal code.
+      type: keyword
     source.geo.region_iso_code:
       dashed_name: source-geo-region-iso-code
       description: Region ISO code.
@@ -2850,6 +3214,18 @@ source:
       original_fieldset: geo
       short: Region name.
       type: keyword
+    source.geo.timezone:
+      dashed_name: source-geo-timezone
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      flat_name: source.geo.timezone
+      ignore_above: 1024
+      level: core
+      name: timezone
+      normalize: []
+      original_fieldset: geo
+      short: Time zone.
+      type: keyword
     source.ip:
       dashed_name: source-ip
       description: IP address of the source (IPv4 or IPv6).
@@ -2861,7 +3237,13 @@ source:
       type: ip
     source.mac:
       dashed_name: source-mac
-      description: MAC address of the source.
+      description: 'MAC address of the source.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit
+        byte) is represented by two [uppercase] hexadecimal digits giving the value
+        of the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.'
+      example: 00-00-5E-00-53-23
       flat_name: source.mac
       ignore_above: 1024
       level: core
@@ -2931,6 +3313,24 @@ source:
       normalize: []
       short: The highest registered source domain, stripped of the subdomain.
       type: keyword
+    source.subdomain:
+      dashed_name: source-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: source.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     source.top_level_domain:
       dashed_name: source-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -2982,8 +3382,7 @@ source:
       multi_fields:
       - flat_name: source.user.full_name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full_name
       normalize: []
       original_fieldset: user
@@ -3042,6 +3441,7 @@ source:
     source.user.id:
       dashed_name: source-user-id
       description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
       flat_name: source.user.id
       ignore_above: 1024
       level: core
@@ -3053,15 +3453,14 @@ source:
     source.user.name:
       dashed_name: source-user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: source.user.name
       ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: source.user.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       original_fieldset: user
@@ -3109,7 +3508,11 @@ url:
       description: 'Domain of the url, such as "www.elastic.co".
 
         In some cases a URL may refer to an IP and/or port directly, without a domain
-        name. In this case, the IP address would go to the `domain` field.'
+        name. In this case, the IP address would go to the `domain` field.
+
+        If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC
+        2732), the `[` and `]` characters should also be captured in the `domain`
+        field.'
       example: www.elastic.co
       flat_name: url.domain
       ignore_above: 1024
@@ -3121,19 +3524,22 @@ url:
     url.extension:
       dashed_name: url-extension
       description: 'The field contains the file extension from the original request
-        url.
+        url, excluding the leading dot.
 
         The file extension is only set if it exists, as not every url has a file extension.
 
         The leading period must not be included. For example, the value must be "png",
-        not ".png".'
+        not ".png".
+
+        Note that when the file name has multiple extensions (example.tar.gz), only
+        the last one should be captured ("gz", not "tar.gz").'
       example: png
       flat_name: url.extension
       ignore_above: 1024
       level: extended
       name: extension
       normalize: []
-      short: File extension from the original request url.
+      short: File extension from the request url, excluding the leading dot.
       type: keyword
     url.fragment:
       dashed_name: url-fragment
@@ -3154,17 +3560,15 @@ url:
         source.
       example: https://www.elastic.co:443/search?q=elasticsearch#top
       flat_name: url.full
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: url.full.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full
       normalize: []
       short: Full unparsed URL.
-      type: keyword
+      type: wildcard
     url.original:
       dashed_name: url-original
       description: 'Unmodified original url as seen in the event source.
@@ -3175,17 +3579,15 @@ url:
         This field is meant to represent the URL as it was observed, complete or not.'
       example: https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch
       flat_name: url.original
-      ignore_above: 1024
       level: extended
       multi_fields:
       - flat_name: url.original.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: original
       normalize: []
       short: Unmodified original url as seen in the event source.
-      type: keyword
+      type: wildcard
     url.password:
       dashed_name: url-password
       description: Password of the request.
@@ -3200,12 +3602,11 @@ url:
       dashed_name: url-path
       description: Path of the request, such as "/search".
       flat_name: url.path
-      ignore_above: 1024
       level: extended
       name: path
       normalize: []
       short: Path of the request, such as "/search".
-      type: keyword
+      type: wildcard
     url.port:
       dashed_name: url-port
       description: Port of the request, such as 443.
@@ -3263,6 +3664,24 @@ url:
       normalize: []
       short: Scheme of the url.
       type: keyword
+    url.subdomain:
+      dashed_name: url-subdomain
+      description: 'The subdomain portion of a fully qualified domain name includes
+        all of the names except the host name under the registered_domain.  In a partially
+        qualified domain, or if the the qualification level of the full name cannot
+        be determined, subdomain contains all of the names below the registered domain.
+
+        For example the subdomain portion of "www.east.mydomain.co.uk" is "east".
+        If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
+        the subdomain field should contain "sub2.sub1", with no trailing period.'
+      example: east
+      flat_name: url.subdomain
+      ignore_above: 1024
+      level: extended
+      name: subdomain
+      normalize: []
+      short: The subdomain of the domain.
+      type: keyword
     url.top_level_domain:
       dashed_name: url-top-level-domain
       description: 'The effective top level domain (eTLD), also known as the domain
@@ -3293,6 +3712,16 @@ url:
   group: 2
   name: url
   prefix: url.
+  reusable:
+    expected:
+    - as: url
+      at: threat.indicator
+      full: threat.indicator.url
+    - as: url
+      at: threat.enrichments.indicator
+      beta: Reusing the `url` fields in this location is currently considered beta.
+      full: threat.enrichments.indicator.url
+    top_level: true
   short: Fields that let you store URLs in various forms.
   title: URL
   type: group
@@ -3306,15 +3735,14 @@ user:
     user.name:
       dashed_name: user-name
       description: Short name or login of the user.
-      example: albert
+      example: a.einstein
       flat_name: user.name
       ignore_above: 1024
       level: core
       multi_fields:
       - flat_name: user.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       short: Short name or login of the user.
@@ -3322,7 +3750,10 @@ user:
   group: 2
   name: user
   nestings:
+  - user.changes
+  - user.effective
   - user.group
+  - user.target
   prefix: user.
   reusable:
     expected:
@@ -3333,19 +3764,37 @@ user:
       at: destination
       full: destination.user
     - as: user
-      at: host
-      full: host.user
-    - as: user
       at: server
       full: server.user
     - as: user
       at: source
       full: source.user
+    - as: target
+      at: user
+      full: user.target
+      short_override: Targeted user of action taken.
+    - as: effective
+      at: user
+      full: user.effective
+      short_override: User whose privileges were assumed.
+    - as: changes
+      at: user
+      full: user.changes
+      short_override: Captures changes made to a user.
     top_level: true
   reused_here:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
+  - full: user.target
+    schema_name: user
+    short: Targeted user of action taken.
+  - full: user.effective
+    schema_name: user
+    short: User whose privileges were assumed.
+  - full: user.changes
+    schema_name: user
+    short: Captures changes made to a user.
   short: Fields to describe the user relevant to the event.
   title: User
   type: group
@@ -3387,8 +3836,7 @@ user_agent:
       multi_fields:
       - flat_name: user_agent.original.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: original
       normalize: []
       short: Unparsed user_agent string.
@@ -3415,8 +3863,7 @@ user_agent:
       multi_fields:
       - flat_name: user_agent.os.full.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: full
       normalize: []
       original_fieldset: os
@@ -3444,8 +3891,7 @@ user_agent:
       multi_fields:
       - flat_name: user_agent.os.name.text
         name: text
-        norms: false
-        type: text
+        type: match_only_text
       name: name
       normalize: []
       original_fieldset: os
@@ -3462,6 +3908,26 @@ user_agent:
       normalize: []
       original_fieldset: os
       short: Operating system platform (such centos, ubuntu, windows).
+      type: keyword
+    user_agent.os.type:
+      dashed_name: user-agent-os-type
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        One of these following values should be used (lowercase): linux, macos, unix,
+        windows.
+
+        If the OS you''re dealing with is not in the list, the field should not be
+        populated. Please let us know by opening an issue with ECS, to propose its
+        addition.'
+      example: macos
+      flat_name: user_agent.os.type
+      ignore_above: 1024
+      level: extended
+      name: type
+      normalize: []
+      original_fieldset: os
+      short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
       type: keyword
     user_agent.os.version:
       dashed_name: user-agent-os-version
