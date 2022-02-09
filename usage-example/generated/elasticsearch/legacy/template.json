@@ -4,7 +4,7 @@
   ],
   "mappings": {
     "_meta": {
-      "version": "1.6.0"
+      "version": "8.0.0"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -88,8 +88,7 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "ignore_above": 1024,
@@ -112,6 +111,10 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "continent_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "continent_name": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -131,11 +134,19 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "postal_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "region_iso_code": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "region_name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "timezone": {
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -168,6 +179,10 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "subdomain": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "top_level_domain": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -185,8 +200,7 @@
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -219,8 +233,7 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -250,8 +263,7 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "ignore_above": 1024,
@@ -274,6 +286,10 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "continent_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "continent_name": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -293,11 +309,19 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "postal_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "region_iso_code": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "region_name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "timezone": {
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -330,6 +354,10 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "subdomain": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "top_level_domain": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -347,8 +375,7 @@
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -381,8 +408,7 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -407,6 +433,10 @@
       "event": {
         "properties": {
           "action": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "agent_id_status": {
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -452,7 +482,6 @@
           },
           "original": {
             "doc_values": false,
-            "ignore_above": 1024,
             "index": false,
             "type": "keyword"
           },
@@ -513,19 +542,25 @@
                   "content": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "ignore_above": 1024,
-                    "type": "keyword"
+                    "type": "wildcard"
                   }
                 }
               },
               "bytes": {
                 "type": "long"
               },
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "method": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "mime_type": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
@@ -545,17 +580,19 @@
                   "content": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
-                    "ignore_above": 1024,
-                    "type": "keyword"
+                    "type": "wildcard"
                   }
                 }
               },
               "bytes": {
                 "type": "long"
+              },
+              "mime_type": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "status_code": {
                 "type": "long"
@@ -572,8 +609,7 @@
         "type": "object"
       },
       "message": {
-        "norms": false,
-        "type": "text"
+        "type": "match_only_text"
       },
       "network": {
         "properties": {
@@ -676,8 +712,7 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "ignore_above": 1024,
@@ -700,6 +735,10 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "continent_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "continent_name": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -719,11 +758,19 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "postal_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "region_iso_code": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "region_name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "timezone": {
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -756,6 +803,10 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "subdomain": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "top_level_domain": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -773,8 +824,7 @@
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -807,8 +857,7 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -838,8 +887,7 @@
                   "name": {
                     "fields": {
                       "text": {
-                        "norms": false,
-                        "type": "text"
+                        "type": "match_only_text"
                       }
                     },
                     "ignore_above": 1024,
@@ -862,6 +910,10 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "continent_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "continent_name": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -881,11 +933,19 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "postal_code": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "region_iso_code": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "region_name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "timezone": {
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -918,6 +978,10 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "subdomain": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
           "top_level_domain": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -935,8 +999,7 @@
               "full_name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -969,8 +1032,7 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -1005,30 +1067,25 @@
           "full": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "ignore_above": 1024,
-            "type": "keyword"
+            "type": "wildcard"
           },
           "original": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
-            "ignore_above": 1024,
-            "type": "keyword"
+            "type": "wildcard"
           },
           "password": {
             "ignore_above": 1024,
             "type": "keyword"
           },
           "path": {
-            "ignore_above": 1024,
-            "type": "keyword"
+            "type": "wildcard"
           },
           "port": {
             "type": "long"
@@ -1042,6 +1099,10 @@
             "type": "keyword"
           },
           "scheme": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "subdomain": {
             "ignore_above": 1024,
             "type": "keyword"
           },
@@ -1060,8 +1121,7 @@
           "name": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "ignore_above": 1024,
@@ -1086,8 +1146,7 @@
           "original": {
             "fields": {
               "text": {
-                "norms": false,
-                "type": "text"
+                "type": "match_only_text"
               }
             },
             "ignore_above": 1024,
@@ -1102,8 +1161,7 @@
               "full": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
@@ -1116,14 +1174,17 @@
               "name": {
                 "fields": {
                   "text": {
-                    "norms": false,
-                    "type": "text"
+                    "type": "match_only_text"
                   }
                 },
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "platform": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "type": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
