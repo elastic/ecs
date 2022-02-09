@@ -359,6 +359,12 @@ make sure when users are using these metrics, they are all collected to represen
 the same thing. For example, `container.cpu.usage` needs to be a normalized value
 between 0 and 1.
 
+We need to carefully distinguish metrics of containers with the metrics coming from the host
+where these containers are running. For example, events from Kubernetes contain information for
+both the container and the host(kubernetes node)(e.g., `container.id` and `host.id`).
+For that reason host metrics should be stored under `host.*` while container metrics should be stored
+under `container.*`.
+
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
