@@ -46,7 +46,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Added `faas.*` field set as beta. #1628
+* Added `faas.*` field set as beta. #1628, #1755
 
 #### Bugfixes
 
