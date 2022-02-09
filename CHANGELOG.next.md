@@ -70,7 +70,7 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
 * Remove template generation for ES6. #1680
-* Update folder structure for generated ES artifacts. #1700
+* Update folder structure for generated ES artifacts. #1700, #1762
 * Updated support for overridable composable settings template. #1737
 
 #### Improvements
