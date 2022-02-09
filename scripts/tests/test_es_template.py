@@ -185,17 +185,17 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = ["ecs_{}_acme".format(version)]
         self.assertEqual(es_template.component_name_convention(version, test_map), exp)
 
-
     def test_legacy_template_settings_override(self):
         ecs_version = 100
         exp = es_template.default_legacy_template_settings(ecs_version)
-        
+
         generated_template = es_template.template_settings(ecs_version, None, None, isLegacy=True)
         self.assertEqual(generated_template, exp)
 
-        generated_template = es_template.template_settings(ecs_version, None, './usage-example/fields/template-settings-legacy.json', isLegacy=True)
+        generated_template = es_template.template_settings(
+            ecs_version, None, './usage-example/fields/template-settings-legacy.json', isLegacy=True)
         self.assertNotEqual(generated_template, exp)
-    
+
     def test_default_composable_template_settings(self):
         ecs_version = 100
         exp = es_template.default_template_settings(ecs_version)
@@ -206,7 +206,8 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         generated_template = es_template.template_settings(ecs_version, None, None)
         self.assertEqual(generated_template, exp)
 
-        generated_template = es_template.template_settings(ecs_version, None, './usage-example/fields/template-settings.json', isLegacy=True)
+        generated_template = es_template.template_settings(
+            ecs_version, None, './usage-example/fields/template-settings.json', isLegacy=True)
         self.assertNotEqual(generated_template, exp)
 
 
