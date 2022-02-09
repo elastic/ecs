@@ -9,12 +9,12 @@ command from the root of the ECS repository:
 
 ```bash
 python scripts/generator.py --ref v8.0.0 \
-  --subset            usage-example/fields/subset.yml \
-  --include           usage-example/fields/custom/ \
-  --out               usage-example/ \
-  --template-settings-legacy ../my-project/fields/template-settings-legacy.json \
-  --template-settings ../my-project/fields/template-settings.json \
-  --mapping-settings  usage-example/fields/mapping-settings.json
+  --subset                   usage-example/fields/subset.yml \
+  --include                  usage-example/fields/custom/ \
+  --out                      usage-example/ \
+  --template-settings-legacy usage-example/fields/template-settings-legacy.json \
+  --template-settings        usage-example/fields/template-settings.json \
+  --mapping-settings         usage-example/fields/mapping-settings.json
 ```
 
 Refer back to [USAGE.md](../USAGE.md) for the documentation on each of these flags.
