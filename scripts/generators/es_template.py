@@ -25,36 +25,17 @@ from generators import ecs_helpers
 # Composable Template
 
 
-def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file):
+def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file, template_settings_file):
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
     component_names = component_name_convention(ecs_version, ecs_nested)
-    save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file)
+    save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file, template_settings_file)
 
 
-def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file):
-    """Generate the master sample composable template"""
-    template = {
-        "index_patterns": ["try-ecs-*"],
-        "composed_of": component_names,
-        "priority": 1,  # Very low, as this is a sample template
-        "_meta": {
-            "ecs_version": ecs_version,
-            "description": "Sample composable template that includes all ECS fields"
-        },
-        "template": {
-            "settings": {
-                "index": {
-                    "mapping": {
-                        "total_fields": {
-                            "limit": 2000
-                        }
-                    }
-                }
-            },
-            "mappings": mapping_settings(mapping_settings_file)
-        }
-    }
+def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file, template_settings_file):
+    mappings_section = mapping_settings(mapping_settings_file)
+    template = template_settings(ecs_version, mappings_section, template_settings_file, component_names=component_names)
+
     filename = join(out_dir, "elasticsearch/composable/template.json")
     save_json(filename, template)
 
@@ -109,7 +90,7 @@ def candidate_components(ecs_nested):
 # Legacy template
 
 
-def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapping_settings_file):
+def generate_legacy(ecs_flat, ecs_version, out_dir, mapping_settings_file, template_settings_file,):
     """Generate the legacy index template"""
     field_mappings = {}
     for flat_name in sorted(ecs_flat):
@@ -120,12 +101,12 @@ def generate_legacy(ecs_flat, ecs_version, out_dir, template_settings_file, mapp
     mappings_section = mapping_settings(mapping_settings_file)
     mappings_section['properties'] = field_mappings
 
-    generate_legacy_template_version(7, ecs_version, mappings_section, out_dir, template_settings_file)
+    generate_legacy_template_version(ecs_version, mappings_section, out_dir, template_settings_file)
 
 
-def generate_legacy_template_version(es_version, ecs_version, mappings_section, out_dir, template_settings_file):
+def generate_legacy_template_version(ecs_version, mappings_section, out_dir, template_settings_file):
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', "legacy"))
-    template = template_settings(es_version, ecs_version, mappings_section, template_settings_file)
+    template = template_settings(ecs_version, mappings_section, template_settings_file, isLegacy=True)
 
     filename = join(out_dir, "elasticsearch/legacy/template.json")
     save_json(filename, template)
@@ -181,7 +162,7 @@ def entry_for(field):
                 if mf_type == 'keyword':
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['normalizer', 'ignore_above'])
                 elif mf_type == 'text':
-                    ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms'])
+                    ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms', 'analyzer'])
                 field_entry['fields'][mf['name']] = mf_entry
 
     except KeyError as ex:
@@ -199,21 +180,38 @@ def mapping_settings(mapping_settings_file):
     return mappings
 
 
-def template_settings(es_version, ecs_version, mappings_section, template_settings_file):
+def template_settings(ecs_version, mappings_section, template_settings_file, isLegacy=False, component_names=None):
     if template_settings_file:
         with open(template_settings_file) as f:
             template = json.load(f)
     else:
-        template = default_template_settings(ecs_version)
+        if isLegacy:
+            template = default_legacy_template_settings(ecs_version)
+        else:
+            template = default_template_settings(ecs_version)
 
-    template['mappings'] = mappings_section
-
-    # _meta can't be at template root in legacy templates, so moving back to mappings section
-    # if present
-    if '_meta' in template:
-        mappings_section['_meta'] = template.pop('_meta')
+    finalize_template(template, ecs_version, isLegacy, mappings_section, component_names)
 
     return template
+
+
+def finalize_template(template, ecs_version, isLegacy, mappings_section, component_names):
+    if isLegacy:
+        if mappings_section:
+            template['mappings'] = mappings_section
+
+            # _meta can't be at template root in legacy templates, so moving back to mappings section
+            # if present
+            if '_meta' in template:
+                mappings_section['_meta'] = template.pop('_meta')
+
+    else:
+        template['template']['mappings'] = mappings_section
+        template['composed_of'] = component_names
+        template['_meta'] = {
+            "ecs_version": ecs_version,
+            "description": "Sample composable template that includes all ECS fields"
+        }
 
 
 def save_json(file, data):
@@ -226,6 +224,28 @@ def save_json(file, data):
 
 
 def default_template_settings(ecs_version):
+    return {
+        "index_patterns": ["try-ecs-*"],
+        "_meta": {
+            "ecs_version": ecs_version,
+            "description": "Sample composable template that includes all ECS fields"
+        },
+        "priority": 1,  # Very low, as this is a sample template
+        "template": {
+            "settings": {
+                "index": {
+                    "mapping": {
+                        "total_fields": {
+                            "limit": 2000
+                        }
+                    }
+                }
+            },
+        }
+    }
+
+
+def default_legacy_template_settings(ecs_version):
     return {
         "index_patterns": ["try-ecs-*"],
         "_meta": {"version": ecs_version},
