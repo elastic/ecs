@@ -234,7 +234,6 @@ def default_template_settings(ecs_version):
         "template": {
             "settings": {
                 "index": {
-                    "codec": "best_compression",
                     "mapping": {
                         "total_fields": {
                             "limit": 2000
