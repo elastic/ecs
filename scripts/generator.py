@@ -18,8 +18,6 @@
 import argparse
 import os
 
-from warnings import warn
-
 from generators import asciidoc_fields
 from generators import beats
 from generators import csv_generator
