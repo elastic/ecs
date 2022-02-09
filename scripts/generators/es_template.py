@@ -201,12 +201,13 @@ def template_settings(ecs_version, mappings_section, template_settings_file, isL
 
 def finalize_template(template, ecs_version, isLegacy, mappings_section, component_names):
     if isLegacy:
-        template['mappings'] = mappings_section
+        if mappings_section:
+            template['mappings'] = mappings_section
 
-        # _meta can't be at template root in legacy templates, so moving back to mappings section
-        # if present
-        if '_meta' in template:
-            mappings_section['_meta'] = template.pop('_meta')
+            # _meta can't be at template root in legacy templates, so moving back to mappings section
+            # if present
+            if '_meta' in template:
+                mappings_section['_meta'] = template.pop('_meta')
 
     else:
         template['template']['mappings'] = mappings_section
