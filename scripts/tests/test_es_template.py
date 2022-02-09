@@ -185,6 +185,31 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = ["ecs_{}_acme".format(version)]
         self.assertEqual(es_template.component_name_convention(version, test_map), exp)
 
+    def test_legacy_template_settings_override(self):
+        ecs_version = 100
+        default = es_template.default_legacy_template_settings(ecs_version)
+
+        generated_template = es_template.template_settings(ecs_version, None, None, isLegacy=True)
+        self.assertEqual(generated_template, default)
+
+        generated_template = es_template.template_settings(
+            ecs_version, None, './usage-example/fields/template-settings-legacy.json', isLegacy=True)
+        self.assertNotEqual(generated_template, default)
+
+    def test_default_composable_template_settings(self):
+        ecs_version = 100
+        default = es_template.default_template_settings(ecs_version)
+        # Setting these to empty since we aren't testing this piece
+        default['template']['mappings'] = None
+        default['composed_of'] = None
+
+        generated_template = es_template.template_settings(ecs_version, None, None)
+        self.assertEqual(generated_template, default)
+
+        generated_template = es_template.template_settings(
+            ecs_version, None, './usage-example/fields/template-settings.json', isLegacy=True)
+        self.assertNotEqual(generated_template, default)
+
 
 if __name__ == '__main__':
     unittest.main()
