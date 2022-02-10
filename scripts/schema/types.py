@@ -24,13 +24,17 @@ from typing import (
 
 
 class Field(TypedDict, total=False):
+    dashed_name: str
     description: str
     example: str
+    flat_name: str
     footnote: str
     intermediate: bool
     level: str
     name: str
     node_name: str
+    normalize: List[str]
+    required: bool
     short: str
     type: str
 
@@ -65,6 +69,7 @@ class FieldNestedEntry(TypedDict, total=False):
     group: int
     name: str
     node_name: str
+    prefix: str
     short: str
     title: str
     type: str
