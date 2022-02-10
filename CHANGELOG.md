@@ -15,17 +15,9 @@ All notable changes to this project will be documented in this file based on the
 * Remove `log.original` field. #1580
 * Remove `process.ppid` field. #1596
 
-#### Bugfixes
-
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 * Added `faas.*` field set as beta. #1628, #1755
-
-#### Bugfixes
-
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
 
 #### Improvements
 
@@ -51,6 +43,10 @@ All notable changes to this project will be documented in this file based on the
 * Add explicit `default_field: true` for Beats artifacts. #1633
 * Reorganize docs directory structure. #1679
 * Added support for `analyzer` definitions for text fields. #1737
+
+#### Bugfixes
+
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
 
 ## [1.12.2](https://github.com/elastic/ecs/compare/v1.12.1...v1.12.2)
 
