@@ -29,7 +29,7 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
     The 'field_func(details)' provided will be called for each field, with the dictionary
     containing the field's details ({'field_details': {}, 'fields': {}).
     """
-    for (name, details) in fields.items():
+    for (_, details) in fields.items():
         if fieldset_func and 'schema_details' in details:
             fieldset_func(details)
         elif field_func and 'field_details' in details:
