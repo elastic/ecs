@@ -60,7 +60,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.1.0 (Soft Feature Freeze)
+## 8.1.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
@@ -86,51 +86,6 @@ Thanks, you're awesome :-) -->
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
-
-## 8.0.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-* Remove `host.user.*` field reuse. #1439
-* Remove deprecation notice on `http.request.method`. #1443
-* Migrate `log.origin.file.line` from `integer` to `long`. #1533
-* Remove `log.original` field. #1580
-* Remove `process.ppid` field. #1596
-
-#### Bugfixes
-
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
-#### Added
-
-* Added `faas.*` field set as beta. #1628, #1755
-
-#### Improvements
-
-* Wildcard type field migration GA. #1582
-* `match_only_text` type field migration GA. #1584
-* Threat indicator fields GA from RFC 0008. #1586
-
-### Tooling and Artifact Changes
-
-#### Breaking Changes
-
-* Removing deprecated --oss from generator #1404
-* Removing use-cases directory #1405
-* Remove Go code generator. #1567
-* Remove template generation for ES6. #1680
-* Update folder structure for generated ES artifacts. #1700, #1762
-* Updated support for overridable composable settings template. #1737
-
-#### Improvements
-
-* Align input options for --include and --subset arguments #1519
-* Remove remaining Go deps after removing Go code generator. #1585
-* Add explicit `default_field: true` for Beats artifacts. #1633
-* Reorganize docs directory structure. #1679
-* Added support for `analyzer` definitions for text fields. #1737
 
 <!-- All empty sections:
 
