@@ -15,7 +15,24 @@
 # specific language governing permissions and limitations
 # under the License.
 
-def visit_fields(fields, fieldset_func=None, field_func=None):
+from typing import (
+    Callable,
+    Dict,
+    List,
+    Optional,
+)
+
+from .types import (
+    Field,
+    FieldDetails,
+    FieldEntry,
+)
+
+def visit_fields(
+    fields: Dict[str, FieldEntry],
+    fieldset_func: Optional[Callable[[FieldEntry], None]] = None,
+    field_func: Optional[Callable[[FieldDetails], None]] = None
+) -> None:
     """
     This function navigates the deeply nested tree structure and runs provided
     functions on each fieldset or field encountered (both optional).
@@ -40,7 +57,11 @@ def visit_fields(fields, fieldset_func=None, field_func=None):
                          field_func=field_func)
 
 
-def visit_fields_with_path(fields, func, path=[]):
+def visit_fields_with_path(
+    fields: Dict[str, FieldEntry],
+    func: Callable[[FieldDetails], None],
+    path: Optional[List[str]] = []
+) -> None:
     """
     This function navigates the deeply nested tree structure and runs the provided
     function on all fields and field sets.
@@ -60,7 +81,11 @@ def visit_fields_with_path(fields, func, path=[]):
             visit_fields_with_path(details['fields'], func, path + new_nesting)
 
 
-def visit_fields_with_memo(fields, func, memo=None):
+def visit_fields_with_memo(
+    fields: Dict[str, FieldEntry],
+    func: Callable[[FieldEntry, Field], None],
+    memo: Optional[Dict[str, Field]] = None
+) -> None:
     """
     This function navigates the deeply nested tree structure and runs the provided
     function on all fields and field sets.
