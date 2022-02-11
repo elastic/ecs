@@ -16,6 +16,7 @@
 # under the License.
 
 from typing import (
+    Any,
     Dict,
     List,
     TypedDict,
@@ -23,17 +24,37 @@ from typing import (
 )
 
 
+class MultiField(TypedDict, total=False):
+    doc_values: bool
+    index: bool
+    ignore_above: int
+    name: str
+    norms: bool
+    type: str
+
+
+class AllowedValues(TypedDict, total=False):
+    name: str
+    description: str
+
+
 class Field(TypedDict, total=False):
+    allowed_values: List[AllowedValues]
     dashed_name: str
     description: str
+    doc_values: bool
     example: str
     flat_name: str
     footnote: str
+    ignore_above: int
+    index: bool
     intermediate: bool
     level: str
+    multi_fields: List[MultiField]
     name: str
     node_name: str
     normalize: List[str]
+    norms: bool
     required: bool
     short: str
     type: str
@@ -45,15 +66,17 @@ class FieldDetails(TypedDict, total=False):
 
 
 class Reuseable(TypedDict, total=False):
-    expected: List[Union[str, Dict[str, str]]]
+    expected: List[Any]
     top_level: bool
+    order: int
 
 
 class SchemaDetails(TypedDict, total=False):
     group: int
-    title: str
+    prefix: str
     reusable: Reuseable
-    root: str
+    root: bool
+    title: str
 
 
 class FieldEntry(TypedDict, total=False):

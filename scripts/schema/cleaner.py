@@ -29,6 +29,7 @@ from .types import (
     Field,
     FieldDetails,
     FieldEntry,
+    MultiField,
 )
 
 # This script performs a few cleanup functions in place, within the deeply nested
@@ -45,6 +46,8 @@ from .types import (
 # This script only deals with field sets themselves and the fields defined
 # inside them. It doesn't perform field reuse, and therefore doesn't
 # deal with final field names either.
+
+strict_mode: Optional[bool]  # work-around from https://github.com/python/mypy/issues/5732
 
 
 def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
@@ -89,14 +92,14 @@ def schema_mandatory_attributes(schema: FieldEntry) -> None:
                                                   list(schema['schema_details'].keys()))
     missing_attributes: List[str] = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
     if len(missing_attributes) > 0:
-        msg: str = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
+        msg = "Schema {} is missing the following mandatory attributes: {}.\nFound these: {}".format(
             schema['field_details']['name'], ', '.join(missing_attributes), current_schema_attributes)
         raise ValueError(msg)
     if 'reusable' in schema['schema_details']:
         reuse_attributes: List[str] = sorted(schema['schema_details']['reusable'].keys())
         missing_reuse_attributes: List[str] = ecs_helpers.list_subtract(['expected', 'top_level'], reuse_attributes)
         if len(missing_reuse_attributes) > 0:
-            msg: str = "Reusable schema {} is missing the following reuse attributes: {}.\nFound these: {}".format(
+            msg = "Reusable schema {} is missing the following reuse attributes: {}.\nFound these: {}".format(
                 schema['field_details']['name'], ', '.join(missing_reuse_attributes), reuse_attributes)
             raise ValueError(msg)
 
@@ -127,18 +130,18 @@ def normalize_reuse_notation(schema: FieldEntry) -> None:
     """
     if 'reusable' not in schema['schema_details']:
         return
-    schema_name: str = schema['field_details']['name']
-    reuse_entries: List[str] = []
+    schema_name = schema['field_details']['name']
+    reuse_entries = []
     for reuse_entry in schema['schema_details']['reusable']['expected']:
         if type(reuse_entry) is dict:  # Already explicit
             if 'at' in reuse_entry and 'as' in reuse_entry:
-                explicit_entry: Dict[str, str] = reuse_entry
+                explicit_entry = reuse_entry
             else:
                 raise ValueError("When specifying reusable expected locations for {} " +
                                  "with the dictionary notation, keys 'as' and 'at' are required. " +
                                  "Got {}.".format(schema_name, reuse_entry))
         else:  # Make it explicit
-            explicit_entry: Dict[str, str] = {'at': reuse_entry, 'as': schema_name}
+            explicit_entry = {'at': reuse_entry, 'as': schema_name}
         explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
         reuse_entries.append(explicit_entry)
     schema['schema_details']['reusable']['expected'] = reuse_entries
@@ -170,7 +173,7 @@ def field_defaults(field: FieldDetails) -> None:
                 mf['name'] = mf['type']
 
 
-def field_or_multi_field_datatype_defaults(field_details: Field) -> None:
+def field_or_multi_field_datatype_defaults(field_details: Union[Field, MultiField]) -> None:
     """Sets datatype-related defaults on a canonical field or multi-field entries."""
     if field_details['type'] == 'keyword':
         field_details.setdefault('ignore_above', 1024)
