@@ -28,6 +28,7 @@ from .types import (
     FieldEntry,
 )
 
+
 def visit_fields(
     fields: Dict[str, FieldEntry],
     fieldset_func: Optional[Callable[[FieldEntry], None]] = None,
