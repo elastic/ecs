@@ -1,0 +1,41 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: user
+  reusable:
+    top_level: true # the top level user relates to the top level process
+    expected:
+      - at: process.entry_leader
+        as: user
+        short_override: The effective user (euid) of the entry leader.
+      - at: process.session_leader
+        as: user
+        short_override: The effective user (euid) of the session leader.
+      - at: process.group_leader
+        as: user
+        short_override: The effective user (euid) of the group leader.
+      - at: process.parent
+        as: user
+        short_override: The effective user (euid) of the parent process.
+      - at: user
+        as: saved
+        short_override: The saved user (suid).
+      - at: user
+        as: real
+        short_override: The real user (ruid). Identifies the real owner of the process.
+
+      # note we would like to drop user.effective nesting (since this is same info as user.id & user.name)

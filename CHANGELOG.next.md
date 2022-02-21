@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 #### Improvements
@@ -36,7 +34,33 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.1.0 (Soft Feature Freeze)
+## 8.2.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.1.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
@@ -75,9 +99,13 @@ Thanks, you're awesome :-) -->
 * Remove `log.original` field. #1580
 * Remove `process.ppid` field. #1596
 
+#### Bugfixes
+
+* Fixed the `default_field` flag for root fields in Beats generator. #1711
+
 #### Added
 
-* Added `faas.*` field set as beta. #1628
+* Added `faas.*` field set as beta. #1628, #1755
 
 #### Improvements
 
@@ -93,7 +121,8 @@ Thanks, you're awesome :-) -->
 * Removing use-cases directory #1405
 * Remove Go code generator. #1567
 * Remove template generation for ES6. #1680
-* Update folder structure for generated ES artifacts. #1700
+* Update folder structure for generated ES artifacts. #1700, #1762
+* Updated support for overridable composable settings template. #1737
 
 #### Improvements
 
@@ -101,6 +130,7 @@ Thanks, you're awesome :-) -->
 * Remove remaining Go deps after removing Go code generator. #1585
 * Add explicit `default_field: true` for Beats artifacts. #1633
 * Reorganize docs directory structure. #1679
+* Added support for `analyzer` definitions for text fields. #1737
 
 <!-- All empty sections:
 
