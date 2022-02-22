@@ -32,37 +32,10 @@ def generate(ecs_nested, ecs_version, out_dir, mapping_settings_file, template_s
     save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file, template_settings_file)
 
 
-<<<<<<< HEAD
 def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file, template_settings_file):
     mappings_section = mapping_settings(mapping_settings_file)
     template = template_settings(ecs_version, mappings_section, template_settings_file, component_names=component_names)
 
-=======
-def save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file):
-    """Generate the master sample composable template"""
-    template = {
-        "index_patterns": ["try-ecs-*"],
-        "composed_of": component_names,
-        "priority": 1,  # Very low, as this is a sample template
-        "_meta": {
-            "ecs_version": ecs_version,
-            "description": "Sample composable template that includes all ECS fields"
-        },
-        "template": {
-            "settings": {
-                "index": {
-                    "codec": "best_compression",
-                    "mapping": {
-                        "total_fields": {
-                            "limit": 2000
-                        }
-                    }
-                }
-            },
-            "mappings": mapping_settings(mapping_settings_file)
-        }
-    }
->>>>>>> 9b653645 (Higher default compression for composable templates (#1712))
     filename = join(out_dir, "elasticsearch/composable/template.json")
     save_json(filename, template)
 
