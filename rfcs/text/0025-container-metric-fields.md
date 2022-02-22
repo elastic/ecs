@@ -1,8 +1,8 @@
 # 0025: Container Metric Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-07-29** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2022-02-21** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -75,6 +75,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 - AWS Fargate
 - Cloudfoundry
 - Google GKE
+- Containerd
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
@@ -88,6 +89,246 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
+### Kubernetes
+
+#### Original log
+
+```json
+{
+  "node": {
+    "nodeName": "gke-beats-default-pool-a5b33e2e-hdww",
+    "systemContainers": [
+      {
+        "name": "kubelet",
+        "startTime": "2021-12-20T09:53:30.156Z",
+        "cpu": {
+          "time": "2021-12-20T09:53:30.156Z",
+          "usageNanoCores": 11263994,
+          "usageCoreNanoSeconds": 2357800908948
+        },
+        "memory": {
+          "time": "2021-12-20T09:53:30.156Z",
+          "usageBytes": 36683776,
+          "workingSetBytes": 36495360,
+          "rssBytes": 35512320,
+          "pageFaults": 100835242,
+          "majorPageFaults": 0
+        },
+        "userDefinedMetrics": null
+      }
+    ],
+    "startTime": "2021-12-20T09:53:30.156Z",
+    "cpu": {
+      "time": "2021-12-20T09:53:30.156Z",
+      "usageNanoCores": 18691146,
+      "usageCoreNanoSeconds": 4189523881380
+    },
+    "memory": {
+      "time": "2021-12-20T09:53:30.156Z",
+      "availableBytes": 1768316928,
+      "usageBytes": 2764943360,
+      "workingSetBytes": 2111090688,
+      "rssBytes": 2150400,
+      "pageFaults": 131567,
+      "majorPageFaults": 103
+    },
+    "network": {
+      "time": "2021-12-20T09:53:30.156Z",
+      "rxBytes": 1115133198,
+      "rxErrors": 0,
+      "txBytes": 812729002,
+      "txErrors": 0
+    },
+    "fs": {
+      "availableBytes": 98727014400,
+      "capacityBytes": 101258067968,
+      "usedBytes": 2514276352,
+      "inodesFree": 18446744073709551615,
+      "inodes": 6258720,
+      "inodesUsed": 138624
+    },
+    "runtime": {
+      "imageFs": {
+        "availableBytes": 98727014400,
+        "capacityBytes": 101258067968,
+        "usedBytes": 860204379,
+        "inodesFree": 18446744073709551615,
+        "inodes": 6258720,
+        "inodesUsed": 138624
+      }
+    }
+  },
+  "pods": [
+    {
+      "podRef": {
+        "name": "nginx-deployment-2303442956-pcqfc",
+        "namespace": "default",
+        "uid": "beabc196-2456-11e7-a3ad-42010a840235"
+      },
+      "startTime": "2021-12-20T09:53:30.156Z",
+      "containers": [
+        {
+          "name": "nginx",
+          "startTime": "2017-04-18T16:47:44Z",
+          "cpu": {
+            "time": "2017-04-20T08:06:34Z",
+            "usageNanoCores": 11263994,
+            "usageCoreNanoSeconds": 43959424
+          },
+          "memory": {
+            "time": "2017-04-20T08:06:34Z",
+            "usageBytes": 1462272,
+            "workingSetBytes": 1454080,
+            "rssBytes": 1409024,
+            "pageFaults": 841,
+            "majorPageFaults": 0
+          },
+          "rootfs": {
+            "availableBytes": 98727014400,
+            "capacityBytes": 101258067968,
+            "usedBytes": 61440,
+            "inodesFree": 6120096,
+            "inodes": 6258720,
+            "inodesUsed": 21
+          },
+          "logs": {
+            "availableBytes": 98727014400,
+            "capacityBytes": 101258067968,
+            "usedBytes": 28672,
+            "inodesFree": 6120096,
+            "inodes": 6258720,
+            "inodesUsed": 138624
+          },
+          "userDefinedMetrics": null
+        }
+      ],
+      "network": {
+        "time": "2021-12-20T09:53:30.156Z",
+        "rxBytes": 107056,
+        "rxErrors": 0,
+        "txBytes": 72447,
+        "txErrors": 0
+      },
+      "volume": [
+        {
+          "availableBytes": 1939689472,
+          "capacityBytes": 1939701760,
+          "usedBytes": 12288,
+          "inodesFree": 473551,
+          "inodes": 473560,
+          "inodesUsed": 9,
+          "name": "default-token-sg8x5"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Mapped event
+
+```json
+{
+  "container": {
+    "cpu.usage":          0.005631997,
+    "memory.usage":       0.01,
+    "name": "nginx",
+    "network.ingress.bytes": 107056,
+    "network.egress.bytes": 72447
+  },
+  "kubernetes": {
+    "container": {
+      "start_time": "2021-12-20T09:53:30.156Z",
+      "memory": {
+        "rss": {
+          "bytes": 1409024
+        },
+        "majorpagefaults": 0,
+        "usage": {
+          "node": {
+            "pct": 0.01
+          },
+          "bytes": 1462272,
+          "limit": {
+            "pct": 0.1
+          }
+        },
+        "available": {
+          "bytes": 0
+        },
+        "workingset": {
+          "bytes": 1454080,
+          "limit": {
+            "pct": 0.09943977591036414
+          }
+        },
+        "pagefaults": 841
+      },
+      "rootfs": {
+        "inodes": {
+          "used": 21
+        },
+        "available": {
+          "bytes": 98727014400
+        },
+        "used": {
+          "bytes": 61440
+        },
+        "capacity": {
+          "bytes": 101258067968
+        }
+      },
+      "name": "nginx",
+      "cpu": {
+        "usage": {
+          "core": {
+            "ns": 43959424
+          },
+          "node": {
+            "pct": 0.005631997
+          },
+          "limit": {
+            "pct": 0.005631997
+          },
+          "nanocores": 11263994
+        }
+      },
+      "logs": {
+        "inodes": {
+          "count": 13107200,
+          "used": 2,
+          "free": 10806621
+        },
+        "available": {
+          "bytes": 138514030592
+        },
+        "used": {
+          "bytes": 446464
+        },
+        "capacity": {
+          "bytes": 211108732928
+        }
+      }
+    }
+  },
+  "@timestamp": "2021-12-20T09:53:30.156Z",
+  "ecs": {
+    "version": "8.0.0"
+  },
+  "metricset": {
+    "period": 10000,
+    "name": "container"
+  },
+  "event": {
+    "duration": 156057406,
+    "agent_id_status": "verified",
+    "ingested": "2021-12-20T09:53:30Z",
+    "module": "kubernetes",
+    "dataset": "kubernetes.container"
+  }
+}
+```
+
 ## Scope of impact
 
 <!--
@@ -98,6 +339,14 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+This is a new field set, and the changes introduced will not affect existing ECS implementations.
+
+Integrations or other data sources mapping to ECS will need to map their original events to the new fields as well.
+
+The new field names will allow Kibana Docker containers metrics UI to
+display data collected from different container sources, therefore it should be renamed to
+a more generic title.
+Currently, it can only display data from Docker.
 ## Concerns
 
 <!--
@@ -109,6 +358,12 @@ metrics from different sources, the scope of these metrics change. We should
 make sure when users are using these metrics, they are all collected to represent
 the same thing. For example, `container.cpu.usage` needs to be a normalized value
 between 0 and 1.
+
+We need to carefully distinguish metrics of containers with the metrics coming from the host
+where these containers are running. For example, events from Kubernetes contain information for
+both the container and the host(kubernetes node)(e.g., `container.id` and `host.id`).
+For that reason host metrics should be stored under `host.*` while container metrics should be stored
+under `container.*`.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -155,3 +410,5 @@ Common Fields for Container Inventory Schema: https://github.com/elastic/beats/i
 ...
 -->
 * Stage 1: https://github.com/elastic/ecs/pull/1529
+
+* Stage 2: https://github.com/elastic/ecs/pull/1747
