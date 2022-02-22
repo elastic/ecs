@@ -1726,7 +1726,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 The following event is sourced from an endpoint-dev development branch that has the majority of the proposed fields implemented. Please note that there are many additional fields that are already sent up as part of the endpoint agent.
 
-json```
+```json
 {
   "_index": ".ds-logs-endpoint.events.process-default-2022.02.15-000001",
   "_id": "BuvxBH8BU45FNSRmRWIK",
