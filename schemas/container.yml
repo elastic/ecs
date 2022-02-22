@@ -27,13 +27,6 @@
   type: group
   fields:
 
-    - name: runtime
-      level: extended
-      type: keyword
-      description: >
-        Runtime managing this container.
-      example: docker
-
     - name: id
       level: core
       type: keyword
@@ -54,15 +47,22 @@
       normalize:
         - array
 
-    - name: name
-      level: extended
-      type: keyword
-      description: >
-        Container name.
-
     - name: labels
       level: extended
       type: object
       object_type: keyword
       description: >
         Image labels.
+
+    - name: name
+      level: extended
+      type: keyword
+      description: >
+        Container name.
+
+    - name: runtime
+      level: extended
+      type: keyword
+      description: >
+        Runtime managing this container.
+      example: docker
