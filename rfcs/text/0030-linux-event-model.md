@@ -2065,7 +2065,7 @@ The goal here is to research and understand the impact of these changes on users
 
 ### Ingestion mechanisms
 
-The Adaptive workload protections (AWP) sensor team, is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing kprobe sensor tech will be upgraded to support much of the new widened process context defined in this RFC. At the same time eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
+The Adaptive workload protections (AWP) sensor team is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing kprobe sensor tech will be upgraded to support much of the new widened process context defined in this RFC. At the same time, eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
 
 ### Usage mechanisms
 
