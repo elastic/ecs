@@ -2069,7 +2069,7 @@ The Adaptive workload protections (AWP) sensor team is working hard on integrati
 
 ### Usage mechanisms
 
-As outlined earlier in this document. The primary use for this data will be to drive the Session View (aka Terminal view, aka Sessionizer). Because of the hierarchical nature of this data, there are edge cases where some parts of the process tree are not captured, or have been filtered out (due to data volume concerns). This widenened process context (e.g entry_leader, session_leader, parent, group_leader) will allow the Session View to repair disjointed trees, and ensure it can represent the data as accurately as possible.
+As outlined earlier in this document, the primary use for this data will be to drive the Session View (aka Terminal view, aka Sessionizer). Because of the hierarchical nature of this data, there are edge cases where some parts of the process tree are not captured or have been filtered out (due to data volume concerns). This widened process context (e.g entry_leader, session_leader, parent, group_leader) will allow the Session View to repair disjointed trees and ensure it can represent the data as accurately as possible.
 
 Currently there are plans to integrate Session View into the kibana Timeline UI along side the Process Analyzer feature. There are also plans to add a "Sessions" tab to the Endpoint security hosts page.
 
