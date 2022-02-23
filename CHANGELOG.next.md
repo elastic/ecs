@@ -48,6 +48,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* `email.*` field set now GA. #1794
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
