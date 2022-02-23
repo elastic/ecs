@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Move move `clean` and `finalize` to after filters. #1654
+
 #### Added
 
 #### Improvements
