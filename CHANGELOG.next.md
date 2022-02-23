@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add six new syslog fields to `log.syslog.*`. #xxxx
+* Add six new syslog fields to `log.syslog.*`. #1793
 
 #### Improvements
 
