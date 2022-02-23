@@ -44,6 +44,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add beta `container.*` metric fields. #1789
+
 #### Improvements
 
 #### Deprecated
