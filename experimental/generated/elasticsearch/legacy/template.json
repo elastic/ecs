@@ -1976,6 +1976,13 @@
           },
           "syslog": {
             "properties": {
+              "appname": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "data": {
+                "type": "flattened"
+              },
               "facility": {
                 "properties": {
                   "code": {
@@ -1987,8 +1994,20 @@
                   }
                 }
               },
+              "hostname": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "msgid": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "priority": {
                 "type": "long"
+              },
+              "procid": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "severity": {
                 "properties": {
@@ -2000,6 +2019,9 @@
                     "type": "keyword"
                   }
                 }
+              },
+              "version": {
+                "type": "long"
               }
             },
             "type": "object"
