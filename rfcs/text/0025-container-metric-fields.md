@@ -329,6 +329,483 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 }
 ```
 
+### Docker
+
+#### Original log
+
+```json
+{
+  "blkio_stats": {
+    "io_merged_recursive": [],
+    "io_queue_recursive": [],
+    "io_service_bytes_recursive": [
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Read",
+        "value": 311296
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Write",
+        "value": 283956224
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Sync",
+        "value": 284267520
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Async",
+        "value": 0
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Discard",
+        "value": 0
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Total",
+        "value": 284267520
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Read",
+        "value": 311296
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Write",
+        "value": 283956224
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Sync",
+        "value": 284267520
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Async",
+        "value": 0
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Discard",
+        "value": 0
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Total",
+        "value": 284267520
+      }
+    ],
+    "io_service_time_recursive": [],
+    "io_serviced_recursive": [
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Read",
+        "value": 10
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Write",
+        "value": 3469
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Sync",
+        "value": 3479
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Async",
+        "value": 0
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Discard",
+        "value": 0
+      },
+      {
+        "major": 8,
+        "minor": 0,
+        "op": "Total",
+        "value": 3479
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Read",
+        "value": 10
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Write",
+        "value": 2394
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Sync",
+        "value": 2404
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Async",
+        "value": 0
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Discard",
+        "value": 0
+      },
+      {
+        "major": 253,
+        "minor": 0,
+        "op": "Total",
+        "value": 2404
+      }
+    ],
+    "io_time_recursive": [],
+    "io_wait_time_recursive": [],
+    "sectors_recursive": []
+  },
+  "cpu_stats": {
+    "cpu_usage": {
+      "percpu_usage": [
+        8989285945449,
+        8802991575246,
+        8723071634953,
+        8812077512624
+      ],
+      "total_usage": 35327426668272,
+      "usage_in_kernelmode": 2720580000000,
+      "usage_in_usermode": 32477900000000
+    },
+    "online_cpus": 4,
+    "system_cpu_usage": 7640294590000000,
+    "throttling_data": {
+      "periods": 0,
+      "throttled_periods": 0,
+      "throttled_time": 0
+    }
+  },
+  "id": "86a4d10d07bf0b1ded54c7156b4362e8b0dba9d450201a9695b4714c1492829c",
+  "memory_stats": {
+    "limit": 15620788224,
+    "max_usage": 420536320,
+    "stats": {
+      "active_anon": 59502592,
+      "active_file": 63746048,
+      "cache": 194330624,
+      "dirty": 0,
+      "hierarchical_memory_limit": 9223372036854771712,
+      "hierarchical_memsw_limit": 9223372036854771712,
+      "inactive_anon": 60268544,
+      "inactive_file": 130256896,
+      "mapped_file": 123408384,
+      "pgfault": 37852947,
+      "pgmajfault": 0,
+      "pgpgin": 25772802,
+      "pgpgout": 25697155,
+      "rss": 119738368,
+      "rss_huge": 4194304,
+      "total_active_anon": 59502592,
+      "total_active_file": 63746048,
+      "total_cache": 194330624,
+      "total_dirty": 0,
+      "total_inactive_anon": 60268544,
+      "total_inactive_file": 130256896,
+      "total_mapped_file": 123408384,
+      "total_pgfault": 37852947,
+      "total_pgmajfault": 0,
+      "total_pgpgin": 25772802,
+      "total_pgpgout": 25697155,
+      "total_rss": 119738368,
+      "total_rss_huge": 4194304,
+      "total_unevictable": 0,
+      "total_writeback": 0,
+      "unevictable": 0,
+      "writeback": 0
+    },
+    "usage": 326488064
+  },
+  "name": "/elastic-package-stack_elastic-agent_1",
+  "networks": {
+    "eth0": {
+      "rx_bytes": 23962833,
+      "rx_dropped": 0,
+      "rx_errors": 0,
+      "rx_packets": 128811,
+      "tx_bytes": 593646535,
+      "tx_dropped": 0,
+      "tx_errors": 0,
+      "tx_packets": 186477
+    }
+  },
+  "num_procs": 0,
+  "pids_stats": {
+    "current": 68
+  },
+  "precpu_stats": {
+    "cpu_usage": {
+      "percpu_usage": [
+        8989283978798,
+        8802978152064,
+        8723042900675,
+        8812068229234
+      ],
+      "total_usage": 35327373260771,
+      "usage_in_kernelmode": 2720550000000,
+      "usage_in_usermode": 32477870000000
+    },
+    "online_cpus": 4,
+    "system_cpu_usage": 7640290600000000,
+    "throttling_data": {
+      "periods": 0,
+      "throttled_periods": 0,
+      "throttled_time": 0
+    }
+  },
+  "preread": "2021-02-04T22:02:38.129030814Z",
+  "read": "2021-02-04T22:02:39.138448063Z",
+  "storage_stats": {}
+}
+```
+
+#### Mapped event by docker.cpu dataset
+
+```json
+{
+  "@timestamp": "2017-10-12T08:05:34.853Z",
+  "container": {
+    "id": "7f3ca1f1b2b310362e90f700d2b2e52ebd46ef6ddf10c0704f22b25686c466ab",
+    "image": {
+      "name": "metricbeat_beat"
+    },
+    "name": "metricbeat_beat_run_8ba23fa682a6",
+    "runtime": "docker",
+    "cpu": {
+      "usage": 0.015459536757425743
+    }
+  },
+  "docker": {
+    "cpu": {
+      "kernel": {
+        "norm": {
+          "pct": 0.007425742574257425
+        },
+        "pct": 0.0594059405940594,
+        "ticks": 26810000000
+      },
+      "system": {
+        "norm": {
+          "pct": 1
+        },
+        "pct": 8,
+        "ticks": 65836400000000
+      },
+      "total": {
+        "norm": {
+          "pct": 0.015459536757425743
+        },
+        "pct": 0.12367629405940594
+      },
+      "user": {
+        "norm": {
+          "pct": 0.006188118811881188
+        },
+        "pct": 0.04950495049504951,
+        "ticks": 35720000000
+      }
+    }
+  },
+  "event": {
+    "dataset": "docker.cpu",
+    "duration": 115000,
+    "module": "docker"
+  },
+  "metricset": {
+    "name": "cpu",
+    "period": 10000
+  },
+  "service": {
+    "address": "/var/run/docker.sock",
+    "type": "docker"
+  }
+}
+```
+
+#### Mapped event by docker.memory dataset
+```json
+{
+    "@timestamp": "2017-10-12T08:05:34.853Z",
+    "container": {
+        "id": "aa41902101351f415e6e983b0673c0ba715dd4bc316bd5fc0ebd6fcf94287f86",
+        "image": {
+            "name": "redis:latest"
+        },
+        "name": "amazing_cohen",
+        "runtime": "docker",
+        "memory": {
+          "usage": 0.000672283359618831
+        }
+    },
+    "docker": {
+        "memory": {
+            "fail": {
+                "count": 0
+            },
+            "limit": 2095878144,
+            "rss": {
+                "pct": 0.0004025882909345325,
+                "total": 843776
+            },
+            "stats": {
+                "active_anon": 421888,
+                "active_file": 36864,
+                "cache": 86016,
+                "dirty": 0,
+                "hierarchical_memory_limit": 9223372036854771712,
+                "hierarchical_memsw_limit": 9223372036854771712,
+                "inactive_anon": 421888,
+                "inactive_file": 49152,
+                "mapped_file": 53248,
+                "pgfault": 1587,
+                "pgmajfault": 1,
+                "pgpgin": 2426,
+                "pgpgout": 2199,
+                "rss": 843776,
+                "rss_huge": 0,
+                "total_active_anon": 421888,
+                "total_active_file": 36864,
+                "total_cache": 86016,
+                "total_dirty": 0,
+                "total_inactive_anon": 421888,
+                "total_inactive_file": 49152,
+                "total_mapped_file": 53248,
+                "total_pgfault": 1587,
+                "total_pgmajfault": 1,
+                "total_pgpgin": 2426,
+                "total_pgpgout": 2199,
+                "total_rss": 843776,
+                "total_rss_huge": 0,
+                "total_unevictable": 0,
+                "total_writeback": 0,
+                "unevictable": 0,
+                "writeback": 0
+            },
+            "usage": {
+                "max": 7860224,
+                "pct": 0.000672283359618831,
+                "total": 1409024
+            }
+        }
+    },
+    "event": {
+        "dataset": "docker.memory",
+        "duration": 115000,
+        "module": "docker"
+    },
+    "metricset": {
+        "name": "memory"
+    },
+    "service": {
+        "address": "/var/run/docker.sock",
+        "type": "docker"
+    }
+}
+```
+
+#### Mapped event by docker.network dataset
+```json
+{
+    "@timestamp": "2017-10-12T08:05:34.853Z",
+    "agent": {
+        "hostname": "host.example.com",
+        "name": "host.example.com"
+    },
+    "container": {
+      "id": "cc78e58acfda4501105dc4de8e3ae218f2da616213e6e3af168c40103829302a",
+      "image": {
+        "name": "metricbeat_elasticsearch"
+      },
+      "name": "metricbeat_elasticsearch_1_df866b3a7b3d",
+      "runtime": "docker",
+      "network": {
+        "ingress": {
+          "bytes": 23047
+        },
+        "egress": {
+          "bytes": 0
+        }
+      }
+    },
+    "docker": {
+        "network": {
+            "in": {
+                "bytes": 0,
+                "dropped": 0,
+                "errors": 0,
+                "packets": 0
+            },
+            "inbound": {
+                "bytes": 23047,
+                "dropped": 0,
+                "errors": 0,
+                "packets": 241
+            },
+            "interface": "eth0",
+            "out": {
+                "bytes": 0,
+                "dropped": 0,
+                "errors": 0,
+                "packets": 0
+            },
+            "outbound": {
+                "bytes": 0,
+                "dropped": 0,
+                "errors": 0,
+                "packets": 0
+            }
+        }
+    },
+    "event": {
+        "dataset": "docker.network",
+        "duration": 115000,
+        "module": "docker"
+    },
+    "metricset": {
+        "name": "network"
+    },
+    "service": {
+        "address": "/var/run/docker.sock",
+        "type": "docker"
+    }
+}
+```
+
 ## Scope of impact
 
 <!--
