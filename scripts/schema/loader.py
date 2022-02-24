@@ -147,6 +147,18 @@ def deep_nesting_representation(fields):
         flat_schema = flat_schema.copy()
         flat_schema['node_name'] = flat_schema['name']
 
+        # Add in nested field for array re-uses
+        if 'reusable' in flat_schema:
+            for reuse in flat_schema['reusable']['expected']:
+                if 'normalize' in reuse and 'array' in reuse['normalize']:
+                    flat_schema['fields'].append({
+                        'name': reuse['as'],
+                        'description': reuse['short_override'],
+                        'type': 'nested',
+                        'level': 'extended',
+                        'normalize': ['array']
+                    })
+
         # Schema-only details. Not present on other nested field groups.
         schema_details = {}
         for schema_key in ['root', 'group', 'reusable', 'title']:
