@@ -1357,6 +1357,40 @@ container:
 
     These fields help correlate data based containers from any runtime.'
   fields:
+    container.cpu.usage:
+      beta: This field is beta and subject to change.
+      dashed_name: container-cpu-usage
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1. Scaling factor: 1000.'
+      flat_name: container.cpu.usage
+      level: extended
+      name: cpu.usage
+      normalize: []
+      scaling_factor: 1000
+      short: Percent CPU used, between 0 and 1.
+      type: scaled_float
+    container.disk.read.bytes:
+      beta: This field is beta and subject to change.
+      dashed_name: container-disk-read-bytes
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      flat_name: container.disk.read.bytes
+      level: extended
+      name: disk.read.bytes
+      normalize: []
+      short: The number of bytes read by all disks.
+      type: long
+    container.disk.write.bytes:
+      beta: This field is beta and subject to change.
+      dashed_name: container-disk-write-bytes
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      flat_name: container.disk.write.bytes
+      level: extended
+      name: disk.write.bytes
+      normalize: []
+      short: The number of bytes written on all disks.
+      type: long
     container.id:
       dashed_name: container-id
       description: Unique container id.
@@ -1398,6 +1432,18 @@ container:
       object_type: keyword
       short: Image labels.
       type: object
+    container.memory.usage:
+      beta: This field is beta and subject to change.
+      dashed_name: container-memory-usage
+      description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
+        1000.'
+      flat_name: container.memory.usage
+      level: extended
+      name: memory.usage
+      normalize: []
+      scaling_factor: 1000
+      short: Percent memory used, between 0 and 1.
+      type: scaled_float
     container.name:
       dashed_name: container-name
       description: Container name.
@@ -1408,6 +1454,28 @@ container:
       normalize: []
       short: Container name.
       type: keyword
+    container.network.egress.bytes:
+      beta: This field is beta and subject to change.
+      dashed_name: container-network-egress-bytes
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the container since the last metric collection.
+      flat_name: container.network.egress.bytes
+      level: extended
+      name: network.egress.bytes
+      normalize: []
+      short: The number of bytes sent on all network interfaces.
+      type: long
+    container.network.ingress.bytes:
+      beta: This field is beta and subject to change.
+      dashed_name: container-network-ingress-bytes
+      description: The number of bytes received (gauge) on all network interfaces
+        by the container since the last metric collection.
+      flat_name: container.network.ingress.bytes
+      level: extended
+      name: network.ingress.bytes
+      normalize: []
+      short: The number of bytes received on all network interfaces.
+      type: long
     container.runtime:
       dashed_name: container-runtime
       description: Runtime managing this container.
@@ -2965,7 +3033,6 @@ elf:
   title: ELF Header
   type: group
 email:
-  beta: These fields are in beta and subject to change.
   description: 'Event details relating to an email transaction.
 
     This field set focuses on the email message header, body, and attachments. Network
@@ -3467,8 +3534,7 @@ event:
         - info
         - start
         name: driver
-      - beta: This event categorization value is beta and subject to change.
-        description: 'This category is used for events relating to email messages,
+      - description: 'This category is used for events relating to email messages,
           email attachments, and email network or protocol activity.
 
           Emails events can be produced by email security gateways, mail transfer
@@ -4204,7 +4270,7 @@ event:
 faas:
   beta: These fields are in beta and are subject to change.
   description: The user fields describe information about the function as a service
-    that is relevant to the event.
+    (FaaS) that is relevant to the event.
   fields:
     faas.coldstart:
       dashed_name: faas-coldstart
