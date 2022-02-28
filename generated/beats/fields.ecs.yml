@@ -5487,6 +5487,12 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: parent.previous
+      level: extended
+      type: nested
+      description: An array of all previous executions for the process, including
+        the initial fork details.
+      default_field: false
     - name: parent.start
       level: extended
       type: date
@@ -5610,6 +5616,520 @@
       format: string
       description: Process id.
       example: 4242
+    - name: previous.args
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of process arguments, starting with the absolute path to
+        the executable.
+
+        May be filtered to protect sensitive information.'
+      example: '["/usr/bin/ssh", "-l", "user", "10.0.0.16"]'
+      default_field: false
+    - name: previous.args_count
+      level: extended
+      type: long
+      description: 'Length of the process.args array.
+
+        This field can be useful for querying or performing bucket analysis on how
+        many arguments were provided to start a process. More arguments may be an
+        indication of suspicious activity.'
+      example: 4
+      default_field: false
+    - name: previous.code_signature.digest_algorithm
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The hashing algorithm used to sign the process.
+
+        This value can distinguish signatures when a file is signed multiple times
+        by the same signer but with a different digest algorithm.'
+      example: sha256
+      default_field: false
+    - name: previous.code_signature.exists
+      level: core
+      type: boolean
+      description: Boolean to capture if a signature is present.
+      example: 'true'
+      default_field: false
+    - name: previous.code_signature.signing_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The identifier used to sign the process.
+
+        This is used to identify the application manufactured by a software vendor.
+        The field is relevant to Apple *OS only.'
+      example: com.apple.xpc.proxy
+      default_field: false
+    - name: previous.code_signature.status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Additional information about the certificate status.
+
+        This is useful for logging cryptographic errors with the certificate validity
+        or trust status. Leave unpopulated if the validity or trust of the certificate
+        was unchecked.'
+      example: ERROR_UNTRUSTED_ROOT
+      default_field: false
+    - name: previous.code_signature.subject_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Subject name of the code signer
+      example: Microsoft Corporation
+      default_field: false
+    - name: previous.code_signature.team_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The team identifier used to sign the process.
+
+        This is used to identify the team or vendor of a software product. The field
+        is relevant to Apple *OS only.'
+      example: EQHXZ8M8AV
+      default_field: false
+    - name: previous.code_signature.timestamp
+      level: extended
+      type: date
+      description: Date and time when the code signature was generated and signed.
+      example: '2021-01-01T12:10:30Z'
+      default_field: false
+    - name: previous.code_signature.trusted
+      level: extended
+      type: boolean
+      description: 'Stores the trust status of the certificate chain.
+
+        Validating the trust of the certificate chain may be complicated, and this
+        field should only be populated by tools that actively check the status.'
+      example: 'true'
+      default_field: false
+    - name: previous.code_signature.valid
+      level: extended
+      type: boolean
+      description: 'Boolean to capture if the digital signature is verified against
+        the binary content.
+
+        Leave unpopulated if a certificate was unchecked.'
+      example: 'true'
+      default_field: false
+    - name: previous.command_line
+      level: extended
+      type: wildcard
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: 'Full command line that started the process, including the absolute
+        path to the executable, and all arguments.
+
+        Some arguments may be filtered to protect sensitive information.'
+      example: /usr/bin/ssh -l user 10.0.0.16
+      default_field: false
+    - name: previous.elf.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Machine architecture of the ELF file.
+      example: x86-64
+      default_field: false
+    - name: previous.elf.byte_order
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Byte sequence of ELF file.
+      example: Little Endian
+      default_field: false
+    - name: previous.elf.cpu_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU type of the ELF file.
+      example: Intel
+      default_field: false
+    - name: previous.elf.creation_date
+      level: extended
+      type: date
+      description: Extracted when possible from the file's metadata. Indicates when
+        it was built or compiled. It can also be faked by malware creators.
+      default_field: false
+    - name: previous.elf.exports
+      level: extended
+      type: flattened
+      description: List of exported element names and types.
+      default_field: false
+    - name: previous.elf.header.abi_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF Application Binary Interface (ABI).
+      default_field: false
+    - name: previous.elf.header.class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header class of the ELF file.
+      default_field: false
+    - name: previous.elf.header.data
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Data table of the ELF header.
+      default_field: false
+    - name: previous.elf.header.entrypoint
+      level: extended
+      type: long
+      format: string
+      description: Header entrypoint of the ELF file.
+      default_field: false
+    - name: previous.elf.header.object_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '"0x1" for original ELF files.'
+      default_field: false
+    - name: previous.elf.header.os_abi
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Application Binary Interface (ABI) of the Linux OS.
+      default_field: false
+    - name: previous.elf.header.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Header type of the ELF file.
+      default_field: false
+    - name: previous.elf.header.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Version of the ELF header.
+      default_field: false
+    - name: previous.elf.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: previous.elf.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.sections.*`.'
+      default_field: false
+    - name: previous.elf.sections.chi2
+      level: extended
+      type: long
+      format: number
+      description: Chi-square probability distribution of the section.
+      default_field: false
+    - name: previous.elf.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: previous.elf.sections.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List flags.
+      default_field: false
+    - name: previous.elf.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List name.
+      default_field: false
+    - name: previous.elf.sections.physical_offset
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List offset.
+      default_field: false
+    - name: previous.elf.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: ELF Section List physical size.
+      default_field: false
+    - name: previous.elf.sections.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF Section List type.
+      default_field: false
+    - name: previous.elf.sections.virtual_address
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual address.
+      default_field: false
+    - name: previous.elf.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: ELF Section List virtual size.
+      default_field: false
+    - name: previous.elf.segments
+      level: extended
+      type: nested
+      description: 'An array containing an object for each segment of the ELF file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `elf.segments.*`.'
+      default_field: false
+    - name: previous.elf.segments.sections
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment sections.
+      default_field: false
+    - name: previous.elf.segments.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: ELF object segment type.
+      default_field: false
+    - name: previous.elf.shared_libraries
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: List of shared libraries used by this ELF object.
+      default_field: false
+    - name: previous.elf.telfhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: telfhash symbol hash for ELF file.
+      default_field: false
+    - name: previous.end
+      level: extended
+      type: date
+      description: The time the process ended.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: previous.entity_id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique identifier for the process.
+
+        The implementation of this is specified by the data source, but some examples
+        of what could be used here are a process-generated UUID, Sysmon Process GUIDs,
+        or a hash of some uniquely identifying components of a process.
+
+        Constructing a globally unique identifier is a common practice to mitigate
+        PID reuse as well as to identify a specific process over time, across multiple
+        monitored hosts.'
+      example: c2c455d9f99375d
+      default_field: false
+    - name: previous.executable
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Absolute path to the process executable.
+      example: /usr/bin/ssh
+      default_field: false
+    - name: previous.exit_code
+      level: extended
+      type: long
+      description: 'The exit code of the process, if this is a termination event.
+
+        The field should be absent if there is no exit code for the event (e.g. process
+        start).'
+      example: 137
+      default_field: false
+    - name: previous.hash.md5
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: MD5 hash.
+      default_field: false
+    - name: previous.hash.sha1
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA1 hash.
+      default_field: false
+    - name: previous.hash.sha256
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA256 hash.
+      default_field: false
+    - name: previous.hash.sha384
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA384 hash.
+      default_field: false
+    - name: previous.hash.sha512
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SHA512 hash.
+      default_field: false
+    - name: previous.hash.ssdeep
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: SSDEEP hash.
+      default_field: false
+    - name: previous.hash.tlsh
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: TLSH hash.
+      default_field: false
+    - name: previous.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: 'Process name.
+
+        Sometimes called program name or similar.'
+      example: ssh
+      default_field: false
+    - name: previous.pe.architecture
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: CPU architecture target for the file.
+      example: x64
+      default_field: false
+    - name: previous.pe.company
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal company name of the file, provided at compile-time.
+      example: Microsoft Corporation
+      default_field: false
+    - name: previous.pe.description
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal description of the file, provided at compile-time.
+      example: Paint
+      default_field: false
+    - name: previous.pe.file_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal version of the file, provided at compile-time.
+      example: 6.3.9600.17415
+      default_field: false
+    - name: previous.pe.imphash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An imphash -- or import hash
+        -- can be used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
+      example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: previous.pe.original_file_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal name of the file, provided at compile-time.
+      example: MSPAINT.EXE
+      default_field: false
+    - name: previous.pe.pehash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the PE header and data from one or more PE sections.
+        An pehash can be used to cluster files by transforming structural information
+        about a file into a hash value.
+
+        Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
+      example: 73ff189b63cd6be375a7ff25179a38d347651975
+      default_field: false
+    - name: previous.pe.product
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Internal product name of the file, provided at compile-time.
+      example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: previous.pgid
+      level: extended
+      type: long
+      format: string
+      description: Identifier of the group of processes the process belongs to.
+      default_field: false
+    - name: previous.pid
+      level: core
+      type: long
+      format: string
+      description: Process id.
+      example: 4242
+      default_field: false
+    - name: previous.previous
+      level: extended
+      type: nested
+      description: An array of all previous executions for the process, including
+        the initial fork details.
+      default_field: false
+    - name: previous.start
+      level: extended
+      type: date
+      description: The time the process started.
+      example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: previous.thread.id
+      level: extended
+      type: long
+      format: string
+      description: Thread ID.
+      example: 4242
+      default_field: false
+    - name: previous.thread.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Thread name.
+      example: thread-0
+      default_field: false
+    - name: previous.title
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: 'Process title.
+
+        The proctitle, some times the same as process name. Can also be different:
+        for example a browser setting its title to the web page currently opened.'
+      default_field: false
+    - name: previous.uptime
+      level: extended
+      type: long
+      description: Seconds the process has been up.
+      example: 1325
+      default_field: false
+    - name: previous.working_directory
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: The working directory of the process.
+      example: /home/alice
+      default_field: false
     - name: start
       level: extended
       type: date

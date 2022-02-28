@@ -615,6 +615,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev,true,process,process.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev,true,process,process.parent.pid,long,core,,4242,Process id.
+8.3.0-dev,true,process,process.parent.previous,nested,extended,array,,"An array of all previous executions for the process, including the initial fork details."
 8.3.0-dev,true,process,process.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
@@ -633,6 +634,81 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev,true,process,process.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev,true,process,process.pid,long,core,,4242,Process id.
+8.3.0-dev,true,process,process.previous.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
+8.3.0-dev,true,process,process.previous.args_count,long,extended,,4,Length of the process.args array.
+8.3.0-dev,true,process,process.previous.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
+8.3.0-dev,true,process,process.previous.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.3.0-dev,true,process,process.previous.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
+8.3.0-dev,true,process,process.previous.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
+8.3.0-dev,true,process,process.previous.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
+8.3.0-dev,true,process,process.previous.code_signature.team_id,keyword,extended,,EQHXZ8M8AV,The team identifier used to sign the process.
+8.3.0-dev,true,process,process.previous.code_signature.timestamp,date,extended,,2021-01-01T12:10:30Z,When the signature was generated and signed.
+8.3.0-dev,true,process,process.previous.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
+8.3.0-dev,true,process,process.previous.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
+8.3.0-dev,true,process,process.previous.command_line,wildcard,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.3.0-dev,true,process,process.previous.command_line.text,match_only_text,extended,,/usr/bin/ssh -l user 10.0.0.16,Full command line that started the process.
+8.3.0-dev,true,process,process.previous.elf.architecture,keyword,extended,,x86-64,Machine architecture of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.byte_order,keyword,extended,,Little Endian,Byte sequence of ELF file.
+8.3.0-dev,true,process,process.previous.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.creation_date,date,extended,,,Build or compile date.
+8.3.0-dev,true,process,process.previous.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.3.0-dev,true,process,process.previous.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
+8.3.0-dev,true,process,process.previous.elf.header.class,keyword,extended,,,Header class of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.header.data,keyword,extended,,,Data table of the ELF header.
+8.3.0-dev,true,process,process.previous.elf.header.entrypoint,long,extended,,,Header entrypoint of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.header.object_version,keyword,extended,,,"""0x1"" for original ELF files."
+8.3.0-dev,true,process,process.previous.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
+8.3.0-dev,true,process,process.previous.elf.header.type,keyword,extended,,,Header type of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.3.0-dev,true,process,process.previous.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.3.0-dev,true,process,process.previous.elf.sections,nested,extended,array,,Section information of the ELF file.
+8.3.0-dev,true,process,process.previous.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
+8.3.0-dev,true,process,process.previous.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.3.0-dev,true,process,process.previous.elf.sections.flags,keyword,extended,,,ELF Section List flags.
+8.3.0-dev,true,process,process.previous.elf.sections.name,keyword,extended,,,ELF Section List name.
+8.3.0-dev,true,process,process.previous.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
+8.3.0-dev,true,process,process.previous.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
+8.3.0-dev,true,process,process.previous.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.3.0-dev,true,process,process.previous.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
+8.3.0-dev,true,process,process.previous.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
+8.3.0-dev,true,process,process.previous.elf.segments,nested,extended,array,,ELF object segment list.
+8.3.0-dev,true,process,process.previous.elf.segments.sections,keyword,extended,,,ELF object segment sections.
+8.3.0-dev,true,process,process.previous.elf.segments.type,keyword,extended,,,ELF object segment type.
+8.3.0-dev,true,process,process.previous.elf.shared_libraries,keyword,extended,array,,List of shared libraries used by this ELF object.
+8.3.0-dev,true,process,process.previous.elf.telfhash,keyword,extended,,,telfhash hash for ELF file.
+8.3.0-dev,true,process,process.previous.end,date,extended,,2016-05-23T08:05:34.853Z,The time the process ended.
+8.3.0-dev,true,process,process.previous.entity_id,keyword,extended,,c2c455d9f99375d,Unique identifier for the process.
+8.3.0-dev,true,process,process.previous.executable,keyword,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.3.0-dev,true,process,process.previous.executable.text,match_only_text,extended,,/usr/bin/ssh,Absolute path to the process executable.
+8.3.0-dev,true,process,process.previous.exit_code,long,extended,,137,The exit code of the process.
+8.3.0-dev,true,process,process.previous.hash.md5,keyword,extended,,,MD5 hash.
+8.3.0-dev,true,process,process.previous.hash.sha1,keyword,extended,,,SHA1 hash.
+8.3.0-dev,true,process,process.previous.hash.sha256,keyword,extended,,,SHA256 hash.
+8.3.0-dev,true,process,process.previous.hash.sha384,keyword,extended,,,SHA384 hash.
+8.3.0-dev,true,process,process.previous.hash.sha512,keyword,extended,,,SHA512 hash.
+8.3.0-dev,true,process,process.previous.hash.ssdeep,keyword,extended,,,SSDEEP hash.
+8.3.0-dev,true,process,process.previous.hash.tlsh,keyword,extended,,,TLSH hash.
+8.3.0-dev,true,process,process.previous.name,keyword,extended,,ssh,Process name.
+8.3.0-dev,true,process,process.previous.name.text,match_only_text,extended,,ssh,Process name.
+8.3.0-dev,true,process,process.previous.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
+8.3.0-dev,true,process,process.previous.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
+8.3.0-dev,true,process,process.previous.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
+8.3.0-dev,true,process,process.previous.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.3.0-dev,true,process,process.previous.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.3.0-dev,true,process,process.previous.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
+8.3.0-dev,true,process,process.previous.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
+8.3.0-dev,true,process,process.previous.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.3.0-dev,true,process,process.previous.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev,true,process,process.previous.pid,long,core,,4242,Process id.
+8.3.0-dev,true,process,process.previous.previous,nested,extended,array,,"An array of all previous executions for the process, including the initial fork details."
+8.3.0-dev,true,process,process.previous.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev,true,process,process.previous.thread.id,long,extended,,4242,Thread ID.
+8.3.0-dev,true,process,process.previous.thread.name,keyword,extended,,thread-0,Thread name.
+8.3.0-dev,true,process,process.previous.title,keyword,extended,,,Process title.
+8.3.0-dev,true,process,process.previous.title.text,match_only_text,extended,,,Process title.
+8.3.0-dev,true,process,process.previous.uptime,long,extended,,1325,Seconds the process has been up.
+8.3.0-dev,true,process,process.previous.working_directory,keyword,extended,,/home/alice,The working directory of the process.
+8.3.0-dev,true,process,process.previous.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.3.0-dev,true,process,process.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev,true,process,process.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev,true,process,process.thread.name,keyword,extended,,thread-0,Thread name.
