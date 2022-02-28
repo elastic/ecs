@@ -2085,6 +2085,7 @@ The fields in question include:
 - group.supplemental (type: group)
 
 This will require involvement from the ECS team to add this support to the existing tooling.
+An issue has been created for this and can be found here https://github.com/elastic/ecs/issues/1736
 
 ## Concerns
 
