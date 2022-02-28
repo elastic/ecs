@@ -1726,7 +1726,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 
 The following event is sourced from an endpoint-dev development branch that has the majority of the proposed fields implemented. Please note that there are many additional fields that are already sent up as part of the endpoint agent.
 
-json```
+```json
 {
   "_index": ".ds-logs-endpoint.events.process-default-2022.02.15-000001",
   "_id": "BuvxBH8BU45FNSRmRWIK",
@@ -2065,11 +2065,11 @@ The goal here is to research and understand the impact of these changes on users
 
 ### Ingestion mechanisms
 
-The Adaptive workload protections (AWP) sensor team, is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing kprobe sensor tech will be upgraded to support much of the new widened process context defined in this RFC. At the same time eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
+The Adaptive workload protections (AWP) sensor team is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing kprobe sensor tech will be upgraded to support much of the new widened process context defined in this RFC. At the same time, eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
 
 ### Usage mechanisms
 
-As outlined earlier in this document. The primary use for this data will be to drive the Session View (aka Terminal view, aka Sessionizer). Because of the hierarchical nature of this data, there are edge cases where some parts of the process tree are not captured, or have been filtered out (due to data volume concerns). This widenened process context (e.g entry_leader, session_leader, parent, group_leader) will allow the Session View to repair disjointed trees, and ensure it can represent the data as accurately as possible.
+As outlined earlier in this document, the primary use for this data will be to drive the Session View (aka Terminal view, aka Sessionizer). Because of the hierarchical nature of this data, there are edge cases where some parts of the process tree are not captured or have been filtered out (due to data volume concerns). This widened process context (e.g entry_leader, session_leader, parent, group_leader) will allow the Session View to repair disjointed trees and ensure it can represent the data as accurately as possible.
 
 Currently there are plans to integrate Session View into the kibana Timeline UI along side the Process Analyzer feature. There are also plans to add a "Sessions" tab to the Endpoint security hosts page.
 
