@@ -60,6 +60,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added support for re-using a fieldset as an array. #1798
+
 #### Improvements
 
 #### Deprecated

@@ -53,7 +53,7 @@ multiple places, like for example `geo`, which can appear under `source`, `desti
 }
 ```
 
-The `reusable` attribute is composed of `top_level`, `expected`, and `short_override` sub-attributes:
+The `reusable` attribute is composed of a few sub-attributes:
 
 - top\_level (optional, default true): Is this field set expected at the root of
   events or is it only expected in the nested locations?
@@ -61,6 +61,8 @@ The `reusable` attribute is composed of `top_level`, `expected`, and `short_over
   There are two valid notations to list expected locations.
 - short_override (optional, default null): Sets the short description for the
   nested field, overriding the default top-level short description.
+- normalize: Normalization steps that should be applied at ingestion time. Supported values:
+  - array: the content of the field should be an array (even when there's only one value).
 
 The "flat" (or dotted) notation to represent where the fields are nested:
 
