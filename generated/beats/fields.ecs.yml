@@ -3795,11 +3795,6 @@
         available.
       example: sshd
       default_field: false
-    - name: syslog.data
-      level: extended
-      type: flattened
-      description: Structured data expressed in RFC 5424 messages, if available.
-      default_field: false
     - name: syslog.facility.code
       level: extended
       type: long
@@ -3820,7 +3815,10 @@
       type: keyword
       ignore_above: 1024
       description: The hostname, FQDN, or IP of the machine that originally sent the
-        Syslog message.
+        Syslog message. This is sourced from the hostname field of the syslog header.
+        Depending on the environment, this value may be different from the host that
+        handled the event, especially if the host handling the events is acting as
+        a collector.
       example: example-host
       default_field: false
     - name: syslog.msgid
@@ -3868,9 +3866,17 @@
         If the event source does not specify a distinct severity, you can optionally
         copy the Syslog severity to `log.level`.'
       example: Error
+    - name: syslog.structured_data
+      level: extended
+      type: flattened
+      description: Structured data expressed in RFC 5424 messages, if available. These
+        are key-value pairs formed from the structured data portion of the syslog
+        message, as defined in RFC 5424 Section 6.3.
+      default_field: false
     - name: syslog.version
       level: extended
-      type: long
+      type: keyword
+      ignore_above: 1024
       description: The version of the Syslog protocol specification. Only applicable
         for RFC 5424 messages.
       example: 1

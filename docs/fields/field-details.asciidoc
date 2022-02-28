@@ -5434,22 +5434,6 @@ example: `sshd`
 // ===============================================================
 
 |
-[[field-log-syslog-data]]
-<<field-log-syslog-data, log.syslog.data>>
-
-| Structured data expressed in RFC 5424 messages, if available.
-
-type: flattened
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-|
 [[field-log-syslog-facility-code]]
 <<field-log-syslog-facility-code, log.syslog.facility.code>>
 
@@ -5487,7 +5471,7 @@ example: `local7`
 [[field-log-syslog-hostname]]
 <<field-log-syslog-hostname, log.syslog.hostname>>
 
-| The hostname, FQDN, or IP of the machine that originally sent the Syslog message.
+| The hostname, FQDN, or IP of the machine that originally sent the Syslog message. This is sourced from the hostname field of the syslog header. Depending on the environment, this value may be different from the host that handled the event, especially if the host handling the events is acting as a collector.
 
 type: keyword
 
@@ -5586,12 +5570,28 @@ example: `Error`
 // ===============================================================
 
 |
+[[field-log-syslog-structured-data]]
+<<field-log-syslog-structured-data, log.syslog.structured_data>>
+
+| Structured data expressed in RFC 5424 messages, if available. These are key-value pairs formed from the structured data portion of the syslog message, as defined in RFC 5424 Section 6.3.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-log-syslog-version]]
 <<field-log-syslog-version, log.syslog.version>>
 
 | The version of the Syslog protocol specification. Only applicable for RFC 5424 messages.
 
-type: long
+type: keyword
 
 
 

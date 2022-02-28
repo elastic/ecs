@@ -159,7 +159,7 @@
 
     - name: syslog.version
       level: extended
-      type: long
+      type: keyword
       example: 1
       short: Syslog protocol version.
       description: >
@@ -171,7 +171,11 @@
       example: example-host
       short: The host that originated the Syslog message.
       description: >
-        The hostname, FQDN, or IP of the machine that originally sent the Syslog message.
+        The hostname, FQDN, or IP of the machine that originally sent the Syslog
+        message. This is sourced from the hostname field of the syslog header.
+        Depending on the environment, this value may be different from the host
+        that handled the event, especially if the host handling the events is acting
+        as a collector.
 
     - name: syslog.appname
       level: extended
@@ -197,9 +201,11 @@
       description: >
         An identifier for the type of Syslog message, if available. Only applicable for RFC 5424 messages.
 
-    - name: syslog.data
+    - name: syslog.structured_data
       level: extended
       type: flattened
       short: Structured data expressed in RFC 5424 messages.
       description: >
-        Structured data expressed in RFC 5424 messages, if available.
+        Structured data expressed in RFC 5424 messages, if available. These are
+        key-value pairs formed from the structured data portion of the syslog
+        message, as defined in RFC 5424 Section 6.3.
