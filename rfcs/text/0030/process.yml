@@ -63,6 +63,38 @@
 
         Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
 
+    - name: top_level
+      level: extended
+      type: boolean
+      example: true
+      short: This boolean is used to identify if a leader process is the same as the top level process.
+      description: >
+        This boolean is used to identify if a leader process is the same as the top level process.
+
+        For example, if process.group_leader.top_level = true, it means the process event in question is the leader of its process group. Details under process.* like pid would be the same under process.group_leader.*
+
+        The same applies for both process.session_leader and process.entry_leader.
+
+        This field exists to the benefit of EQL and other rule engines since it's not possible to compare equality between two fields in a single document.
+
+        e.g
+
+        process.entity_id = process.group_leader.entity_id (top level process is the process group leader)
+
+        OR
+
+        process.entity_id = process.entry_leader.entity_id (top level process is the entry session leader)
+
+	Instead these rules could be written like:
+
+	process.group_leader.top_level: true
+
+	OR
+	
+	process.entry_leader.top_level: true 
+
+        Note: This field is only set on entry_leader, session_leader and group_leader. The top level process.top_level would not be set as we know it is already top level.
+
     - name: env_vars
       level: extended
       type: object
