@@ -32,6 +32,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding release notes section into ECS docs. #1800
+
 #### Improvements
 
 #### Deprecated
@@ -49,6 +51,8 @@ Thanks, you're awesome :-) -->
 * Add beta `container.*` metric fields. #1789
 
 #### Improvements
+
+* `email.*` field set now GA. #1794
 
 #### Deprecated
 
