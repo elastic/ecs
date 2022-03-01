@@ -6704,6 +6704,18 @@ log:
       normalize: []
       short: Syslog metadata
       type: object
+    log.syslog.appname:
+      dashed_name: log-syslog-appname
+      description: The device or application that originated the Syslog message, if
+        available.
+      example: sshd
+      flat_name: log.syslog.appname
+      ignore_above: 1024
+      level: extended
+      name: syslog.appname
+      normalize: []
+      short: The device or application that originated the Syslog message.
+      type: keyword
     log.syslog.facility.code:
       dashed_name: log-syslog-facility-code
       description: 'The Syslog numeric facility of the log event, if available.
@@ -6729,6 +6741,33 @@ log:
       normalize: []
       short: Syslog text-based facility of the event.
       type: keyword
+    log.syslog.hostname:
+      dashed_name: log-syslog-hostname
+      description: The hostname, FQDN, or IP of the machine that originally sent the
+        Syslog message. This is sourced from the hostname field of the syslog header.
+        Depending on the environment, this value may be different from the host that
+        handled the event, especially if the host handling the events is acting as
+        a collector.
+      example: example-host
+      flat_name: log.syslog.hostname
+      ignore_above: 1024
+      level: extended
+      name: syslog.hostname
+      normalize: []
+      short: The host that originated the Syslog message.
+      type: keyword
+    log.syslog.msgid:
+      dashed_name: log-syslog-msgid
+      description: An identifier for the type of Syslog message, if available. Only
+        applicable for RFC 5424 messages.
+      example: ID47
+      flat_name: log.syslog.msgid
+      ignore_above: 1024
+      level: extended
+      name: syslog.msgid
+      normalize: []
+      short: An identifier for the type of Syslog message.
+      type: keyword
     log.syslog.priority:
       dashed_name: log-syslog-priority
       description: 'Syslog numeric priority of the event, if available.
@@ -6743,6 +6782,17 @@ log:
       normalize: []
       short: Syslog priority of the event.
       type: long
+    log.syslog.procid:
+      dashed_name: log-syslog-procid
+      description: The process name or ID that originated the Syslog message, if available.
+      example: 12345
+      flat_name: log.syslog.procid
+      ignore_above: 1024
+      level: extended
+      name: syslog.procid
+      normalize: []
+      short: The process name or ID that originated the Syslog message.
+      type: keyword
     log.syslog.severity.code:
       dashed_name: log-syslog-severity-code
       description: 'The Syslog numeric severity of the log event, if available.
@@ -6773,6 +6823,29 @@ log:
       name: syslog.severity.name
       normalize: []
       short: Syslog text-based severity of the event.
+      type: keyword
+    log.syslog.structured_data:
+      dashed_name: log-syslog-structured-data
+      description: Structured data expressed in RFC 5424 messages, if available. These
+        are key-value pairs formed from the structured data portion of the syslog
+        message, as defined in RFC 5424 Section 6.3.
+      flat_name: log.syslog.structured_data
+      level: extended
+      name: syslog.structured_data
+      normalize: []
+      short: Structured data expressed in RFC 5424 messages.
+      type: flattened
+    log.syslog.version:
+      dashed_name: log-syslog-version
+      description: The version of the Syslog protocol specification. Only applicable
+        for RFC 5424 messages.
+      example: 1
+      flat_name: log.syslog.version
+      ignore_above: 1024
+      level: extended
+      name: syslog.version
+      normalize: []
+      short: Syslog protocol version.
       type: keyword
   group: 2
   name: log
