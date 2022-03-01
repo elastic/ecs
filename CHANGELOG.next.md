@@ -26,8 +26,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Pin `markupsafe==2.0.1` to resolve `ImportError` exception. #1804
-
 #### Added
 
 #### Improvements
