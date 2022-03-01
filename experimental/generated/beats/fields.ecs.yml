@@ -3837,6 +3837,14 @@
       type: object
       description: The Syslog metadata of the event, if the event was transmitted
         via Syslog. Please see RFCs 5424 or 3164.
+    - name: syslog.appname
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The device or application that originated the Syslog message, if
+        available.
+      example: sshd
+      default_field: false
     - name: syslog.facility.code
       level: extended
       type: long
@@ -3852,6 +3860,25 @@
       ignore_above: 1024
       description: The Syslog text-based facility of the log event, if available.
       example: local7
+    - name: syslog.hostname
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The hostname, FQDN, or IP of the machine that originally sent the
+        Syslog message. This is sourced from the hostname field of the syslog header.
+        Depending on the environment, this value may be different from the host that
+        handled the event, especially if the host handling the events is acting as
+        a collector.
+      example: example-host
+      default_field: false
+    - name: syslog.msgid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: An identifier for the type of Syslog message, if available. Only
+        applicable for RFC 5424 messages.
+      example: ID47
+      default_field: false
     - name: syslog.priority
       level: extended
       type: long
@@ -3861,6 +3888,13 @@
         According to RFCs 5424 and 3164, the priority is 8 * facility + severity.
         This number is therefore expected to contain a value between 0 and 191.'
       example: 135
+    - name: syslog.procid
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The process name or ID that originated the Syslog message, if available.
+      example: 12345
+      default_field: false
     - name: syslog.severity.code
       level: extended
       type: long
@@ -3882,6 +3916,21 @@
         If the event source does not specify a distinct severity, you can optionally
         copy the Syslog severity to `log.level`.'
       example: Error
+    - name: syslog.structured_data
+      level: extended
+      type: flattened
+      description: Structured data expressed in RFC 5424 messages, if available. These
+        are key-value pairs formed from the structured data portion of the syslog
+        message, as defined in RFC 5424 Section 6.3.
+      default_field: false
+    - name: syslog.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The version of the Syslog protocol specification. Only applicable
+        for RFC 5424 messages.
+      example: 1
+      default_field: false
   - name: network
     title: Network
     group: 2
