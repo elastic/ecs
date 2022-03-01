@@ -16,8 +16,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add six new syslog fields to `log.syslog.*`. #1793
-
 #### Improvements
 
 #### Deprecated
@@ -49,6 +47,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
 
 #### Improvements
 
