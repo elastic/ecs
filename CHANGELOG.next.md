@@ -70,6 +70,8 @@ Thanks, you're awesome :-) -->
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
 
+#### Deprecated
+
 ## 8.1.0 (Hard Feature Freeze)
 
 ### Schema Changes
