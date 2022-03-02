@@ -659,6 +659,7 @@ Event contains `container` fields identifying the container and its runtime. Thi
 ```
 
 #### Mapped event by docker.memory dataset
+Event contains `container` fields identifying the container and its runtime. This sample event also contains a summary of the memory metrics in `container.memory`.
 ```json
 {
     "@timestamp": "2017-10-12T08:05:34.853Z",
@@ -740,6 +741,7 @@ Event contains `container` fields identifying the container and its runtime. Thi
 ```
 
 #### Mapped event by docker.network dataset
+Event contains `container` fields identifying the container and its runtime. This sample event also contains a summary of the network metrics in `container.network`.
 ```json
 {
     "@timestamp": "2017-10-12T08:05:34.853Z",
