@@ -48,6 +48,7 @@ Thanks, you're awesome :-) -->
 
 * Add beta `container.*` metric fields. #1789
 * Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
 
 #### Improvements
 
@@ -75,7 +76,6 @@ Thanks, you're awesome :-) -->
 
 * Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
 * Added `email.*` beta field set. ##1688, #1705
-* Added `faas.id` and `faas.name` fields. #1796
 
 #### Removed
 
