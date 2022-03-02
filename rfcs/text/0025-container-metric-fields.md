@@ -596,6 +596,7 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 #### Mapped event by docker.cpu dataset
 
+Event contains `container` fields identifying the container and its runtime. This sample event also contains a summary of the CPU metrics in `container.cpu`.
 ```json
 {
   "@timestamp": "2017-10-12T08:05:34.853Z",
