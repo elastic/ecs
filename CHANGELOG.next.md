@@ -48,6 +48,7 @@ Thanks, you're awesome :-) -->
 
 * Add beta `container.*` metric fields. #1789
 * Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id` and `faas.name` fields. #1796
 
 #### Improvements
 
@@ -65,13 +66,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-<<<<<<< HEAD
-#### Deprecated
-=======
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
->>>>>>> 9b653645 (Higher default compression for composable templates (#1712))
 
 ## 8.1.0 (Hard Feature Freeze)
 
@@ -81,7 +78,6 @@ Thanks, you're awesome :-) -->
 
 * Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
 * Added `email.*` beta field set. ##1688, #1705
-* Added `faas.id` and `faas.name` fields. #1796
 
 #### Removed
 
