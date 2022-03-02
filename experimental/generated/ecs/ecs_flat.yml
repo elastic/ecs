@@ -1058,6 +1058,7 @@ cloud.target.service.name:
   short: The cloud service name.
   type: keyword
 container.cpu.usage:
+  beta: This field is beta and subject to change.
   dashed_name: container-cpu-usage
   description: 'Percent CPU used which is normalized by the number of CPU cores and
     it ranges from 0 to 1. Scaling factor: 1000.'
@@ -1069,6 +1070,7 @@ container.cpu.usage:
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
 container.disk.read.bytes:
+  beta: This field is beta and subject to change.
   dashed_name: container-disk-read-bytes
   description: The total number of bytes (gauge) read successfully (aggregated from
     all disks) since the last metric collection.
@@ -1079,6 +1081,7 @@ container.disk.read.bytes:
   short: The number of bytes read by all disks.
   type: long
 container.disk.write.bytes:
+  beta: This field is beta and subject to change.
   dashed_name: container-disk-write-bytes
   description: The total number of bytes (gauge) written successfully (aggregated
     from all disks) since the last metric collection.
@@ -1130,6 +1133,7 @@ container.labels:
   short: Image labels.
   type: object
 container.memory.usage:
+  beta: This field is beta and subject to change.
   dashed_name: container-memory-usage
   description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
     1000.'
@@ -1151,6 +1155,7 @@ container.name:
   short: Container name.
   type: keyword
 container.network.egress.bytes:
+  beta: This field is beta and subject to change.
   dashed_name: container-network-egress-bytes
   description: The number of bytes (gauge) sent out on all network interfaces by the
     container since the last metric collection.
@@ -1161,6 +1166,7 @@ container.network.egress.bytes:
   short: The number of bytes sent on all network interfaces.
   type: long
 container.network.ingress.bytes:
+  beta: This field is beta and subject to change.
   dashed_name: container-network-ingress-bytes
   description: The number of bytes received (gauge) on all network interfaces by the
     container since the last metric collection.
@@ -2738,8 +2744,7 @@ event.category:
     - info
     - start
     name: driver
-  - beta: This event categorization value is beta and subject to change.
-    description: 'This category is used for events relating to email messages, email
+  - description: 'This category is used for events relating to email messages, email
       attachments, and email network or protocol activity.
 
       Emails events can be produced by email security gateways, mail transfer agents,
@@ -5484,6 +5489,17 @@ log.syslog:
   normalize: []
   short: Syslog metadata
   type: object
+log.syslog.appname:
+  dashed_name: log-syslog-appname
+  description: The device or application that originated the Syslog message, if available.
+  example: sshd
+  flat_name: log.syslog.appname
+  ignore_above: 1024
+  level: extended
+  name: syslog.appname
+  normalize: []
+  short: The device or application that originated the Syslog message.
+  type: keyword
 log.syslog.facility.code:
   dashed_name: log-syslog-facility-code
   description: 'The Syslog numeric facility of the log event, if available.
@@ -5509,6 +5525,32 @@ log.syslog.facility.name:
   normalize: []
   short: Syslog text-based facility of the event.
   type: keyword
+log.syslog.hostname:
+  dashed_name: log-syslog-hostname
+  description: The hostname, FQDN, or IP of the machine that originally sent the Syslog
+    message. This is sourced from the hostname field of the syslog header. Depending
+    on the environment, this value may be different from the host that handled the
+    event, especially if the host handling the events is acting as a collector.
+  example: example-host
+  flat_name: log.syslog.hostname
+  ignore_above: 1024
+  level: extended
+  name: syslog.hostname
+  normalize: []
+  short: The host that originated the Syslog message.
+  type: keyword
+log.syslog.msgid:
+  dashed_name: log-syslog-msgid
+  description: An identifier for the type of Syslog message, if available. Only applicable
+    for RFC 5424 messages.
+  example: ID47
+  flat_name: log.syslog.msgid
+  ignore_above: 1024
+  level: extended
+  name: syslog.msgid
+  normalize: []
+  short: An identifier for the type of Syslog message.
+  type: keyword
 log.syslog.priority:
   dashed_name: log-syslog-priority
   description: 'Syslog numeric priority of the event, if available.
@@ -5523,6 +5565,17 @@ log.syslog.priority:
   normalize: []
   short: Syslog priority of the event.
   type: long
+log.syslog.procid:
+  dashed_name: log-syslog-procid
+  description: The process name or ID that originated the Syslog message, if available.
+  example: 12345
+  flat_name: log.syslog.procid
+  ignore_above: 1024
+  level: extended
+  name: syslog.procid
+  normalize: []
+  short: The process name or ID that originated the Syslog message.
+  type: keyword
 log.syslog.severity.code:
   dashed_name: log-syslog-severity-code
   description: 'The Syslog numeric severity of the log event, if available.
@@ -5553,6 +5606,29 @@ log.syslog.severity.name:
   name: syslog.severity.name
   normalize: []
   short: Syslog text-based severity of the event.
+  type: keyword
+log.syslog.structured_data:
+  dashed_name: log-syslog-structured-data
+  description: Structured data expressed in RFC 5424 messages, if available. These
+    are key-value pairs formed from the structured data portion of the syslog message,
+    as defined in RFC 5424 Section 6.3.
+  flat_name: log.syslog.structured_data
+  level: extended
+  name: syslog.structured_data
+  normalize: []
+  short: Structured data expressed in RFC 5424 messages.
+  type: flattened
+log.syslog.version:
+  dashed_name: log-syslog-version
+  description: The version of the Syslog protocol specification. Only applicable for
+    RFC 5424 messages.
+  example: 1
+  flat_name: log.syslog.version
+  ignore_above: 1024
+  level: extended
+  name: syslog.version
+  normalize: []
+  short: Syslog protocol version.
   type: keyword
 message:
   dashed_name: message

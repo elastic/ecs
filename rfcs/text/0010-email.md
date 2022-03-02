@@ -1,7 +1,7 @@
 # 0010: Email
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2021-12-13** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2022-02-23** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 This RFC proposes a new top-level field set to facilitate email use cases, `email.*`. The `email.*` field set adds fields for the sender, recipient, message header fields, and other attributes of an email message typically seen logs produced by mail transfer agent (MTA) and email gateway applications.
 
@@ -30,9 +30,7 @@ This RFC proposes a new top-level field set to facilitate email use cases, `emai
 | `email.attachments.file.name` | keyword | Name of the attachment file including the extension. |
 | `email.attachments.file.extension` | keyword | Attachment file extension, excluding the leading dot. |
 | `email.attachments.file.size` | long | Attachment file size in bytes. |
-| `email.attachments.file.hash.md5` | keyword | MD5 hash of the file attachment. |
-| `email.attachments.file.hash.sha1` | keyword | SHA-1 hash of the file attachment. |
-| `email.attachments.file.hash.sha256` | keyword | SHA-256 hash of the file attachment. |
+| `email.attachments.file.hash.*` | reuse of `hash.*` field set | Field reuse of `hash.*` for file attachments. |
 
 ### Additional event categorization allowed values
 
@@ -47,10 +45,6 @@ Email use cases stretch across all three Elastic solutions - Search, Observe, Pr
 - **Email Analytics**: [Hubspot](https://legacydocs.hubspot.com/docs/methods/email/email_events_overview), Marketo, Salesforce Pardot
 - **Email Server**: [O365 Message Tracing](https://docs.microsoft.com/en-us/exchange/monitoring/trace-an-email-message/run-a-message-trace-and-view-results), [Postfix](https://nxlog.co/documentation/nxlog-user-guide/postfix.html)
 - **Email Security**: [Barracuda](https://campus.barracuda.com/product/emailsecuritygateway/doc/12193950/syslog-and-the-barracuda-email-security-gateway/), [Forcepoint](https://www.websense.com/content/support/library/email/v85/email_siem/siem_log_map.pdf), [Mimecast](https://www.mimecast.com/tech-connect/documentation/tutorials/understanding-siem-logs/), [Proofpoint](https://help.proofpoint.com/Threat_Insight_Dashboard/API_Documentation/SIEM_API)
-
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting.
--->
 
 ### Office365 - Successful Delivery
 
@@ -206,11 +200,11 @@ Stage 2: Included a real world example source document. Ideally this example com
         "file": {
           "mime_type": "application/pdf",
           "name": "Invoice for Pharmtech.pdf",
-          "extension": "pdf"
-        },
-        "hash": {
-          "md5": "5873c7d37608e0d49bcaa6f32b6c731f",
-          "sha256": "2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca"
+          "extension": "pdf",
+          "hash": {
+            "md5": "5873c7d37608e0d49bcaa6f32b6c731f",
+            "sha256": "2fab740f143fc1aa4c1cd0146d334c5593b1428f6d062b2c406e5efe8abe95ca"
+          }
         }
       }
     ]
@@ -268,10 +262,6 @@ datetime=2021-05-26T16:47:41+0100|aCode=7O7I7MvGP1mj8plHRDuHEA|acc=C0A0|SpamLimi
 }
 ```
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
 This is a new field set, and the changes introduced will not affect existing ECS implementations.
@@ -312,14 +302,6 @@ Should fields intended to capture details around spam processing like sender pol
 
 **Resolution**: This initial field set focuses on email message content.
 
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate the risk of churn and instability by resolving outstanding concerns.
--->
-
 ## People
 
 The following are the people that consulted on the contents of this RFC.
@@ -350,3 +332,4 @@ The following are the people that consulted on the contents of this RFC.
   * RFC ID correction: https://github.com/elastic/ecs/pull/1157
 * Stage 1 (draft): https://github.com/elastic/ecs/pull/1219
 * Stage 2 (candidate): https://github.com/elastic/ecs/pull/1593
+* Stage 3 (finished): https://github.com/elastic/ecs/pull/YYYY

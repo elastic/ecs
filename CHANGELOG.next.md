@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding release notes section into ECS docs. #1800
+
 #### Improvements
 
 #### Deprecated
@@ -44,7 +46,12 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
+
 #### Improvements
+
+* `email.*` field set now GA. #1794
 
 #### Deprecated
 

@@ -1022,6 +1022,60 @@ These fields help correlate data based containers from any runtime.
 // ===============================================================
 
 |
+[[field-container-cpu-usage]]
+<<field-container-cpu-usage, container.cpu.usage>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Percent CPU used which is normalized by the number of CPU cores and it ranges from 0 to 1. Scaling factor: 1000.
+
+type: scaled_float
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-container-disk-read-bytes]]
+<<field-container-disk-read-bytes, container.disk.read.bytes>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes (gauge) read successfully (aggregated from all disks) since the last metric collection.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-container-disk-write-bytes]]
+<<field-container-disk-write-bytes, container.disk.write.bytes>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes (gauge) written successfully (aggregated from all disks) since the last metric collection.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-container-id]]
 <<field-container-id, container.id>>
 
@@ -1089,12 +1143,66 @@ type: object
 // ===============================================================
 
 |
+[[field-container-memory-usage]]
+<<field-container-memory-usage, container.memory.usage>>
+
+| beta:[ This field is beta and subject to change. ]
+
+Memory usage percentage and it ranges from 0 to 1. Scaling factor: 1000.
+
+type: scaled_float
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-container-name]]
 <<field-container-name, container.name>>
 
 | Container name.
 
 type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-container-network-egress-bytes]]
+<<field-container-network-egress-bytes, container.network.egress.bytes>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The number of bytes (gauge) sent out on all network interfaces by the container since the last metric collection.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-container-network-ingress-bytes]]
+<<field-container-network-ingress-bytes, container.network.ingress.bytes>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The number of bytes received (gauge) on all network interfaces by the container since the last metric collection.
+
+type: long
 
 
 
@@ -2472,8 +2580,6 @@ Note also that the `elf` fields are not expected to be used directly at the root
 Event details relating to an email transaction.
 
 This field set focuses on the email message header, body, and attachments. Network protocols that send and receive email messages such as SMTP are outside the scope of the `email.*` fields.
-
-beta::[ These fields are in beta and subject to change.]
 
 [discrete]
 ==== Email Field Details
@@ -5360,6 +5466,22 @@ type: object
 // ===============================================================
 
 |
+[[field-log-syslog-appname]]
+<<field-log-syslog-appname, log.syslog.appname>>
+
+| The device or application that originated the Syslog message, if available.
+
+type: keyword
+
+
+
+example: `sshd`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-log-syslog-facility-code]]
 <<field-log-syslog-facility-code, log.syslog.facility.code>>
 
@@ -5394,6 +5516,38 @@ example: `local7`
 // ===============================================================
 
 |
+[[field-log-syslog-hostname]]
+<<field-log-syslog-hostname, log.syslog.hostname>>
+
+| The hostname, FQDN, or IP of the machine that originally sent the Syslog message. This is sourced from the hostname field of the syslog header. Depending on the environment, this value may be different from the host that handled the event, especially if the host handling the events is acting as a collector.
+
+type: keyword
+
+
+
+example: `example-host`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-log-syslog-msgid]]
+<<field-log-syslog-msgid, log.syslog.msgid>>
+
+| An identifier for the type of Syslog message, if available. Only applicable for RFC 5424 messages.
+
+type: keyword
+
+
+
+example: `ID47`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-log-syslog-priority]]
 <<field-log-syslog-priority, log.syslog.priority>>
 
@@ -5406,6 +5560,22 @@ type: long
 
 
 example: `135`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-log-syslog-procid]]
+<<field-log-syslog-procid, log.syslog.procid>>
+
+| The process name or ID that originated the Syslog message, if available.
+
+type: keyword
+
+
+
+example: `12345`
 
 | extended
 
@@ -5442,6 +5612,38 @@ type: keyword
 
 
 example: `Error`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-log-syslog-structured-data]]
+<<field-log-syslog-structured-data, log.syslog.structured_data>>
+
+| Structured data expressed in RFC 5424 messages, if available. These are key-value pairs formed from the structured data portion of the syslog message, as defined in RFC 5424 Section 6.3.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-log-syslog-version]]
+<<field-log-syslog-version, log.syslog.version>>
+
+| The version of the Syslog protocol specification. Only applicable for RFC 5424 messages.
+
+type: keyword
+
+
+
+example: `1`
 
 | extended
 
