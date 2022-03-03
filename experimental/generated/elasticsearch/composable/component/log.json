@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-log.html",
-    "ecs_version": "8.2.0-dev+exp"
+    "ecs_version": "8.3.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -45,6 +45,10 @@
             },
             "syslog": {
               "properties": {
+                "appname": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "facility": {
                   "properties": {
                     "code": {
@@ -56,8 +60,20 @@
                     }
                   }
                 },
+                "hostname": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "msgid": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "priority": {
                   "type": "long"
+                },
+                "procid": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "severity": {
                   "properties": {
@@ -69,6 +85,13 @@
                       "type": "keyword"
                     }
                   }
+                },
+                "structured_data": {
+                  "type": "flattened"
+                },
+                "version": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 }
               },
               "type": "object"

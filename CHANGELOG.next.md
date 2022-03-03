@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 #### Improvements
@@ -32,11 +30,45 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding release notes section into ECS docs. #1800
+
 #### Improvements
 
 #### Deprecated
 
-## 8.1.0 (Soft Feature Freeze)
+## 8.2.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+* Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
+
+#### Improvements
+
+* `email.*` field set now GA. #1794
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.1.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
@@ -62,45 +94,7 @@ Thanks, you're awesome :-) -->
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
-
-## 8.0.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-* Remove `host.user.*` field reuse. #1439
-* Remove deprecation notice on `http.request.method`. #1443
-* Migrate `log.origin.file.line` from `integer` to `long`. #1533
-* Remove `log.original` field. #1580
-* Remove `process.ppid` field. #1596
-
-#### Added
-
-* Added `faas.*` field set as beta. #1628
-
-#### Improvements
-
-* Wildcard type field migration GA. #1582
-* `match_only_text` type field migration GA. #1584
-* Threat indicator fields GA from RFC 0008. #1586
-
-### Tooling and Artifact Changes
-
-#### Breaking Changes
-
-* Removing deprecated --oss from generator #1404
-* Removing use-cases directory #1405
-* Remove Go code generator. #1567
-* Remove template generation for ES6. #1680
-* Update folder structure for generated ES artifacts. #1700
-
-#### Improvements
-
-* Align input options for --include and --subset arguments #1519
-* Remove remaining Go deps after removing Go code generator. #1585
-* Add explicit `default_field: true` for Beats artifacts. #1633
-* Reorganize docs directory structure. #1679
+* Bump dependencies. #1782
 
 <!-- All empty sections:
 

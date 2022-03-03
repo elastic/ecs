@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-faas.html",
-    "ecs_version": "8.2.0-dev"
+    "ecs_version": "8.3.0-dev"
   },
   "template": {
     "mappings": {
@@ -12,6 +12,14 @@
               "type": "boolean"
             },
             "execution": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 1024,
+              "type": "keyword"
+            },
+            "name": {
               "ignore_above": 1024,
               "type": "keyword"
             },
@@ -27,6 +35,10 @@
                 }
               },
               "type": "nested"
+            },
+            "version": {
+              "ignore_above": 1024,
+              "type": "keyword"
             }
           }
         }

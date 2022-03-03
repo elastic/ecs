@@ -1,16 +1,16 @@
 [[ecs-conventions]]
-=== Conventions
+==== Conventions
 
 The implementation of ECS follows a few conventions. Understanding them will
 help you understand ECS better.
 
-[float]
-==== Datatype for integers
+[discrete]
+===== Datatype for integers
 
 Unless otherwise noted, the datatype used for integer fields should be `long`.
 
-[float]
-==== IDs and most codes are keywords, not integers
+[discrete]
+===== IDs and most codes are keywords, not integers
 
 Despite the fact that IDs and codes (such as error codes) are often integers,
 this is not always the case.
@@ -22,8 +22,8 @@ If those have a specific corresponding specific field (as HTTP status does),
 its type can safely be an integer type.
 But generic fields like `error.code` cannot have this guarantee, and are therefore `keyword`.
 
-[float]
-==== Text indexing and multi-fields
+[discrete]
+===== Text indexing and multi-fields
 
 Elasticsearch can index text using datatypes:
 
@@ -38,7 +38,7 @@ Elasticsearch can index text using datatypes:
   {ref}/query-dsl-prefix-query.html[prefix search], or
   {ref}/search-aggregations.html[aggregations].
 
-[float]
+[discrete]
 ===== Default Elasticsearch convention for indexing text fields
 
 Unless your index mapping or index template specifies otherwise
@@ -51,7 +51,7 @@ Default Elasticsearch convention:
 * Canonical field: `myfield` is `text`
 * Multi-field: `myfield.keyword` is `keyword`
 
-[float]
+[discrete]
 ===== ECS convention for indexing text fields
 
 ECS flips the above convention around.
