@@ -2065,7 +2065,7 @@ The goal here is to research and understand the impact of these changes on users
 
 ### Ingestion mechanisms
 
-The Adaptive workload protections (AWP) sensor team is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing kprobe sensor tech will be upgraded to support much of the new widened process context defined in this RFC. At the same time, eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
+The Adaptive workload protections (AWP) sensor team is working hard on integrating these new ECS fields into the endpoint agent codebase. The existing perf/tracefs kprobe sensor technology will be upgraded to support much of the new widened process context defined in this RFC. At the same time, eBPF sensor technology is being worked on and will eventually be the go to method for building these process events.
 
 ### Usage mechanisms
 
@@ -2073,7 +2073,7 @@ As outlined earlier in this document, the primary use for this data will be to d
 
 Currently there are plans to integrate Session View into the kibana Timeline UI along side the Process Analyzer feature. There are also plans to add a "Sessions" tab to the Endpoint security hosts page.
 
-Another major win to this widenened process context is the ability to create more targeted rules. There are many situations where you may want to alert on a specific process executable, but only in certain cases. For example, perhaps it's ok to run the mysql cli client, but only if the process.entry_leader.user.name != 'root' and process.entry_leader.entry_meta.source.ip: <IP of a trusted bastion host>
+Another major win to this widened process context is the ability to create more targeted rules and forensic queries. There are many situations where you may want to alert on a specific process executable, but only in certain cases. For example, perhaps it's ok to run the mysql cli client, but only if the process.entry_leader.user.name != 'root' and process.entry_leader.entry_meta.source.ip: <IP of a trusted bastion host>
 
 ### ECS project
 
@@ -2126,7 +2126,7 @@ These additions allow:
   * sessions can run for months (tmux) and may have events that have been deleted (such as the original session leader/bash) that will be filled in by this extra context.
 * Improved search efficiency and expressiveness
   * the extra context allows for efficient, very targeted queries for forensics; what would have taken several queries can be done it one query
-  * (forensics and finding events for session views)
+  * all events for a given session within a specific time range can be found with one query. e.g. process.session_leader.entity_id = X
 
 ### Is this the most compact representation we could use?
 

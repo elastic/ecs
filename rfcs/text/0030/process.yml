@@ -63,7 +63,7 @@
 
         Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
 
-    - name: top_level
+    - name: same_as_process
       level: extended
       type: boolean
       example: true
@@ -71,7 +71,7 @@
       description: >
         This boolean is used to identify if a leader process is the same as the top level process.
 
-        For example, if process.group_leader.top_level = true, it means the process event in question is the leader of its process group. Details under process.* like pid would be the same under process.group_leader.*
+        For example, if process.group_leader.same_as_process = true, it means the process event in question is the leader of its process group. Details under process.* like pid would be the same under process.group_leader.*
 
         The same applies for both process.session_leader and process.entry_leader.
 
@@ -87,13 +87,13 @@
 
         Instead these rules could be written like:
 
-        process.group_leader.top_level: true
+        process.group_leader.same_as_process: true
 
         OR
-	
-        process.entry_leader.top_level: true 
 
-        Note: This field is only set on entry_leader, session_leader and group_leader. The top level process.top_level would not be set as we know it is already top level.
+        process.entry_leader.same_as_process: true
+
+        Note: This field is only set on process.entry_leader, process.session_leader and process.group_leader.
 
     - name: env_vars
       level: extended
