@@ -47,6 +47,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
 
 #### Improvements
 
