@@ -59,6 +59,9 @@ Discussing the initial proposal with Andrew Wilkins, we came up with an adapted 
 ### New Fields
 Field | Type | Example | Description | Use case
  -- | -- | --  | --  |--
+faas.id | keyword | `arn:aws:lambda:us-west-2:123456789012:function:my-function`  | The unique identifier of a serverless function. For AWS Lambda it's the function ARN (Amazon Resource Name) without a version or alias suffix.  | Correlation of traces, logs and metrics for a specific serverless function.
+faas.name | keyword | `my-function`  | The name of a serverless function.  | Display name of a serverless function.
+faas.version | keyword | `123`  | The version of a serverless function.  | Group / differentiate data by the version of a serverless function.
 faas.coldstart | boolean | true | Boolean value indicating a cold start of a function | Can be used in the UI denote function coldstarts.
 faas.execution | keyword | "af9d5aa4-a685-4c5f-a22b-444f80b3cc28" | The execution ID of the current function execution. | Allows correlation with CloudWatch logs and metrics
 faas.trigger.type | keyword | "http" | one of `http`,`pubsub`,`datasource`, `timer`, `other` | Allows differentiating different function types
@@ -94,6 +97,9 @@ Done.
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+### `faas.id`, `faas.name` & `faas.version`
+Allows for correlating traces, logs and metrics for individual serverless functions and versions. `faas.name` will be used as the display name of serverless functions in the UI.
+
 ### `faas.coldstart`
 Will be used in the APM UI to mark function invocations that resultet from a coldstart. This is a useful information for the end users to differentiate coldstart behaviour from warmstart function invocations.
 
@@ -122,6 +128,9 @@ The mapping to the proposed fields for this example is layed out in the followin
 
 target ECS field | source field
 --- | ---
+faas.id | `context.invokedFunctionArn`
+faas.name | `context.functionName`
+faas.version | `context.functionVersion`
 faas.coldstart | No source field. Determined by the APM agent on the first Lambda function invocation.
 faas.execution | `context.awsRequestId`
 faas.trigger.type | No source field. Determined by the APM agent based on the `event object` type. Would be `http` in this example.
