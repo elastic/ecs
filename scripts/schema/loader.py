@@ -153,7 +153,7 @@ def deep_nesting_representation(fields):
                 if 'normalize' in reuse and 'array' in reuse['normalize']:
                     flat_schema['fields'].append({
                         'name': reuse['as'],
-                        'description': reuse['short_override'],
+                        'description': reuse['short_override'] if 'short_override' in reuse else flat_schema['short'],
                         'type': 'nested',
                         'level': 'extended',
                         'normalize': ['array']
