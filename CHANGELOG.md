@@ -21,7 +21,6 @@ All notable changes to this project will be documented in this file based on the
 
 #### Bugfixes
 
-* Add `object` as fallback for `flattened` type. #1653
 * Fix invalid documentation link generation in component templates `_meta`. #1728
 
 #### Improvements
