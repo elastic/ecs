@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fixed the `default_field` flag for root fields in Beats generator. #1711
-
 #### Added
 
 #### Improvements
@@ -32,7 +30,45 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding release notes section into ECS docs. #1800
+
 #### Improvements
+
+#### Deprecated
+
+## 8.2.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+* Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
+
+#### Improvements
+
+* `email.*` field set now GA. #1794
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+* Update refs from master to main in USAGE.md etc #1658
+* Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
 
 #### Deprecated
 
