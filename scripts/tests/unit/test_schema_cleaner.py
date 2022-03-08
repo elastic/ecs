@@ -329,6 +329,32 @@ class TestSchemaCleaner(unittest.TestCase):
         except Exception:
             self.fail("cleaner.single_line_short_description() raised Exception unexpectedly.")
 
+    def test_field_pattern_regex_raises_if_invalid(self):
+        field = {
+            'name': 'test',
+            'pattern': '[.*'
+        }
+        with self.assertRaisesRegex(ValueError, 'Pattern value must be a valid regular expression'):
+            cleaner.validate_pattern_regex(field, strict=True)
+
+    def test_field_pattern_regex_warns_strict_disabled(self):
+        field = {
+            'name': 'test',
+            'pattern': '[.*'
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'valid regular expression'):
+                cleaner.validate_pattern_regex(field, strict=False)
+        except Exception:
+            self.fail("cleaner.validate_pattern_regex() raised Exception unexpectedly.")
+
+    def test_field_pattern_regex_success(self):
+        field = {
+            'name': 'test',
+            'pattern': '[.*]'
+        }
+        self.assertIsNone(cleaner.validate_pattern_regex(field))
+
     def test_field_example_value_is_object_raises(self):
         field = {
             'field_details': {
