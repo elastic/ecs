@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import copy
 import re
 
 from generators import ecs_helpers
