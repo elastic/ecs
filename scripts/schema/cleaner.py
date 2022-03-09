@@ -202,11 +202,11 @@ def field_assertions_and_warnings(field):
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
-        check_example_value(field, strict=strict_mode)
         if 'beta' in field['field_details']:
             single_line_beta_description(field, strict=strict_mode)
         if 'pattern' in field['field_details']:
             validate_pattern_regex(field['field_details'], strict=strict_mode)
+        check_example_value(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -260,10 +260,18 @@ def check_example_value(field, strict=True):
     Fails or warns (depending on strict mode) if so.
     """
     example_value = field['field_details'].get('example', None)
+    pattern = field['field_details'].get('pattern', None)
+    name = field['field_details']['name']
+
     if isinstance(example_value, (list, dict)):
-        name = field['field_details']['name']
         msg = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
         strict_warning_handler(msg, strict)
+
+    if pattern:
+        match = re.match(pattern, example_value)
+        if not match:
+            msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
+            strict_warning_handler(msg, strict)
 
 
 def single_line_beta_description(schema_or_field, strict=True):

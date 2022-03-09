@@ -413,6 +413,31 @@ class TestSchemaCleaner(unittest.TestCase):
         except Exception:
             self.fail("cleaner.check_example_value() raised Exception unexpectedly.")
 
+    def test_example_value_mismatch_with_pattern(self):
+        field = {
+            'field_details': {
+                'name': 'test',
+                'example': 'AA',
+                'pattern': 'A{3}'
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'does not match the regex defined in the pattern'):
+            cleaner.check_example_value(field)
+
+    def test_example_value_mismatch_with_pattern_strict_disabled(self):
+        field = {
+            'field_details': {
+                'name': 'test',
+                'example': 'AA',
+                'pattern': 'A{3}'
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'does not match the regex defined in the pattern'):
+                cleaner.check_example_value(field, strict=False)
+        except Exception:
+            self.fail("clean.check_example_value() raised Exception unexpectedly.")
+
     def test_very_long_short_override_description_raises(self):
         schema = {
             'schema_details': {
