@@ -90,6 +90,38 @@ class TestGeneratorsBeatsFields(unittest.TestCase):
         self.assertFalse(field_entry['index'])
         self.assertFalse(field_entry['doc_values'])
 
+    def test_fieldset_field_array_allowed_keys(self):
+        fields = {
+            'id': {
+                'dashed_name': 'agent-id',
+                'description': 'description',
+                'flat_name': 'agent.id',
+                'level': 'extended',
+                'name': 'agent.id',
+                'normalize': [],
+                'short': 'short',
+                'type': 'keyword',
+                'index': False,
+                'doc_values': False,
+                'pattern': '[.*]',
+                'foo': 'bar'
+            }
+        }
+
+        beats_fields = beats.fieldset_field_array(fields, '')
+        field_entry = beats_fields[0]
+        self.assertIn('description', field_entry)
+        self.assertIn('level', field_entry)
+        self.assertIn('name', field_entry)
+        self.assertIn('type', field_entry)
+        self.assertIn('index', field_entry)
+        self.assertIn('doc_values', field_entry)
+        self.assertNotIn('foo', field_entry)
+        self.assertNotIn('dashed_name', field_entry)
+        self.assertNotIn('flat_name', field_entry)
+        self.assertNotIn('normalize', field_entry)
+        self.assertNotIn('short', field_entry)
+
 
 if __name__ == '__main__':
     unittest.main()

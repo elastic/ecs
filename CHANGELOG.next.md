@@ -64,6 +64,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding optional field attribute, `pattern`. #1834
+
 #### Improvements
 
 * Update refs from master to main in USAGE.md etc #1658

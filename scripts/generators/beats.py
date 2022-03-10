@@ -75,7 +75,7 @@ def fieldset_field_array(source_fields, fieldset_prefix):
                     'ignore_above', 'multi_fields', 'format', 'input_format',
                     'output_format', 'output_precision', 'description',
                     'example', 'enabled', 'index', 'doc_values', 'path',
-                    'scaling_factor']
+                    'scaling_factor', 'pattern']
     multi_fields_allowed_keys = ['name', 'type', 'norms', 'default_field', 'normalizer', 'ignore_above']
 
     fields = []
