@@ -21,10 +21,10 @@
     expected:
       - at: process
         as: entry_leader
-        short_override: Information about the entry session leader process.
+        short_override: The session leader process associated with initial terminal or remote access via SSH, SSM and other remote access protocols. Entry sessions are also used to represent a service directly started by the init process. In many cases this is the same as the session_leader.
       - at: process
         as: session_leader
-        short_override: Information about the session leader. In some cases this may be the same information as entry_leader.
+        short_override: Often the same as entry_leader. When it differs, this represents a session started within another session. Some tools like tmux and screen will start a new session to obtain a new tty and/or separate their lifecycle from the entry session.
       - at: process
         as: group_leader
         short_override: Information about the process group leader. In some cases this may be the same as the top level process.
