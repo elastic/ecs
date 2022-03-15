@@ -150,6 +150,9 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
         # Check for a short override, if not present, fall back to the top-level fieldset's short
         'short': reuse_entry['short_override'] if 'short_override' in reuse_entry else reused_schema['field_details']['short']
     }
+    # If it exists, bring through the normalization
+    if 'normalize' in reuse_entry:
+        reused_here_entry['normalize'] = reuse_entry['normalize']
     # Check for beta attribute
     if 'beta' in reuse_entry:
         reused_here_entry['beta'] = reuse_entry['beta']
