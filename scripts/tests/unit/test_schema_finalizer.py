@@ -65,6 +65,7 @@ class TestSchemaFinalizer(unittest.TestCase):
                         'expected': [
                             {'full': 'process.parent', 'at': 'process', 'as': 'parent',
                                 'short_override': 'short override desc'},
+                            {'full': 'process.previous', 'at': 'process', 'as': 'previous', 'normalize': ['array']},
                             {'full': 'reuse.process', 'at': 'reuse', 'as': 'process'},
                             {'full': 'reuse.process.parent', 'at': 'reuse.process', 'as': 'parent'},
                             {'full': 'reuse.process.target', 'at': 'reuse.process', 'as': 'target'},
@@ -201,6 +202,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         process_target_reuse_fields = fields['reuse']['fields']['process']['fields']['target']['fields']
         # Expected reuse
         self.assertIn('parent', process_fields)
+        self.assertIn('previous', process_fields)
         self.assertIn('user', server_fields)
         self.assertIn('target', user_fields)
         self.assertIn('effective', user_fields)
@@ -226,6 +228,7 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('target', server_fields['user']['fields'])
         # Legacy list of nestings, added to destination schema
         self.assertIn('process.parent', fields['process']['schema_details']['nestings'])
+        self.assertIn('process.previous', fields['process']['schema_details']['nestings'])
         self.assertIn('user.effective', fields['user']['schema_details']['nestings'])
         self.assertIn('user.target', fields['user']['schema_details']['nestings'])
         self.assertIn('server.user', fields['server']['schema_details']['nestings'])
@@ -233,6 +236,8 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('reuse.process.target.parent', fields['reuse']['schema_details']['nestings'])
         # Attribute 'reused_here' lists nestings inside a destination schema
         self.assertIn({'full': 'process.parent', 'schema_name': 'process', 'short': 'short override desc'},
+                      fields['process']['schema_details']['reused_here'])
+        self.assertIn({'full': 'process.previous', 'schema_name': 'process', 'short': 'short desc', 'normalize': ['array']},
                       fields['process']['schema_details']['reused_here'])
         self.assertIn({'full': 'user.effective', 'schema_name': 'user', 'short': 'short desc'},
                       fields['user']['schema_details']['reused_here'])

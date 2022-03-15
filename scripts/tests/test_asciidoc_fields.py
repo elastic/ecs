@@ -103,7 +103,13 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
                     'full': 'foo.as',
                     'schema_name': 'as',
                     'short': 'Fields describing an AS'
-                }
+                },
+                {
+                    'full': 'foo.file',
+                    'schema_name': 'file',
+                    'short': 'Fields describing files',
+                    'normalize': ['array']
+                },
             ],
             'group': 2,
             'name': 'foo',
@@ -214,6 +220,11 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         self.assertEqual('foo.as.*', foo_nesting_fields[0]['flat_nesting'])
         self.assertEqual('as', foo_nesting_fields[0]['name'])
         self.assertEqual('Fields describing an AS', foo_nesting_fields[0]['short'])
+
+        self.assertEqual('foo.file.*', foo_nesting_fields[1]['flat_nesting'])
+        self.assertEqual('file', foo_nesting_fields[1]['name'])
+        self.assertEqual('Fields describing files', foo_nesting_fields[1]['short'])
+        self.assertEqual(['array'], foo_nesting_fields[1]['normalize'])
 
     def test_check_for_usage_doc_true(self):
         usage_files = ["foo.asciidoc"]
