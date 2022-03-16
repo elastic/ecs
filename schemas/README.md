@@ -53,7 +53,7 @@ multiple places, like for example `geo`, which can appear under `source`, `desti
 }
 ```
 
-The `reusable` attribute is composed of `top_level`, `expected`, and `short_override` sub-attributes:
+The `reusable` attribute is composed of a few sub-attributes:
 
 - top\_level (optional, default true): Is this field set expected at the root of
   events or is it only expected in the nested locations?
@@ -61,6 +61,8 @@ The `reusable` attribute is composed of `top_level`, `expected`, and `short_over
   There are two valid notations to list expected locations.
 - short_override (optional, default null): Sets the short description for the
   nested field, overriding the default top-level short description.
+- normalize: Normalization steps that should be applied at ingestion time. Supported values:
+  - array: the content of the field should be an array (even when there's only one value).
 
 The "flat" (or dotted) notation to represent where the fields are nested:
 
@@ -162,6 +164,7 @@ Supported keys to describe fields
 - index (optional): If `False`, means field is not indexed (overrides type). This parameter has no effect
   on a `wildcard` field.
 - format: Field format that can be used in a Kibana index template.
+- pattern (optional): A regular expression that expresses the expected constraints of the field's string values.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
 - beta (optional): Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines.
