@@ -5916,76 +5916,6 @@ group:
       normalize: []
       short: Name of the group.
       type: keyword
-    group.real.domain:
-      dashed_name: group-real-domain
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: group.real.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: group
-      short: Name of the directory the group is a member of.
-      type: keyword
-    group.real.id:
-      dashed_name: group-real-id
-      description: Unique identifier for the group on the system/platform.
-      flat_name: group.real.id
-      ignore_above: 1024
-      level: extended
-      name: id
-      normalize: []
-      original_fieldset: group
-      short: Unique identifier for the group on the system/platform.
-      type: keyword
-    group.real.name:
-      dashed_name: group-real-name
-      description: Name of the group.
-      flat_name: group.real.name
-      ignore_above: 1024
-      level: extended
-      name: name
-      normalize: []
-      original_fieldset: group
-      short: Name of the group.
-      type: keyword
-    group.saved.domain:
-      dashed_name: group-saved-domain
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: group.saved.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: group
-      short: Name of the directory the group is a member of.
-      type: keyword
-    group.saved.id:
-      dashed_name: group-saved-id
-      description: Unique identifier for the group on the system/platform.
-      flat_name: group.saved.id
-      ignore_above: 1024
-      level: extended
-      name: id
-      normalize: []
-      original_fieldset: group
-      short: Unique identifier for the group on the system/platform.
-      type: keyword
-    group.saved.name:
-      dashed_name: group-saved-name
-      description: Name of the group.
-      flat_name: group.saved.name
-      ignore_above: 1024
-      level: extended
-      name: name
-      normalize: []
-      original_fieldset: group
-      short: Name of the group.
-      type: keyword
     group.supplemental.domain:
       dashed_name: group-supplemental-domain
       description: 'Name of the directory the group is a member of.
@@ -6024,8 +5954,6 @@ group:
   group: 2
   name: group
   nestings:
-  - group.real
-  - group.saved
   - group.supplemental
   prefix: group.
   reusable:
@@ -6038,15 +5966,15 @@ group:
       beta: Reusing the `group` fields in this location is currently considered beta.
       full: process.group
       short_override: The effective group (egid).
-    - as: real
-      at: group
+    - as: real_group
+      at: process
       beta: Reusing the `group` fields in this location is currently considered beta.
-      full: group.real
+      full: process.real_group
       short_override: The real group (rgid).
-    - as: saved
-      at: group
+    - as: saved_group
+      at: process
       beta: Reusing the `group` fields in this location is currently considered beta.
-      full: group.saved
+      full: process.saved_group
       short_override: The saved group (sgid).
     - as: supplemental
       at: group
@@ -6057,14 +5985,6 @@ group:
       short_override: An array of supplemental groups.
     top_level: true
   reused_here:
-  - beta: Reusing the `group` fields in this location is currently considered beta.
-    full: group.real
-    schema_name: group
-    short: The real group (rgid).
-  - beta: Reusing the `group` fields in this location is currently considered beta.
-    full: group.saved
-    schema_name: group
-    short: The saved group (sgid).
   - beta: Reusing the `group` fields in this location is currently considered beta.
     full: group.supplemental
     normalize: *id001
@@ -11319,6 +11239,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.entry_leader.parent.real_group.domain:
+      dashed_name: process-entry-leader-parent-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.real_group.id:
+      dashed_name: process-entry-leader-parent-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.real_group.name:
+      dashed_name: process-entry-leader-parent-real-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.real_user.domain:
+      dashed_name: process-entry-leader-parent-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.parent.real_user.email:
+      dashed_name: process-entry-leader-parent-real-user-email
+      description: User email address.
+      flat_name: process.entry_leader.parent.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.parent.real_user.full_name:
+      dashed_name: process-entry-leader-parent-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.parent.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.parent.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.parent.real_user.group.domain:
+      dashed_name: process-entry-leader-parent-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.real_user.group.id:
+      dashed_name: process-entry-leader-parent-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.real_user.group.name:
+      dashed_name: process-entry-leader-parent-real-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.real_user.hash:
+      dashed_name: process-entry-leader-parent-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.parent.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.parent.real_user.id:
+      dashed_name: process-entry-leader-parent-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.parent.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.parent.real_user.name:
+      dashed_name: process-entry-leader-parent-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.parent.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.parent.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.parent.real_user.roles:
+      dashed_name: process-entry-leader-parent-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.parent.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.parent.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-same-as-process
@@ -11344,6 +11430,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.entry_leader.parent.saved_group.domain:
+      dashed_name: process-entry-leader-parent-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.saved_group.id:
+      dashed_name: process-entry-leader-parent-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.saved_group.name:
+      dashed_name: process-entry-leader-parent-saved-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.saved_user.domain:
+      dashed_name: process-entry-leader-parent-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.parent.saved_user.email:
+      dashed_name: process-entry-leader-parent-saved-user-email
+      description: User email address.
+      flat_name: process.entry_leader.parent.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.parent.saved_user.full_name:
+      dashed_name: process-entry-leader-parent-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.parent.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.parent.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.parent.saved_user.group.domain:
+      dashed_name: process-entry-leader-parent-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.saved_user.group.id:
+      dashed_name: process-entry-leader-parent-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.saved_user.group.name:
+      dashed_name: process-entry-leader-parent-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.saved_user.hash:
+      dashed_name: process-entry-leader-parent-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.parent.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.parent.saved_user.id:
+      dashed_name: process-entry-leader-parent-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.parent.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.parent.saved_user.name:
+      dashed_name: process-entry-leader-parent-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.parent.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.parent.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.parent.saved_user.roles:
+      dashed_name: process-entry-leader-parent-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.parent.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.parent.session_leader.args:
       dashed_name: process-entry-leader-parent-session-leader-args
       description: 'Array of process arguments, starting with the absolute path to
@@ -12553,6 +12805,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.entry_leader.parent.session_leader.real_group.domain:
+      dashed_name: process-entry-leader-parent-session-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_group.id:
+      dashed_name: process-entry-leader-parent-session-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.session_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_group.name:
+      dashed_name: process-entry-leader-parent-session-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.session_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.domain:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.email:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-email
+      description: User email address.
+      flat_name: process.entry_leader.parent.session_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.full_name:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.parent.session_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.parent.session_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.group.domain:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.group.id:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.session_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.group.name:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.session_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.hash:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.parent.session_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.id:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.parent.session_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.name:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.parent.session_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.parent.session_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.parent.session_leader.real_user.roles:
+      dashed_name: process-entry-leader-parent-session-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.parent.session_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.parent.session_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-session-leader-same-as-process
@@ -12578,6 +12996,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.entry_leader.parent.session_leader.saved_group.domain:
+      dashed_name: process-entry-leader-parent-session-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_group.id:
+      dashed_name: process-entry-leader-parent-session-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.session_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_group.name:
+      dashed_name: process-entry-leader-parent-session-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.session_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.domain:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.email:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-email
+      description: User email address.
+      flat_name: process.entry_leader.parent.session_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.full_name:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.parent.session_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.parent.session_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.group.domain:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.parent.session_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.group.id:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.parent.session_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.group.name:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.parent.session_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.hash:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.parent.session_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.id:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.parent.session_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.name:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.parent.session_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.parent.session_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.parent.session_leader.saved_user.roles:
+      dashed_name: process-entry-leader-parent-session-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.parent.session_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.parent.session_leader.start:
       dashed_name: process-entry-leader-parent-session-leader-start
       description: The time the process started.
@@ -13211,6 +13795,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.entry_leader.real_group.domain:
+      dashed_name: process-entry-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.real_group.id:
+      dashed_name: process-entry-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.real_group.name:
+      dashed_name: process-entry-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.real_user.domain:
+      dashed_name: process-entry-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.real_user.email:
+      dashed_name: process-entry-leader-real-user-email
+      description: User email address.
+      flat_name: process.entry_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.real_user.full_name:
+      dashed_name: process-entry-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.real_user.group.domain:
+      dashed_name: process-entry-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.real_user.group.id:
+      dashed_name: process-entry-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.real_user.group.name:
+      dashed_name: process-entry-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.real_user.hash:
+      dashed_name: process-entry-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.real_user.id:
+      dashed_name: process-entry-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.real_user.name:
+      dashed_name: process-entry-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.real_user.roles:
+      dashed_name: process-entry-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-same-as-process
@@ -13236,6 +13986,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.entry_leader.saved_group.domain:
+      dashed_name: process-entry-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.saved_group.id:
+      dashed_name: process-entry-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.saved_group.name:
+      dashed_name: process-entry-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.saved_user.domain:
+      dashed_name: process-entry-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.entry_leader.saved_user.email:
+      dashed_name: process-entry-leader-saved-user-email
+      description: User email address.
+      flat_name: process.entry_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.entry_leader.saved_user.full_name:
+      dashed_name: process-entry-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.entry_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.entry_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.entry_leader.saved_user.group.domain:
+      dashed_name: process-entry-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.entry_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.entry_leader.saved_user.group.id:
+      dashed_name: process-entry-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.entry_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.entry_leader.saved_user.group.name:
+      dashed_name: process-entry-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.entry_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.saved_user.hash:
+      dashed_name: process-entry-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.entry_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.entry_leader.saved_user.id:
+      dashed_name: process-entry-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.saved_user.name:
+      dashed_name: process-entry-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.entry_leader.saved_user.roles:
+      dashed_name: process-entry-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.entry_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.entry_leader.start:
       dashed_name: process-entry-leader-start
       description: The time the process started.
@@ -15129,6 +16045,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.group_leader.real_group.domain:
+      dashed_name: process-group-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.group_leader.real_group.id:
+      dashed_name: process-group-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.group_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.group_leader.real_group.name:
+      dashed_name: process-group-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.group_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.group_leader.real_user.domain:
+      dashed_name: process-group-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.group_leader.real_user.email:
+      dashed_name: process-group-leader-real-user-email
+      description: User email address.
+      flat_name: process.group_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.group_leader.real_user.full_name:
+      dashed_name: process-group-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.group_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.group_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.group_leader.real_user.group.domain:
+      dashed_name: process-group-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.group_leader.real_user.group.id:
+      dashed_name: process-group-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.group_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.group_leader.real_user.group.name:
+      dashed_name: process-group-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.group_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.group_leader.real_user.hash:
+      dashed_name: process-group-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.group_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.group_leader.real_user.id:
+      dashed_name: process-group-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.group_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.group_leader.real_user.name:
+      dashed_name: process-group-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.group_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.group_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.group_leader.real_user.roles:
+      dashed_name: process-group-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.group_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.group_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-group-leader-same-as-process
@@ -15154,6 +16236,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.group_leader.saved_group.domain:
+      dashed_name: process-group-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.group_leader.saved_group.id:
+      dashed_name: process-group-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.group_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.group_leader.saved_group.name:
+      dashed_name: process-group-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.group_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.group_leader.saved_user.domain:
+      dashed_name: process-group-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.group_leader.saved_user.email:
+      dashed_name: process-group-leader-saved-user-email
+      description: User email address.
+      flat_name: process.group_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.group_leader.saved_user.full_name:
+      dashed_name: process-group-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.group_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.group_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.group_leader.saved_user.group.domain:
+      dashed_name: process-group-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.group_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.group_leader.saved_user.group.id:
+      dashed_name: process-group-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.group_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.group_leader.saved_user.group.name:
+      dashed_name: process-group-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.group_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.group_leader.saved_user.hash:
+      dashed_name: process-group-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.group_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.group_leader.saved_user.id:
+      dashed_name: process-group-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.group_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.group_leader.saved_user.name:
+      dashed_name: process-group-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.group_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.group_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.group_leader.saved_user.roles:
+      dashed_name: process-group-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.group_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.group_leader.start:
       dashed_name: process-group-leader-start
       description: The time the process started.
@@ -17696,6 +18944,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.parent.group_leader.real_group.domain:
+      dashed_name: process-parent-group-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.group_leader.real_group.id:
+      dashed_name: process-parent-group-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.group_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.group_leader.real_group.name:
+      dashed_name: process-parent-group-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.parent.group_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.group_leader.real_user.domain:
+      dashed_name: process-parent-group-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.parent.group_leader.real_user.email:
+      dashed_name: process-parent-group-leader-real-user-email
+      description: User email address.
+      flat_name: process.parent.group_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.parent.group_leader.real_user.full_name:
+      dashed_name: process-parent-group-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.parent.group_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.parent.group_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.parent.group_leader.real_user.group.domain:
+      dashed_name: process-parent-group-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.group_leader.real_user.group.id:
+      dashed_name: process-parent-group-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.group_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.group_leader.real_user.group.name:
+      dashed_name: process-parent-group-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.parent.group_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.group_leader.real_user.hash:
+      dashed_name: process-parent-group-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.parent.group_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.parent.group_leader.real_user.id:
+      dashed_name: process-parent-group-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.parent.group_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.parent.group_leader.real_user.name:
+      dashed_name: process-parent-group-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.parent.group_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.parent.group_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.parent.group_leader.real_user.roles:
+      dashed_name: process-parent-group-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.parent.group_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.parent.group_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-group-leader-same-as-process
@@ -17721,6 +19135,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.parent.group_leader.saved_group.domain:
+      dashed_name: process-parent-group-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.group_leader.saved_group.id:
+      dashed_name: process-parent-group-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.group_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.group_leader.saved_group.name:
+      dashed_name: process-parent-group-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.parent.group_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.group_leader.saved_user.domain:
+      dashed_name: process-parent-group-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.parent.group_leader.saved_user.email:
+      dashed_name: process-parent-group-leader-saved-user-email
+      description: User email address.
+      flat_name: process.parent.group_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.parent.group_leader.saved_user.full_name:
+      dashed_name: process-parent-group-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.parent.group_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.parent.group_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.parent.group_leader.saved_user.group.domain:
+      dashed_name: process-parent-group-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.group_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.group_leader.saved_user.group.id:
+      dashed_name: process-parent-group-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.group_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.group_leader.saved_user.group.name:
+      dashed_name: process-parent-group-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.parent.group_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.group_leader.saved_user.hash:
+      dashed_name: process-parent-group-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.parent.group_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.parent.group_leader.saved_user.id:
+      dashed_name: process-parent-group-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.parent.group_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.parent.group_leader.saved_user.name:
+      dashed_name: process-parent-group-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.parent.group_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.parent.group_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.parent.group_leader.saved_user.roles:
+      dashed_name: process-parent-group-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.parent.group_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.parent.group_leader.start:
       dashed_name: process-parent-group-leader-start
       description: The time the process started.
@@ -18215,6 +19795,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.parent.real_group.domain:
+      dashed_name: process-parent-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.real_group.id:
+      dashed_name: process-parent-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.real_group.name:
+      dashed_name: process-parent-real-group-name
+      description: Name of the group.
+      flat_name: process.parent.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.real_user.domain:
+      dashed_name: process-parent-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.parent.real_user.email:
+      dashed_name: process-parent-real-user-email
+      description: User email address.
+      flat_name: process.parent.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.parent.real_user.full_name:
+      dashed_name: process-parent-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.parent.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.parent.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.parent.real_user.group.domain:
+      dashed_name: process-parent-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.real_user.group.id:
+      dashed_name: process-parent-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.real_user.group.name:
+      dashed_name: process-parent-real-user-group-name
+      description: Name of the group.
+      flat_name: process.parent.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.real_user.hash:
+      dashed_name: process-parent-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.parent.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.parent.real_user.id:
+      dashed_name: process-parent-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.parent.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.parent.real_user.name:
+      dashed_name: process-parent-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.parent.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.parent.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.parent.real_user.roles:
+      dashed_name: process-parent-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.parent.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.parent.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-same-as-process
@@ -18240,6 +19986,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.parent.saved_group.domain:
+      dashed_name: process-parent-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.saved_group.id:
+      dashed_name: process-parent-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.saved_group.name:
+      dashed_name: process-parent-saved-group-name
+      description: Name of the group.
+      flat_name: process.parent.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.saved_user.domain:
+      dashed_name: process-parent-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.parent.saved_user.email:
+      dashed_name: process-parent-saved-user-email
+      description: User email address.
+      flat_name: process.parent.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.parent.saved_user.full_name:
+      dashed_name: process-parent-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.parent.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.parent.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.parent.saved_user.group.domain:
+      dashed_name: process-parent-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.parent.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.parent.saved_user.group.id:
+      dashed_name: process-parent-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.parent.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.parent.saved_user.group.name:
+      dashed_name: process-parent-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.parent.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.parent.saved_user.hash:
+      dashed_name: process-parent-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.parent.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.parent.saved_user.id:
+      dashed_name: process-parent-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.parent.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.parent.saved_user.name:
+      dashed_name: process-parent-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.parent.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.parent.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.parent.saved_user.roles:
+      dashed_name: process-parent-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.parent.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.parent.start:
       dashed_name: process-parent-start
       description: The time the process started.
@@ -19827,6 +21739,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.previous.real_group.domain:
+      dashed_name: process-previous-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.previous.real_group.id:
+      dashed_name: process-previous-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.previous.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.previous.real_group.name:
+      dashed_name: process-previous-real-group-name
+      description: Name of the group.
+      flat_name: process.previous.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.previous.real_user.domain:
+      dashed_name: process-previous-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.previous.real_user.email:
+      dashed_name: process-previous-real-user-email
+      description: User email address.
+      flat_name: process.previous.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.previous.real_user.full_name:
+      dashed_name: process-previous-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.previous.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.previous.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.previous.real_user.group.domain:
+      dashed_name: process-previous-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.previous.real_user.group.id:
+      dashed_name: process-previous-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.previous.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.previous.real_user.group.name:
+      dashed_name: process-previous-real-user-group-name
+      description: Name of the group.
+      flat_name: process.previous.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.previous.real_user.hash:
+      dashed_name: process-previous-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.previous.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.previous.real_user.id:
+      dashed_name: process-previous-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.previous.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.previous.real_user.name:
+      dashed_name: process-previous-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.previous.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.previous.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.previous.real_user.roles:
+      dashed_name: process-previous-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.previous.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.previous.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-previous-same-as-process
@@ -19852,6 +21930,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.previous.saved_group.domain:
+      dashed_name: process-previous-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.previous.saved_group.id:
+      dashed_name: process-previous-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.previous.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.previous.saved_group.name:
+      dashed_name: process-previous-saved-group-name
+      description: Name of the group.
+      flat_name: process.previous.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.previous.saved_user.domain:
+      dashed_name: process-previous-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.previous.saved_user.email:
+      dashed_name: process-previous-saved-user-email
+      description: User email address.
+      flat_name: process.previous.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.previous.saved_user.full_name:
+      dashed_name: process-previous-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.previous.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.previous.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.previous.saved_user.group.domain:
+      dashed_name: process-previous-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.previous.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.previous.saved_user.group.id:
+      dashed_name: process-previous-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.previous.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.previous.saved_user.group.name:
+      dashed_name: process-previous-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.previous.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.previous.saved_user.hash:
+      dashed_name: process-previous-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.previous.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.previous.saved_user.id:
+      dashed_name: process-previous-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.previous.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.previous.saved_user.name:
+      dashed_name: process-previous-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.previous.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.previous.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.previous.saved_user.roles:
+      dashed_name: process-previous-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.previous.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.previous.start:
       dashed_name: process-previous-start
       description: The time the process started.
@@ -20105,6 +22349,172 @@ process:
       original_fieldset: process
       short: The working directory of the process.
       type: keyword
+    process.real_group.domain:
+      dashed_name: process-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.real_group.id:
+      dashed_name: process-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.real_group.name:
+      dashed_name: process-real-group-name
+      description: Name of the group.
+      flat_name: process.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.real_user.domain:
+      dashed_name: process-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.real_user.email:
+      dashed_name: process-real-user-email
+      description: User email address.
+      flat_name: process.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.real_user.full_name:
+      dashed_name: process-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.real_user.group.domain:
+      dashed_name: process-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.real_user.group.id:
+      dashed_name: process-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.real_user.group.name:
+      dashed_name: process-real-user-group-name
+      description: Name of the group.
+      flat_name: process.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.real_user.hash:
+      dashed_name: process-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.real_user.id:
+      dashed_name: process-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.real_user.name:
+      dashed_name: process-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.real_user.roles:
+      dashed_name: process-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-same-as-process
@@ -20129,6 +22539,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.saved_group.domain:
+      dashed_name: process-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.saved_group.id:
+      dashed_name: process-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.saved_group.name:
+      dashed_name: process-saved-group-name
+      description: Name of the group.
+      flat_name: process.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.saved_user.domain:
+      dashed_name: process-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.saved_user.email:
+      dashed_name: process-saved-user-email
+      description: User email address.
+      flat_name: process.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.saved_user.full_name:
+      dashed_name: process-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.saved_user.group.domain:
+      dashed_name: process-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.saved_user.group.id:
+      dashed_name: process-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.saved_user.group.name:
+      dashed_name: process-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.saved_user.hash:
+      dashed_name: process-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.saved_user.id:
+      dashed_name: process-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.saved_user.name:
+      dashed_name: process-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.saved_user.roles:
+      dashed_name: process-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.args:
       dashed_name: process-session-leader-args
       description: 'Array of process arguments, starting with the absolute path to
@@ -22420,6 +24996,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.session_leader.parent.real_group.domain:
+      dashed_name: process-session-leader-parent-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.real_group.id:
+      dashed_name: process-session-leader-parent-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.real_group.name:
+      dashed_name: process-session-leader-parent-real-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.real_user.domain:
+      dashed_name: process-session-leader-parent-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.parent.real_user.email:
+      dashed_name: process-session-leader-parent-real-user-email
+      description: User email address.
+      flat_name: process.session_leader.parent.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.parent.real_user.full_name:
+      dashed_name: process-session-leader-parent-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.parent.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.parent.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.parent.real_user.group.domain:
+      dashed_name: process-session-leader-parent-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.real_user.group.id:
+      dashed_name: process-session-leader-parent-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.real_user.group.name:
+      dashed_name: process-session-leader-parent-real-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.real_user.hash:
+      dashed_name: process-session-leader-parent-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.parent.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.parent.real_user.id:
+      dashed_name: process-session-leader-parent-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.parent.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.parent.real_user.name:
+      dashed_name: process-session-leader-parent-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.parent.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.parent.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.parent.real_user.roles:
+      dashed_name: process-session-leader-parent-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.parent.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.parent.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-same-as-process
@@ -22445,6 +25187,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.session_leader.parent.saved_group.domain:
+      dashed_name: process-session-leader-parent-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.saved_group.id:
+      dashed_name: process-session-leader-parent-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.saved_group.name:
+      dashed_name: process-session-leader-parent-saved-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.saved_user.domain:
+      dashed_name: process-session-leader-parent-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.parent.saved_user.email:
+      dashed_name: process-session-leader-parent-saved-user-email
+      description: User email address.
+      flat_name: process.session_leader.parent.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.parent.saved_user.full_name:
+      dashed_name: process-session-leader-parent-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.parent.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.parent.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.parent.saved_user.group.domain:
+      dashed_name: process-session-leader-parent-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.saved_user.group.id:
+      dashed_name: process-session-leader-parent-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.saved_user.group.name:
+      dashed_name: process-session-leader-parent-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.saved_user.hash:
+      dashed_name: process-session-leader-parent-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.parent.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.parent.saved_user.id:
+      dashed_name: process-session-leader-parent-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.parent.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.parent.saved_user.name:
+      dashed_name: process-session-leader-parent-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.parent.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.parent.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.parent.saved_user.roles:
+      dashed_name: process-session-leader-parent-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.parent.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.parent.session_leader.args:
       dashed_name: process-session-leader-parent-session-leader-args
       description: 'Array of process arguments, starting with the absolute path to
@@ -23654,6 +26562,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.session_leader.parent.session_leader.real_group.domain:
+      dashed_name: process-session-leader-parent-session-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.real_group.id:
+      dashed_name: process-session-leader-parent-session-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.session_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.session_leader.real_group.name:
+      dashed_name: process-session-leader-parent-session-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.session_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.domain:
+      dashed_name: process-session-leader-parent-session-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.email:
+      dashed_name: process-session-leader-parent-session-leader-real-user-email
+      description: User email address.
+      flat_name: process.session_leader.parent.session_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.full_name:
+      dashed_name: process-session-leader-parent-session-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.parent.session_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.parent.session_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.group.domain:
+      dashed_name: process-session-leader-parent-session-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.group.id:
+      dashed_name: process-session-leader-parent-session-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.session_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.group.name:
+      dashed_name: process-session-leader-parent-session-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.session_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.hash:
+      dashed_name: process-session-leader-parent-session-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.parent.session_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.id:
+      dashed_name: process-session-leader-parent-session-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.parent.session_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.name:
+      dashed_name: process-session-leader-parent-session-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.parent.session_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.parent.session_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.parent.session_leader.real_user.roles:
+      dashed_name: process-session-leader-parent-session-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.parent.session_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.parent.session_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-session-leader-same-as-process
@@ -23679,6 +26753,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.session_leader.parent.session_leader.saved_group.domain:
+      dashed_name: process-session-leader-parent-session-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_group.id:
+      dashed_name: process-session-leader-parent-session-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.session_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_group.name:
+      dashed_name: process-session-leader-parent-session-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.session_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.domain:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.email:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-email
+      description: User email address.
+      flat_name: process.session_leader.parent.session_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.full_name:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.parent.session_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.parent.session_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.group.domain:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.parent.session_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.group.id:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.parent.session_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.group.name:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.parent.session_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.hash:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.parent.session_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.id:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.parent.session_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.name:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.parent.session_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.parent.session_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.parent.session_leader.saved_user.roles:
+      dashed_name: process-session-leader-parent-session-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.parent.session_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.parent.session_leader.start:
       dashed_name: process-session-leader-parent-session-leader-start
       description: The time the process started.
@@ -24312,6 +27552,172 @@ process:
       original_fieldset: process
       short: Process id.
       type: long
+    process.session_leader.real_group.domain:
+      dashed_name: process-session-leader-real-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.real_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.real_group.id:
+      dashed_name: process-session-leader-real-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.real_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.real_group.name:
+      dashed_name: process-session-leader-real-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.real_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.real_user.domain:
+      dashed_name: process-session-leader-real-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.real_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.real_user.email:
+      dashed_name: process-session-leader-real-user-email
+      description: User email address.
+      flat_name: process.session_leader.real_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.real_user.full_name:
+      dashed_name: process-session-leader-real-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.real_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.real_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.real_user.group.domain:
+      dashed_name: process-session-leader-real-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.real_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.real_user.group.id:
+      dashed_name: process-session-leader-real-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.real_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.real_user.group.name:
+      dashed_name: process-session-leader-real-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.real_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.real_user.hash:
+      dashed_name: process-session-leader-real-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.real_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.real_user.id:
+      dashed_name: process-session-leader-real-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.real_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.real_user.name:
+      dashed_name: process-session-leader-real-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.real_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.real_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.real_user.roles:
+      dashed_name: process-session-leader-real-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.real_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.same_as_process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-same-as-process
@@ -24337,6 +27743,172 @@ process:
       short: This boolean is used to identify if a leader process is the same as the
         top level process.
       type: boolean
+    process.session_leader.saved_group.domain:
+      dashed_name: process-session-leader-saved-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.saved_group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.saved_group.id:
+      dashed_name: process-session-leader-saved-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.saved_group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.saved_group.name:
+      dashed_name: process-session-leader-saved-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.saved_group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.saved_user.domain:
+      dashed_name: process-session-leader-saved-user-domain
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.saved_user.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: user
+      short: Name of the directory the user is a member of.
+      type: keyword
+    process.session_leader.saved_user.email:
+      dashed_name: process-session-leader-saved-user-email
+      description: User email address.
+      flat_name: process.session_leader.saved_user.email
+      ignore_above: 1024
+      level: extended
+      name: email
+      normalize: []
+      original_fieldset: user
+      short: User email address.
+      type: keyword
+    process.session_leader.saved_user.full_name:
+      dashed_name: process-session-leader-saved-user-full-name
+      description: User's full name, if available.
+      example: Albert Einstein
+      flat_name: process.session_leader.saved_user.full_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: process.session_leader.saved_user.full_name.text
+        name: text
+        type: match_only_text
+      name: full_name
+      normalize: []
+      original_fieldset: user
+      short: User's full name, if available.
+      type: keyword
+    process.session_leader.saved_user.group.domain:
+      dashed_name: process-session-leader-saved-user-group-domain
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      flat_name: process.session_leader.saved_user.group.domain
+      ignore_above: 1024
+      level: extended
+      name: domain
+      normalize: []
+      original_fieldset: group
+      short: Name of the directory the group is a member of.
+      type: keyword
+    process.session_leader.saved_user.group.id:
+      dashed_name: process-session-leader-saved-user-group-id
+      description: Unique identifier for the group on the system/platform.
+      flat_name: process.session_leader.saved_user.group.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      original_fieldset: group
+      short: Unique identifier for the group on the system/platform.
+      type: keyword
+    process.session_leader.saved_user.group.name:
+      dashed_name: process-session-leader-saved-user-group-name
+      description: Name of the group.
+      flat_name: process.session_leader.saved_user.group.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.session_leader.saved_user.hash:
+      dashed_name: process-session-leader-saved-user-hash
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      flat_name: process.session_leader.saved_user.hash
+      ignore_above: 1024
+      level: extended
+      name: hash
+      normalize: []
+      original_fieldset: user
+      short: Unique user hash to correlate information for a user in anonymized form.
+      type: keyword
+    process.session_leader.saved_user.id:
+      dashed_name: process-session-leader-saved-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.session_leader.saved_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.session_leader.saved_user.name:
+      dashed_name: process-session-leader-saved-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.session_leader.saved_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.session_leader.saved_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
+    process.session_leader.saved_user.roles:
+      dashed_name: process-session-leader-saved-user-roles
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      flat_name: process.session_leader.saved_user.roles
+      ignore_above: 1024
+      level: extended
+      name: roles
+      normalize:
+      - array
+      original_fieldset: user
+      short: Array of user roles at the time of the event.
+      type: keyword
     process.session_leader.start:
       dashed_name: process-session-leader-start
       description: The time the process started.
@@ -24850,6 +28422,10 @@ process:
   - process.parent.group_leader
   - process.pe
   - process.previous
+  - process.real_group
+  - process.real_user
+  - process.saved_group
+  - process.saved_user
   - process.session_leader
   - process.session_leader.parent
   - process.session_leader.parent.session_leader
@@ -24932,6 +28508,14 @@ process:
     full: process.group
     schema_name: group
     short: The effective group (egid).
+  - beta: Reusing the `group` fields in this location is currently considered beta.
+    full: process.real_group
+    schema_name: group
+    short: The real group (rgid).
+  - beta: Reusing the `group` fields in this location is currently considered beta.
+    full: process.saved_group
+    schema_name: group
+    short: The saved group (sgid).
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
@@ -24953,6 +28537,14 @@ process:
     full: process.user
     schema_name: user
     short: The effective user (euid).
+  - beta: Reusing the `user` fields in this location is currently considered beta.
+    full: process.saved_user
+    schema_name: user
+    short: The saved user (suid).
+  - beta: Reusing the `user` fields in this location is currently considered beta.
+    full: process.real_user
+    schema_name: user
+    short: The real user (ruid). Identifies the real owner of the process.
   - full: process.parent
     schema_name: process
     short: Information about the parent process.
@@ -33306,137 +36898,6 @@ user:
       normalize: []
       short: Short name or login of the user.
       type: keyword
-    user.real.domain:
-      dashed_name: user-real-domain
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: user.real.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: user
-      short: Name of the directory the user is a member of.
-      type: keyword
-    user.real.email:
-      dashed_name: user-real-email
-      description: User email address.
-      flat_name: user.real.email
-      ignore_above: 1024
-      level: extended
-      name: email
-      normalize: []
-      original_fieldset: user
-      short: User email address.
-      type: keyword
-    user.real.full_name:
-      dashed_name: user-real-full-name
-      description: User's full name, if available.
-      example: Albert Einstein
-      flat_name: user.real.full_name
-      ignore_above: 1024
-      level: extended
-      multi_fields:
-      - flat_name: user.real.full_name.text
-        name: text
-        type: match_only_text
-      name: full_name
-      normalize: []
-      original_fieldset: user
-      short: User's full name, if available.
-      type: keyword
-    user.real.group.domain:
-      dashed_name: user-real-group-domain
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: user.real.group.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: group
-      short: Name of the directory the group is a member of.
-      type: keyword
-    user.real.group.id:
-      dashed_name: user-real-group-id
-      description: Unique identifier for the group on the system/platform.
-      flat_name: user.real.group.id
-      ignore_above: 1024
-      level: extended
-      name: id
-      normalize: []
-      original_fieldset: group
-      short: Unique identifier for the group on the system/platform.
-      type: keyword
-    user.real.group.name:
-      dashed_name: user-real-group-name
-      description: Name of the group.
-      flat_name: user.real.group.name
-      ignore_above: 1024
-      level: extended
-      name: name
-      normalize: []
-      original_fieldset: group
-      short: Name of the group.
-      type: keyword
-    user.real.hash:
-      dashed_name: user-real-hash
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-      flat_name: user.real.hash
-      ignore_above: 1024
-      level: extended
-      name: hash
-      normalize: []
-      original_fieldset: user
-      short: Unique user hash to correlate information for a user in anonymized form.
-      type: keyword
-    user.real.id:
-      dashed_name: user-real-id
-      description: Unique identifier of the user.
-      example: S-1-5-21-202424912787-2692429404-2351956786-1000
-      flat_name: user.real.id
-      ignore_above: 1024
-      level: core
-      name: id
-      normalize: []
-      original_fieldset: user
-      short: Unique identifier of the user.
-      type: keyword
-    user.real.name:
-      dashed_name: user-real-name
-      description: Short name or login of the user.
-      example: a.einstein
-      flat_name: user.real.name
-      ignore_above: 1024
-      level: core
-      multi_fields:
-      - flat_name: user.real.name.text
-        name: text
-        type: match_only_text
-      name: name
-      normalize: []
-      original_fieldset: user
-      short: Short name or login of the user.
-      type: keyword
-    user.real.roles:
-      dashed_name: user-real-roles
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      flat_name: user.real.roles
-      ignore_above: 1024
-      level: extended
-      name: roles
-      normalize:
-      - array
-      original_fieldset: user
-      short: Array of user roles at the time of the event.
-      type: keyword
     user.roles:
       dashed_name: user-roles
       description: Array of user roles at the time of the event.
@@ -33447,137 +36908,6 @@ user:
       name: roles
       normalize:
       - array
-      short: Array of user roles at the time of the event.
-      type: keyword
-    user.saved.domain:
-      dashed_name: user-saved-domain
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: user.saved.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: user
-      short: Name of the directory the user is a member of.
-      type: keyword
-    user.saved.email:
-      dashed_name: user-saved-email
-      description: User email address.
-      flat_name: user.saved.email
-      ignore_above: 1024
-      level: extended
-      name: email
-      normalize: []
-      original_fieldset: user
-      short: User email address.
-      type: keyword
-    user.saved.full_name:
-      dashed_name: user-saved-full-name
-      description: User's full name, if available.
-      example: Albert Einstein
-      flat_name: user.saved.full_name
-      ignore_above: 1024
-      level: extended
-      multi_fields:
-      - flat_name: user.saved.full_name.text
-        name: text
-        type: match_only_text
-      name: full_name
-      normalize: []
-      original_fieldset: user
-      short: User's full name, if available.
-      type: keyword
-    user.saved.group.domain:
-      dashed_name: user-saved-group-domain
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      flat_name: user.saved.group.domain
-      ignore_above: 1024
-      level: extended
-      name: domain
-      normalize: []
-      original_fieldset: group
-      short: Name of the directory the group is a member of.
-      type: keyword
-    user.saved.group.id:
-      dashed_name: user-saved-group-id
-      description: Unique identifier for the group on the system/platform.
-      flat_name: user.saved.group.id
-      ignore_above: 1024
-      level: extended
-      name: id
-      normalize: []
-      original_fieldset: group
-      short: Unique identifier for the group on the system/platform.
-      type: keyword
-    user.saved.group.name:
-      dashed_name: user-saved-group-name
-      description: Name of the group.
-      flat_name: user.saved.group.name
-      ignore_above: 1024
-      level: extended
-      name: name
-      normalize: []
-      original_fieldset: group
-      short: Name of the group.
-      type: keyword
-    user.saved.hash:
-      dashed_name: user-saved-hash
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-      flat_name: user.saved.hash
-      ignore_above: 1024
-      level: extended
-      name: hash
-      normalize: []
-      original_fieldset: user
-      short: Unique user hash to correlate information for a user in anonymized form.
-      type: keyword
-    user.saved.id:
-      dashed_name: user-saved-id
-      description: Unique identifier of the user.
-      example: S-1-5-21-202424912787-2692429404-2351956786-1000
-      flat_name: user.saved.id
-      ignore_above: 1024
-      level: core
-      name: id
-      normalize: []
-      original_fieldset: user
-      short: Unique identifier of the user.
-      type: keyword
-    user.saved.name:
-      dashed_name: user-saved-name
-      description: Short name or login of the user.
-      example: a.einstein
-      flat_name: user.saved.name
-      ignore_above: 1024
-      level: core
-      multi_fields:
-      - flat_name: user.saved.name.text
-        name: text
-        type: match_only_text
-      name: name
-      normalize: []
-      original_fieldset: user
-      short: Short name or login of the user.
-      type: keyword
-    user.saved.roles:
-      dashed_name: user-saved-roles
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      flat_name: user.saved.roles
-      ignore_above: 1024
-      level: extended
-      name: roles
-      normalize:
-      - array
-      original_fieldset: user
       short: Array of user roles at the time of the event.
       type: keyword
     user.target.domain:
@@ -33717,8 +37047,6 @@ user:
   - user.changes
   - user.effective
   - user.group
-  - user.real
-  - user.saved
   - user.target
   prefix: user.
   reusable:
@@ -33752,15 +37080,15 @@ user:
       beta: Reusing the `user` fields in this location is currently considered beta.
       full: process.user
       short_override: The effective user (euid).
-    - as: saved
-      at: user
+    - as: saved_user
+      at: process
       beta: Reusing the `user` fields in this location is currently considered beta.
-      full: user.saved
+      full: process.saved_user
       short_override: The saved user (suid).
-    - as: real
-      at: user
+    - as: real_user
+      at: process
       beta: Reusing the `user` fields in this location is currently considered beta.
-      full: user.real
+      full: process.real_user
       short_override: The real user (ruid). Identifies the real owner of the process.
     top_level: true
   reused_here:
@@ -33776,14 +37104,6 @@ user:
   - full: user.changes
     schema_name: user
     short: Captures changes made to a user.
-  - beta: Reusing the `user` fields in this location is currently considered beta.
-    full: user.saved
-    schema_name: user
-    short: The saved user (suid).
-  - beta: Reusing the `user` fields in this location is currently considered beta.
-    full: user.real
-    schema_name: user
-    short: The real user (ruid). Identifies the real owner of the process.
   short: Fields to describe the user relevant to the event.
   title: User
   type: group

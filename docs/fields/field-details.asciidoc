@@ -4523,13 +4523,13 @@ type: keyword
 The `group` fields are expected to be nested at:
 
 
-* `group.real`
-
-* `group.saved`
-
 * `group.supplemental`
 
 * `process.group`
+
+* `process.real_group`
+
+* `process.saved_group`
 
 * `user.group`
 
@@ -4543,22 +4543,6 @@ Note also that the `group` fields may be used directly at the root of the events
 [options="header"]
 |=====
 | Location | Field Set | Description
-
-// ===============================================================
-
-
-| `group.real.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The real group (rgid).
-
-// ===============================================================
-
-
-| `group.saved.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The saved group (sgid).
 
 // ===============================================================
 
@@ -7675,6 +7659,38 @@ Information about the parent's process group leader. Only pid, start and entity_
 An array of previous executions for the process, including the initial fork. Only executable and args are set.
 
 Note: this reuse should contain an array of process field set objects.
+
+// ===============================================================
+
+
+| `process.real_group.*`
+| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
+
+The real group (rgid).
+
+// ===============================================================
+
+
+| `process.real_user.*`
+| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
+
+The real user (ruid). Identifies the real owner of the process.
+
+// ===============================================================
+
+
+| `process.saved_group.*`
+| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
+
+The saved group (sgid).
+
+// ===============================================================
+
+
+| `process.saved_user.*`
+| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
+
+The saved user (suid).
 
 // ===============================================================
 
@@ -11259,6 +11275,10 @@ The `user` fields are expected to be nested at:
 
 * `destination.user`
 
+* `process.real_user`
+
+* `process.saved_user`
+
 * `process.user`
 
 * `server.user`
@@ -11268,10 +11288,6 @@ The `user` fields are expected to be nested at:
 * `user.changes`
 
 * `user.effective`
-
-* `user.real`
-
-* `user.saved`
 
 * `user.target`
 
@@ -11306,22 +11322,6 @@ Note also that the `user` fields may be used directly at the root of the events.
 | `user.group.*`
 | <<ecs-group,group>>
 | User's group relevant to the event.
-
-// ===============================================================
-
-
-| `user.real.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The real user (ruid). Identifies the real owner of the process.
-
-// ===============================================================
-
-
-| `user.saved.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The saved user (suid).
 
 // ===============================================================
 

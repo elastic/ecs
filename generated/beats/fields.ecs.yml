@@ -3275,46 +3275,6 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: real.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: real.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-      default_field: false
-    - name: real.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-      default_field: false
-    - name: saved.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: saved.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-      default_field: false
-    - name: saved.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-      default_field: false
     - name: supplemental.domain
       level: extended
       type: keyword
@@ -6482,6 +6442,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: entry_leader.parent.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.parent.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.parent.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.parent.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.parent.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.parent.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: entry_leader.parent.same_as_process
       level: extended
       type: boolean
@@ -6499,6 +6557,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: entry_leader.parent.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.parent.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.parent.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.parent.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.parent.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.parent.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: entry_leader.parent.session_leader.args
       level: extended
@@ -7225,6 +7381,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: entry_leader.parent.session_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.parent.session_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: entry_leader.parent.session_leader.same_as_process
       level: extended
       type: boolean
@@ -7242,6 +7496,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.parent.session_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: entry_leader.parent.session_leader.start
       level: extended
@@ -7620,6 +7972,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: entry_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: entry_leader.same_as_process
       level: extended
       type: boolean
@@ -7637,6 +8087,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: entry_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: entry_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: entry_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: entry_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: entry_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: entry_leader.start
       level: extended
@@ -8784,6 +9332,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: group_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: group_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: group_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: group_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: group_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: group_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: group_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: group_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: group_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: group_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: group_leader.same_as_process
       level: extended
       type: boolean
@@ -8801,6 +9447,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: group_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: group_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: group_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: group_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: group_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: group_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: group_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: group_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: group_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: group_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: group_leader.start
       level: extended
@@ -10321,6 +11065,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: parent.group_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.group_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.group_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: parent.group_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: parent.group_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.group_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.group_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: parent.group_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: parent.group_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: parent.group_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: parent.group_leader.same_as_process
       level: extended
       type: boolean
@@ -10338,6 +11180,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: parent.group_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.group_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.group_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: parent.group_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: parent.group_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.group_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.group_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: parent.group_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: parent.group_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: parent.group_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: parent.group_leader.start
       level: extended
@@ -10633,6 +11573,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: parent.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: parent.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: parent.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: parent.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: parent.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: parent.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: parent.same_as_process
       level: extended
       type: boolean
@@ -10650,6 +11688,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: parent.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: parent.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: parent.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: parent.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: parent.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: parent.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: parent.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: parent.start
       level: extended
@@ -11601,6 +12737,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: previous.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: previous.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: previous.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: previous.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: previous.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: previous.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: previous.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: previous.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: previous.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: previous.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: previous.same_as_process
       level: extended
       type: boolean
@@ -11618,6 +12852,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: previous.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: previous.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: previous.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: previous.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: previous.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: previous.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: previous.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: previous.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: previous.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: previous.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: previous.start
       level: extended
@@ -11769,6 +13101,104 @@
       description: The working directory of the process.
       example: /home/alice
       default_field: false
+    - name: real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: same_as_process
       level: extended
       type: boolean
@@ -11786,6 +13216,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: session_leader.args
       level: extended
@@ -13160,6 +14688,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: session_leader.parent.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.parent.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.parent.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.parent.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.parent.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.parent.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: session_leader.parent.same_as_process
       level: extended
       type: boolean
@@ -13177,6 +14803,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: session_leader.parent.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.parent.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.parent.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.parent.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.parent.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.parent.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: session_leader.parent.session_leader.args
       level: extended
@@ -13903,6 +15627,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: session_leader.parent.session_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.session_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.parent.session_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: session_leader.parent.session_leader.same_as_process
       level: extended
       type: boolean
@@ -13920,6 +15742,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.parent.session_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: session_leader.parent.session_leader.start
       level: extended
@@ -14298,6 +16218,104 @@
       description: Process id.
       example: 4242
       default_field: false
+    - name: session_leader.real_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.real_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.real_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.real_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.real_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.real_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.real_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.real_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.real_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.real_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.real_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.real_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.real_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
+      default_field: false
     - name: session_leader.same_as_process
       level: extended
       type: boolean
@@ -14315,6 +16333,104 @@
         true Note: This field is only set on process.entry_leader, process.session_leader
         and process.group_leader.'
       example: true
+      default_field: false
+    - name: session_leader.saved_group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.saved_group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.saved_group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.saved_user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the user is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.saved_user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: User email address.
+      default_field: false
+    - name: session_leader.saved_user.full_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: User's full name, if available.
+      example: Albert Einstein
+      default_field: false
+    - name: session_leader.saved_user.group.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.saved_user.group.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.saved_user.group.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: session_leader.saved_user.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique user hash to correlate information for a user in anonymized
+        form.
+
+        Useful if `user.id` or `user.name` contain confidential information and cannot
+        be used.'
+      default_field: false
+    - name: session_leader.saved_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: session_leader.saved_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
+    - name: session_leader.saved_user.roles
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
       default_field: false
     - name: session_leader.start
       level: extended
@@ -19563,163 +21679,7 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
-    - name: real.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: real.email
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: User email address.
-      default_field: false
-    - name: real.full_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: User's full name, if available.
-      example: Albert Einstein
-      default_field: false
-    - name: real.group.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: real.group.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-      default_field: false
-    - name: real.group.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-      default_field: false
-    - name: real.hash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-      default_field: false
-    - name: real.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier of the user.
-      example: S-1-5-21-202424912787-2692429404-2351956786-1000
-      default_field: false
-    - name: real.name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: Short name or login of the user.
-      example: a.einstein
-      default_field: false
-    - name: real.roles
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      default_field: false
     - name: roles
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Array of user roles at the time of the event.
-      example: '["kibana_admin", "reporting_user"]'
-      default_field: false
-    - name: saved.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the user is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: saved.email
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: User email address.
-      default_field: false
-    - name: saved.full_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: User's full name, if available.
-      example: Albert Einstein
-      default_field: false
-    - name: saved.group.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: saved.group.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-      default_field: false
-    - name: saved.group.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-      default_field: false
-    - name: saved.hash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Unique user hash to correlate information for a user in anonymized
-        form.
-
-        Useful if `user.id` or `user.name` contain confidential information and cannot
-        be used.'
-      default_field: false
-    - name: saved.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier of the user.
-      example: S-1-5-21-202424912787-2692429404-2351956786-1000
-      default_field: false
-    - name: saved.name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: Short name or login of the user.
-      example: a.einstein
-      default_field: false
-    - name: saved.roles
       level: extended
       type: keyword
       ignore_above: 1024

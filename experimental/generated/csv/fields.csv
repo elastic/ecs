@@ -356,12 +356,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,group,group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,group,group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.3.0-dev+exp,true,group,group.name,keyword,extended,,,Name of the group.
-8.3.0-dev+exp,true,group,group.real.domain,keyword,extended,,,Name of the directory the group is a member of.
-8.3.0-dev+exp,true,group,group.real.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-8.3.0-dev+exp,true,group,group.real.name,keyword,extended,,,Name of the group.
-8.3.0-dev+exp,true,group,group.saved.domain,keyword,extended,,,Name of the directory the group is a member of.
-8.3.0-dev+exp,true,group,group.saved.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-8.3.0-dev+exp,true,group,group.saved.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,group,group.supplemental.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,group,group.supplemental.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.3.0-dev+exp,true,group,group.supplemental.name,keyword,extended,,,Name of the group.
@@ -758,7 +752,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.args_count,long,extended,,4,Length of the process.args array.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
@@ -861,7 +885,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -918,7 +972,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.entry_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.entry_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.entry_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.entry_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1082,7 +1166,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.group_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.group_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.group_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.group_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.group_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.group_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.group_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.group_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.group_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.group_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.group_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.group_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.group_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.group_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.group_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1300,7 +1414,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.group_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.parent.group_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.parent.group_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.group_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.group_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.parent.group_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.parent.group_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1344,7 +1488,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.parent.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.parent.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.parent.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.parent.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.parent.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.parent.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.parent.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.parent.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.parent.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.parent.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.parent.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.parent.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.parent.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1480,7 +1654,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.previous.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.previous.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.previous.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.previous.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.previous.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.previous.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.previous.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.previous.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.previous.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.previous.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.previous.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.previous.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.previous.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.previous.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.previous.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.previous.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.previous.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.previous.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.previous.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.previous.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.previous.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.previous.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.previous.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.previous.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.previous.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.previous.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.previous.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.previous.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.previous.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.previous.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.previous.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.previous.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.previous.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.previous.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.previous.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.previous.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.previous.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1504,7 +1708,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.previous.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.previous.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.previous.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
+8.3.0-dev+exp,true,process,process.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.3.0-dev+exp,true,process,process.session_leader.args_count,long,extended,,4,Length of the process.args array.
 8.3.0-dev+exp,true,process,process.session_leader.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
@@ -1699,7 +1933,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.parent.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.parent.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.args_count,long,extended,,4,Length of the process.args array.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
@@ -1802,7 +2066,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -1859,7 +2153,37 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.pid,long,core,,4242,Process id.
+8.3.0-dev+exp,true,process,process.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.real_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.real_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.real_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.real_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.same_as_process,boolean,extended,,True,This boolean is used to identify if a leader process is the same as the top level process.
+8.3.0-dev+exp,true,process,process.session_leader.saved_group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.saved_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.saved_group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.domain,keyword,extended,,,Name of the directory the user is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.email,keyword,extended,,,User email address.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.group.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.group.name,keyword,extended,,,Name of the group.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.name,keyword,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.3.0-dev+exp,true,process,process.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.3.0-dev+exp,true,process,process.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
@@ -2543,31 +2867,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,user,user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
 8.3.0-dev+exp,true,user,user.name,keyword,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,user,user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
-8.3.0-dev+exp,true,user,user.real.domain,keyword,extended,,,Name of the directory the user is a member of.
-8.3.0-dev+exp,true,user,user.real.email,keyword,extended,,,User email address.
-8.3.0-dev+exp,true,user,user.real.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.3.0-dev+exp,true,user,user.real.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
-8.3.0-dev+exp,true,user,user.real.group.domain,keyword,extended,,,Name of the directory the group is a member of.
-8.3.0-dev+exp,true,user,user.real.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-8.3.0-dev+exp,true,user,user.real.group.name,keyword,extended,,,Name of the group.
-8.3.0-dev+exp,true,user,user.real.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.3.0-dev+exp,true,user,user.real.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
-8.3.0-dev+exp,true,user,user.real.name,keyword,core,,a.einstein,Short name or login of the user.
-8.3.0-dev+exp,true,user,user.real.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
-8.3.0-dev+exp,true,user,user.real.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
-8.3.0-dev+exp,true,user,user.saved.domain,keyword,extended,,,Name of the directory the user is a member of.
-8.3.0-dev+exp,true,user,user.saved.email,keyword,extended,,,User email address.
-8.3.0-dev+exp,true,user,user.saved.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
-8.3.0-dev+exp,true,user,user.saved.full_name.text,match_only_text,extended,,Albert Einstein,"User's full name, if available."
-8.3.0-dev+exp,true,user,user.saved.group.domain,keyword,extended,,,Name of the directory the group is a member of.
-8.3.0-dev+exp,true,user,user.saved.group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-8.3.0-dev+exp,true,user,user.saved.group.name,keyword,extended,,,Name of the group.
-8.3.0-dev+exp,true,user,user.saved.hash,keyword,extended,,,Unique user hash to correlate information for a user in anonymized form.
-8.3.0-dev+exp,true,user,user.saved.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
-8.3.0-dev+exp,true,user,user.saved.name,keyword,core,,a.einstein,Short name or login of the user.
-8.3.0-dev+exp,true,user,user.saved.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
-8.3.0-dev+exp,true,user,user.saved.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.3.0-dev+exp,true,user,user.target.email,keyword,extended,,,User email address.
 8.3.0-dev+exp,true,user,user.target.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
