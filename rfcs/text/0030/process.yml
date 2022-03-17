@@ -21,10 +21,10 @@
     expected:
       - at: process
         as: entry_leader
-        short_override: The session leader process associated with initial terminal or remote access via SSH, SSM and other remote access protocols. Entry sessions are also used to represent a service directly started by the init process. In many cases this is the same as the session_leader.
+        short_override: First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
       - at: process
         as: session_leader
-        short_override: Often the same as entry_leader. When it differs, this represents a session started within another session. Some tools like tmux and screen will start a new session to obtain a new tty and/or separate their lifecycle from the entry session.
+        short_override: Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
       - at: process
         as: group_leader
         short_override: Information about the process group leader. In some cases this may be the same as the top level process.
@@ -45,7 +45,7 @@
         short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
       - at: process
         as: previous
-        short_override: An array of all previous executions for the process, including the initial fork details. Only executable, args, and args_count are set. This field is only set on events where event.action = exec.
+        short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
 
   fields:
     # Deprecation note: Because we are nesting process.group_leader above, it makes sense to deprecate process.pgid as this information can be accessed via process.group_leader.pid
@@ -127,3 +127,26 @@
         Entry point information for a session.
 
         Remote client information such as ip, port and geo location.
+
+    - name: tty
+      level: extended
+      type: object
+      short: Information about the controlling TTY device.
+      description: >
+        Information about the controlling TTY device. If set, the process belongs to an interactive session.
+
+    - name: tty.char_device.major
+      level: extended
+      type: long
+      short: The TTY character device's major number.
+      description: >
+        The major number identifies the driver associated with the device.
+      example: 1
+
+    - name: tty.char_device.minor
+      level: extended
+      type: long
+      short: The TTY character device's minor number.
+      description: >
+        The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
+      example: 128
