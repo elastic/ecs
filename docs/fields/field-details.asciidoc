@@ -4523,41 +4523,18 @@ type: keyword
 The `group` fields are expected to be nested at:
 
 
-* `group.supplemental`
-
 * `process.group`
 
 * `process.real_group`
 
 * `process.saved_group`
 
+* `process.supplemental_groups`
+
 * `user.group`
 
 
 Note also that the `group` fields may be used directly at the root of the events.
-
-[[ecs-group-nestings]]
-[discrete]
-===== Field sets that can be nested under Group
-
-[options="header"]
-|=====
-| Location | Field Set | Description
-
-// ===============================================================
-
-
-| `group.supplemental.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-An array of supplemental groups.
-
-Note: this reuse should contain an array of group field set objects.
-
-// ===============================================================
-
-
-|=====
 
 
 [[ecs-hash]]
@@ -7309,7 +7286,9 @@ example: `ssh`
 [[field-process-pgid]]
 <<field-process-pgid, process.pgid>>
 
-| Identifier of the group of processes the process belongs to.
+| Deprecated for removal in next major version release. This field is superseded by  `process.group_leader.pid`.
+
+Identifier of the group of processes the process belongs to.
 
 type: long
 
@@ -7603,7 +7582,7 @@ Information about the parent session of the entry leader. Only pid, start and en
 | `process.entry_meta.source.*`
 | <<ecs-source,source>>| beta:[ Reusing the `source` fields in this location is currently considered beta.]
 
-Fields about the source side of a network connection, used with destination.
+Remote client information such as ip, port and geo location.
 
 // ===============================================================
 
@@ -7715,6 +7694,16 @@ Information about the session leader's parent process. Only pid, start and entit
 | <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
 
 Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
+
+// ===============================================================
+
+
+| `process.supplemental_groups.*`
+| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
+
+An array of supplemental groups.
+
+Note: this reuse should contain an array of group field set objects.
 
 // ===============================================================
 

@@ -3275,26 +3275,6 @@
       type: keyword
       ignore_above: 1024
       description: Name of the group.
-    - name: supplemental.domain
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Name of the directory the group is a member of.
-
-        For example, an LDAP or Active Directory domain name.'
-      default_field: false
-    - name: supplemental.id
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Unique identifier for the group on the system/platform.
-      default_field: false
-    - name: supplemental.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Name of the group.
-      default_field: false
   - name: hash
     title: Hash
     group: 2
@@ -6433,7 +6413,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: entry_leader.parent.pid
       level: core
@@ -7372,7 +7355,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: entry_leader.parent.session_leader.pid
       level: core
@@ -7601,6 +7587,26 @@
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       default_field: false
+    - name: entry_leader.parent.session_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.session_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.session_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
     - name: entry_leader.parent.session_leader.thread.id
       level: extended
       type: long
@@ -7750,6 +7756,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: entry_leader.parent.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.parent.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.parent.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: entry_leader.parent.thread.id
       level: extended
@@ -7963,7 +7989,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: entry_leader.pid
       level: core
@@ -8191,6 +8220,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: entry_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: entry_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: entry_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: entry_leader.thread.id
       level: extended
@@ -9323,7 +9372,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: group_leader.pid
       level: core
@@ -9551,6 +9603,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: group_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: group_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: group_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: group_leader.thread.id
       level: extended
@@ -11056,7 +11128,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: parent.group_leader.pid
       level: core
@@ -11284,6 +11359,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: parent.group_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.group_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.group_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: parent.group_leader.thread.id
       level: extended
@@ -11564,7 +11659,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: parent.pid
       level: core
@@ -11793,6 +11891,26 @@
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       default_field: false
+    - name: parent.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: parent.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: parent.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
     - name: parent.thread.id
       level: extended
       type: long
@@ -12005,7 +12123,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
     - name: pid
       level: core
       type: long
@@ -12728,7 +12849,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: previous.pid
       level: core
@@ -12956,6 +13080,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: previous.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: previous.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: previous.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: previous.thread.id
       level: extended
@@ -14679,7 +14823,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: session_leader.parent.pid
       level: core
@@ -15618,7 +15765,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: session_leader.parent.session_leader.pid
       level: core
@@ -15847,6 +15997,26 @@
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       default_field: false
+    - name: session_leader.parent.session_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.session_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.session_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
     - name: session_leader.parent.session_leader.thread.id
       level: extended
       type: long
@@ -15996,6 +16166,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+      default_field: false
+    - name: session_leader.parent.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.parent.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.parent.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
       default_field: false
     - name: session_leader.parent.thread.id
       level: extended
@@ -16209,7 +16399,10 @@
       level: extended
       type: long
       format: string
-      description: Identifier of the group of processes the process belongs to.
+      description: 'Deprecated for removal in next major version release. This field
+        is superseded by  `process.group_leader.pid`.
+
+        Identifier of the group of processes the process belongs to.'
       default_field: false
     - name: session_leader.pid
       level: core
@@ -16438,6 +16631,26 @@
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       default_field: false
+    - name: session_leader.supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: session_leader.supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: session_leader.supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
     - name: session_leader.thread.id
       level: extended
       type: long
@@ -16587,6 +16800,26 @@
       type: date
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
+    - name: supplemental_groups.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the directory the group is a member of.
+
+        For example, an LDAP or Active Directory domain name.'
+      default_field: false
+    - name: supplemental_groups.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier for the group on the system/platform.
+      default_field: false
+    - name: supplemental_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
     - name: thread.id
       level: extended
       type: long
