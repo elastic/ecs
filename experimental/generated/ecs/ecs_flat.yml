@@ -4791,41 +4791,6 @@ group.name:
   normalize: []
   short: Name of the group.
   type: keyword
-group.supplemental.domain:
-  dashed_name: group-supplemental-domain
-  description: 'Name of the directory the group is a member of.
-
-    For example, an LDAP or Active Directory domain name.'
-  flat_name: group.supplemental.domain
-  ignore_above: 1024
-  level: extended
-  name: domain
-  normalize: []
-  original_fieldset: group
-  short: Name of the directory the group is a member of.
-  type: keyword
-group.supplemental.id:
-  dashed_name: group-supplemental-id
-  description: Unique identifier for the group on the system/platform.
-  flat_name: group.supplemental.id
-  ignore_above: 1024
-  level: extended
-  name: id
-  normalize: []
-  original_fieldset: group
-  short: Unique identifier for the group on the system/platform.
-  type: keyword
-group.supplemental.name:
-  dashed_name: group-supplemental-name
-  description: Name of the group.
-  flat_name: group.supplemental.name
-  ignore_above: 1024
-  level: extended
-  name: name
-  normalize: []
-  original_fieldset: group
-  short: Name of the group.
-  type: keyword
 host.architecture:
   dashed_name: host-architecture
   description: Operating system architecture.
@@ -9507,14 +9472,17 @@ process.entry_leader.parent.pe.product:
   type: keyword
 process.entry_leader.parent.pgid:
   dashed_name: process-entry-leader-parent-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.entry_leader.parent.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.entry_leader.parent.pid:
   dashed_name: process-entry-leader-parent-pid
@@ -11070,14 +11038,17 @@ process.entry_leader.parent.session_leader.pe.product:
   type: keyword
 process.entry_leader.parent.session_leader.pgid:
   dashed_name: process-entry-leader-parent-session-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.entry_leader.parent.session_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.entry_leader.parent.session_leader.pid:
   dashed_name: process-entry-leader-parent-session-leader-pid
@@ -11458,6 +11429,41 @@ process.entry_leader.parent.session_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.entry_leader.parent.session_leader.supplemental_groups.domain:
+  dashed_name: process-entry-leader-parent-session-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.entry_leader.parent.session_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.entry_leader.parent.session_leader.supplemental_groups.id:
+  dashed_name: process-entry-leader-parent-session-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.entry_leader.parent.session_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.entry_leader.parent.session_leader.supplemental_groups.name:
+  dashed_name: process-entry-leader-parent-session-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.entry_leader.parent.session_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.entry_leader.parent.session_leader.thread.id:
   dashed_name: process-entry-leader-parent-session-leader-thread-id
   description: Thread ID.
@@ -11711,6 +11717,41 @@ process.entry_leader.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.entry_leader.parent.supplemental_groups.domain:
+  dashed_name: process-entry-leader-parent-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.entry_leader.parent.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.entry_leader.parent.supplemental_groups.id:
+  dashed_name: process-entry-leader-parent-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.entry_leader.parent.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.entry_leader.parent.supplemental_groups.name:
+  dashed_name: process-entry-leader-parent-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.entry_leader.parent.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.entry_leader.parent.thread.id:
   dashed_name: process-entry-leader-parent-thread-id
   description: Thread ID.
@@ -12059,14 +12100,17 @@ process.entry_leader.pe.product:
   type: keyword
 process.entry_leader.pgid:
   dashed_name: process-entry-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.entry_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.entry_leader.pid:
   dashed_name: process-entry-leader-pid
@@ -12447,6 +12491,41 @@ process.entry_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.entry_leader.supplemental_groups.domain:
+  dashed_name: process-entry-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.entry_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.entry_leader.supplemental_groups.id:
+  dashed_name: process-entry-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.entry_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.entry_leader.supplemental_groups.name:
+  dashed_name: process-entry-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.entry_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.entry_leader.thread.id:
   dashed_name: process-entry-leader-thread-id
   description: Thread ID.
@@ -14304,14 +14383,17 @@ process.group_leader.pe.product:
   type: keyword
 process.group_leader.pgid:
   dashed_name: process-group-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.group_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.group_leader.pid:
   dashed_name: process-group-leader-pid
@@ -14692,6 +14774,41 @@ process.group_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.group_leader.supplemental_groups.domain:
+  dashed_name: process-group-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.group_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.group_leader.supplemental_groups.id:
+  dashed_name: process-group-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.group_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.group_leader.supplemental_groups.name:
+  dashed_name: process-group-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.group_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.group_leader.thread.id:
   dashed_name: process-group-leader-thread-id
   description: Thread ID.
@@ -17198,14 +17315,17 @@ process.parent.group_leader.pe.product:
   type: keyword
 process.parent.group_leader.pgid:
   dashed_name: process-parent-group-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.parent.group_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.parent.group_leader.pid:
   dashed_name: process-parent-group-leader-pid
@@ -17586,6 +17706,41 @@ process.parent.group_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.parent.group_leader.supplemental_groups.domain:
+  dashed_name: process-parent-group-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.parent.group_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.parent.group_leader.supplemental_groups.id:
+  dashed_name: process-parent-group-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.parent.group_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.parent.group_leader.supplemental_groups.name:
+  dashed_name: process-parent-group-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.parent.group_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.parent.group_leader.thread.id:
   dashed_name: process-parent-group-leader-thread-id
   description: Thread ID.
@@ -18048,14 +18203,17 @@ process.parent.pe.product:
   type: keyword
 process.parent.pgid:
   dashed_name: process-parent-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.parent.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.parent.pid:
   dashed_name: process-parent-pid
@@ -18436,6 +18594,41 @@ process.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.parent.supplemental_groups.domain:
+  dashed_name: process-parent-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.parent.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.parent.supplemental_groups.id:
+  dashed_name: process-parent-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.parent.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.parent.supplemental_groups.name:
+  dashed_name: process-parent-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.parent.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.parent.thread.id:
   dashed_name: process-parent-thread-id
   description: Thread ID.
@@ -18784,13 +18977,16 @@ process.pe.product:
   type: keyword
 process.pgid:
   dashed_name: process-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.pid:
   dashed_name: process-pid
@@ -19989,14 +20185,17 @@ process.previous.pe.product:
   type: keyword
 process.previous.pgid:
   dashed_name: process-previous-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.previous.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.previous.pid:
   dashed_name: process-previous-pid
@@ -20377,6 +20576,41 @@ process.previous.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.previous.supplemental_groups.domain:
+  dashed_name: process-previous-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.previous.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.previous.supplemental_groups.id:
+  dashed_name: process-previous-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.previous.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.previous.supplemental_groups.name:
+  dashed_name: process-previous-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.previous.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.previous.thread.id:
   dashed_name: process-previous-thread-id
   description: Thread ID.
@@ -23240,14 +23474,17 @@ process.session_leader.parent.pe.product:
   type: keyword
 process.session_leader.parent.pgid:
   dashed_name: process-session-leader-parent-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.session_leader.parent.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.session_leader.parent.pid:
   dashed_name: process-session-leader-parent-pid
@@ -24803,14 +25040,17 @@ process.session_leader.parent.session_leader.pe.product:
   type: keyword
 process.session_leader.parent.session_leader.pgid:
   dashed_name: process-session-leader-parent-session-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.session_leader.parent.session_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.session_leader.parent.session_leader.pid:
   dashed_name: process-session-leader-parent-session-leader-pid
@@ -25191,6 +25431,41 @@ process.session_leader.parent.session_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.session_leader.parent.session_leader.supplemental_groups.domain:
+  dashed_name: process-session-leader-parent-session-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.session_leader.parent.session_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.session_leader.parent.session_leader.supplemental_groups.id:
+  dashed_name: process-session-leader-parent-session-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.session_leader.parent.session_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.session_leader.parent.session_leader.supplemental_groups.name:
+  dashed_name: process-session-leader-parent-session-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.session_leader.parent.session_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.session_leader.parent.session_leader.thread.id:
   dashed_name: process-session-leader-parent-session-leader-thread-id
   description: Thread ID.
@@ -25444,6 +25719,41 @@ process.session_leader.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.session_leader.parent.supplemental_groups.domain:
+  dashed_name: process-session-leader-parent-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.session_leader.parent.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.session_leader.parent.supplemental_groups.id:
+  dashed_name: process-session-leader-parent-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.session_leader.parent.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.session_leader.parent.supplemental_groups.name:
+  dashed_name: process-session-leader-parent-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.session_leader.parent.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.session_leader.parent.thread.id:
   dashed_name: process-session-leader-parent-thread-id
   description: Thread ID.
@@ -25792,14 +26102,17 @@ process.session_leader.pe.product:
   type: keyword
 process.session_leader.pgid:
   dashed_name: process-session-leader-pgid
-  description: Identifier of the group of processes the process belongs to.
+  description: 'Deprecated for removal in next major version release. This field is
+    superseded by  `process.group_leader.pid`.
+
+    Identifier of the group of processes the process belongs to.'
   flat_name: process.session_leader.pgid
   format: string
   level: extended
   name: pgid
   normalize: []
   original_fieldset: process
-  short: Identifier of the group of processes the process belongs to.
+  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.session_leader.pid:
   dashed_name: process-session-leader-pid
@@ -26180,6 +26493,41 @@ process.session_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.session_leader.supplemental_groups.domain:
+  dashed_name: process-session-leader-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.session_leader.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.session_leader.supplemental_groups.id:
+  dashed_name: process-session-leader-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.session_leader.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.session_leader.supplemental_groups.name:
+  dashed_name: process-session-leader-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.session_leader.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.session_leader.thread.id:
   dashed_name: process-session-leader-thread-id
   description: Thread ID.
@@ -26432,6 +26780,41 @@ process.start:
   normalize: []
   short: The time the process started.
   type: date
+process.supplemental_groups.domain:
+  dashed_name: process-supplemental-groups-domain
+  description: 'Name of the directory the group is a member of.
+
+    For example, an LDAP or Active Directory domain name.'
+  flat_name: process.supplemental_groups.domain
+  ignore_above: 1024
+  level: extended
+  name: domain
+  normalize: []
+  original_fieldset: group
+  short: Name of the directory the group is a member of.
+  type: keyword
+process.supplemental_groups.id:
+  dashed_name: process-supplemental-groups-id
+  description: Unique identifier for the group on the system/platform.
+  flat_name: process.supplemental_groups.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  original_fieldset: group
+  short: Unique identifier for the group on the system/platform.
+  type: keyword
+process.supplemental_groups.name:
+  dashed_name: process-supplemental-groups-name
+  description: Name of the group.
+  flat_name: process.supplemental_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
 process.thread.id:
   dashed_name: process-thread-id
   description: Thread ID.

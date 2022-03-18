@@ -356,9 +356,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,group,group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,group,group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 8.3.0-dev+exp,true,group,group.name,keyword,extended,,,Name of the group.
-8.3.0-dev+exp,true,group,group.supplemental.domain,keyword,extended,,,Name of the directory the group is a member of.
-8.3.0-dev+exp,true,group,group.supplemental.id,keyword,extended,,,Unique identifier for the group on the system/platform.
-8.3.0-dev+exp,true,group,group.supplemental.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,host,host.architecture,keyword,core,,x86_64,Operating system architecture.
 8.3.0-dev+exp,true,host,host.boot.id,keyword,extended,,88a1f0ed-5ae5-41ee-af6b-41921c311872,Linux boot uuid taken from /proc/sys/kernel/random/boot_id
 8.3.0-dev+exp,true,host,host.cpu.usage,scaled_float,extended,,,"Percent CPU used, between 0 and 1."
@@ -750,7 +747,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.entry_leader.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -883,7 +880,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -917,6 +914,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.title,keyword,extended,,,Process title.
@@ -940,6 +940,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.session_leader.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.parent.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.entry_leader.parent.title,keyword,extended,,,Process title.
@@ -970,7 +973,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.entry_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.entry_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.entry_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.entry_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.entry_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.entry_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.entry_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -1004,6 +1007,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.entry_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.entry_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.entry_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.entry_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.entry_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.entry_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.entry_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.entry_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.entry_leader.title,keyword,extended,,,Process title.
@@ -1164,7 +1170,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.group_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.group_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.group_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.group_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.group_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.group_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.group_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.group_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -1198,6 +1204,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.group_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.group_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.group_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.group_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.group_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.group_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.group_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.group_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.group_leader.title,keyword,extended,,,Process title.
@@ -1412,7 +1421,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.group_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.parent.group_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.parent.group_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.parent.group_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.parent.group_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.parent.group_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.parent.group_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.parent.group_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -1446,6 +1455,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.parent.group_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.group_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.parent.group_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.group_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.group_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.parent.group_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.parent.group_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.parent.group_leader.title,keyword,extended,,,Process title.
@@ -1486,7 +1498,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.parent.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.parent.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.parent.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -1520,6 +1532,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.parent.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.parent.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.parent.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.parent.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.parent.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.parent.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.parent.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.parent.title,keyword,extended,,,Process title.
@@ -1550,7 +1565,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.previous.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 8.3.0-dev+exp,true,process,process.previous.args_count,long,extended,,4,Length of the process.args array.
@@ -1652,7 +1667,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.previous.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.previous.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.previous.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.previous.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.previous.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.previous.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.previous.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.previous.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -1686,6 +1701,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.previous.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.previous.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.previous.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.previous.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.previous.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.previous.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.previous.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.previous.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.previous.title,keyword,extended,,,Process title.
@@ -1931,7 +1949,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.parent.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.session_leader.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.session_leader.parent.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.session_leader.parent.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.parent.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.session_leader.parent.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.session_leader.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -2064,7 +2082,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -2098,6 +2116,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.title,keyword,extended,,,Process title.
@@ -2121,6 +2142,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.session_leader.parent.session_leader.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.session_leader.parent.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.session_leader.parent.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.parent.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.parent.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.session_leader.parent.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.session_leader.parent.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.session_leader.parent.title,keyword,extended,,,Process title.
@@ -2151,7 +2175,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.3.0-dev+exp,true,process,process.session_leader.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.3.0-dev+exp,true,process,process.session_leader.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
-8.3.0-dev+exp,true,process,process.session_leader.pgid,long,extended,,,Identifier of the group of processes the process belongs to.
+8.3.0-dev+exp,true,process,process.session_leader.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.3.0-dev+exp,true,process,process.session_leader.pid,long,core,,4242,Process id.
 8.3.0-dev+exp,true,process,process.session_leader.real_group.domain,keyword,extended,,,Name of the directory the group is a member of.
 8.3.0-dev+exp,true,process,process.session_leader.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -2185,6 +2209,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.saved_user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 8.3.0-dev+exp,true,process,process.session_leader.saved_user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.3.0-dev+exp,true,process,process.session_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.session_leader.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.session_leader.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.session_leader.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.session_leader.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.session_leader.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.session_leader.title,keyword,extended,,,Process title.
@@ -2208,6 +2235,9 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.3.0-dev+exp,true,process,process.session_leader.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.session_leader.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
 8.3.0-dev+exp,true,process,process.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
+8.3.0-dev+exp,true,process,process.supplemental_groups.domain,keyword,extended,,,Name of the directory the group is a member of.
+8.3.0-dev+exp,true,process,process.supplemental_groups.id,keyword,extended,,,Unique identifier for the group on the system/platform.
+8.3.0-dev+exp,true,process,process.supplemental_groups.name,keyword,extended,,,Name of the group.
 8.3.0-dev+exp,true,process,process.thread.id,long,extended,,4242,Thread ID.
 8.3.0-dev+exp,true,process,process.thread.name,keyword,extended,,thread-0,Thread name.
 8.3.0-dev+exp,true,process,process.title,keyword,extended,,,Process title.
