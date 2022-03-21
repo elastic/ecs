@@ -9799,8 +9799,7 @@ process:
       dashed_name: process-entry-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.entry_leader.env_vars
       level: extended
       name: env_vars
@@ -9953,14 +9952,17 @@ process:
     process.entry_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.entry_leader.interactive
       level: extended
@@ -10881,8 +10883,7 @@ process:
       dashed_name: process-entry-leader-parent-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.entry_leader.parent.env_vars
       level: extended
       name: env_vars
@@ -11035,14 +11036,17 @@ process:
     process.entry_leader.parent.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.entry_leader.parent.interactive
       level: extended
@@ -11369,18 +11373,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.entry_leader.parent.same_as_process
       level: extended
@@ -12450,8 +12460,7 @@ process:
       dashed_name: process-entry-leader-parent-session-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.entry_leader.parent.session_leader.env_vars
       level: extended
       name: env_vars
@@ -12604,14 +12613,17 @@ process:
     process.entry_leader.parent.session_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-session-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.entry_leader.parent.session_leader.interactive
       level: extended
@@ -12938,18 +12950,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-parent-session-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.entry_leader.parent.session_leader.same_as_process
       level: extended
@@ -13231,7 +13249,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.entry_leader.parent.session_leader.tty.char_device.major
       level: extended
@@ -13519,7 +13537,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.entry_leader.parent.tty.char_device.major
       level: extended
@@ -14001,18 +14019,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-entry-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.entry_leader.same_as_process
       level: extended
@@ -14294,7 +14318,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.entry_leader.tty.char_device.major
       level: extended
@@ -14836,8 +14860,7 @@ process:
       dashed_name: process-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.env_vars
       level: extended
       name: env_vars
@@ -15801,8 +15824,7 @@ process:
       dashed_name: process-group-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.group_leader.env_vars
       level: extended
       name: env_vars
@@ -15955,14 +15977,17 @@ process:
     process.group_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-group-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.group_leader.interactive
       level: extended
@@ -16289,18 +16314,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-group-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.group_leader.same_as_process
       level: extended
@@ -16582,7 +16613,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.group_leader.tty.char_device.major
       level: extended
@@ -16844,14 +16875,17 @@ process:
     process.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.interactive
       level: extended
@@ -17770,8 +17804,7 @@ process:
       dashed_name: process-parent-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.parent.env_vars
       level: extended
       name: env_vars
@@ -18738,8 +18771,7 @@ process:
       dashed_name: process-parent-group-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.parent.group_leader.env_vars
       level: extended
       name: env_vars
@@ -18892,14 +18924,17 @@ process:
     process.parent.group_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-group-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.parent.group_leader.interactive
       level: extended
@@ -19226,18 +19261,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-group-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.parent.group_leader.same_as_process
       level: extended
@@ -19519,7 +19560,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.parent.group_leader.tty.char_device.major
       level: extended
@@ -19781,14 +19822,17 @@ process:
     process.parent.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.parent.interactive
       level: extended
@@ -20115,18 +20159,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-parent-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.parent.same_as_process
       level: extended
@@ -20408,7 +20458,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.parent.tty.char_device.major
       level: extended
@@ -21612,8 +21662,7 @@ process:
       dashed_name: process-previous-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.previous.env_vars
       level: extended
       name: env_vars
@@ -21766,14 +21815,17 @@ process:
     process.previous.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-previous-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.previous.interactive
       level: extended
@@ -22100,18 +22152,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-previous-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.previous.same_as_process
       level: extended
@@ -22393,7 +22451,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.previous.tty.char_device.major
       level: extended
@@ -22745,18 +22803,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.same_as_process
       level: extended
@@ -23825,8 +23889,7 @@ process:
       dashed_name: process-session-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.session_leader.env_vars
       level: extended
       name: env_vars
@@ -23979,14 +24042,17 @@ process:
     process.session_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.session_leader.interactive
       level: extended
@@ -24907,8 +24973,7 @@ process:
       dashed_name: process-session-leader-parent-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.session_leader.parent.env_vars
       level: extended
       name: env_vars
@@ -25061,14 +25126,17 @@ process:
     process.session_leader.parent.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.session_leader.parent.interactive
       level: extended
@@ -25395,18 +25463,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.session_leader.parent.same_as_process
       level: extended
@@ -26476,8 +26550,7 @@ process:
       dashed_name: process-session-leader-parent-session-leader-env-vars
       description: Environment variables set at the time of the event. May be filtered
         to protect sensitive information.
-      example: "{\n  \"USER\": \"elastic\",\n  \"LANG\": \"en_US.UTF-8\",\n  \"HOME\"\
-        : \"/home/elastic\"\n}"
+      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       flat_name: process.session_leader.parent.session_leader.env_vars
       level: extended
       name: env_vars
@@ -26630,14 +26703,17 @@ process:
     process.session_leader.parent.session_leader.interactive:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-session-leader-interactive
-      description: 'Whether the process is connected to an interactive shell. Process
-        interactivity is inferred from the processes file descriptors. If the character
-        device for the controlling tty is the same as stdin and stderr for the process,
-        the process is considered interactive. Note: A non-interactive process can
-        belong to an interactive session and is simply one that does not have open
-        file descriptors reading the controlling TTY on FD 0 (stdin) or writing to
-        the controlling TTY on FD 2 (stderr). A backgrounded process is still considered
-        interactive if stdin and stderr are connected to the controlling TTY.'
+      description: 'Whether the process is connected to an interactive shell.
+
+        Process interactivity is inferred from the processes file descriptors. If
+        the character device for the controlling tty is the same as stdin and stderr
+        for the process, the process is considered interactive.
+
+        Note: A non-interactive process can belong to an interactive session and is
+        simply one that does not have open file descriptors reading the controlling
+        TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A
+        backgrounded process is still considered interactive if stdin and stderr are
+        connected to the controlling TTY.'
       example: true
       flat_name: process.session_leader.parent.session_leader.interactive
       level: extended
@@ -26964,18 +27040,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-parent-session-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.session_leader.parent.session_leader.same_as_process
       level: extended
@@ -27257,7 +27339,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.session_leader.parent.session_leader.tty.char_device.major
       level: extended
@@ -27545,7 +27627,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.session_leader.parent.tty.char_device.major
       level: extended
@@ -28027,18 +28109,24 @@ process:
       beta: This field is beta and subject to change.
       dashed_name: process-session-leader-same-as-process
       description: 'This boolean is used to identify if a leader process is the same
-        as the top level process. For example, if process.group_leader.same_as_process
-        = true, it means the process event in question is the leader of its process
-        group. Details under process.* like pid would be the same under process.group_leader.*
-        The same applies for both process.session_leader and process.entry_leader.
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
         This field exists to the benefit of EQL and other rule engines since it''s
         not possible to compare equality between two fields in a single document.
-        e.g process.entity_id = process.group_leader.entity_id (top level process
-        is the process group leader) OR process.entity_id = process.entry_leader.entity_id
-        (top level process is the entry session leader) Instead these rules could
-        be written like: process.group_leader.same_as_process: true OR process.entry_leader.same_as_process:
-        true Note: This field is only set on process.entry_leader, process.session_leader
-        and process.group_leader.'
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
       example: true
       flat_name: process.session_leader.same_as_process
       level: extended
@@ -28320,7 +28408,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.session_leader.tty.char_device.major
       level: extended
@@ -28603,7 +28691,7 @@ process:
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
         to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
-        For more details see https://www.kernel.org/doc/html/v4.11/admin-guide/devices.html
+        For more details, please refer to the Linux kernel documentation.
       example: 1
       flat_name: process.tty.char_device.major
       level: extended
