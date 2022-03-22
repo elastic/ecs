@@ -5,6 +5,7 @@
 FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
+SUBSETS_DIR      := schemas/subsets/
 VERSION          := $(shell cat version)
 
 #
@@ -49,7 +50,7 @@ docs:
 # Alias to generate experimental artifacts
 .PHONY: experimental
 experimental: ve
-	$(PYTHON) scripts/generator.py --include experimental/schemas --out experimental
+	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" --out experimental
 
 # Format code and files in the repo.
 .PHONY: fmt
@@ -64,7 +65,7 @@ generate: generator
 # Run the new generator
 .PHONY: generator
 generator: ve
-	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}"
+	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}"
 
 # Check Makefile format.
 .PHONY: makelint
