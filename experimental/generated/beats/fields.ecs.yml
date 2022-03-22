@@ -150,6 +150,56 @@
         default_field: false
       description: Organization name.
       example: Google LLC
+  - name: cgroup
+    title: Common cgroup metrics
+    group: 2
+    description: Fields related to control group (cgroup) metrics. Due to controller
+      changes between V1 and V2, many same or similar metrics will often appear under
+      different controller names. These fields are common to both cgroup versions.
+    type: group
+    default_field: true
+    fields:
+    - name: cpu.periods
+      level: extended
+      type: long
+      description: Number of period intervals that have elapsed.
+      example: 454839343
+      default_field: false
+    - name: cpu.throttled.us
+      level: extended
+      type: long
+      description: Microseconds of CPU throttled time.
+      example: 15000
+      default_field: false
+    - name: cpu.usage
+      level: extended
+      type: scaled_float
+      description: CPU usage, normalized by the CPU count.
+      scaling_factor: 1000
+      default_field: false
+    - name: memory.limit
+      level: extended
+      type: long
+      description: Memory limit within the cgroup.
+      example: 256
+      default_field: false
+    - name: memory.swap.usage
+      level: extended
+      type: long
+      description: The amount of cgroup memory in swap.
+      example: 5600
+      default_field: false
+    - name: memory.usage
+      level: extended
+      type: long
+      description: Memory usage in bytes
+      example: 25600
+      default_field: false
+    - name: version
+      level: extended
+      type: long
+      description: The cgroup version linked to the metrics
+      default_field: false
   - name: client
     title: Client
     group: 2
