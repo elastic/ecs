@@ -1700,6 +1700,14 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "boot": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
           "cpu": {
             "properties": {
               "usage": {
@@ -1861,6 +1869,10 @@
                 "type": "keyword"
               }
             }
+          },
+          "pid_ns_ino": {
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "type": {
             "ignore_above": 1024,
@@ -2616,6 +2628,290 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "entry_leader": {
+            "properties": {
+              "args": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "args_count": {
+                "type": "long"
+              },
+              "command_line": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "type": "wildcard"
+              },
+              "entity_id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "entry_meta": {
+                "properties": {
+                  "source": {
+                    "properties": {
+                      "ip": {
+                        "type": "ip"
+                      }
+                    }
+                  },
+                  "type": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "executable": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "interactive": {
+                "type": "boolean"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "parent": {
+                "properties": {
+                  "entity_id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "pid": {
+                    "type": "long"
+                  },
+                  "session_leader": {
+                    "properties": {
+                      "entity_id": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "pid": {
+                        "type": "long"
+                      },
+                      "start": {
+                        "type": "date"
+                      }
+                    }
+                  },
+                  "start": {
+                    "type": "date"
+                  }
+                }
+              },
+              "pe": {
+                "properties": {
+                  "architecture": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "company": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "description": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "file_version": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "imphash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "original_file_name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "pehash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "product": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "pgid": {
+                "type": "long"
+              },
+              "pid": {
+                "type": "long"
+              },
+              "real_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "real_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "same_as_process": {
+                "type": "boolean"
+              },
+              "saved_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "saved_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "start": {
+                "type": "date"
+              },
+              "supplemental_groups": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "thread": {
+                "properties": {
+                  "id": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "title": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "tty": {
+                "properties": {
+                  "char_device": {
+                    "properties": {
+                      "major": {
+                        "type": "long"
+                      },
+                      "minor": {
+                        "type": "long"
+                      }
+                    }
+                  }
+                },
+                "type": "object"
+              },
+              "uptime": {
+                "type": "long"
+              },
+              "user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "working_directory": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "env_vars": {
+            "type": "object"
+          },
           "executable": {
             "fields": {
               "text": {
@@ -2627,6 +2923,182 @@
           },
           "exit_code": {
             "type": "long"
+          },
+          "group_leader": {
+            "properties": {
+              "args": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "args_count": {
+                "type": "long"
+              },
+              "command_line": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "type": "wildcard"
+              },
+              "entity_id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "executable": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "interactive": {
+                "type": "boolean"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "long"
+              },
+              "real_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "real_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "same_as_process": {
+                "type": "boolean"
+              },
+              "saved_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "saved_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "start": {
+                "type": "date"
+              },
+              "supplemental_groups": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "tty": {
+                "properties": {
+                  "char_device": {
+                    "properties": {
+                      "major": {
+                        "type": "long"
+                      },
+                      "minor": {
+                        "type": "long"
+                      }
+                    }
+                  }
+                },
+                "type": "object"
+              },
+              "user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "working_directory": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           },
           "hash": {
             "properties": {
@@ -2659,6 +3131,9 @@
                 "type": "keyword"
               }
             }
+          },
+          "interactive": {
+            "type": "boolean"
           },
           "name": {
             "fields": {
@@ -2846,6 +3321,9 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "env_vars": {
+                "type": "object"
+              },
               "executable": {
                 "fields": {
                   "text": {
@@ -2857,6 +3335,32 @@
               },
               "exit_code": {
                 "type": "long"
+              },
+              "group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "group_leader": {
+                "properties": {
+                  "entity_id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "pid": {
+                    "type": "long"
+                  },
+                  "start": {
+                    "type": "date"
+                  }
+                }
               },
               "hash": {
                 "properties": {
@@ -2889,6 +3393,9 @@
                     "type": "keyword"
                   }
                 }
+              },
+              "interactive": {
+                "type": "boolean"
               },
               "name": {
                 "fields": {
@@ -2941,8 +3448,78 @@
               "pid": {
                 "type": "long"
               },
+              "real_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "real_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "saved_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "saved_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
               "start": {
                 "type": "date"
+              },
+              "supplemental_groups": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
               },
               "thread": {
                 "properties": {
@@ -2964,8 +3541,40 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "tty": {
+                "properties": {
+                  "char_device": {
+                    "properties": {
+                      "major": {
+                        "type": "long"
+                      },
+                      "minor": {
+                        "type": "long"
+                      }
+                    }
+                  }
+                },
+                "type": "object"
+              },
               "uptime": {
                 "type": "long"
+              },
+              "user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
               },
               "working_directory": {
                 "fields": {
@@ -3020,8 +3629,302 @@
           "pid": {
             "type": "long"
           },
+          "previous": {
+            "properties": {
+              "args": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "args_count": {
+                "type": "long"
+              },
+              "executable": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "real_group": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "real_user": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "saved_group": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "saved_user": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "session_leader": {
+            "properties": {
+              "args": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "args_count": {
+                "type": "long"
+              },
+              "command_line": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "type": "wildcard"
+              },
+              "entity_id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "executable": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "interactive": {
+                "type": "boolean"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "parent": {
+                "properties": {
+                  "entity_id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "pid": {
+                    "type": "long"
+                  },
+                  "session_leader": {
+                    "properties": {
+                      "entity_id": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "pid": {
+                        "type": "long"
+                      },
+                      "start": {
+                        "type": "date"
+                      }
+                    }
+                  },
+                  "start": {
+                    "type": "date"
+                  }
+                }
+              },
+              "pid": {
+                "type": "long"
+              },
+              "real_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "real_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "same_as_process": {
+                "type": "boolean"
+              },
+              "saved_group": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "saved_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "start": {
+                "type": "date"
+              },
+              "supplemental_groups": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "tty": {
+                "properties": {
+                  "char_device": {
+                    "properties": {
+                      "major": {
+                        "type": "long"
+                      },
+                      "minor": {
+                        "type": "long"
+                      }
+                    }
+                  }
+                },
+                "type": "object"
+              },
+              "user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "working_directory": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
           "start": {
             "type": "date"
+          },
+          "supplemental_groups": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           },
           "thread": {
             "properties": {
@@ -3043,8 +3946,40 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "tty": {
+            "properties": {
+              "char_device": {
+                "properties": {
+                  "major": {
+                    "type": "long"
+                  },
+                  "minor": {
+                    "type": "long"
+                  }
+                }
+              }
+            },
+            "type": "object"
+          },
           "uptime": {
             "type": "long"
+          },
+          "user": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "fields": {
+                  "text": {
+                    "type": "match_only_text"
+                  }
+                },
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           },
           "working_directory": {
             "fields": {
