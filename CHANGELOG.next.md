@@ -47,7 +47,7 @@ Thanks, you're awesome :-) -->
 * Add beta `container.*` metric fields. #1789
 * Add six new syslog fields to `log.syslog.*`. #1793
 * Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
-* Added linux event model beta fields and reuses to support RFC 0030. #1842
+* Added linux event model beta fields and reuses to support RFC 0030. #1842, #1847
 
 #### Improvements
 
