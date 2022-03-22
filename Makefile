@@ -6,6 +6,7 @@ FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 SUBSETS_DIR      := schemas/subsets/
+EXP_SUBSETS_DIR  := experimental/schemas/subsets/
 VERSION          := $(shell cat version)
 
 #
@@ -50,7 +51,7 @@ docs:
 # Alias to generate experimental artifacts
 .PHONY: experimental
 experimental: ve
-	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" --out experimental
+	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" "${EXP_SUBSETS_DIR}" --out experimental
 
 # Format code and files in the repo.
 .PHONY: fmt
