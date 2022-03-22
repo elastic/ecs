@@ -7462,124 +7462,6 @@ process.entry_leader.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
-process.entry_leader.pe.architecture:
-  dashed_name: process-entry-leader-pe-architecture
-  description: CPU architecture target for the file.
-  example: x64
-  flat_name: process.entry_leader.pe.architecture
-  ignore_above: 1024
-  level: extended
-  name: architecture
-  normalize: []
-  original_fieldset: pe
-  short: CPU architecture target for the file.
-  type: keyword
-process.entry_leader.pe.company:
-  dashed_name: process-entry-leader-pe-company
-  description: Internal company name of the file, provided at compile-time.
-  example: Microsoft Corporation
-  flat_name: process.entry_leader.pe.company
-  ignore_above: 1024
-  level: extended
-  name: company
-  normalize: []
-  original_fieldset: pe
-  short: Internal company name of the file, provided at compile-time.
-  type: keyword
-process.entry_leader.pe.description:
-  dashed_name: process-entry-leader-pe-description
-  description: Internal description of the file, provided at compile-time.
-  example: Paint
-  flat_name: process.entry_leader.pe.description
-  ignore_above: 1024
-  level: extended
-  name: description
-  normalize: []
-  original_fieldset: pe
-  short: Internal description of the file, provided at compile-time.
-  type: keyword
-process.entry_leader.pe.file_version:
-  dashed_name: process-entry-leader-pe-file-version
-  description: Internal version of the file, provided at compile-time.
-  example: 6.3.9600.17415
-  flat_name: process.entry_leader.pe.file_version
-  ignore_above: 1024
-  level: extended
-  name: file_version
-  normalize: []
-  original_fieldset: pe
-  short: Process name.
-  type: keyword
-process.entry_leader.pe.imphash:
-  dashed_name: process-entry-leader-pe-imphash
-  description: 'A hash of the imports in a PE file. An imphash -- or import hash --
-    can be used to fingerprint binaries even after recompilation or other code-level
-    transformations have occurred, which would change more traditional hash values.
-
-    Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-  example: 0c6803c4e922103c4dca5963aad36ddf
-  flat_name: process.entry_leader.pe.imphash
-  ignore_above: 1024
-  level: extended
-  name: imphash
-  normalize: []
-  original_fieldset: pe
-  short: A hash of the imports in a PE file.
-  type: keyword
-process.entry_leader.pe.original_file_name:
-  dashed_name: process-entry-leader-pe-original-file-name
-  description: Internal name of the file, provided at compile-time.
-  example: MSPAINT.EXE
-  flat_name: process.entry_leader.pe.original_file_name
-  ignore_above: 1024
-  level: extended
-  name: original_file_name
-  normalize: []
-  original_fieldset: pe
-  short: Internal name of the file, provided at compile-time.
-  type: keyword
-process.entry_leader.pe.pehash:
-  dashed_name: process-entry-leader-pe-pehash
-  description: 'A hash of the PE header and data from one or more PE sections. An
-    pehash can be used to cluster files by transforming structural information about
-    a file into a hash value.
-
-    Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
-  example: 73ff189b63cd6be375a7ff25179a38d347651975
-  flat_name: process.entry_leader.pe.pehash
-  ignore_above: 1024
-  level: extended
-  name: pehash
-  normalize: []
-  original_fieldset: pe
-  short: A hash of the PE header and data from one or more PE sections.
-  type: keyword
-process.entry_leader.pe.product:
-  dashed_name: process-entry-leader-pe-product
-  description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
-  flat_name: process.entry_leader.pe.product
-  ignore_above: 1024
-  level: extended
-  name: product
-  normalize: []
-  original_fieldset: pe
-  short: Internal product name of the file, provided at compile-time.
-  type: keyword
-process.entry_leader.pgid:
-  dashed_name: process-entry-leader-pgid
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by  `process.group_leader.pid`.
-
-    Identifier of the group of processes the process belongs to.'
-  flat_name: process.entry_leader.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  original_fieldset: process
-  short: Deprecated identifier of the group of processes the process belongs to.
-  type: long
 process.entry_leader.pid:
   dashed_name: process-entry-leader-pid
   description: Process id.
@@ -7756,48 +7638,6 @@ process.entry_leader.supplemental_groups.name:
   original_fieldset: group
   short: Name of the group.
   type: keyword
-process.entry_leader.thread.id:
-  dashed_name: process-entry-leader-thread-id
-  description: Thread ID.
-  example: 4242
-  flat_name: process.entry_leader.thread.id
-  format: string
-  level: extended
-  name: thread.id
-  normalize: []
-  original_fieldset: process
-  short: Thread ID.
-  type: long
-process.entry_leader.thread.name:
-  dashed_name: process-entry-leader-thread-name
-  description: Thread name.
-  example: thread-0
-  flat_name: process.entry_leader.thread.name
-  ignore_above: 1024
-  level: extended
-  name: thread.name
-  normalize: []
-  original_fieldset: process
-  short: Thread name.
-  type: keyword
-process.entry_leader.title:
-  dashed_name: process-entry-leader-title
-  description: 'Process title.
-
-    The proctitle, some times the same as process name. Can also be different: for
-    example a browser setting its title to the web page currently opened.'
-  flat_name: process.entry_leader.title
-  ignore_above: 1024
-  level: extended
-  multi_fields:
-  - flat_name: process.entry_leader.title.text
-    name: text
-    type: match_only_text
-  name: title
-  normalize: []
-  original_fieldset: process
-  short: Process title.
-  type: keyword
 process.entry_leader.tty:
   beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-tty
@@ -7839,17 +7679,6 @@ process.entry_leader.tty.char_device.minor:
   normalize: []
   original_fieldset: process
   short: The TTY character device's minor number.
-  type: long
-process.entry_leader.uptime:
-  dashed_name: process-entry-leader-uptime
-  description: Seconds the process has been up.
-  example: 1325
-  flat_name: process.entry_leader.uptime
-  level: extended
-  name: uptime
-  normalize: []
-  original_fieldset: process
-  short: Seconds the process has been up.
   type: long
 process.entry_leader.user.id:
   dashed_name: process-entry-leader-user-id
@@ -8992,19 +8821,6 @@ process.parent.entity_id:
   original_fieldset: process
   short: Unique identifier for the process.
   type: keyword
-process.parent.env_vars:
-  beta: This field is beta and subject to change.
-  dashed_name: process-parent-env-vars
-  description: Environment variables (`env_vars`) set at the time of the event. May
-    be filtered to protect sensitive information.
-  example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
-  flat_name: process.parent.env_vars
-  level: extended
-  name: env_vars
-  normalize: []
-  original_fieldset: process
-  short: Environment variables set at the time of the event.
-  type: object
 process.parent.executable:
   dashed_name: process-parent-executable
   description: Absolute path to the process executable.
@@ -10509,34 +10325,6 @@ process.uptime:
   normalize: []
   short: Seconds the process has been up.
   type: long
-process.user.id:
-  dashed_name: process-user-id
-  description: Unique identifier of the user.
-  example: S-1-5-21-202424912787-2692429404-2351956786-1000
-  flat_name: process.user.id
-  ignore_above: 1024
-  level: core
-  name: id
-  normalize: []
-  original_fieldset: user
-  short: Unique identifier of the user.
-  type: keyword
-process.user.name:
-  dashed_name: process-user-name
-  description: Short name or login of the user.
-  example: a.einstein
-  flat_name: process.user.name
-  ignore_above: 1024
-  level: core
-  multi_fields:
-  - flat_name: process.user.name.text
-    name: text
-    type: match_only_text
-  name: name
-  normalize: []
-  original_fieldset: user
-  short: Short name or login of the user.
-  type: keyword
 process.working_directory:
   dashed_name: process-working-directory
   description: The working directory of the process.
