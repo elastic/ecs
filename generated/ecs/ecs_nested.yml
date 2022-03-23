@@ -11944,6 +11944,34 @@ process:
       normalize: []
       short: Seconds the process has been up.
       type: long
+    process.user.id:
+      dashed_name: process-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.user.name:
+      dashed_name: process-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
     process.working_directory:
       dashed_name: process-working-directory
       description: The working directory of the process.

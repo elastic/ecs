@@ -1454,6 +1454,23 @@
             "uptime": {
               "type": "long"
             },
+            "user": {
+              "properties": {
+                "id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "name": {
+                  "fields": {
+                    "text": {
+                      "type": "match_only_text"
+                    }
+                  },
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
             "working_directory": {
               "fields": {
                 "text": {
