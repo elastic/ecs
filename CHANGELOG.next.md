@@ -48,6 +48,7 @@ Thanks, you're awesome :-) -->
 * Add six new syslog fields to `log.syslog.*`. #1793
 * Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
 * Added linux event model beta fields and reuses to support RFC 0030. #1842, #1847
+* Added `threat.feed.dashboard_id`, `threat.feed.description`, `threat.feed.name`, `threat.feed.reference` fields. #1844
 
 #### Improvements
 
