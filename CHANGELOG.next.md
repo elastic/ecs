@@ -52,7 +52,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* `email.*` field set now GA. #1794
+* `email.*` field set now GA. #1794, #1841
 
 #### Deprecated
 
