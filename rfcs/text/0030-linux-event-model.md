@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **3** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2022/03/04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2022/03/22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -30,7 +30,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 -->
 
 Link to the folder with fieldset yaml (deltas):
-https://github.com/elastic/ecs/tree/24fac52a03bea4a984aec511aa47b5243acccbd4/rfcs/text/0030
+https://github.com/elastic/ecs/tree/main/rfcs/text/0030
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -84,7 +84,10 @@ Here is a mock example of these events:
 
 ### Fork event (mock data)
 
-```json
+<details>
+  <summary>see example here</summary>
+
+  ```json
 {
   '@timestamp': '2021-10-14T08:05:34.853Z',
   event: {
@@ -154,8 +157,7 @@ Here is a mock example of these events:
       id: '1',
       name: 'groupA'
     },
-    supplemental_groups: [
-      {
+    supplemental_groups: [{
         id: '2',
         name: 'groupB'
       },
@@ -199,8 +201,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -256,8 +257,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -308,8 +308,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -371,8 +370,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -430,7 +428,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Exec event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -478,9 +481,11 @@ Here is a mock example of these events:
     working_directory: '/home/kg',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
-    previous: [
-      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
-    ],
+    previous: [{
+      args: ['/bin/sshd'],
+      args_count: 1,
+      executable: '/bin/sshd'
+    }],
     user: {
       id: '0',
       name: 'root'
@@ -505,8 +510,7 @@ Here is a mock example of these events:
       id: '1',
       name: 'groupA'
     },
-    supplemental_groups: [
-      {
+    supplemental_groups: [{
         id: '2',
         name: 'groupB'
       },
@@ -550,8 +554,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -607,8 +610,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -659,8 +661,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -722,8 +723,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -781,7 +781,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Exit event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -831,9 +836,11 @@ Here is a mock example of these events:
     start: '2021-10-14T08:05:34.853Z',
     end: '2021-10-14T10:05:34.853Z',
     exit_code: 137,
-    previous: [
-      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
-    ],
+    previous: [{
+      args: ['/bin/sshd'],
+      args_count: 1,
+      executable: '/bin/sshd'
+    }],
     user: {
       id: '0',
       name: 'root'
@@ -858,8 +865,7 @@ Here is a mock example of these events:
       id: '1',
       name: 'groupA'
     },
-    supplemental_groups: [
-      {
+    supplemental_groups: [{
         id: '2',
         name: 'groupB'
       },
@@ -903,8 +909,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -960,8 +965,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -1012,8 +1016,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -1075,8 +1078,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -1134,7 +1136,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Setsid event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -1182,9 +1189,11 @@ Here is a mock example of these events:
     working_directory: '/home/kg',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
-    previous: [
-      { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
-    ],
+    previous: [{
+      args: ['/bin/sshd'],
+      args_count: 1,
+      executable: '/bin/sshd'
+    }],
     user: {
       id: '0',
       name: 'root'
@@ -1209,8 +1218,7 @@ Here is a mock example of these events:
       id: '1',
       name: 'groupA'
     },
-    supplemental_groups: [
-      {
+    supplemental_groups: [{
         id: '2',
         name: 'groupB'
       },
@@ -1254,8 +1262,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA'
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB'
         },
@@ -1311,8 +1318,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA',
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB',
         },
@@ -1374,8 +1380,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA',
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB',
         },
@@ -1426,8 +1431,7 @@ Here is a mock example of these events:
         id: '1',
         name: 'groupA',
       },
-      supplemental_groups: [
-        {
+      supplemental_groups: [{
           id: '2',
           name: 'groupB',
         },
@@ -1485,6 +1489,8 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 <!--1
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
@@ -1492,6 +1498,9 @@ Stage 2: Included a real world example source document. Ideally this example com
 ### Real world exec event
 
 The following event is sourced from an endpoint-dev development branch that has the majority of the proposed fields implemented. Please note that there are many additional fields that are already sent up as part of the endpoint agent.
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -1816,6 +1825,8 @@ The following event is sourced from an endpoint-dev development branch that has 
 }
 ```
 
+
+</details>
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
@@ -1951,6 +1962,8 @@ https://github.com/m-sample/writing/blob/main/Linux/linux-process-model.md
 * Stage 0: https://github.com/elastic/ecs/pull/1684
 * Stage 1: https://github.com/elastic/ecs/pull/1684
 * Stage 2: https://github.com/elastic/ecs/pull/1779
+* Stage 3: https://github.com/elastic/ecs/pull/1826
+  * Stage 3 update: https://github.com/elastic/ecs/pull/1852
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
