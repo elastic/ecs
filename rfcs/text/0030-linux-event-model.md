@@ -89,7 +89,7 @@ Here is a mock example of these events:
 
   ```json
 {
-	'@timestamp': '2021-10-14T08:05:34.853Z',
+  '@timestamp': '2021-10-14T08:05:34.853Z',
 	event: {
 		kind: 'event',
 		category: 'process',
