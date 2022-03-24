@@ -1,7 +1,7 @@
 # 0030: Linux event model
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **3** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2022/03/04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -59,11 +59,6 @@ process.session_leader.entity_id: &lt;entity_id of session leader>
 
 process.tty will be used to determine if the session is interactive. If the field is unset there is no controlling tty and the session is non-interactive (possibly a service). The *process.interactive* boolean will indicate if the process itself is connected to the controlling tty.
 
-#### Pipes and redirects
-
-*process.group_leader* as well as *process.file_descriptions* will allow the Session View to properly represent pipes and redirects in a familiar shell like way. e.g
-`cat /etc/hosts | grep google > somefile.txt`
-
 ### Unique process.entity_id generation
 
 *host.boot.id* and *host.pid_ns_ino* will be used in generating unique *entity_id*s for the process using fn(process.pid, process.start, host.pid_ns_ino, host.boot.id)
@@ -116,29 +111,13 @@ Here is a mock example of these events:
       version: '7.9.2009'
     }
   },
-  user: { // To keep backwards compat and avoid data duplication. We keep user/group info for top level process at the top level
+  user: {
     id: '2', // the effective user aka euid
-    name: 'kg',
-    real: { // ruid
-      id: '2',
-      name: 'kg',
-    },
-    saved: { // suid
-      id: '2',
-      name: 'kg',
-    }
+    name: 'kg'
   },
   group: {
     id: '1', // the effective group aka egid
-    name: 'groupA',
-    real: { // rgid
-      id: '1',
-      name: 'groupA',
-    },
-    saved: { // sgid
-      id: '1',
-      name: 'groupA',
-    }
+    name: 'groupA'
   },
   process: {
     entity_id: '4321',
@@ -151,6 +130,40 @@ Here is a mock example of these events:
     working_directory: '/',
     pid: 3,
     start: '2021-10-14T08:05:34.853Z',
+    user: {
+      id: '0',
+      name: 'root'
+    },
+    real_user: {
+      id: '0',
+      name: 'root',
+    },
+    saved_user: {
+      id: '0',
+      name: 'root'
+    },
+    group: {
+      id: '1',
+      name: 'groupA'
+    },
+    real_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    saved_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    supplemental_groups: [
+      {
+        id: '2',
+        name: 'groupB'
+      },
+      {
+        id: '3',
+        name: 'groupC'
+      }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -164,56 +177,44 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -233,51 +234,39 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
-      file_descriptions: [
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
         {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
         }
       ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -297,38 +286,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -340,19 +329,7 @@ Here is a mock example of these events:
           start: '2021-10-14T08:05:34.853Z',
         },
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -372,38 +349,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -436,45 +413,14 @@ Here is a mock example of these events:
           }
         }
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
         }
       }
     },
-    file_descriptions: [
-      {
-        descriptor:0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-      {
-        descriptor:1,
-        type:'pipe',
-        pipe: {
-          inode: '6183207'
-        }
-      }
-    ],
     tty: {
-      descriptor: 0,
-      type: 'char_device',
       char_device: {
         major: 8,
         minor: 1
@@ -515,37 +461,11 @@ Here is a mock example of these events:
   },
   user: {
     id: '2',
-    name: 'kg',
-    real: {
-      id: '2',
-      name: 'kg',
-    },
-    saved: {
-      id: '2',
-      name: 'kg',
-    }
+    name: 'kg'
   },
   group: {
     id: '1',
-    name: 'groupA',
-    real: {
-      id: '1',
-      name: 'groupA',
-    },
-    saved: {
-      id: '1',
-      name: 'groupA',
-    },
-    supplemental: [
-      {
-        id: '2',
-        name: 'groupB',
-      },
-      {
-        id: '3',
-        name: 'groupC',
-      }
-    ]
+    name: 'groupA'
   },
   process: {
     entity_id: '4321',
@@ -561,6 +481,40 @@ Here is a mock example of these events:
     previous: [
       { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
     ],
+    user: {
+      id: '0',
+      name: 'root'
+    },
+    real_user: {
+      id: '0',
+      name: 'root',
+    },
+    saved_user: {
+      id: '0',
+      name: 'root'
+    },
+    group: {
+      id: '1',
+      name: 'groupA'
+    },
+    real_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    saved_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    supplemental_groups: [
+      {
+        id: '2',
+        name: 'groupB'
+      },
+      {
+        id: '3',
+        name: 'groupC'
+      }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -574,56 +528,44 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 1234, // this directly replaces parent.pgid
-        start: '2021-10-14T08:05:34.853Z',
+        start: '2021-10-14T08:05:34.853Z'
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -643,51 +585,39 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
-      file_descriptions: [
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
         {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
         }
       ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -707,38 +637,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -750,19 +680,7 @@ Here is a mock example of these events:
           start: '2021-10-14T08:05:34.853Z',
         },
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -782,38 +700,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -846,45 +764,14 @@ Here is a mock example of these events:
           }
         }
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
         }
       }
     },
-    file_descriptions: [
-      {
-        descriptor:0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-      {
-        descriptor:1,
-        type:'pipe',
-        pipe: {
-          inode: '6183207'
-        }
-      }
-    ],
     tty: {
-      descriptor: 0,
-      type: 'char_device',
       char_device: {
         major: 8,
         minor: 1
@@ -925,37 +812,11 @@ Here is a mock example of these events:
   },
   user: {
     id: '2',
-    name: 'kg',
-    real: {
-      id: '2',
-      name: 'kg',
-    },
-    saved: {
-      id: '2',
-      name: 'kg',
-    }
+    name: 'kg'
   },
   group: {
     id: '1',
-    name: 'groupA',
-    real: {
-      id: '1',
-      name: 'groupA',
-    },
-    saved: {
-      id: '1',
-      name: 'groupA',
-    },
-    supplemental: [
-      {
-        id: '2',
-        name: 'groupB',
-      },
-      {
-        id: '3',
-        name: 'groupC',
-      }
-    ]
+    name: 'groupA'
   },
   process: {
     entity_id: '4321',
@@ -973,6 +834,40 @@ Here is a mock example of these events:
     previous: [
       { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
     ],
+    user: {
+      id: '0',
+      name: 'root'
+    },
+    real_user: {
+      id: '0',
+      name: 'root',
+    },
+    saved_user: {
+      id: '0',
+      name: 'root'
+    },
+    group: {
+      id: '1',
+      name: 'groupA'
+    },
+    real_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    saved_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    supplemental_groups: [
+      {
+        id: '2',
+        name: 'groupB'
+      },
+      {
+        id: '3',
+        name: 'groupC'
+      }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -986,56 +881,44 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 1234, // this directly replaces parent.pgid
-        start: '2021-10-14T08:05:34.853Z',
+        start: '2021-10-14T08:05:34.853Z'
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1055,52 +938,39 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
-
+        name: 'groupA'
       },
-      file_descriptions: [
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
         {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
         }
       ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1120,39 +990,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
-
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -1164,19 +1033,7 @@ Here is a mock example of these events:
           start: '2021-10-14T08:05:34.853Z',
         },
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1196,38 +1053,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -1260,45 +1117,14 @@ Here is a mock example of these events:
           }
         }
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
         }
       },
     },
-    file_descriptions: [
-      {
-        descriptor:0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-      {
-        descriptor:1,
-        type:'pipe',
-        pipe: {
-          inode: '6183207'
-        }
-      }
-    ],
     tty: {
-      descriptor: 0,
-      type: 'char_device',
       char_device: {
         major: 8,
         minor: 1
@@ -1339,37 +1165,11 @@ Here is a mock example of these events:
   },
   user: {
     id: '2',
-    name: 'kg',
-    real: {
-      id: '2',
-      name: 'kg',
-    },
-    saved: {
-      id: '2',
-      name: 'kg',
-    }
+    name: 'kg'
   },
   group: {
     id: '1',
-    name: 'groupA',
-    real: {
-      id: '1',
-      name: 'groupA',
-    },
-    saved: {
-      id: '1',
-      name: 'groupA',
-    },
-    supplemental: [
-      {
-        id: '2',
-        name: 'groupB',
-      },
-      {
-        id: '3',
-        name: 'groupC',
-      }
-    ]
+    name: 'groupA'
   },
   process: {
     entity_id: '4321',
@@ -1385,6 +1185,40 @@ Here is a mock example of these events:
     previous: [
       { args: ['/bin/sshd'], args_count: 1, executable: '/bin/sshd' }
     ],
+    user: {
+      id: '0',
+      name: 'root'
+    },
+    real_user: {
+      id: '0',
+      name: 'root',
+    },
+    saved_user: {
+      id: '0',
+      name: 'root'
+    },
+    group: {
+      id: '1',
+      name: 'groupA'
+    },
+    real_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    saved_group: {
+      id: '1',
+      name: 'groupA'
+    },
+    supplemental_groups: [
+      {
+        id: '2',
+        name: 'groupB'
+      },
+      {
+        id: '3',
+        name: 'groupC'
+      }
+    ],
     parent: {
       entity_id: '4322',
       args: ['/bin/sshd'],
@@ -1398,56 +1232,44 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root'
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA'
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB'
+        },
+        {
+          id: '3',
+          name: 'groupC'
+        }
+      ],
       group_leader: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 1234, // this directly replaces parent.pgid
         start: '2021-10-14T08:05:34.853Z',
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1467,38 +1289,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root',
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB',
+        },
+        {
+          id: '3',
+          name: 'groupC',
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -1510,19 +1332,7 @@ Here is a mock example of these events:
           start: '2021-10-14T08:05:34.853Z',
         },
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1542,51 +1352,39 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root',
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
-      file_descriptions: [
+      real_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      supplemental_groups: [
         {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
+          id: '2',
+          name: 'groupB',
+        },
+        {
+          id: '3',
+          name: 'groupC',
         }
       ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
@@ -1606,38 +1404,38 @@ Here is a mock example of these events:
       start: '2021-10-14T08:05:34.853Z',
       user: {
         id: '0',
+        name: 'root'
+      },
+      real_user: {
+        id: '0',
         name: 'root',
-        real: {
-          id: '0',
-          name: 'root',
-        },
-        saved: {
-          id: '0',
-          name: 'root',
-        }
+      },
+      saved_user: {
+        id: '0',
+        name: 'root',
       },
       group: {
         id: '1',
-        name: 'groupA',
-        real: {
-          id: '1',
-          name: 'groupA',
-        },
-        saved: {
-          id: '1',
-          name: 'groupA',
-        },
-        supplemental: [
-          {
-            id: '2',
-            name: 'groupB',
-          },
-          {
-            id: '3',
-            name: 'groupC',
-          }
-        ]
+        name: 'groupA'
       },
+      real_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      saved_group: {
+        id: '1',
+        name: 'groupA',
+      },
+      supplemental_groups: [
+        {
+          id: '2',
+          name: 'groupB',
+        },
+        {
+          id: '3',
+          name: 'groupC',
+        }
+      ],
       parent: {
         entity_id: '0fe5f6a0-6f04-49a5-8faf-768445b38d16',
         pid: 2,
@@ -1670,45 +1468,14 @@ Here is a mock example of these events:
           }
         }
       },
-      file_descriptions: [
-        {
-          descriptor:0,
-          type: 'char_device',
-          char_device: {
-            major: 8,
-            minor: 1
-          }
-        }
-      ],
       tty: {
-        descriptor: 0,
-        type: 'char_device',
         char_device: {
           major: 8,
           minor: 1
         }
       }
     },
-    file_descriptions: [
-      {
-        descriptor:0,
-        type: 'char_device',
-        char_device: {
-          major: 8,
-          minor: 1
-        }
-      },
-      {
-        descriptor:1,
-        type:'pipe',
-        pipe: {
-          inode: '6183207'
-        }
-      }
-    ],
     tty: {
-      descriptor: 0,
-      type: 'char_device',
       char_device: {
         major: 8,
         minor: 1
@@ -2080,9 +1847,8 @@ Another major win to this widened process context is the ability to create more 
 As part of this RFC, there has been a few instances of a need to support arrays of fieldsets.
 
 The fields in question include:
-- process.file_descriptions (type: file_description)
 - process.previous (type: process)
-- group.supplemental (type: group)
+- process.supplemental_groups (type: group)
 
 This will require involvement from the ECS team to add this support to the existing tooling.
 An issue has been created for this and can be found here https://github.com/elastic/ecs/issues/1736
