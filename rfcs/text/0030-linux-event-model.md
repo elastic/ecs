@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **3** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2022/03/04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2022/03/22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -30,7 +30,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 -->
 
 Link to the folder with fieldset yaml (deltas):
-https://github.com/elastic/ecs/tree/24fac52a03bea4a984aec511aa47b5243acccbd4/rfcs/text/0030
+https://github.com/elastic/ecs/tree/main/rfcs/text/0030
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
