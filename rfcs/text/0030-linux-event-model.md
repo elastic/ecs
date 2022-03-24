@@ -84,7 +84,10 @@ Here is a mock example of these events:
 
 ### Fork event (mock data)
 
-```json
+<details>
+  <summary>see example here</summary>
+
+  ```json
 {
 	'@timestamp': '2021-10-14T08:05:34.853Z',
 	event: {
@@ -425,7 +428,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Exec event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -773,7 +781,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Exit event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -1123,7 +1136,12 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 ### Setsid event (mock data)
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -1471,6 +1489,8 @@ Here is a mock example of these events:
 }
 ```
 
+</details>
+
 <!--1
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
@@ -1478,6 +1498,9 @@ Stage 2: Included a real world example source document. Ideally this example com
 ### Real world exec event
 
 The following event is sourced from an endpoint-dev development branch that has the majority of the proposed fields implemented. Please note that there are many additional fields that are already sent up as part of the endpoint agent.
+
+<details>
+  <summary>see example here</summary>
 
 ```json
 {
@@ -1802,6 +1825,8 @@ The following event is sourced from an endpoint-dev development branch that has 
 }
 ```
 
+
+</details>
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
