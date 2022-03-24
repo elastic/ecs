@@ -5264,79 +5264,6 @@
       description: The time the process started.
       example: '2016-05-23T08:05:34.853Z'
       default_field: false
-    - name: entry_leader.pe.architecture
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: CPU architecture target for the file.
-      example: x64
-      default_field: false
-    - name: entry_leader.pe.company
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-      default_field: false
-    - name: entry_leader.pe.description
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-      default_field: false
-    - name: entry_leader.pe.file_version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-      default_field: false
-    - name: entry_leader.pe.imphash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the imports in a PE file. An imphash -- or import hash
-        -- can be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
-      example: 0c6803c4e922103c4dca5963aad36ddf
-      default_field: false
-    - name: entry_leader.pe.original_file_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-      default_field: false
-    - name: entry_leader.pe.pehash
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'A hash of the PE header and data from one or more PE sections.
-        An pehash can be used to cluster files by transforming structural information
-        about a file into a hash value.
-
-        Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.'
-      example: 73ff189b63cd6be375a7ff25179a38d347651975
-      default_field: false
-    - name: entry_leader.pe.product
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Internal product name of the file, provided at compile-time.
-      example: "Microsoft\xAE Windows\xAE Operating System"
-      default_field: false
-    - name: entry_leader.pgid
-      level: extended
-      type: long
-      format: string
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.'
-      default_field: false
     - name: entry_leader.pid
       level: core
       type: long
@@ -5444,32 +5371,6 @@
       ignore_above: 1024
       description: Name of the group.
       default_field: false
-    - name: entry_leader.thread.id
-      level: extended
-      type: long
-      format: string
-      description: Thread ID.
-      example: 4242
-      default_field: false
-    - name: entry_leader.thread.name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Thread name.
-      example: thread-0
-      default_field: false
-    - name: entry_leader.title
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: 'Process title.
-
-        The proctitle, some times the same as process name. Can also be different:
-        for example a browser setting its title to the web page currently opened.'
-      default_field: false
     - name: entry_leader.tty
       level: extended
       type: object
@@ -5493,12 +5394,6 @@
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
       example: 128
-      default_field: false
-    - name: entry_leader.uptime
-      level: extended
-      type: long
-      description: Seconds the process has been up.
-      example: 1325
       default_field: false
     - name: entry_leader.user.id
       level: core
@@ -6183,13 +6078,6 @@
         PID reuse as well as to identify a specific process over time, across multiple
         monitored hosts.'
       example: c2c455d9f99375d
-      default_field: false
-    - name: parent.env_vars
-      level: extended
-      type: object
-      description: Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
-      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       default_field: false
     - name: parent.executable
       level: extended
