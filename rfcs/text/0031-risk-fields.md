@@ -31,8 +31,12 @@ risk.static_score_norm | float | 83.0 | A risk classification score (0-100) obta
 risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
 risk.factors| object | See Source data section | Factors that contributed to the risk | Explainability about what contributed to the risk
 risk.factors.alerts | array of objects (Optional) | See Source data section | Alerts that contributed to the risk | Explainability about what contributed to the risk
+risk.factors.alerts.rule_id | keyword | 99cb72b7-ab55-4375-8bbe-696e3e1b8fe2 | Rule ID associated with the alert | Metadata about alerts that contributed to the risk
+risk.factors.alerts.rule_name | keyword | Unusual Windows Path Activity | Rule name associated with the alert | Metadata about alerts that contributed to the risk
+risk.factors.alerts.rule_risk | float | 2.41 | Risk associated with the alert | Metadata about alerts that contributed to the risk
 risk.factors.others | array of strings (Optional) | See Source data section | Factors apart from alerts that contributed to the risk | Explainability about what contributed to the risk
-
+risk.factors.others.type | keyword | host characteristic/tactic | Type of factor other than alerts, contributing to the risk | Explainability about additional factors contributing to the risk
+risk.factors.others.description | keyword | Host is a server/Tactic TA0001 | Details about the factor contributing to the risk | Explainability about additional factors contributing to the risk
 ### Nesting `risk.*` fields under other fields
 The `risk.*` fields mentioned above can be used to quantify the amount of risk associated with entities like hosts, users etc. For example, a host with a high risk score would imply that the probability of the host being exposed to harm during a cyber attack or breach is high. Attaching risk to entities can help analysts identify entities that require their immediate attention and hence drive investigations in a more systematic manner.
 
@@ -139,8 +143,14 @@ With the introduction of ECS `risk` fields, fields in the above document would l
         }
       ],
       "others": [
-        "Host is a server",
-        "Tactic TA0001"
+        {
+          "type": "host characteristic",
+          "description": "Host is a server"
+        },
+        {
+          "type": "tactic",
+          "description": "Tactic TA0001"
+        }
       ]
     },
     "calculated_risk_score_norm": 78.61701409613882,
