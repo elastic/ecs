@@ -34,6 +34,32 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+## 8.3.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
 ## 8.2.0 (Soft Feature Freeze)
 
 ### Schema Changes
