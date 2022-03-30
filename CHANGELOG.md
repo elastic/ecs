@@ -78,6 +78,7 @@ All notable changes to this project will be documented in this file based on the
 * Add explicit `default_field: true` for Beats artifacts. #1633
 * Reorganize docs directory structure. #1679
 * Added support for `analyzer` definitions for text fields. #1737
+* Adding release notes section into ECS docs. #1800
 
 #### Bugfixes
 
