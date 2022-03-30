@@ -30,19 +30,13 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Adding release notes section into ECS docs. #1800
-
 #### Improvements
 
 #### Deprecated
 
-## 8.2.0 (Soft Feature Freeze)
+## 8.2.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -56,13 +50,7 @@ Thanks, you're awesome :-) -->
 
 * `email.*` field set now GA. #1794, #1841
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -74,8 +62,6 @@ Thanks, you're awesome :-) -->
 * Update refs from master to main in USAGE.md etc #1658
 * Clean up trailing spaces and additional newlines in schemas #1667
 * Use higher compression as default in composable index template settings. #1712
-
-#### Deprecated
 
 <!-- All empty sections:
 
