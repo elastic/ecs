@@ -33,7 +33,7 @@ from schema import cleaner
 from schema import finalizer
 from schema import subset_filter
 from schema import exclude_filter
-from schema.types import (
+from _types import (
     FieldEntry
 )
 
