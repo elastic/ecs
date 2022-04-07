@@ -27,7 +27,7 @@ from schema import (
     cleaner,
     loader,
 )
-from schema.types import (
+from _types import (
     FieldEntry
 )
 

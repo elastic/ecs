@@ -21,7 +21,7 @@ from typing import (
 )
 
 from schema import loader
-from schema.types import (
+from _types import (
     Field,
     FieldEntry,
     FieldNestedEntry,

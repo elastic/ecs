@@ -23,7 +23,7 @@ from typing import (
 
 from schema import visitor
 from generators import ecs_helpers
-from schema.types import (
+from _types import (
     Field,
     FieldEntry,
 )

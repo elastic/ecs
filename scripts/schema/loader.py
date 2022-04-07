@@ -27,7 +27,7 @@ from typing import (
 import yaml
 
 from generators import ecs_helpers
-from .types import (
+from _types import (
     Field,
     FieldEntry,
     FieldNestedEntry,

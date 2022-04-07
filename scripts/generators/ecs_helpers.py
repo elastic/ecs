@@ -33,7 +33,7 @@ import warnings
 
 from collections import OrderedDict
 from copy import deepcopy
-from schema.types import (
+from _types import (
     Field,
     FieldEntry,
     FieldNestedEntry,

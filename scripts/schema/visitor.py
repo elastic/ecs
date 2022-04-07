@@ -22,7 +22,7 @@ from typing import (
     Optional,
 )
 
-from .types import (
+from _types import (
     Field,
     FieldDetails,
     FieldEntry,
