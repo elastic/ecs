@@ -254,7 +254,7 @@ def strict_warning_handler(message, strict):
 
 
 def single_line_short_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
-    error: str = single_line_short_check(
+    error: Union[str, None] = single_line_short_check(
         schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
         strict_warning_handler(error, strict)
@@ -264,7 +264,7 @@ def single_line_short_override_description(schema_or_field: FieldEntry, strict: 
     for field in schema_or_field['schema_details']['reusable']['expected']:
         if not 'short_override' in field:
             continue
-        error: str = single_line_short_check(field['short_override'], field['full'])
+        error: Union[str, None] = single_line_short_check(field['short_override'], field['full'])
         if error:
             strict_warning_handler(error, strict)
 
@@ -279,8 +279,8 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
     name = field['field_details']['name']
 
     if isinstance(example_value, (list, dict)):
-        name: str = field['field_details']['name']
-        msg: str = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
+        field_name: str = field['field_details']['name']
+        msg: str = f"Example value for field `{field_name}` contains an object or array which must be quoted to avoid YAML interpretation."
         strict_warning_handler(msg, strict)
 
     if pattern:
