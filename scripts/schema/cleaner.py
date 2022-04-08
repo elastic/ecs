@@ -137,9 +137,9 @@ def normalize_reuse_notation(schema: FieldEntry) -> None:
             if 'at' in reuse_entry and 'as' in reuse_entry:
                 explicit_entry = reuse_entry
             else:
-                raise ValueError("When specifying reusable expected locations for {} " +
-                                 "with the dictionary notation, keys 'as' and 'at' are required. " +
-                                 "Got {}.".format(schema_name, reuse_entry))
+                raise ValueError(f"When specifying reusable expected locations for {schema_name} " +
+                                 f"with the dictionary notation, keys 'as' and 'at' are required. " +
+                                 f"Got {reuse_entry}.")
         else:  # Make it explicit
             explicit_entry = {'at': reuse_entry, 'as': schema_name}
         explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
