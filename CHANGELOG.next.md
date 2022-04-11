@@ -44,6 +44,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `pattern` attribute to `.mac` fields. #1871
+
 #### Improvements
 
 #### Deprecated
