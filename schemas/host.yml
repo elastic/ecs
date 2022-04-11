@@ -72,6 +72,7 @@
       level: core
       type: keyword
       short: Host MAC addresses.
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
       example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
       description: >
         Host MAC addresses.
@@ -189,7 +190,7 @@
       beta: This field is beta and subject to change.
       description: >
         Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
-    
+
     - name: pid_ns_ino
       level: extended
       type: keyword

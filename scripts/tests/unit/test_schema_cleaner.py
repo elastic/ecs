@@ -418,7 +418,8 @@ class TestSchemaCleaner(unittest.TestCase):
             'field_details': {
                 'name': 'test',
                 'example': 'AA',
-                'pattern': 'A{3}'
+                'pattern': 'A{3}',
+                'normalize': [],
             }
         }
         with self.assertRaisesRegex(ValueError, 'does not match the regex defined in the pattern'):
@@ -429,7 +430,39 @@ class TestSchemaCleaner(unittest.TestCase):
             'field_details': {
                 'name': 'test',
                 'example': 'AA',
-                'pattern': 'A{3}'
+                'pattern': 'A{3}',
+                'normalize': [],
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'does not match the regex defined in the pattern'):
+                cleaner.check_example_value(field, strict=False)
+        except Exception:
+            self.fail("clean.check_example_value() raised Exception unexpectedly.")
+
+    def test_example_array_of_values_mismatch_with_pattern(self):
+        field = {
+            'field_details': {
+                'name': 'test',
+                'example': "['AAA', 'AA']",
+                'pattern': 'A{3}',
+                'normalize': [
+                    'array'
+                ]
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'does not match the regex defined in the pattern'):
+            cleaner.check_example_value(field)
+
+    def test_example_array_of_values_mismatch_with_patterns_strict_disabled(self):
+        field = {
+            'field_details': {
+                'name': 'test',
+                'example': "['AAA', 'AA']",
+                'pattern': 'A{3}',
+                'normalize': [
+                    'array'
+                ]
             }
         }
         try:

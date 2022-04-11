@@ -268,10 +268,18 @@ def check_example_value(field, strict=True):
         strict_warning_handler(msg, strict)
 
     if pattern:
-        match = re.match(pattern, example_value)
-        if not match:
-            msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
-            strict_warning_handler(msg, strict)
+        # Examples with arrays must be handled
+        if 'array' in field['field_details']['normalize']:
+            # strips unnecessary chars in order to split each example value
+            example_values = example_value.translate(str.maketrans('', '', '"[] ')).split(',')
+        else:
+            example_values = [example_value]
+
+        for example_value in example_values:
+            match = re.match(pattern, example_value)
+            if not match:
+                msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
+                strict_warning_handler(msg, strict)
 
 
 def single_line_beta_description(schema_or_field, strict=True):
