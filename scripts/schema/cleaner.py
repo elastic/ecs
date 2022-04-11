@@ -268,7 +268,9 @@ def check_example_value(field, strict=True):
         strict_warning_handler(msg, strict)
 
     if pattern:
+        # Examples with arrays must be handled
         if 'array' in field['field_details']['normalize']:
+            # strips unnecessary chars in order to split each example value
             example_values = example_value.translate(str.maketrans('', '', '"[] ')).split(',')
         else:
             example_values = [example_value]
