@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-import copy
+import re
 
 from generators import ecs_helpers
 from schema import visitor
@@ -202,9 +202,11 @@ def field_assertions_and_warnings(field):
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
-        check_example_value(field, strict=strict_mode)
         if 'beta' in field['field_details']:
             single_line_beta_description(field, strict=strict_mode)
+        if 'pattern' in field['field_details']:
+            validate_pattern_regex(field['field_details'], strict=strict_mode)
+        check_example_value(field, strict=strict_mode)
         if field['field_details']['level'] not in ACCEPTABLE_FIELD_LEVELS:
             msg = "Invalid level for field '{}'.\nValue: {}\nAcceptable values: {}".format(
                 field['field_details']['name'], field['field_details']['level'],
@@ -229,13 +231,18 @@ def single_line_short_check(short_to_check, short_name):
     return None
 
 
+def strict_warning_handler(message, strict):
+    """Handles warnings based on --strict mode"""
+    if strict:
+        raise ValueError(message)
+    else:
+        ecs_helpers.strict_warning(message)
+
+
 def single_line_short_description(schema_or_field, strict=True):
     error = single_line_short_check(schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
-        if strict:
-            raise ValueError(error)
-        else:
-            ecs_helpers.strict_warning(error)
+        strict_warning_handler(error, strict)
 
 
 def single_line_short_override_description(schema_or_field, strict=True):
@@ -244,10 +251,7 @@ def single_line_short_override_description(schema_or_field, strict=True):
             continue
         error = single_line_short_check(field['short_override'], field['full'])
         if error:
-            if strict:
-                raise ValueError(error)
-            else:
-                ecs_helpers.strict_warning(error)
+            strict_warning_handler(error, strict)
 
 
 def check_example_value(field, strict=True):
@@ -256,20 +260,34 @@ def check_example_value(field, strict=True):
     Fails or warns (depending on strict mode) if so.
     """
     example_value = field['field_details'].get('example', None)
+    pattern = field['field_details'].get('pattern', None)
+    name = field['field_details']['name']
+
     if isinstance(example_value, (list, dict)):
-        name = field['field_details']['name']
         msg = f"Example value for field `{name}` contains an object or array which must be quoted to avoid YAML interpretation."
-        if strict:
-            raise ValueError(msg)
-        else:
-            ecs_helpers.strict_warning(msg)
+        strict_warning_handler(msg, strict)
+
+    if pattern:
+        match = re.match(pattern, example_value)
+        if not match:
+            msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
+            strict_warning_handler(msg, strict)
 
 
 def single_line_beta_description(schema_or_field, strict=True):
     if "\n" in schema_or_field['field_details']['beta']:
         msg = "Beta descriptions must be single line.\n"
         msg += f"Offending field or field set: {schema_or_field['field_details']['name']}"
-        if strict:
-            raise ValueError(msg)
-        else:
-            ecs_helpers.strict_warning(msg)
+        strict_warning_handler(msg, strict)
+
+
+def validate_pattern_regex(field, strict=True):
+    """
+    Validates if field['pattern'] contains a valid regular expression.
+    """
+    try:
+        re.compile(field['pattern'])
+    except re.error:
+        msg = "Pattern value must be a valid regular expression.\n"
+        msg += f"Offending field name: {field['name']}"
+        strict_warning_handler(msg, strict)

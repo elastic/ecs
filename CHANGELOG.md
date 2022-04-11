@@ -3,6 +3,33 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.1.0](https://github.com/elastic/ecs/compare/v8.0.1...v8.1.0)
+
+### Schema Changes
+
+#### Added
+
+* Added two new fields (sha384,tlsh) to hash schema and one field to pe schema (pehash). #1678
+* Added `email.*` beta field set. ##1688, #1705
+
+#### Removed
+
+- Removing `process.target.*` reuses from experimental schema. #1666
+- Removing RFC 0014 `pe.*` fields from experimental schema. #1670
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix invalid documentation link generation in component templates `_meta`. #1728
+
+#### Improvements
+
+* Update refs from master to main in USAGE.md etc #1658
+* Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
+* Bump dependencies. #1782
+
 ## [8.0.1](https://github.com/elastic/ecs/compare/v8.0.0...v8.0.1)
 
 ### Tooling and Artifact Changes
@@ -51,6 +78,7 @@ All notable changes to this project will be documented in this file based on the
 * Add explicit `default_field: true` for Beats artifacts. #1633
 * Reorganize docs directory structure. #1679
 * Added support for `analyzer` definitions for text fields. #1737
+* Adding release notes section into ECS docs. #1800
 
 #### Bugfixes
 

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-host.html",
-    "ecs_version": "8.3.0-dev+exp"
+    "ecs_version": "8.4.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -11,6 +11,14 @@
             "architecture": {
               "ignore_above": 1024,
               "type": "keyword"
+            },
+            "boot": {
+              "properties": {
+                "id": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
             },
             "cpu": {
               "properties": {
@@ -173,6 +181,10 @@
                   "type": "keyword"
                 }
               }
+            },
+            "pid_ns_ino": {
+              "ignore_above": 1024,
+              "type": "keyword"
             },
             "type": {
               "ignore_above": 1024,
