@@ -33,7 +33,7 @@ ECS-compliant events SHOULD:
 * map the contents of the original event to as many ECS fields as possible.
 * populate the top-level `message` field.
 * store the entire raw, original event in `event.original`. Indexing and doc_values are disabled on `event.original` to reduce store, but the value is retrieved from `_source`.
-* use an array if the field expects and array event if populating a single value.
+* If a field expects an array, the value should always be an array even if the array contains one value (for example, `[ 10.42.42.42 ]`).
 * lowercase the value if the field's description calls for lowercasing.
 * set the event categorization fields using the allowed values.
 * `source.*` and `destination.*` be populated as a pair, if possible.
