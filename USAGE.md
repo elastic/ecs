@@ -408,6 +408,7 @@ Strict mode requires the following conditions, else the script exits on an excep
 
 * Short descriptions must be less than or equal to 120 characters.
 * Example values containing arrays or objects must be quoted to avoid unexpected YAML interpretation when the schema files or artifacts are relied on downstream.
+* If a regex `pattern` is defined, the example values will be checked against it.
 
 The current artifacts generated and published in the ECS repo will always be created using strict mode. However, older ECS versions (pre `v1.5.0`) will cause
 an exception if attempting to generate them using `--strict`. This is due to schema validation checks introduced after that version was released.
