@@ -32,23 +32,23 @@ ECS-compliant events SHOULD:
 
 * map the contents of the original event to as many ECS fields as possible.
 * populate the top-level `message` field.
-* store the entire raw, original event in `event.original`. Disable indexing and doc_values on `event.original` to reduce store. Retrieve the value from `_source`.
+* store the entire raw, original event in `event.original`. Disable indexing and doc_values on `event.original` to reduce store.
 * If a field expects an array, the value should always be an array even if the array contains one value (for example, `[ 10.42.42.42 ]`).
-* lowercase the value if the field's description calls for lowercasing.
-* set the event categorization fields using the allowed values.
+* lowercase the value if the field's description calls for it.
+* set the event categorization fields using the [allowed values](https://www.elastic.co/guide/en/ecs/current/ecs-category-field-values-reference.html).
 * populate `source.*` and `destination.*` as a pair, when possible.
 * populate `source.*`/`destination.*` if `client.*`/`server.*` are populated.
 * copy all relevant values into the `related.*` fields.
-* use "breakdown" fields.
+* use "breakdown" fields. Breakdown fields take an original value and deconstruct it. Examples include `user_agent.*` or `.domain`, `.sub_domain`, `.registered_domain`, etc.
 * duplicate the `.address` field value into either `.ip` or `.domain`. Dot not populate the `.ip` and `.domain` fields directly.
 
 ### Optional
 
 ECS-compliant events MAY:
 
-* use custom fields alongside ECS fields in an event. Use proper names for custom fields over generic concept names. Proper names reduce the chance of a future conflict. Nest custom fields inside an object (field set) and not leaf fields at the root (base of the event).
+* use custom fields alongside ECS fields in an event. Use proper names for custom fields over generic concept names. Proper names reduce the chance of a future conflict. Nest custom fields inside an object and not leaf fields at the base of the event.
 * remove unused ECS fields or entire field sets from an index mapping.
-* add multi-fields not defined by ECS. For example, a `text` multi-field with a custom analyzer.
+* add multi-fields not defined by ECS. For example, a text multi-field with a custom analyzer.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
