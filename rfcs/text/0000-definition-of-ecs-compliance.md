@@ -130,8 +130,8 @@ This compliant event builds on the required guidelines and incorporates many rec
   "related": {
     "ip": [
       "192.168.64.1",
-	    "192.168.64.2",
-	    "fe80::9c5f:77ff:fe74:604"
+      "192.168.64.2",
+      "fe80::9c5f:77ff:fe74:604"
     ]
   },
   "host": {
