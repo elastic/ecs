@@ -45,6 +45,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `pattern` attribute to `.mac` fields. #1871
+* Add `orchestrator.cluster.id` #1875
 
 #### Improvements
 
