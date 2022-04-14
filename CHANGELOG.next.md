@@ -56,6 +56,7 @@ Thanks, you're awesome :-) -->
 
 * Adding optional field attribute, `pattern`. #1834
 * Added support for re-using a fieldset as an array. #1838
+* Added `--force-docs` option to generator. #1879
 
 #### Improvements
 
