@@ -66,7 +66,7 @@ generate: generator
 # Run the new generator
 .PHONY: generator
 generator: ve
-	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}"
+	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}" --force-docs
 
 # Check Makefile format.
 .PHONY: makelint
