@@ -46,6 +46,7 @@ Thanks, you're awesome :-) -->
 
 * Added `pattern` attribute to `.mac` fields. #1871
 * Add `orchestrator.cluster.id` #1875
+* Add `orchestrator.resource.id` #1878
 
 #### Improvements
 
@@ -85,6 +86,7 @@ Thanks, you're awesome :-) -->
 
 * Adding optional field attribute, `pattern`. #1834
 * Added support for re-using a fieldset as an array. #1838
+* Added `--force-docs` option to generator. #1879
 
 #### Improvements
 

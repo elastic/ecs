@@ -6307,6 +6307,22 @@ example: `v1beta1`
 // ===============================================================
 
 |
+[[field-orchestrator-cluster-id]]
+<<field-orchestrator-cluster-id, orchestrator.cluster.id>>
+
+| Unique ID of the cluster.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-orchestrator-cluster-name]]
 <<field-orchestrator-cluster-name, orchestrator.cluster.name>>
 
@@ -6381,6 +6397,22 @@ type: keyword
 
 
 example: `elastic`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-id]]
+<<field-orchestrator-resource-id, orchestrator.resource.id>>
+
+| Unique ID of the resource being acted upon.
+
+type: keyword
+
+
+
+
 
 | extended
 
@@ -7161,24 +7193,6 @@ example: `c2c455d9f99375d`
 // ===============================================================
 
 |
-[[field-process-entry-meta-type]]
-<<field-process-entry-meta-type, process.entry_meta.type>>
-
-| beta:[ This field is beta and subject to change. ]
-
-The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
-
-type: keyword
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-|
 [[field-process-env-vars]]
 <<field-process-env-vars, process.env_vars>>
 
@@ -7313,32 +7327,6 @@ type: long
 example: `4242`
 
 | core
-
-// ===============================================================
-
-|
-[[field-process-same-as-process]]
-<<field-process-same-as-process, process.same_as_process>>
-
-| beta:[ This field is beta and subject to change. ]
-
-This boolean is used to identify if a leader process is the same as the top level process.
-
-For example, if `process.group_leader.same_as_process = true`, it means the process event in question is the leader of its process group. Details under `process.*` like `pid` would be the same under `process.group_leader.*` The same applies for both `process.session_leader` and `process.entry_leader`.
-
-This field exists to the benefit of EQL and other rule engines since it's not possible to compare equality between two fields in a single document. e.g `process.entity_id` = `process.group_leader.entity_id` (top level process is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id` (top level process is the entry session leader)
-
-Instead these rules could be written like: `process.group_leader.same_as_process: true` OR `process.entry_leader.same_as_process: true`
-
-Note: This field is only set on `process.entry_leader`, `process.session_leader` and `process.group_leader`.
-
-type: boolean
-
-
-
-example: `True`
-
-| extended
 
 // ===============================================================
 
@@ -9401,6 +9389,70 @@ type: keyword
 
 
 example: `indicator_match_rule`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-feed-dashboard-id]]
+<<field-threat-feed-dashboard-id, threat.feed.dashboard_id>>
+
+| The saved object ID of the dashboard belonging to the threat feed for displaying dashboard links to threat feeds in Kibana.
+
+type: keyword
+
+
+
+example: `5ba16340-72e6-11eb-a3e3-b3cc7c78a70f`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-feed-description]]
+<<field-threat-feed-description, threat.feed.description>>
+
+| Description of the threat feed in a UI friendly format.
+
+type: keyword
+
+
+
+example: `Threat feed from the AlienVault Open Threat eXchange network.`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-feed-name]]
+<<field-threat-feed-name, threat.feed.name>>
+
+| The name of the threat feed in UI friendly format.
+
+type: keyword
+
+
+
+example: `AlienVault OTX`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-feed-reference]]
+<<field-threat-feed-reference, threat.feed.reference>>
+
+| Reference information for the threat feed in a UI friendly format.
+
+type: keyword
+
+
+
+example: `https://otx.alienvault.com`
 
 | extended
 
