@@ -847,6 +847,13 @@
       type: keyword
       ignore_above: 1024
       description: Unique container id.
+    - name: image.hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Hash (content-addressable identifier) of the image the container
+        was built on.
+      default_field: false
     - name: image.name
       level: extended
       type: keyword
@@ -4462,12 +4469,25 @@
       ignore_above: 1024
       description: Unique ID of the resource being acted upon.
       default_field: false
+    - name: resource.ip
+      level: extended
+      type: ip
+      description: IP address of the resource being acted upon.
+      default_field: false
     - name: resource.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Name of the resource being acted upon.
       example: test-pod-cdcws
+      default_field: false
+    - name: resource.parent_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type or kind of the parent resource of the resource being acted
+        upon.
+      example: DaemonSet
       default_field: false
     - name: resource.type
       level: extended
