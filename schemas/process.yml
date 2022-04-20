@@ -117,7 +117,7 @@
       type: long
       short: Deprecated identifier of the group of processes the process belongs to.
       description: >
-        Deprecated for removal in next major version release. This field is superseded by 
+        Deprecated for removal in next major version release. This field is superseded by
         `process.group_leader.pid`.
 
         Identifier of the group of processes the process belongs to.
@@ -239,7 +239,7 @@
       example: "2016-05-23T08:05:34.853Z"
       description: >
         The time the process ended.
-    
+
     - name: interactive
       level: extended
       type: boolean
@@ -250,9 +250,9 @@
         Whether the process is connected to an interactive shell.
 
         Process interactivity is inferred from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
-        
+
         Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
-   
+
     - name: same_as_process
       level: extended
       type: boolean
@@ -264,13 +264,13 @@
 
         For example, if `process.group_leader.same_as_process = true`, it means the process event in question is the leader of its process group. Details under `process.*` like `pid` would be the same under `process.group_leader.*`
         The same applies for both `process.session_leader` and `process.entry_leader`.
-        
+
         This field exists to the benefit of EQL and other rule engines since it's not possible to compare equality between two fields in a single document.
         e.g
         `process.entity_id` = `process.group_leader.entity_id` (top level process is the process group leader)
         OR
         `process.entity_id` = `process.entry_leader.entity_id` (top level process is the entry session leader)
-        
+
         Instead these rules could be written like:
         `process.group_leader.same_as_process: true`
         OR
@@ -286,6 +286,8 @@
       description: >
         Environment variables (`env_vars`) set at the time of the event.
         May be filtered to protect sensitive information.
+
+        The field should not contain nested objects. All values should use `keyword`.
       example: "{\"USER\": \"elastic\",\"LANG\": \"en_US.UTF-8\",\"HOME\": \"/home/elastic\"}"
 
     - name: entry_meta.type
@@ -313,7 +315,7 @@
       short: Information about the controlling TTY device.
       description: >
         Information about the controlling TTY device. If set, the process belongs to an interactive session.
-        
+
     - name: tty.char_device.major
       level: extended
       type: long
