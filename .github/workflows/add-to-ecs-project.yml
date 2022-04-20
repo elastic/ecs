@@ -1,0 +1,50 @@
+name: Add to ECS project board
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+
+env:
+  PROJECT_ID: PN_kwDOAGc3Zs4ABESq
+  STATUS_FIELD_ID: MDE2OlByb2plY3ROZXh0RmllbGQyNjE4MDM4
+  TRIAGE_VALUE: f75ad846
+  GITHUB_TOKEN: ${{ secrets.GH_ACTIONS_TOKEN }}
+
+jobs:
+  issue_opened_or_reopened:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && (github.event.action == 'opened' || github.event.action == 'reopened')
+    steps:
+      - name: Add issue to project
+        uses: octokit/graphql-action@v2.x
+        id: add_to_project
+        with:
+          headers: '{"GraphQL-Features": "projects_next_graphql"}'
+          query: |
+            mutation add_to_project($projectid:ID!,$contentid:ID!) {
+              addProjectNextItem(input:{projectId:$projectid contentId:$contentid}) {
+                projectNextItem {
+                  id
+                }
+              }
+            }
+          projectid: ${{ env.PROJECT_ID }}
+          contentid: ${{ github.event.issue.node_id }}
+      - name: Set status to 'Triage' on board
+        uses: octokit/graphql-action@v2.x
+        id: set_status
+        with:
+          headers: '{"GraphQL-Features": "projects_next_graphql"}'
+          query: |
+            mutation label_team($projectid:ID!,$itemid:ID!,$fieldid:ID!,$value:String!) {
+              updateProjectNextItemField(input: { projectId:$projectid itemId:$itemid fieldId:$fieldid value:$value }) {
+                projectNextItem {
+                  id
+                }
+              }
+            }
+          projectid: ${{ env.PROJECT_ID }}
+          itemid: ${{ fromJSON(steps.add_to_project.outputs.data).addProjectNextItem.projectNextItem.id }}
+          fieldid: ${{ env.STATUS_FIELD_ID }}
+          value: ${{ env.TRIAGE_VALUE }}
