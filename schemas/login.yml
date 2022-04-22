@@ -1,0 +1,54 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: login
+  title: login
+  group: 2
+  short: Fields describing login information.
+  description: >
+    Fields describing Login Information. This is based upon several fields having login information already in the values, and wanting to make everything easier to find in the ECS base fields.
+  type: group
+  fields:
+      example: answer
+    - name: login_to
+      level: extended
+      type: keyword
+      short: Where the user logged into.
+      description: >
+        This field will describe where the user logged into.
+      example: https://console.aws.amazon.com/s3/
+    - name: mfa_used
+      level: extended
+      type: keyword
+      short: Whether or not MFA was used.
+      description: >
+        Many different providers provide information about whether MFA was used, so this will help determine if MFA was used during signin
+      example: false
+    - name: mobile_version
+      level: extended
+      type: keyword
+      short: Whether the user logged in using the mobile version.
+      description: >
+        This will help determine whether the mobile version was used
+      example: false
+    - name: result
+      level: extended
+      type: keyword
+      short: This will provide the response of the login
+      description: >
+        This will be used to provide the response of the website to the login
+      example: false      
