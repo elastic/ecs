@@ -1092,16 +1092,16 @@ type: keyword
 // ===============================================================
 
 |
-[[field-container-image-hash]]
-<<field-container-image-hash, container.image.hash>>
+[[field-container-image-hash-sha256]]
+<<field-container-image-hash-sha256, container.image.hash.sha256>>
 
-| Content-addressable identifier (hash function and value) of the image the container was built on.
+| SHA256 digest of the image the container was built on.
 
 type: keyword
 
 
 
-example: `sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26`
+example: `f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26`
 
 | extended
 
@@ -6438,9 +6438,12 @@ type: keyword
 [[field-orchestrator-resource-ip]]
 <<field-orchestrator-resource-ip, orchestrator.resource.ip>>
 
-| IP address of the resource being acted upon.
+| IP address assigned to the resource being acted upon by the orchestrator. In Kubernetes, for instance, this could be the IP of a Pod (as opposed to the Node on which the Pod is running).
 
 type: ip
+
+
+Note: this field should contain an array of values.
 
 
 
@@ -6468,7 +6471,7 @@ example: `test-pod-cdcws`
 
 |
 [[field-orchestrator-resource-parent-type]]
-<<field-orchestrator-resource-parent-type, orchestrator.resource.parent_type>>
+<<field-orchestrator-resource-parent-type, orchestrator.resource.parent.type>>
 
 | Type or kind of the parent resource of the resource being acted upon.
 

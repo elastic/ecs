@@ -468,8 +468,12 @@
           "image": {
             "properties": {
               "hash": {
-                "ignore_above": 1024,
-                "type": "keyword"
+                "properties": {
+                  "sha256": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
               },
               "name": {
                 "ignore_above": 1024,
@@ -2341,9 +2345,13 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
-              "parent_type": {
-                "ignore_above": 1024,
-                "type": "keyword"
+              "parent": {
+                "properties": {
+                  "type": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
               },
               "type": {
                 "ignore_above": 1024,

@@ -83,7 +83,7 @@
       description: >
         Type of resource being acted upon.
 
-    - name: resource.parent_type
+    - name: resource.parent.type
       level: extended
       type: keyword
       example: DaemonSet
@@ -93,8 +93,12 @@
     - name: resource.ip
       level: extended
       type: ip
+      short: IP address assigned to the resource being acted upon by the orchestrator.
       description: >
-        IP address of the resource being acted upon.
+        IP address assigned to the resource being acted upon by the orchestrator.
+        In Kubernetes, for instance, this could be the IP of a Pod (as opposed to the Node on which the Pod is running).
+      normalize:
+        - array
 
     - name: resource.id
       level: extended

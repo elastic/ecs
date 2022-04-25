@@ -1482,18 +1482,16 @@ container:
       normalize: []
       short: Unique container id.
       type: keyword
-    container.image.hash:
-      dashed_name: container-image-hash
-      description: Content-addressable identifier (hash function and value) of the
-        image the container was built on.
-      example: sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26
-      flat_name: container.image.hash
+    container.image.hash.sha256:
+      dashed_name: container-image-hash-sha256
+      description: SHA256 digest of the image the container was built on.
+      example: f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26
+      flat_name: container.image.hash.sha256
       ignore_above: 1024
       level: extended
-      name: image.hash
+      name: image.hash.sha256
       normalize: []
-      short: Content-addressable identifier (hash function and value) of the image
-        the container was built on.
+      short: SHA256 digest of the image the container was built on.
       type: keyword
     container.image.name:
       dashed_name: container-image-name
@@ -7939,12 +7937,15 @@ orchestrator:
       type: keyword
     orchestrator.resource.ip:
       dashed_name: orchestrator-resource-ip
-      description: IP address of the resource being acted upon.
+      description: IP address assigned to the resource being acted upon by the orchestrator.
+        In Kubernetes, for instance, this could be the IP of a Pod (as opposed to
+        the Node on which the Pod is running).
       flat_name: orchestrator.resource.ip
       level: extended
       name: resource.ip
-      normalize: []
-      short: IP address of the resource being acted upon.
+      normalize:
+      - array
+      short: IP address assigned to the resource being acted upon by the orchestrator.
       type: ip
     orchestrator.resource.name:
       dashed_name: orchestrator-resource-name
@@ -7957,15 +7958,15 @@ orchestrator:
       normalize: []
       short: Name of the resource being acted upon.
       type: keyword
-    orchestrator.resource.parent_type:
+    orchestrator.resource.parent.type:
       dashed_name: orchestrator-resource-parent-type
       description: Type or kind of the parent resource of the resource being acted
         upon.
       example: DaemonSet
-      flat_name: orchestrator.resource.parent_type
+      flat_name: orchestrator.resource.parent.type
       ignore_above: 1024
       level: extended
-      name: resource.parent_type
+      name: resource.parent.type
       normalize: []
       short: Type or kind of the parent resource of the resource being acted upon.
       type: keyword
