@@ -5440,8 +5440,10 @@
     - name: env_vars
       level: extended
       type: object
-      description: Environment variables (`env_vars`) set at the time of the event.
+      description: 'Environment variables (`env_vars`) set at the time of the event.
         May be filtered to protect sensitive information.
+
+        The field should not contain nested objects. All values should use `keyword`.'
       example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       default_field: false
     - name: executable
@@ -6292,7 +6294,7 @@
       type: long
       format: string
       description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `process.group_leader.pid`.
+        is superseded by `process.group_leader.pid`.
 
         Identifier of the group of processes the process belongs to.'
       default_field: false
@@ -6531,7 +6533,7 @@
       type: long
       format: string
       description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `process.group_leader.pid`.
+        is superseded by `process.group_leader.pid`.
 
         Identifier of the group of processes the process belongs to.'
     - name: pid
