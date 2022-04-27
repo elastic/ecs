@@ -4472,9 +4472,10 @@
     - name: resource.ip
       level: extended
       type: ip
-      description: IP address assigned to the resource being acted upon by the orchestrator.
-        In Kubernetes, for instance, this could be the IP of a Pod (as opposed to
-        the Node on which the Pod is running).
+      description: 'IP address assigned to the resource associated with the event
+        being observed. In the case of a Kubernetes Pod, this array would contain
+        only one element: the IP of the Pod (as opposed to the Node on which the Pod
+        is running).'
       default_field: false
     - name: resource.name
       level: extended
@@ -4487,8 +4488,9 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Type or kind of the parent resource of the resource being acted
-        upon.
+      description: Type or kind of the parent resource associated with the event being
+        observed. In Kubernetes, this will be the name of a built-in workload resource
+        (e.g., Deployment, StatefulSet, DaemonSet).
       example: DaemonSet
       default_field: false
     - name: resource.type

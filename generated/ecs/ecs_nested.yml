@@ -7857,15 +7857,16 @@ orchestrator:
       type: keyword
     orchestrator.resource.ip:
       dashed_name: orchestrator-resource-ip
-      description: IP address assigned to the resource being acted upon by the orchestrator.
-        In Kubernetes, for instance, this could be the IP of a Pod (as opposed to
-        the Node on which the Pod is running).
+      description: 'IP address assigned to the resource associated with the event
+        being observed. In the case of a Kubernetes Pod, this array would contain
+        only one element: the IP of the Pod (as opposed to the Node on which the Pod
+        is running).'
       flat_name: orchestrator.resource.ip
       level: extended
       name: resource.ip
       normalize:
       - array
-      short: IP address assigned to the resource being acted upon by the orchestrator.
+      short: IP address assigned to the resource associated with the event being observed.
       type: ip
     orchestrator.resource.name:
       dashed_name: orchestrator-resource-name
@@ -7880,15 +7881,16 @@ orchestrator:
       type: keyword
     orchestrator.resource.parent.type:
       dashed_name: orchestrator-resource-parent-type
-      description: Type or kind of the parent resource of the resource being acted
-        upon.
+      description: Type or kind of the parent resource associated with the event being
+        observed. In Kubernetes, this will be the name of a built-in workload resource
+        (e.g., Deployment, StatefulSet, DaemonSet).
       example: DaemonSet
       flat_name: orchestrator.resource.parent.type
       ignore_above: 1024
       level: extended
       name: resource.parent.type
       normalize: []
-      short: Type or kind of the parent resource of the resource being acted upon.
+      short: Type or kind of the parent resource associated with the event being observed.
       type: keyword
     orchestrator.resource.type:
       dashed_name: orchestrator-resource-type
