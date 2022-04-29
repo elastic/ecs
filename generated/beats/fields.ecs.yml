@@ -847,12 +847,13 @@
       type: keyword
       ignore_above: 1024
       description: Unique container id.
-    - name: image.hash.sha256
+    - name: image.hash.all
       level: extended
       type: keyword
       ignore_above: 1024
-      description: SHA256 digest of the image the container was built on.
-      example: f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26
+      description: 'An array of digests of the image the container was built on. Each
+        digest consists of the hash algorithm and value in this format: `algorithm:value`.'
+      example: '[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]'
       default_field: false
     - name: image.name
       level: extended
