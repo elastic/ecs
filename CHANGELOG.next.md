@@ -47,9 +47,9 @@ Thanks, you're awesome :-) -->
 * Added `pattern` attribute to `.mac` fields. #1871
 * Add `orchestrator.cluster.id` #1875
 * Add `orchestrator.resource.id` #1878
-* Add `orchestrator.resource.parent_type` #1889
+* Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
-* Add `container.image.hash` #1889
+* Add `container.image.hash.all` #1889
 
 #### Improvements
 
