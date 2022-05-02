@@ -1092,6 +1092,25 @@ type: keyword
 // ===============================================================
 
 |
+[[field-container-image-hash-all]]
+<<field-container-image-hash-all, container.image.hash.all>>
+
+| An array of digests of the image the container was built on. Each digest consists of the hash algorithm and value in this format: `algorithm:value`. Algorithm names should align with the field names in the ECS hash field set.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-container-image-name]]
 <<field-container-image-name, container.image.name>>
 
@@ -6419,6 +6438,25 @@ type: keyword
 // ===============================================================
 
 |
+[[field-orchestrator-resource-ip]]
+<<field-orchestrator-resource-ip, orchestrator.resource.ip>>
+
+| IP address assigned to the resource associated with the event being observed. In the case of a Kubernetes Pod, this array would contain only one element: the IP of the Pod (as opposed to the Node on which the Pod is running).
+
+type: ip
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-orchestrator-resource-name]]
 <<field-orchestrator-resource-name, orchestrator.resource.name>>
 
@@ -6429,6 +6467,22 @@ type: keyword
 
 
 example: `test-pod-cdcws`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-orchestrator-resource-parent-type]]
+<<field-orchestrator-resource-parent-type, orchestrator.resource.parent.type>>
+
+| Type or kind of the parent resource associated with the event being observed. In Kubernetes, this will be the name of a built-in workload resource (e.g., Deployment, StatefulSet, DaemonSet).
+
+type: keyword
+
+
+
+example: `DaemonSet`
 
 | extended
 
