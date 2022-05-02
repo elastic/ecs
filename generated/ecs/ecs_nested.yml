@@ -1402,6 +1402,20 @@ container:
       normalize: []
       short: Unique container id.
       type: keyword
+    container.image.hash.all:
+      dashed_name: container-image-hash-all
+      description: 'An array of digests of the image the container was built on. Each
+        digest consists of the hash algorithm and value in this format: `algorithm:value`.
+        Algorithm names should align with the field names in the ECS hash field set.'
+      example: '[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]'
+      flat_name: container.image.hash.all
+      ignore_above: 1024
+      level: extended
+      name: image.hash.all
+      normalize:
+      - array
+      short: An array of digests of the image the container was built on.
+      type: keyword
     container.image.name:
       dashed_name: container-image-name
       description: Name of the image the container was built on.
@@ -7844,6 +7858,19 @@ orchestrator:
       normalize: []
       short: Unique ID of the resource being acted upon.
       type: keyword
+    orchestrator.resource.ip:
+      dashed_name: orchestrator-resource-ip
+      description: 'IP address assigned to the resource associated with the event
+        being observed. In the case of a Kubernetes Pod, this array would contain
+        only one element: the IP of the Pod (as opposed to the Node on which the Pod
+        is running).'
+      flat_name: orchestrator.resource.ip
+      level: extended
+      name: resource.ip
+      normalize:
+      - array
+      short: IP address assigned to the resource associated with the event being observed.
+      type: ip
     orchestrator.resource.name:
       dashed_name: orchestrator-resource-name
       description: Name of the resource being acted upon.
@@ -7854,6 +7881,19 @@ orchestrator:
       name: resource.name
       normalize: []
       short: Name of the resource being acted upon.
+      type: keyword
+    orchestrator.resource.parent.type:
+      dashed_name: orchestrator-resource-parent-type
+      description: Type or kind of the parent resource associated with the event being
+        observed. In Kubernetes, this will be the name of a built-in workload resource
+        (e.g., Deployment, StatefulSet, DaemonSet).
+      example: DaemonSet
+      flat_name: orchestrator.resource.parent.type
+      ignore_above: 1024
+      level: extended
+      name: resource.parent.type
+      normalize: []
+      short: Type or kind of the parent resource associated with the event being observed.
       type: keyword
     orchestrator.resource.type:
       dashed_name: orchestrator-resource-type

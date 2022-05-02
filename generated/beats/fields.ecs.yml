@@ -847,6 +847,15 @@
       type: keyword
       ignore_above: 1024
       description: Unique container id.
+    - name: image.hash.all
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'An array of digests of the image the container was built on. Each
+        digest consists of the hash algorithm and value in this format: `algorithm:value`.
+        Algorithm names should align with the field names in the ECS hash field set.'
+      example: '[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]'
+      default_field: false
     - name: image.name
       level: extended
       type: keyword
@@ -4462,12 +4471,29 @@
       ignore_above: 1024
       description: Unique ID of the resource being acted upon.
       default_field: false
+    - name: resource.ip
+      level: extended
+      type: ip
+      description: 'IP address assigned to the resource associated with the event
+        being observed. In the case of a Kubernetes Pod, this array would contain
+        only one element: the IP of the Pod (as opposed to the Node on which the Pod
+        is running).'
+      default_field: false
     - name: resource.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Name of the resource being acted upon.
       example: test-pod-cdcws
+      default_field: false
+    - name: resource.parent.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type or kind of the parent resource associated with the event being
+        observed. In Kubernetes, this will be the name of a built-in workload resource
+        (e.g., Deployment, StatefulSet, DaemonSet).
+      example: DaemonSet
       default_field: false
     - name: resource.type
       level: extended
