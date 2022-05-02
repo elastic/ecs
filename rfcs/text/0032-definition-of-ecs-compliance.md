@@ -46,9 +46,12 @@ ECS-compliant events SHOULD:
 ECS-compliant events MAY:
 
 * store the entire raw, original event in `event.original`. Disable indexing and doc_values on `event.original` to reduce store.
-* use custom fields alongside ECS fields in an event. Use proper names for custom fields over generic concept names. Proper names reduce the chance of a future conflict. Nest custom fields inside an object and not leaf fields at the base of the event.
-* remove unused ECS fields or entire field sets from an index mapping.
 * add multi-fields not defined by ECS. For example, a text multi-field with a custom analyzer.
+* remove unused ECS fields or entire field sets from an index mapping.
+* use custom fields alongside ECS fields in an event following these convention:
+  * ECS field names avoids using proper nouns. Nest custom fields in a namespace using a proper noun: a tool name, project, or company (e.g., `nginx`, `acme_corp`).
+  * ECS field names are always lowercase. Use capitalized key names to avoid future field conflicts.
+  * Place custom fields inside a dedicated namespace and not at the top-level of an event.
 
 ## Usage
 
@@ -130,6 +133,13 @@ This compliant event builds on the required guidelines and incorporates many rec
       "fe80::9c5f:77ff:fe74:604"
     ]
   },
+  "nginx": {
+    "access": {
+      "remote_ip_list": [
+        "10.42.42.42",
+      ]
+    }
+  },
   "host": {
     "hostname": "test",
     "os": {
@@ -202,6 +212,7 @@ This compliant event builds on the required guidelines and incorporates many rec
 5. Concatenate all IP addresses into the `related.ip` field.
 6. Both `source.address` and `destination.address` copy the `*.address` to its sibling `.ip` field.
 7. The original user-agent value populates `user_agent.original`. Other fields hold the broken down values: `user_agent.os.*`, `user_agent.name`, `user_agent.version`, etc.
+8. A custom namespace, `nginx.*`, holds any custom fields. Nginx is a proper noun and will never conflict with any future ECS field names.
 
 ## Source data
 
