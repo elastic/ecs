@@ -3,6 +3,36 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.2.0](https://github.com/elastic/ecs/compare/v8.1.0...v8.2.0)
+
+### Schema Changes
+
+#### Added
+
+* Add beta `container.*` metric fields. #1789
+* Add six new syslog fields to `log.syslog.*`. #1793
+* Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
+* Added linux event model beta fields and reuses to support RFC 0030. #1842, #1847, #1884
+* Added `threat.feed.dashboard_id`, `threat.feed.description`, `threat.feed.name`, `threat.feed.reference` fields. #1844
+
+#### Improvements
+
+* `email.*` field set now GA. #1794, #1841
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Adding optional field attribute, `pattern`. #1834
+* Added support for re-using a fieldset as an array. #1838
+* Added `--force-docs` option to generator. #1879
+
+#### Improvements
+
+* Update refs from master to main in USAGE.md etc #1658
+* Clean up trailing spaces and additional newlines in schemas #1667
+* Use higher compression as default in composable index template settings. #1712
+
 ## [8.1.0](https://github.com/elastic/ecs/compare/v8.0.1...v8.1.0)
 
 ### Schema Changes
