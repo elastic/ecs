@@ -80,7 +80,7 @@ def main() -> None:
     es_template.generate_legacy(flat, ecs_generated_version, out_dir,
                                 args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)
-    if args.include or args.subset or args.exclude:
+    if (args.include or args.subset or args.exclude) and not args.force_docs:
         exit()
 
     ecs_helpers.make_dirs(docs_dir)
@@ -108,6 +108,8 @@ def argument_parser() -> argparse.Namespace:
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
+    parser.add_argument('--force-docs', action='store_true',
+                        help='generate ECS docs even if --subset, --include, or --exclude are set')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:

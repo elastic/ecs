@@ -847,6 +847,15 @@
       type: keyword
       ignore_above: 1024
       description: Unique container id.
+    - name: image.hash.all
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'An array of digests of the image the container was built on. Each
+        digest consists of the hash algorithm and value in this format: `algorithm:value`.
+        Algorithm names should align with the field names in the ECS hash field set.'
+      example: '[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]'
+      default_field: false
     - name: image.name
       level: extended
       type: keyword
@@ -1094,6 +1103,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: 00-00-5E-00-53-23
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: nat.ip
       level: extended
       type: ip
@@ -3499,6 +3509,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: name
       level: core
       type: keyword
@@ -4298,6 +4309,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: name
       level: extended
       type: keyword
@@ -4414,6 +4426,12 @@
       description: API version being used to carry out the action
       example: v1beta1
       default_field: false
+    - name: cluster.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique ID of the cluster.
+      default_field: false
     - name: cluster.name
       level: extended
       type: keyword
@@ -4447,12 +4465,35 @@
         setups).
       example: elastic
       default_field: false
+    - name: resource.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Unique ID of the resource being acted upon.
+      default_field: false
+    - name: resource.ip
+      level: extended
+      type: ip
+      description: 'IP address assigned to the resource associated with the event
+        being observed. In the case of a Kubernetes Pod, this array would contain
+        only one element: the IP of the Pod (as opposed to the Node on which the Pod
+        is running).'
+      default_field: false
     - name: resource.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: Name of the resource being acted upon.
       example: test-pod-cdcws
+      default_field: false
+    - name: resource.parent.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type or kind of the parent resource associated with the event being
+        observed. In Kubernetes, this will be the name of a built-in workload resource
+        (e.g., Deployment, StatefulSet, DaemonSet).
+      example: DaemonSet
       default_field: false
     - name: resource.type
       level: extended
@@ -5375,8 +5416,10 @@
     - name: env_vars
       level: extended
       type: object
-      description: Environment variables (`env_vars`) set at the time of the event.
+      description: 'Environment variables (`env_vars`) set at the time of the event.
         May be filtered to protect sensitive information.
+
+        The field should not contain nested objects. All values should use `keyword`.'
       example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
       default_field: false
     - name: executable
@@ -6227,7 +6270,7 @@
       type: long
       format: string
       description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `process.group_leader.pid`.
+        is superseded by `process.group_leader.pid`.
 
         Identifier of the group of processes the process belongs to.'
       default_field: false
@@ -6466,7 +6509,7 @@
       type: long
       format: string
       description: 'Deprecated for removal in next major version release. This field
-        is superseded by  `process.group_leader.pid`.
+        is superseded by `process.group_leader.pid`.
 
         Identifier of the group of processes the process belongs to.'
     - name: pid
@@ -7329,6 +7372,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: 00-00-5E-00-53-23
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: nat.ip
       level: extended
       type: ip
@@ -7942,6 +7986,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: 00-00-5E-00-53-23
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: nat.ip
       level: extended
       type: ip

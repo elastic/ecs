@@ -32,6 +32,7 @@ relevant artifacts for their unique set of data sources.
     + [Mapping & Template Settings](#mapping--template-settings)
     + [Strict Mode](#strict-mode)
     + [Intermediate-Only](#intermediate-only)
+    + [Force-docs](#force-docs)
 
 ## TLDR Example
 
@@ -408,6 +409,7 @@ Strict mode requires the following conditions, else the script exits on an excep
 
 * Short descriptions must be less than or equal to 120 characters.
 * Example values containing arrays or objects must be quoted to avoid unexpected YAML interpretation when the schema files or artifacts are relied on downstream.
+* If a regex `pattern` is defined, the example values will be checked against it.
 
 The current artifacts generated and published in the ECS repo will always be created using strict mode. However, older ECS versions (pre `v1.5.0`) will cause
 an exception if attempting to generate them using `--strict`. This is due to schema validation checks introduced after that version was released.
@@ -443,3 +445,8 @@ This will cause an exception when running in strict mode.
 
 The `--intermediate-only` argument is used for debugging purposes. It only generates the ["intermediate files"](generated/ecs), `ecs_flat.yml` and `ecs_nested.yml`, without generating the rest of the artifacts.
 More information on the different intermediate files can be found in the generated directory's [README](generated/README.md).
+
+#### Force-docs
+
+By default, running the generator with `--subset`, `--include`, or `--exclude` flags will not generate the ECS docs in the `docs` directory. Use `--force-docs` to force the documentation to generate
+even if one of those flags is also present.

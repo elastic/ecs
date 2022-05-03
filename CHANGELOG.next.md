@@ -44,6 +44,13 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `pattern` attribute to `.mac` fields. #1871
+* Add `orchestrator.cluster.id` #1875
+* Add `orchestrator.resource.id` #1878
+* Add `orchestrator.resource.parent.type` #1889
+* Add `orchestrator.resource.ip` #1889
+* Add `container.image.hash.all` #1889
+
 #### Improvements
 
 #### Deprecated
@@ -69,7 +76,7 @@ Thanks, you're awesome :-) -->
 * Add beta `container.*` metric fields. #1789
 * Add six new syslog fields to `log.syslog.*`. #1793
 * Added `faas.id`, `faas.name` and `faas.version` fields as beta. #1796
-* Added linux event model beta fields and reuses to support RFC 0030. #1842, #1847
+* Added linux event model beta fields and reuses to support RFC 0030. #1842, #1847, #1884
 * Added `threat.feed.dashboard_id`, `threat.feed.description`, `threat.feed.name`, `threat.feed.reference` fields. #1844
 
 #### Improvements
@@ -82,6 +89,7 @@ Thanks, you're awesome :-) -->
 
 * Adding optional field attribute, `pattern`. #1834
 * Added support for re-using a fieldset as an array. #1838
+* Added `--force-docs` option to generator. #1879
 
 #### Improvements
 
