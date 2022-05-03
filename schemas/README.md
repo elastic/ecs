@@ -152,6 +152,7 @@ Supported keys to describe fields
 - level (required, one of: core, extended): ECS Level of maturity of the field
 - type (required): Type of the field. Must be set explicitly, no default.
 - description (required): Description of the field
+- required (optional): Fields expected in any ECS-compliant event. Currently, only `@timestamp` and `ecs.version`.
 - short (optional): Short version of the description to display in small spaces.
   Short descriptions must not have newlines.
   Defaults to the main description when absent.
