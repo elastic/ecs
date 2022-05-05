@@ -65,6 +65,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Add type hints to `schema` modules. #1771
+
 #### Deprecated
 
 <!-- All empty sections:
