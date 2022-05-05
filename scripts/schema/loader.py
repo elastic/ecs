@@ -16,10 +16,24 @@
 # under the License.
 
 import copy
+import git
 import glob
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+)
 import yaml
 
 from generators import ecs_helpers
+from _types import (
+    Field,
+    FieldEntry,
+    FieldNestedEntry,
+    MultiField,
+    SchemaDetails,
+)
 
 # Loads main ECS schemas and optional additional schemas.
 # They are deeply nested, then merged together.
@@ -61,77 +75,85 @@ from generators import ecs_helpers
 EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
 
 
-def load_schemas(ref=None, included_files=[]):
+def load_schemas(
+    ref: Optional[str] = None,
+    included_files: Optional[List[str]] = []
+) -> Dict[str, FieldEntry]:
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     # ECS fields (from git ref or not)
-    if ref:
-        schema_files_raw = load_schemas_from_git(ref)
-    else:
-        schema_files_raw = load_schema_files(ecs_helpers.ecs_files())
-    fields = deep_nesting_representation(schema_files_raw)
+    schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
+        ref) if ref else load_schema_files(ecs_helpers.ecs_files())
+    fields: Dict[str, FieldEntry] = deep_nesting_representation(schema_files_raw)
 
     # Custom additional files
     if included_files and len(included_files) > 0:
         print('Loading user defined schemas: {0}'.format(included_files))
         # If --ref provided and --include loading experimental schemas
         if ref and EXPERIMENTAL_SCHEMA_DIR in included_files:
-            exp_schema_files_raw = load_schemas_from_git(ref, target_dir=EXPERIMENTAL_SCHEMA_DIR)
-            exp_fields = deep_nesting_representation(exp_schema_files_raw)
+            exp_schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
+                ref, target_dir=EXPERIMENTAL_SCHEMA_DIR)
+            exp_fields: Dict[str, FieldEntry] = deep_nesting_representation(exp_schema_files_raw)
             fields = merge_fields(fields, exp_fields)
             included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
         # Remaining additional custom files (never from git ref)
-        custom_files = ecs_helpers.glob_yaml_files(included_files)
-        custom_fields = deep_nesting_representation(load_schema_files(custom_files))
+        custom_files: List[str] = ecs_helpers.glob_yaml_files(included_files)
+        custom_fields: Dict[str, FieldEntry] = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
     return fields
 
 
-def load_schema_files(files):
-    fields_nested = {}
+def load_schema_files(files: List[str]) -> Dict[str, FieldNestedEntry]:
+    fields_nested: Dict[str, FieldNestedEntry] = {}
     for f in files:
-        new_fields = read_schema_file(f)
+        new_fields: Dict[str, FieldNestedEntry] = read_schema_file(f)
         fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
     return fields_nested
 
 
-def load_schemas_from_git(ref, target_dir='schemas'):
-    tree = ecs_helpers.get_tree_by_ref(ref)
-    fields_nested = {}
+def load_schemas_from_git(
+    ref: str,
+    target_dir: Optional[str] = 'schemas'
+) -> Dict[str, FieldNestedEntry]:
+    tree: git.objects.tree.Tree = ecs_helpers.get_tree_by_ref(ref)
+    fields_nested: Dict[str, FieldNestedEntry] = {}
 
     # Handles case if target dir doesn't exists in git ref
     if ecs_helpers.path_exists_in_git_tree(tree, target_dir):
         for blob in tree[target_dir].blobs:
             if blob.name.endswith('.yml'):
-                new_fields = read_schema_blob(blob, ref)
+                new_fields: Dict[str, FieldNestedEntry] = read_schema_blob(blob, ref)
                 fields_nested = ecs_helpers.safe_merge_dicts(fields_nested, new_fields)
     else:
         raise KeyError(f"Target directory './{target_dir}' not present in git ref '{ref}'!")
     return fields_nested
 
 
-def read_schema_file(file_name):
+def read_schema_file(file_name: str) -> Dict[str, FieldNestedEntry]:
     """Read a raw schema yml file into a dict."""
     with open(file_name) as f:
-        raw = yaml.safe_load(f.read())
+        raw: List[FieldNestedEntry] = yaml.safe_load(f.read())
     return nest_schema(raw, file_name)
 
 
-def read_schema_blob(blob, ref):
+def read_schema_blob(
+    blob: git.objects.blob.Blob,
+    ref: str
+) -> Dict[str, FieldNestedEntry]:
     """Read a raw schema yml git blob into a dict."""
-    content = blob.data_stream.read().decode('utf-8')
-    raw = yaml.safe_load(content)
-    file_name = "{} (git ref {})".format(blob.name, ref)
+    content: str = blob.data_stream.read().decode('utf-8')
+    raw: List[FieldNestedEntry] = yaml.safe_load(content)
+    file_name: str = "{} (git ref {})".format(blob.name, ref)
     return nest_schema(raw, file_name)
 
 
-def nest_schema(raw, file_name):
+def nest_schema(raw: List[FieldNestedEntry], file_name: str) -> Dict[str, FieldNestedEntry]:
     """
     Raw schema files are an array of schema details: [{'name': 'base', ...}]
 
     This function loops over the array (usually 1 schema per file) and turns it into
     a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
     """
-    fields = {}
+    fields: Dict[str, FieldNestedEntry] = {}
     for schema in raw:
         if 'name' not in schema:
             raise ValueError("Schema file {} is missing mandatory attribute 'name'".format(file_name))
@@ -139,16 +161,17 @@ def nest_schema(raw, file_name):
     return fields
 
 
-def deep_nesting_representation(fields):
-    deeply_nested = {}
+def deep_nesting_representation(fields: Dict[str, FieldNestedEntry]) -> Dict[str, FieldEntry]:
+    deeply_nested: Dict[str, FieldEntry] = {}
     for (name, flat_schema) in fields.items():
+
         # We destructively select what goes into schema_details and child fields.
         # The rest is 'field_details'.
         flat_schema = flat_schema.copy()
         flat_schema['node_name'] = flat_schema['name']
 
         # Schema-only details. Not present on other nested field groups.
-        schema_details = {}
+        schema_details: SchemaDetails = {}
         for schema_key in ['root', 'group', 'reusable', 'title']:
             if schema_key in flat_schema:
                 schema_details[schema_key] = flat_schema.pop(schema_key)
@@ -164,12 +187,12 @@ def deep_nesting_representation(fields):
     return deeply_nested
 
 
-def nest_fields(field_array):
-    schema_root = {'fields': {}}
+def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
+    schema_root: Dict[str, Dict[str, FieldEntry]] = {'fields': {}}
     for field in field_array:
-        nested_levels = field['name'].split('.')
-        parent_fields = nested_levels[:-1]
-        leaf_field = nested_levels[-1]
+        nested_levels: List[str] = field['name'].split('.')
+        parent_fields: List[str] = nested_levels[:-1]
+        leaf_field: str = nested_levels[-1]
         # "nested_schema" is a cursor we move within the schema_root structure we're building.
         # Here we reset the cursor for this new field.
         nested_schema = schema_root['fields']
@@ -202,29 +225,29 @@ def nest_fields(field_array):
     return schema_root
 
 
-def array_of_maps_to_map(array_vals):
-    ret_map = {}
+def array_of_maps_to_map(array_vals: List[MultiField]) -> Dict[str, MultiField]:
+    ret_map: Dict[str, MultiField] = {}
     for map_val in array_vals:
-        name = map_val['name']
+        name: str = map_val['name']
         # if multiple name fields exist in the same custom definition this will take the last one
         ret_map[name] = map_val
     return ret_map
 
 
-def map_of_maps_to_array(map_vals):
-    ret_list = []
+def map_of_maps_to_array(map_vals: Dict[str, MultiField]) -> List[MultiField]:
+    ret_list: List[MultiField] = []
     for key in map_vals:
         ret_list.append(map_vals[key])
     return sorted(ret_list, key=lambda k: k['name'])
 
 
-def dedup_and_merge_lists(list_a, list_b):
-    list_a_map = array_of_maps_to_map(list_a)
+def dedup_and_merge_lists(list_a: List[MultiField], list_b: List[MultiField]) -> List[MultiField]:
+    list_a_map: Dict[str, MultiField] = array_of_maps_to_map(list_a)
     list_a_map.update(array_of_maps_to_map(list_b))
     return map_of_maps_to_array(list_a_map)
 
 
-def merge_fields(a, b):
+def merge_fields(a: Dict[str, FieldEntry], b: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
     """Merge ECS field sets with custom field sets."""
     a = copy.deepcopy(a)
     b = copy.deepcopy(b)
@@ -275,7 +298,7 @@ def load_yaml_file(file_name):
 
 
 # You know, for silent tests
-def warn(message):
+def warn(message: str) -> None:
     print(message)
 
 
