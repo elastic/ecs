@@ -69,6 +69,14 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+## 8.2.1
+
+### Schema Changes
+
+#### Bugfixes
+
+* Adding missing process fields for documentation. #1906
+
 <!-- All empty sections:
 
 ## Unreleased
