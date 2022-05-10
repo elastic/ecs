@@ -15,8 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from os.path import join
 from collections import OrderedDict
+import os.path as path
+
 from generators import ecs_helpers
 
 
@@ -41,7 +42,9 @@ def generate(ecs_nested, ecs_version, out_dir):
         beats_fields.append(beats_field)
 
     # Load temporary allowlist for default_fields workaround.
-    df_allowlist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_allowlist.yml')
+    DF_ALLOWLIST_FILENAME = './assets/beats_default_fields_allowlist.yml'
+    DF_ALLOWLIST_LOCATION = path.join(path.dirname(path.abspath(__file__)), DF_ALLOWLIST_FILENAME)
+    df_allowlist = ecs_helpers.yaml_load(DF_ALLOWLIST_LOCATION)
     # Set default_field configuration.
     set_default_field(beats_fields, df_allowlist)
 
@@ -103,9 +106,9 @@ def fieldset_field_array(source_fields, fieldset_prefix):
 
 
 def write_beats_yaml(beats_file, ecs_version, out_dir):
-    ecs_helpers.make_dirs(join(out_dir, 'beats'))
+    ecs_helpers.make_dirs(path.join(out_dir, 'beats'))
     warning = file_header().format(version=ecs_version)
-    ecs_helpers.yaml_dump(join(out_dir, 'beats/fields.ecs.yml'), [beats_file], preamble=warning)
+    ecs_helpers.yaml_dump(path.join(out_dir, 'beats/fields.ecs.yml'), [beats_file], preamble=warning)
 
 
 # Templates

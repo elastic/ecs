@@ -1,0 +1,45 @@
+process:
+  fields:
+    process.entry_meta.type:
+      beta: This field is beta and subject to change.
+      dashed_name: process-entry-meta-type
+      description: 'The entry type for the entry session leader. Values include: init(e.g
+        systemd), sshd, ssm, kubelet, teleport, terminal, console
+
+        Note: This field is only set on process.session_leader.'
+      flat_name: process.entry_meta.type
+      level: extended
+      name: entry_meta.type
+      normalize: []
+      short: The entry type for the entry session leader.
+      type: keyword
+    process.same_as_process:
+      beta: This field is beta and subject to change.
+      dashed_name: process-same-as-process
+      description: 'This boolean is used to identify if a leader process is the same
+        as the top level process.
+
+        For example, if `process.group_leader.same_as_process = true`, it means the
+        process event in question is the leader of its process group. Details under
+        `process.*` like `pid` would be the same under `process.group_leader.*` The
+        same applies for both `process.session_leader` and `process.entry_leader`.
+
+        This field exists to the benefit of EQL and other rule engines since it''s
+        not possible to compare equality between two fields in a single document.
+        e.g `process.entity_id` = `process.group_leader.entity_id` (top level process
+        is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id`
+        (top level process is the entry session leader)
+
+        Instead these rules could be written like: `process.group_leader.same_as_process:
+        true` OR `process.entry_leader.same_as_process: true`
+
+        Note: This field is only set on `process.entry_leader`, `process.session_leader`
+        and `process.group_leader`.'
+      example: true
+      flat_name: process.same_as_process
+      level: extended
+      name: same_as_process
+      normalize: []
+      short: This boolean is used to identify if a leader process is the same as the
+        top level process.
+      type: boolean

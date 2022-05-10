@@ -80,6 +80,15 @@ def extract_allowed_values_key_names(field):
     return ecs_helpers.list_extract_keys(field['allowed_values'], 'name')
 
 
+def load_docs_only_fields(docs_only_defs_location):
+    """Load any fields that do appear in other artifacts but
+       are loaded into the field details doc section.
+
+    :param docs_only_defs: The filename of the docs-only field defs
+    """
+    return ecs_helpers.yaml_load(docs_only_defs_location)
+
+
 def sort_fields(fieldset):
     """Prepares a fieldset's fields for being
     passed into the j2 template for rendering. This
@@ -141,7 +150,9 @@ def save_asciidoc(f, text):
 # jinja2 setup
 
 
-TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
+local_dir = path.dirname(path.abspath(__file__))
+TEMPLATE_DIR = path.join(local_dir, '../templates')
+DOCS_ONLY_DEFS = path.join(local_dir, './assets/docs_only_fields.yml')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
@@ -167,6 +178,10 @@ def page_field_index(nested, ecs_generated_version):
 # Field Details Page
 
 def page_field_details(nested):
+    docs_only_nested = load_docs_only_fields(DOCS_ONLY_DEFS)
+    if docs_only_nested:
+        for fieldset_name, fieldset in docs_only_nested.items():
+            nested[fieldset_name]['fields'].update(fieldset['fields'])
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     results = (generate_field_details_page(fieldset) for fieldset in fieldsets)
     return ''.join(results)
