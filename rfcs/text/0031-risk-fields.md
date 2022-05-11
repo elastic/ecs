@@ -25,18 +25,13 @@ The `risk` fields being proposed are as follows:
 
 Field | Type | Example | Description | Use Case
 -- | -- | -- | -- | -- 
-risk.calculated_score_norm | float | 88.73 | A risk classifications core (0-100) calculates by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.calculated_score | float | 880.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.calculated_score_norm | float | 88.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100 | Can be used to indicate the risk associated with a particular host
 risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
-risk.static_score_norm | float | 83.0 | A risk classification score (0-100) obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
+risk.static_score | float | 830.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+risk.static_score_norm | float | 83.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100 | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
 risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
-risk.factors| object (Optional)| See Source data section | Factors that contributed to the risk | Explainability about what contributed to the risk
-risk.factors.rules | array of objects (Optional) | See Source data section | Rules that contributed to the risk | Explainability about what contributed to the risk
-risk.factors.rules.rule_id | keyword (Optional)| 99cb72b7-ab55-4375-8bbe-696e3e1b8fe2 | Rule ID associated with the rules | Metadata about rules that contributed to the risk
-risk.factors.rules.rule_name | keyword (Optional)| Unusual Windows Path Activity | Rule name associated with the rule | Metadata about rules that contributed to the risk
-risk.factors.rules.rule_risk | float (Optional)| 2.41 | Risk associated with the rule | Metadata about rules that contributed to the risk
-risk.factors.others | array of objects (Optional) | See Source data section | Factors apart from rules that contributed to the risk | Explainability about what contributed to the risk
-risk.factors.others.type | keyword (Optional)| host characteristic/tactic | Type of factor other than rules, contributing to the risk | Explainability about additional factors contributing to the risk
-risk.factors.others.description | keyword (Optional)| Host is a server/Tactic TA0001 | Details about the factor contributing to the risk | Explainability about additional factors contributing to the risk
+
 ### Nesting `risk.*` fields under other fields
 The `risk.*` fields mentioned above can be used to quantify the amount of risk associated with entities like hosts, users etc. For example, a host with a high risk score would imply that the probability of the host being exposed to harm during a cyber attack or breach is high. Attaching risk to entities can help analysts identify entities that require their immediate attention and hence drive investigations in a more systematic manner.
 
@@ -72,38 +67,7 @@ The Host and User Risk Score views in the Security solution are/will be backed b
 ```
 {
   "risk_stats": {
-    "rule_risks": [
-      {
-        "rule_id": "c7ce36c0-32ff-4f9a-bfc2-dcb242bf99f9",
-        "rule_name": "Unusual File Modification by dns.exe",
-        "rule_risk": 73
-      },
-      {
-        "rule_id": "343a0b6b-71bb-4a8c-a7a7-afcdfc4df019",
-        "rule_name": "Unusual Windows Path Activity [Duplicate]",
-        "rule_risk": 2.4057357238464423
-      },
-      {
-        "rule_id": "43b68103-7eda-4687-9c0d-31308837a082",
-        "rule_name": "Anomalous Windows Process Creation [Duplicate]",
-        "rule_risk": 2.4057357238464423
-      },
-      {
-        "rule_id": "99cb72b7-ab55-4375-8bbe-696e3e1b8fe2",
-        "rule_name": "Unusual Windows Path Activity",
-        "rule_risk": 2.4057357238464423
-      },
-      {
-        "rule_id": "c3324b51-6d64-47e6-b220-2daa421e0468",
-        "rule_name": "Unusual Process For a Windows Host [Duplicate]",
-        "rule_risk": 21
-      }
-    ],
-    "risk_score": 78.61701409613882,
-    "risk_multipliers": [
-      "Host is a server",
-      "Tactic TA0001"
-    ]
+    "risk_score": 78.61701409613882
   },
   "risk": "High"
 }
@@ -114,47 +78,8 @@ With the introduction of ECS `risk` fields, fields in the above document would l
 ```
 {
   "risk": {
-    "factors": {
-      "rules": [
-        {
-          "rule_id": "c7ce36c0-32ff-4f9a-bfc2-dcb242bf99f9",
-          "rule_name": "Unusual File Modification by dns.exe",
-          "rule_risk": 73
-        },
-        {
-          "rule_id": "343a0b6b-71bb-4a8c-a7a7-afcdfc4df019",
-          "rule_name": "Unusual Windows Path Activity [Duplicate]",
-          "rule_risk": 2.4057357238464423
-        },
-        {
-          "rule_id": "43b68103-7eda-4687-9c0d-31308837a082",
-          "rule_name": "Anomalous Windows Process Creation [Duplicate]",
-          "rule_risk": 2.4057357238464423
-        },
-        {
-          "rule_id": "99cb72b7-ab55-4375-8bbe-696e3e1b8fe2",
-          "rule_name": "Unusual Windows Path Activity",
-          "rule_risk": 2.4057357238464423
-        },
-        {
-          "rule_id": "c3324b51-6d64-47e6-b220-2daa421e0468",
-          "rule_name": "Unusual Process For a Windows Host [Duplicate]",
-          "rule_risk": 21
-        }
-      ],
-      "others": [
-        {
-          "type": "host characteristic",
-          "description": "Host is a server"
-        },
-        {
-          "type": "tactic",
-          "description": "Tactic TA0001"
-        }
-      ]
-    },
     "calculated_risk_score_norm": 78.61701409613882,
-    "calculated_risk_level": "High"
+    "calculated_level": "High"
   }
 }
 ```
