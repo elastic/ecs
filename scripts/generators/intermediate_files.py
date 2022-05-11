@@ -16,10 +16,17 @@
 # under the License.
 
 import copy
+from os.path import join
+from typing import (
+    Dict,
+)
 
 from schema import visitor
 from generators import ecs_helpers
-from os.path import join
+from _types import (
+    Field,
+    FieldEntry,
+)
 
 
 def generate(fields, out_dir, default_dirs):
@@ -36,15 +43,15 @@ def generate(fields, out_dir, default_dirs):
     return nested, flat
 
 
-def generate_flat_fields(fields):
+def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
     """Generate ecs_flat.yml"""
-    filtered = remove_non_root_reusables(fields)
-    flattened = {}
+    filtered: Dict[str, FieldEntry] = remove_non_root_reusables(fields)
+    flattened: Dict[str, Field] = {}
     visitor.visit_fields_with_memo(filtered, accumulate_field, flattened)
     return flattened
 
 
-def accumulate_field(details, memo):
+def accumulate_field(details: FieldEntry, memo: Field) -> None:
     """Visitor function that accumulates all field details in the memo dict"""
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
@@ -93,7 +100,7 @@ def remove_internal_attributes(field_details):
     field_details.pop('intermediate', None)
 
 
-def remove_non_root_reusables(fields_nested):
+def remove_non_root_reusables(fields_nested: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
     """
     Remove field sets that have top_level=false from the root of the field definitions.
 
@@ -105,7 +112,7 @@ def remove_non_root_reusables(fields_nested):
     the official information about each field set. It's the responsibility of
     users consuming ecs_nested.yml to skip the field sets with top_level=false.
     """
-    fields = {}
+    fields: Dict[str, FieldEntry] = {}
     for (name, field) in fields_nested.items():
         if 'reusable' not in field['schema_details'] or field['schema_details']['reusable']['top_level']:
             fields[name] = field
