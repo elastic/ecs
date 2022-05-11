@@ -27,9 +27,9 @@ Field | Type | Example | Description | Use Case
 -- | -- | -- | -- | -- 
 risk.calculated_score | float | 880.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
 risk.calculated_score_norm | float | 88.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100 | Can be used to indicate the risk associated with a particular host
-risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
 risk.static_score | float | 830.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
 risk.static_score_norm | float | 83.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100 | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
+risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
 risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
 
 ### Nesting `risk.*` fields under other fields
