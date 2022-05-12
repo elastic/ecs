@@ -18,7 +18,6 @@
 import os
 import sys
 import unittest
-import unittest.mock as mock
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
@@ -236,21 +235,6 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
     def test_check_for_page_field_value_rendering(self):
         rendered_field_values = asciidoc_fields.page_field_values(self.event_dummy_nested_fields)
         self.assertIn('beta', rendered_field_values)
-
-    @mock.patch("builtins.open", mock.mock_open(read_data="data"))
-    @mock.patch("os.path.isfile")
-    def test_read_yml_from_cwd_success(self, patched_isfile):
-        patched_isfile.return_value = True
-        result = asciidoc_fields.load_docs_only_fields("some_file.yaml")
-        self.assertEqual("data", result)
-
-    @mock.patch("builtins.open", mock.mock_open(read_data=""))
-    @mock.patch("os.path.isfile")
-    def test_read_yml_from_cwd_success(self, patched_isfile):
-        patched_isfile.return_value = False
-        result = asciidoc_fields.load_docs_only_fields("some_file.yaml")
-        self.assertIsNone(result)
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -23,13 +23,13 @@ import jinja2
 from generators import ecs_helpers
 
 
-def generate(nested, ecs_generated_version, out_dir):
+def generate(nested, docs_only_nested, ecs_generated_version, out_dir):
     # fields docs now have a dedicated docs subdir: docs/fields
     fields_docs_dir = out_dir + '/fields'
 
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
-    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested, docs_only_nested))
     save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
@@ -78,15 +78,6 @@ def extract_allowed_values_key_names(field):
     if not field.get('allowed_values'):
         return []
     return ecs_helpers.list_extract_keys(field['allowed_values'], 'name')
-
-
-def load_docs_only_fields(docs_only_defs_location):
-    """Load any fields that do appear in other artifacts but
-       are loaded into the field details doc section.
-
-    :param docs_only_defs: The filename of the docs-only field defs
-    """
-    return ecs_helpers.yaml_load(docs_only_defs_location)
 
 
 def sort_fields(fieldset):
@@ -152,7 +143,6 @@ def save_asciidoc(f, text):
 
 local_dir = path.dirname(path.abspath(__file__))
 TEMPLATE_DIR = path.join(local_dir, '../templates')
-DOCS_ONLY_DEFS = path.join(local_dir, './assets/docs_only_fields.yml')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
@@ -177,8 +167,7 @@ def page_field_index(nested, ecs_generated_version):
 
 # Field Details Page
 
-def page_field_details(nested):
-    docs_only_nested = load_docs_only_fields(DOCS_ONLY_DEFS)
+def page_field_details(nested, docs_only_nested):
     if docs_only_nested:
         for fieldset_name, fieldset in docs_only_nested.items():
             nested[fieldset_name]['fields'].update(fieldset['fields'])
