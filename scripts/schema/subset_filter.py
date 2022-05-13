@@ -55,6 +55,8 @@ def filter(
         docs_only_subset = generate_docs_only_subset(docs_only_field_paths)
         docs_only_fields = extract_matching_fields(fields, docs_only_subset)
         fields = remove_docs_only_entries(docs_only_field_paths, fields)
+    else:
+        docs_only_fields = {}
     return fields, docs_only_fields
 
 
