@@ -50,6 +50,11 @@ def filter(
     merged_subset: Dict[str, Any] = combine_all_subsets(subsets)
     if merged_subset:
         fields = extract_matching_fields(fields, merged_subset)
+
+    # Looks for the `docs_only` attribute, which generates a second field subset
+    # to pass to the ascii_doc generator
+    # After second subset is generated, `docs_only: True` fields are removed
+    # from the `fields` subset
     docs_only_field_paths = generate_docs_only_paths(merged_subset)
     if docs_only_field_paths:
         docs_only_subset = generate_docs_only_subset(docs_only_field_paths)
@@ -60,11 +65,13 @@ def filter(
     return fields, docs_only_fields
 
 
-def generate_docs_only_subset(
-    paths: List[str],
-) -> Dict[str, Any]:
+def generate_docs_only_subset(paths: List[str]) -> Dict[str, Any]:
+    """
+    Takes paths list of `docs_only` fields and generates a subset
+    """
     docs_only_subset = {}
     for path in paths:
+        # split and reverse
         split_path = path.split('.')[::-1]
         current_obj = docs_only_subset
         while len(split_path) > 1:
@@ -83,10 +90,12 @@ def generate_docs_only_paths(
     path: Optional[str] = '',
     paths: Optional[List[str]] = [],
 ) -> Dict[str, Any]:
+    """
+    Returns a list of field paths: ['process.same_as_process'] for subset fields
+    marked as `docs_only: True`
+    """
     for current in subset:
         if subset[current].get('docs_only'):
-            #filtered[parent] = {'fields': {}}
-            #filtered[parent]['fields'][current] = {}
             path += f'.{current}'
             paths.append(path)
         if 'fields' in subset[current] and isinstance(subset[current]['fields'], dict):
@@ -103,18 +112,10 @@ def generate_docs_only_paths(
     return paths
 
 
-def generate_docs_only_subset_old(
-    subset: Dict[str, Any],
-    fields: Dict[str, FieldEntry],
-) -> Dict[str, FieldEntry]:
-    paths = generate_docs_only_paths(subset)
-    docs_only_subset = generate_docs_only_fields(paths)
-    fields = remove_docs_only_entries(paths, fields)
-    breakpoint()
-    return fields
-
-
-def remove_docs_only_entries(paths, fields):
+def remove_docs_only_entries(paths: List[str], fields: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
+    """
+    Removed each path in paths list from the fields object
+    """
     for path in paths:
         split_path = path.split('.')
         field_set = split_path[0]
