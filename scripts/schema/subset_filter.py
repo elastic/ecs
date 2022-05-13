@@ -89,7 +89,7 @@ def generate_docs_only_paths(
     parent: Optional[str] = '',
     path: Optional[str] = '',
     paths: Optional[List[str]] = [],
-) -> Dict[str, Any]:
+) -> List[str]:
     """
     Returns a list of field paths: ['process.same_as_process'] for subset fields
     marked as `docs_only: True`
