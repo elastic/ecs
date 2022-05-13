@@ -236,5 +236,6 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         rendered_field_values = asciidoc_fields.page_field_values(self.event_dummy_nested_fields)
         self.assertIn('beta', rendered_field_values)
 
+
 if __name__ == '__main__':
     unittest.main()

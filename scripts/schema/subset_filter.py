@@ -66,10 +66,10 @@ def generate_docs_only_subset(
         split_path = path.split('.')[::-1]
         current_obj = docs_only_subset
         while len(split_path) > 1:
-          temp_path = split_path.pop()
-          if not current_obj.get(temp_path):
-              current_obj[temp_path] = {'fields': {}}
-          current_obj = current_obj[temp_path]['fields']
+            temp_path = split_path.pop()
+            if not current_obj.get(temp_path):
+                current_obj[temp_path] = {'fields': {}}
+            current_obj = current_obj[temp_path]['fields']
         current_obj[split_path[-1]] = {}
     return docs_only_subset
 
@@ -93,11 +93,11 @@ def generate_docs_only_paths(
             else:
                 path_name = f'{parent}.{current}'
             generate_docs_only_paths(subset[current]['fields'],
-                filtered=filtered,
-                parent=current,
-                path=path_name,
-                paths=paths
-            )
+                                     filtered=filtered,
+                                     parent=current,
+                                     path=path_name,
+                                     paths=paths
+                                     )
     return paths
 
 
