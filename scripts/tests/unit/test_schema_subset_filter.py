@@ -15,7 +15,6 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from cmath import exp
 import mock
 import os
 import sys
