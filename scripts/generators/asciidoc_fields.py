@@ -23,13 +23,13 @@ import jinja2
 from generators import ecs_helpers
 
 
-def generate(nested, ecs_generated_version, out_dir):
+def generate(nested, docs_only_nested, ecs_generated_version, out_dir):
     # fields docs now have a dedicated docs subdir: docs/fields
     fields_docs_dir = out_dir + '/fields'
 
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
-    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested))
+    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested, docs_only_nested))
     save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
 
 # Helpers
@@ -141,7 +141,8 @@ def save_asciidoc(f, text):
 # jinja2 setup
 
 
-TEMPLATE_DIR = path.join(path.dirname(path.abspath(__file__)), '../templates')
+local_dir = path.dirname(path.abspath(__file__))
+TEMPLATE_DIR = path.join(local_dir, '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
@@ -166,7 +167,10 @@ def page_field_index(nested, ecs_generated_version):
 
 # Field Details Page
 
-def page_field_details(nested):
+def page_field_details(nested, docs_only_nested):
+    if docs_only_nested:
+        for fieldset_name, fieldset in docs_only_nested.items():
+            nested[fieldset_name]['fields'].update(fieldset['fields'])
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     results = (generate_field_details_page(fieldset) for fieldset in fieldsets)
     return ''.join(results)
