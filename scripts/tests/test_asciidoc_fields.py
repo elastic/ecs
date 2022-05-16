@@ -22,10 +22,6 @@ import unittest
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from scripts.generators import asciidoc_fields
-from scripts.generators import intermediate_files
-from scripts.schema import cleaner
-from scripts.schema import loader
-from scripts.schema import finalizer
 
 
 class TestGeneratorsAsciiFields(unittest.TestCase):

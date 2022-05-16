@@ -17,7 +17,6 @@
 
 import mock
 import os
-import pprint
 import sys
 import unittest
 
@@ -280,3 +279,92 @@ class TestSchemaSubsetFilter(unittest.TestCase):
             }
         }
         self.assertEqual(filtered_fields, expected_fields)
+
+    def test_generate_docs_only_paths_no_entries(self):
+        subset = {
+            'process': {
+                'fields': {
+                    'same_as_process': {},
+                    'meta_entry': {
+                        'fields': {
+                            'type': {}
+                        }
+                    }
+                }
+            }
+        }
+
+        docs_only_paths_empty = subset_filter.generate_docs_only_paths(subset)
+        self.assertEqual(docs_only_paths_empty, [])
+
+    def test_generate_docs_only_paths_with_entries(self):
+        subset = {
+            'process': {
+                'fields': {
+                    'same_as_process': {
+                        'docs_only': True
+                    },
+                    'meta_entry': {
+                        'fields': {
+                            'type': {
+                                'docs_only': True
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        expected_list = ['process.same_as_process', 'process.meta_entry.type']
+        docs_only_paths = subset_filter.generate_docs_only_paths(subset)
+
+        self.assertEqual(docs_only_paths, expected_list)
+
+    def test_generate_docs_only_subset(self):
+        paths = ['process.same_as_process', 'process.meta_entry.type']
+        expected_subset = {
+            'process': {
+                'fields': {
+                    'same_as_process': {},
+                    'meta_entry': {
+                        'fields': {
+                            'type': {}
+                        }
+                    }
+                }
+            }
+        }
+
+        subset = subset_filter.generate_docs_only_subset(paths)
+        self.assertEqual(expected_subset, subset)
+
+    def test_remove_docs_only_entries(self):
+        paths = ['process.same_as_process', 'process.meta_entry.type']
+        orig_subset = {
+            'process': {
+                'fields': {
+                    'same_as_process': {
+                        'docs_only': True
+                    },
+                    'meta_entry': {
+                        'fields': {
+                            'type': {
+                                'docs_only': True
+                            }
+                        }
+                    },
+                    'name': {}
+                }
+            }
+        }
+
+        expected_subset = {
+            'process': {
+                'fields': {
+                    'name': {}
+                }
+            }
+        }
+
+        result = subset_filter.remove_docs_only_entries(paths, orig_subset)
+        self.assertEqual(result, expected_subset)
