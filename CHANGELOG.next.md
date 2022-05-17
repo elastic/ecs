@@ -32,6 +32,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Support `docs_only` param to subset defs. #1909
+
 #### Deprecated
 
 ## 8.3.0 (Soft Feature Freeze)
