@@ -33,6 +33,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Add type hints to `schema` modules. #1771
+* Support `docs_only` param to subset defs. #1909
 
 #### Deprecated
 

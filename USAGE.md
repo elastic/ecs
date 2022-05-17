@@ -289,6 +289,10 @@ fields:
     fields: "*"
   ecs:
     fields: "*"
+  process:
+    fields:
+      same_as_process:
+        docs_only: True
 ```
 
 The subset file has a defined format, starting with the two top-level required fields:
@@ -301,6 +305,8 @@ The `fields` object declares which fields to include:
 * The targeted field sets are declared underneath `fields` by their top-level name (e.g. `base`, `agent`, etc.)
 * Underneath each field set, all sub-fields can be captured using a wildcard syntax: `fields: "*"`
 * Individual leafs fields can also be targeted: `@timestamp: {}`
+* For special cases, the `docs_only: True` attribute will add a field into `./docs` but not add into any other generated
+  artifact. The only current use case for this feature is to document fields only populated in reused field sets.
 
 Reviewing the above example, the generator using subset will output artifacts containing:
 
