@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `service.node.role` #1916
+
 #### Improvements
 
 #### Deprecated
