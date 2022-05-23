@@ -54,6 +54,7 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
+* Advanced linux event model fields and re-uses to GA. #1926
 
 #### Improvements
 
