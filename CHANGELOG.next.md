@@ -42,6 +42,8 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Advanced `container.*` metric fields to GA. #1927
+
 #### Breaking changes
 
 #### Bugfixes
