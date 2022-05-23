@@ -42,8 +42,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Advanced `container.*` metric fields to GA. #1927
-
 #### Breaking changes
 
 #### Bugfixes
@@ -56,6 +54,7 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
+* Advanced `container.*` metric fields to GA. #1927
 
 #### Improvements
 
