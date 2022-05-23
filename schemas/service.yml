@@ -116,6 +116,21 @@
         (e.g. multiple instances of the service running on the same host) - the
         node name can be manually set.
 
+    - name: node.role
+      level: extended
+      type: keyword
+      example: "background-tasks"
+      short: Role of the service node.
+      description: >
+        Role of a service node.
+
+        This allows for distinction between different running roles of the same service.
+
+        In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+
+        In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
+
+        Other services could use this to distinguish between a `web` and `worker` role running as part of the service.
 
     - name: type
       level: core
