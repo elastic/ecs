@@ -54,6 +54,7 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
+* Advances `threat.enrichments.indicator` to GA. #1928
 
 #### Improvements
 
