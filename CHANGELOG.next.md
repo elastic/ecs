@@ -38,13 +38,9 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.3.0 (Soft Feature Freeze)
+## 8.3.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -55,32 +51,6 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
 * Advanced `container.*` metric fields to GA. #1927
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-* Add type hints to `schema` modules. #1771
-
-#### Deprecated
-
-## 8.2.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Adding missing process fields for documentation. #1906
 
 <!-- All empty sections:
 
