@@ -34,8 +34,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Support `docs_only` param to subset defs. #1909
-
 #### Deprecated
 
 ## 8.3.0 (Hard Feature Freeze)
@@ -51,14 +49,6 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
 * Advanced `container.*` metric fields to GA. #1927
-
-## 8.2.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Adding missing process fields for documentation. #1906
 
 <!-- All empty sections:
 
