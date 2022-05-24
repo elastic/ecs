@@ -34,8 +34,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Support `docs_only` param to subset defs. #1909
-
 #### Deprecated
 
 ## 8.3.0 (Soft Feature Freeze)
@@ -70,17 +68,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Add type hints to `schema` modules. #1771
-
 #### Deprecated
-
-## 8.2.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Adding missing process fields for documentation. #1906
 
 <!-- All empty sections:
 
