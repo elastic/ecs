@@ -26,7 +26,6 @@ from typing import (
 from generators import ecs_helpers
 from _types import (
     Field,
-    FieldEntry,
     FieldNestedEntry,
 )
 
