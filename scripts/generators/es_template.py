@@ -150,7 +150,7 @@ def generate_legacy_template_version(
     template_settings_file: str
 ) -> None:
     ecs_helpers.make_dirs(join(out_dir, 'elasticsearch', "legacy"))
-    template: Dict = template_settings(ecs_version, mappings_section, template_settings_file, isLegacy=True)
+    template: Dict = template_settings(ecs_version, mappings_section, template_settings_file, is_legacy=True)
 
     filename: str = join(out_dir, "elasticsearch/legacy/template.json")
     save_json(filename, template)
@@ -232,19 +232,19 @@ def template_settings(
     ecs_version: str,
     mappings_section: Dict,
     template_settings_file: Union[str, None],
-    isLegacy: Optional[bool] = False,
+    is_legacy: Optional[bool] = False,
     component_names: Optional[List[str]] = None
 ) -> Dict:
     if template_settings_file:
         with open(template_settings_file) as f:
             template = json.load(f)
     else:
-        if isLegacy:
+        if is_legacy:
             template = default_legacy_template_settings(ecs_version)
         else:
             template = default_template_settings(ecs_version)
 
-    finalize_template(template, ecs_version, isLegacy, mappings_section, component_names)
+    finalize_template(template, ecs_version, is_legacy, mappings_section, component_names)
 
     return template
 
@@ -252,11 +252,11 @@ def template_settings(
 def finalize_template(
     template: Dict,
     ecs_version: str,
-    isLegacy: bool,
+    is_legacy: bool,
     mappings_section: Dict,
     component_names: List[str]
 ) -> None:
-    if isLegacy:
+    if is_legacy:
         if mappings_section:
             template['mappings'] = mappings_section
 
