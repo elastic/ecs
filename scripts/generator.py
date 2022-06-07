@@ -68,7 +68,7 @@ def main() -> None:
     fields: dict[str, FieldEntry] = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
-    fields = subset_filter.filter(fields, args.subset, out_dir)
+    fields, docs_only_fields = subset_filter.filter(fields, args.subset, out_dir)
     fields = exclude_filter.exclude(fields, args.exclude)
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
@@ -84,7 +84,8 @@ def main() -> None:
         exit()
 
     ecs_helpers.make_dirs(docs_dir)
-    asciidoc_fields.generate(nested, ecs_generated_version, docs_dir)
+    docs_only_nested = intermediate_files.generate_nested_fields(docs_only_fields)
+    asciidoc_fields.generate(nested, docs_only_nested, ecs_generated_version, docs_dir)
 
 
 def argument_parser() -> argparse.Namespace:

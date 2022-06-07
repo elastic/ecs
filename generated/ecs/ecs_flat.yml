@@ -64,9 +64,7 @@ agent.name:
 
     This is a name that can be given to an agent. This can be helpful if for example
     two Filebeat instances are running on the same host but a human readable separation
-    is needed on which Filebeat instance data is coming from.
-
-    If no name is given, the name is often left empty.'
+    is needed on which Filebeat instance data is coming from.'
   example: foo
   flat_name: agent.name
   ignore_above: 1024
@@ -990,7 +988,6 @@ cloud.target.service.name:
   short: The cloud service name.
   type: keyword
 container.cpu.usage:
-  beta: This field is beta and subject to change.
   dashed_name: container-cpu-usage
   description: 'Percent CPU used which is normalized by the number of CPU cores and
     it ranges from 0 to 1. Scaling factor: 1000.'
@@ -1002,7 +999,6 @@ container.cpu.usage:
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
 container.disk.read.bytes:
-  beta: This field is beta and subject to change.
   dashed_name: container-disk-read-bytes
   description: The total number of bytes (gauge) read successfully (aggregated from
     all disks) since the last metric collection.
@@ -1013,7 +1009,6 @@ container.disk.read.bytes:
   short: The number of bytes read by all disks.
   type: long
 container.disk.write.bytes:
-  beta: This field is beta and subject to change.
   dashed_name: container-disk-write-bytes
   description: The total number of bytes (gauge) written successfully (aggregated
     from all disks) since the last metric collection.
@@ -1079,7 +1074,6 @@ container.labels:
   short: Image labels.
   type: object
 container.memory.usage:
-  beta: This field is beta and subject to change.
   dashed_name: container-memory-usage
   description: 'Memory usage percentage and it ranges from 0 to 1. Scaling factor:
     1000.'
@@ -1101,7 +1095,6 @@ container.name:
   short: Container name.
   type: keyword
 container.network.egress.bytes:
-  beta: This field is beta and subject to change.
   dashed_name: container-network-egress-bytes
   description: The number of bytes (gauge) sent out on all network interfaces by the
     container since the last metric collection.
@@ -1112,7 +1105,6 @@ container.network.egress.bytes:
   short: The number of bytes sent on all network interfaces.
   type: long
 container.network.ingress.bytes:
-  beta: This field is beta and subject to change.
   dashed_name: container-network-ingress-bytes
   description: The number of bytes received (gauge) on all network interfaces by the
     container since the last metric collection.
@@ -7283,7 +7275,9 @@ process.entry_leader.entry_meta.type:
   beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-entry-meta-type
   description: 'The entry type for the entry session leader. Values include: init(e.g
-    systemd), sshd, ssm, kubelet, teleport, terminal, console'
+    systemd), sshd, ssm, kubelet, teleport, terminal, console
+
+    Note: This field is only set on process.session_leader.'
   flat_name: process.entry_leader.entry_meta.type
   ignore_above: 1024
   level: extended
@@ -11183,6 +11177,26 @@ service.node.name:
   normalize: []
   short: Name of the service node.
   type: keyword
+service.node.role:
+  dashed_name: service-node-role
+  description: 'Role of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: background-tasks
+  flat_name: service.node.role
+  ignore_above: 1024
+  level: extended
+  name: node.role
+  normalize: []
+  short: Role of the service node.
+  type: keyword
 service.origin.address:
   dashed_name: service-origin-address
   description: 'Address where data about this service was collected from.
@@ -11290,6 +11304,27 @@ service.origin.node.name:
   normalize: []
   original_fieldset: service
   short: Name of the service node.
+  type: keyword
+service.origin.node.role:
+  dashed_name: service-origin-node-role
+  description: 'Role of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: background-tasks
+  flat_name: service.origin.node.role
+  ignore_above: 1024
+  level: extended
+  name: node.role
+  normalize: []
+  original_fieldset: service
+  short: Role of the service node.
   type: keyword
 service.origin.state:
   dashed_name: service-origin-state
@@ -11451,6 +11486,27 @@ service.target.node.name:
   normalize: []
   original_fieldset: service
   short: Name of the service node.
+  type: keyword
+service.target.node.role:
+  dashed_name: service-target-node-role
+  description: 'Role of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: background-tasks
+  flat_name: service.target.node.role
+  ignore_above: 1024
+  level: extended
+  name: node.role
+  normalize: []
+  original_fieldset: service
+  short: Role of the service node.
   type: keyword
 service.target.state:
   dashed_name: service-target-state

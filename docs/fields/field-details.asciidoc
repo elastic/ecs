@@ -174,8 +174,6 @@ example: `8a4f500d`
 
 This is a name that can be given to an agent. This can be helpful if for example two Filebeat instances are running on the same host but a human readable separation is needed on which Filebeat instance data is coming from.
 
-If no name is given, the name is often left empty.
-
 type: keyword
 
 
@@ -1025,9 +1023,7 @@ These fields help correlate data based containers from any runtime.
 [[field-container-cpu-usage]]
 <<field-container-cpu-usage, container.cpu.usage>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Percent CPU used which is normalized by the number of CPU cores and it ranges from 0 to 1. Scaling factor: 1000.
+| Percent CPU used which is normalized by the number of CPU cores and it ranges from 0 to 1. Scaling factor: 1000.
 
 type: scaled_float
 
@@ -1043,9 +1039,7 @@ type: scaled_float
 [[field-container-disk-read-bytes]]
 <<field-container-disk-read-bytes, container.disk.read.bytes>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The total number of bytes (gauge) read successfully (aggregated from all disks) since the last metric collection.
+| The total number of bytes (gauge) read successfully (aggregated from all disks) since the last metric collection.
 
 type: long
 
@@ -1061,9 +1055,7 @@ type: long
 [[field-container-disk-write-bytes]]
 <<field-container-disk-write-bytes, container.disk.write.bytes>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The total number of bytes (gauge) written successfully (aggregated from all disks) since the last metric collection.
+| The total number of bytes (gauge) written successfully (aggregated from all disks) since the last metric collection.
 
 type: long
 
@@ -1165,9 +1157,7 @@ type: object
 [[field-container-memory-usage]]
 <<field-container-memory-usage, container.memory.usage>>
 
-| beta:[ This field is beta and subject to change. ]
-
-Memory usage percentage and it ranges from 0 to 1. Scaling factor: 1000.
+| Memory usage percentage and it ranges from 0 to 1. Scaling factor: 1000.
 
 type: scaled_float
 
@@ -1199,9 +1189,7 @@ type: keyword
 [[field-container-network-egress-bytes]]
 <<field-container-network-egress-bytes, container.network.egress.bytes>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The number of bytes (gauge) sent out on all network interfaces by the container since the last metric collection.
+| The number of bytes (gauge) sent out on all network interfaces by the container since the last metric collection.
 
 type: long
 
@@ -1217,9 +1205,7 @@ type: long
 [[field-container-network-ingress-bytes]]
 <<field-container-network-ingress-bytes, container.network.ingress.bytes>>
 
-| beta:[ This field is beta and subject to change. ]
-
-The number of bytes received (gauge) on all network interfaces by the container since the last metric collection.
+| The number of bytes received (gauge) on all network interfaces by the container since the last metric collection.
 
 type: long
 
@@ -7247,6 +7233,26 @@ example: `c2c455d9f99375d`
 // ===============================================================
 
 |
+[[field-process-entry-meta-type]]
+<<field-process-entry-meta-type, process.entry_meta.type>>
+
+| beta:[ This field is beta and subject to change. ]
+
+The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
+
+Note: This field is only set on process.session_leader.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-process-env-vars]]
 <<field-process-env-vars, process.env_vars>>
 
@@ -7383,6 +7389,32 @@ type: long
 example: `4242`
 
 | core
+
+// ===============================================================
+
+|
+[[field-process-same-as-process]]
+<<field-process-same-as-process, process.same_as_process>>
+
+| beta:[ This field is beta and subject to change. ]
+
+This boolean is used to identify if a leader process is the same as the top level process.
+
+For example, if `process.group_leader.same_as_process = true`, it means the process event in question is the leader of its process group. Details under `process.*` like `pid` would be the same under `process.group_leader.*` The same applies for both `process.session_leader` and `process.entry_leader`.
+
+This field exists to the benefit of EQL and other rule engines since it's not possible to compare equality between two fields in a single document. e.g `process.entity_id` = `process.group_leader.entity_id` (top level process is the process group leader) OR `process.entity_id` = `process.entry_leader.entity_id` (top level process is the entry session leader)
+
+Instead these rules could be written like: `process.group_leader.same_as_process: true` OR `process.entry_leader.same_as_process: true`
+
+Note: This field is only set on `process.entry_leader`, `process.session_leader` and `process.group_leader`.
+
+type: boolean
+
+
+
+example: `True`
+
+| extended
 
 // ===============================================================
 
@@ -8596,6 +8628,30 @@ type: keyword
 
 
 example: `instance-0000000016`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-service-node-role]]
+<<field-service-node-role, service.node.role>>
+
+| Role of a service node.
+
+This allows for distinction between different running roles of the same service.
+
+In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+
+In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
+
+Other services could use this to distinguish between a `web` and `worker` role running as part of the service.
+
+type: keyword
+
+
+
+example: `background-tasks`
 
 | extended
 

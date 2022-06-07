@@ -20,6 +20,34 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.4.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+* Add `service.node.role` #1916
+
+#### Improvements
+
+#### Deprecated
+
 #### Removed
 
 ### Tooling and Artifact Changes
@@ -34,13 +62,9 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.3.0 (Soft Feature Freeze)
+## 8.3.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -50,24 +74,7 @@ Thanks, you're awesome :-) -->
 * Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-* Add type hints to `schema` modules. #1771
-
-#### Deprecated
+* Advanced `container.*` metric fields to GA. #1927
 
 <!-- All empty sections:
 
