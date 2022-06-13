@@ -1,0 +1,61 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: process
+  fields:
+
+    # minor typo fix in description for this field. "pts/0 -> "pts/0"
+    - name: tty.char_device.major
+      description: >
+        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+
+    # new 'io' properties for tracking tty output
+    - name: io
+      level: extended
+      type: object
+      short: Fields describing a batch of input or output (IO) data produced by a process.
+      description: >
+        Fields describing a batch of input or output (IO) data produced by a process.
+
+        These fields should only appear on the top level process object when event.action is 'io'
+
+    - name: io.source
+      level: extended
+      type: keyword
+      short: Source of the process IO
+      description: >
+         Source of the process IO
+
+         e.g tty
+
+    - name: io.data
+      level: extended
+      type: object
+      description: >
+        A time ordered array of objects containing process input/output chunks encoded as UTF-8.
+
+        For 'tty' sources, each entry in the array is a "best effort" line of TTY output. Note: Not all entries will be complete lines due to batching and timeout constraints.
+      normalize: array
+
+    - name: io.data.raw
+      level: extended
+      type: keyword
+      short: A chunk of raw process IO encoded as UTF-8
+      description: >
+        A chunk of raw process IO encoded as UTF-8
+
+        Output is captured raw, and so can contain escaped terminal control codes. ASCII formatting and color escape codes can cause unexpected characters to appear between words, so care should be taken when writing rules or filters against process.io.data.raw.
