@@ -32,6 +32,8 @@ Initial list of proposed fields:
 * `cloud.instance.image.name`: Name of the image used to create teh virtual instance/machine
 * `cloud.vpc.name`: Name of the virtual network
 * `cloud.vpc.id`: ID of the virtual network
+* `cloud.subnet.name`: Name of the Subnet within the VPC/Virtual network
+* `cloud.subnet.id`: ID of the Subnet within the VPC/Virtual network
 * `cloud.instance.lifecycle`: Type of instance *normal* vs *spot*, see https://github.com/elastic/ecs/issues/323 for more discussion
 * `cloud.object_store.name`: Name of S3/Compatible storage
 * `cloud.object_store.id`: Name of S3/Compatible storage
@@ -43,6 +45,8 @@ Possible alternatives proposed in https://github.com/elastic/ecs/issues/1725
 * `cloud.image.name` instead of `cloud.instance.image.name`
 * `network.name` (already exists) instead of  instead of `cloud.vpc.name`
 * `network.id` instead of `cloud.vpc.id`
+* `network.subnetwork.name` instead of  instead of `cloud.subnet.name`
+* `network.subnetwork.id` instead of `cloud.subnet.id`
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -66,7 +70,10 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 1.0 2017-12-13T08:16:02.130Z Z123412341234 example.com A NOERROR UDP **FRA6** 89.160.20.112 -
 ### Cloudflare HTTP Logs
 {...**"EdgeColoCode":"AMS"**,"EdgeColoID":20,...}
-
+### GCP Flow logs:
+..."src_vpc":{"project_id":"my-sample-project",**"subnetwork_name":"default"**,**"vpc_name":"default"**}...
+## GCP DNS logs
+..."sourceIP":"10.154.0.3",**"sourceNetwork":"default"**,"vmInstanceId":8340998530665147,"vmInstanceIdString":"8340998530665147",...
 ### AWS Guard Duty Logs
   {
     "schemaVersion": "2.0",
@@ -209,7 +216,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/1953
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
