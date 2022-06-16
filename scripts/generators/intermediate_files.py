@@ -19,6 +19,7 @@ import copy
 from os.path import join
 from typing import (
     Dict,
+    Tuple,
 )
 
 from schema import visitor
@@ -26,17 +27,22 @@ from generators import ecs_helpers
 from _types import (
     Field,
     FieldEntry,
+    FieldNestedEntry,
 )
 
 
-def generate(fields, out_dir, default_dirs):
+def generate(
+    fields: Dict[str, FieldEntry],
+    out_dir: str,
+    default_dirs: bool
+) -> Tuple[Dict[str, FieldNestedEntry], Dict[str, Field]]:
     ecs_helpers.make_dirs(join(out_dir))
 
     # Should only be used for debugging ECS development
     if default_dirs:
         ecs_helpers.yaml_dump(join(out_dir, 'ecs.yml'), fields)
-    flat = generate_flat_fields(fields)
-    nested = generate_nested_fields(fields)
+    flat: Dict[str, Field] = generate_flat_fields(fields)
+    nested: Dict[str, FieldNestedEntry] = generate_nested_fields(fields)
 
     ecs_helpers.yaml_dump(join(out_dir, 'ecs_flat.yml'), flat)
     ecs_helpers.yaml_dump(join(out_dir, 'ecs_nested.yml'), nested)
@@ -55,16 +61,16 @@ def accumulate_field(details: FieldEntry, memo: Field) -> None:
     """Visitor function that accumulates all field details in the memo dict"""
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
-    field_details = copy.deepcopy(details['field_details'])
+    field_details: Field = copy.deepcopy(details['field_details'])
     remove_internal_attributes(field_details)
 
     flat_name = field_details['flat_name']
     memo[flat_name] = field_details
 
 
-def generate_nested_fields(fields):
+def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNestedEntry]:
     """Generate ecs_nested.yml"""
-    nested = {}
+    nested: Dict[str, FieldNestedEntry] = {}
     # Flatten each field set, but keep all resulting fields nested under their
     # parent/host field set.
     for (name, details) in fields.items():
@@ -94,7 +100,7 @@ def generate_nested_fields(fields):
 # Helper functions
 
 
-def remove_internal_attributes(field_details):
+def remove_internal_attributes(field_details: Field) -> None:
     """Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml."""
     field_details.pop('node_name', None)
     field_details.pop('intermediate', None)

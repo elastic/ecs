@@ -15,22 +15,30 @@
 # specific language governing permissions and limitations
 # under the License.
 
+import _csv
 import csv
 import sys
+from typing import (
+    Dict,
+    List,
+)
 
 from os.path import join
 from generator import ecs_helpers
+from _types import (
+    Field,
+)
 
 
-def generate(ecs_flat, version, out_dir):
+def generate(ecs_flat: Dict[str, Field], version: str, out_dir: str) -> None:
     ecs_helpers.make_dirs(join(out_dir, 'csv'))
     sorted_fields = base_first(ecs_flat)
     save_csv(join(out_dir, 'csv/fields.csv'), sorted_fields, version)
 
 
-def base_first(ecs_flat):
-    base_list = []
-    sorted_list = []
+def base_first(ecs_flat: Dict[str, Field]) -> List[Field]:
+    base_list: List[Field] = []
+    sorted_list: List[Field] = []
     for field_name in sorted(ecs_flat):
         if '.' in field_name:
             sorted_list.append(ecs_flat[field_name])
@@ -39,27 +47,27 @@ def base_first(ecs_flat):
     return base_list + sorted_list
 
 
-def save_csv(file, sorted_fields, version):
-    open_mode = "wb"
+def save_csv(file: str, sorted_fields: List[Field], version: str) -> None:
+    open_mode: str = "wb"
     if sys.version_info >= (3, 0):
-        open_mode = "w"
+        open_mode: str = "w"
 
     with open(file, open_mode) as csvfile:
-        schema_writer = csv.writer(csvfile,
-                                   delimiter=',',
-                                   quoting=csv.QUOTE_MINIMAL,
-                                   lineterminator='\n')
+        schema_writer: _csv._writer = csv.writer(csvfile,
+                                                 delimiter=',',
+                                                 quoting=csv.QUOTE_MINIMAL,
+                                                 lineterminator='\n')
 
         schema_writer.writerow(["ECS_Version", "Indexed", "Field_Set", "Field",
                                 "Type", "Level", "Normalization", "Example", "Description"])
         for field in sorted_fields:
-            key_parts = field['flat_name'].split('.')
+            key_parts: List[str] = field['flat_name'].split('.')
             if len(key_parts) == 1:
-                field_set = 'base'
+                field_set: str = 'base'
             else:
-                field_set = key_parts[0]
+                field_set: str = key_parts[0]
 
-            indexed = str(field.get('index', True)).lower()
+            indexed: str = str(field.get('index', True)).lower()
             schema_writer.writerow([
                 version,
                 indexed,

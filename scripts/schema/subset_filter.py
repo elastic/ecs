@@ -22,6 +22,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Tuple,
 )
 
 from generators import intermediate_files
@@ -41,7 +42,7 @@ def filter(
     fields: Dict[str, FieldEntry],
     subset_file_globs: List[str],
     out_dir: str
-) -> Dict[str, FieldEntry]:
+) -> Tuple[Dict[str, FieldEntry], Dict[str, FieldEntry]]:
     subsets: List[Dict[str, Any]] = load_subset_definitions(subset_file_globs)
     for subset in subsets:
         subfields: Dict[str, FieldEntry] = extract_matching_fields(fields, subset['fields'])
