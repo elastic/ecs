@@ -60,7 +60,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Support `docs_only` param to subset defs. #1909
+* Additional type annotations. #1950
 
 #### Deprecated
 
