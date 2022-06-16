@@ -60,6 +60,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Additional type annotations. #1950
+
 #### Deprecated
 
 ## 8.3.0 (Hard Feature Freeze)
