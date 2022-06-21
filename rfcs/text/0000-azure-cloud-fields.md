@@ -1,4 +1,4 @@
-# 0033: Azure Cloud Fields RFC
+# 0000: Azure Cloud Fields RFC
 
 Stage: 1
 Date: 2021-06-15
@@ -10,14 +10,11 @@ This RFC will provide normalization for fields related to the Azure logs to assu
 #### Activity Log
 |Proposed Field Name|Type|Value|Azure Field|
 | --- | --- | --- | --- |
-|cloud.category|keyword|Administrative|azure.activitylogs.event_category|
 |login.scope|keyword|user_impersonation|azure.activitylogs.identity.claims.http://schemas_microsoft_com/identity/claims/scope|
 |login.authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
-|event.flagged|boolean|FALSE|azure.activitylogs.properties.flaggedForReview|
 |login.additional.details|keyword|MFA requirement satisfied by claim in the token|azure.activitylogs.properties.status.additionalDetails|
 |login.token.type|keyword|AzureAD|azure.activitylogs.properties.tokenIssuerType|
 |login.token.identifier|keyword|MjlkY2M0MzItNWU4YS00NjU5LTlmMDMtNmVkZTE4NDAwMzAw|azure.activitylogs.properties.uniqueTokenIdentifier|
-|user.type|keyword|Member|azure.activitylogs.properties.userType|
 |login.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
 |login.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
 |login.token|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
@@ -42,13 +39,10 @@ This RFC will provide normalization for fields related to the Azure logs to assu
 |login.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |login.token.type|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
 |login.token.identifier|keyword|MDg4YjQ0MDktOWU2My00MjVkLWI3NzctMmM4YzZjMzgwYjAw|azure.signinlogs.properties.unique_token_identifier|
-|user.type|keyword|Member|azure.signinlogs.properties.user_type|
 
 ## Usage
 | Field | Description | Example Values(s) |
 | --- | --- | --- |
-|cloud.category | Cloud Category|OperationalLogs/NonInteractiveUserSignInLogs|
-|event.flagged|Is the event flagged?|TRUE/FALSE|
 |login.additional.details|Login Additional Details|MFA requirement satisfied by claim in the token|
 |login.authentication.requirement|Login Authentication Requirements|singleFactorAuthentication/multiFactorAuthentication|
 |login.authorization|Login Authorization Information|ROOTMANAGESHAREDACCESSKEY|
@@ -57,7 +51,6 @@ This RFC will provide normalization for fields related to the Azure logs to assu
 |login.scope|Requested scope of user|user_impersonation|
 |login.token.identifier|Login token identifier/value|MjlkY2M0MzItNWU4YS00NjU5LTlmMDMtNmVkZTE4NDAwMzAw|
 |login.token.type|Type of token for the login event|AzureAD|
-|user.type|The type of user that was found in the event|Member, superuser, etc.|
 
 ## Source data
 
