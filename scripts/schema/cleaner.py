@@ -274,27 +274,34 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
     Checks if value of the example field is of type list or dict.
     Fails or warns (depending on strict mode) if so.
     """
-    example_value: Union[List, FieldEntry] = field['field_details'].get('example', None)
-    pattern = field['field_details'].get('pattern', None)
-    name = field['field_details']['name']
+    example_value: str = field['field_details'].get('example', '')
+    pattern: str = field['field_details'].get('pattern', '')
+    expected_values: List[str] = field['field_details'].get('expected_values', [])
+    name: str = field['field_details']['name']
 
     if isinstance(example_value, (list, dict)):
         field_name: str = field['field_details']['name']
         msg: str = f"Example value for field `{field_name}` contains an object or array which must be quoted to avoid YAML interpretation."
         strict_warning_handler(msg, strict)
 
-    if pattern:
-        # Examples with arrays must be handled
-        if 'array' in field['field_details']['normalize']:
-            # strips unnecessary chars in order to split each example value
-            example_values = example_value.translate(str.maketrans('', '', '"[] ')).split(',')
-        else:
-            example_values = [example_value]
+    # Examples with arrays must be handled
+    if 'array' in field['field_details'].get('normalize', []):
+        # strips unnecessary chars in order to split each example value
+        example_values = example_value.translate(str.maketrans('', '', '"[] ')).split(',')
+    else:
+        example_values = [example_value]
 
+    if pattern:
         for example_value in example_values:
             match = re.match(pattern, example_value)
             if not match:
                 msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
+                strict_warning_handler(msg, strict)
+
+    if expected_values:
+        for example_value in example_values:
+            if example_value not in expected_values:
+                msg = f"Example value `{example_value}` for field `{name}` is not one of the values defined in `expected_value`: {expected_values}."
                 strict_warning_handler(msg, strict)
 
 

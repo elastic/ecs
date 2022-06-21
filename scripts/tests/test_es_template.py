@@ -189,11 +189,11 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         ecs_version = 100
         default = es_template.default_legacy_template_settings(ecs_version)
 
-        generated_template = es_template.template_settings(ecs_version, None, None, isLegacy=True)
+        generated_template = es_template.template_settings(ecs_version, None, None, is_legacy=True)
         self.assertEqual(generated_template, default)
 
         generated_template = es_template.template_settings(
-            ecs_version, None, './usage-example/fields/template-settings-legacy.json', isLegacy=True)
+            ecs_version, None, './usage-example/fields/template-settings-legacy.json', is_legacy=True)
         self.assertNotEqual(generated_template, default)
 
     def test_default_composable_template_settings(self):
@@ -207,7 +207,7 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         self.assertEqual(generated_template, default)
 
         generated_template = es_template.template_settings(
-            ecs_version, None, './usage-example/fields/template-settings.json', isLegacy=True)
+            ecs_version, None, './usage-example/fields/template-settings.json', is_legacy=True)
         self.assertNotEqual(generated_template, default)
 
 
