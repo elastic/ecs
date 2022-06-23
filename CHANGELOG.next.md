@@ -43,6 +43,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `service.node.role` #1916
+* Initial set of `expected_values`. #1962
 
 #### Improvements
 
@@ -57,6 +58,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+
+* Introduce `expected_values` attribute. #1952
 
 #### Improvements
 
