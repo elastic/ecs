@@ -43,6 +43,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `service.node.role` #1916
+* Add `email.return_path.address` #1947
 
 #### Improvements
 
