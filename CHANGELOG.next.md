@@ -44,6 +44,7 @@ Thanks, you're awesome :-) -->
 
 * Add `service.node.role` #1916
 * Add `email.return_path.address` #1947
+* Initial set of `expected_values`. #1962
 
 #### Improvements
 
@@ -59,7 +60,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Introduce `expected_values` attribute. #1952
+
 #### Improvements
+
+* Additional type annotations. #1950
 
 #### Deprecated
 
