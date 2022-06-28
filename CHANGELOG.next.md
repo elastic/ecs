@@ -43,6 +43,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `service.node.role` #1916
+* Initial set of `expected_values`. #1962
 
 #### Improvements
 
@@ -58,23 +59,13 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Introduce `expected_values` attribute. #1952
+
 #### Improvements
 
+* Additional type annotations. #1950
+
 #### Deprecated
-
-## 8.3.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `pattern` attribute to `.mac` fields. #1871
-* Add `orchestrator.cluster.id` #1875
-* Add `orchestrator.resource.id` #1878
-* Add `orchestrator.resource.parent.type` #1889
-* Add `orchestrator.resource.ip` #1889
-* Add `container.image.hash.all` #1889
-* Advanced `container.*` metric fields to GA. #1927
 
 <!-- All empty sections:
 
