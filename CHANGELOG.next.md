@@ -42,7 +42,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `service.node.role` #1916
 * Initial set of `expected_values`. #1962
 
 #### Improvements
