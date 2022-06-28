@@ -29,7 +29,7 @@ Initial list of proposed fields:
 
 * `cloud.edge_location`: The edge location, usually an airport IATA code (DFW), of a cloud service. Very common for DNS, CDN, or other cloud services
 * `cloud.instance.image.id`: ID of the image used to create the virtual instance/machine
-* `cloud.instance.image.name`: Name of the image used to create teh virtual instance/machine
+* `cloud.instance.image.name`: Name of the image used to create the virtual instance/machine
 * `cloud.vpc.name`: Name of the virtual network
 * `cloud.vpc.id`: ID of the virtual network
 * `cloud.subnet.name`: Name of the Subnet within the VPC/Virtual network
@@ -65,16 +65,17 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 ## Source data
 ### AWS Cloudfront Logs
-2019-12-04	21:02:31	**LAX1**	392	89.160.20.112	GET	d111111abcdef8.cloudfront.net	/index.html	200	-	.......
+`2019-12-04	21:02:31	LAX1	392	89.160.20.112	GET	d111111abcdef8.cloudfront.net	/index.html	200	-	.......`
 ### AWS Public ZOne DNS Logs
-1.0 2017-12-13T08:16:02.130Z Z123412341234 example.com A NOERROR UDP **FRA6** 89.160.20.112 -
+`1.0 2017-12-13T08:16:02.130Z Z123412341234 example.com A NOERROR UDP FRA6 89.160.20.112 -`
 ### Cloudflare HTTP Logs
-{...**"EdgeColoCode":"AMS"**,"EdgeColoID":20,...}
+`{..."EdgeColoCode":"AMS","EdgeColoID":20,...}`
 ### GCP Flow logs:
-..."src_vpc":{"project_id":"my-sample-project",**"subnetwork_name":"default"**,**"vpc_name":"default"**}...
+`..."src_vpc":{"project_id":"my-sample-project","subnetwork_name":"default","vpc_name":"default"}...`
 ## GCP DNS logs
-..."sourceIP":"10.154.0.3",**"sourceNetwork":"default"**,"vmInstanceId":8340998530665147,"vmInstanceIdString":"8340998530665147",...
+`..."sourceIP":"10.154.0.3","sourceNetwork":"default","vmInstanceId":8340998530665147,"vmInstanceIdString":"8340998530665147",...`
 ### AWS Guard Duty Logs
+```
   {
     "schemaVersion": "2.0",
     "accountId": "290443255379",
@@ -102,7 +103,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
             "kmsMasterKeyArn": "arn:aws:kms:region:123456789012:key/key-id",
             "encryptionType": "SSEAlgorithm"
           },
-          **"arn": "arn:aws:s3:::bucketName",**
+          "arn": "arn:aws:s3:::bucketName",
           "type": "Destination",
         }
       ],
@@ -132,7 +133,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
               }
             ],
             "subnetId": "GeneratedFindingSubnetId",
-            **"vpcId": "GeneratedFindingVPCId",**
+            "vpcId": "GeneratedFindingVPCId",
             "privateDnsName": "GeneratedFindingPrivateDnsName",
             "securityGroups": [
               {
@@ -148,11 +149,11 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
         ],
         "instanceState": "running",
         "availabilityZone": "GeneratedFindingInstaceAvailabilityZone",
-        **"imageId": "ami-99999999",**
+        "imageId": "ami-99999999",
         "imageDescription": "GeneratedFindingInstaceImageDescription"
       }
     }
-
+```
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
