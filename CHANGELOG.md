@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file based on the
 * Add `orchestrator.resource.parent.type` #1889
 * Add `orchestrator.resource.ip` #1889
 * Add `container.image.hash.all` #1889
+* Add `service.node.role` #1916
 * Advanced `container.*` metric fields to GA. #1927
 
 ## [8.2.1](https://github.com/elastic/ecs/compare/v8.2.0...v8.2.1)
