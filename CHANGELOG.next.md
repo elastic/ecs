@@ -67,20 +67,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.3.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `pattern` attribute to `.mac` fields. #1871
-* Add `orchestrator.cluster.id` #1875
-* Add `orchestrator.resource.id` #1878
-* Add `orchestrator.resource.parent.type` #1889
-* Add `orchestrator.resource.ip` #1889
-* Add `container.image.hash.all` #1889
-* Advanced `container.*` metric fields to GA. #1927
-
 <!-- All empty sections:
 
 ## Unreleased
