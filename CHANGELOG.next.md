@@ -66,6 +66,14 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+## 8.3.1
+
+### Schema Changes
+
+#### Deprecated
+
+* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #1976
+
 <!-- All empty sections:
 
 ## Unreleased
