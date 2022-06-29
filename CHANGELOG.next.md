@@ -40,7 +40,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #XXXX
+* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #1976
 
 <!-- All empty sections:
 
