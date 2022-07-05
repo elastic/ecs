@@ -3,7 +3,7 @@
 Stage: 1
 Date: 2021-06-15
 
-This RFC will provide normalization for fields related to the Azure logs to assure that they are retained primarily in ECS core and in any extended fieldset when needed. These fields are important to normalize into ECS fields in order to maximize effectiveness of cross log utilization. Similar fields are found in other cloud related logs so by leveraging this extension to ECS core, the ECS core field set will be more expansive.  
+This RFC will provide normalization for fields related to login fields to assure that they are retained primarily in ECS core and in any extended fieldset when needed. These fields are important to normalize into ECS fields in order to maximize effectiveness of cross log utilization. 
 
 ## Fields
 
@@ -43,7 +43,7 @@ This RFC will provide normalization for fields related to the Azure logs to assu
 
 ## Source data
 
-The source data for the Azure data comes from Azure Eventhubs, or Blob Storage. The specific types of data being pulled from these sources are Signin, Platform, Activity, and Audit logs.
+The source data for the logn fields came from Azure data, which came from Azure Eventhubs, or Blob Storage. The specific types of data being pulled from these sources are Signin, Platform, Activity, and Audit logs.
 
 Here is a copy and example of a rawLog that came from Azure EventHubs.
 ```json
