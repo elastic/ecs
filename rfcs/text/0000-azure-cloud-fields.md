@@ -19,22 +19,11 @@ This RFC will provide normalization for fields related to the Azure logs to assu
 |login.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
 |login.token|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
 
-#### Audit Log
-|Proposed Field Name|Type|Value|Azure Field|
-| --- | --- | --- | --- |
-|cloud.category|keyword|Device|azure.auditlogs.properties.category|
-
-#### Platform Log
-| Proposed Field Name | Type | Value | Azure Field |
-| --- | --- | --- | --- |
-|cloud.category|keyword|OperationalLogs|azure.platformlogs.category|
 
 #### SignIn Log
 |Proposed Field Name|Type|Value|Azure Field|
 | --- | --- | --- | --- |
-|cloud.category|Keyword|NonInteractiveUserSignInLogs|azure.signinlogs.category|
 |login.authentication.requirement|keyword|singleFactorAuthentication|azure.signinlogs.properties.authentication_requirement|
-|event.flagged|boolean|FALSE|azure.signinlogs.properties.flagged_for_review|
 |login.isInteractive|boolean|FALSE|azure.signinlogs.properties.is_interactive|
 |login.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |login.token.type|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
