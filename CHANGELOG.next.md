@@ -43,6 +43,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
 
 #### Improvements
 
