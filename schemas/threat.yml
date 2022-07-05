@@ -85,24 +85,24 @@
       short: Type of indicator
       description: >
         Type of indicator as represented by Cyber Observable in STIX 2.0.
-        Recommended values:
-          * autonomous-system
-          * artifact
-          * directory
-          * domain-name
-          * email-addr
-          * file
-          * ipv4-addr
-          * ipv6-addr
-          * mac-addr
-          * mutex
-          * port
-          * process
-          * software
-          * url
-          * user-account
-          * windows-registry-key
-          * x509-certificate
+      expected_values:
+        - autonomous-system
+        - artifact
+        - directory
+        - domain-name
+        - email-addr
+        - file
+        - ipv4-addr
+        - ipv6-addr
+        - mac-addr
+        - mutex
+        - port
+        - process
+        - software
+        - url
+        - user-account
+        - windows-registry-key
+        - x509-certificate
       example: ipv4-addr
 
     - name: enrichments.indicator.description
@@ -126,15 +126,14 @@
       type: keyword
       short: Indicator confidence rating
       description: >
-        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
+        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
         confidence scales may be added as custom fields.
-
-        Expected values are:
-          * Not Specified
-          * None
-          * Low
-          * Medium
-          * High
+      expected_values:
+        - Not Specified
+        - None
+        - Low
+        - Medium
+        - High
       example: Medium
 
     - name: enrichments.indicator.ip
@@ -167,12 +166,12 @@
       short: Indicator TLP marking
       description: >
         Traffic Light Protocol sharing markings.
-        Recommended values are:
-          * WHITE
-          * GREEN
-          * AMBER
-          * RED
-      example: White
+      expected_values:
+        - WHITE
+        - GREEN
+        - AMBER
+        - RED
+      example: WHITE
 
     - name: enrichments.indicator.reference
       level: extended
@@ -364,26 +363,24 @@
       short: Type of indicator
       description: >
         Type of indicator as represented by Cyber Observable in STIX 2.0.
-
-        Recommended values:
-          * autonomous-system
-          * artifact
-          * directory
-          * domain-name
-          * email-addr
-          * file
-          * ipv4-addr
-          * ipv6-addr
-          * mac-addr
-          * mutex
-          * port
-          * process
-          * software
-          * url
-          * user-account
-          * windows-registry-key
-          * x509-certificate
-
+      expected_values:
+        - autonomous-system
+        - artifact
+        - directory
+        - domain-name
+        - email-addr
+        - file
+        - ipv4-addr
+        - ipv6-addr
+        - mac-addr
+        - mutex
+        - port
+        - process
+        - software
+        - url
+        - user-account
+        - windows-registry-key
+        - x509-certificate
       example: ipv4-addr
 
     - name: indicator.description
@@ -409,15 +406,14 @@
       type: keyword
       short: Indicator confidence rating
       description: >
-        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
+        Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
         confidence scales may be added as custom fields.
-
-        Expected values are:
-          * Not Specified
-          * None
-          * Low
-          * Medium
-          * High
+      expected_values:
+        - Not Specified
+        - None
+        - Low
+        - Medium
+        - High
       example: Medium
 
     - name: indicator.ip
@@ -453,13 +449,11 @@
       short: Indicator TLP marking
       description: >
         Traffic Light Protocol sharing markings.
-
-        Recommended values are:
-          * WHITE
-          * GREEN
-          * AMBER
-          * RED
-
+      expected_values:
+        - WHITE
+        - GREEN
+        - AMBER
+        - RED
       example: WHITE
 
     - name: indicator.reference
@@ -518,19 +512,18 @@
       description: >
         The platforms of the software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
-        Recommended Values:
-          * AWS
-          * Azure
-          * Azure AD
-          * GCP
-          * Linux
-          * macOS
-          * Network
-          * Office 365
-          * SaaS
-          * Windows
-
-        While not required, you can use a MITRE ATT&CK® software platforms.
+        While not required, you can use MITRE ATT&CK® software platform values.
+      expected_values:
+        - AWS
+        - Azure
+        - Azure AD
+        - GCP
+        - Linux
+        - macOS
+        - Network
+        - Office 365
+        - SaaS
+        - Windows
       example: '[ "Windows" ]'
       normalize:
         - array
@@ -552,11 +545,10 @@
       description: >
         The type of software used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
 
-        Recommended values
-          * Malware
-          * Tool
-
-         While not required, you can use a MITRE ATT&CK® software type.
+        While not required, you can use a MITRE ATT&CK® software type.
+      expected_values:
+        - Malware
+        - Tool
       example: "Tool"
 
     - name: tactic.id
@@ -583,7 +575,6 @@
       normalize:
         - array
 
-
     - name: tactic.reference
       level: extended
       type: keyword
@@ -595,7 +586,6 @@
       example: https://attack.mitre.org/tactics/TA0002/
       normalize:
         - array
-
 
     - name: technique.id
       level: extended

@@ -34,12 +34,21 @@ beta::[ {{ fieldset['beta'] }}]
 {# `Description` column -#}
 {#- Beta fields will add the `beta` label -#}
 {% if field['beta'] -%}
-| beta:[ {{ field['beta'] }} ]
+a| beta:[ {{ field['beta'] }} ]
 
 {{ field['description']|replace("\n", "\n\n") }}
 {%- else -%}
-| {{ field['description']|replace("\n", "\n\n") }}
+a| {{ field['description']|replace("\n", "\n\n") }}
 {%- endif %}
+
+{#- iterate through each expected value -#}
+{%- if field['expected_values'] %}
+
+Expected values for this field:
+{% for val in field['expected_values'] %}
+* `{{ val }}`
+{%- endfor %}{# for expected_values #}
+{%- endif %}{# if 'expected_values' #}
 
 type: {{ field['type'] }}
 
