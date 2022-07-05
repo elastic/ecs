@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from os.path import join
+from os.path import join, dirname
 from collections import OrderedDict
 from typing import (
     Dict,
@@ -28,6 +28,8 @@ from _types import (
     Field,
     FieldNestedEntry,
 )
+
+BEATS_DEFAULT_FIELDS = join(dirname(ecs_helpers.__file__), "beats_default_fields_allowlist.yml")
 
 
 def generate(
@@ -55,7 +57,7 @@ def generate(
         beats_fields.append(beats_field)
 
     # Load temporary allowlist for default_fields workaround.
-    df_allowlist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_allowlist.yml')
+    df_allowlist = ecs_helpers.yaml_load(BEATS_DEFAULT_FIELDS)
     # Set default_field configuration.
     set_default_field(beats_fields, df_allowlist)
 
