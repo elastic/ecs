@@ -197,6 +197,7 @@ def page_field_values(nested, template_name='field_values_template.j2'):
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     nested_fields = []
     for cat_field in category_fields:
-        nested_fields.append(nested['event']['fields'][cat_field])
+        if nested.get("event", {}).get("fields", {}).get(cat_field) is not None:
+            nested_fields.append(nested['event']['fields'][cat_field])
 
     return dict(fields=nested_fields)
