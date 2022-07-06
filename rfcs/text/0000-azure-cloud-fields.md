@@ -129,7 +129,7 @@ Here is a copy and example of a rawLog that came from Azure EventHubs.
 ```
 ## Scope of impact
 
-No impact expected as Azure fieldsets are not impacting any existing fields, as these proposed fields are new. Moreover, these fields allow the Azure and other cloud Logs to be in a greater alignment with the ECS base fields and allow for expanded utilization and wider adoption.
+No impact expected as login fieldsets are not impacting any existing fields, as these proposed fields are new. Moreover, these fields allow logs to be in a greater alignment with the ECS base fields and allow for expanded utilization and wider adoption.
 
 ## Concerns
 
