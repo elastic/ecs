@@ -11213,19 +11213,42 @@ service.node.role:
 
     This allows for distinction between different running roles of the same service.
 
-    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
 
     In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
 
     Other services could use this to distinguish between a `web` and `worker` role
     running as part of the service.'
-  example: background-tasks
+  example: background_tasks
   flat_name: service.node.role
   ignore_above: 1024
   level: extended
   name: node.role
   normalize: []
   short: Deprecated role (singular) of the service node.
+  type: keyword
+service.node.roles:
+  dashed_name: service-node-roles
+  description: 'Roles of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`
+    or both.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`
+    or both.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: '["ui", "background_tasks"]'
+  flat_name: service.node.roles
+  ignore_above: 1024
+  level: extended
+  name: node.roles
+  normalize:
+  - array
+  short: Roles of the service node.
   type: keyword
 service.origin.address:
   dashed_name: service-origin-address
@@ -11344,13 +11367,13 @@ service.origin.node.role:
 
     This allows for distinction between different running roles of the same service.
 
-    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
 
     In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
 
     Other services could use this to distinguish between a `web` and `worker` role
     running as part of the service.'
-  example: background-tasks
+  example: background_tasks
   flat_name: service.origin.node.role
   ignore_above: 1024
   level: extended
@@ -11358,6 +11381,30 @@ service.origin.node.role:
   normalize: []
   original_fieldset: service
   short: Deprecated role (singular) of the service node.
+  type: keyword
+service.origin.node.roles:
+  dashed_name: service-origin-node-roles
+  description: 'Roles of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`
+    or both.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`
+    or both.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: '["ui", "background_tasks"]'
+  flat_name: service.origin.node.roles
+  ignore_above: 1024
+  level: extended
+  name: node.roles
+  normalize:
+  - array
+  original_fieldset: service
+  short: Roles of the service node.
   type: keyword
 service.origin.state:
   dashed_name: service-origin-state
@@ -11529,13 +11576,13 @@ service.target.node.role:
 
     This allows for distinction between different running roles of the same service.
 
-    In the case of Kibana, the `service.node.role` could be `ui` or `background-tasks`.
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
 
     In the case of Elasticsearch, the `service.node.role` could be `master` or `data`.
 
     Other services could use this to distinguish between a `web` and `worker` role
     running as part of the service.'
-  example: background-tasks
+  example: background_tasks
   flat_name: service.target.node.role
   ignore_above: 1024
   level: extended
@@ -11543,6 +11590,30 @@ service.target.node.role:
   normalize: []
   original_fieldset: service
   short: Deprecated role (singular) of the service node.
+  type: keyword
+service.target.node.roles:
+  dashed_name: service-target-node-roles
+  description: 'Roles of a service node.
+
+    This allows for distinction between different running roles of the same service.
+
+    In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`
+    or both.
+
+    In the case of Elasticsearch, the `service.node.role` could be `master` or `data`
+    or both.
+
+    Other services could use this to distinguish between a `web` and `worker` role
+    running as part of the service.'
+  example: '["ui", "background_tasks"]'
+  flat_name: service.target.node.roles
+  ignore_above: 1024
+  level: extended
+  name: node.roles
+  normalize:
+  - array
+  original_fieldset: service
+  short: Roles of the service node.
   type: keyword
 service.target.state:
   dashed_name: service-target-state
