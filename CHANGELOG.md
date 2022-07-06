@@ -3,6 +3,14 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.3.1](https://github.com/elastic/ecs/compare/v8.3.0...v8.3.1)
+
+### Schema Changes
+
+#### Deprecated
+
+* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #1976
+
 ## [8.3.0](https://github.com/elastic/ecs/compare/v8.2.1...v8.3.0)
 
 ### Schema Changes
