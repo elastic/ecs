@@ -38,7 +38,11 @@ def generate(
     out_dir: str
 ) -> None:
     # base first
-    beats_fields: List[OrderedDict] = fieldset_field_array(ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
+    if 'base' in ecs_nested:
+        beats_fields: List[OrderedDict] = fieldset_field_array(
+            ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
+    else:
+        beats_fields = []
 
     allowed_fieldset_keys: List[str] = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
