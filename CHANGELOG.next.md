@@ -43,6 +43,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
 
 #### Improvements
 
@@ -65,14 +66,6 @@ Thanks, you're awesome :-) -->
 * Additional type annotations. #1950
 
 #### Deprecated
-
-## 8.3.1
-
-### Schema Changes
-
-#### Deprecated
-
-* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #1976
 
 <!-- All empty sections:
 
