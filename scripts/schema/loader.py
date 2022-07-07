@@ -77,13 +77,18 @@ EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
 
 def load_schemas(
     ref: Optional[str] = None,
-    included_files: Optional[List[str]] = []
+    included_files: Optional[List[str]] = [],
+    no_ecs: Optional[bool] = False
 ) -> Dict[str, FieldEntry]:
     """Loads ECS and custom schemas. They are returned deeply nested and merged."""
     # ECS fields (from git ref or not)
-    schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
-        ref) if ref else load_schema_files(ecs_helpers.ecs_files())
-    fields: Dict[str, FieldEntry] = deep_nesting_representation(schema_files_raw)
+    if not no_ecs:
+        schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
+            ref) if ref else load_schema_files(ecs_helpers.ecs_files())
+        fields: Dict[str, FieldEntry] = deep_nesting_representation(schema_files_raw)
+    else:
+        print('Not loading ECS schemas')
+        fields = {}
 
     # Custom additional files
     if included_files and len(included_files) > 0:

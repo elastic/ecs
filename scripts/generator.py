@@ -65,7 +65,11 @@ def main() -> None:
         ecs_generated_version += "+exp"
         print('Experimental ECS version ' + ecs_generated_version)
 
-    fields: dict[str, FieldEntry] = loader.load_schemas(ref=args.ref, included_files=args.include)
+    fields: dict[str, FieldEntry] = loader.load_schemas(
+        ref=args.ref,
+        included_files=args.include,
+        no_ecs=args.no_ecs
+    )
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields, docs_only_fields = subset_filter.filter(fields, args.subset, out_dir)
@@ -109,6 +113,8 @@ def argument_parser() -> argparse.Namespace:
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
+    parser.add_argument('--no-ecs', action='store_true',
+                        help='do not include ECS schemas')
     parser.add_argument('--force-docs', action='store_true',
                         help='generate ECS docs even if --subset, --include, or --exclude are set')
     args = parser.parse_args()
