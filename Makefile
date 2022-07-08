@@ -20,7 +20,7 @@ all: generate experimental
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate experimental test fmt misspell makelint
+check: generate experimental test fmt misspell_warn makelint
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
@@ -74,6 +74,11 @@ makelint: SHELL:=/bin/bash
 makelint:
 	@diff <(grep ^.PHONY Makefile | sort) <(grep ^.PHONY Makefile) \
 	  || echo Makefile targets need to be sorted.
+
+# Warn re misspell removal     
+.PHONY: misspell_warn
+misspell_warn:
+        echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future"
 
 # Check for basic misspellings.
 .PHONY: misspell
