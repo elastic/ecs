@@ -75,11 +75,6 @@ makelint:
 	@diff <(grep ^.PHONY Makefile | sort) <(grep ^.PHONY Makefile) \
 	  || echo Makefile targets need to be sorted.
 
-# Warn re misspell removal     
-.PHONY: misspell_warn
-misspell_warn:
-        echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future"
-
 # Check for basic misspellings.
 .PHONY: misspell
 misspell:
@@ -90,6 +85,11 @@ misspell:
 		./build/misspell/install-misspell.sh -b ./build/misspell/bin >> /dev/null 2>&1 ; \
 	fi
 	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
+
+# Warn re misspell removal     
+.PHONY: misspell_warn
+misspell_warn:
+        echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future"
 
 .PHONY: reload_docs
 reload_docs: generator docs
