@@ -65,6 +65,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Added Deprecation Warning for `misspell` task #1993
+
 #### Added
 
 #### Improvements
