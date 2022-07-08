@@ -141,8 +141,14 @@ def save_asciidoc(f, text):
 # jinja2 setup
 
 
+cur_dir = path.abspath(path.curdir)
 local_dir = path.dirname(path.abspath(__file__))
-TEMPLATE_DIR = path.join(local_dir, '../templates')
+CUR_TEMPLATE_DIR = path.join(cur_dir, 'templates')
+LOCAL_TEMPLATE_DIR = path.join(local_dir, '../templates')
+if path.exists(CUR_TEMPLATE_DIR):
+    TEMPLATE_DIR = CUR_TEMPLATE_DIR
+elif path.exists(LOCAL_TEMPLATE_DIR):
+    TEMPLATE_DIR = LOCAL_TEMPLATE_DIR
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
 template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
 
