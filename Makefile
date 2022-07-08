@@ -89,7 +89,7 @@ misspell:
 # Warn re misspell removal     
 .PHONY: misspell_warn
 misspell_warn:
-        echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future"
+        @echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future\n"
 
 .PHONY: reload_docs
 reload_docs: generator docs
