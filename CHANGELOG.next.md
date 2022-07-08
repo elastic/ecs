@@ -16,7 +16,34 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `service.node.role` #1916
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.4.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+* Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
 
 #### Improvements
 
@@ -30,58 +57,17 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-#### Added
-
-#### Improvements
-
-* Support `docs_only` param to subset defs. #1909
-
-#### Deprecated
-
-## 8.3.0 (Soft Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Added `pattern` attribute to `.mac` fields. #1871
-* Add `orchestrator.cluster.id` #1875
-* Add `orchestrator.resource.id` #1878
-* Add `orchestrator.resource.parent.type` #1889
-* Add `orchestrator.resource.ip` #1889
-* Add `container.image.hash.all` #1889
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
 * Added Deprecation Warning for `misspell` task #1993
 
 #### Added
 
+* Introduce `expected_values` attribute. #1952
+
 #### Improvements
 
-* Add type hints to `schema` modules. #1771
+* Additional type annotations. #1950
 
 #### Deprecated
-
-## 8.2.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Adding missing process fields for documentation. #1906
 
 <!-- All empty sections:
 
