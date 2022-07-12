@@ -1,7 +1,7 @@
 # 0031: Risk fields for multiple entities
 
 - Stage: **1 (draft)**
-- Date: **2022/01/27**
+- Date: **2022/07/12**
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
@@ -131,6 +131,7 @@ e.g.:
 * @Yasmina | author
 * @Monique | sponsor
 * @EunJung | subject matter expert
+* @MikePaquette | subject matter expert
 * @JaneDoe | grammar, spelling, prose
 * @Mariana
 -->
