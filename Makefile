@@ -20,7 +20,7 @@ all: generate experimental
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate experimental test fmt misspell makelint
+check: generate experimental test fmt misspell_warn makelint
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
@@ -85,6 +85,11 @@ misspell:
 		./build/misspell/install-misspell.sh -b ./build/misspell/bin >> /dev/null 2>&1 ; \
 	fi
 	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
+
+# Warn re misspell removal     
+.PHONY: misspell_warn
+misspell_warn:
+	@echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future\n"
 
 .PHONY: reload_docs
 reload_docs: generator docs
