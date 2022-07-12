@@ -471,6 +471,74 @@ class TestSchemaCleaner(unittest.TestCase):
         except Exception:
             self.fail("clean.check_example_value() raised Exception unexpectedly.")
 
+    def test_example_mismatch_with_expected_values(self):
+        field = {
+            'field_details': {
+                'name': 'text',
+                'expected_values': [
+                    'foo',
+                    'bar'
+                ],
+                'example': 'foobar',
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'not one of the values defined in `expected_value`'):
+            cleaner.check_example_value(field)
+
+    def test_example_array_mismatch_with_expected_values(self):
+        field = {
+            'field_details': {
+                'name': 'text',
+                'expected_values': [
+                    'foo',
+                    'bar'
+                ],
+                'example': '["foobar"]',
+                'normalize': [
+                    'array'
+                ]
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'not one of the values defined in `expected_value`'):
+            cleaner.check_example_value(field)
+
+    def test_example_mismatch_with_expected_values_strict_disabled(self):
+        field = {
+            'field_details': {
+                'name': 'text',
+                'expected_values': [
+                    'foo',
+                    'bar'
+                ],
+                'example': 'foobar',
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'not one of the values defined in `expected_value`'):
+                cleaner.check_example_value(field, strict=False)
+        except Exception:
+            self.fail("clean.check_example_value() raised Exception unexpectedly.")
+
+    def test_example_with_array_mismatch_with_expected_values_strict_disabled(self):
+        field = {
+            'field_details': {
+                'name': 'text',
+                'expected_values': [
+                    'foo',
+                    'bar'
+                ],
+                'example': '["foobar"]',
+                'normalize': [
+                    'array'
+                ]
+            }
+        }
+        try:
+            with self.assertWarnsRegex(UserWarning, 'not one of the values defined in `expected_value`'):
+                cleaner.check_example_value(field, strict=False)
+        except Exception:
+            self.fail("clean.check_example_value() raised Exception unexpectedly.")
+
     def test_very_long_short_override_description_raises(self):
         schema = {
             'schema_details': {
