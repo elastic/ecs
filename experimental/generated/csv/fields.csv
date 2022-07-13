@@ -393,6 +393,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.5.0-dev+exp,true,host,host.os.type,keyword,extended,,macos,"Which commercial OS family (one of: linux, macos, unix or windows)."
 8.5.0-dev+exp,true,host,host.os.version,keyword,extended,,10.14.1,Operating system version as a raw string.
 8.5.0-dev+exp,true,host,host.pid_ns_ino,keyword,extended,,256383,Pid namespace inode
+8.5.0-dev+exp,true,host,host.risk.calculated_level,keyword,extended,,High,A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,host,host.risk.calculated_score,float,extended,,880.73,A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,host,host.risk.calculated_score_norm,float,extended,,88.73,"A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100."
+8.5.0-dev+exp,true,host,host.risk.static_level,keyword,extended,,High,"A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,host,host.risk.static_score,float,extended,,830.0,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,host,host.risk.static_score_norm,float,extended,,,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100."
 8.5.0-dev+exp,true,host,host.type,keyword,core,,,Type of host.
 8.5.0-dev+exp,true,host,host.uptime,long,extended,,1325,Seconds the host has been up.
 8.5.0-dev+exp,true,http,http.request.body.bytes,long,extended,,887,Size in bytes of the request body.
@@ -1454,6 +1460,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.5.0-dev+exp,true,user,user.changes.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
 8.5.0-dev+exp,true,user,user.changes.name,keyword,core,,a.einstein,Short name or login of the user.
 8.5.0-dev+exp,true,user,user.changes.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.5.0-dev+exp,true,user,user.changes.risk.calculated_level,keyword,extended,,High,A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.changes.risk.calculated_score,float,extended,,880.73,A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.changes.risk.calculated_score_norm,float,extended,,88.73,"A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100."
+8.5.0-dev+exp,true,user,user.changes.risk.static_level,keyword,extended,,High,"A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.changes.risk.static_score,float,extended,,830.0,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.changes.risk.static_score_norm,float,extended,,,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100."
 8.5.0-dev+exp,true,user,user.changes.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.5.0-dev+exp,true,user,user.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.5.0-dev+exp,true,user,user.effective.domain,keyword,extended,,,Name of the directory the user is a member of.
@@ -1467,6 +1479,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.5.0-dev+exp,true,user,user.effective.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
 8.5.0-dev+exp,true,user,user.effective.name,keyword,core,,a.einstein,Short name or login of the user.
 8.5.0-dev+exp,true,user,user.effective.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.5.0-dev+exp,true,user,user.effective.risk.calculated_level,keyword,extended,,High,A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.effective.risk.calculated_score,float,extended,,880.73,A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.effective.risk.calculated_score_norm,float,extended,,88.73,"A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100."
+8.5.0-dev+exp,true,user,user.effective.risk.static_level,keyword,extended,,High,"A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.effective.risk.static_score,float,extended,,830.0,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.effective.risk.static_score_norm,float,extended,,,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100."
 8.5.0-dev+exp,true,user,user.effective.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.5.0-dev+exp,true,user,user.email,keyword,extended,,,User email address.
 8.5.0-dev+exp,true,user,user.full_name,keyword,extended,,Albert Einstein,"User's full name, if available."
@@ -1478,6 +1496,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.5.0-dev+exp,true,user,user.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
 8.5.0-dev+exp,true,user,user.name,keyword,core,,a.einstein,Short name or login of the user.
 8.5.0-dev+exp,true,user,user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.5.0-dev+exp,true,user,user.risk.calculated_level,keyword,extended,,High,A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.risk.calculated_score,float,extended,,880.73,A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.risk.calculated_score_norm,float,extended,,88.73,"A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100."
+8.5.0-dev+exp,true,user,user.risk.static_level,keyword,extended,,High,"A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.risk.static_score,float,extended,,830.0,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.risk.static_score_norm,float,extended,,,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100."
 8.5.0-dev+exp,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.5.0-dev+exp,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
 8.5.0-dev+exp,true,user,user.target.email,keyword,extended,,,User email address.
@@ -1490,6 +1514,12 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.5.0-dev+exp,true,user,user.target.id,keyword,core,,S-1-5-21-202424912787-2692429404-2351956786-1000,Unique identifier of the user.
 8.5.0-dev+exp,true,user,user.target.name,keyword,core,,a.einstein,Short name or login of the user.
 8.5.0-dev+exp,true,user,user.target.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
+8.5.0-dev+exp,true,user,user.target.risk.calculated_level,keyword,extended,,High,A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.target.risk.calculated_score,float,extended,,880.73,A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+8.5.0-dev+exp,true,user,user.target.risk.calculated_score_norm,float,extended,,88.73,"A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100."
+8.5.0-dev+exp,true,user,user.target.risk.static_level,keyword,extended,,High,"A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.target.risk.static_score,float,extended,,830.0,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform."
+8.5.0-dev+exp,true,user,user.target.risk.static_score_norm,float,extended,,,"A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100."
 8.5.0-dev+exp,true,user,user.target.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.5.0-dev+exp,true,user_agent,user_agent.device.name,keyword,extended,,iPhone,Name of the device.
 8.5.0-dev+exp,true,user_agent,user_agent.name,keyword,extended,,Safari,Name of the user agent.
