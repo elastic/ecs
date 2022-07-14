@@ -27,21 +27,33 @@
     - name: io
       level: extended
       type: object
-      short: Fields describing a batch of input or output (IO) data produced by a process.
+      short: A chunk of input or output (IO) from a single process.
       description: >
-        Fields describing a batch of input or output (IO) data produced by a process.
+        A chunk of input or output (IO) from a single process.
 
-        These fields should only appear on the top level process object when event.action is 'io'
+        This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+    - name: io.type
+      level: extended
+      type: keyword
+      short: The type of object on which the IO action (read or write) was taken.
+      description: >
+        The type of object on which the IO action (read or write) was taken.
+
+        Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
 
     - name: io.text
       level: extended
       type: wildcard
+      short: A chunk of output or input sanitized to UTF-8.
       description: >
-        A batch of raw terminal output, potentially spanning multiple lines.
+        A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
 
     # future addition (NOT TO BE INCLUDED IN THIS RFC)
     - name: io.bytes
       level: extended
       type: binary
       description: >
-        A base64 encoded string of binary data read or written by a process.
+        A base64 encoded string of binary data read or written by a process. It's preferable to use process.io.text instead, where possible, to improve searchability.

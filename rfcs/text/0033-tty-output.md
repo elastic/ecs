@@ -13,13 +13,13 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-The goal of the RFC is to introduce new fields to the process fieldset to track input and output data from processes. The initial implementation will be focused on capturing TTY output from processes. Each event will contain some number of bytes of output data (configurable) along with context on which tty, entry_leader, session_leader and process generated the output. This 'tty_output' event will be used to drive new visualizations in Kibana as well as give security analysts another avenue for investigation and rule creation.
+The goal of the RFC is to introduce new fields to the 'process' fieldset to track input and output data from processes. The initial implementation will be focused on capturing Linux TTY output. Each event will contain a maximum number of bytes of output data (configurable) along with context about which tty, and process generated the output. This data can drive new visualizations in Kibana as well as providing more information to security analysts.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
 
-see: 0033/io.yml
+see: 0033/process.yml
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -31,13 +31,14 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
-A new "io" field will be added to the top level process fieldset. Because processes can input and output more than just tty text (files, networking), this 'io' field should be able to support both utf-8 terminal data as well as binary. For the purposes of this RFC we will only be including a process.io.text property to store a number of tty_write calls from the endpoint.
+A new "io" field is added to the top level process fieldset. The key use case is capturing text output to TTY, however, the fieldset has been structured to be extensible to handle input and output from files and sockets, as well non-text (binary) data.
 
-- process.io (type: object, for possible future expansion of additional meta)
-- process.io.text (type: wildcard, a batch of tty output text, possibley spanning multiple lines)
+- process.io (type: object)
+- process.type (type: keyword, for now the only value will be "tty", but in future "file" and "socket" may be added)
+- process.io.text (type: wildcard, a line-oriented chunk of tty output text)
 
 Possible future additions to support non utf-8 data:
-- process.io.bytes (binary, a single base64 encoded string)
+- process.io.bytes (type: binary, a single base64 encoded string)
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -49,9 +50,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-These fields will primarily be used to replay and visualize TTY output for a linux session. Since the output is captured raw, terminal sequence control codes et al, we'll be making use of xtermjs.org to render these output messages over time. This will give security analysts a new means with which to investigate linux sessions.
-
-Because the data is flowing in as UTF-8 encoded chars, it will be possible to write rules against TTY output. This will allow Session View to decorate the output viewer with the location of alerts and other important info like the process writing to the TTY device.
+  These fields will primarily be used to replay and visualize TTY output for a Linux session. Output to a TTY contains terminal control codes. These control codes can represent visual editing (cursor movements), as well as partial screen updates in graphical modes. Libraries like xtermjs.org are well suited to handle the rendering of terminal output. This will give security analysts additional means to investigate Linux sessions.
 
 ## Source data
 
@@ -63,7 +62,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
   {
     event: {
       kind: 'event',
-      action: 'tty_output' (for now the only action type, though once could imagine values like: tty_input, binary_output, binary_input?)
+      action: 'text_output' (for now the only action type, though once could imagine values like: text_input, binary_output, binary_input?)
     },
     process: {
       args: ['ls'],
@@ -74,11 +73,14 @@ Stage 1: Provide a high-level description of example sources of data. This does 
       session_leader: <session_context>,
 
       tty: {
-        major: 1
-        minor: 128
+        char_device: {
+          major: 1,
+          minor: 128
+        }
       },
 
       io: {
+        type: "tty",
         text: "hello world/n#!/bin/bash\ngoodbyeworld",
 
         // future binary support
