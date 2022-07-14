@@ -33,29 +33,15 @@
 
         These fields should only appear on the top level process object when event.action is 'io'
 
-    - name: io.source
+    - name: io.text
       level: extended
-      type: keyword
-      short: Source of the process IO
+      type: wildcard
       description: >
-         Source of the process IO
+        A batch of raw terminal output, potentially spanning multiple lines.
 
-         e.g tty
-
-    - name: io.data
+    # future addition (NOT TO BE INCLUDED IN THIS RFC)
+    - name: io.bytes
       level: extended
-      type: object
+      type: binary
       description: >
-        A time ordered array of objects containing process input/output chunks encoded as UTF-8.
-
-        For 'tty' sources, each entry in the array is a "best effort" line of TTY output. Note: Not all entries will be complete lines due to batching and timeout constraints.
-      normalize: array
-
-    - name: io.data.raw
-      level: extended
-      type: keyword
-      short: A chunk of raw process IO encoded as UTF-8
-      description: >
-        A chunk of raw process IO encoded as UTF-8
-
-        Output is captured raw, and so can contain escaped terminal control codes. ASCII formatting and color escape codes can cause unexpected characters to appear between words, so care should be taken when writing rules or filters against process.io.data.raw.
+        A base64 encoded string of binary data read or written by a process.
