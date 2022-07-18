@@ -57,6 +57,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Added Deprecation Warning for `misspell` task #1993
+
 #### Added
 
 * Introduce `expected_values` attribute. #1952
