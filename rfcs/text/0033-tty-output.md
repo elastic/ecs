@@ -34,7 +34,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 A new "io" field is added to the top level process fieldset. The key use case is capturing text output to TTY, however, the fieldset has been structured to be extensible to handle input and output from files and sockets, as well non-text (binary) data.
 
 - process.io (type: object)
-- process.type (type: keyword, for now the only value will be "tty", but in future "file" and "socket" may be added)
+- process.io.type (type: keyword, for now the only value will be "tty", but in future "file" and "socket" may be added)
 - process.io.text (type: wildcard, a line-oriented chunk of tty output text)
 
 Possible future additions to support non utf-8 data:
