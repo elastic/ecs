@@ -12,13 +12,11 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
- SchemaONE host fields describe information about the host that is relevant to an event. 
+ The host fields describe information about the host that is relevant to an event and extends the ECS host field set in several ways:
 
-SchemaONE extends the ECS host field set in several ways:
-
-- The SchemaONE host field set supports additional host bios fields.
-- The SchemaONE host field set supports additional host cpu fields.
-- The SchemaONE host field set supports additional fields describing a supplemental details that the host can generate.
+- The host field set supports additional host bios fields.
+- The host field set supports additional host cpu fields.
+- The host field set supports additional fields describing a supplemental details that the host can generate.
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
@@ -35,7 +33,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 -->
 Field Name | Special Instructions | Justification/Use Case
 | :--: | :-- | :-- |
-| memory | Extract text following ":" from "Computer Memory : 195073 MB" <br><br> The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br> <table>  <thead>  <tr>  <th>Unit</th>  <th>Multiplication Factor</th>  </tr>  </thead>  <tbody>  <tr>  <td>B</td>  <td><code>(2^0)    1</code></td>  </tr>  <tr>  <td>KB</td>  <td><code>(2^10)  1024</code></td> </tr>  <tr>  <td>MB</td>  <td><code>(2^20)  1,048,576</code></td> </tr>  <tr>  <td>GB</td>  <td><code>(2^30)  1,073,741,824</code></td>  </tr>  <tr>  <td>TB</td>  <td><code>(2^40)  1,099,511,627,776</code></td>  </tr>   </tbody>  </table>     | Detects specific baselines of physical configuration for asset management.
+| memory | The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br> <table>  <thead>  <tr>  <th>Unit</th>  <th>Multiplication Factor</th>  </tr>  </thead>  <tbody>  <tr>  <td>B</td>  <td><code>(2^0)    1</code></td>  </tr>  <tr>  <td>KB</td>  <td><code>(2^10)  1024</code></td> </tr>  <tr>  <td>MB</td>  <td><code>(2^20)  1,048,576</code></td> </tr>  <tr>  <td>GB</td>  <td><code>(2^30)  1,073,741,824</code></td>  </tr>  <tr>  <td>TB</td>  <td><code>(2^40)  1,099,511,627,776</code></td>  </tr>   </tbody>  </table>     | Detects specific baselines of physical configuration for asset management.
 | last_logon.time | N/A | Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.|
 | created | N/A | Indicates that device is known to domain.|
 | distinguished_name | N/A | The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.|
@@ -51,7 +49,7 @@ Field Name | Special Instructions | Justification/Use Case
 | cpu.logical_processor.count | N/A | Detects specific baselines of physical configuration for asset management.|
 | cpu.manufacturer | Note that a manufacturer is displayed for each CPU, select the first. Multiple manufacturers are not expected. | Useful for supply chain issue detection.|
 | cpu.name | Normalize raw field into lowercase format for easier query | Useful for supply chain issue detection.|
-| cpu.speed | Normalize to GHZ, do not round but use 0.28 etc, where required. Store alternative values as shown below<br>null = -1.0<br>blank = -2.0 | Detects specific baselines of physical configuration for asset management.|
+| cpu.speed | Normalize to GHZ, do not round but use 0.28 etc, where required.| Detects specific baselines of physical configuration for asset management.|
  </p>
  </details>
 
@@ -226,7 +224,14 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
-
+The host fields in this RFC are sourced from the following data feeds: 
+ - Host & Network Interface Information
+ - Office 365 Device Audit Logs
+ - Active Directory Computer Objects
+ - Host Information
+ 
+ Insert high level descriptions of each data feed here
+ 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
@@ -256,7 +261,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-Within the SchemaONE schema, the term manufacturer is used while in Elastic Common Schema the appropriate equivalent could be viewed as vendor which may lead to confusion.
+The term manufacturer is used here while in Elastic Common Schema the appropriate equivalent could be viewed as vendor which may lead to confusion.
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -269,8 +274,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @ | Author, Sponsor
-* @     | Subject Matter Expert
+* @donneesdata | Author, Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
