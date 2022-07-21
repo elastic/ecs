@@ -1,6 +1,6 @@
 # 0000: Login Fields RFC
 
-Stage: 1
+Stage: 0
 Date: 2021-06-15
 
 This RFC will provide normalization for fields related to login fields to assure that they are retained primarily in ECS core and in any extended fieldset when needed. These fields are important to normalize into ECS fields in order to maximize effectiveness of cross log utilization. 
