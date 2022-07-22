@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Advances `threat.enrichments.indicator` to GA. #1928
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
