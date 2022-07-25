@@ -230,7 +230,15 @@ The host fields in this RFC are sourced from the following data feeds:
  - Active Directory Computer Objects
  - Host Information
  
- Insert high level descriptions of each data feed here
+ 
+ Host & Network Interface Information collects information about host computer configurations, vulnerabilities and compliance from endpoint computers.
+ 
+ Azure Active Directory (Azure AD) tracks user activity and creates reports that help you understand how your users access and use Azure AD services. The Microsoft Graph API for Azure AD provides a means to access data in the activity reports. 
+ 
+ Active Directory (AD) stores information about objects on the network and makes this information available for administrators and users. AD uses a structured data store as the basis for a logical, hierarchical organization of directory information. This data store, also known as the directory, contains information about AD objects. These objects typically include shared resources such as Users, Computers, Groups, Organizational Units, etc.
+ 
+ Host Information collects configuration and compliance data from endpoint computers.
+
  
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
