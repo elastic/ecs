@@ -30,38 +30,26 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Added Deprecation Warning for `misspell` task #1993
+
 #### Added
 
 #### Improvements
 
 #### Deprecated
 
-## 8.4.0 (Soft Feature Freeze)
+## 8.4.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
 * Initial set of `expected_values`. #1962
 * Adding `service.node.roles`. #1981
 
-#### Improvements
-
-#### Deprecated
-
-#### Removed
-
 ### Tooling and Artifact Changes
 
 #### Breaking changes
-
-#### Bugfixes
-
-* Added Deprecation Warning for `misspell` task #1993
 
 #### Added
 
