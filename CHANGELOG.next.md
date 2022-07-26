@@ -16,6 +16,32 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.5.0 (Soft Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
 * Adding `risk.*` fields as experimental. #1994
 
 #### Improvements
