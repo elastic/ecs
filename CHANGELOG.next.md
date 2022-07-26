@@ -26,6 +26,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Added Deprecation Warning for `misspell` task #1993
+
 #### Added
 
 #### Improvements
@@ -35,10 +37,6 @@ Thanks, you're awesome :-) -->
 ## 8.5.0 (Soft Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -53,10 +51,6 @@ Thanks, you're awesome :-) -->
 ### Tooling and Artifact Changes
 
 #### Breaking changes
-
-#### Bugfixes
-
-* Added Deprecation Warning for `misspell` task #1993
 
 #### Added
 
