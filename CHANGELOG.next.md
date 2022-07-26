@@ -36,36 +36,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Adding `risk.*` fields as experimental. #1994
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-* Added Deprecation Warning for `misspell` task #1993
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
-## 8.5.0 (Soft Feature Freeze)
-
-### Schema Changes
-
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994 #2010
@@ -79,6 +49,10 @@ Thanks, you're awesome :-) -->
 ### Tooling and Artifact Changes
 
 #### Breaking changes
+
+#### Bugfixes
+
+* Added Deprecation Warning for `misspell` task #1993
 
 #### Added
 
