@@ -6516,6 +6516,90 @@ host:
       normalize: []
       short: Pid namespace inode
       type: keyword
+    host.risk.calculated_level:
+      dashed_name: host-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: host.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    host.risk.calculated_score:
+      dashed_name: host-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: host.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    host.risk.calculated_score_norm:
+      dashed_name: host-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: host.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    host.risk.static_level:
+      dashed_name: host-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: host.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    host.risk.static_score:
+      dashed_name: host-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: host.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    host.risk.static_score_norm:
+      dashed_name: host-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: host.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
     host.type:
       dashed_name: host-type
       description: 'Type of host.
@@ -6545,6 +6629,7 @@ host:
   nestings:
   - host.geo
   - host.os
+  - host.risk
   prefix: host.
   reused_here:
   - full: host.geo
@@ -6553,6 +6638,9 @@ host:
   - full: host.os
     schema_name: os
     short: OS fields contain information about the operating system.
+  - full: host.risk
+    schema_name: risk
+    short: Fields for describing the risk score and level.
   short: Fields describing the relevant computing instance.
   title: Host
   type: group
@@ -12518,6 +12606,102 @@ related:
   prefix: related.
   short: Fields meant to facilitate pivoting around a piece of data.
   title: Related
+  type: group
+risk:
+  description: Fields for describing the risk score and level.
+  fields:
+    risk.calculated_level:
+      dashed_name: risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    risk.calculated_score:
+      dashed_name: risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    risk.calculated_score_norm:
+      dashed_name: risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    risk.static_level:
+      dashed_name: risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    risk.static_score:
+      dashed_name: risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    risk.static_score_norm:
+      dashed_name: risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
+  group: 2
+  name: risk
+  prefix: risk.
+  reusable:
+    expected:
+    - as: risk
+      at: host
+      full: host.risk
+    - as: risk
+      at: user
+      full: user.risk
+    top_level: false
+  short: Fields for describing the risk score and level.
+  title: Risk score information
   type: group
 rule:
   description: 'Rule fields are used to capture the specifics of any observer or agent
@@ -20615,6 +20799,90 @@ user:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    user.changes.risk.calculated_level:
+      dashed_name: user-changes-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.changes.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.changes.risk.calculated_score:
+      dashed_name: user-changes-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.changes.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.changes.risk.calculated_score_norm:
+      dashed_name: user-changes-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.changes.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    user.changes.risk.static_level:
+      dashed_name: user-changes-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.changes.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.changes.risk.static_score:
+      dashed_name: user-changes-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.changes.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.changes.risk.static_score_norm:
+      dashed_name: user-changes-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.changes.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
     user.changes.roles:
       dashed_name: user-changes-roles
       description: Array of user roles at the time of the event.
@@ -20758,6 +21026,90 @@ user:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    user.effective.risk.calculated_level:
+      dashed_name: user-effective-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.effective.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.effective.risk.calculated_score:
+      dashed_name: user-effective-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.effective.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.effective.risk.calculated_score_norm:
+      dashed_name: user-effective-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.effective.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    user.effective.risk.static_level:
+      dashed_name: user-effective-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.effective.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.effective.risk.static_score:
+      dashed_name: user-effective-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.effective.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.effective.risk.static_score_norm:
+      dashed_name: user-effective-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.effective.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
     user.effective.roles:
       dashed_name: user-effective-roles
       description: Array of user roles at the time of the event.
@@ -20871,6 +21223,90 @@ user:
       normalize: []
       short: Short name or login of the user.
       type: keyword
+    user.risk.calculated_level:
+      dashed_name: user-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.risk.calculated_score:
+      dashed_name: user-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.risk.calculated_score_norm:
+      dashed_name: user-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    user.risk.static_level:
+      dashed_name: user-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.risk.static_score:
+      dashed_name: user-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.risk.static_score_norm:
+      dashed_name: user-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
     user.roles:
       dashed_name: user-roles
       description: Array of user roles at the time of the event.
@@ -21001,6 +21437,90 @@ user:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    user.target.risk.calculated_level:
+      dashed_name: user-target-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.target.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.target.risk.calculated_score:
+      dashed_name: user-target-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.target.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.target.risk.calculated_score_norm:
+      dashed_name: user-target-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.target.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+      type: float
+    user.target.risk.static_level:
+      dashed_name: user-target-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.target.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.target.risk.static_score:
+      dashed_name: user-target-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.target.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.target.risk.static_score_norm:
+      dashed_name: user-target-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.target.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      type: float
     user.target.roles:
       dashed_name: user-target-roles
       description: Array of user roles at the time of the event.
@@ -21020,6 +21540,7 @@ user:
   - user.changes
   - user.effective
   - user.group
+  - user.risk
   - user.target
   prefix: user.
   reusable:
@@ -21068,6 +21589,9 @@ user:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
+  - full: user.risk
+    schema_name: risk
+    short: Fields for describing the risk score and level.
   - full: user.target
     schema_name: user
     short: Targeted user of action taken.
