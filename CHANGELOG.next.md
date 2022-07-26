@@ -36,6 +36,10 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Breaking changes
+
+#### Bugfixes
+
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994 #2010
