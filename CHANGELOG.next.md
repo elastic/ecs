@@ -16,7 +16,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding `risk.*` fields as experimental. #1994
+
 #### Improvements
+
+* Advances `threat.enrichments.indicator` to GA. #1928
 
 #### Deprecated
 
@@ -56,6 +60,8 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+
+* Added Deprecation Warning for `misspell` task #1993
 
 #### Added
 
