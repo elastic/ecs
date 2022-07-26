@@ -42,7 +42,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Adding `risk.*` fields as experimental. #1994 #2010
+* Adding `risk.*` fields as experimental. #1994, #2010
 
 #### Improvements
 
