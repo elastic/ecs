@@ -225,10 +225,10 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 The host fields in this RFC are sourced from the following data feeds: 
- - Host & Network Interface Information
+ - Endpoint Detection and Response System Audit Logs & Alerts
  - Office 365 Device Audit Logs
  - Active Directory Computer Objects
- - Host Information
+ - Windows Event Logs
  
  
  Host & Network Interface Information collects information about host computer configurations, vulnerabilities and compliance from endpoint computers.
@@ -258,11 +258,11 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
  * Ingestion mechanisms (e.g. beats/logstash)
-     - one
+     - Beats
+     - Custom 
  * Usage mechanisms (e.g. Kibana applications, detections)
-     - one
- * ECS project (e.g. docs, tooling)
-     - one
+     - Kibana
+     - Custom applications
 
 ## Concerns
 
