@@ -47,6 +47,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Advances `threat.enrichments.indicator` to GA. #1928
+* Adds ios and android as valid values for the os.type #1999
 
 #### Deprecated
 
