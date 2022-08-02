@@ -42,11 +42,12 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Adding `risk.*` fields as experimental. #1994
+* Adding `risk.*` fields as experimental. #1994, #2010
 
 #### Improvements
 
 * Advances `threat.enrichments.indicator` to GA. #1928
+* Added `ios` and `android` as valid values for `os.type` #1999
 
 #### Deprecated
 
