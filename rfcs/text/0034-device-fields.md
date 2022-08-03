@@ -119,7 +119,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2013
-    * Correction: 
+    * Correction: https://github.com/elastic/ecs/pull/2021
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
