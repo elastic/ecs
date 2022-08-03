@@ -58,6 +58,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Added Deprecation Warning for `misspell` task #1993
+* Fixed pattern attribute misspelling for `client.mac` #2014
 
 #### Added
 
