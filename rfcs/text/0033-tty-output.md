@@ -35,7 +35,12 @@ A new "io" field is added to the top level process fieldset. The key use case is
 
 - process.io (type: object)
 - process.io.type (type: keyword, for now the only value will be "tty", but in future "file" and "socket" may be added)
+- process.io.total_bytes_captured (type: number)
+- process.io.total_bytes_skipped (type: number)
 - process.io.text (type: wildcard, a line-oriented chunk of tty output text)
+- process.io.bytes_skipped (type: object array)
+- process.io.bytes_skipped.offset (type: number)
+- process.io.bytes_skipped.length (type: number)
 
 Possible future additions to support non utf-8 data:
 - process.io.bytes (type: binary, a single base64 encoded string)
@@ -62,7 +67,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
   {
     event: {
       kind: 'event',
-      action: 'text_output' (for now the only action type, though once could imagine values like: text_input, binary_output, binary_input?)
+      action: 'text_output' (for now the only action type, though one could imagine values like: text_input, binary_output, binary_input?)
     },
     process: {
       args: ['ls'],
@@ -82,6 +87,14 @@ Stage 1: Provide a high-level description of example sources of data. This does 
       io: {
         type: "tty",
         text: "hello world/n#!/bin/bash\ngoodbyeworld",
+
+        total_bytes_captured: 1024,
+        total_bytes_skipped: 160,
+
+        bytes_skipped: [
+          { offset: 512, length: 128 },
+          { offset: 768, length: 32 }
+        ]
 
         // future binary support
         bytes: "<base64encodedstring>"
