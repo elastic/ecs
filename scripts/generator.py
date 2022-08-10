@@ -80,7 +80,8 @@ def main() -> None:
         exit()
 
     csv_generator.generate(flat, ecs_generated_version, out_dir)
-    es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings)
+    es_template.generate(nested, ecs_generated_version, args.component_name_prefix, out_dir,
+                         args.mapping_settings, args.template_settings)
     es_template.generate_legacy(flat, ecs_generated_version, out_dir,
                                 args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)
@@ -115,6 +116,8 @@ def argument_parser() -> argparse.Namespace:
                         help='generate intermediary files only')
     parser.add_argument('--no-ecs', action='store_true',
                         help='do not include ECS schemas')
+    parser.add_argument('--component-name-prefix', action='store', default="ecs",
+                        help='prefix to use for component names')
     parser.add_argument('--force-docs', action='store_true',
                         help='generate ECS docs even if --subset, --include, or --exclude are set')
     args = parser.parse_args()
