@@ -27,6 +27,8 @@ def generate(nested, docs_only_nested, ecs_generated_version, out_dir):
     # fields docs now have a dedicated docs subdir: docs/fields
     fields_docs_dir = out_dir + '/fields'
 
+    ecs_helpers.make_dirs(fields_docs_dir)
+
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested, docs_only_nested))
