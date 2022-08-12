@@ -252,13 +252,12 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
+ * Ingestion mechanisms
  * Usage mechanisms (e.g. Kibana applications, detections)
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
- * Ingestion mechanisms (e.g. beats/logstash)
-     - Beats
+ * Ingestion mechanisms
      - Custom 
  * Usage mechanisms (e.g. Kibana applications, detections)
      - Kibana
