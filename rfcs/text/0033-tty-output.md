@@ -35,9 +35,10 @@ A new "io" field is added to the top level process fieldset. The key use case is
 
 - process.io (type: object)
 - process.io.type (type: keyword, for now the only value will be "tty", but in future "file" and "socket" may be added)
+- process.io.text (type: wildcard, a line-oriented chunk of tty output text)
 - process.io.total_bytes_captured (type: number)
 - process.io.total_bytes_skipped (type: number)
-- process.io.text (type: wildcard, a line-oriented chunk of tty output text)
+- process.io.max_bytes_per_process_exceeded (type: boolean)
 - process.io.bytes_skipped (type: object array)
 - process.io.bytes_skipped.offset (type: number)
 - process.io.bytes_skipped.length (type: number)
@@ -67,7 +68,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
   {
     event: {
       kind: 'event',
-      action: 'text_output' (for now the only action type, though one could imagine values like: text_input, binary_output, binary_input?)
+      action: 'text_output' (for now the only action type, though one could imagine values like: text_input, binary_output, binary_input)
     },
     process: {
       args: ['ls'],

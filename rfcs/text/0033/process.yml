@@ -61,9 +61,9 @@
       level: extended
       type: number
       description: >
-        The total number of bytes skipped in this event.
+        The total number of bytes of output that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
 
-    - name: io.max_kilobytes_per_process_exceeded
+    - name: io.max_bytes_per_process_exceeded
       level: extended
       type: boolean
       description: >
@@ -73,7 +73,7 @@
       level: extended
       type: object
       description: >
-        An array of byte offsets and lengths denoting where IO data may have been skipped.
+        An array of byte offsets and lengths denoting where IO data has been skipped.
 
       normalize: array
 
@@ -81,7 +81,7 @@
       level: extended
       type: number
       description: >
-        The byte offset showing when bytes were skipped.
+        The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
 
     - name: io.bytes_skipped.length
       level: extended
