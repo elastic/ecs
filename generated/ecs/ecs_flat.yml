@@ -329,7 +329,7 @@ client.mac:
   level: core
   name: mac
   normalize: []
-  patther: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
+  pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
   short: MAC address of the client.
   type: keyword
 client.nat.ip:
@@ -5145,13 +5145,16 @@ host.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: host.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 host.os.version:
   dashed_name: host-os-version
@@ -6301,13 +6304,16 @@ observer.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: observer.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 observer.os.version:
   dashed_name: observer-os-version
@@ -12176,7 +12182,6 @@ tags:
   short: List of keywords used to tag each event.
   type: keyword
 threat.enrichments:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments
   description: A list of associated indicators objects enriching the event, and the
     context of that association/enrichment.
@@ -12188,7 +12193,6 @@ threat.enrichments:
   short: List of objects containing indicators enriching the event.
   type: nested
 threat.enrichments.indicator:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator
   description: Object containing associated indicators enriching the event.
   flat_name: threat.enrichments.indicator
@@ -12226,7 +12230,6 @@ threat.enrichments.indicator.as.organization.name:
   short: Organization name.
   type: keyword
 threat.enrichments.indicator.confidence:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-confidence
   description: Identifies the vendor-neutral confidence rating using the None/Low/Medium/High
     scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence
@@ -12246,7 +12249,6 @@ threat.enrichments.indicator.confidence:
   short: Indicator confidence rating
   type: keyword
 threat.enrichments.indicator.description:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-description
   description: Describes the type of action conducted by the threat.
   example: IP x.x.x.x was observed delivering the Angler EK.
@@ -12258,7 +12260,6 @@ threat.enrichments.indicator.description:
   short: Indicator description
   type: keyword
 threat.enrichments.indicator.email.address:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-email-address
   description: Identifies a threat indicator as an email address (irrespective of
     direction).
@@ -13509,7 +13510,6 @@ threat.enrichments.indicator.file.x509.version_number:
   short: Version of x509 format.
   type: keyword
 threat.enrichments.indicator.first_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-first-seen
   description: The date and time when intelligence source first reported sighting
     this indicator.
@@ -13661,7 +13661,6 @@ threat.enrichments.indicator.geo.timezone:
   short: Time zone.
   type: keyword
 threat.enrichments.indicator.ip:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-ip
   description: Identifies a threat indicator as an IP address (irrespective of direction).
   example: 1.2.3.4
@@ -13672,7 +13671,6 @@ threat.enrichments.indicator.ip:
   short: Indicator IP address
   type: ip
 threat.enrichments.indicator.last_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-last-seen
   description: The date and time when intelligence source last reported sighting this
     indicator.
@@ -13684,7 +13682,6 @@ threat.enrichments.indicator.last_seen:
   short: Date/time indicator was last reported.
   type: date
 threat.enrichments.indicator.marking.tlp:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-marking-tlp
   description: Traffic Light Protocol sharing markings.
   example: WHITE
@@ -13701,7 +13698,6 @@ threat.enrichments.indicator.marking.tlp:
   short: Indicator TLP marking
   type: keyword
 threat.enrichments.indicator.modified_at:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-modified-at
   description: The date and time when intelligence source last modified information
     for this indicator.
@@ -13713,7 +13709,6 @@ threat.enrichments.indicator.modified_at:
   short: Date/time indicator was last updated.
   type: date
 threat.enrichments.indicator.port:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-port
   description: Identifies a threat indicator as a port number (irrespective of direction).
   example: 443
@@ -13724,7 +13719,6 @@ threat.enrichments.indicator.port:
   short: Indicator port
   type: long
 threat.enrichments.indicator.provider:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-provider
   description: The name of the indicator's provider.
   example: lrz_urlhaus
@@ -13736,7 +13730,6 @@ threat.enrichments.indicator.provider:
   short: Indicator provider
   type: keyword
 threat.enrichments.indicator.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-reference
   description: Reference URL linking to additional information about this indicator.
   example: https://system.example.com/indicator/0001234
@@ -13843,7 +13836,6 @@ threat.enrichments.indicator.registry.value:
   short: Name of the value written.
   type: keyword
 threat.enrichments.indicator.scanner_stats:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-scanner-stats
   description: Count of AV/EDR vendors that successfully detected malicious file or
     URL.
@@ -13855,7 +13847,6 @@ threat.enrichments.indicator.scanner_stats:
   short: Scanner statistics
   type: long
 threat.enrichments.indicator.sightings:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-sightings
   description: Number of times this indicator was observed conducting threat activity.
   example: 20
@@ -13866,7 +13857,6 @@ threat.enrichments.indicator.sightings:
   short: Number of times indicator observed
   type: long
 threat.enrichments.indicator.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-type
   description: Type of indicator as represented by Cyber Observable in STIX 2.0.
   example: ipv4-addr
@@ -14420,7 +14410,6 @@ threat.enrichments.indicator.x509.version_number:
   short: Version of x509 format.
   type: keyword
 threat.enrichments.matched.atomic:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-atomic
   description: Identifies the atomic indicator value that matched a local environment
     endpoint or network event.
@@ -14433,7 +14422,6 @@ threat.enrichments.matched.atomic:
   short: Matched indicator value
   type: keyword
 threat.enrichments.matched.field:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-field
   description: Identifies the field of the atomic indicator that matched a local environment
     endpoint or network event.
@@ -14446,7 +14434,6 @@ threat.enrichments.matched.field:
   short: Matched indicator field
   type: keyword
 threat.enrichments.matched.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-id
   description: Identifies the _id of the indicator document enriching the event.
   example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
@@ -14458,7 +14445,6 @@ threat.enrichments.matched.id:
   short: Matched indicator identifier
   type: keyword
 threat.enrichments.matched.index:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-index
   description: Identifies the _index of the indicator document enriching the event.
   example: filebeat-8.0.0-2021.05.23-000011
@@ -14480,7 +14466,6 @@ threat.enrichments.matched.occurred:
   short: Date of match
   type: date
 threat.enrichments.matched.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-type
   description: Identifies the type of match that caused the event to be enriched with
     the given indicator
@@ -18871,13 +18856,16 @@ user_agent.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: user_agent.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 user_agent.os.version:
   dashed_name: user-agent-os-version
