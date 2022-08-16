@@ -49,47 +49,12 @@ Furthermore, these `risk` fields will provide users with an additional vector to
 
 * Host Risk Score Transform
 * User Risk Score Transform
+* Alerts 
 * [Potential] Data sources related to other assets
 
 ### Host Risk Score Transform
 
-#### Original document
-
-```json
-{
-  "host": {
-    "name": "My-PC"
-  },
-  "risk_stats": {
-    "rule_risks": [
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
-        "rule_risk": 73
-      },
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Remote File Execution via MSIEXEC",
-        "rule_risk": 73
-      },
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Script Execution via Microsoft HTML Application",
-        "rule_risk": 73
-      }
-    ],
-    "risk_score": 96.68615013176895,
-    "multipliers": [
-      "Host is a server"
-    ]
-  },
-  "risk": "Critical",
-  "ingest_timestamp": "2022-08-15T16:32:16.142561766Z",
-  "@timestamp": "2022-08-12T14:45:36.171Z"
-}
-```
-
-#### Mapped document
+An example of a mapped document produced by the host risk score transform is as follows:
 
 ```json
 {
@@ -127,40 +92,7 @@ Furthermore, these `risk` fields will provide users with an additional vector to
 
 ### User Risk Score Transform
 
-#### Original document
-
-```json
-{
-  "user": {
-    "name": "random-user"
-  },
-  "risk_stats": {
-    "rule_risks": [
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
-        "rule_risk": 73
-      },
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Remote File Execution via MSIEXEC",
-        "rule_risk": 73
-      },
-      {
-        "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
-        "rule_name": "Malicious Behavior Prevention Alert: Script Execution via Microsoft HTML Application",
-        "rule_risk": 73
-      }
-    ],
-    "risk_score": 96.68615013176895
-  },
-  "risk": "Critical",
-  "ingest_timestamp": "2022-08-15T16:32:16.142561766Z",
-  "@timestamp": "2022-08-12T14:45:36.171Z"
-}
-```
-
-#### Mapped document
+An example of a mapped document produced by the user risk score transform is as follows:
 
 ```json
 {
@@ -192,6 +124,10 @@ Furthermore, these `risk` fields will provide users with an additional vector to
   "@timestamp": "2022-08-12T14:45:36.171Z"
 }
 ```
+
+### Alerts
+
+The risk fields can be used to enrich alerts with risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with risk data from internal and external sources is provided in the RFC folder `0031`.
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
