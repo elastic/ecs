@@ -1,7 +1,7 @@
 # 0034: Adding device fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2022-08-03** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -37,6 +37,10 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
+A new `Device` field group will be added with the fields defined by [OpenTelemetry Semantic Conventions for Devices](https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).
+
+
+
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
@@ -47,11 +51,21 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+APM data (i.e. transaction and spans that are part of end-to-end traces) is also collected for mobile devices (i.e. iOS and Android applications). Enriching this APM data would allow for rhich performance and business-related analysis of the data. E.g. user could filter performance issues, errors, crashes, etc. by device model types, versions, manufacturers.
+The APM correlations feature can be improved for mobile applications by including these fields as it would identify statistical correlations if problems occur, for example, only for specific device models.
+A unique device.id allows in addition to derive statistics on recurring users vs. new users. 
+
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+The information will be retrieved by the APM agents for iOS and Android. The Android agent will use the [Build API](https://developer.android.com/reference/android/os/Build#MANUFACTURER) to retrieve the above information. For iOS, the [vendor identifier property](https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor) will be used to retrieve the device ID. iOS also provides an API to retrive the `device.model.identifier`.
+
+For both, iOS and Android, the `device.model.name` cannot be retrieved on the Device itself but need to be mapped from the `device.model.identifier` value. We will use an Elasticsearch ingest node processor for this mapping ([this is the corresponding ES issue for it](https://github.com/elastic/elasticsearch/issues/88865)).
+
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -76,6 +90,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+- `device.model.name` cannot be collected directly on the device but needs to be mapped from the `device.model.identifier`. This requires backend-side mapping. We will solve this through an Elasticsearch ingest node processor (similar to the GeoIP processor that maps IPs to geo locations). 
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -120,7 +135,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/2013
     * Correction: https://github.com/elastic/ecs/pull/2021
-
+* Stage 1: https://github.com/elastic/ecs/pull/2026
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
