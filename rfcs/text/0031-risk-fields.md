@@ -49,7 +49,7 @@ Furthermore, these `risk` fields will provide users with an additional vector to
 
 * Host Risk Score Transform
 * User Risk Score Transform
-* Alerts 
+* Security Alerts 
 * [Potential] Data sources related to other assets
 
 ### Host Risk Score Transform
