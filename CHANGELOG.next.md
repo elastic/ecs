@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Adding `vulnerability` option for `event.catgeory`. #2029
+
 #### Improvements
 
 #### Deprecated
