@@ -127,7 +127,7 @@ An example of a mapped document produced by the user risk score transform is as 
 
 ### Alerts
 
-The risk fields can be used to enrich alerts with risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with risk data from internal and external sources is provided in the RFC folder `0031`.
+The risk fields can be used to enrich alerts with entity risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with entity risk data from internal and external sources is provided in the RFC folder `0031`.
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
