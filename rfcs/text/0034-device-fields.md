@@ -136,6 +136,7 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/2013
     * Correction: https://github.com/elastic/ecs/pull/2021
 * Stage 1: https://github.com/elastic/ecs/pull/2026
+* Stage 2: https://github.com/elastic/ecs/pull/2030
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
