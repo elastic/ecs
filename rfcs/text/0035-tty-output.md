@@ -43,6 +43,11 @@ A new "io" field is added to the top level process fieldset. The key use case is
 - process.io.bytes_skipped.offset (type: number)
 - process.io.bytes_skipped.length (type: number)
 
+Two new fields will be added to the process.tty object to track terminal window size
+- process.tty.lines (type: long, the height of the terminal)
+- process.tty.columns (type: long, the max character width of each line)
+
+
 Possible future additions to support non utf-8 data:
 - process.io.bytes (type: binary, a single base64 encoded string)
 
@@ -82,7 +87,9 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         char_device: {
           major: 1,
           minor: 128
-        }
+        },
+        lines: 24,
+        columns: 80,
       },
 
       io: {
