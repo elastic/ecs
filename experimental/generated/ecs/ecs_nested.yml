@@ -9529,9 +9529,9 @@ process:
       dashed_name: process-entry-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.entry_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9546,7 +9546,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.entry_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -9980,9 +9980,9 @@ process:
       dashed_name: process-group-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.group_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9997,7 +9997,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.group_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -11231,9 +11231,9 @@ process:
       dashed_name: process-parent-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.parent.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -11248,7 +11248,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.parent.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -12012,9 +12012,9 @@ process:
       dashed_name: process-session-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.session_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -12029,7 +12029,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.session_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -12168,9 +12168,9 @@ process:
       dashed_name: process-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -12184,12 +12184,40 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
       normalize: []
       short: The TTY character device's minor number.
+      type: long
+    process.tty.columns:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-columns
+      description: 'The number of columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. e.g event.action: ''text_output'''
+      example: 80
+      flat_name: process.tty.columns
+      level: extended
+      name: tty.columns
+      normalize: []
+      short: The number of columns per line. e.g terminal width
+      type: long
+    process.tty.lines:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-lines
+      description: 'The number of lines in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. e.g event.action: ''text_output'''
+      example: 24
+      flat_name: process.tty.lines
+      level: extended
+      name: tty.lines
+      normalize: []
+      short: The number of lines in the terminal. e.g terminal height
       type: long
     process.uptime:
       dashed_name: process-uptime
