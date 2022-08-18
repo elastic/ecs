@@ -1591,6 +1591,95 @@ example: `co.uk`
 |=====
 
 
+[[ecs-device]]
+=== Device Fields
+
+Fields that describe a device instance and its characteristics.  Data collected for applications and processes running on a (mobile) device can be enriched with these fields to describe the identity, type and other characteristics of the device.
+
+This field group definition is based on the Device namespace of the OpenTelemetry Semantic Conventions (https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Device Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-device-id]]
+<<field-device-id, device.id>>
+
+a| The unique identifier of a device. The identifier must not change across application sessions but stay fixex for an instance of a (mobile) device. 
+
+On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor). On Android, this value must be equal to the Firebase Installation ID or a globally unique UUID which is persisted across sessions in your application.
+
+For GDPR and data protection law reasons this identifier should not carry information that would allow to identify a user.
+
+type: keyword
+
+
+
+example: `00000000-54b3-e7c7-0000-000046bffd97`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-device-manufacturer]]
+<<field-device-manufacturer, device.manufacturer>>
+
+a| The vendor name of the device manufacturer.
+
+type: keyword
+
+
+
+example: `Samsung`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-device-model-identifier]]
+<<field-device-model-identifier, device.model.identifier>>
+
+a| The machine readable identifier of the device model.
+
+type: keyword
+
+
+
+example: `SM-G920F`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-device-model-name]]
+<<field-device-model-name, device.model.name>>
+
+a| The human readable marketing name of the device model.
+
+type: keyword
+
+
+
+example: `Samsung Galaxy S6`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+
 [[ecs-dll]]
 === DLL Fields
 
