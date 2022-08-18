@@ -2062,6 +2062,73 @@ destination:
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
+device:
+  beta: These fields are in beta and are subject to change.
+  description: 'Fields that describe a device instance and its characteristics.  Data
+    collected for applications and processes running on a (mobile) device can be enriched
+    with these fields to describe the identity, type and other characteristics of
+    the device.
+
+    This field group definition is based on the Device namespace of the OpenTelemetry
+    Semantic Conventions (https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).'
+  fields:
+    device.id:
+      dashed_name: device-id
+      description: "The unique identifier of a device. The identifier must not change\
+        \ across application sessions but stay fixex for an instance of a (mobile)\
+        \ device. \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
+        \ On Android, this value must be equal to the Firebase Installation ID or\
+        \ a globally unique UUID which is persisted across sessions in your application.\n\
+        For GDPR and data protection law reasons this identifier should not carry\
+        \ information that would allow to identify a user."
+      example: 00000000-54b3-e7c7-0000-000046bffd97
+      flat_name: device.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      short: The unique identifier of a device.
+      type: keyword
+    device.manufacturer:
+      dashed_name: device-manufacturer
+      description: The vendor name of the device manufacturer.
+      example: Samsung
+      flat_name: device.manufacturer
+      ignore_above: 1024
+      level: extended
+      name: manufacturer
+      normalize: []
+      short: The vendor name of the device manufacturer.
+      type: keyword
+    device.model.identifier:
+      dashed_name: device-model-identifier
+      description: The machine readable identifier of the device model.
+      example: SM-G920F
+      flat_name: device.model.identifier
+      ignore_above: 1024
+      level: extended
+      name: model.identifier
+      normalize: []
+      short: The machine readable identifier of the device model.
+      type: keyword
+    device.model.name:
+      dashed_name: device-model-name
+      description: The human readable marketing name of the device model.
+      example: Samsung Galaxy S6
+      flat_name: device.model.name
+      ignore_above: 1024
+      level: extended
+      name: model.name
+      normalize: []
+      short: The human readable marketing name of the device model.
+      type: keyword
+  group: 2
+  name: device
+  prefix: device.
+  short: Fields characterizing a (mobile) device a process or application is running
+    on.
+  title: Device
+  type: group
 dll:
   description: 'These fields contain information about code libraries dynamically
     loaded into processes.

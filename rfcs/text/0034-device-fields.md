@@ -1,7 +1,7 @@
 # 0034: Adding device fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2022-08-16** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -136,6 +136,7 @@ e.g.:
 * Stage 0: https://github.com/elastic/ecs/pull/2013
     * Correction: https://github.com/elastic/ecs/pull/2021
 * Stage 1: https://github.com/elastic/ecs/pull/2026
+* Stage 2: https://github.com/elastic/ecs/pull/2030
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...

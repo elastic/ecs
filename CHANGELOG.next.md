@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `device.*` field set as beta. #2030
+
 #### Improvements
 
 #### Deprecated
