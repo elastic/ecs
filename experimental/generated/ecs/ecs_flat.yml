@@ -398,7 +398,7 @@ client.mac:
   level: core
   name: mac
   normalize: []
-  patther: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
+  pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
   short: MAC address of the client.
   type: keyword
 client.nat.ip:
@@ -1699,6 +1699,56 @@ destination.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  type: keyword
+device.id:
+  dashed_name: device-id
+  description: "The unique identifier of a device. The identifier must not change\
+    \ across application sessions but stay fixex for an instance of a (mobile) device.\
+    \ \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
+    \ On Android, this value must be equal to the Firebase Installation ID or a globally\
+    \ unique UUID which is persisted across sessions in your application.\nFor GDPR\
+    \ and data protection law reasons this identifier should not carry information\
+    \ that would allow to identify a user."
+  example: 00000000-54b3-e7c7-0000-000046bffd97
+  flat_name: device.id
+  ignore_above: 1024
+  level: extended
+  name: id
+  normalize: []
+  short: The unique identifier of a device.
+  type: keyword
+device.manufacturer:
+  dashed_name: device-manufacturer
+  description: The vendor name of the device manufacturer.
+  example: Samsung
+  flat_name: device.manufacturer
+  ignore_above: 1024
+  level: extended
+  name: manufacturer
+  normalize: []
+  short: The vendor name of the device manufacturer.
+  type: keyword
+device.model.identifier:
+  dashed_name: device-model-identifier
+  description: The machine readable identifier of the device model.
+  example: SM-G920F
+  flat_name: device.model.identifier
+  ignore_above: 1024
+  level: extended
+  name: model.identifier
+  normalize: []
+  short: The machine readable identifier of the device model.
+  type: keyword
+device.model.name:
+  dashed_name: device-model-name
+  description: The human readable marketing name of the device model.
+  example: Samsung Galaxy S6
+  flat_name: device.model.name
+  ignore_above: 1024
+  level: extended
+  name: model.name
+  normalize: []
+  short: The human readable marketing name of the device model.
   type: keyword
 dll.code_signature.digest_algorithm:
   dashed_name: dll-code-signature-digest-algorithm
@@ -5214,13 +5264,16 @@ host.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: host.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 host.os.version:
   dashed_name: host-os-version
@@ -5247,6 +5300,86 @@ host.pid_ns_ino:
   normalize: []
   short: Pid namespace inode
   type: keyword
+host.risk.calculated_level:
+  dashed_name: host-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: host.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+host.risk.calculated_score:
+  dashed_name: host-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: host.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+host.risk.calculated_score_norm:
+  dashed_name: host-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: host.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+host.risk.static_level:
+  dashed_name: host-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: host.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+host.risk.static_score:
+  dashed_name: host-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: host.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+host.risk.static_score_norm:
+  dashed_name: host-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: host.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 host.type:
   dashed_name: host-type
   description: 'Type of host.
@@ -6370,13 +6503,16 @@ observer.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: observer.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 observer.os.version:
   dashed_name: observer-os-version
@@ -12245,7 +12381,6 @@ tags:
   short: List of keywords used to tag each event.
   type: keyword
 threat.enrichments:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments
   description: A list of associated indicators objects enriching the event, and the
     context of that association/enrichment.
@@ -12257,7 +12392,6 @@ threat.enrichments:
   short: List of objects containing indicators enriching the event.
   type: nested
 threat.enrichments.indicator:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator
   description: Object containing associated indicators enriching the event.
   flat_name: threat.enrichments.indicator
@@ -12295,7 +12429,6 @@ threat.enrichments.indicator.as.organization.name:
   short: Organization name.
   type: keyword
 threat.enrichments.indicator.confidence:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-confidence
   description: Identifies the vendor-neutral confidence rating using the None/Low/Medium/High
     scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific confidence
@@ -12315,7 +12448,6 @@ threat.enrichments.indicator.confidence:
   short: Indicator confidence rating
   type: keyword
 threat.enrichments.indicator.description:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-description
   description: Describes the type of action conducted by the threat.
   example: IP x.x.x.x was observed delivering the Angler EK.
@@ -12327,7 +12459,6 @@ threat.enrichments.indicator.description:
   short: Indicator description
   type: keyword
 threat.enrichments.indicator.email.address:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-email-address
   description: Identifies a threat indicator as an email address (irrespective of
     direction).
@@ -13578,7 +13709,6 @@ threat.enrichments.indicator.file.x509.version_number:
   short: Version of x509 format.
   type: keyword
 threat.enrichments.indicator.first_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-first-seen
   description: The date and time when intelligence source first reported sighting
     this indicator.
@@ -13730,7 +13860,6 @@ threat.enrichments.indicator.geo.timezone:
   short: Time zone.
   type: keyword
 threat.enrichments.indicator.ip:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-ip
   description: Identifies a threat indicator as an IP address (irrespective of direction).
   example: 1.2.3.4
@@ -13741,7 +13870,6 @@ threat.enrichments.indicator.ip:
   short: Indicator IP address
   type: ip
 threat.enrichments.indicator.last_seen:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-last-seen
   description: The date and time when intelligence source last reported sighting this
     indicator.
@@ -13753,7 +13881,6 @@ threat.enrichments.indicator.last_seen:
   short: Date/time indicator was last reported.
   type: date
 threat.enrichments.indicator.marking.tlp:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-marking-tlp
   description: Traffic Light Protocol sharing markings.
   example: WHITE
@@ -13770,7 +13897,6 @@ threat.enrichments.indicator.marking.tlp:
   short: Indicator TLP marking
   type: keyword
 threat.enrichments.indicator.modified_at:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-modified-at
   description: The date and time when intelligence source last modified information
     for this indicator.
@@ -13782,7 +13908,6 @@ threat.enrichments.indicator.modified_at:
   short: Date/time indicator was last updated.
   type: date
 threat.enrichments.indicator.port:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-port
   description: Identifies a threat indicator as a port number (irrespective of direction).
   example: 443
@@ -13793,7 +13918,6 @@ threat.enrichments.indicator.port:
   short: Indicator port
   type: long
 threat.enrichments.indicator.provider:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-provider
   description: The name of the indicator's provider.
   example: lrz_urlhaus
@@ -13805,7 +13929,6 @@ threat.enrichments.indicator.provider:
   short: Indicator provider
   type: keyword
 threat.enrichments.indicator.reference:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-reference
   description: Reference URL linking to additional information about this indicator.
   example: https://system.example.com/indicator/0001234
@@ -13912,7 +14035,6 @@ threat.enrichments.indicator.registry.value:
   short: Name of the value written.
   type: keyword
 threat.enrichments.indicator.scanner_stats:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-scanner-stats
   description: Count of AV/EDR vendors that successfully detected malicious file or
     URL.
@@ -13924,7 +14046,6 @@ threat.enrichments.indicator.scanner_stats:
   short: Scanner statistics
   type: long
 threat.enrichments.indicator.sightings:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-sightings
   description: Number of times this indicator was observed conducting threat activity.
   example: 20
@@ -13935,7 +14056,6 @@ threat.enrichments.indicator.sightings:
   short: Number of times indicator observed
   type: long
 threat.enrichments.indicator.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-indicator-type
   description: Type of indicator as represented by Cyber Observable in STIX 2.0.
   example: ipv4-addr
@@ -14489,7 +14609,6 @@ threat.enrichments.indicator.x509.version_number:
   short: Version of x509 format.
   type: keyword
 threat.enrichments.matched.atomic:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-atomic
   description: Identifies the atomic indicator value that matched a local environment
     endpoint or network event.
@@ -14502,7 +14621,6 @@ threat.enrichments.matched.atomic:
   short: Matched indicator value
   type: keyword
 threat.enrichments.matched.field:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-field
   description: Identifies the field of the atomic indicator that matched a local environment
     endpoint or network event.
@@ -14515,7 +14633,6 @@ threat.enrichments.matched.field:
   short: Matched indicator field
   type: keyword
 threat.enrichments.matched.id:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-id
   description: Identifies the _id of the indicator document enriching the event.
   example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
@@ -14527,7 +14644,6 @@ threat.enrichments.matched.id:
   short: Matched indicator identifier
   type: keyword
 threat.enrichments.matched.index:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-index
   description: Identifies the _index of the indicator document enriching the event.
   example: filebeat-8.0.0-2021.05.23-000011
@@ -14549,7 +14665,6 @@ threat.enrichments.matched.occurred:
   short: Date of match
   type: date
 threat.enrichments.matched.type:
-  beta: This field is beta and subject to change.
   dashed_name: threat-enrichments-matched-type
   description: Identifies the type of match that caused the event to be enriched with
     the given indicator
@@ -18421,6 +18536,86 @@ user.changes.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+user.changes.risk.calculated_level:
+  dashed_name: user-changes-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: user.changes.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+user.changes.risk.calculated_score:
+  dashed_name: user-changes-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: user.changes.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+user.changes.risk.calculated_score_norm:
+  dashed_name: user-changes-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: user.changes.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+user.changes.risk.static_level:
+  dashed_name: user-changes-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: user.changes.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+user.changes.risk.static_score:
+  dashed_name: user-changes-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: user.changes.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+user.changes.risk.static_score_norm:
+  dashed_name: user-changes-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: user.changes.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 user.changes.roles:
   dashed_name: user-changes-roles
   description: Array of user roles at the time of the event.
@@ -18564,6 +18759,86 @@ user.effective.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+user.effective.risk.calculated_level:
+  dashed_name: user-effective-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: user.effective.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+user.effective.risk.calculated_score:
+  dashed_name: user-effective-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: user.effective.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+user.effective.risk.calculated_score_norm:
+  dashed_name: user-effective-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: user.effective.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+user.effective.risk.static_level:
+  dashed_name: user-effective-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: user.effective.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+user.effective.risk.static_score:
+  dashed_name: user-effective-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: user.effective.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+user.effective.risk.static_score_norm:
+  dashed_name: user-effective-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: user.effective.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 user.effective.roles:
   dashed_name: user-effective-roles
   description: Array of user roles at the time of the event.
@@ -18677,6 +18952,86 @@ user.name:
   normalize: []
   short: Short name or login of the user.
   type: keyword
+user.risk.calculated_level:
+  dashed_name: user-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: user.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+user.risk.calculated_score:
+  dashed_name: user-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: user.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+user.risk.calculated_score_norm:
+  dashed_name: user-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: user.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+user.risk.static_level:
+  dashed_name: user-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: user.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+user.risk.static_score:
+  dashed_name: user-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: user.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+user.risk.static_score_norm:
+  dashed_name: user-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: user.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 user.roles:
   dashed_name: user-roles
   description: Array of user roles at the time of the event.
@@ -18807,6 +19162,86 @@ user.target.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+user.target.risk.calculated_level:
+  dashed_name: user-target-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: user.target.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+user.target.risk.calculated_score:
+  dashed_name: user-target-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: user.target.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+user.target.risk.calculated_score_norm:
+  dashed_name: user-target-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: user.target.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+user.target.risk.static_level:
+  dashed_name: user-target-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: user.target.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+user.target.risk.static_score:
+  dashed_name: user-target-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: user.target.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+user.target.risk.static_score_norm:
+  dashed_name: user-target-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: user.target.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 user.target.roles:
   dashed_name: user-target-roles
   description: Array of user roles at the time of the event.
@@ -18940,13 +19375,16 @@ user_agent.os.type:
   - macos
   - unix
   - windows
+  - ios
+  - android
   flat_name: user_agent.os.type
   ignore_above: 1024
   level: extended
   name: type
   normalize: []
   original_fieldset: os
-  short: 'Which commercial OS family (one of: linux, macos, unix or windows).'
+  short: 'Which commercial OS family (one of: linux, macos, unix, windows, ios or
+    android).'
   type: keyword
 user_agent.os.version:
   dashed_name: user-agent-os-version

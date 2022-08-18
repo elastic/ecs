@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `device.*` field set as beta. #2030
+
 #### Improvements
 
 #### Deprecated
@@ -32,7 +34,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.4.0 (Soft Feature Freeze)
+## 8.5.0 (Soft Feature Freeze)
 
 ### Schema Changes
 
@@ -42,14 +44,14 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
+* Adding `risk.*` fields as experimental. #1994, #2010
 
 #### Improvements
 
-#### Deprecated
+* Advances `threat.enrichments.indicator` to GA. #1928
+* Added `ios` and `android` as valid values for `os.type` #1999
 
-#### Removed
+#### Deprecated
 
 ### Tooling and Artifact Changes
 
@@ -58,6 +60,25 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Added Deprecation Warning for `misspell` task #1993
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.4.0 (Hard Feature Freeze)
+
+### Schema Changes
+
+#### Added
+
+* Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
 
 #### Added
 
