@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Adding `vulnerability` option for `event.catgeory`. #2029
+* Added `device.*` field set as beta. #2030
 
 #### Improvements
 
