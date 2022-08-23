@@ -44,7 +44,7 @@ A new "io" field is added to the top level process fieldset. The key use case is
 - process.io.bytes_skipped.length (type: number)
 
 Two new fields will be added to the process.tty object to track terminal window size
-- process.tty.lines (type: long, the height of the terminal)
+- process.tty.rows (type: long, the height of the terminal)
 - process.tty.columns (type: long, the max character width of each line)
 
 
