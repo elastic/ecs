@@ -88,7 +88,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
           major: 1,
           minor: 128
         },
-        lines: 24,
+        rows: 24,
         columns: 80,
       },
 
