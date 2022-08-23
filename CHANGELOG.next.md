@@ -20,6 +20,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings - [#2022](https://github.com/elastic/ecs/issues/2022)
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
