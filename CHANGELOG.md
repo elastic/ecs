@@ -3,6 +3,25 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.4.0](https://github.com/elastic/ecs/compare/v8.3.1...v8.4.0)
+
+### Schema Changes
+
+#### Added
+
+* Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Introduce `expected_values` attribute. #1952
+
+#### Improvements
+
+* Additional type annotations. #1950
+
 ## [8.3.1](https://github.com/elastic/ecs/compare/v8.3.0...v8.3.1)
 
 ### Schema Changes
