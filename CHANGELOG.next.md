@@ -69,29 +69,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.4.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Added
-
-* Introduce `expected_values` attribute. #1952
-
-#### Improvements
-
-* Additional type annotations. #1950
-
-#### Deprecated
-
 <!-- All empty sections:
 
 ## Unreleased
