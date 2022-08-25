@@ -38,6 +38,8 @@ Thanks, you're awesome :-) -->
 
 ## 8.5.0 (Soft Feature Freeze)
 
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+
 ### Schema Changes
 
 #### Breaking changes
