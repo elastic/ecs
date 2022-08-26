@@ -280,15 +280,17 @@
 
     - name: env_vars
       level: extended
-      type: object
+      type: keyword
       beta: This field is beta and subject to change.
-      short: Environment variables set at the time of the event.
+      short: Array of environment variable bindings.
       description: >
-        Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+        Array of environment variable bindings.
+        Captured from a snapshot of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.
-      example: "{\"USER\": \"elastic\",\"LANG\": \"en_US.UTF-8\",\"HOME\": \"/home/elastic\"}"
+        May be filtered to protect sensitive information.
+      example: "[\"PATH=/usr/local/bin:/usr/bin\", \"USER=ubuntu\"]"
+      normalize:
+        - array
 
     - name: entry_meta.type
       level: extended
