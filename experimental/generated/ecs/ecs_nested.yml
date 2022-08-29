@@ -9668,17 +9668,19 @@ process:
     process.env_vars:
       beta: This field is beta and subject to change.
       dashed_name: process-env-vars
-      description: 'Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+      description: 'Array of environment variable bindings. Captured from a snapshot
+        of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.'
-      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
+        May be filtered to protect sensitive information.'
+      example: '["PATH=/usr/local/bin:/usr/bin", "USER=ubuntu"]'
       flat_name: process.env_vars
+      ignore_above: 1024
       level: extended
       name: env_vars
-      normalize: []
-      short: Environment variables set at the time of the event.
-      type: object
+      normalize:
+      - array
+      short: Array of environment variable bindings.
+      type: keyword
     process.executable:
       dashed_name: process-executable
       description: Absolute path to the process executable.

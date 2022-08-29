@@ -7350,15 +7350,18 @@ type: keyword
 
 a| beta:[ This field is beta and subject to change. ]
 
-Environment variables (`env_vars`) set at the time of the event. May be filtered to protect sensitive information.
+Array of environment variable bindings. Captured from a snapshot of the environment at the time of execution.
 
-The field should not contain nested objects. All values should use `keyword`.
+May be filtered to protect sensitive information.
 
-type: object
+type: keyword
+
+
+Note: this field should contain an array of values.
 
 
 
-example: `{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}`
+example: `["PATH=/usr/local/bin:/usr/bin", "USER=ubuntu"]`
 
 | extended
 
