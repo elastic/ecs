@@ -46,7 +46,7 @@ Thanks, you're awesome :-) -->
 
 * Adding `risk.*` fields as experimental. #1994, #2010
 * Adding `process.io.*` as beta fields. #1956, #2031
-* Adding `process.tty.lines` and `process.tty.columns` as beta fields. #2031
+* Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
 
 #### Improvements
 
