@@ -7609,13 +7609,13 @@ type: object
 
 a| beta:[ This field is beta and subject to change. ]
 
-The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0. For more details, please refer to the Linux kernel documentation.
+The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
 
 type: long
 
 
 
-example: `1`
+example: `4`
 
 | extended
 
@@ -7633,7 +7633,47 @@ type: long
 
 
 
-example: `128`
+example: `1`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-tty-columns]]
+<<field-process-tty-columns, process.tty.columns>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The number of character columns per line. e.g terminal width
+
+Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+
+type: long
+
+
+
+example: `80`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-tty-rows]]
+<<field-process-tty-rows, process.tty.rows>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The number of character rows in the terminal. e.g terminal height
+
+Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+
+type: long
+
+
+
+example: `24`
 
 | extended
 

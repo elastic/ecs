@@ -23,6 +23,28 @@
       description: >
         The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
 
+    - name: tty.rows
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character rows in the terminal. e.g terminal height
+      description: >
+        The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 24
+
+    - name: tty.columns
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character columns per line. e.g terminal width
+      description: >
+        The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 80
+
     # new 'io' properties for tracking tty output
     - name: io
       level: extended
