@@ -5364,9 +5364,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: entry_leader.tty.char_device.minor
       level: extended
@@ -5375,7 +5375,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: entry_leader.user.id
       level: core
@@ -5648,9 +5648,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: group_leader.tty.char_device.minor
       level: extended
@@ -5659,7 +5659,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: group_leader.user.id
       level: core
@@ -6386,9 +6386,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: parent.tty.char_device.minor
       level: extended
@@ -6397,7 +6397,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: parent.uptime
       level: extended
@@ -6869,9 +6869,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: session_leader.tty.char_device.minor
       level: extended
@@ -6880,7 +6880,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: session_leader.user.id
       level: core
@@ -6961,9 +6961,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: tty.char_device.minor
       level: extended
@@ -6972,7 +6972,25 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
+      default_field: false
+    - name: tty.columns
+      level: extended
+      type: long
+      description: 'The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 80
+      default_field: false
+    - name: tty.rows
+      level: extended
+      type: long
+      description: 'The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 24
       default_field: false
     - name: uptime
       level: extended
