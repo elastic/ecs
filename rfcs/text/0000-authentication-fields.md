@@ -17,26 +17,23 @@ This RFC will provide normalization for fields related to authentication fields 
 |authentication.token.identifier|keyword|MjlkY2M0MzItNWU4YS00NjU5LTlmMDMtNmVkZTE4NDAwMzAw|azure.activitylogs.properties.uniqueTokenIdentifier|
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
 |authentication.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
-|authentication.token|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
-|authentication.requirement|keyword|singleFactorAuthentication|azure.signinlogs.properties.authentication_requirement|
-|authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.is_interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
-|authentication.token.type|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
-|authentication.token.identifier|keyword|MDg4YjQ0MDktOWU2My00MjVkLWI3NzctMmM4YzZjMzgwYjAw|azure.signinlogs.properties.unique_token_identifier|
-
-## Usage
-| Field | Description | Example Values(s) |
-| --- | --- | --- |
-|authentication.additional.details|Login Additional Details|MFA requirement satisfied by claim in the token|
-|authentication.authentication.requirement|Login Authentication Requirements|singleFactorAuthentication/multiFactorAuthentication|
-|authentication.authorization|Login Authorization Information|ROOTMANAGESHAREDACCESSKEY|
-|authentication.isInteractive|Is the login an interactive login?|TRUE/FALSE|
-|authentication.risk|Risk level for the login event.|low|
-|authentication.scope|Requested scope of user|user_impersonation|
-|authentication.token.identifier|Login token identifier/value|MjlkY2M0MzItNWU4YS00NjU5LTlmMDMtNmVkZTE4NDAwMzAw|
-|authentication.token.type|Type of token for the login event|AzureAD|
 |authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.||
 |authentication.protocol|Authentication Protocol (authproto)||
+
+## Definition
+| Field | Description | Type | Definition |
+| --- | --- | --- |  --- |
+|authentication.scope|Requested scope of user|keyword| Defines scope of authentication request|
+|authentication.requirement|Login Authentication Requirements|keyword| What is required to authenticate|
+|authentication.additional.details|Login Additional Details|list| Important login details not applicable in other areas|
+|authentication.token|Type of token for the login event|keyword| Unique token provided during the event|
+|authentication.token.identifier|Login token identifier/value|keyword| Unique identifier|
+|authentication.authorization|Login Authorization Information|keyword| Important authorization information|
+|authentication.isInteractive|Is the login an interactive login?|boolean| Describes whether the request was an interactive authentication or not|
+|authentication.risk|Risk level for the authentication event.|keyword| This describes the risk level for the authentication event.|
+|authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.| keyword | This unique value allows for identification of the authentication request|
+|authentication.protocol|Authentication Protocol (authproto)|keyword|This field provides information about the authentication protocol used.| 
 
 
 ## Source data
