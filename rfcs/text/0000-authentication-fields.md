@@ -7,23 +7,18 @@ This RFC will provide normalization for fields related to authentication fields 
 
 ## Fields
 
-#### Activity Log
+#### Log
 |Proposed Field Name|Type|Value|Azure Field|
 | --- | --- | --- | --- |
 |authentication.scope|keyword|user_impersonation|azure.activitylogs.identity.claims.http://schemas_microsoft_com/identity/claims/scope|
-|authentication.authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
+|authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
 |authentication.additional.details|keyword|MFA requirement satisfied by claim in the token|azure.activitylogs.properties.status.additionalDetails|
-|authentication.token.type|keyword|AzureAD|azure.activitylogs.properties.tokenIssuerType|
+|authentication.token|keyword|AzureAD|azure.activitylogs.properties.tokenIssuerType|
 |authentication.token.identifier|keyword|MjlkY2M0MzItNWU4YS00NjU5LTlmMDMtNmVkZTE4NDAwMzAw|azure.activitylogs.properties.uniqueTokenIdentifier|
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
 |authentication.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
 |authentication.token|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
-
-
-#### SignIn Log
-|Proposed Field Name|Type|Value|Azure Field|
-| --- | --- | --- | --- |
-|authentication.authentication.requirement|keyword|singleFactorAuthentication|azure.signinlogs.properties.authentication_requirement|
+|authentication.requirement|keyword|singleFactorAuthentication|azure.signinlogs.properties.authentication_requirement|
 |authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.is_interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |authentication.token.type|keyword|AzureAD|azure.signinlogs.properties.token_issuer_type|
@@ -46,7 +41,7 @@ This RFC will provide normalization for fields related to authentication fields 
 
 ## Source data
 
-The source data for the logn fields came from Azure data, which came from Azure Eventhubs, or Blob Storage. The specific types of data being pulled from these sources are Signin, Platform, Activity, and Audit logs.
+The source data for the logn fields came from multiple data sources, such as Azure Eventhubs, Azure Blob Storage, or PanOS Authentication Logs.
 
 Here is a copy and example of a rawLog that came from Azure EventHubs.
 ```json
@@ -129,6 +124,10 @@ Here is a copy and example of a rawLog that came from Azure EventHubs.
         ]
     }
 ]
+
+Palo Alto Authentication Logs:
+FUTURE_USE, Receive Time, Serial Number, Type, Threat/Content Type, FUTURE_USE, Generated Time, Virtual System, Source IP, User, Normalize User, Object, Authentication Policy, Repeat Count, Authentication ID, Vendor, Log Action, Server Profile, Description, Client Type, Event Type, Factor Number, Sequence Number, Action Flags, Device Group Hierarchy 1, Device Group Hierarchy 2, Device Group Hierarchy 3, Device Group Hierarchy 4, Virtual System Name, Device Name, Virtual System ID, Authentication Protocol, UUID for rule, High Resolution Timestamp, Source Device Category, Source Device Profile, Source Device Model, Source Device Vendor, Source Device OS Family, Source Device OS Version, Source Hostname, Source Mac Address, Region, FUTURE_USE, User Agent, Session ID
+
 ```
 ## Scope of impact
 
