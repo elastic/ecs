@@ -53,12 +53,13 @@ Field Name | Special Instructions | Justification/Use Case
  </p>
  </details>
 
-    - name: memory
+    - name: cpe
       level: custom
-      type: unsigned long
-      example: 17,179,869,184
+      type: keyword
+      normalization: array
+      example: ["cpe:/o:microsoft:windows", "cpe:/a:adobe:acrobat"]
       description: >
-        Physical memory of the host machine in bytes.
+        Software identified by its common platform enumeration (CPE) value.
         
     - name: last_logon.time
       level: custom
