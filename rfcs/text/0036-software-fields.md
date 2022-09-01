@@ -33,7 +33,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 -->
 Field Name | Special Instructions | Justification/Use Case
 | :--: | :-- | :-- |
-| memory | The numeric value is a base value for memory. The two character unit type represents a multiplication factor to determine actual memory. <br> <br>Normalize to byte value by multiplying base value by unit type as follows <br> <table>  <thead>  <tr>  <th>Unit</th>  <th>Multiplication Factor</th>  </tr>  </thead>  <tbody>  <tr>  <td>B</td>  <td><code>(2^0)    1</code></td>  </tr>  <tr>  <td>KB</td>  <td><code>(2^10)  1024</code></td> </tr>  <tr>  <td>MB</td>  <td><code>(2^20)  1,048,576</code></td> </tr>  <tr>  <td>GB</td>  <td><code>(2^30)  1,073,741,824</code></td>  </tr>  <tr>  <td>TB</td>  <td><code>(2^40)  1,099,511,627,776</code></td>  </tr>   </tbody>  </table>     | Detects specific baselines of physical configuration for asset management.
+| cpe | N/A | Common Platform Enumeration (CPE) is a standardized method of describing and identifying classes of applications, operating systems, and hardware devices present among an enterprise's computing assets.<br><br>IT management tools can collect information about installed products, identifying these products using their CPE names, and then use this standardized information to help make fully or partially automated decisions regarding the assets. For example, identifying the presence of XYZ Visualizer Enterprise Suite could trigger a vulnerability management tool to check the system for known vulnerabilities in the software, and also trigger a configuration management tool to verify that the software is configured securely in accordance with the organization's policies.
 | last_logon.time | N/A | Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.|
 | created | N/A | Indicates that device is known to domain.|
 | distinguished_name | N/A | The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.|
@@ -61,113 +61,102 @@ Field Name | Special Instructions | Justification/Use Case
       description: >
         Software identified by its common platform enumeration (CPE) value.
         
-    - name: last_logon.time
-      level: custom
-      type: date
-      description: >
-        The time of the last user logon to the host. The timestamp type represents date and time information using ISO 8601 format and is always in UTC time.
-
-    - name: created
-      level: custom
-      type: date
-      description: >
-        Date and time of when the device was registered in the domain. 
-
-    - name: distinguished_name
+    - name: name
       level: custom
       type: keyword
-      example: CN=foo, CN=computers, DC=acme, DC=company, DC=edu
-      normalized: array
+      example: skype
       description: >
-        Distinguished name of the host.
+        The name of the software. 
 
-    - name: modified
-      level: custom
-      type: date
-      description: >
-        Date the host's details were last modified.
-
-    - name: bios.manufacturer
+    - name: modules.name
       level: custom
       type: keyword
-      example: dell inc.
+      example: Anti-spyware protection
+      description: >
+        Module name. 
+
+    - name: version
+      level: custom
+      type: keyword
+      example: 27/1.0.0.2021090243
+      description: >
+        The software version.
+
+    - name: add_on.name
+      level: custom
+      type: keyword
+      example: Wiki
+      description: >
+        The name of the software add-on/extension that generated the event.
+
+    - name: add_on.type
+      level: custom
+      type: keyword
+      example: Bot
       description: > 
-        This is a string representing the system manufacturer of the host.
+        The type of the software add-on/extension that generated the event.
 
-    - name: bios.release_date
+    - name: add_on.url.full
+      level: custom
+      type: keyword
+      example: https://example.com/download/my_add_on
+      description: >
+        Software installed on the host identified common platform enumeration (CPE) value.
+
+    - name: family
+      level: custom
+      type: keyword
+      example: TVD
+      description: >
+        A vendor provided categorization of the software.
+
+    - name: vendor
+      level: custom
+      type: keyword
+      example: google
+      description: >
+        The vendor or provider of the software.
+
+    - name: type
+      level: custom
+      type: keyword
+      example: exe
+      description: >
+        Software type.
+
+    - name: state
+      level: custom
+      type: keyword
+      example: running
+      description: >
+        Current state of the software.
+    
+    - name: patch.kb
+      level: custom
+      type: keyword
+      example: KB4538461 
+      description: >
+        Software patch ID.
+
+    - name: install.time
       level: custom
       type: date
       description: >
-        The bios release date.
+        Time the software was installed.
 
-    - name: bios.secure_boot_enabled
-      level: custom
-      type: boolean
-      description: >
-        Indicator that Secure Boot is enabled on the computer.
-
-    - name: bios.uuid
+    - name: locale
       level: custom
       type: keyword
-      example: 4C4C4544-0056-5010-805A-CAC04F475132
+      example: Hungarian
       description: >
-        A unique identifier assigned to the computer mother board.
+        The human language used in the application intended for the user to read.
 
-    - name: bios.version
+    - name: patch.name
       level: custom
       type: keyword
-      example: 1.6.13
+      example: Microsoft.MicrosoftEdge.Stable.97.0.1072.55_neutral_8wekyb3d8bbwe
       description: >
-        Version of the BIOS. This string is created by the BIOS manufacturer.
-
-    - name: cpu.architecture
-      level: custom
-      type: keyword
-      example: "x64: x86_64"
-      description: >
-        The CPU architecture and raw string of the CPU provided by the OS.
-    
-    - name: cpu.core.count
-      level: custom
-      type: integer
-      example: 10
-      description: >
-        Number of physical cores per CPU on host machine.
-
-    - name: cpu.count
-      level: custom
-      type: integer
-      example: 2
-      description: >
-        Number of CPUs on host machine.
-
-    - name: cpu.logical_processor.count
-      level: custom
-      type: integer
-      example: 40
-      description: >
-        Number of logical processors per CPU on host machine (physical cores multiplied by threads per core).
-
-    - name: cpu.manufacturer
-      level: custom
-      type: keyword
-      example: Intel
-      description: >
-        Manufacturer of CPU.
-
-    - name: cpu.name
-      level: custom
-      type: keyword
-      example: intel(r) core(tm) i3-2370m cpu
-      description: >
-        The full name of the cpu model.
-    
-    - name: cpu.speed
-      level: custom
-      type: float
-      example: 2.21
-      description: >
-        Float type defining the speed of the CPU in GHZ with null and blank values stored as -1.0 and -2.0 respectively.
+        The software patch package's full name.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
