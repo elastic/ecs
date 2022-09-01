@@ -165,47 +165,47 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
- ### `memory`
- Detects specific baselines of physical configuration for asset management.
+ ### `cpe`
+ Common Platform Enumeration (CPE) is a standardized method of describing and identifying classes of applications, operating systems, and hardware devices present among an enterprise's computing assets.
+
+IT management tools can collect information about installed products, identifying these products using their CPE names, and then use this standardized information to help make fully or partially automated decisions regarding the assets. For example, identifying the presence of XYZ Visualizer Enterprise Suite could trigger a vulnerability management tool to check the system for known vulnerabilities in the software, and also trigger a configuration management tool to verify that the software is configured securely in accordance with the organization's policies.
  
- ### `last_logon.time`
- Login time tells the last time a user logged into the system, which may provide insights into events occurring on that system.
+ ### `name`
+ Name of software often useful to cross reference other data sources.
  
- ### `created`
- Indicates that device is known to domain.
+ ### `modules.name`
+ A module usually represents an application, a language stack, or any other logical collection of packages. Module name should represent the name of the software it ships.
  
- ### `distinguished_name`
- The distinguished name indicates ownership of the host. It uniquely identifies the host in an x509 certificate.
+ ### `version`, `install.time`
+ Having the latest software version can prevent security issues and improve compatibility and program features. Software updates are necessary to keep computers, mobile devices and tablets running smoothly -- and they may lower security vulnerabilities.
  
- ### `modified`
- Indicates when information has changed for the host in a directory service.
+ ### `add_on.name`, `add_on.type`, `add_on.url.full`
+ Add-ons are usually third-party software and can affect the performance of your browser or applications and some can even be actively malicious. Keeping track of potentially hazardous add-ons that are impacting performance or acting malicious can allow for quick resolutions in order to minimize security concerns.
  
- ### `bios.manufacturer`
- This is a string representing the system manufacturer of the host. Useful for supply chain issue detection.
+ The type field provides a means of understanding and correlation of events to types.
  
- ### `bios.release_date`
- The bios release date. Useful for supply chain issue detection.
+ The url field provides a means of understanding and correlation of events to the location where the add_on can be download from.  
  
- ### `bios.secure_boot_enabled`
- Used to detect misconfiguration in Secure Boot.
+ ### `family`
+ Software product families have gained much important from the increased usage of software in consumer products. “A software product family is commonly defined to consist of a common architecture, a set of reusable assets used in systematically producing individual products, and the set of products thus produced”. One software product family normally has a very large number of products. The definition indicates that software components are reused on a common architecture because the products belonging to one family have a lot of common features and build upon a common architecture.
  
- ### `bios.uuid`
- A unique identifier assigned to the computer mother board.
+ ### `vendor`
+ Software vendors can develop a wide range of consumer and business applications for a variety of devices, from computers and tablets, to mobile phones, to automobiles, manufacturing equipment, and more. The applications developed by software vendors can be deployed on premise or, increasingly, are cloud based and can be accessed via the Internet.
  
- ### `bios.version`
- Version of the BIOS, this string is created by the BIOS manufacturer. Useful for supply chain issue detection.
+ ### `type`
+ Software packages are complete pieces of software that can work on their own, without additions or other necessary parts. Computer software packages control the physical parts of the machine so that these parts know how to work together. Other names for software are apps, programs, applications, program modules, procedures, scripts and source code. Computer software is adapted to the properties of the hardware. What works on one type of computer will not necessarily work on another. Some types of software are installed when a computer is built and are necessary for the computer to function. Other software packages can be purchased separately or downloaded from the Internet and added to the computer at any time.
  
- ### `cpu.architecture`
- Detects out of date CPUs.
+ ### `state`
+ Software state is information your program manipulates to accomplish some task. It is data or information that gets changed or manipulated throughout the runtime of a program. The "state" of a program at a given time refers to a snapshot of all the data the program is currently looking at or analyzing to get to the next step in it's execution.
  
- ### `cpu.core.count`, `cpu.count`, `cpu.logical_processor.count`
- Detects specific baselines of physical configuration for asset management.
+ ### `patch.kb`
+ Proper patch management can greatly improve an enterprise’s security by addressing the vulnerabilities in its software and operating systems. Keeping track of the patch ID allows for the administrator to ascertain any issues resulting from a specific patch update.
  
- ### `cpu.manufacturer`, `cpu.name`
- Useful for supply chain issue detection.
+ ### `locale`
+ Knowing the software.locale makes it easier to translate and understand any instructions associated with the application.
  
- ### `cpu.speed`
- Detects specific baselines of physical configuration for asset management.
+ ### `patch.name`
+ Good patch documentation including the software patch package's full name is important for letting the administrator easily identify and distinguish patches from each other.
 
 ## Source data
 
