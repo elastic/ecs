@@ -1,4 +1,4 @@
-# 0000: Software Fields
+# 0000: User Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -51,83 +51,76 @@ Field Name | Special Instructions | Justification/Use Case
  </p>
  </details>
 
-    - name: cpe
+    - name: created
       level: custom
-      type: keyword
-      normalization: array
-      example: ["cpe:/o:microsoft:windows", "cpe:/a:adobe:acrobat"]
+      type: date
       description: >
-        Software identified by its common platform enumeration (CPE) value.
+        Date the user was created.
         
-    - name: name
+    - name: display_name
       level: custom
       type: keyword
-      example: skype
+      example: Smith, John
       description: >
-        The name of the software. 
+        The identity's display name. Note that this may not always be available or up-to-date. This may be similar to user.full_name. Both fields may contain some representation of a user's account registered formal name. 
 
-    - name: modules.name
+    - name: expires
       level: custom
-      type: keyword
-      example: Anti-spyware protection
+      type: date
       description: >
-        Module name. 
+        The date when the account expires. 
 
-    - name: version
+    - name: home.directory
       level: custom
       type: keyword
-      example: 27/1.0.0.2021090243
+      example: /home/jsmith
       description: >
-        The software version.
+        The home directory for the account.
 
-    - name: add_on.name
+    - name: home.drive
       level: custom
       type: keyword
-      example: Wiki
+      example: T:
       description: >
-        The name of the software add-on/extension that generated the event.
+        On windows, the drive letter for the home directory of the account. On Linux/Unix the mount point of the home directory.
 
-    - name: add_on.type
+    - name: is_domain
       level: custom
-      type: keyword
-      example: Bot
+      type: boolean
       description: > 
-        The type of the software add-on/extension that generated the event.
+        Whether the user is a domain user or a local user.
 
-    - name: add_on.url.full
+    - name: is_flagged
+      level: custom
+      type: boolean
+      description: >
+        The account is flagged for some suspicious activity.
+
+    - name: locked_out
+      level: custom
+      type: date
+      description: >
+        The date and time that this account was locked out.
+
+    - name: password.cleartext
       level: custom
       type: keyword
-      example: https://example.com/download/my_add_on
+      example: password
       description: >
-        Software installed on the host identified common platform enumeration (CPE) value.
+        The user password in clear text.
 
-    - name: family
+    - name: password.encrypted
       level: custom
       type: keyword
-      example: TVD
+      example: c8fed00eb2e87f1cee8e90ebbe870c190ac3848c
       description: >
-        A vendor provided categorization of the software.
+        The user password encrypted value.
 
-    - name: vendor
+    - name: password.last_set
       level: custom
-      type: keyword
-      example: google
+      type: date
       description: >
-        The vendor or provider of the software.
-
-    - name: type
-      level: custom
-      type: keyword
-      example: exe
-      description: >
-        Software type.
-
-    - name: state
-      level: custom
-      type: keyword
-      example: running
-      description: >
-        Current state of the software.
+        Date the password was last changed.
     
     - name: patch.kb
       level: custom
