@@ -12,11 +12,8 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
- The host fields describe information about the host that is relevant to an event and extends the ECS host field set in several ways:
-
-- The host field set supports additional host bios fields.
-- The host field set supports additional host cpu fields.
-- The host field set supports additional fields describing a supplemental details that the host can generate.
+ The software fields describe information about the software that is relevant to an event and creates an ECS software field set. With the addition of a software field set, ECS users will be able to normalize data related to software specific components.
+ 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
@@ -217,6 +214,7 @@ The host fields in this RFC are sourced from the following data feeds:
  - Office 365 Device Audit Logs
  - Active Directory Computer Objects
  - Windows Event Logs
+ - Software Inventory
  
  
  Host & Network Interface Information collects information about host computer configurations, vulnerabilities and compliance from endpoint computers.
@@ -256,7 +254,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-The term manufacturer is used here while in Elastic Common Schema the appropriate equivalent could be viewed as vendor which may lead to confusion.
+There are no current concerns regarding the software field set at this time.
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -269,7 +267,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @donneesdata | Author, Sponsor
+* @hadadata59 | Author, Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
