@@ -12,11 +12,13 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
- The host fields describe information about the host that is relevant to an event and extends the ECS host field set in several ways:
+The User fields describe information about the user that is relevant to an event. 
 
-- The host field set supports additional host bios fields.
-- The host field set supports additional host cpu fields.
-- The host field set supports additional fields describing a supplemental details that the host can generate.
+This RFC extends the ECS user field set in several ways:
+
+- The user field set supports additonal user identifier and name fields to maintain context for the identifier or name.  
+- It also defines an authentication field set nested under user.* to describe details of the users authentication attempt relevant to the event.
+- Lastly, the user field set supports additional fields describing a users account status and account profile details.
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
@@ -158,6 +160,13 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
+### General Use Cases:
+- Find all events for a user with a specfic user principal name
+- Find events where user authentication failed
+- Extract detailed information about a user
+
+### Specific Use Cases:
+
  ### `cpe`
  Common Platform Enumeration (CPE) is a standardized method of describing and identifying classes of applications, operating systems, and hardware devices present among an enterprise's computing assets.
 
@@ -207,7 +216,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 -->
 The host fields in this RFC are sourced from the following data feeds: 
  - Endpoint Detection and Response System Audit Logs & Alerts
- - Office 365 Device Audit Logs
+ - Office 365 Signin Logs
  - Active Directory Computer Objects
  - Windows Event Logs
  
@@ -249,7 +258,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-The term manufacturer is used here while in Elastic Common Schema the appropriate equivalent could be viewed as vendor which may lead to confusion.
+There are no current concerns regarding the user fields within this field set.
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -262,7 +271,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @donneesdata | Author, Sponsor
+* @hadadata59 | Author, Sponsor
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
