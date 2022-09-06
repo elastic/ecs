@@ -20,6 +20,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings - [#2022](https://github.com/elastic/ecs/issues/2022)
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
@@ -36,6 +38,8 @@ Thanks, you're awesome :-) -->
 
 ## 8.5.0 (Soft Feature Freeze)
 
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+
 ### Schema Changes
 
 #### Breaking changes
@@ -45,6 +49,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994, #2010
+* Adding `process.io.*` as beta fields. #1956, #2031
+* Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
 
 #### Improvements
 
@@ -64,29 +70,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-#### Deprecated
-
-## 8.4.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Added
-
-* Introduce `expected_values` attribute. #1952
-
-#### Improvements
-
-* Additional type annotations. #1950
 
 #### Deprecated
 

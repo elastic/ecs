@@ -9432,9 +9432,9 @@ process:
       dashed_name: process-entry-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.entry_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9449,7 +9449,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.entry_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -9504,17 +9504,19 @@ process:
     process.env_vars:
       beta: This field is beta and subject to change.
       dashed_name: process-env-vars
-      description: 'Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+      description: 'Array of environment variable bindings. Captured from a snapshot
+        of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.'
-      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
+        May be filtered to protect sensitive information.'
+      example: '["PATH=/usr/local/bin:/usr/bin", "USER=ubuntu"]'
       flat_name: process.env_vars
+      ignore_above: 1024
       level: extended
       name: env_vars
-      normalize: []
-      short: Environment variables set at the time of the event.
-      type: object
+      normalize:
+      - array
+      short: Array of environment variable bindings.
+      type: keyword
     process.executable:
       dashed_name: process-executable
       description: Absolute path to the process executable.
@@ -9883,9 +9885,9 @@ process:
       dashed_name: process-group-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.group_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9900,7 +9902,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.group_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -11134,9 +11136,9 @@ process:
       dashed_name: process-parent-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.parent.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -11151,7 +11153,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.parent.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -11915,9 +11917,9 @@ process:
       dashed_name: process-session-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.session_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -11932,7 +11934,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.session_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -12071,9 +12073,9 @@ process:
       dashed_name: process-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -12087,12 +12089,40 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
       normalize: []
       short: The TTY character device's minor number.
+      type: long
+    process.tty.columns:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-columns
+      description: 'The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 80
+      flat_name: process.tty.columns
+      level: extended
+      name: tty.columns
+      normalize: []
+      short: The number of character columns per line. e.g terminal width
+      type: long
+    process.tty.rows:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-rows
+      description: 'The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 24
+      flat_name: process.tty.rows
+      level: extended
+      name: tty.rows
+      normalize: []
+      short: The number of character rows in the terminal. e.g terminal height
       type: long
     process.uptime:
       dashed_name: process-uptime
@@ -18201,11 +18231,13 @@ threat:
     threat.indicator.marking.tlp:
       dashed_name: threat-indicator-marking-tlp
       description: Traffic Light Protocol sharing markings.
-      example: WHITE
+      example: CLEAR
       expected_values:
       - WHITE
+      - CLEAR
       - GREEN
       - AMBER
+      - AMBER+STRICT
       - RED
       flat_name: threat.indicator.marking.tlp
       ignore_above: 1024
