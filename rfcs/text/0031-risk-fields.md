@@ -1,9 +1,9 @@
 # 0031: Risk fields for multiple entities
 
-- Stage: **2 (candidate)**
-- Date: **2022/08/15**
+- Stage: **3 (finished)**
+- Date: **2022/09/08**
 
-In 7.16, we released an experimental feature in the Security solution, called [Host Risk Score](https://www.elastic.co/guide/en/security/7.17/host-risk-score.html). Initially, the requirement of the feature was limited to surfacing risky hosts in a customer environment. As the feature matures, we want to further integrate it into the Security solution, and be able to perform filtering and sorting operations based on the risk information. Furthermore, there's also work currently in progress for a User Risk Score functionality, which will highlight users at risk within the Security solution. Both these features (and potentially others) currently could benefit from having a reusable risk field set highlighting information like risk score, risk level, contributors to risk etc.
+In 7.16, we released an experimental feature in the Security solution, called [Host Risk Score](https://www.elastic.co/guide/en/security/7.17/host-risk-score.html) to surface risky hosts in a customer environment. In 8.3, we released a similar feature called [User Risk Score](https://www.elastic.co/guide/en/security/current/user-risk-score.html) to expose at-risk users. As the two features mature, we want to further integrate them into the Security App, and enable users to perform filtering, sorting and enrichment based on the risk information. To that effect, we propose a reusable risk field set highlighting information like risk score, risk level etc., which could be used to express entity risk in the Security App.
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -28,22 +28,19 @@ The `risk.*` fields mentioned above can be used to quantify the amount of risk a
 
 To begin with, the `risk.*` fields could be nested under the existing `host.*` and `user.*` fields, since hosts and users tend to be important entities during investigations.
 
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
 ## Usage
 
-As mentioned previously, we have released an experimental feature called Host Risk Score in the Security solution recently. As of 7.16, the feature has some real estate on the Overview page and the Alert Flyout within the Security solution, as documented [here](https://www.elastic.co/guide/en/security/8.0/host-risk-score.html). In 8.1, users will also be able to see host risk information on the Hosts page and Host Details page as well. 
+As mentioned previously, we currently have two experimental entity risk features in the Security App, namely Host Risk Score and User Risk Score. Host risk information can be viewed in [several locations](https://www.elastic.co/guide/en/security/8.4/host-risk-score.html#_additional_places_to_visualize_host_risk_score_data) in the Security App, including the Overview tab and the Hosts page.
 
-In addition to Host Risk Score, there is work currently in progress to introduce a Users page in the Security solution and a User Risk Scoring capability. Entities at risk is a new concept for users of the Security solution. Defining and normalizing this concept of entity risk using the `risk` fields will be crucial for users to get the most out of the Host and User Risk Scoring capabilities when they go GA.
+User risk information can be found on the [Users page](https://www.elastic.co/guide/en/security/8.4/user-risk-score.html#view-user-risk-score) in the Security App.
 
-Furthermore, these `risk` fields will provide users with an additional vector to filter, sort and correlate information within the Security solution. For example, users will be able to start investigations by running queries like the following:
+Alerts are also being enriched with host and user risk information to help with alert investigation and triage.
+
+With `risk` information available in multiple locations in the Security App, users can use it as an additional vector to filter, sort and correlate information within the Security App. For example, users will be able to start investigations by running queries like the following:
 * "Show me the most critical and high-risk Windows hosts in my environment"
 * "Show me the activity that contributed towards making Host X high-risk"
-* "Show me how the risk of Host X changed over time"
-* "Show me Critical and high-risk users on Host X"
-
+* "Show me the alerts corresponding to high-risk users in my environment"
+* "Show me how the risk of User X changed over time"
 
 ## Source data
 
@@ -127,25 +124,21 @@ An example of a mapped document produced by the user risk score transform is as 
 
 ### Alerts
 
-The risk fields can be used to enrich alerts with entity risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with entity risk data from internal and external sources is provided in the RFC folder `0031`.
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
+The risk fields will be used to enrich alerts with entity risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with entity risk data from internal and external sources is provided in the RFC folder `0031`.
 
 ## Scope of impact
 
-We have several views (Hosts page, Overview page, Alerts flyouts) in the Security Solution which are populated by the Host and User Risk Score indices. These views will need to be updated to use the new ECS fields. Any new workflows built on top of Host Risk Score will also need to adopt these new fields. 
+We have several views in the Security App where host and user risk information is displayed. These views will need to be updated to use the new ECS fields. Any new workflows built on top of host and user risk scores will also need to adopt these new fields. 
 
-We currently have a small number (<50) of customer clusters that have deployed Host Risk Score in its experimental state. If these users were to upgrade to a Kibana version where the Security App uses these ECS fields, they will have to recreate the Host Risk Score transforms, and index mappings. These users will also need to be informed that any host risk-related views in the Security App will cease to work on old (before upgrade) data.    
+We currently have a small number (~60) of customer clusters that have deployed Host Risk Score in its experimental state. If these users were to upgrade to a Kibana version where the Security App uses the new ECS fields, they will also need to install the new Host Risk Score transforms and Lens dashboards. These users will also need to be informed that any views involving host risk in the Security App will cease to work on old (before upgrade) data.
+
+A similar process will follow for customers who have already enabled User Risk Score.
 
 ## Concerns
 
-Certain views in the Security App will not work on older data for current users of Host Risk Score. Users will need to recreate the Host Risk Score transforms and related index mappings.   
+We have an internal plan in place to port the Host and User Risk Score transforms, dashboards, and any existing host and user risk views in the Security App, to use the new ECS fields.
 
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+For existing users, migrate buttons on the host and user risk score cards on the Overview page will delete existing artifacts and re-install new ones. This migration strategy does not involve preserving historical risk data- this is left up to the user since the features are still experimental. However, we will be sure to communicate this clearly via documentation and in the UI. 
 
 ## People
 
@@ -156,7 +149,8 @@ The following are the people that consulted on the contents of this RFC.
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+* [About Host Risk Score](https://www.elastic.co/guide/en/security/8.4/host-risk-score.html)
+* [About User Risk Score](https://www.elastic.co/guide/en/security/8.4/user-risk-score.html)
 
 ### RFC Pull Requests
 
@@ -167,3 +161,5 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 1: https://github.com/elastic/ecs/pull/1744
 
 * Stage 2: https://github.com/elastic/ecs/pull/2027
+
+* Stage 3: https://github.com/elastic/ecs/pull/2027
