@@ -4621,7 +4621,7 @@ type: keyword
 The `group` fields are expected to be nested at:
 
 
-* `process.attested_group`
+* `process.attested_groups`
 
 * `process.group`
 
@@ -7761,10 +7761,12 @@ Note also that the `process` fields may be used directly at the root of the even
 // ===============================================================
 
 
-| `process.attested_group.*`
+| `process.attested_groups.*`
 | <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
 
-The attested group (agid).
+The externally attested groups.
+
+Note: this reuse should contain an array of group field set objects.
 
 // ===============================================================
 
@@ -7772,7 +7774,7 @@ The attested group (agid).
 | `process.attested_user.*`
 | <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
 
-The attested user (auid). Identifies the attested used associated with the process.
+The externally attested user associated with the process based on an external source such as the Kube API.
 
 // ===============================================================
 

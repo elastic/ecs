@@ -5949,11 +5949,13 @@ group:
       normalize:
       - array
       short_override: An array of supplemental groups.
-    - as: attested_group
+    - as: attested_groups
       at: process
       beta: Reusing the `group` fields in this location is currently considered beta.
-      full: process.attested_group
-      short_override: The attested group (agid).
+      full: process.attested_groups
+      normalize:
+      - array
+      short_override: The externally attested groups.
     top_level: true
   short: User's group relevant to the event.
   title: Group
@@ -12185,7 +12187,7 @@ process:
   group: 2
   name: process
   nestings:
-  - process.attested_group
+  - process.attested_groups
   - process.attested_user
   - process.code_signature
   - process.elf
@@ -12302,9 +12304,11 @@ process:
     schema_name: group
     short: An array of supplemental groups.
   - beta: Reusing the `group` fields in this location is currently considered beta.
-    full: process.attested_group
+    full: process.attested_groups
+    normalize:
+    - array
     schema_name: group
-    short: The attested group (agid).
+    short: The externally attested groups.
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
@@ -12337,8 +12341,8 @@ process:
   - beta: Reusing the `user` fields in this location is currently considered beta.
     full: process.attested_user
     schema_name: user
-    short: The attested user (auid). Identifies the attested used associated with
-      the process.
+    short: The externally attested user associated with the process based on an external
+      source such as the Kube API.
   - full: process.parent
     schema_name: process
     short: Information about the parent process.
@@ -21111,8 +21115,8 @@ user:
       at: process
       beta: Reusing the `user` fields in this location is currently considered beta.
       full: process.attested_user
-      short_override: The attested user (auid). Identifies the attested used associated
-        with the process.
+      short_override: The externally attested user associated with the process based
+        on an external source such as the Kube API.
     top_level: true
   reused_here:
   - full: user.group
