@@ -50,7 +50,7 @@ Thanks, you're awesome :-) -->
 * Adding `process.io.*` as beta fields. #1956, #2031
 * Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
 * Changed `process.env_vars` field type to be an array of keywords. #2038
-* Added `risk.*` fieldset to beta. #TBD
+* Added `risk.*` fieldset to beta. #2051
 
 #### Improvements
 
