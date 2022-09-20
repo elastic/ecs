@@ -5242,6 +5242,29 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: entry_leader.attested_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.attested_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.attested_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
     - name: entry_leader.command_line
       level: extended
       type: wildcard
