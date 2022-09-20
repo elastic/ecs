@@ -192,6 +192,31 @@
                 "args_count": {
                   "type": "long"
                 },
+                "attested_groups": {
+                  "properties": {
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "attested_user": {
+                  "properties": {
+                    "id": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "fields": {
+                        "text": {
+                          "type": "match_only_text"
+                        }
+                      },
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
                 "command_line": {
                   "fields": {
                     "text": {
