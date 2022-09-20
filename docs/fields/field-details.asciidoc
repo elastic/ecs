@@ -4532,6 +4532,8 @@ type: keyword
 The `group` fields are expected to be nested at:
 
 
+* `process.attested_groups`
+
 * `process.group`
 
 * `process.real_group`
@@ -7673,6 +7675,24 @@ Note also that the `process` fields may be used directly at the root of the even
 [options="header"]
 |=====
 | Location | Field Set | Description
+
+// ===============================================================
+
+
+| `process.attested_groups.*`
+| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
+
+The externally attested groups based on an external source such as the Kube API.
+
+Note: this reuse should contain an array of group field set objects.
+
+// ===============================================================
+
+
+| `process.attested_user.*`
+| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
+
+The externally attested user based on an external source such as the Kube API.
 
 // ===============================================================
 
@@ -11539,6 +11559,8 @@ The `user` fields are expected to be nested at:
 * `client.user`
 
 * `destination.user`
+
+* `process.attested_user`
 
 * `process.real_user`
 
