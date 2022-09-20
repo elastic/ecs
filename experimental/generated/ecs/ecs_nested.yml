@@ -6866,7 +6866,7 @@ host:
     short: OS fields contain information about the operating system.
   - full: host.risk
     schema_name: risk
-    short: Fields for describing the risk score and level.
+    short: Fields for describing risk score and level.
   short: Fields describing the relevant computing instance.
   title: Host
   type: group
@@ -12871,7 +12871,9 @@ related:
   type: group
 risk:
   beta: These fields are in beta and are subject to change.
-  description: Fields for describing the risk score and level.
+  description: Fields for describing risk score and risk level of entities such as
+    hosts and users.  These fields are not allowed to be nested under `event.*`. Please
+    continue to use  `event.risk_score` and `event.risk_score_norm` for event risk.
   fields:
     risk.calculated_level:
       dashed_name: risk-calculated-level
@@ -12959,8 +12961,8 @@ risk:
       at: user
       full: user.risk
     top_level: false
-  short: Fields for describing the risk score and level.
-  title: Risk score information
+  short: Fields for describing risk score and level.
+  title: Risk information
   type: group
 rule:
   description: 'Rule fields are used to capture the specifics of any observer or agent
@@ -21996,7 +21998,7 @@ user:
     short: User's group relevant to the event.
   - full: user.risk
     schema_name: risk
-    short: Fields for describing the risk score and level.
+    short: Fields for describing risk score and level.
   - full: user.target
     schema_name: user
     short: Targeted user of action taken.
