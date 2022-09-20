@@ -5056,6 +5056,13 @@ example: `1325`
 // ===============================================================
 
 
+| `host.risk.*`
+| <<ecs-risk,risk>>
+| Fields for describing risk score and level.
+
+// ===============================================================
+
+
 |=====
 
 
@@ -8095,6 +8102,132 @@ Note: this field should contain an array of values.
 |=====
 
 
+[[ecs-risk]]
+=== Risk information Fields
+
+Fields for describing risk score and risk level of entities such as hosts and users.  These fields are not allowed to be nested under `event.*`. Please continue to use  `event.risk_score` and `event.risk_score_norm` for event risk.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Risk information Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-risk-calculated-level]]
+<<field-risk-calculated-level, risk.calculated_level>>
+
+a| A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.
+
+type: keyword
+
+
+
+example: `High`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-risk-calculated-score]]
+<<field-risk-calculated-score, risk.calculated_score>>
+
+a| A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.
+
+type: float
+
+
+
+example: `880.73`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-risk-calculated-score-norm]]
+<<field-risk-calculated-score-norm, risk.calculated_score_norm>>
+
+a| A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100.
+
+type: float
+
+
+
+example: `88.73`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-risk-static-level]]
+<<field-risk-static-level, risk.static_level>>
+
+a| A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform.
+
+type: keyword
+
+
+
+example: `High`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-risk-static-score]]
+<<field-risk-static-score, risk.static_score>>
+
+a| A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform.
+
+type: float
+
+
+
+example: `830.0`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-risk-static-score-norm]]
+<<field-risk-static-score-norm, risk.static_score_norm>>
+
+a| A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100.
+
+type: float
+
+
+
+example: `83.0`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `risk` fields are expected to be nested at:
+
+
+* `host.risk`
+
+* `user.risk`
+
+
+Note also that the `risk` fields are not expected to be used directly at the root of the events.
 [[ecs-rule]]
 === Rule Fields
 
@@ -11454,6 +11587,13 @@ Note also that the `user` fields may be used directly at the root of the events.
 | `user.group.*`
 | <<ecs-group,group>>
 | User's group relevant to the event.
+
+// ===============================================================
+
+
+| `user.risk.*`
+| <<ecs-risk,risk>>
+| Fields for describing risk score and level.
 
 // ===============================================================
 
