@@ -138,7 +138,9 @@ A similar process will follow for customers who have already enabled User Risk S
 
 We have an internal plan in place to port the Host and User Risk Score transforms, dashboards, and any existing host and user risk views in the Security App, to use the new ECS fields.
 
-For existing users, migrate buttons on the host and user risk score cards on the Overview page will delete existing artifacts and re-install new ones. This migration strategy does not involve preserving historical risk data- this is left up to the user since the features are still experimental. However, we will be sure to communicate this clearly via documentation and in the UI. 
+For existing users, migrate buttons on the host and user risk score cards on the Overview page will delete existing artifacts and re-install new ones. This migration strategy does not involve preserving historical risk data- this is left up to the user since the features are still experimental. However, we will be sure to communicate this clearly via documentation and in the UI.
+
+We currently have two risk fields, `risk_score` and `risk_score_norm` that can be associated with `event` object. We will clarify this in the description for the new risk fields, stating that these new fields apply to entities only and should not be nested under the event object.
 
 ## People
 
