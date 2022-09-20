@@ -38,8 +38,6 @@ Thanks, you're awesome :-) -->
 
 ## 8.5.0 (Soft Feature Freeze)
 
-* Changed `process.env_vars` field type to be an array of keywords. #2038
-
 ### Schema Changes
 
 #### Breaking changes
@@ -51,6 +49,8 @@ Thanks, you're awesome :-) -->
 * Adding `risk.*` fields as experimental. #1994, #2010
 * Adding `process.io.*` as beta fields. #1956, #2031
 * Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+* Added `risk.*` fieldset to beta. #2051
 
 #### Improvements
 
