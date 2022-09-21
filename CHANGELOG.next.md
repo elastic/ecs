@@ -36,13 +36,9 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.5.0 (Soft Feature Freeze)
+## 8.5.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
@@ -58,21 +54,12 @@ Thanks, you're awesome :-) -->
 * Advances `threat.enrichments.indicator` to GA. #1928
 * Added `ios` and `android` as valid values for `os.type` #1999
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
-
-#### Breaking changes
 
 #### Bugfixes
 
 * Added Deprecation Warning for `misspell` task #1993
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
+* Fix typo in client schema #2014
 
 <!-- All empty sections:
 
