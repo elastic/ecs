@@ -55,6 +55,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Added Deprecation Warning for `misspell` task #1993
+* Fix typo in client schema #2014
 
 <!-- All empty sections:
 
