@@ -16,7 +16,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `device.*` field set as beta. #2030
+
 #### Improvements
+
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings - [#2022](https://github.com/elastic/ecs/issues/2022)
 
 #### Deprecated
 
@@ -42,11 +46,17 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Adding `risk.*` fields as experimental. #1994
+* Adding `risk.*` fields as experimental. #1994, #2010
+* Adding `process.io.*` as beta fields. #1956, #2031
+* Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+* `process.attested_user` and `process.attested_groups` as beta fields. #2050
+* Added `risk.*` fieldset to beta. #2051
 
 #### Improvements
 
 * Advances `threat.enrichments.indicator` to GA. #1928
+* Added `ios` and `android` as valid values for `os.type` #1999
 
 #### Deprecated
 
@@ -61,29 +71,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-#### Deprecated
-
-## 8.4.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Added
-
-* Introduce `expected_values` attribute. #1952
-
-#### Improvements
-
-* Additional type annotations. #1950
 
 #### Deprecated
 

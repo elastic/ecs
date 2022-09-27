@@ -303,6 +303,7 @@
         of the octet as an unsigned integer. Successive octets are separated by a
         hyphen.'
       example: 00-00-5E-00-53-23
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
     - name: nat.ip
       level: extended
       type: ip
@@ -430,6 +431,52 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
+    - name: user.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: user.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: user.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: user.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: user.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: user.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: user.roles
       level: extended
       type: keyword
@@ -1228,12 +1275,105 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
+    - name: user.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: user.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: user.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: user.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: user.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: user.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: user.roles
       level: extended
       type: keyword
       ignore_above: 1024
       description: Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
+      default_field: false
+  - name: device
+    title: Device
+    group: 2
+    description: 'Fields that describe a device instance and its characteristics.  Data
+      collected for applications and processes running on a (mobile) device can be
+      enriched with these fields to describe the identity, type and other characteristics
+      of the device.
+
+      This field group definition is based on the Device namespace of the OpenTelemetry
+      Semantic Conventions (https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).'
+    type: group
+    default_field: true
+    fields:
+    - name: id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The unique identifier of a device. The identifier must not change\
+        \ across application sessions but stay fixex for an instance of a (mobile)\
+        \ device. \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
+        \ On Android, this value must be equal to the Firebase Installation ID or\
+        \ a globally unique UUID which is persisted across sessions in your application.\n\
+        For GDPR and data protection law reasons this identifier should not carry\
+        \ information that would allow to identify a user."
+      example: 00000000-54b3-e7c7-0000-000046bffd97
+      default_field: false
+    - name: manufacturer
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The vendor name of the device manufacturer.
+      example: Samsung
+      default_field: false
+    - name: model.identifier
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The machine readable identifier of the device model.
+      example: SM-G920F
+      default_field: false
+    - name: model.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The human readable marketing name of the device model.
+      example: Samsung Galaxy S6
       default_field: false
   - name: dll
     title: DLL
@@ -3602,6 +3742,52 @@
         system (nsfs). Unsigned int inum in include/linux/ns_common.h.
       example: 256383
       default_field: false
+    - name: risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: type
       level: core
       type: keyword
@@ -5098,6 +5284,29 @@
         indication of suspicious activity.'
       example: 4
       default_field: false
+    - name: entry_leader.attested_groups.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the group.
+      default_field: false
+    - name: entry_leader.attested_user.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      default_field: false
+    - name: entry_leader.attested_user.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Short name or login of the user.
+      example: a.einstein
+      default_field: false
     - name: entry_leader.command_line
       level: extended
       type: wildcard
@@ -5363,9 +5572,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: entry_leader.tty.char_device.minor
       level: extended
@@ -5374,7 +5583,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: entry_leader.user.id
       level: core
@@ -5405,12 +5614,13 @@
       default_field: false
     - name: env_vars
       level: extended
-      type: object
-      description: 'Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+      type: keyword
+      ignore_above: 1024
+      description: 'Array of environment variable bindings. Captured from a snapshot
+        of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.'
-      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
+        May be filtered to protect sensitive information.'
+      example: '["PATH=/usr/local/bin:/usr/bin", "USER=ubuntu"]'
       default_field: false
     - name: executable
       level: extended
@@ -5646,9 +5856,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: group_leader.tty.char_device.minor
       level: extended
@@ -5657,7 +5867,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: group_leader.user.id
       level: core
@@ -6384,9 +6594,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: parent.tty.char_device.minor
       level: extended
@@ -6395,7 +6605,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: parent.uptime
       level: extended
@@ -6867,9 +7077,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: session_leader.tty.char_device.minor
       level: extended
@@ -6878,7 +7088,7 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       default_field: false
     - name: session_leader.user.id
       level: core
@@ -6959,9 +7169,9 @@
       type: long
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       default_field: false
     - name: tty.char_device.minor
       level: extended
@@ -6970,7 +7180,25 @@
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
+      default_field: false
+    - name: tty.columns
+      level: extended
+      type: long
+      description: 'The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 80
+      default_field: false
+    - name: tty.rows
+      level: extended
+      type: long
+      description: 'The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 24
       default_field: false
     - name: uptime
       level: extended
@@ -7111,6 +7339,62 @@
       type: keyword
       ignore_above: 1024
       description: All the user names or other user identifiers seen on the event.
+      default_field: false
+  - name: risk
+    title: Risk information
+    group: 2
+    description: Fields for describing risk score and risk level of entities such
+      as hosts and users.  These fields are not allowed to be nested under `event.*`.
+      Please continue to use  `event.risk_score` and `event.risk_score_norm` for event
+      risk.
+    type: group
+    default_field: true
+    fields:
+    - name: calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
       default_field: false
   - name: rule
     title: Rule
@@ -7490,6 +7774,52 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
+    - name: user.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: user.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: user.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: user.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: user.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: user.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: user.roles
       level: extended
       type: keyword
@@ -8218,6 +8548,52 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
+    - name: user.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: user.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: user.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: user.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: user.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: user.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: user.roles
       level: extended
       type: keyword
@@ -10540,7 +10916,7 @@
       type: keyword
       ignore_above: 1024
       description: Traffic Light Protocol sharing markings.
-      example: WHITE
+      example: CLEAR
       default_field: false
     - name: indicator.modified_at
       level: extended
@@ -11937,6 +12313,52 @@
       description: Short name or login of the user.
       example: a.einstein
       default_field: false
+    - name: changes.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: changes.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: changes.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: changes.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: changes.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: changes.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: changes.roles
       level: extended
       type: keyword
@@ -12022,6 +12444,52 @@
       description: Short name or login of the user.
       example: a.einstein
       default_field: false
+    - name: effective.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: effective.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: effective.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: effective.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: effective.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: effective.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: effective.roles
       level: extended
       type: keyword
@@ -12086,6 +12554,52 @@
         default_field: false
       description: Short name or login of the user.
       example: a.einstein
+    - name: risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
     - name: roles
       level: extended
       type: keyword
@@ -12163,6 +12677,52 @@
         type: match_only_text
       description: Short name or login of the user.
       example: a.einstein
+      default_field: false
+    - name: target.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: target.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: target.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: target.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: target.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: target.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
       default_field: false
     - name: target.roles
       level: extended
