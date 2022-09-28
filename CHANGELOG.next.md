@@ -43,7 +43,7 @@ Thanks, you're awesome :-) -->
 * Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
 * Changed `process.env_vars` field type to be an array of keywords. #2038
 * `process.attested_user` and `process.attested_groups` as beta fields. #2050
-* Added `risk.*` fieldset to beta. #2051
+* Added `risk.*` fieldset to beta. #2051, #2058
 
 #### Improvements
 
