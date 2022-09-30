@@ -20,10 +20,6 @@ This RFC will provide normalization for fields related to authentication fields 
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.||
 |authentication.protocol|Authentication Protocol (authproto)||
-
-## Definition
-| Field | Description | Type | Definition |
-| --- | --- | --- |  --- |
 |authentication.scope|Requested scope of user|keyword| Defines scope of authentication request|
 |authentication.requirement|Login Authentication Requirements|keyword| What is required to authenticate|
 |authentication.additional.details|Login Additional Details|list| Important login details not applicable in other areas|
