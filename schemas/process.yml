@@ -280,15 +280,17 @@
 
     - name: env_vars
       level: extended
-      type: object
+      type: keyword
       beta: This field is beta and subject to change.
-      short: Environment variables set at the time of the event.
+      short: Array of environment variable bindings.
       description: >
-        Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+        Array of environment variable bindings.
+        Captured from a snapshot of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.
-      example: "{\"USER\": \"elastic\",\"LANG\": \"en_US.UTF-8\",\"HOME\": \"/home/elastic\"}"
+        May be filtered to protect sensitive information.
+      example: "[\"PATH=/usr/local/bin:/usr/bin\", \"USER=ubuntu\"]"
+      normalize:
+        - array
 
     - name: entry_meta.type
       level: extended
@@ -324,8 +326,8 @@
       beta: This field is beta and subject to change.
       short: The TTY character device's major number.
       description: >
-        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0. For more details, please refer to the Linux kernel documentation.
-      example: 1
+        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+      example: 4
 
     - name: tty.char_device.minor
       level: extended
@@ -334,4 +336,101 @@
       short: The TTY character device's minor number.
       description: >
         The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
-      example: 128
+      example: 1
+
+    - name: tty.rows
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character rows in the terminal. e.g terminal height
+      description: >
+        The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 24
+
+    - name: tty.columns
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character columns per line. e.g terminal width
+      description: >
+        The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 80
+
+    - name: io
+      level: extended
+      type: object
+      beta: This field is beta and subject to change.
+      short: A chunk of input or output (IO) from a single process.
+      description: >
+        A chunk of input or output (IO) from a single process.
+
+        This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+    - name: io.type
+      level: extended
+      type: keyword
+      beta: This field is beta and subject to change.
+      short: The type of object on which the IO action (read or write) was taken.
+      description: >
+        The type of object on which the IO action (read or write) was taken.
+
+        Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+    - name: io.text
+      level: extended
+      type: wildcard
+      beta: This field is beta and subject to change.
+      short: A chunk of output or input sanitized to UTF-8.
+      description: >
+        A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+    - name: io.total_bytes_captured
+      level: extended
+      type: number
+      beta: This field is beta and subject to change.
+      description: >
+        The total number of bytes captured in this event.
+
+    - name: io.total_bytes_skipped
+      level: extended
+      type: number
+      beta: This field is beta and subject to change.
+      short: The total number of bytes that were not captured due to implementation restrictions such as buffer size limits.
+      description: >
+        The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+    - name: io.max_bytes_per_process_exceeded
+      level: extended
+      type: boolean
+      beta: This field is beta and subject to change.
+      description: >
+        If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+    - name: io.bytes_skipped
+      level: extended
+      type: object
+      beta: This field is beta and subject to change.
+      description: >
+        An array of byte offsets and lengths denoting where IO data has been skipped.
+
+      normalize: array
+
+    - name: io.bytes_skipped.offset
+      level: extended
+      type: number
+      beta: This field is beta and subject to change.
+      description: >
+        The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+    - name: io.bytes_skipped.length
+      level: extended
+      type: number
+      beta: This field is beta and subject to change.
+      description: >
+        The length of bytes skipped.

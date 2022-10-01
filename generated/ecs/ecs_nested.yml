@@ -2062,6 +2062,73 @@ destination:
   short: Fields about the destination side of a network connection, used with source.
   title: Destination
   type: group
+device:
+  beta: These fields are in beta and are subject to change.
+  description: 'Fields that describe a device instance and its characteristics.  Data
+    collected for applications and processes running on a (mobile) device can be enriched
+    with these fields to describe the identity, type and other characteristics of
+    the device.
+
+    This field group definition is based on the Device namespace of the OpenTelemetry
+    Semantic Conventions (https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).'
+  fields:
+    device.id:
+      dashed_name: device-id
+      description: "The unique identifier of a device. The identifier must not change\
+        \ across application sessions but stay fixex for an instance of a (mobile)\
+        \ device. \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
+        \ On Android, this value must be equal to the Firebase Installation ID or\
+        \ a globally unique UUID which is persisted across sessions in your application.\n\
+        For GDPR and data protection law reasons this identifier should not carry\
+        \ information that would allow to identify a user."
+      example: 00000000-54b3-e7c7-0000-000046bffd97
+      flat_name: device.id
+      ignore_above: 1024
+      level: extended
+      name: id
+      normalize: []
+      short: The unique identifier of a device.
+      type: keyword
+    device.manufacturer:
+      dashed_name: device-manufacturer
+      description: The vendor name of the device manufacturer.
+      example: Samsung
+      flat_name: device.manufacturer
+      ignore_above: 1024
+      level: extended
+      name: manufacturer
+      normalize: []
+      short: The vendor name of the device manufacturer.
+      type: keyword
+    device.model.identifier:
+      dashed_name: device-model-identifier
+      description: The machine readable identifier of the device model.
+      example: SM-G920F
+      flat_name: device.model.identifier
+      ignore_above: 1024
+      level: extended
+      name: model.identifier
+      normalize: []
+      short: The machine readable identifier of the device model.
+      type: keyword
+    device.model.name:
+      dashed_name: device-model-name
+      description: The human readable marketing name of the device model.
+      example: Samsung Galaxy S6
+      flat_name: device.model.name
+      ignore_above: 1024
+      level: extended
+      name: model.name
+      normalize: []
+      short: The human readable marketing name of the device model.
+      type: keyword
+  group: 2
+  name: device
+  prefix: device.
+  short: Fields characterizing a (mobile) device a process or application is running
+    on.
+  title: Device
+  type: group
 dll:
   description: 'These fields contain information about code libraries dynamically
     loaded into processes.
@@ -3672,6 +3739,12 @@ event:
         expected_event_types:
         - indicator
         name: threat
+      - description: Relating to vulnerability scan results. Use this category to
+          analyze vulnerabilities detected by Tenable, Qualys, internal scanners,
+          and other vulnerability management sources.
+        expected_event_types:
+        - info
+        name: vulnerability
       - description: 'Relating to web server access. Use this category to create a
           dashboard of web server/proxy activity from apache, IIS, nginx web servers,
           etc. Note: events from network observers such as Zeek http log may also
@@ -5882,6 +5955,14 @@ group:
       normalize:
       - array
       short_override: An array of supplemental groups.
+    - as: attested_groups
+      at: process
+      beta: Reusing the `group` fields in this location is currently considered beta.
+      full: process.attested_groups
+      normalize:
+      - array
+      short_override: The externally attested groups based on an external source such
+        as the Kube API.
     top_level: true
   short: User's group relevant to the event.
   title: Group
@@ -6439,6 +6520,86 @@ host:
       normalize: []
       short: Pid namespace inode
       type: keyword
+    host.risk.calculated_level:
+      dashed_name: host-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: host.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    host.risk.calculated_score:
+      dashed_name: host-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: host.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    host.risk.calculated_score_norm:
+      dashed_name: host-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: host.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an internal system.
+      type: float
+    host.risk.static_level:
+      dashed_name: host-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: host.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    host.risk.static_score:
+      dashed_name: host-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: host.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    host.risk.static_score_norm:
+      dashed_name: host-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: host.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an external system.
+      type: float
     host.type:
       dashed_name: host-type
       description: 'Type of host.
@@ -6468,6 +6629,7 @@ host:
   nestings:
   - host.geo
   - host.os
+  - host.risk
   prefix: host.
   reused_here:
   - full: host.geo
@@ -6476,6 +6638,9 @@ host:
   - full: host.os
     schema_name: os
     short: OS fields contain information about the operating system.
+  - full: host.risk
+    schema_name: risk
+    short: Fields for describing risk score and level.
   short: Fields describing the relevant computing instance.
   title: Host
   type: group
@@ -8945,6 +9110,45 @@ process:
       original_fieldset: process
       short: Length of the process.args array.
       type: long
+    process.entry_leader.attested_groups.name:
+      dashed_name: process-entry-leader-attested-groups-name
+      description: Name of the group.
+      flat_name: process.entry_leader.attested_groups.name
+      ignore_above: 1024
+      level: extended
+      name: name
+      normalize: []
+      original_fieldset: group
+      short: Name of the group.
+      type: keyword
+    process.entry_leader.attested_user.id:
+      dashed_name: process-entry-leader-attested-user-id
+      description: Unique identifier of the user.
+      example: S-1-5-21-202424912787-2692429404-2351956786-1000
+      flat_name: process.entry_leader.attested_user.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: user
+      short: Unique identifier of the user.
+      type: keyword
+    process.entry_leader.attested_user.name:
+      dashed_name: process-entry-leader-attested-user-name
+      description: Short name or login of the user.
+      example: a.einstein
+      flat_name: process.entry_leader.attested_user.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: process.entry_leader.attested_user.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: user
+      short: Short name or login of the user.
+      type: keyword
     process.entry_leader.command_line:
       dashed_name: process-entry-leader-command-line
       description: 'Full command line that started the process, including the absolute
@@ -9365,9 +9569,9 @@ process:
       dashed_name: process-entry-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.entry_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9382,7 +9586,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.entry_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -9437,17 +9641,19 @@ process:
     process.env_vars:
       beta: This field is beta and subject to change.
       dashed_name: process-env-vars
-      description: 'Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+      description: 'Array of environment variable bindings. Captured from a snapshot
+        of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.'
-      example: '{"USER": "elastic","LANG": "en_US.UTF-8","HOME": "/home/elastic"}'
+        May be filtered to protect sensitive information.'
+      example: '["PATH=/usr/local/bin:/usr/bin", "USER=ubuntu"]'
       flat_name: process.env_vars
+      ignore_above: 1024
       level: extended
       name: env_vars
-      normalize: []
-      short: Environment variables set at the time of the event.
-      type: object
+      normalize:
+      - array
+      short: Array of environment variable bindings.
+      type: keyword
     process.executable:
       dashed_name: process-executable
       description: Absolute path to the process executable.
@@ -9816,9 +10022,9 @@ process:
       dashed_name: process-group-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.group_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -9833,7 +10039,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.group_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -11067,9 +11273,9 @@ process:
       dashed_name: process-parent-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.parent.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -11084,7 +11290,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.parent.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -11848,9 +12054,9 @@ process:
       dashed_name: process-session-leader-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.session_leader.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -11865,7 +12071,7 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.session_leader.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
@@ -12004,9 +12210,9 @@ process:
       dashed_name: process-tty-char-device-major
       description: The major number identifies the driver associated with the device.
         The character device's major and minor numbers can be algorithmically combined
-        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0.
+        to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0".
         For more details, please refer to the Linux kernel documentation.
-      example: 1
+      example: 4
       flat_name: process.tty.char_device.major
       level: extended
       name: tty.char_device.major
@@ -12020,12 +12226,40 @@ process:
         \ number; other parts of the kernel don\u2019t use it, and merely pass it\
         \ along to the driver. It is common for a driver to control several devices;\
         \ the minor number provides a way for the driver to differentiate among them."
-      example: 128
+      example: 1
       flat_name: process.tty.char_device.minor
       level: extended
       name: tty.char_device.minor
       normalize: []
       short: The TTY character device's minor number.
+      type: long
+    process.tty.columns:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-columns
+      description: 'The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 80
+      flat_name: process.tty.columns
+      level: extended
+      name: tty.columns
+      normalize: []
+      short: The number of character columns per line. e.g terminal width
+      type: long
+    process.tty.rows:
+      beta: This field is beta and subject to change.
+      dashed_name: process-tty-rows
+      description: 'The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a
+        given IO event. i.e. where event.action = ''text_output'''
+      example: 24
+      flat_name: process.tty.rows
+      level: extended
+      name: tty.rows
+      normalize: []
+      short: The number of character rows in the terminal. e.g terminal height
       type: long
     process.uptime:
       dashed_name: process-uptime
@@ -12083,6 +12317,8 @@ process:
   group: 2
   name: process
   nestings:
+  - process.attested_groups
+  - process.attested_user
   - process.code_signature
   - process.elf
   - process.entry_leader
@@ -12197,6 +12433,13 @@ process:
     - array
     schema_name: group
     short: An array of supplemental groups.
+  - beta: Reusing the `group` fields in this location is currently considered beta.
+    full: process.attested_groups
+    normalize:
+    - array
+    schema_name: group
+    short: The externally attested groups based on an external source such as the
+      Kube API.
   - full: process.hash
     schema_name: hash
     short: Hashes, usually file hashes.
@@ -12226,6 +12469,11 @@ process:
     full: process.real_user
     schema_name: user
     short: The real user (ruid). Identifies the real owner of the process.
+  - beta: Reusing the `user` fields in this location is currently considered beta.
+    full: process.attested_user
+    schema_name: user
+    short: The externally attested user based on an external source such as the Kube
+      API.
   - full: process.parent
     schema_name: process
     short: Information about the parent process.
@@ -12447,6 +12695,101 @@ related:
   prefix: related.
   short: Fields meant to facilitate pivoting around a piece of data.
   title: Related
+  type: group
+risk:
+  beta: These fields are in beta and are subject to change.
+  description: Fields for describing risk score and risk level of entities such as
+    hosts and users.  These fields are not allowed to be nested under `event.*`. Please
+    continue to use  `event.risk_score` and `event.risk_score_norm` for event risk.
+  fields:
+    risk.calculated_level:
+      dashed_name: risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    risk.calculated_score:
+      dashed_name: risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    risk.calculated_score_norm:
+      dashed_name: risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      short: A normalized risk score calculated by an internal system.
+      type: float
+    risk.static_level:
+      dashed_name: risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    risk.static_score:
+      dashed_name: risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    risk.static_score_norm:
+      dashed_name: risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      short: A normalized risk score calculated by an external system.
+      type: float
+  group: 2
+  name: risk
+  prefix: risk.
+  reusable:
+    expected:
+    - as: risk
+      at: host
+      full: host.risk
+    - as: risk
+      at: user
+      full: user.risk
+    top_level: false
+  short: Fields for describing risk score and level.
+  title: Risk information
   type: group
 rule:
   description: 'Rule fields are used to capture the specifics of any observer or agent
@@ -18134,11 +18477,13 @@ threat:
     threat.indicator.marking.tlp:
       dashed_name: threat-indicator-marking-tlp
       description: Traffic Light Protocol sharing markings.
-      example: WHITE
+      example: CLEAR
       expected_values:
       - WHITE
+      - CLEAR
       - GREEN
       - AMBER
+      - AMBER+STRICT
       - RED
       flat_name: threat.indicator.marking.tlp
       ignore_above: 1024
@@ -20800,6 +21145,86 @@ user:
       normalize: []
       short: Short name or login of the user.
       type: keyword
+    user.risk.calculated_level:
+      dashed_name: user-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.risk.calculated_score:
+      dashed_name: user-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.risk.calculated_score_norm:
+      dashed_name: user-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an internal system.
+      type: float
+    user.risk.static_level:
+      dashed_name: user-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.risk.static_score:
+      dashed_name: user-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.risk.static_score_norm:
+      dashed_name: user-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an external system.
+      type: float
     user.roles:
       dashed_name: user-roles
       description: Array of user roles at the time of the event.
@@ -20949,6 +21374,7 @@ user:
   - user.changes
   - user.effective
   - user.group
+  - user.risk
   - user.target
   prefix: user.
   reusable:
@@ -20992,11 +21418,20 @@ user:
       beta: Reusing the `user` fields in this location is currently considered beta.
       full: process.real_user
       short_override: The real user (ruid). Identifies the real owner of the process.
+    - as: attested_user
+      at: process
+      beta: Reusing the `user` fields in this location is currently considered beta.
+      full: process.attested_user
+      short_override: The externally attested user based on an external source such
+        as the Kube API.
     top_level: true
   reused_here:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
+  - full: user.risk
+    schema_name: risk
+    short: Fields for describing risk score and level.
   - full: user.target
     schema_name: user
     short: Targeted user of action taken.

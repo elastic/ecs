@@ -4,7 +4,7 @@
   ],
   "mappings": {
     "_meta": {
-      "version": "8.6.0-dev+exp"
+      "version": "8.7.0-dev+exp"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -747,6 +747,30 @@
                 "type": "keyword"
               },
               "roles": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      },
+      "device": {
+        "properties": {
+          "id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "manufacturer": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "model": {
+            "properties": {
+              "identifier": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
                 "ignore_above": 1024,
                 "type": "keyword"
               }
@@ -2688,6 +2712,31 @@
               "args_count": {
                 "type": "long"
               },
+              "attested_groups": {
+                "properties": {
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "attested_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
               "command_line": {
                 "fields": {
                   "text": {
@@ -2899,7 +2948,8 @@
             }
           },
           "env_vars": {
-            "type": "object"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "executable": {
             "fields": {
@@ -3943,6 +3993,12 @@
                     "type": "long"
                   }
                 }
+              },
+              "columns": {
+                "type": "long"
+              },
+              "rows": {
+                "type": "long"
               }
             },
             "type": "object"
@@ -6757,30 +6813,6 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
-              "risk": {
-                "properties": {
-                  "calculated_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "calculated_score": {
-                    "type": "float"
-                  },
-                  "calculated_score_norm": {
-                    "type": "float"
-                  },
-                  "static_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "static_score": {
-                    "type": "float"
-                  },
-                  "static_score_norm": {
-                    "type": "float"
-                  }
-                }
-              },
               "roles": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -6842,30 +6874,6 @@
                 },
                 "ignore_above": 1024,
                 "type": "keyword"
-              },
-              "risk": {
-                "properties": {
-                  "calculated_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "calculated_score": {
-                    "type": "float"
-                  },
-                  "calculated_score_norm": {
-                    "type": "float"
-                  },
-                  "static_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "static_score": {
-                    "type": "float"
-                  },
-                  "static_score_norm": {
-                    "type": "float"
-                  }
-                }
               },
               "roles": {
                 "ignore_above": 1024,
@@ -6998,30 +7006,6 @@
                 },
                 "ignore_above": 1024,
                 "type": "keyword"
-              },
-              "risk": {
-                "properties": {
-                  "calculated_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "calculated_score": {
-                    "type": "float"
-                  },
-                  "calculated_score_norm": {
-                    "type": "float"
-                  },
-                  "static_level": {
-                    "ignore_above": 1024,
-                    "type": "keyword"
-                  },
-                  "static_score": {
-                    "type": "float"
-                  },
-                  "static_score_norm": {
-                    "type": "float"
-                  }
-                }
               },
               "roles": {
                 "ignore_above": 1024,
