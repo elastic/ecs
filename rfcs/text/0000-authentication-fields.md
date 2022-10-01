@@ -8,7 +8,7 @@ This RFC will provide normalization for fields related to authentication fields 
 ## Fields
 
 #### Log
-|Proposed Field Name|Type|Value|Azure Field|
+|Proposed Field Name|Type|Value|Description|
 | --- | --- | --- | --- |
 |authentication.scope|keyword|user_impersonation|azure.activitylogs.identity.claims.http://schemas_microsoft_com/identity/claims/scope|
 |authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
@@ -18,10 +18,10 @@ This RFC will provide normalization for fields related to authentication fields 
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
 |authentication.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
-|authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.||
-|authentication.protocol|Authentication Protocol (authproto)||
+|authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.|||
+|authentication.protocol|Authentication Protocol (authproto)|||
 |authentication.scope|Requested scope of user|keyword| Defines scope of authentication request|
-|authentication.requirement|Login Authentication Requirements|keyword| What is required to authenticate|
+|authentication.requirement|Login Authentication Requirements|keyword| What is required to authenticate||
 |authentication.additional.details|Login Additional Details|list| Important login details not applicable in other areas|
 |authentication.token|Type of token for the login event|keyword| Unique token provided during the event|
 |authentication.token.identifier|Login token identifier/value|keyword| Unique identifier|
