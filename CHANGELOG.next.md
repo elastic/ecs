@@ -44,10 +44,11 @@ Thanks, you're awesome :-) -->
 
 * Adding `vulnerability` option for `event.catgeory`. #2029
 * Added `device.*` field set as beta. #2030
+* Added `tlp.version` to threat #2074
 
 #### Improvements
 
-* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings - [#2022](https://github.com/elastic/ecs/issues/2022)
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
 
 #### Deprecated
 
