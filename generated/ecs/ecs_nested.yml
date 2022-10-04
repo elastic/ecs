@@ -10116,6 +10116,119 @@ process:
       normalize: []
       short: Whether the process is connected to an interactive shell.
       type: boolean
+    process.io:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io
+      description: 'A chunk of input or output (IO) from a single process.
+
+        This field only appears on the top level process object, which is the process
+        that wrote the output or read the input.'
+      flat_name: process.io
+      level: extended
+      name: io
+      normalize: []
+      short: A chunk of input or output (IO) from a single process.
+      type: object
+    process.io.bytes_skipped:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-bytes-skipped
+      description: An array of byte offsets and lengths denoting where IO data has
+        been skipped.
+      flat_name: process.io.bytes_skipped
+      level: extended
+      name: io.bytes_skipped
+      normalize: array
+      short: An array of byte offsets and lengths denoting where IO data has been
+        skipped.
+      type: object
+    process.io.bytes_skipped.length:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-bytes-skipped-length
+      description: The length of bytes skipped.
+      flat_name: process.io.bytes_skipped.length
+      level: extended
+      name: io.bytes_skipped.length
+      normalize: []
+      short: The length of bytes skipped.
+      type: number
+    process.io.bytes_skipped.offset:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-bytes-skipped-offset
+      description: The byte offset into this event's io.text (or io.bytes in the future)
+        where length bytes were skipped.
+      flat_name: process.io.bytes_skipped.offset
+      level: extended
+      name: io.bytes_skipped.offset
+      normalize: []
+      short: The byte offset into this event's io.text (or io.bytes in the future)
+        where length bytes were skipped.
+      type: number
+    process.io.max_bytes_per_process_exceeded:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-max-bytes-per-process-exceeded
+      description: If true, the process producing the output has exceeded the max_kilobytes_per_process
+        configuration setting.
+      flat_name: process.io.max_bytes_per_process_exceeded
+      level: extended
+      name: io.max_bytes_per_process_exceeded
+      normalize: []
+      short: If true, the process producing the output has exceeded the max_kilobytes_per_process
+        configuration setting.
+      type: boolean
+    process.io.text:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-text
+      description: 'A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events.
+        Assumptions should NOT be made that multiple lines will appear in the same
+        event. TTY output may contain terminal control codes such as for cursor movement,
+        so some string queries may not match due to terminal codes inserted between
+        characters of a word.'
+      flat_name: process.io.text
+      level: extended
+      name: io.text
+      normalize: []
+      short: A chunk of output or input sanitized to UTF-8.
+      type: wildcard
+    process.io.total_bytes_captured:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-total-bytes-captured
+      description: The total number of bytes captured in this event.
+      flat_name: process.io.total_bytes_captured
+      level: extended
+      name: io.total_bytes_captured
+      normalize: []
+      short: The total number of bytes captured in this event.
+      type: number
+    process.io.total_bytes_skipped:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-total-bytes-skipped
+      description: The total number of bytes that were not captured due to implementation
+        restrictions such as buffer size limits. Implementors should strive to ensure
+        this value is always zero
+      flat_name: process.io.total_bytes_skipped
+      level: extended
+      name: io.total_bytes_skipped
+      normalize: []
+      short: The total number of bytes that were not captured due to implementation
+        restrictions such as buffer size limits.
+      type: number
+    process.io.type:
+      beta: This field is beta and subject to change.
+      dashed_name: process-io-type
+      description: 'The type of object on which the IO action (read or write) was
+        taken.
+
+        Currently only ''tty'' is supported. Other types may be added in the future
+        for ''file'' and ''socket'' support.'
+      flat_name: process.io.type
+      ignore_above: 1024
+      level: extended
+      name: io.type
+      normalize: []
+      short: The type of object on which the IO action (read or write) was taken.
+      type: keyword
     process.name:
       dashed_name: process-name
       description: 'Process name.
