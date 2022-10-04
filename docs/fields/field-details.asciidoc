@@ -7439,6 +7439,177 @@ example: `True`
 // ===============================================================
 
 |
+[[field-process-io]]
+<<field-process-io, process.io>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of input or output (IO) from a single process.
+
+This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped]]
+<<field-process-io-bytes-skipped, process.io.bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+An array of byte offsets and lengths denoting where IO data has been skipped.
+
+type: object
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-length]]
+<<field-process-io-bytes-skipped-length, process.io.bytes_skipped.length>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The length of bytes skipped.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-offset]]
+<<field-process-io-bytes-skipped-offset, process.io.bytes_skipped.offset>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-max-bytes-per-process-exceeded]]
+<<field-process-io-max-bytes-per-process-exceeded, process.io.max_bytes_per_process_exceeded>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-text]]
+<<field-process-io-text, process.io.text>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of output or input sanitized to UTF-8.
+
+Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+type: wildcard
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-captured]]
+<<field-process-io-total-bytes-captured, process.io.total_bytes_captured>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes captured in this event.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-skipped]]
+<<field-process-io-total-bytes-skipped, process.io.total_bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-type]]
+<<field-process-io-type, process.io.type>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The type of object on which the IO action (read or write) was taken.
+
+Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-process-name]]
 <<field-process-name, process.name>>
 
