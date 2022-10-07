@@ -14,12 +14,12 @@ This RFC will provide normalization for fields related to authentication fields 
 |authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
 |authentication.additional.details|keyword|MFA requirement satisfied by claim in the token|azure.activitylogs.properties.status.additionalDetails|
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
-|authentication.isInteractive|keyword|FALSE|azure.signinlogs.properties.is_interactive|
+|authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.is_interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
-|authentication.id|Unique ID given across primary authentication and additional (multi factor) authentication.|||
-|authentication.protocol|Authentication Protocol (authproto)|||
-|authentication.token|Type of token for the login event|keyword| Unique token provided during the event|
-|authentication.token.identifier|Login token identifier/value|keyword| Unique identifier|
+|authentication.id|keyword||Unique ID given across primary authentication and additional (multi factor) authentication.|
+|authentication.protocol|keyword||Authentication Protocol (authproto)|
+|authentication.token|keyword||Unique token provided during the event|
+|authentication.token.identifier|keyword||Login token identifier/value|
 
 ## Source data
 
