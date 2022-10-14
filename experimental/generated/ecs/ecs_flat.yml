@@ -2931,6 +2931,12 @@ event.category:
     expected_event_types:
     - indicator
     name: threat
+  - description: Relating to vulnerability scan results. Use this category to analyze
+      vulnerabilities detected by Tenable, Qualys, internal scanners, and other vulnerability
+      management sources.
+    expected_event_types:
+    - info
+    name: vulnerability
   - description: 'Relating to web server access. Use this category to create a dashboard
       of web server/proxy activity from apache, IIS, nginx web servers, etc. Note:
       events from network observers such as Zeek http log may also be included in
@@ -7455,6 +7461,45 @@ process.entry_leader.args_count:
   original_fieldset: process
   short: Length of the process.args array.
   type: long
+process.entry_leader.attested_groups.name:
+  dashed_name: process-entry-leader-attested-groups-name
+  description: Name of the group.
+  flat_name: process.entry_leader.attested_groups.name
+  ignore_above: 1024
+  level: extended
+  name: name
+  normalize: []
+  original_fieldset: group
+  short: Name of the group.
+  type: keyword
+process.entry_leader.attested_user.id:
+  dashed_name: process-entry-leader-attested-user-id
+  description: Unique identifier of the user.
+  example: S-1-5-21-202424912787-2692429404-2351956786-1000
+  flat_name: process.entry_leader.attested_user.id
+  ignore_above: 1024
+  level: core
+  name: id
+  normalize: []
+  original_fieldset: user
+  short: Unique identifier of the user.
+  type: keyword
+process.entry_leader.attested_user.name:
+  dashed_name: process-entry-leader-attested-user-name
+  description: Short name or login of the user.
+  example: a.einstein
+  flat_name: process.entry_leader.attested_user.name
+  ignore_above: 1024
+  level: core
+  multi_fields:
+  - flat_name: process.entry_leader.attested_user.name.text
+    name: text
+    type: match_only_text
+  name: name
+  normalize: []
+  original_fieldset: user
+  short: Short name or login of the user.
+  type: keyword
 process.entry_leader.command_line:
   dashed_name: process-entry-leader-command-line
   description: 'Full command line that started the process, including the absolute
@@ -8495,6 +8540,116 @@ process.interactive:
   normalize: []
   short: Whether the process is connected to an interactive shell.
   type: boolean
+process.io:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io
+  description: 'A chunk of input or output (IO) from a single process.
+
+    This field only appears on the top level process object, which is the process
+    that wrote the output or read the input.'
+  flat_name: process.io
+  level: extended
+  name: io
+  normalize: []
+  short: A chunk of input or output (IO) from a single process.
+  type: object
+process.io.bytes_skipped:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped
+  description: An array of byte offsets and lengths denoting where IO data has been
+    skipped.
+  flat_name: process.io.bytes_skipped
+  level: extended
+  name: io.bytes_skipped
+  normalize: array
+  short: An array of byte offsets and lengths denoting where IO data has been skipped.
+  type: object
+process.io.bytes_skipped.length:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped-length
+  description: The length of bytes skipped.
+  flat_name: process.io.bytes_skipped.length
+  level: extended
+  name: io.bytes_skipped.length
+  normalize: []
+  short: The length of bytes skipped.
+  type: number
+process.io.bytes_skipped.offset:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped-offset
+  description: The byte offset into this event's io.text (or io.bytes in the future)
+    where length bytes were skipped.
+  flat_name: process.io.bytes_skipped.offset
+  level: extended
+  name: io.bytes_skipped.offset
+  normalize: []
+  short: The byte offset into this event's io.text (or io.bytes in the future) where
+    length bytes were skipped.
+  type: number
+process.io.max_bytes_per_process_exceeded:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-max-bytes-per-process-exceeded
+  description: If true, the process producing the output has exceeded the max_kilobytes_per_process
+    configuration setting.
+  flat_name: process.io.max_bytes_per_process_exceeded
+  level: extended
+  name: io.max_bytes_per_process_exceeded
+  normalize: []
+  short: If true, the process producing the output has exceeded the max_kilobytes_per_process
+    configuration setting.
+  type: boolean
+process.io.text:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-text
+  description: 'A chunk of output or input sanitized to UTF-8.
+
+    Best efforts are made to ensure complete lines are captured in these events. Assumptions
+    should NOT be made that multiple lines will appear in the same event. TTY output
+    may contain terminal control codes such as for cursor movement, so some string
+    queries may not match due to terminal codes inserted between characters of a word.'
+  flat_name: process.io.text
+  level: extended
+  name: io.text
+  normalize: []
+  short: A chunk of output or input sanitized to UTF-8.
+  type: wildcard
+process.io.total_bytes_captured:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-total-bytes-captured
+  description: The total number of bytes captured in this event.
+  flat_name: process.io.total_bytes_captured
+  level: extended
+  name: io.total_bytes_captured
+  normalize: []
+  short: The total number of bytes captured in this event.
+  type: number
+process.io.total_bytes_skipped:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-total-bytes-skipped
+  description: The total number of bytes that were not captured due to implementation
+    restrictions such as buffer size limits. Implementors should strive to ensure
+    this value is always zero
+  flat_name: process.io.total_bytes_skipped
+  level: extended
+  name: io.total_bytes_skipped
+  normalize: []
+  short: The total number of bytes that were not captured due to implementation restrictions
+    such as buffer size limits.
+  type: number
+process.io.type:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-type
+  description: 'The type of object on which the IO action (read or write) was taken.
+
+    Currently only ''tty'' is supported. Other types may be added in the future for
+    ''file'' and ''socket'' support.'
+  flat_name: process.io.type
+  ignore_above: 1024
+  level: extended
+  name: io.type
+  normalize: []
+  short: The type of object on which the IO action (read or write) was taken.
+  type: keyword
 process.name:
   dashed_name: process-name
   description: 'Process name.
@@ -13910,21 +14065,16 @@ threat.enrichments.indicator.last_seen:
   normalize: []
   short: Date/time indicator was last reported.
   type: date
-threat.enrichments.indicator.marking.tlp:
-  dashed_name: threat-enrichments-indicator-marking-tlp
-  description: Traffic Light Protocol sharing markings.
-  example: WHITE
-  expected_values:
-  - WHITE
-  - GREEN
-  - AMBER
-  - RED
-  flat_name: threat.enrichments.indicator.marking.tlp
+threat.enrichments.indicator.marking.tlp.version:
+  dashed_name: threat-enrichments-indicator-marking-tlp-version
+  description: Traffic Light Protocol version.
+  example: 2.0
+  flat_name: threat.enrichments.indicator.marking.tlp.version
   ignore_above: 1024
   level: extended
-  name: enrichments.indicator.marking.tlp
+  name: enrichments.indicator.marking.tlp.version
   normalize: []
-  short: Indicator TLP marking
+  short: Indicator TLP version
   type: keyword
 threat.enrichments.indicator.modified_at:
   dashed_name: threat-enrichments-indicator-modified-at
@@ -17248,6 +17398,17 @@ threat.technique.subtechnique.reference:
   - array
   short: Threat subtechnique URL reference.
   type: keyword
+threat.threat.indicator.marking.tlp.version:
+  dashed_name: threat-threat-indicator-marking-tlp-version
+  description: Traffic Light Protocol version.
+  example: 2.0
+  flat_name: threat.threat.indicator.marking.tlp.version
+  ignore_above: 1024
+  level: extended
+  name: threat.indicator.marking.tlp.version
+  normalize: []
+  short: Indicator TLP version
+  type: keyword
 tls.cipher:
   dashed_name: tls-cipher
   description: String indicating the cipher used during the current connection.
@@ -18568,86 +18729,6 @@ user.changes.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
-user.changes.risk.calculated_level:
-  dashed_name: user-changes-risk-calculated-level
-  description: A risk classification level calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: High
-  flat_name: user.changes.risk.calculated_level
-  ignore_above: 1024
-  level: extended
-  name: calculated_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: keyword
-user.changes.risk.calculated_score:
-  dashed_name: user-changes-risk-calculated-score
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: 880.73
-  flat_name: user.changes.risk.calculated_score
-  level: extended
-  name: calculated_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: float
-user.changes.risk.calculated_score_norm:
-  dashed_name: user-changes-risk-calculated-score-norm
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring, and normalized to a range of 0 to
-    100.
-  example: 88.73
-  flat_name: user.changes.risk.calculated_score_norm
-  level: extended
-  name: calculated_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an internal system.
-  type: float
-user.changes.risk.static_level:
-  dashed_name: user-changes-risk-static-level
-  description: A risk classification level obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: High
-  flat_name: user.changes.risk.static_level
-  ignore_above: 1024
-  level: extended
-  name: static_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: keyword
-user.changes.risk.static_score:
-  dashed_name: user-changes-risk-static-score
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: 830.0
-  flat_name: user.changes.risk.static_score
-  level: extended
-  name: static_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: float
-user.changes.risk.static_score_norm:
-  dashed_name: user-changes-risk-static-score-norm
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform, and normalized to a range
-    of 0 to 100.
-  example: 83.0
-  flat_name: user.changes.risk.static_score_norm
-  level: extended
-  name: static_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an external system.
-  type: float
 user.changes.roles:
   dashed_name: user-changes-roles
   description: Array of user roles at the time of the event.
@@ -18791,86 +18872,6 @@ user.effective.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
-user.effective.risk.calculated_level:
-  dashed_name: user-effective-risk-calculated-level
-  description: A risk classification level calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: High
-  flat_name: user.effective.risk.calculated_level
-  ignore_above: 1024
-  level: extended
-  name: calculated_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: keyword
-user.effective.risk.calculated_score:
-  dashed_name: user-effective-risk-calculated-score
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: 880.73
-  flat_name: user.effective.risk.calculated_score
-  level: extended
-  name: calculated_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: float
-user.effective.risk.calculated_score_norm:
-  dashed_name: user-effective-risk-calculated-score-norm
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring, and normalized to a range of 0 to
-    100.
-  example: 88.73
-  flat_name: user.effective.risk.calculated_score_norm
-  level: extended
-  name: calculated_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an internal system.
-  type: float
-user.effective.risk.static_level:
-  dashed_name: user-effective-risk-static-level
-  description: A risk classification level obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: High
-  flat_name: user.effective.risk.static_level
-  ignore_above: 1024
-  level: extended
-  name: static_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: keyword
-user.effective.risk.static_score:
-  dashed_name: user-effective-risk-static-score
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: 830.0
-  flat_name: user.effective.risk.static_score
-  level: extended
-  name: static_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: float
-user.effective.risk.static_score_norm:
-  dashed_name: user-effective-risk-static-score-norm
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform, and normalized to a range
-    of 0 to 100.
-  example: 83.0
-  flat_name: user.effective.risk.static_score_norm
-  level: extended
-  name: static_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an external system.
-  type: float
 user.effective.roles:
   dashed_name: user-effective-roles
   description: Array of user roles at the time of the event.
@@ -19194,86 +19195,6 @@ user.target.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
-user.target.risk.calculated_level:
-  dashed_name: user-target-risk-calculated-level
-  description: A risk classification level calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: High
-  flat_name: user.target.risk.calculated_level
-  ignore_above: 1024
-  level: extended
-  name: calculated_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: keyword
-user.target.risk.calculated_score:
-  dashed_name: user-target-risk-calculated-score
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring.
-  example: 880.73
-  flat_name: user.target.risk.calculated_score
-  level: extended
-  name: calculated_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score calculated by an internal system as part of entity
-    analytics and entity risk scoring.
-  type: float
-user.target.risk.calculated_score_norm:
-  dashed_name: user-target-risk-calculated-score-norm
-  description: A risk classification score calculated by an internal system as part
-    of entity analytics and entity risk scoring, and normalized to a range of 0 to
-    100.
-  example: 88.73
-  flat_name: user.target.risk.calculated_score_norm
-  level: extended
-  name: calculated_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an internal system.
-  type: float
-user.target.risk.static_level:
-  dashed_name: user-target-risk-static-level
-  description: A risk classification level obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: High
-  flat_name: user.target.risk.static_level
-  ignore_above: 1024
-  level: extended
-  name: static_level
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification level obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: keyword
-user.target.risk.static_score:
-  dashed_name: user-target-risk-static-score
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform.
-  example: 830.0
-  flat_name: user.target.risk.static_score
-  level: extended
-  name: static_score
-  normalize: []
-  original_fieldset: risk
-  short: A risk classification score obtained from outside the system, such as from
-    some external Threat Intelligence Platform.
-  type: float
-user.target.risk.static_score_norm:
-  dashed_name: user-target-risk-static-score-norm
-  description: A risk classification score obtained from outside the system, such
-    as from some external Threat Intelligence Platform, and normalized to a range
-    of 0 to 100.
-  example: 83.0
-  flat_name: user.target.risk.static_score_norm
-  level: extended
-  name: static_score_norm
-  normalize: []
-  original_fieldset: risk
-  short: A normalized risk score calculated by an external system.
-  type: float
 user.target.roles:
   dashed_name: user-target-roles
   description: Array of user roles at the time of the event.

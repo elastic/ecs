@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-threat.html",
-    "ecs_version": "8.6.0-dev+exp"
+    "ecs_version": "8.7.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -531,8 +531,12 @@
                     "marking": {
                       "properties": {
                         "tlp": {
-                          "ignore_above": 1024,
-                          "type": "keyword"
+                          "properties": {
+                            "version": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
                         }
                       }
                     },
@@ -1684,6 +1688,26 @@
                     "reference": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "threat": {
+              "properties": {
+                "indicator": {
+                  "properties": {
+                    "marking": {
+                      "properties": {
+                        "tlp": {
+                          "properties": {
+                            "version": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
