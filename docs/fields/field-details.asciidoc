@@ -3241,7 +3241,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, configuration, database, driver, email, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, web
+authentication, configuration, database, driver, email, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, vulnerability, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -4620,6 +4620,8 @@ type: keyword
 
 The `group` fields are expected to be nested at:
 
+
+* `process.attested_groups`
 
 * `process.group`
 
@@ -7437,6 +7439,177 @@ example: `True`
 // ===============================================================
 
 |
+[[field-process-io]]
+<<field-process-io, process.io>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of input or output (IO) from a single process.
+
+This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped]]
+<<field-process-io-bytes-skipped, process.io.bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+An array of byte offsets and lengths denoting where IO data has been skipped.
+
+type: object
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-length]]
+<<field-process-io-bytes-skipped-length, process.io.bytes_skipped.length>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The length of bytes skipped.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-offset]]
+<<field-process-io-bytes-skipped-offset, process.io.bytes_skipped.offset>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-max-bytes-per-process-exceeded]]
+<<field-process-io-max-bytes-per-process-exceeded, process.io.max_bytes_per_process_exceeded>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-text]]
+<<field-process-io-text, process.io.text>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of output or input sanitized to UTF-8.
+
+Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+type: wildcard
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-captured]]
+<<field-process-io-total-bytes-captured, process.io.total_bytes_captured>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes captured in this event.
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-skipped]]
+<<field-process-io-total-bytes-skipped, process.io.total_bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+type: number
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-type]]
+<<field-process-io-type, process.io.type>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The type of object on which the IO action (read or write) was taken.
+
+Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-process-name]]
 <<field-process-name, process.name>>
 
@@ -7762,6 +7935,24 @@ Note also that the `process` fields may be used directly at the root of the even
 [options="header"]
 |=====
 | Location | Field Set | Description
+
+// ===============================================================
+
+
+| `process.attested_groups.*`
+| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
+
+The externally attested groups based on an external source such as the Kube API.
+
+Note: this reuse should contain an array of group field set objects.
+
+// ===============================================================
+
+
+| `process.attested_user.*`
+| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
+
+The externally attested user based on an external source such as the Kube API.
 
 // ===============================================================
 
@@ -9492,23 +9683,16 @@ example: `2020-11-05T17:25:47.000Z`
 // ===============================================================
 
 |
-[[field-threat-enrichments-indicator-marking-tlp]]
-<<field-threat-enrichments-indicator-marking-tlp, threat.enrichments.indicator.marking.tlp>>
+[[field-threat-enrichments-indicator-marking-tlp-version]]
+<<field-threat-enrichments-indicator-marking-tlp-version, threat.enrichments.indicator.marking.tlp.version>>
 
-a| Traffic Light Protocol sharing markings.
-
-Expected values for this field:
-
-* `WHITE`
-* `GREEN`
-* `AMBER`
-* `RED`
+a| Traffic Light Protocol version.
 
 type: keyword
 
 
 
-example: `WHITE`
+example: `2.0`
 
 | extended
 
@@ -10468,6 +10652,22 @@ Note: this field should contain an array of values.
 
 
 example: `https://attack.mitre.org/techniques/T1059/001/`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-threat-indicator-marking-tlp-version]]
+<<field-threat-threat-indicator-marking-tlp-version, threat.threat.indicator.marking.tlp.version>>
+
+a| Traffic Light Protocol version.
+
+type: keyword
+
+
+
+example: `2.0`
 
 | extended
 
@@ -11630,6 +11830,8 @@ The `user` fields are expected to be nested at:
 * `client.user`
 
 * `destination.user`
+
+* `process.attested_user`
 
 * `process.real_user`
 
