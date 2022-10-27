@@ -189,6 +189,54 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         }
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_multi_fields(self):
+        test_map = {
+            'name': 'field_with_multi_fields',
+            'type': 'keyword',
+            'multi_fields': [
+                {
+                    'name': 'text',
+                    'type': 'match_only_text'
+                }
+            ]
+        }
+
+        exp = {
+            'type': 'keyword',
+            'fields': {
+                'text': {
+                    'type': 'match_only_text'
+                }
+            }
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_multi_fields_parameters(self):
+        test_map = {
+            'name': 'field_with_multi_fields_with_parameters',
+            'type': 'keyword',
+            'multi_fields': [
+                {
+                    'name': 'text',
+                    'type': 'match_only_text',
+                    'parameters': {
+                        'analyzer': 'english'
+                    }
+                }
+            ]
+        }
+
+        exp = {
+            'type': 'keyword',
+            'fields': {
+                'text': {
+                    'type': 'match_only_text',
+                    'analyzer': 'english'
+                }
+            }
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
     def test_component_composable_template_name(self):
         version = "1.8"
         test_map = {
