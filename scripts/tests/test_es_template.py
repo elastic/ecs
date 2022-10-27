@@ -174,6 +174,21 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = {'type': 'constant_keyword'}
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_parameters(self):
+        test_map = {
+            'name': 'field_with_parameters',
+            'type': 'date',
+            'parameters': {
+                'format': 'strict_date_optional_time||epoch_seconds',
+            }
+        }
+
+        exp = {
+            'type': 'date',
+            'format': 'strict_date_optional_time||epoch_seconds'
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
     def test_component_composable_template_name(self):
         version = "1.8"
         test_map = {
