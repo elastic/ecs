@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `parameters` property for field definitions, to provide any mapping parameter. #2084
+
 #### Improvements
 
 * Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
