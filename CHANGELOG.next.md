@@ -68,10 +68,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-#### Breaking changes
-
-#### Bugfixes
-
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994, #2010
@@ -85,6 +81,7 @@ Thanks, you're awesome :-) -->
 
 * Advances `threat.enrichments.indicator` to GA. #1928
 * Added `ios` and `android` as valid values for `os.type` #1999
+* Advances linux event model fields and fieldsets under process, user and group to GA. #2082
 
 #### Deprecated
 
