@@ -68,6 +68,8 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+* Fields added to process, user and group fieldsets in RFC 0030 (Linux event model) are now GA. Beta removed.
+
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994, #2010
