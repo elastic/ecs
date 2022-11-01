@@ -7248,9 +7248,7 @@ example: `c2c455d9f99375d`
 [[field-process-entry-meta-type]]
 <<field-process-entry-meta-type, process.entry_meta.type>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
+a| The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
 
 Note: This field is only set on process.session_leader.
 
@@ -7331,9 +7329,7 @@ example: `137`
 [[field-process-interactive]]
 <<field-process-interactive, process.interactive>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Whether the process is connected to an interactive shell.
+a| Whether the process is connected to an interactive shell.
 
 Process interactivity is inferred from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
 
@@ -7582,9 +7578,7 @@ example: `4242`
 [[field-process-same-as-process]]
 <<field-process-same-as-process, process.same_as_process>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-This boolean is used to identify if a leader process is the same as the top level process.
+a| This boolean is used to identify if a leader process is the same as the top level process.
 
 For example, if `process.group_leader.same_as_process = true`, it means the process event in question is the leader of its process group. Details under `process.*` like `pid` would be the same under `process.group_leader.*` The same applies for both `process.session_leader` and `process.entry_leader`.
 
@@ -7680,9 +7674,7 @@ Multi-fields:
 [[field-process-tty]]
 <<field-process-tty, process.tty>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Information about the controlling TTY device. If set, the process belongs to an interactive session.
+a| Information about the controlling TTY device. If set, the process belongs to an interactive session.
 
 type: object
 
@@ -7698,9 +7690,7 @@ type: object
 [[field-process-tty-char-device-major]]
 <<field-process-tty-char-device-major, process.tty.char_device.major>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+a| The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
 
 type: long
 
@@ -7716,9 +7706,7 @@ example: `4`
 [[field-process-tty-char-device-minor]]
 <<field-process-tty-char-device-minor, process.tty.char_device.minor>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
+a| The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
 
 type: long
 
@@ -7884,49 +7872,43 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 
 | `process.entry_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
+| <<ecs-process,process>>
+| First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
 
 // ===============================================================
 
 
 | `process.entry_leader.parent.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.entry_leader.parent.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.entry_meta.source.*`
-| <<ecs-source,source>>| beta:[ Reusing the `source` fields in this location is currently considered beta.]
-
-Remote client information such as ip, port and geo location.
+| <<ecs-source,source>>
+| Remote client information such as ip, port and geo location.
 
 // ===============================================================
 
 
 | `process.group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The effective group (egid).
+| <<ecs-group,group>>
+| The effective group (egid).
 
 // ===============================================================
 
 
 | `process.group_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the process group leader. In some cases this may be the same as the top level process.
+| <<ecs-process,process>>
+| Information about the process group leader. In some cases this may be the same as the top level process.
 
 // ===============================================================
 
@@ -7946,9 +7928,8 @@ Information about the process group leader. In some cases this may be the same a
 
 
 | `process.parent.group_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent's process group leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent's process group leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
@@ -7961,9 +7942,8 @@ Information about the parent's process group leader. Only pid, start and entity_
 
 
 | `process.previous.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-An array of previous executions for the process, including the initial fork. Only executable and args are set.
+| <<ecs-process,process>>
+| An array of previous executions for the process, including the initial fork. Only executable and args are set.
 
 Note: this reuse should contain an array of process field set objects.
 
@@ -7971,65 +7951,57 @@ Note: this reuse should contain an array of process field set objects.
 
 
 | `process.real_group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The real group (rgid).
+| <<ecs-group,group>>
+| The real group (rgid).
 
 // ===============================================================
 
 
 | `process.real_user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The real user (ruid). Identifies the real owner of the process.
+| <<ecs-user,user>>
+| The real user (ruid). Identifies the real owner of the process.
 
 // ===============================================================
 
 
 | `process.saved_group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The saved group (sgid).
+| <<ecs-group,group>>
+| The saved group (sgid).
 
 // ===============================================================
 
 
 | `process.saved_user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The saved user (suid).
+| <<ecs-user,user>>
+| The saved user (suid).
 
 // ===============================================================
 
 
 | `process.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
+| <<ecs-process,process>>
+| Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
 
 // ===============================================================
 
 
 | `process.session_leader.parent.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the session leader's parent process. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the session leader's parent process. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.session_leader.parent.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.supplemental_groups.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-An array of supplemental groups.
+| <<ecs-group,group>>
+| An array of supplemental groups.
 
 Note: this reuse should contain an array of group field set objects.
 
@@ -8037,9 +8009,8 @@ Note: this reuse should contain an array of group field set objects.
 
 
 | `process.user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The effective user (euid).
+| <<ecs-user,user>>
+| The effective user (euid).
 
 // ===============================================================
 
