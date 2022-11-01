@@ -36,8 +36,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-* Fields added to process, user and group fieldsets in RFC 0030 (Linux event model) are now GA. Beta removed.
-
 #### Added
 
 * Adding `risk.*` fields as experimental. #1994, #2010
@@ -51,6 +49,7 @@ Thanks, you're awesome :-) -->
 
 * Advances `threat.enrichments.indicator` to GA. #1928
 * Added `ios` and `android` as valid values for `os.type` #1999
+* Advances linux event model fields and fieldsets under process, user and group to GA. #2082
 
 ### Tooling and Artifact Changes
 
