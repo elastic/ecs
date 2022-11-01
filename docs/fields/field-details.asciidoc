@@ -2263,6 +2263,88 @@ Note: this field should contain an array of values.
 // ===============================================================
 
 |
+[[field-elf-go-import-hash]]
+<<field-elf-go-import-hash, elf.go_import_hash>>
+
+a| A hash of the Go language imports in an ELF file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports]]
+<<field-elf-go-imports, elf.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports-names-entropy]]
+<<field-elf-go-imports-names-entropy, elf.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports-names-var-entropy]]
+<<field-elf-go-imports-names-var-entropy, elf.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-stripped]]
+<<field-elf-go-stripped, elf.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-elf-header-abi-version]]
 <<field-elf-header-abi-version, elf.header.abi_version>>
 
@@ -2391,6 +2473,24 @@ type: keyword
 // ===============================================================
 
 |
+[[field-elf-import-hash]]
+<<field-elf-import-hash, elf.import_hash>>
+
+a| A hash of the imports in an ELF file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is an ELF implementation of the Windows PE imphash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-elf-imports]]
 <<field-elf-imports, elf.imports>>
 
@@ -2400,6 +2500,38 @@ type: flattened
 
 
 Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports-names-entropy]]
+<<field-elf-imports-names-entropy, elf.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports-names-var-entropy]]
+<<field-elf-imports-names-var-entropy, elf.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
 
 
 
@@ -2533,6 +2665,22 @@ type: long
 a| ELF Section List type.
 
 type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-var-entropy]]
+<<field-elf-sections-var-entropy, elf.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
 
 
 
@@ -4308,6 +4456,14 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 // ===============================================================
 
 
+| `file.macho.*`
+| <<ecs-macho,macho>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+
+// ===============================================================
+
+
 | `file.pe.*`
 | <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
@@ -5803,6 +5959,306 @@ example: `1`
 |=====
 
 
+[[ecs-macho]]
+=== Mach-O Header Fields
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Mach-O Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-macho-go-import-hash]]
+<<field-macho-go-import-hash, macho.go_import_hash>>
+
+a| A hash of the Go language imports in a Mach-O file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports]]
+<<field-macho-go-imports, macho.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports-names-entropy]]
+<<field-macho-go-imports-names-entropy, macho.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports-names-var-entropy]]
+<<field-macho-go-imports-names-var-entropy, macho.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-stripped]]
+<<field-macho-go-stripped, macho.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-import-hash]]
+<<field-macho-import-hash, macho.import_hash>>
+
+a| A hash of the imports in an Mach-O file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a synonym for symhash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports]]
+<<field-macho-imports, macho.imports>>
+
+a| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports-names-entropy]]
+<<field-macho-imports-names-entropy, macho.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports-names-var-entropy]]
+<<field-macho-imports-names-var-entropy, macho.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections]]
+<<field-macho-sections, macho.sections>>
+
+a| An array containing an object for each section of the Mach-O file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `macho.sections.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-entropy]]
+<<field-macho-sections-entropy, macho.sections.entropy>>
+
+a| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-name]]
+<<field-macho-sections-name, macho.sections.name>>
+
+a| Mach-O Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-physical-size]]
+<<field-macho-sections-physical-size, macho.sections.physical_size>>
+
+a| Mach-O Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-var-entropy]]
+<<field-macho-sections-var-entropy, macho.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-virtual-size]]
+<<field-macho-sections-virtual-size, macho.sections.virtual_size>>
+
+a| Mach-O Section List virtual size. This is always the same as `physical_size`.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-symhash]]
+<<field-macho-symhash, macho.symhash>>
+
+a| A hash of the imports in a Mach-O file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a Mach-O implementation of the Windows PE imphash
+
+type: keyword
+
+
+
+example: `d3ccf195b62a9279c3c19af1080497ec`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `macho` fields are expected to be nested at:
+
+
+* `file.macho`
+
+* `process.macho`
+
+
+Note also that the `macho` fields are not expected to be used directly at the root of the events.
 [[ecs-network]]
 === Network Fields
 
@@ -7135,6 +7591,88 @@ example: `6.3.9600.17415`
 // ===============================================================
 
 |
+[[field-pe-go-import-hash]]
+<<field-pe-go-import-hash, pe.go_import_hash>>
+
+a| A hash of the Go language imports in a PE file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports]]
+<<field-pe-go-imports, pe.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports-names-entropy]]
+<<field-pe-go-imports-names-entropy, pe.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports-names-var-entropy]]
+<<field-pe-go-imports-names-var-entropy, pe.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-stripped]]
+<<field-pe-go-stripped, pe.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-pe-imphash]]
 <<field-pe-imphash, pe.imphash>>
 
@@ -7147,6 +7685,75 @@ type: keyword
 
 
 example: `0c6803c4e922103c4dca5963aad36ddf`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-import-hash]]
+<<field-pe-import-hash, pe.import_hash>>
+
+a| A hash of the imports in a PE file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a synonym for imphash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports]]
+<<field-pe-imports, pe.imports>>
+
+a| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports-names-entropy]]
+<<field-pe-imports-names-entropy, pe.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports-names-var-entropy]]
+<<field-pe-imports-names-var-entropy, pe.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
 
 | extended
 
@@ -7197,6 +7804,107 @@ type: keyword
 
 
 example: `Microsoft® Windows® Operating System`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections]]
+<<field-pe-sections, pe.sections>>
+
+a| An array containing an object for each section of the PE file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `pe.sections.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-entropy]]
+<<field-pe-sections-entropy, pe.sections.entropy>>
+
+a| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-name]]
+<<field-pe-sections-name, pe.sections.name>>
+
+a| PE Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-physical-size]]
+<<field-pe-sections-physical-size, pe.sections.physical_size>>
+
+a| PE Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-var-entropy]]
+<<field-pe-sections-var-entropy, pe.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-virtual-size]]
+<<field-pe-sections-virtual-size, pe.sections.virtual_size>>
+
+a| PE Section List virtual size. This is always the same as `physical_size`.
+
+type: long
+
+
+
+
 
 | extended
 
@@ -8005,6 +8713,14 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 | `process.hash.*`
 | <<ecs-hash,hash>>
 | Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| `process.macho.*`
+| <<ecs-macho,macho>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
 
 // ===============================================================
 
