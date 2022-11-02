@@ -126,6 +126,10 @@ class TestEcsSpec(unittest.TestCase):
             self.assertIn('array', field['normalize'],
                           "All fields under `related.*` should be arrays")
 
+    def test_normalize_always_array(self):
+        for (field_name, field) in self.ecs_fields.items():
+            self.assertIsInstance(field.get('normalize'), list, field_name)
+
 
 if __name__ == '__main__':
     unittest.main()
