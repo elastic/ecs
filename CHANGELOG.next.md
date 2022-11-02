@@ -32,6 +32,20 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+## [8.5.1](https://github.com/elastic/ecs/compare/v8.5.0...v8.5.1)
+
+### Schema Changes
+
+#### Added
+
+#### Improvements
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix type of `normalize` in `process.io.bytes_skipped`. #2094
+
 ## 8.5.0 (Hard Feature Freeze)
 
 ### Schema Changes
