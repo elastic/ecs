@@ -3,6 +3,14 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.5.2](https://github.com/elastic/ecs/compare/v8.5.1...v8.5.2)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixes invalid `number` type on 4 `process.io` subfields. #2105
+
 ## [8.5.1](https://github.com/elastic/ecs/compare/v8.5.0...v8.5.1)
 
 ### Tooling and Artifact Changes
