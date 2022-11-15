@@ -7480,7 +7480,6 @@ process.entry_leader.entry_meta.source.ip:
   short: IP address of the source.
   type: ip
 process.entry_leader.entry_meta.type:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-entry-meta-type
   description: 'The entry type for the entry session leader. Values include: init(e.g
     systemd), sshd, ssm, kubelet, teleport, terminal, console
@@ -7533,7 +7532,6 @@ process.entry_leader.group.name:
   short: Name of the group.
   type: keyword
 process.entry_leader.interactive:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-interactive
   description: 'Whether the process is connected to an interactive shell.
 
@@ -7721,7 +7719,6 @@ process.entry_leader.real_user.name:
   short: Short name or login of the user.
   type: keyword
 process.entry_leader.same_as_process:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-same-as-process
   description: 'This boolean is used to identify if a leader process is the same as
     the top level process.
@@ -7835,7 +7832,6 @@ process.entry_leader.supplemental_groups.name:
   short: Name of the group.
   type: keyword
 process.entry_leader.tty:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-tty
   description: Information about the controlling TTY device. If set, the process belongs
     to an interactive session.
@@ -7847,7 +7843,6 @@ process.entry_leader.tty:
   short: Information about the controlling TTY device.
   type: object
 process.entry_leader.tty.char_device.major:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-tty-char-device-major
   description: The major number identifies the driver associated with the device.
     The character device's major and minor numbers can be algorithmically combined
@@ -7862,7 +7857,6 @@ process.entry_leader.tty.char_device.major:
   short: The TTY character device's major number.
   type: long
 process.entry_leader.tty.char_device.minor:
-  beta: This field is beta and subject to change.
   dashed_name: process-entry-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
     \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
@@ -8072,7 +8066,6 @@ process.group_leader.group.name:
   short: Name of the group.
   type: keyword
 process.group_leader.interactive:
-  beta: This field is beta and subject to change.
   dashed_name: process-group-leader-interactive
   description: 'Whether the process is connected to an interactive shell.
 
@@ -8174,7 +8167,6 @@ process.group_leader.real_user.name:
   short: Short name or login of the user.
   type: keyword
 process.group_leader.same_as_process:
-  beta: This field is beta and subject to change.
   dashed_name: process-group-leader-same-as-process
   description: 'This boolean is used to identify if a leader process is the same as
     the top level process.
@@ -8288,7 +8280,6 @@ process.group_leader.supplemental_groups.name:
   short: Name of the group.
   type: keyword
 process.group_leader.tty:
-  beta: This field is beta and subject to change.
   dashed_name: process-group-leader-tty
   description: Information about the controlling TTY device. If set, the process belongs
     to an interactive session.
@@ -8300,7 +8291,6 @@ process.group_leader.tty:
   short: Information about the controlling TTY device.
   type: object
 process.group_leader.tty.char_device.major:
-  beta: This field is beta and subject to change.
   dashed_name: process-group-leader-tty-char-device-major
   description: The major number identifies the driver associated with the device.
     The character device's major and minor numbers can be algorithmically combined
@@ -8315,7 +8305,6 @@ process.group_leader.tty.char_device.major:
   short: The TTY character device's major number.
   type: long
 process.group_leader.tty.char_device.minor:
-  beta: This field is beta and subject to change.
   dashed_name: process-group-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
     \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
@@ -8451,7 +8440,6 @@ process.hash.tlsh:
   short: TLSH hash.
   type: keyword
 process.interactive:
-  beta: This field is beta and subject to change.
   dashed_name: process-interactive
   description: 'Whether the process is connected to an interactive shell.
 
@@ -8471,6 +8459,117 @@ process.interactive:
   normalize: []
   short: Whether the process is connected to an interactive shell.
   type: boolean
+process.io:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io
+  description: 'A chunk of input or output (IO) from a single process.
+
+    This field only appears on the top level process object, which is the process
+    that wrote the output or read the input.'
+  flat_name: process.io
+  level: extended
+  name: io
+  normalize: []
+  short: A chunk of input or output (IO) from a single process.
+  type: object
+process.io.bytes_skipped:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped
+  description: An array of byte offsets and lengths denoting where IO data has been
+    skipped.
+  flat_name: process.io.bytes_skipped
+  level: extended
+  name: io.bytes_skipped
+  normalize:
+  - array
+  short: An array of byte offsets and lengths denoting where IO data has been skipped.
+  type: object
+process.io.bytes_skipped.length:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped-length
+  description: The length of bytes skipped.
+  flat_name: process.io.bytes_skipped.length
+  level: extended
+  name: io.bytes_skipped.length
+  normalize: []
+  short: The length of bytes skipped.
+  type: long
+process.io.bytes_skipped.offset:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-bytes-skipped-offset
+  description: The byte offset into this event's io.text (or io.bytes in the future)
+    where length bytes were skipped.
+  flat_name: process.io.bytes_skipped.offset
+  level: extended
+  name: io.bytes_skipped.offset
+  normalize: []
+  short: The byte offset into this event's io.text (or io.bytes in the future) where
+    length bytes were skipped.
+  type: long
+process.io.max_bytes_per_process_exceeded:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-max-bytes-per-process-exceeded
+  description: If true, the process producing the output has exceeded the max_kilobytes_per_process
+    configuration setting.
+  flat_name: process.io.max_bytes_per_process_exceeded
+  level: extended
+  name: io.max_bytes_per_process_exceeded
+  normalize: []
+  short: If true, the process producing the output has exceeded the max_kilobytes_per_process
+    configuration setting.
+  type: boolean
+process.io.text:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-text
+  description: 'A chunk of output or input sanitized to UTF-8.
+
+    Best efforts are made to ensure complete lines are captured in these events. Assumptions
+    should NOT be made that multiple lines will appear in the same event. TTY output
+    may contain terminal control codes such as for cursor movement, so some string
+    queries may not match due to terminal codes inserted between characters of a word.'
+  flat_name: process.io.text
+  level: extended
+  name: io.text
+  normalize: []
+  short: A chunk of output or input sanitized to UTF-8.
+  type: wildcard
+process.io.total_bytes_captured:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-total-bytes-captured
+  description: The total number of bytes captured in this event.
+  flat_name: process.io.total_bytes_captured
+  level: extended
+  name: io.total_bytes_captured
+  normalize: []
+  short: The total number of bytes captured in this event.
+  type: long
+process.io.total_bytes_skipped:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-total-bytes-skipped
+  description: The total number of bytes that were not captured due to implementation
+    restrictions such as buffer size limits. Implementors should strive to ensure
+    this value is always zero
+  flat_name: process.io.total_bytes_skipped
+  level: extended
+  name: io.total_bytes_skipped
+  normalize: []
+  short: The total number of bytes that were not captured due to implementation restrictions
+    such as buffer size limits.
+  type: long
+process.io.type:
+  beta: This field is beta and subject to change.
+  dashed_name: process-io-type
+  description: 'The type of object on which the IO action (read or write) was taken.
+
+    Currently only ''tty'' is supported. Other types may be added in the future for
+    ''file'' and ''socket'' support.'
+  flat_name: process.io.type
+  ignore_above: 1024
+  level: extended
+  name: io.type
+  normalize: []
+  short: The type of object on which the IO action (read or write) was taken.
+  type: keyword
 process.name:
   dashed_name: process-name
   description: 'Process name.
@@ -9194,7 +9293,6 @@ process.parent.hash.tlsh:
   short: TLSH hash.
   type: keyword
 process.parent.interactive:
-  beta: This field is beta and subject to change.
   dashed_name: process-parent-interactive
   description: 'Whether the process is connected to an interactive shell.
 
@@ -9539,7 +9637,6 @@ process.parent.title:
   short: Process title.
   type: keyword
 process.parent.tty:
-  beta: This field is beta and subject to change.
   dashed_name: process-parent-tty
   description: Information about the controlling TTY device. If set, the process belongs
     to an interactive session.
@@ -9551,7 +9648,6 @@ process.parent.tty:
   short: Information about the controlling TTY device.
   type: object
 process.parent.tty.char_device.major:
-  beta: This field is beta and subject to change.
   dashed_name: process-parent-tty-char-device-major
   description: The major number identifies the driver associated with the device.
     The character device's major and minor numbers can be algorithmically combined
@@ -9566,7 +9662,6 @@ process.parent.tty.char_device.major:
   short: The TTY character device's major number.
   type: long
 process.parent.tty.char_device.minor:
-  beta: This field is beta and subject to change.
   dashed_name: process-parent-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
     \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
@@ -10018,7 +10113,6 @@ process.session_leader.group.name:
   short: Name of the group.
   type: keyword
 process.session_leader.interactive:
-  beta: This field is beta and subject to change.
   dashed_name: process-session-leader-interactive
   description: 'Whether the process is connected to an interactive shell.
 
@@ -10206,7 +10300,6 @@ process.session_leader.real_user.name:
   short: Short name or login of the user.
   type: keyword
 process.session_leader.same_as_process:
-  beta: This field is beta and subject to change.
   dashed_name: process-session-leader-same-as-process
   description: 'This boolean is used to identify if a leader process is the same as
     the top level process.
@@ -10320,7 +10413,6 @@ process.session_leader.supplemental_groups.name:
   short: Name of the group.
   type: keyword
 process.session_leader.tty:
-  beta: This field is beta and subject to change.
   dashed_name: process-session-leader-tty
   description: Information about the controlling TTY device. If set, the process belongs
     to an interactive session.
@@ -10332,7 +10424,6 @@ process.session_leader.tty:
   short: Information about the controlling TTY device.
   type: object
 process.session_leader.tty.char_device.major:
-  beta: This field is beta and subject to change.
   dashed_name: process-session-leader-tty-char-device-major
   description: The major number identifies the driver associated with the device.
     The character device's major and minor numbers can be algorithmically combined
@@ -10347,7 +10438,6 @@ process.session_leader.tty.char_device.major:
   short: The TTY character device's major number.
   type: long
 process.session_leader.tty.char_device.minor:
-  beta: This field is beta and subject to change.
   dashed_name: process-session-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
     \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
@@ -10477,7 +10567,6 @@ process.title:
   short: Process title.
   type: keyword
 process.tty:
-  beta: This field is beta and subject to change.
   dashed_name: process-tty
   description: Information about the controlling TTY device. If set, the process belongs
     to an interactive session.
@@ -10488,7 +10577,6 @@ process.tty:
   short: Information about the controlling TTY device.
   type: object
 process.tty.char_device.major:
-  beta: This field is beta and subject to change.
   dashed_name: process-tty-char-device-major
   description: The major number identifies the driver associated with the device.
     The character device's major and minor numbers can be algorithmically combined
@@ -10502,7 +10590,6 @@ process.tty.char_device.major:
   short: The TTY character device's major number.
   type: long
 process.tty.char_device.minor:
-  beta: This field is beta and subject to change.
   dashed_name: process-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
     \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
@@ -13886,21 +13973,16 @@ threat.enrichments.indicator.last_seen:
   normalize: []
   short: Date/time indicator was last reported.
   type: date
-threat.enrichments.indicator.marking.tlp:
-  dashed_name: threat-enrichments-indicator-marking-tlp
-  description: Traffic Light Protocol sharing markings.
-  example: WHITE
-  expected_values:
-  - WHITE
-  - GREEN
-  - AMBER
-  - RED
-  flat_name: threat.enrichments.indicator.marking.tlp
+threat.enrichments.indicator.marking.tlp.version:
+  dashed_name: threat-enrichments-indicator-marking-tlp-version
+  description: Traffic Light Protocol version.
+  example: 2.0
+  flat_name: threat.enrichments.indicator.marking.tlp.version
   ignore_above: 1024
   level: extended
-  name: enrichments.indicator.marking.tlp
+  name: enrichments.indicator.marking.tlp.version
   normalize: []
-  short: Indicator TLP marking
+  short: Indicator TLP version
   type: keyword
 threat.enrichments.indicator.modified_at:
   dashed_name: threat-enrichments-indicator-modified-at
@@ -17223,6 +17305,17 @@ threat.technique.subtechnique.reference:
   normalize:
   - array
   short: Threat subtechnique URL reference.
+  type: keyword
+threat.threat.indicator.marking.tlp.version:
+  dashed_name: threat-threat-indicator-marking-tlp-version
+  description: Traffic Light Protocol version.
+  example: 2.0
+  flat_name: threat.threat.indicator.marking.tlp.version
+  ignore_above: 1024
+  level: extended
+  name: threat.indicator.marking.tlp.version
+  normalize: []
+  short: Indicator TLP version
   type: keyword
 tls.cipher:
   dashed_name: tls-cipher

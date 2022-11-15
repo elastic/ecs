@@ -44,6 +44,7 @@ Thanks, you're awesome :-) -->
 
 * Adding `vulnerability` option for `event.catgeory`. #2029
 * Added `device.*` field set as beta. #2030
+* Added `tlp.version` to threat #2074
 
 #### Improvements
 
@@ -71,7 +72,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Adding `vulnerability` option for `event.catgeory`. #2029
+* Adding `vulnerability` option for `event.category`. #2029
 * Added `device.*` field set as beta. #2030
 * Added `tlp.version` to threat #2074
 * Added fields for executable object format metadata for ELF, Mach-O and PE #2083
@@ -113,6 +114,7 @@ Thanks, you're awesome :-) -->
 
 * Advances `threat.enrichments.indicator` to GA. #1928
 * Added `ios` and `android` as valid values for `os.type` #1999
+* Advances linux event model fields and fieldsets under process, user and group to GA. #2082
 
 ### Tooling and Artifact Changes
 

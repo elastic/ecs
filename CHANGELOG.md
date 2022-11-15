@@ -3,6 +3,54 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.5.2](https://github.com/elastic/ecs/compare/v8.5.1...v8.5.2)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixes invalid `number` type on 4 `process.io` subfields. #2105
+
+## [8.5.1](https://github.com/elastic/ecs/compare/v8.5.0...v8.5.1)
+
+### Schema Changes
+
+#### Added
+
+#### Improvements
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix type of `normalize` in `process.io.bytes_skipped`. #2094
+
+## [8.5.0](https://github.com/elastic/ecs/compare/v8.4.0...v8.5.0)
+
+### Schema Changes
+
+#### Added
+
+* Adding `risk.*` fields as experimental. #1994, #2010
+* Adding `process.io.*` as beta fields. #1956, #2031
+* Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+* `process.attested_user` and `process.attested_groups` as beta fields. #2050
+* Added `risk.*` fieldset to beta. #2051, #2058
+* Moved Linux event model fields to GA. #2082
+
+#### Improvements
+
+* Advances `threat.enrichments.indicator` to GA. #1928
+* Added `ios` and `android` as valid values for `os.type` #1999
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Added Deprecation Warning for `misspell` task #1993
+* Fix typo in client schema #2014
+
 ## [8.4.0](https://github.com/elastic/ecs/compare/v8.3.1...v8.4.0)
 
 ### Schema Changes
