@@ -15,73 +15,28 @@
 # specific language governing permissions and limitations
 # under the License.
 ---
-- name: pe
-  title: PE Header
+- name: macho
+  title: Mach-O Header
   group: 2
-  description: These fields contain Windows Portable Executable (PE) metadata.
+  description: >
+    These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+  beta: >
+    These fields are in beta and are subject to change.
   type: group
   reusable:
     top_level: false
-    order: 1
     expected:
-      - file
-      - dll
-      - process
-
+      - at: file
+        as: macho
+        beta: This field reuse is beta and subject to change.
+      - at: process
+        as: macho
+        beta: This field reuse is beta and subject to change.
   fields:
-    - name: original_file_name
-      level: extended
-      type: keyword
-      description: Internal name of the file, provided at compile-time.
-      example: MSPAINT.EXE
-
-    - name: file_version
-      level: extended
-      type: keyword
-      short: Process name.
-      description: Internal version of the file, provided at compile-time.
-      example: 6.3.9600.17415
-
-    - name: description
-      level: extended
-      type: keyword
-      description: Internal description of the file, provided at compile-time.
-      example: Paint
-
-    - name: product
-      level: extended
-      type: keyword
-      description: Internal product name of the file, provided at compile-time.
-      example: Microsoft® Windows® Operating System
-
-    - name: company
-      level: extended
-      type: keyword
-      description: Internal company name of the file, provided at compile-time.
-      example: Microsoft Corporation
-
-    - name: imphash
-      level: extended
-      type: keyword
-      short: A hash of the imports in a PE file.
-      description: >
-        A hash of the imports in a PE file. An imphash -- or import hash -- can
-        be used to fingerprint binaries even after recompilation or other code-level
-        transformations have occurred, which would change more traditional hash values.
-
-        Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.
-      example: 0c6803c4e922103c4dca5963aad36ddf
-
-    - name: architecture
-      level: extended
-      type: keyword
-      description: CPU architecture target for the file.
-      example: x64
-
     - name: go_import_hash
-      short: A hash of the Go language imports in a PE file.
+      short: A hash of the Go language imports in a Mach-O file.
       description: >
-        A hash of the Go language imports in a PE file excluding standard library imports.
+        A hash of the Go language imports in a Mach-O file excluding standard library imports.
         An import hash can be used to fingerprint binaries even after recompilation or other
         code-level transformations have occurred, which would change more traditional hash values.
 
@@ -89,12 +44,6 @@
         are available [here](https://github.com/elastic/toutoumomoma).
       example: 10bddcb4cee42080f76c88d9ff964491
       type: keyword
-      level: extended
-
-    - name: go_imports
-      description: >
-        List of imported Go language element names and types.
-      type: flattened
       level: extended
 
     - name: go_imports_names_entropy
@@ -111,6 +60,12 @@
       format: number
       level: extended
 
+    - name: go_imports
+      description: >
+        List of imported Go language element names and types.
+      type: flattened
+      level: extended
+
     - name: go_stripped
       short: Whether the file is a stripped or obfuscated Go executable.
       description: >
@@ -119,13 +74,13 @@
       level: extended
 
     - name: import_hash
-      short: A hash of the imports in a PE file.
+      short: A hash of the imports in a Mach-O file.
       description: >
-        A hash of the imports in a PE file. An import hash can be used to
+        A hash of the imports in a Mach-O file. An import hash can be used to
         fingerprint binaries even after recompilation or other code-level
         transformations have occurred, which would change more traditional hash values.
 
-        This is a synonym for imphash.
+        This is a synonym for symhash.
       example: d41d8cd98f00b204e9800998ecf8427e
       type: keyword
       level: extended
@@ -152,24 +107,13 @@
       type: long
       level: extended
 
-    - name: pehash
-      level: extended
-      type: keyword
-      short: A hash of the PE header and data from one or more PE sections.
-      description: >
-        A hash of the PE header and data from one or more PE sections. An pehash can
-        be used to cluster files by transforming structural information about a file into a hash value.
-
-        Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.
-      example: 73ff189b63cd6be375a7ff25179a38d347651975
-
     - name: sections
-      short: Section information of the PE file.
+      short: Section information of the Mach-O file.
       description: >
-        An array containing an object for each section of the PE file.
+        An array containing an object for each section of the Mach-O file.
 
         The keys that should be present in these objects are defined by sub-fields
-        underneath `pe.sections.*`.
+        underneath `macho.sections.*`.
       type: nested
       level: extended
       normalize:
@@ -184,13 +128,13 @@
 
     - name: sections.name
       description: >
-        PE Section List name.
+        Mach-O Section List name.
       type: keyword
       level: extended
 
     - name: sections.physical_size
       description: >
-        PE Section List physical size.
+        Mach-O Section List physical size.
       format: bytes
       type: long
       level: extended
@@ -204,8 +148,19 @@
 
     - name: sections.virtual_size
       description: >
-        PE Section List virtual size. This is always the same as `physical_size`.
+        Mach-O Section List virtual size. This is always the same as `physical_size`.
       format: string
       type: long
       level: extended
 
+    - name: symhash
+      short: A hash of the imports in a Mach-O file.
+      description: >
+        A hash of the imports in a Mach-O file. An import hash can be used to
+        fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a Mach-O implementation of the Windows PE imphash
+      example: d3ccf195b62a9279c3c19af1080497ec
+      type: keyword
+      level: extended

@@ -35,39 +35,30 @@
       - at: process
         as: entry_leader
         short_override: First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: session_leader
         short_override: Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: group_leader
         short_override: Information about the process group leader. In some cases this may be the same as the top level process.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.parent
         as: group_leader
         short_override: Information about the parent's process group leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.entry_leader
         as: parent
         short_override: Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.session_leader
         as: parent
         short_override: Information about the session leader's parent process. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.entry_leader.parent
         as: session_leader
         short_override: Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.session_leader.parent
         as: session_leader
         short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: previous
         short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
         normalize:
           - array
 
@@ -244,7 +235,6 @@
       level: extended
       type: boolean
       example: true
-      beta: This field is beta and subject to change.
       short: Whether the process is connected to an interactive shell.
       description: >
         Whether the process is connected to an interactive shell.
@@ -257,7 +247,6 @@
       level: extended
       type: boolean
       example: true
-      beta: This field is beta and subject to change.
       short: This boolean is used to identify if a leader process is the same as the top level process.
       description: >
         This boolean is used to identify if a leader process is the same as the top level process.
@@ -295,7 +284,6 @@
     - name: entry_meta.type
       level: extended
       type: keyword
-      beta: This field is beta and subject to change.
       short: The entry type for the entry session leader.
       description: >
         The entry type for the entry session leader.
@@ -306,7 +294,6 @@
     - name: entry_meta.source
       level: extended
       type: source
-      beta: This field is beta and subject to change.
       short: Entry point information for a session.
       description: >
         Entry point information for a session.
@@ -315,7 +302,6 @@
     - name: tty
       level: extended
       type: object
-      beta: This field is beta and subject to change.
       short: Information about the controlling TTY device.
       description: >
         Information about the controlling TTY device. If set, the process belongs to an interactive session.
@@ -323,7 +309,6 @@
     - name: tty.char_device.major
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The TTY character device's major number.
       description: >
         The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
@@ -332,7 +317,6 @@
     - name: tty.char_device.minor
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The TTY character device's minor number.
       description: >
         The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
@@ -392,14 +376,14 @@
 
     - name: io.total_bytes_captured
       level: extended
-      type: number
+      type: long
       beta: This field is beta and subject to change.
       description: >
         The total number of bytes captured in this event.
 
     - name: io.total_bytes_skipped
       level: extended
-      type: number
+      type: long
       beta: This field is beta and subject to change.
       short: The total number of bytes that were not captured due to implementation restrictions such as buffer size limits.
       description: >
@@ -419,18 +403,19 @@
       description: >
         An array of byte offsets and lengths denoting where IO data has been skipped.
 
-      normalize: array
+      normalize:
+        - array
 
     - name: io.bytes_skipped.offset
       level: extended
-      type: number
+      type: long
       beta: This field is beta and subject to change.
       description: >
         The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
 
     - name: io.bytes_skipped.length
       level: extended
-      type: number
+      type: long
       beta: This field is beta and subject to change.
       description: >
         The length of bytes skipped.

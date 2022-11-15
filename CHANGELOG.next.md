@@ -45,6 +45,7 @@ Thanks, you're awesome :-) -->
 * Adding `vulnerability` option for `event.catgeory`. #2029
 * Added `device.*` field set as beta. #2030
 * Added `tlp.version` to threat #2074
+* Added fields for executable object format metadata for ELF, Mach-O and PE #2083
 
 #### Improvements
 
@@ -67,6 +68,8 @@ Thanks, you're awesome :-) -->
 ## 8.5.0 (Hard Feature Freeze)
 
 ### Schema Changes
+
+* Fields added to process, user and group fieldsets in RFC 0030 (Linux event model) are now GA. Beta removed.
 
 #### Added
 
