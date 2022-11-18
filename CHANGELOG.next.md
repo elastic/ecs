@@ -36,10 +36,6 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
-#### Breaking changes
-
-#### Bugfixes
-
 #### Added
 
 * Adding `vulnerability` option for `event.category`. #2029
@@ -50,20 +46,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
 
 <!-- All empty sections:
 
