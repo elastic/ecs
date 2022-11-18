@@ -32,37 +32,7 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.6.0 (Soft Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Adding `vulnerability` option for `event.catgeory`. #2029
-* Added `device.*` field set as beta. #2030
-* Added `tlp.version` to threat #2074
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
-## 8.6.0 (Soft Feature Freeze)
+## 8.6.0 (Hard Feature Freeze)
 
 ### Schema Changes
 
