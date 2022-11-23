@@ -1123,6 +1123,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev+exp,true,source,source.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 8.7.0-dev+exp,true,span,span.id,keyword,extended,,3ff9a8981b7ccd5a,Unique identifier of the span within the scope of its trace.
 8.7.0-dev+exp,true,threat,threat.enrichments,nested,extended,array,,List of objects containing indicators enriching the event.
+8.7.0-dev+exp,true,threat,threat.enrichments.domain,keyword,extended,,evil.com,Network domain of the indicator.
 8.7.0-dev+exp,true,threat,threat.enrichments.indicator,object,extended,,,Object containing indicators enriching the event.
 8.7.0-dev+exp,true,threat,threat.enrichments.indicator.as.number,long,extended,,15169,Unique number allocated to the autonomous system.
 8.7.0-dev+exp,true,threat,threat.enrichments.indicator.as.organization.name,keyword,extended,,Google LLC,Organization name.
@@ -1330,6 +1331,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev+exp,true,threat,threat.enrichments.matched.index,keyword,extended,,filebeat-8.0.0-2021.05.23-000011,Matched indicator index
 8.7.0-dev+exp,true,threat,threat.enrichments.matched.occurred,date,extended,,2021-10-05T17:00:58.326Z,Date of match
 8.7.0-dev+exp,true,threat,threat.enrichments.matched.type,keyword,extended,,indicator_match_rule,Type of indicator match
+8.7.0-dev+exp,true,threat,threat.enrichments.sub_domain,keyword,extended,,malicious.evil.com,Network sub domain of the indicator.
+8.7.0-dev+exp,true,threat,threat.enrichments.url.full,keyword,extended,,www.evil.com/malicious.exe,Network URL of the indicator.
 8.7.0-dev+exp,true,threat,threat.feed.dashboard_id,keyword,extended,,5ba16340-72e6-11eb-a3e3-b3cc7c78a70f,Feed dashboard ID.
 8.7.0-dev+exp,true,threat,threat.feed.description,keyword,extended,,Threat feed from the AlienVault Open Threat eXchange network.,Description of the threat feed.
 8.7.0-dev+exp,true,threat,threat.feed.name,keyword,extended,,AlienVault OTX,Name of the threat feed.
@@ -1344,6 +1347,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev+exp,true,threat,threat.indicator.as.organization.name.text,match_only_text,extended,,Google LLC,Organization name.
 8.7.0-dev+exp,true,threat,threat.indicator.confidence,keyword,extended,,Medium,Indicator confidence rating
 8.7.0-dev+exp,true,threat,threat.indicator.description,keyword,extended,,IP x.x.x.x was observed delivering the Angler EK.,Indicator description
+8.7.0-dev+exp,true,threat,threat.indicator.domain,keyword,extended,,evil.com,Network domain of the indicator.
 8.7.0-dev+exp,true,threat,threat.indicator.email.address,keyword,extended,,phish@example.com,Indicator email address
 8.7.0-dev+exp,true,threat,threat.indicator.file.accessed,date,extended,,,Last time the file was accessed.
 8.7.0-dev+exp,true,threat,threat.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
@@ -1498,6 +1502,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev+exp,true,threat,threat.indicator.registry.value,keyword,core,,Debugger,Name of the value written.
 8.7.0-dev+exp,true,threat,threat.indicator.scanner_stats,long,extended,,4,Scanner statistics
 8.7.0-dev+exp,true,threat,threat.indicator.sightings,long,extended,,20,Number of times indicator observed
+8.7.0-dev+exp,true,threat,threat.indicator.sub_domain,keyword,extended,,malicious.evil.com,Network sub domain of the indicator.
 8.7.0-dev+exp,true,threat,threat.indicator.type,keyword,extended,,ipv4-addr,Type of indicator
 8.7.0-dev+exp,true,threat,threat.indicator.url.domain,keyword,extended,,www.elastic.co,Domain of the url.
 8.7.0-dev+exp,true,threat,threat.indicator.url.extension,keyword,extended,,png,"File extension from the request url, excluding the leading dot."

@@ -9805,6 +9805,13 @@
       description: A list of associated indicators objects enriching the event, and
         the context of that association/enrichment.
       default_field: false
+    - name: enrichments.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The enriched network domain of the threat indicator.
+      example: evil.com
+      default_field: false
     - name: enrichments.indicator
       level: extended
       type: object
@@ -11326,6 +11333,20 @@
         with the given indicator
       example: indicator_match_rule
       default_field: false
+    - name: enrichments.sub_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The enriched network sub domain of the threat indicator.
+      example: malicious.evil.com
+      default_field: false
+    - name: enrichments.url.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Full enriched network URL of the threat indicator.
+      example: www.evil.com/malicious.exe
+      default_field: false
     - name: feed.dashboard_id
       level: extended
       type: keyword
@@ -11432,6 +11453,13 @@
       ignore_above: 1024
       description: Describes the type of action conducted by the threat.
       example: IP x.x.x.x was observed delivering the Angler EK.
+      default_field: false
+    - name: indicator.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The network domain of the threat indicator.
+      example: evil.com
       default_field: false
     - name: indicator.email.address
       level: extended
@@ -12544,6 +12572,13 @@
       type: long
       description: Number of times this indicator was observed conducting threat activity.
       example: 20
+      default_field: false
+    - name: indicator.sub_domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The network sub domain of the threat indicator.
+      example: malicious.evil.com
       default_field: false
     - name: indicator.type
       level: extended
