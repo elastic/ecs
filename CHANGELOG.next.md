@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* remove duplicated `client.domain` definition #212
+
 #### Added
 
 #### Improvements
