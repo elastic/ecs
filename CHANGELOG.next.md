@@ -19,6 +19,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+* description for `host.name` definition updated to encourage use of FDQN #2122
 
 #### Deprecated
 
