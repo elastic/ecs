@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* adding `name` field to `threat.indicator` #2121
+
 #### Improvements
 
 #### Deprecated
