@@ -1,7 +1,7 @@
-# 0000: Authentication Fields RFC
+# 0036: Authentication Fields RFC
 
 Stage: 0
-Date: 2021-08-08
+Date: 2022-12-16
 
 This RFC will provide normalization for fields related to authentication fields to assure that they are retained primarily in ECS core and in any extended fieldset when needed. These fields are important to normalize into ECS fields in order to maximize effectiveness of cross log utilization. 
 
@@ -14,7 +14,7 @@ This RFC will provide normalization for fields related to authentication fields 
 |authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authentication_requirement|
 |authentication.additional.details|keyword|MFA requirement satisfied by claim in the token|azure.activitylogs.properties.status.additionalDetails|
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
-|authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.interactive|
+|authentication.interactive|boolean|FALSE|azure.signinlogs.properties.interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |authentication.id|keyword||Unique ID given across primary authentication and additional (multi factor) authentication.|
 |authentication.protocol|keyword||Authentication Protocol (authproto)|
