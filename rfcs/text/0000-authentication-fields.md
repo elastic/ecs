@@ -11,10 +11,10 @@ This RFC will provide normalization for fields related to authentication fields 
 |Proposed Field Name|Type|Value|Description|
 | --- | --- | --- | --- |
 |authentication.scope|keyword|user_impersonation|azure.activitylogs.identity.claims.http://schemas_microsoft_com/identity/claims/scope|
-|authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authenticationRequirement|
+|authentication.requirement|keyword|multiFactorAuthentication|azure.activitylogs.properties.authentication_requirement|
 |authentication.additional.details|keyword|MFA requirement satisfied by claim in the token|azure.activitylogs.properties.status.additionalDetails|
 |authentication.authorization|keyword|ROOTMANAGESHAREDACCESSKEY|azure.resource.authorization_rule|
-|authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.is_interactive|
+|authentication.isInteractive|boolean|FALSE|azure.signinlogs.properties.interactive|
 |authentication.risk|keyword|low|azure.signinlogs.properties.risk_level_aggregated|
 |authentication.id|keyword||Unique ID given across primary authentication and additional (multi factor) authentication.|
 |authentication.protocol|keyword||Authentication Protocol (authproto)|
@@ -106,11 +106,11 @@ Here is a copy and example of a rawLog that came from Azure EventHubs.
         ]
     }
 ]
-
+```
 Palo Alto Authentication Logs:
 FUTURE_USE, Receive Time, Serial Number, Type, Threat/Content Type, FUTURE_USE, Generated Time, Virtual System, Source IP, User, Normalize User, Object, Authentication Policy, Repeat Count, Authentication ID, Vendor, Log Action, Server Profile, Description, Client Type, Event Type, Factor Number, Sequence Number, Action Flags, Device Group Hierarchy 1, Device Group Hierarchy 2, Device Group Hierarchy 3, Device Group Hierarchy 4, Virtual System Name, Device Name, Virtual System ID, Authentication Protocol, UUID for rule, High Resolution Timestamp, Source Device Category, Source Device Profile, Source Device Model, Source Device Vendor, Source Device OS Family, Source Device OS Version, Source Hostname, Source Mac Address, Region, FUTURE_USE, User Agent, Session ID
 
-```
+
 ## Scope of impact
 
 No impact expected as login fieldsets are not impacting any existing fields, as these proposed fields are new. Moreover, these fields allow logs to be in a greater alignment with the ECS base fields and allow for expanded utilization and wider adoption.
@@ -122,15 +122,16 @@ The concerns that might arise relate to how the nested fields could be broken ou
 ## People
 
 The following are the people that consulted on the contents of this RFC.
+
 •	@mr1716 | author
 
 ## References
 
 ## RFC Pull Requests
-•	Stage 0: https://github.com/elastic/ecs/pull/NNN
+•	Stage 0: https://github.com/elastic/ecs/pull/2023
 
 
-##RFC References:
+## RFC References:
 ecs/0027-faas-fields.md at main · elastic/ecs (github.com)
 ecs/0011-sip-fields.md at main · elastic/ecs (github.com)
 ecs/0025-container-metric-fields.md at main · elastic/ecs (github.com)
