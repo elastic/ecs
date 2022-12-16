@@ -160,10 +160,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,dll,dll.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,dll,dll.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,dll,dll.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,dll,dll.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,dll,dll.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,dll,dll.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,dll,dll.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,dll,dll.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,dll,dll.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,dll,dll.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,dll,dll.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,dll,dll.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,dll,dll.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,dll,dll.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,dll,dll.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,dll,dll.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,dll,dll.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,dll,dll.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,dll,dll.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,dll,dll.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,dll,dll.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,dll,dll.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,dns,dns.answers,object,extended,array,,Array of DNS answers.
 8.7.0-dev,true,dns,dns.answers.class,keyword,extended,,IN,The class of DNS data contained in this resource record.
 8.7.0-dev,true,dns,dns.answers.data,keyword,extended,,10.10.10.10,The data describing the resource.
@@ -271,6 +286,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,file,file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
 8.7.0-dev,true,file,file.elf.creation_date,date,extended,,,Build or compile date.
 8.7.0-dev,true,file,file.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.7.0-dev,true,file,file.elf.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in an ELF file.
+8.7.0-dev,true,file,file.elf.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,file,file.elf.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.elf.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.elf.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,file,file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
 8.7.0-dev,true,file,file.elf.header.class,keyword,extended,,,Header class of the ELF file.
 8.7.0-dev,true,file,file.elf.header.data,keyword,extended,,,Data table of the ELF header.
@@ -279,7 +299,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,file,file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
 8.7.0-dev,true,file,file.elf.header.type,keyword,extended,,,Header type of the ELF file.
 8.7.0-dev,true,file,file.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.7.0-dev,true,file,file.elf.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in an ELF file.
 8.7.0-dev,true,file,file.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,file,file.elf.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,file,file.elf.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,file,file.elf.sections,nested,extended,array,,Section information of the ELF file.
 8.7.0-dev,true,file,file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
 8.7.0-dev,true,file,file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
@@ -288,6 +311,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,file,file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
 8.7.0-dev,true,file,file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
 8.7.0-dev,true,file,file.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.7.0-dev,true,file,file.elf.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 8.7.0-dev,true,file,file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
 8.7.0-dev,true,file,file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
 8.7.0-dev,true,file,file.elf.segments,nested,extended,array,,ELF object segment list.
@@ -307,6 +331,22 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,file,file.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.7.0-dev,true,file,file.hash.tlsh,keyword,extended,,,TLSH hash.
 8.7.0-dev,true,file,file.inode,keyword,extended,,256383,Inode representing the file in the filesystem.
+8.7.0-dev,true,file,file.macho.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a Mach-O file.
+8.7.0-dev,true,file,file.macho.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,file,file.macho.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.macho.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.macho.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
+8.7.0-dev,true,file,file.macho.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a Mach-O file.
+8.7.0-dev,true,file,file.macho.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,file,file.macho.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,file,file.macho.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,file,file.macho.sections,nested,extended,array,,Section information of the Mach-O file.
+8.7.0-dev,true,file,file.macho.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,file,file.macho.sections.name,keyword,extended,,,Mach-O Section List name.
+8.7.0-dev,true,file,file.macho.sections.physical_size,long,extended,,,Mach-O Section List physical size.
+8.7.0-dev,true,file,file.macho.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,file,file.macho.sections.virtual_size,long,extended,,,Mach-O Section List virtual size. This is always the same as `physical_size`.
+8.7.0-dev,true,file,file.macho.symhash,keyword,extended,,d3ccf195b62a9279c3c19af1080497ec,A hash of the imports in a Mach-O file.
 8.7.0-dev,true,file,file.mime_type,keyword,extended,,,"Media type of file, document, or arrangement of bytes."
 8.7.0-dev,true,file,file.mode,keyword,extended,,0640,Mode of the file in octal representation.
 8.7.0-dev,true,file,file.mtime,date,extended,,,Last time the file content was modified.
@@ -318,10 +358,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,file,file.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,file,file.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,file,file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,file,file.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,file,file.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,file,file.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,file,file.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,file,file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,file,file.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,file,file.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,file,file.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,file,file.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,file,file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,file,file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,file,file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,file,file.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,file,file.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,file,file.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,file,file.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,file,file.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,file,file.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,file,file.size,long,extended,,16384,File size in bytes.
 8.7.0-dev,true,file,file.target_path,keyword,extended,,,Target path for symlinks.
 8.7.0-dev,true,file,file.target_path.text,match_only_text,extended,,,Target path for symlinks.
@@ -537,6 +592,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
 8.7.0-dev,true,process,process.elf.creation_date,date,extended,,,Build or compile date.
 8.7.0-dev,true,process,process.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.7.0-dev,true,process,process.elf.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in an ELF file.
+8.7.0-dev,true,process,process.elf.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.elf.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.elf.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.elf.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,process,process.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
 8.7.0-dev,true,process,process.elf.header.class,keyword,extended,,,Header class of the ELF file.
 8.7.0-dev,true,process,process.elf.header.data,keyword,extended,,,Data table of the ELF header.
@@ -545,7 +605,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
 8.7.0-dev,true,process,process.elf.header.type,keyword,extended,,,Header type of the ELF file.
 8.7.0-dev,true,process,process.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.7.0-dev,true,process,process.elf.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in an ELF file.
 8.7.0-dev,true,process,process.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.elf.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.elf.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,process,process.elf.sections,nested,extended,array,,Section information of the ELF file.
 8.7.0-dev,true,process,process.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
 8.7.0-dev,true,process,process.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
@@ -554,6 +617,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
 8.7.0-dev,true,process,process.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
 8.7.0-dev,true,process,process.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.7.0-dev,true,process,process.elf.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 8.7.0-dev,true,process,process.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
 8.7.0-dev,true,process,process.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
 8.7.0-dev,true,process,process.elf.segments,nested,extended,array,,ELF object segment list.
@@ -657,6 +721,31 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.7.0-dev,true,process,process.hash.tlsh,keyword,extended,,,TLSH hash.
 8.7.0-dev,true,process,process.interactive,boolean,extended,,True,Whether the process is connected to an interactive shell.
+8.7.0-dev,true,process,process.io,object,extended,,,A chunk of input or output (IO) from a single process.
+8.7.0-dev,true,process,process.io.bytes_skipped,object,extended,array,,An array of byte offsets and lengths denoting where IO data has been skipped.
+8.7.0-dev,true,process,process.io.bytes_skipped.length,long,extended,,,The length of bytes skipped.
+8.7.0-dev,true,process,process.io.bytes_skipped.offset,long,extended,,,The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+8.7.0-dev,true,process,process.io.max_bytes_per_process_exceeded,boolean,extended,,,"If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting."
+8.7.0-dev,true,process,process.io.text,wildcard,extended,,,A chunk of output or input sanitized to UTF-8.
+8.7.0-dev,true,process,process.io.total_bytes_captured,long,extended,,,The total number of bytes captured in this event.
+8.7.0-dev,true,process,process.io.total_bytes_skipped,long,extended,,,The total number of bytes that were not captured due to implementation restrictions such as buffer size limits.
+8.7.0-dev,true,process,process.io.type,keyword,extended,,,The type of object on which the IO action (read or write) was taken.
+8.7.0-dev,true,process,process.macho.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a Mach-O file.
+8.7.0-dev,true,process,process.macho.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.macho.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.macho.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.macho.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
+8.7.0-dev,true,process,process.macho.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a Mach-O file.
+8.7.0-dev,true,process,process.macho.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.macho.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.macho.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.macho.sections,nested,extended,array,,Section information of the Mach-O file.
+8.7.0-dev,true,process,process.macho.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.macho.sections.name,keyword,extended,,,Mach-O Section List name.
+8.7.0-dev,true,process,process.macho.sections.physical_size,long,extended,,,Mach-O Section List physical size.
+8.7.0-dev,true,process,process.macho.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.macho.sections.virtual_size,long,extended,,,Mach-O Section List virtual size. This is always the same as `physical_size`.
+8.7.0-dev,true,process,process.macho.symhash,keyword,extended,,d3ccf195b62a9279c3c19af1080497ec,A hash of the imports in a Mach-O file.
 8.7.0-dev,true,process,process.name,keyword,extended,,ssh,Process name.
 8.7.0-dev,true,process,process.name.text,match_only_text,extended,,ssh,Process name.
 8.7.0-dev,true,process,process.parent.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
@@ -677,6 +766,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.parent.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
 8.7.0-dev,true,process,process.parent.elf.creation_date,date,extended,,,Build or compile date.
 8.7.0-dev,true,process,process.parent.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.7.0-dev,true,process,process.parent.elf.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in an ELF file.
+8.7.0-dev,true,process,process.parent.elf.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.parent.elf.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.elf.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.elf.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,process,process.parent.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
 8.7.0-dev,true,process,process.parent.elf.header.class,keyword,extended,,,Header class of the ELF file.
 8.7.0-dev,true,process,process.parent.elf.header.data,keyword,extended,,,Data table of the ELF header.
@@ -685,7 +779,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.parent.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
 8.7.0-dev,true,process,process.parent.elf.header.type,keyword,extended,,,Header type of the ELF file.
 8.7.0-dev,true,process,process.parent.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.7.0-dev,true,process,process.parent.elf.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in an ELF file.
 8.7.0-dev,true,process,process.parent.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.parent.elf.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.parent.elf.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,process,process.parent.elf.sections,nested,extended,array,,Section information of the ELF file.
 8.7.0-dev,true,process,process.parent.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
 8.7.0-dev,true,process,process.parent.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
@@ -694,6 +791,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.parent.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
 8.7.0-dev,true,process,process.parent.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
 8.7.0-dev,true,process,process.parent.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.7.0-dev,true,process,process.parent.elf.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 8.7.0-dev,true,process,process.parent.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
 8.7.0-dev,true,process,process.parent.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
 8.7.0-dev,true,process,process.parent.elf.segments,nested,extended,array,,ELF object segment list.
@@ -719,16 +817,47 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.parent.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 8.7.0-dev,true,process,process.parent.hash.tlsh,keyword,extended,,,TLSH hash.
 8.7.0-dev,true,process,process.parent.interactive,boolean,extended,,True,Whether the process is connected to an interactive shell.
+8.7.0-dev,true,process,process.parent.macho.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a Mach-O file.
+8.7.0-dev,true,process,process.parent.macho.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.parent.macho.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.macho.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.macho.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
+8.7.0-dev,true,process,process.parent.macho.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a Mach-O file.
+8.7.0-dev,true,process,process.parent.macho.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.parent.macho.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.parent.macho.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.parent.macho.sections,nested,extended,array,,Section information of the Mach-O file.
+8.7.0-dev,true,process,process.parent.macho.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.parent.macho.sections.name,keyword,extended,,,Mach-O Section List name.
+8.7.0-dev,true,process,process.parent.macho.sections.physical_size,long,extended,,,Mach-O Section List physical size.
+8.7.0-dev,true,process,process.parent.macho.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.parent.macho.sections.virtual_size,long,extended,,,Mach-O Section List virtual size. This is always the same as `physical_size`.
+8.7.0-dev,true,process,process.parent.macho.symhash,keyword,extended,,d3ccf195b62a9279c3c19af1080497ec,A hash of the imports in a Mach-O file.
 8.7.0-dev,true,process,process.parent.name,keyword,extended,,ssh,Process name.
 8.7.0-dev,true,process,process.parent.name.text,match_only_text,extended,,ssh,Process name.
 8.7.0-dev,true,process,process.parent.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 8.7.0-dev,true,process,process.parent.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,process,process.parent.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,process,process.parent.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,process,process.parent.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,process,process.parent.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.parent.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.parent.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,process,process.parent.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,process,process.parent.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,process,process.parent.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.parent.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.parent.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,process,process.parent.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,process,process.parent.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,process,process.parent.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,process,process.parent.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,process,process.parent.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.parent.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,process,process.parent.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,process,process.parent.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.parent.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,process,process.parent.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.7.0-dev,true,process,process.parent.pid,long,core,,4242,Process id.
 8.7.0-dev,true,process,process.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
@@ -761,10 +890,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,process,process.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,process,process.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,process,process.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,process,process.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,process,process.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,process,process.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,process,process.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,process,process.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,process,process.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,process,process.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,process,process.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,process,process.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,process,process.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,process,process.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,process,process.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,process,process.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,process,process.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,process,process.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,process,process.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,process,process.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,process,process.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 8.7.0-dev,true,process,process.pid,long,core,,4242,Process id.
 8.7.0-dev,true,process,process.previous.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
@@ -1000,6 +1144,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.creation_date,date,extended,,,Build or compile date.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in an ELF file.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.class,keyword,extended,,,Header class of the ELF file.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.data,keyword,extended,,,Data table of the ELF header.
@@ -1008,7 +1157,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.type,keyword,extended,,,Header type of the ELF file.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in an ELF file.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections,nested,extended,array,,Section information of the ELF file.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
@@ -1017,6 +1169,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.elf.segments,nested,extended,array,,ELF object segment list.
@@ -1047,10 +1200,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,threat,threat.enrichments.indicator.file.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.size,long,extended,,16384,File size in bytes.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
 8.7.0-dev,true,threat,threat.enrichments.indicator.file.target_path.text,match_only_text,extended,,,Target path for symlinks.
@@ -1094,7 +1262,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.enrichments.indicator.geo.timezone,keyword,core,,America/Argentina/Buenos_Aires,Time zone.
 8.7.0-dev,true,threat,threat.enrichments.indicator.ip,ip,extended,,1.2.3.4,Indicator IP address
 8.7.0-dev,true,threat,threat.enrichments.indicator.last_seen,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last reported.
-8.7.0-dev,true,threat,threat.enrichments.indicator.marking.tlp,keyword,extended,,WHITE,Indicator TLP marking
+8.7.0-dev,true,threat,threat.enrichments.indicator.marking.tlp.version,keyword,extended,,2.0,Indicator TLP version
 8.7.0-dev,true,threat,threat.enrichments.indicator.modified_at,date,extended,,2020-11-05T17:25:47.000Z,Date/time indicator was last updated.
 8.7.0-dev,true,threat,threat.enrichments.indicator.port,long,extended,,443,Indicator port
 8.7.0-dev,true,threat,threat.enrichments.indicator.provider,keyword,extended,,lrz_urlhaus,Indicator provider
@@ -1191,6 +1359,11 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.indicator.file.elf.cpu_type,keyword,extended,,Intel,CPU type of the ELF file.
 8.7.0-dev,true,threat,threat.indicator.file.elf.creation_date,date,extended,,,Build or compile date.
 8.7.0-dev,true,threat,threat.indicator.file.elf.exports,flattened,extended,array,,List of exported element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.elf.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in an ELF file.
+8.7.0-dev,true,threat,threat.indicator.file.elf.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.elf.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.indicator.file.elf.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.indicator.file.elf.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.abi_version,keyword,extended,,,Version of the ELF Application Binary Interface (ABI).
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.class,keyword,extended,,,Header class of the ELF file.
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.data,keyword,extended,,,Data table of the ELF header.
@@ -1199,7 +1372,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.os_abi,keyword,extended,,,Application Binary Interface (ABI) of the Linux OS.
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.type,keyword,extended,,,Header type of the ELF file.
 8.7.0-dev,true,threat,threat.indicator.file.elf.header.version,keyword,extended,,,Version of the ELF header.
+8.7.0-dev,true,threat,threat.indicator.file.elf.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in an ELF file.
 8.7.0-dev,true,threat,threat.indicator.file.elf.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.elf.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.elf.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections,nested,extended,array,,Section information of the ELF file.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.chi2,long,extended,,,Chi-square probability distribution of the section.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
@@ -1208,6 +1384,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.physical_offset,keyword,extended,,,ELF Section List offset.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.physical_size,long,extended,,,ELF Section List physical size.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.type,keyword,extended,,,ELF Section List type.
+8.7.0-dev,true,threat,threat.indicator.file.elf.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.virtual_address,long,extended,,,ELF Section List virtual address.
 8.7.0-dev,true,threat,threat.indicator.file.elf.sections.virtual_size,long,extended,,,ELF Section List virtual size.
 8.7.0-dev,true,threat,threat.indicator.file.elf.segments,nested,extended,array,,ELF object segment list.
@@ -1238,10 +1415,25 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.indicator.file.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.indicator.file.pe.description,keyword,extended,,Paint,"Internal description of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.indicator.file.pe.file_version,keyword,extended,,6.3.9600.17415,Process name.
+8.7.0-dev,true,threat,threat.indicator.file.pe.go_import_hash,keyword,extended,,10bddcb4cee42080f76c88d9ff964491,A hash of the Go language imports in a PE file.
+8.7.0-dev,true,threat,threat.indicator.file.pe.go_imports,flattened,extended,,,List of imported Go language element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.pe.go_imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.indicator.file.pe.go_imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of Go imports.
+8.7.0-dev,true,threat,threat.indicator.file.pe.go_stripped,boolean,extended,,,Whether the file is a stripped or obfuscated Go executable.
 8.7.0-dev,true,threat,threat.indicator.file.pe.imphash,keyword,extended,,0c6803c4e922103c4dca5963aad36ddf,A hash of the imports in a PE file.
+8.7.0-dev,true,threat,threat.indicator.file.pe.import_hash,keyword,extended,,d41d8cd98f00b204e9800998ecf8427e,A hash of the imports in a PE file.
+8.7.0-dev,true,threat,threat.indicator.file.pe.imports,flattened,extended,array,,List of imported element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.pe.imports_names_entropy,long,extended,,,Shannon entropy calculation from the list of imported element names and types.
+8.7.0-dev,true,threat,threat.indicator.file.pe.imports_names_var_entropy,long,extended,,,Variance for Shannon entropy calculation from the list of imported element names and types.
 8.7.0-dev,true,threat,threat.indicator.file.pe.original_file_name,keyword,extended,,MSPAINT.EXE,"Internal name of the file, provided at compile-time."
 8.7.0-dev,true,threat,threat.indicator.file.pe.pehash,keyword,extended,,73ff189b63cd6be375a7ff25179a38d347651975,A hash of the PE header and data from one or more PE sections.
 8.7.0-dev,true,threat,threat.indicator.file.pe.product,keyword,extended,,Microsoft® Windows® Operating System,"Internal product name of the file, provided at compile-time."
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections,nested,extended,array,,Section information of the PE file.
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections.entropy,long,extended,,,Shannon entropy calculation from the section.
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections.name,keyword,extended,,,PE Section List name.
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections.physical_size,long,extended,,,PE Section List physical size.
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
+8.7.0-dev,true,threat,threat.indicator.file.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
 8.7.0-dev,true,threat,threat.indicator.file.size,long,extended,,16384,File size in bytes.
 8.7.0-dev,true,threat,threat.indicator.file.target_path,keyword,extended,,,Target path for symlinks.
 8.7.0-dev,true,threat,threat.indicator.file.target_path.text,match_only_text,extended,,,Target path for symlinks.
@@ -1357,6 +1549,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.7.0-dev,true,threat,threat.technique.subtechnique.name,keyword,extended,array,PowerShell,Threat subtechnique name.
 8.7.0-dev,true,threat,threat.technique.subtechnique.name.text,match_only_text,extended,,PowerShell,Threat subtechnique name.
 8.7.0-dev,true,threat,threat.technique.subtechnique.reference,keyword,extended,array,https://attack.mitre.org/techniques/T1059/001/,Threat subtechnique URL reference.
+8.7.0-dev,true,threat,threat.threat.indicator.marking.tlp.version,keyword,extended,,2.0,Indicator TLP version
 8.7.0-dev,true,tls,tls.cipher,keyword,extended,,TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256,String indicating the cipher used during the current connection.
 8.7.0-dev,true,tls,tls.client.certificate,keyword,extended,,MII...,PEM-encoded stand-alone certificate offered by the client.
 8.7.0-dev,true,tls,tls.client.certificate_chain,keyword,extended,array,"[""MII..."", ""MII...""]",Array of PEM-encoded certificates that make up the certificate chain offered by the client.

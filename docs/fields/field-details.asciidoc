@@ -2263,6 +2263,88 @@ Note: this field should contain an array of values.
 // ===============================================================
 
 |
+[[field-elf-go-import-hash]]
+<<field-elf-go-import-hash, elf.go_import_hash>>
+
+a| A hash of the Go language imports in an ELF file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports]]
+<<field-elf-go-imports, elf.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports-names-entropy]]
+<<field-elf-go-imports-names-entropy, elf.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-imports-names-var-entropy]]
+<<field-elf-go-imports-names-var-entropy, elf.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-go-stripped]]
+<<field-elf-go-stripped, elf.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-elf-header-abi-version]]
 <<field-elf-header-abi-version, elf.header.abi_version>>
 
@@ -2391,6 +2473,24 @@ type: keyword
 // ===============================================================
 
 |
+[[field-elf-import-hash]]
+<<field-elf-import-hash, elf.import_hash>>
+
+a| A hash of the imports in an ELF file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is an ELF implementation of the Windows PE imphash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-elf-imports]]
 <<field-elf-imports, elf.imports>>
 
@@ -2400,6 +2500,38 @@ type: flattened
 
 
 Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports-names-entropy]]
+<<field-elf-imports-names-entropy, elf.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-imports-names-var-entropy]]
+<<field-elf-imports-names-var-entropy, elf.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
 
 
 
@@ -2533,6 +2665,22 @@ type: long
 a| ELF Section List type.
 
 type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-elf-sections-var-entropy]]
+<<field-elf-sections-var-entropy, elf.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
 
 
 
@@ -4308,6 +4456,14 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 // ===============================================================
 
 
+| `file.macho.*`
+| <<ecs-macho,macho>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+
+// ===============================================================
+
+
 | `file.pe.*`
 | <<ecs-pe,pe>>
 | These fields contain Windows Portable Executable (PE) metadata.
@@ -5803,6 +5959,306 @@ example: `1`
 |=====
 
 
+[[ecs-macho]]
+=== Mach-O Header Fields
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+
+beta::[ These fields are in beta and are subject to change.]
+
+[discrete]
+==== Mach-O Header Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-macho-go-import-hash]]
+<<field-macho-go-import-hash, macho.go_import_hash>>
+
+a| A hash of the Go language imports in a Mach-O file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports]]
+<<field-macho-go-imports, macho.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports-names-entropy]]
+<<field-macho-go-imports-names-entropy, macho.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-imports-names-var-entropy]]
+<<field-macho-go-imports-names-var-entropy, macho.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-go-stripped]]
+<<field-macho-go-stripped, macho.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-import-hash]]
+<<field-macho-import-hash, macho.import_hash>>
+
+a| A hash of the imports in a Mach-O file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a synonym for symhash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports]]
+<<field-macho-imports, macho.imports>>
+
+a| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports-names-entropy]]
+<<field-macho-imports-names-entropy, macho.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-imports-names-var-entropy]]
+<<field-macho-imports-names-var-entropy, macho.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections]]
+<<field-macho-sections, macho.sections>>
+
+a| An array containing an object for each section of the Mach-O file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `macho.sections.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-entropy]]
+<<field-macho-sections-entropy, macho.sections.entropy>>
+
+a| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-name]]
+<<field-macho-sections-name, macho.sections.name>>
+
+a| Mach-O Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-physical-size]]
+<<field-macho-sections-physical-size, macho.sections.physical_size>>
+
+a| Mach-O Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-var-entropy]]
+<<field-macho-sections-var-entropy, macho.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-sections-virtual-size]]
+<<field-macho-sections-virtual-size, macho.sections.virtual_size>>
+
+a| Mach-O Section List virtual size. This is always the same as `physical_size`.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-macho-symhash]]
+<<field-macho-symhash, macho.symhash>>
+
+a| A hash of the imports in a Mach-O file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a Mach-O implementation of the Windows PE imphash
+
+type: keyword
+
+
+
+example: `d3ccf195b62a9279c3c19af1080497ec`
+
+| extended
+
+// ===============================================================
+
+|=====
+
+[discrete]
+==== Field Reuse
+
+The `macho` fields are expected to be nested at:
+
+
+* `file.macho`
+
+* `process.macho`
+
+
+Note also that the `macho` fields are not expected to be used directly at the root of the events.
 [[ecs-network]]
 === Network Fields
 
@@ -7135,6 +7591,88 @@ example: `6.3.9600.17415`
 // ===============================================================
 
 |
+[[field-pe-go-import-hash]]
+<<field-pe-go-import-hash, pe.go_import_hash>>
+
+a| A hash of the Go language imports in a PE file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+
+type: keyword
+
+
+
+example: `10bddcb4cee42080f76c88d9ff964491`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports]]
+<<field-pe-go-imports, pe.go_imports>>
+
+a| List of imported Go language element names and types.
+
+type: flattened
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports-names-entropy]]
+<<field-pe-go-imports-names-entropy, pe.go_imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-imports-names-var-entropy]]
+<<field-pe-go-imports-names-var-entropy, pe.go_imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of Go imports.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-go-stripped]]
+<<field-pe-go-stripped, pe.go_stripped>>
+
+a| Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
 [[field-pe-imphash]]
 <<field-pe-imphash, pe.imphash>>
 
@@ -7147,6 +7685,75 @@ type: keyword
 
 
 example: `0c6803c4e922103c4dca5963aad36ddf`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-import-hash]]
+<<field-pe-import-hash, pe.import_hash>>
+
+a| A hash of the imports in a PE file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
+
+This is a synonym for imphash.
+
+type: keyword
+
+
+
+example: `d41d8cd98f00b204e9800998ecf8427e`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports]]
+<<field-pe-imports, pe.imports>>
+
+a| List of imported element names and types.
+
+type: flattened
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports-names-entropy]]
+<<field-pe-imports-names-entropy, pe.imports_names_entropy>>
+
+a| Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-imports-names-var-entropy]]
+<<field-pe-imports-names-var-entropy, pe.imports_names_var_entropy>>
+
+a| Variance for Shannon entropy calculation from the list of imported element names and types.
+
+type: long
+
+
+
+
 
 | extended
 
@@ -7197,6 +7804,107 @@ type: keyword
 
 
 example: `Microsoft® Windows® Operating System`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections]]
+<<field-pe-sections, pe.sections>>
+
+a| An array containing an object for each section of the PE file.
+
+The keys that should be present in these objects are defined by sub-fields underneath `pe.sections.*`.
+
+type: nested
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-entropy]]
+<<field-pe-sections-entropy, pe.sections.entropy>>
+
+a| Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-name]]
+<<field-pe-sections-name, pe.sections.name>>
+
+a| PE Section List name.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-physical-size]]
+<<field-pe-sections-physical-size, pe.sections.physical_size>>
+
+a| PE Section List physical size.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-var-entropy]]
+<<field-pe-sections-var-entropy, pe.sections.var_entropy>>
+
+a| Variance for Shannon entropy calculation from the section.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-pe-sections-virtual-size]]
+<<field-pe-sections-virtual-size, pe.sections.virtual_size>>
+
+a| PE Section List virtual size. This is always the same as `physical_size`.
+
+type: long
+
+
+
+
 
 | extended
 
@@ -7337,9 +8045,7 @@ example: `c2c455d9f99375d`
 [[field-process-entry-meta-type]]
 <<field-process-entry-meta-type, process.entry_meta.type>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
+a| The entry type for the entry session leader. Values include: init(e.g systemd), sshd, ssm, kubelet, teleport, terminal, console
 
 Note: This field is only set on process.session_leader.
 
@@ -7420,9 +8126,7 @@ example: `137`
 [[field-process-interactive]]
 <<field-process-interactive, process.interactive>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Whether the process is connected to an interactive shell.
+a| Whether the process is connected to an interactive shell.
 
 Process interactivity is inferred from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
 
@@ -7433,6 +8137,177 @@ type: boolean
 
 
 example: `True`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io]]
+<<field-process-io, process.io>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of input or output (IO) from a single process.
+
+This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+type: object
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped]]
+<<field-process-io-bytes-skipped, process.io.bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+An array of byte offsets and lengths denoting where IO data has been skipped.
+
+type: object
+
+
+Note: this field should contain an array of values.
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-length]]
+<<field-process-io-bytes-skipped-length, process.io.bytes_skipped.length>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The length of bytes skipped.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-bytes-skipped-offset]]
+<<field-process-io-bytes-skipped-offset, process.io.bytes_skipped.offset>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-max-bytes-per-process-exceeded]]
+<<field-process-io-max-bytes-per-process-exceeded, process.io.max_bytes_per_process_exceeded>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-text]]
+<<field-process-io-text, process.io.text>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+A chunk of output or input sanitized to UTF-8.
+
+Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+type: wildcard
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-captured]]
+<<field-process-io-total-bytes-captured, process.io.total_bytes_captured>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes captured in this event.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-total-bytes-skipped]]
+<<field-process-io-total-bytes-skipped, process.io.total_bytes_skipped>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-process-io-type]]
+<<field-process-io-type, process.io.type>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The type of object on which the IO action (read or write) was taken.
+
+Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+type: keyword
+
+
+
+
 
 | extended
 
@@ -7500,9 +8375,7 @@ example: `4242`
 [[field-process-same-as-process]]
 <<field-process-same-as-process, process.same_as_process>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-This boolean is used to identify if a leader process is the same as the top level process.
+a| This boolean is used to identify if a leader process is the same as the top level process.
 
 For example, if `process.group_leader.same_as_process = true`, it means the process event in question is the leader of its process group. Details under `process.*` like `pid` would be the same under `process.group_leader.*` The same applies for both `process.session_leader` and `process.entry_leader`.
 
@@ -7598,9 +8471,7 @@ Multi-fields:
 [[field-process-tty]]
 <<field-process-tty, process.tty>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Information about the controlling TTY device. If set, the process belongs to an interactive session.
+a| Information about the controlling TTY device. If set, the process belongs to an interactive session.
 
 type: object
 
@@ -7616,9 +8487,7 @@ type: object
 [[field-process-tty-char-device-major]]
 <<field-process-tty-char-device-major, process.tty.char_device.major>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+a| The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
 
 type: long
 
@@ -7634,9 +8503,7 @@ example: `4`
 [[field-process-tty-char-device-minor]]
 <<field-process-tty-char-device-minor, process.tty.char_device.minor>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
+a| The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
 
 type: long
 
@@ -7802,49 +8669,43 @@ These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 
 | `process.entry_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
+| <<ecs-process,process>>
+| First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
 
 // ===============================================================
 
 
 | `process.entry_leader.parent.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.entry_leader.parent.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.entry_meta.source.*`
-| <<ecs-source,source>>| beta:[ Reusing the `source` fields in this location is currently considered beta.]
-
-Remote client information such as ip, port and geo location.
+| <<ecs-source,source>>
+| Remote client information such as ip, port and geo location.
 
 // ===============================================================
 
 
 | `process.group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The effective group (egid).
+| <<ecs-group,group>>
+| The effective group (egid).
 
 // ===============================================================
 
 
 | `process.group_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the process group leader. In some cases this may be the same as the top level process.
+| <<ecs-process,process>>
+| Information about the process group leader. In some cases this may be the same as the top level process.
 
 // ===============================================================
 
@@ -7852,6 +8713,14 @@ Information about the process group leader. In some cases this may be the same a
 | `process.hash.*`
 | <<ecs-hash,hash>>
 | Hashes, usually file hashes.
+
+// ===============================================================
+
+
+| `process.macho.*`
+| <<ecs-macho,macho>>| beta:[ This field reuse is beta and subject to change.]
+
+These fields contain Mac OS Mach Object file format (Mach-O) metadata.
 
 // ===============================================================
 
@@ -7864,9 +8733,8 @@ Information about the process group leader. In some cases this may be the same a
 
 
 | `process.parent.group_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent's process group leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent's process group leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
@@ -7879,9 +8747,8 @@ Information about the parent's process group leader. Only pid, start and entity_
 
 
 | `process.previous.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-An array of previous executions for the process, including the initial fork. Only executable and args are set.
+| <<ecs-process,process>>
+| An array of previous executions for the process, including the initial fork. Only executable and args are set.
 
 Note: this reuse should contain an array of process field set objects.
 
@@ -7889,65 +8756,57 @@ Note: this reuse should contain an array of process field set objects.
 
 
 | `process.real_group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The real group (rgid).
+| <<ecs-group,group>>
+| The real group (rgid).
 
 // ===============================================================
 
 
 | `process.real_user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The real user (ruid). Identifies the real owner of the process.
+| <<ecs-user,user>>
+| The real user (ruid). Identifies the real owner of the process.
 
 // ===============================================================
 
 
 | `process.saved_group.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-The saved group (sgid).
+| <<ecs-group,group>>
+| The saved group (sgid).
 
 // ===============================================================
 
 
 | `process.saved_user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The saved user (suid).
+| <<ecs-user,user>>
+| The saved user (suid).
 
 // ===============================================================
 
 
 | `process.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
+| <<ecs-process,process>>
+| Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
 
 // ===============================================================
 
 
 | `process.session_leader.parent.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the session leader's parent process. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the session leader's parent process. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.session_leader.parent.session_leader.*`
-| <<ecs-process,process>>| beta:[ Reusing the `process` fields in this location is currently considered beta.]
-
-Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
+| <<ecs-process,process>>
+| Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
 
 // ===============================================================
 
 
 | `process.supplemental_groups.*`
-| <<ecs-group,group>>| beta:[ Reusing the `group` fields in this location is currently considered beta.]
-
-An array of supplemental groups.
+| <<ecs-group,group>>
+| An array of supplemental groups.
 
 Note: this reuse should contain an array of group field set objects.
 
@@ -7955,9 +8814,8 @@ Note: this reuse should contain an array of group field set objects.
 
 
 | `process.user.*`
-| <<ecs-user,user>>| beta:[ Reusing the `user` fields in this location is currently considered beta.]
-
-The effective user (euid).
+| <<ecs-user,user>>
+| The effective user (euid).
 
 // ===============================================================
 
@@ -9512,23 +10370,16 @@ example: `2020-11-05T17:25:47.000Z`
 // ===============================================================
 
 |
-[[field-threat-enrichments-indicator-marking-tlp]]
-<<field-threat-enrichments-indicator-marking-tlp, threat.enrichments.indicator.marking.tlp>>
+[[field-threat-enrichments-indicator-marking-tlp-version]]
+<<field-threat-enrichments-indicator-marking-tlp-version, threat.enrichments.indicator.marking.tlp.version>>
 
-a| Traffic Light Protocol sharing markings.
-
-Expected values for this field:
-
-* `WHITE`
-* `GREEN`
-* `AMBER`
-* `RED`
+a| Traffic Light Protocol version.
 
 type: keyword
 
 
 
-example: `WHITE`
+example: `2.0`
 
 | extended
 
@@ -10488,6 +11339,22 @@ Note: this field should contain an array of values.
 
 
 example: `https://attack.mitre.org/techniques/T1059/001/`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-threat-threat-indicator-marking-tlp-version]]
+<<field-threat-threat-indicator-marking-tlp-version, threat.threat.indicator.marking.tlp.version>>
+
+a| Traffic Light Protocol version.
+
+type: keyword
+
+
+
+example: `2.0`
 
 | extended
 

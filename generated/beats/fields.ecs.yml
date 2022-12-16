@@ -1465,6 +1465,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: pe.imphash
       level: extended
       type: keyword
@@ -1475,6 +1511,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: pe.original_file_name
       level: extended
@@ -1500,6 +1566,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
   - name: dns
     title: DNS
@@ -1727,6 +1831,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: header.abi_version
       level: extended
       type: keyword
@@ -1775,10 +1915,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: sections
       level: extended
@@ -1829,6 +1994,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: sections.virtual_address
       level: extended
@@ -2678,6 +2849,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: elf.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: elf.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: elf.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: elf.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: elf.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: elf.header.abi_version
       level: extended
       type: keyword
@@ -2726,10 +2933,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: elf.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: elf.imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: elf.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: elf.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: elf.sections
       level: extended
@@ -2780,6 +3012,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: elf.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: elf.sections.virtual_address
       level: extended
@@ -2909,6 +3147,121 @@
       ignore_above: 1024
       description: Inode representing the file in the filesystem.
       example: '256383'
+    - name: macho.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a Mach-O file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: macho.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: macho.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: macho.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: macho.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
+    - name: macho.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a synonym for symhash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: macho.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: macho.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: macho.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
+      default_field: false
+    - name: macho.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the Mach-O file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `macho.sections.*`.'
+      default_field: false
+    - name: macho.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: macho.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Mach-O Section List name.
+      default_field: false
+    - name: macho.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: Mach-O Section List physical size.
+      default_field: false
+    - name: macho.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: macho.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: Mach-O Section List virtual size. This is always the same as `physical_size`.
+      default_field: false
+    - name: macho.symhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a Mach-O implementation of the Windows PE imphash'
+      example: d3ccf195b62a9279c3c19af1080497ec
+      default_field: false
     - name: mime_type
       level: extended
       type: keyword
@@ -2979,6 +3332,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: pe.imphash
       level: extended
       type: keyword
@@ -2989,6 +3378,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: pe.original_file_name
       level: extended
@@ -3014,6 +3433,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
     - name: size
       level: extended
@@ -4020,6 +4477,128 @@
         for RFC 5424 messages.
       example: 1
       default_field: false
+  - name: macho
+    title: Mach-O Header
+    group: 2
+    description: These fields contain Mac OS Mach Object file format (Mach-O) metadata.
+    type: group
+    default_field: true
+    fields:
+    - name: go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a Mach-O file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
+    - name: import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a synonym for symhash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
+      default_field: false
+    - name: sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the Mach-O file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `macho.sections.*`.'
+      default_field: false
+    - name: sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Mach-O Section List name.
+      default_field: false
+    - name: sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: Mach-O Section List physical size.
+      default_field: false
+    - name: sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: Mach-O Section List virtual size. This is always the same as `physical_size`.
+      default_field: false
+    - name: symhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a Mach-O implementation of the Windows PE imphash'
+      example: d3ccf195b62a9279c3c19af1080497ec
+      default_field: false
   - name: network
     title: Network
     group: 2
@@ -4816,6 +5395,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: imphash
       level: extended
       type: keyword
@@ -4826,6 +5441,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: original_file_name
       level: extended
@@ -4851,6 +5496,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
   - name: process
     title: Process
@@ -5004,6 +5687,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: elf.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: elf.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: elf.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: elf.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: elf.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: elf.header.abi_version
       level: extended
       type: keyword
@@ -5052,10 +5771,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: elf.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: elf.imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: elf.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: elf.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: elf.sections
       level: extended
@@ -5106,6 +5850,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: elf.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: elf.sections.virtual_address
       level: extended
@@ -5858,6 +6608,185 @@
         connected to the controlling TTY.'
       example: true
       default_field: false
+    - name: io
+      level: extended
+      type: object
+      description: 'A chunk of input or output (IO) from a single process.
+
+        This field only appears on the top level process object, which is the process
+        that wrote the output or read the input.'
+      default_field: false
+    - name: io.bytes_skipped
+      level: extended
+      type: object
+      description: An array of byte offsets and lengths denoting where IO data has
+        been skipped.
+      default_field: false
+    - name: io.bytes_skipped.length
+      level: extended
+      type: long
+      description: The length of bytes skipped.
+      default_field: false
+    - name: io.bytes_skipped.offset
+      level: extended
+      type: long
+      description: The byte offset into this event's io.text (or io.bytes in the future)
+        where length bytes were skipped.
+      default_field: false
+    - name: io.max_bytes_per_process_exceeded
+      level: extended
+      type: boolean
+      description: If true, the process producing the output has exceeded the max_kilobytes_per_process
+        configuration setting.
+      default_field: false
+    - name: io.text
+      level: extended
+      type: wildcard
+      description: 'A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events.
+        Assumptions should NOT be made that multiple lines will appear in the same
+        event. TTY output may contain terminal control codes such as for cursor movement,
+        so some string queries may not match due to terminal codes inserted between
+        characters of a word.'
+      default_field: false
+    - name: io.total_bytes_captured
+      level: extended
+      type: long
+      description: The total number of bytes captured in this event.
+      default_field: false
+    - name: io.total_bytes_skipped
+      level: extended
+      type: long
+      description: The total number of bytes that were not captured due to implementation
+        restrictions such as buffer size limits. Implementors should strive to ensure
+        this value is always zero
+      default_field: false
+    - name: io.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The type of object on which the IO action (read or write) was
+        taken.
+
+        Currently only ''tty'' is supported. Other types may be added in the future
+        for ''file'' and ''socket'' support.'
+      default_field: false
+    - name: macho.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a Mach-O file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: macho.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: macho.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: macho.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: macho.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
+    - name: macho.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a synonym for symhash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: macho.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: macho.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: macho.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
+      default_field: false
+    - name: macho.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the Mach-O file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `macho.sections.*`.'
+      default_field: false
+    - name: macho.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: macho.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Mach-O Section List name.
+      default_field: false
+    - name: macho.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: Mach-O Section List physical size.
+      default_field: false
+    - name: macho.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: macho.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: Mach-O Section List virtual size. This is always the same as `physical_size`.
+      default_field: false
+    - name: macho.symhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a Mach-O implementation of the Windows PE imphash'
+      example: d3ccf195b62a9279c3c19af1080497ec
+      default_field: false
     - name: name
       level: extended
       type: keyword
@@ -6012,6 +6941,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: parent.elf.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: parent.elf.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: parent.elf.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.elf.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.elf.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: parent.elf.header.abi_version
       level: extended
       type: keyword
@@ -6060,10 +7025,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: parent.elf.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: parent.elf.imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: parent.elf.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: parent.elf.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: parent.elf.sections
       level: extended
@@ -6114,6 +7104,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: parent.elf.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: parent.elf.sections.virtual_address
       level: extended
@@ -6297,6 +7293,121 @@
         connected to the controlling TTY.'
       example: true
       default_field: false
+    - name: parent.macho.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a Mach-O file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: parent.macho.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: parent.macho.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.macho.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.macho.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
+    - name: parent.macho.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a synonym for symhash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: parent.macho.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: parent.macho.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: parent.macho.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
+      default_field: false
+    - name: parent.macho.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the Mach-O file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `macho.sections.*`.'
+      default_field: false
+    - name: parent.macho.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: parent.macho.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Mach-O Section List name.
+      default_field: false
+    - name: parent.macho.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: Mach-O Section List physical size.
+      default_field: false
+    - name: parent.macho.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: parent.macho.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: Mach-O Section List virtual size. This is always the same as `physical_size`.
+      default_field: false
+    - name: parent.macho.symhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a Mach-O file. An import hash can be
+        used to fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a Mach-O implementation of the Windows PE imphash'
+      example: d3ccf195b62a9279c3c19af1080497ec
+      default_field: false
     - name: parent.name
       level: extended
       type: keyword
@@ -6337,6 +7448,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: parent.pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: parent.pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: parent.pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: parent.pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: parent.pe.imphash
       level: extended
       type: keyword
@@ -6347,6 +7494,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: parent.pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: parent.pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: parent.pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: parent.pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: parent.pe.original_file_name
       level: extended
@@ -6372,6 +7549,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: parent.pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: parent.pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: parent.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: parent.pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: parent.pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: parent.pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
     - name: parent.pgid
       level: extended
@@ -6576,6 +7791,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: pe.imphash
       level: extended
       type: keyword
@@ -6586,6 +7837,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: pe.original_file_name
       level: extended
@@ -6611,6 +7892,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
     - name: pgid
       level: extended
@@ -8650,6 +9969,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: enrichments.indicator.file.elf.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: enrichments.indicator.file.elf.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: enrichments.indicator.file.elf.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: enrichments.indicator.file.elf.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: enrichments.indicator.file.elf.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: enrichments.indicator.file.elf.header.abi_version
       level: extended
       type: keyword
@@ -8698,10 +10053,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: enrichments.indicator.file.elf.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: enrichments.indicator.file.elf.imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: enrichments.indicator.file.elf.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: enrichments.indicator.file.elf.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: enrichments.indicator.file.elf.sections
       level: extended
@@ -8752,6 +10132,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: enrichments.indicator.file.elf.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: enrichments.indicator.file.elf.sections.virtual_address
       level: extended
@@ -8963,6 +10349,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: enrichments.indicator.file.pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: enrichments.indicator.file.pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: enrichments.indicator.file.pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: enrichments.indicator.file.pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: enrichments.indicator.file.pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: enrichments.indicator.file.pe.imphash
       level: extended
       type: keyword
@@ -8973,6 +10395,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: enrichments.indicator.file.pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: enrichments.indicator.file.pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: enrichments.indicator.file.pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: enrichments.indicator.file.pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: enrichments.indicator.file.pe.original_file_name
       level: extended
@@ -8998,6 +10450,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: enrichments.indicator.file.pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
     - name: enrichments.indicator.file.size
       level: extended
@@ -9308,12 +10798,12 @@
         this indicator.
       example: '2020-11-05T17:25:47.000Z'
       default_field: false
-    - name: enrichments.indicator.marking.tlp
+    - name: enrichments.indicator.marking.tlp.version
       level: extended
       type: keyword
       ignore_above: 1024
-      description: Traffic Light Protocol sharing markings.
-      example: WHITE
+      description: Traffic Light Protocol version.
+      example: 2.0
       default_field: false
     - name: enrichments.indicator.modified_at
       level: extended
@@ -10069,6 +11559,42 @@
       type: flattened
       description: List of exported element names and types.
       default_field: false
+    - name: indicator.file.elf.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in an ELF file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: indicator.file.elf.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: indicator.file.elf.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: indicator.file.elf.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: indicator.file.elf.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: indicator.file.elf.header.abi_version
       level: extended
       type: keyword
@@ -10117,10 +11643,35 @@
       ignore_above: 1024
       description: Version of the ELF header.
       default_field: false
+    - name: indicator.file.elf.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in an ELF file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is an ELF implementation of the Windows PE imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
     - name: indicator.file.elf.imports
       level: extended
       type: flattened
       description: List of imported element names and types.
+      default_field: false
+    - name: indicator.file.elf.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: indicator.file.elf.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: indicator.file.elf.sections
       level: extended
@@ -10171,6 +11722,12 @@
       type: keyword
       ignore_above: 1024
       description: ELF Section List type.
+      default_field: false
+    - name: indicator.file.elf.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
       default_field: false
     - name: indicator.file.elf.sections.virtual_address
       level: extended
@@ -10382,6 +11939,42 @@
       description: Internal version of the file, provided at compile-time.
       example: 6.3.9600.17415
       default_field: false
+    - name: indicator.file.pe.go_import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the Go language imports in a PE file excluding standard
+        library imports. An import hash can be used to fingerprint binaries even after
+        recompilation or other code-level transformations have occurred, which would
+        change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).'
+      example: 10bddcb4cee42080f76c88d9ff964491
+      default_field: false
+    - name: indicator.file.pe.go_imports
+      level: extended
+      type: flattened
+      description: List of imported Go language element names and types.
+      default_field: false
+    - name: indicator.file.pe.go_imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: indicator.file.pe.go_imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of Go imports.
+      default_field: false
+    - name: indicator.file.pe.go_stripped
+      level: extended
+      type: boolean
+      description: Set to true if the file is a Go executable that has had its symbols
+        stripped or obfuscated and false if an unobfuscated Go executable.
+      default_field: false
     - name: indicator.file.pe.imphash
       level: extended
       type: keyword
@@ -10392,6 +11985,36 @@
 
         Learn more at https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html.'
       example: 0c6803c4e922103c4dca5963aad36ddf
+      default_field: false
+    - name: indicator.file.pe.import_hash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'A hash of the imports in a PE file. An import hash can be used
+        to fingerprint binaries even after recompilation or other code-level transformations
+        have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.'
+      example: d41d8cd98f00b204e9800998ecf8427e
+      default_field: false
+    - name: indicator.file.pe.imports
+      level: extended
+      type: flattened
+      description: List of imported element names and types.
+      default_field: false
+    - name: indicator.file.pe.imports_names_entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the list of imported element names
+        and types.
+      default_field: false
+    - name: indicator.file.pe.imports_names_var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the list of imported
+        element names and types.
       default_field: false
     - name: indicator.file.pe.original_file_name
       level: extended
@@ -10417,6 +12040,44 @@
       ignore_above: 1024
       description: Internal product name of the file, provided at compile-time.
       example: "Microsoft\xAE Windows\xAE Operating System"
+      default_field: false
+    - name: indicator.file.pe.sections
+      level: extended
+      type: nested
+      description: 'An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.'
+      default_field: false
+    - name: indicator.file.pe.sections.entropy
+      level: extended
+      type: long
+      format: number
+      description: Shannon entropy calculation from the section.
+      default_field: false
+    - name: indicator.file.pe.sections.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: PE Section List name.
+      default_field: false
+    - name: indicator.file.pe.sections.physical_size
+      level: extended
+      type: long
+      format: bytes
+      description: PE Section List physical size.
+      default_field: false
+    - name: indicator.file.pe.sections.var_entropy
+      level: extended
+      type: long
+      format: number
+      description: Variance for Shannon entropy calculation from the section.
+      default_field: false
+    - name: indicator.file.pe.sections.virtual_size
+      level: extended
+      type: long
+      format: string
+      description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
     - name: indicator.file.size
       level: extended
@@ -11288,6 +12949,13 @@
       description: "The reference url of subtechnique used by this threat. You can\
         \ use a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: https://attack.mitre.org/techniques/T1059/001/
+      default_field: false
+    - name: threat.indicator.marking.tlp.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Traffic Light Protocol version.
+      example: 2.0
       default_field: false
   - name: tls
     title: TLS
