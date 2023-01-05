@@ -57,6 +57,10 @@ These metrics can be used to give a quick overview on how a specific host is doi
 * A agent is running on a host and reports metrics about some services running on it. These metrics are shipped in addition to show how the host is doing.
 * A user is looking at service metrics delivered by APM. These metrics are used to show how the host the service is running on is doing.
 
+In the context if usage, it is also important what is NOT part of the fields by design:
+
+* Process: Details around process metrics. For this, detailed collection around processes must be enabled
+
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
