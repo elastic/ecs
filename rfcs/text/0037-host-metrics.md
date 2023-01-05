@@ -59,7 +59,8 @@ These metrics can be used to give a quick overview on how a specific host is doi
 
 In the context if usage, it is also important what is NOT part of the fields by design:
 
-* Process: Details around process metrics. For this, detailed collection around processes must be enabled
+* Process metrics: Details around process metrics. For this, detailed collection around processes must be enabled
+* Cgroup metrics: cgroup metrics might follow at a later stage
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -131,6 +132,14 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
+
+* [Schema for metrics in ECS](https://github.com/elastic/ecs/issues/474)
+* [Otel host metrics](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/hostmetricsreceiver/README.md)
+* [Prometheus Node Exporter](https://prometheus.io/docs/guides/node-exporter/)
+* [APM System metrics fields](https://www.elastic.co/guide/en/apm/server/current/exported-fields-system.html)
+* [APM Agent system metrics fields](https://www.elastic.co/guide/en/apm/agent/java/current/metrics.html#metrics-system)
+* [APM addition of Cgroup metrics](https://github.com/elastic/apm/issues/368)
+* [Host metrics used in Inventory view of Kibana](https://www.elastic.co/guide/en/observability/master/host-metrics.html) ([related queries](https://github.com/elastic/kibana/tree/main/x-pack/plugins/infra/common/inventory_models/host/metrics/snapshot))
 
 ### RFC Pull Requests
 
