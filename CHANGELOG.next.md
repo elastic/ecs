@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 * adding `name` field to `threat.indicator` #2121
 
 #### Improvements
+* Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 
 #### Deprecated
 
