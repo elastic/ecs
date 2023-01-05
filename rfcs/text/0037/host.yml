@@ -19,4 +19,23 @@
   type: double
   description: >
     Normalised system cpu usage of a host.
-    
+
+# These are the normalised load metrics for a host.
+# 
+# The values are normalised by the number of cores available on the machine. If 4 cores are available, the values are devided by 4.
+#
+# Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-load.html
+- name: host.load.norm.1
+  type: double
+  description: >
+    Load on the host for the last minute divided by the number of cores.
+
+- name: host.load.norm.5
+  type: double
+  description: >
+    Load on the host for the five minutes divided by the number of cores.
+
+- name: host.load.norm.15
+  type: double
+  description: >
+    Load on the host for the fifteen minutes divided by the number of cores.
