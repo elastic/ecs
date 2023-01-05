@@ -15,10 +15,8 @@
 # specific language governing permissions and limitations
 # under the License.
 ---
-- name: host.cpu.system.norm.pct
-  type: double
-  description: >
-    Normalised system cpu usage of a host.
+
+### Load ###
 
 # These are the normalised load metrics for a host.
 # 
@@ -27,17 +25,52 @@
 # These metrics might not be available on windows.
 #
 # Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-load.html
+
 - name: host.load.norm.1
   type: double
+  # Support this requires an Elasticsearch version on 8.6 or newer
+  time_series_metric: gauge
   description: >
     Load on the host for the last minute divided by the number of cores.
 
 - name: host.load.norm.5
   type: double
+  time_series_metric: gauge
   description: >
     Load on the host for the five minutes divided by the number of cores.
 
 - name: host.load.norm.15
   type: double
+  time_series_metric: gauge
   description: >
     Load on the host for the fifteen minutes divided by the number of cores.
+
+
+### Memory ###
+
+# Memory metrics for the host
+#
+# Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-memory.html
+
+  # TODO: There seems to be some ambiguity around this metric?
+- name: host.memory.actual.used.bytes
+  type: long
+  time_series_metric: gauge
+  description: >
+    Actual used memory in bytes. It represents the difference between the total and the available memory. 
+    The available memory depends on the OS.
+
+- name: host.memory.actual.used.pct
+  type: double
+  time_series_metric: gauge
+  description: >
+    The percentage of actual used memory.
+
+- name: host.memory.total
+  type: long
+  time_series_metric: gauge
+  description: >
+    Total memory available on the host machine.
+
+
+
