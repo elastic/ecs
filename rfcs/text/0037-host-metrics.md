@@ -23,7 +23,15 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-The list below is the minimal number of host metrics that should be delivered. The goal is to have as few as possible.
+The following high level metrics should be per host to indicate it's health:
+
+* CPU used (in %) and load
+* Memory used (in %, used, total)
+* Disk usage (in %)  and io -> summary
+* Network (traffic in / out)
+
+
+This translates to the following metrics. The goal is to have as few as possible.
 
 * host.cpu.system.norm.pct
 * host.cpu.user.norm.pct
@@ -40,7 +48,7 @@ The list below is the minimal number of host metrics that should be delivered. T
 * host.network.ingress.bytes
 
 
-cgroup metrics were left out of the proposal by design and might be added later on.
+cgroup metrics were left out of the proposal by design and might be added later on. More details around cgroups can be found in the [cgroup RFC](https://github.com/elastic/ecs/pull/1627).
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -115,17 +123,17 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @ruflin | author
+* @andrewkroh | reviewer
+* @felixbarny | reviewer
+* @gizas | reviewer
+* @lalit-satapathy | reviewer
+* @neptunian | reviewer
+* @tommyers-elastic | reviewer
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
 
 e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
 -->
 
 

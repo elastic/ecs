@@ -16,17 +16,96 @@
 # under the License.
 ---
 
-### TODO
-# Following fields need to be added with full details:
+### Overview ###
+# 
+# The following metrics give an overview on the current state of a host. On a high level it collects
+# the following data:
 #
-# * host.cpu.system.norm.pct
-# * host.cpu.user.norm.pct
-# * host.diskio.io.ops
-# * host.diskio.io.time
-# * host.fsstats.total_size.used (in bytes)
-# * host.fsstats.total_size.total (in bytes)
-# * host.fsstats.total_size.used.pct (other name needed because of conflict with used)
+# * CPU used (in %) and load
+# * Memory used (in %, used, total)
+# * Disk usage (in %)  and io -> summary
+# * Network (traffic in / out)
+#
+# This translates to the detailed metric list below.
 
+
+### CPU ###
+
+# The CPU metrics must indicate under how much load the system is. 
+#
+# The two metrics collected are normalized percentage of system and user CPU usage. 
+# Normalised means to 100% even if there are multiple cores.
+#
+# Idle can be calculated based on the delivered values if needed.
+
+- name: host.cpu.system.norm.pct
+  type: double
+  # Support this requires an Elasticsearch version on 8.6 or newer
+  time_series_metric: gauge
+  description: >
+    The normalised percentage of CPU time spent in kernel space.
+
+- name: host.cpu.user.norm.pct
+  type: double
+  time_series_metric: gauge
+  description: >
+    The normalised percentage of CPU time spent in user space.
+
+### Disk io ###
+
+# Disk io metrics describe the disk operations.
+# 
+# These are overall metrics applying to all disks of a host.
+# 
+# Existing `host.disk.read.bytes` and `host.disk.write.bytes` values 
+# [from ECS](https://www.elastic.co/guide/en/ecs/current/ecs-host.html)  were skipped here in purpose.
+#
+# TODO: Other potential metrics:
+# * CPU time spent in IO wait to be able to tell when you are waiting on the disk or some other IO device.
+
+
+- name: host.diskio.io.ops
+  type: long
+  time_series_metric: gauge
+  description: >
+    The total number of I/Os in progress.
+
+- name: host.diskio.io.time
+  type: long
+  time_series_metric: gauge
+  description: >
+    The total number of of milliseconds spent doing I/Os.
+
+
+### File system stats ###
+
+# The file system metrics indicate how full the disks are.
+# 
+# If there are multiple file systems, this is a summary of all the file systems.
+
+  # TODO: Discuss if it should be `fsstat` or `fsstats` (plural)
+- name: host.fsstats.total_size.used
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Total disk space used in bytes.
+
+- name: host.fsstats.total_size.total
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Total size of disks in bytes.
+
+  # TODO: Name discussion needed as `.pct` would conflict with keyword / object
+  # In case `subobject: false` is used, this would work.
+- name: host.fsstats.total_size.used.pct
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Percentage of disk space used.
 
 
 
@@ -39,6 +118,8 @@
 # These metrics might not be available on windows.
 #
 # Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-load.html
+#
+# DISCUSS: what should we do with these values around windows?
 
 - name: host.load.norm.1
   type: double
