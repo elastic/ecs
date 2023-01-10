@@ -37,21 +37,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.6.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Adding `vulnerability` option for `event.category`. #2029
-* Added `device.*` field set as beta. #2030
-* Added `tlp.version` to threat #2074
-* Added fields for executable object format metadata for ELF, Mach-O and PE #2083
-
-#### Improvements
-
-* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
-
 <!-- All empty sections:
 
 ## Unreleased
