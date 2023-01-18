@@ -35,6 +35,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
+
 #### Deprecated
 
 <!-- All empty sections:
