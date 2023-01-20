@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* adding `api` option to `event.category` #XXXX
 * adding `name` field to `threat.indicator` #2121
 
 #### Improvements
