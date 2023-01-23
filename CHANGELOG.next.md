@@ -14,14 +14,9 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* remove duplicated `client.domain` definition #212
-
 #### Added
 
-* adding `name` field to `threat.indicator` #2121
-
 #### Improvements
-* Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 
 #### Deprecated
 
@@ -38,6 +33,21 @@ Thanks, you're awesome :-) -->
 * Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
 
 #### Deprecated
+
+## 8.7.0 (Soft Feature Freeze)
+
+#### Bugfixes
+
+* remove duplicated `client.domain` definition #2120
+
+#### Added
+
+* adding `name` field to `threat.indicator` #2121
+
+#### Improvements
+
+* Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
+
 
 <!-- All empty sections:
 
