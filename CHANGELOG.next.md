@@ -34,10 +34,6 @@ Thanks, you're awesome :-) -->
 
 ## 8.7.0 (Soft Feature Freeze)
 
-### Schema Changes
-
-#### Breaking changes
-
 #### Bugfixes
 
 * remove duplicated `client.domain` definition #212
@@ -50,19 +46,6 @@ Thanks, you're awesome :-) -->
 
 * Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
 
 <!-- All empty sections:
 
