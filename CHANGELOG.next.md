@@ -36,7 +36,7 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* remove duplicated `client.domain` definition #212
+* remove duplicated `client.domain` definition #2120
 
 #### Added
 
