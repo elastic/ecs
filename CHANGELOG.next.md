@@ -17,7 +17,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-* description for `host.name` definition updated to encourage use of FDQN #2122
 
 #### Deprecated
 
@@ -48,6 +47,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
+* description for `host.name` definition updated to encourage use of FDQN #2122
 
 
 <!-- All empty sections:
