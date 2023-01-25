@@ -14,8 +14,6 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* remove duplicated `client.domain` definition #212
-
 #### Added
 
 #### Improvements
@@ -33,22 +31,24 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
+
 #### Deprecated
 
-## 8.6.0 (Hard Feature Freeze)
+## 8.7.0 (Soft Feature Freeze)
 
-### Schema Changes
+#### Bugfixes
+
+* remove duplicated `client.domain` definition #2120
 
 #### Added
 
-* Adding `vulnerability` option for `event.category`. #2029
-* Added `device.*` field set as beta. #2030
-* Added `tlp.version` to threat #2074
-* Added fields for executable object format metadata for ELF, Mach-O and PE #2083
+* adding `name` field to `threat.indicator` #2121
 
 #### Improvements
 
-* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
+* Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
+
 
 <!-- All empty sections:
 
