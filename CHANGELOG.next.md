@@ -34,6 +34,10 @@ Thanks, you're awesome :-) -->
 
 ## 8.7.0 (Soft Feature Freeze)
 
+### Schema Changes
+
+#### Breaking changes
+
 #### Bugfixes
 
 * remove duplicated `client.domain` definition #2120
@@ -41,6 +45,13 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * adding `name` field to `threat.indicator` #2121
+
+#### Improvements
+
+* description for `host.name` definition updated to encourage use of FDQN #2122
+
+
+### Tooling and Artifact Changes
 
 #### Improvements
 
