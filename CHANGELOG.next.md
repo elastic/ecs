@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* adding `library` option to `event.category` #2154
+
 #### Improvements
 
 #### Deprecated
