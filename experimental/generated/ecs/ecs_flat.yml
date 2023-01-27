@@ -2944,15 +2944,21 @@ event.agent_id_status:
   type: keyword
 event.category:
   allowed_values:
-  - description: Events in this category correspond to API events propagated directly
-      from the Operating System (Windows, Linux, etc.), from either the native API
-      function or system call, or a managed source of events (such as ETW, syslog).
+  - description: Events in this category annotate API calls that occured on a system.
+      Typical sources for those events could be from the Operating System level through
+      the native libraries (for example Windows Win32, Linux libc, etc.), or managed
+      sources of events (such as ETW, syslog), but can also include network protocols
+      (such as SOAP, RPC, Websocket, REST, etc.)
     expected_event_types:
     - access
     - admin
     - allowed
+    - change
+    - creation
+    - deletion
     - denied
     - end
+    - info
     - start
     - user
     name: api
