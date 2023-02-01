@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* adding `api` option to `event.category` #2147
+
 #### Improvements
 
 #### Deprecated
