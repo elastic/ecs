@@ -60,6 +60,13 @@ Thanks, you're awesome :-) -->
 * Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 * Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
 
+## 8.6.1
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixing `tlp_version` and `tlp` field for threat. #2156
 
 <!-- All empty sections:
 
