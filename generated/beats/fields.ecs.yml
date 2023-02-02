@@ -10798,7 +10798,14 @@
         this indicator.
       example: '2020-11-05T17:25:47.000Z'
       default_field: false
-    - name: enrichments.indicator.marking.tlp.version
+    - name: enrichments.indicator.marking.tlp
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Traffic Light Protocol sharing markings.
+      example: CLEAR
+      default_field: false
+    - name: enrichments.indicator.marking.tlp_version
       level: extended
       type: keyword
       ignore_above: 1024
@@ -12402,6 +12409,13 @@
       description: Traffic Light Protocol sharing markings.
       example: CLEAR
       default_field: false
+    - name: indicator.marking.tlp_version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Traffic Light Protocol version.
+      example: 2.0
+      default_field: false
     - name: indicator.modified_at
       level: extended
       type: date
@@ -12963,13 +12977,6 @@
       description: "The reference url of subtechnique used by this threat. You can\
         \ use a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
       example: https://attack.mitre.org/techniques/T1059/001/
-      default_field: false
-    - name: threat.indicator.marking.tlp.version
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: Traffic Light Protocol version.
-      example: 2.0
       default_field: false
   - name: tls
     title: TLS
