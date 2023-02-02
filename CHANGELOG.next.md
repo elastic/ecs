@@ -32,14 +32,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.6.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Fixing `tlp_version` and `tlp` field for threat. #2156
-
 <!-- All empty sections:
 
 ## Unreleased
