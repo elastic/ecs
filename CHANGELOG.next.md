@@ -16,8 +16,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* adding `library` option to `event.category` #2154
-
 #### Improvements
 
 #### Deprecated
@@ -38,6 +36,8 @@ Thanks, you're awesome :-) -->
 
 ## 8.7.0 (Soft Feature Freeze)
 
+### Schema Changes
+
 #### Bugfixes
 
 * remove duplicated `client.domain` definition #2120
@@ -50,7 +50,8 @@ Thanks, you're awesome :-) -->
 
 * Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 * description for `host.name` definition updated to encourage use of FDQN #2122
-
+* adding `api` option to `event.category` #2147
+* adding `library` option to `event.category` #2154
 
 <!-- All empty sections:
 
