@@ -3,6 +3,14 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.6.1](https://github.com/elastic/ecs/compare/v8.6.0...v8.6.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixing `tlp_version` and `tlp` field for threat. #2156
+
 ## [8.6.0](https://github.com/elastic/ecs/compare/v8.5.2...v8.6.0)
 
 ### Schema Changes
