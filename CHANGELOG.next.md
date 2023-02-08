@@ -34,6 +34,8 @@ Thanks, you're awesome :-) -->
 
 ## 8.7.0 (Hard Feature Freeze)
 
+### Schema Changes
+
 #### Bugfixes
 
 * remove duplicated `client.domain` definition #2120
