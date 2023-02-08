@@ -45,6 +45,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * adding `name` field to `threat.indicator` #2121
+* adding `library` option to `event.category` #2154
 
 #### Improvements
 
