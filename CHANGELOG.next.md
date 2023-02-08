@@ -16,8 +16,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* adding `api` option to `event.category` #2147
-
 #### Improvements
 
 #### Deprecated
@@ -34,11 +32,9 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.7.0 (Soft Feature Freeze)
+## 8.7.0 (Hard Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
 
 #### Bugfixes
 
@@ -47,12 +43,12 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * adding `name` field to `threat.indicator` #2121
+* adding `api` option to `event.category` #2147
 * adding `library` option to `event.category` #2154
 
 #### Improvements
 
 * description for `host.name` definition updated to encourage use of FDQN #2122
-
 
 ### Tooling and Artifact Changes
 
@@ -60,14 +56,6 @@ Thanks, you're awesome :-) -->
 
 * Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
 * Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
-
-## 8.6.1
-
-### Schema Changes
-
-#### Bugfixes
-
-* Fixing `tlp_version` and `tlp` field for threat. #2156
 
 <!-- All empty sections:
 
