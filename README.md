@@ -9,6 +9,15 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
+## Opensearch Modifications
+
+This repositroy conatins some modifications as opposed to the original repo. 
+This includes sections in the generator scripts which generate OpenSearch compatible
+index templates. Due to some differences in the APIs and available field types
+within OpenSearch, I adopted the build process to handle the differences and do 
+some conversions. This makes it possible to get some future schema updates from the
+repo easily. 
+
 ## Documentation
 
 The ECS reference is published on the main Elastic documentation website.
