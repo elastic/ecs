@@ -25,6 +25,7 @@ from generators import asciidoc_fields
 from generators import beats
 from generators import csv_generator
 from generators import es_template
+from generators import os_template
 from generators import ecs_helpers
 from generators import intermediate_files
 
@@ -79,6 +80,7 @@ def main() -> None:
     es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings)
     es_template.generate_legacy(flat, ecs_generated_version, out_dir,
                                 args.mapping_settings, args.template_settings_legacy)
+    os_template.generate(flat, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)
     if (args.include or args.subset or args.exclude) and not args.force_docs:
         exit()
