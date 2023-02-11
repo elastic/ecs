@@ -164,18 +164,24 @@ def dict_add_nested(
     name_parts: List[str],
     value: Dict
 ) -> None:
+    # nesting into
     current_nesting: str = name_parts[0]
+    # things to nest into the current thing
     rest_name_parts: List[str] = name_parts[1:]
     if len(rest_name_parts) > 0:
+        # insert empty dict into currenty obj if not exists
         dct.setdefault(current_nesting, {})
         dct[current_nesting].setdefault('properties', {})
 
+        # call recursive with all parts below the currently selected obj
         dict_add_nested(
             dct[current_nesting]['properties'],
             rest_name_parts,
             value)
 
+    # if nothing remains to be added
     else:
+        # do not set anything if object is last elem
         if current_nesting in dct and 'type' in value and 'object' == value['type']:
             return
         dct[current_nesting] = value
