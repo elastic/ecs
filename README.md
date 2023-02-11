@@ -16,7 +16,18 @@ This includes sections in the generator scripts which generate OpenSearch compat
 index templates. Due to some differences in the APIs and available field types
 within OpenSearch, I adopted the build process to handle the differences and do 
 some conversions. This makes it possible to get some future schema updates from the
-repo easily. 
+repo easily.
+
+Changes in field types:
+
+| ECS => Elasticsearch | Opensearch |
+|----------------------|------------|
+| constant_keyword     | keyword    |
+| wildcard             | keyword    |
+| flattened            | object     |
+| version              | keyword    |
+
+These changes will lead to some differences in performance and search options. 
 
 ## Documentation
 
