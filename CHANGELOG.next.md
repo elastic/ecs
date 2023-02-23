@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `access` as an allowed type for `event.type: file`. #2174
+
 #### Improvements
 
 #### Deprecated
