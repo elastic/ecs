@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-threat.html",
-    "ecs_version": "8.7.0-dev"
+    "ecs_version": "8.8.0-dev"
   },
   "template": {
     "mappings": {
@@ -610,12 +610,12 @@
                     "marking": {
                       "properties": {
                         "tlp": {
-                          "properties": {
-                            "version": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            }
-                          }
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "tlp_version": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
                         }
                       }
                     },
@@ -1533,6 +1533,10 @@
                     "tlp": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "tlp_version": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     }
                   }
                 },
@@ -1854,26 +1858,6 @@
                     "reference": {
                       "ignore_above": 1024,
                       "type": "keyword"
-                    }
-                  }
-                }
-              }
-            },
-            "threat": {
-              "properties": {
-                "indicator": {
-                  "properties": {
-                    "marking": {
-                      "properties": {
-                        "tlp": {
-                          "properties": {
-                            "version": {
-                              "ignore_above": 1024,
-                              "type": "keyword"
-                            }
-                          }
-                        }
-                      }
                     }
                   }
                 }

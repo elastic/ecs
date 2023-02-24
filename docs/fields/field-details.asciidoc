@@ -1613,7 +1613,7 @@ beta::[ These fields are in beta and are subject to change.]
 [[field-device-id]]
 <<field-device-id, device.id>>
 
-a| The unique identifier of a device. The identifier must not change across application sessions but stay fixex for an instance of a (mobile) device. 
+a| The unique identifier of a device. The identifier must not change across application sessions but stay fixed for an instance of a (mobile) device. 
 
 On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor). On Android, this value must be equal to the Firebase Installation ID or a globally unique UUID which is persisted across sessions in your application.
 
@@ -3389,7 +3389,7 @@ Note: this field should contain an array of values.
 
 *Important*: The field value must be one of the following:
 
-authentication, configuration, database, driver, email, file, host, iam, intrusion_detection, malware, network, package, process, registry, session, threat, vulnerability, web
+api, authentication, configuration, database, driver, email, file, host, iam, intrusion_detection, library, malware, network, package, process, registry, session, threat, vulnerability, web
 
 To learn more about when to use which value, visit the page
 <<ecs-allowed-values-event-category,allowed values for event.category>>
@@ -5145,7 +5145,7 @@ example: `["00-00-5E-00-53-23", "00-00-5E-00-53-24"]`
 
 a| Name of the host.
 
-It can contain what `hostname` returns on Unix systems, the fully qualified domain name, or a name specified by the user. The sender decides which value to use.
+It can contain what hostname returns on Unix systems, the fully qualified domain name (FQDN), or a name specified by the user. The recommended value is the lowercase FQDN of the host.
 
 type: keyword
 
@@ -10370,8 +10370,33 @@ example: `2020-11-05T17:25:47.000Z`
 // ===============================================================
 
 |
+[[field-threat-enrichments-indicator-marking-tlp]]
+<<field-threat-enrichments-indicator-marking-tlp, threat.enrichments.indicator.marking.tlp>>
+
+a| Traffic Light Protocol sharing markings.
+
+Expected values for this field:
+
+* `WHITE`
+* `CLEAR`
+* `GREEN`
+* `AMBER`
+* `AMBER+STRICT`
+* `RED`
+
+type: keyword
+
+
+
+example: `CLEAR`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-threat-enrichments-indicator-marking-tlp-version]]
-<<field-threat-enrichments-indicator-marking-tlp-version, threat.enrichments.indicator.marking.tlp.version>>
+<<field-threat-enrichments-indicator-marking-tlp-version, threat.enrichments.indicator.marking.tlp_version>>
 
 a| Traffic Light Protocol version.
 
@@ -10928,6 +10953,22 @@ example: `CLEAR`
 // ===============================================================
 
 |
+[[field-threat-indicator-marking-tlp-version]]
+<<field-threat-indicator-marking-tlp-version, threat.indicator.marking.tlp_version>>
+
+a| Traffic Light Protocol version.
+
+type: keyword
+
+
+
+example: `2.0`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-threat-indicator-modified-at]]
 <<field-threat-indicator-modified-at, threat.indicator.modified_at>>
 
@@ -11399,22 +11440,6 @@ Note: this field should contain an array of values.
 
 
 example: `https://attack.mitre.org/techniques/T1059/001/`
-
-| extended
-
-// ===============================================================
-
-|
-[[field-threat-threat-indicator-marking-tlp-version]]
-<<field-threat-threat-indicator-marking-tlp-version, threat.threat.indicator.marking.tlp.version>>
-
-a| Traffic Light Protocol version.
-
-type: keyword
-
-
-
-example: `2.0`
 
 | extended
 

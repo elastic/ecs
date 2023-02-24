@@ -156,6 +156,24 @@
       normalize:
         - array
       allowed_values:
+        - name: api
+          description: >
+            Events in this category annotate API calls that occured on a system. Typical sources
+            for those events could be from the Operating System level through the native libraries
+            (for example Windows Win32, Linux libc, etc.), or managed sources of events (such as ETW,
+            syslog), but can also include network protocols (such as SOAP, RPC, Websocket, REST, etc.)
+          expected_event_types:
+            - access
+            - admin
+            - allowed
+            - change
+            - creation
+            - deletion
+            - denied
+            - end
+            - info
+            - start
+            - user
         - name: authentication
           description: >
             Events in this category are related to the challenge and response process
@@ -221,6 +239,7 @@
             from both host-based and network-based sources. An example source of a network-based
             detection of a file transfer would be the Zeek file.log.
           expected_event_types:
+            - access
             - change
             - creation
             - deletion
@@ -265,6 +284,13 @@
             - allowed
             - denied
             - info
+        - name: library
+          description: >
+            Events in this category refer to the loading of a library, such as (dll / so / dynlib), into a process.
+            Use this category to visualize and analyze library loading related activity on
+            hosts.  Keep in mind that driver related activity will be captured under the "driver" category above.
+          expected_event_types:
+            - start
         - name: malware
           description: >
             Malware detection events and alerts. Use this category to visualize and analyze

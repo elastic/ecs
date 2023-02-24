@@ -3,6 +3,29 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.6.1](https://github.com/elastic/ecs/compare/v8.6.0...v8.6.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixing `tlp_version` and `tlp` field for threat. #2156
+
+## [8.6.0](https://github.com/elastic/ecs/compare/v8.5.2...v8.6.0)
+
+### Schema Changes
+
+#### Added
+
+* Adding `vulnerability` option for `event.category`. #2029
+* Added `device.*` field set as beta. #2030
+* Added `tlp.version` to threat #2074
+* Added fields for executable object format metadata for ELF, Mach-O and PE #2083
+
+#### Improvements
+
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
+
 ## [8.5.2](https://github.com/elastic/ecs/compare/v8.5.1...v8.5.2)
 
 ### Schema Changes

@@ -2075,7 +2075,7 @@ device:
     device.id:
       dashed_name: device-id
       description: "The unique identifier of a device. The identifier must not change\
-        \ across application sessions but stay fixex for an instance of a (mobile)\
+        \ across application sessions but stay fixed for an instance of a (mobile)\
         \ device. \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
         \ On Android, this value must be equal to the Firebase Installation ID or\
         \ a globally unique UUID which is persisted across sessions in your application.\n\
@@ -3856,6 +3856,24 @@ event:
       type: keyword
     event.category:
       allowed_values:
+      - description: Events in this category annotate API calls that occured on a
+          system. Typical sources for those events could be from the Operating System
+          level through the native libraries (for example Windows Win32, Linux libc,
+          etc.), or managed sources of events (such as ETW, syslog), but can also
+          include network protocols (such as SOAP, RPC, Websocket, REST, etc.)
+        expected_event_types:
+        - access
+        - admin
+        - allowed
+        - change
+        - creation
+        - deletion
+        - denied
+        - end
+        - info
+        - start
+        - user
+        name: api
       - description: Events in this category are related to the challenge and response
           process in which credentials are supplied and verified to allow the creation
           of a session. Common sources for these logs are Windows event logs and ssh
@@ -3916,6 +3934,7 @@ event:
           can come from both host-based and network-based sources. An example source
           of a network-based detection of a file transfer would be the Zeek file.log.
         expected_event_types:
+        - access
         - change
         - creation
         - deletion
@@ -3958,6 +3977,13 @@ event:
         - denied
         - info
         name: intrusion_detection
+      - description: Events in this category refer to the loading of a library, such
+          as (dll / so / dynlib), into a process. Use this category to visualize and
+          analyze library loading related activity on hosts.  Keep in mind that driver
+          related activity will be captured under the "driver" category above.
+        expected_event_types:
+        - start
+        name: library
       - description: Malware detection events and alerts. Use this category to visualize
           and analyze malware detections from EDR/EPP systems such as Elastic Endpoint
           Security, Symantec Endpoint Protection, Crowdstrike, and network IDS/IPS
@@ -7137,9 +7163,9 @@ host:
       dashed_name: host-name
       description: 'Name of the host.
 
-        It can contain what `hostname` returns on Unix systems, the fully qualified
-        domain name, or a name specified by the user. The sender decides which value
-        to use.'
+        It can contain what hostname returns on Unix systems, the fully qualified
+        domain name (FQDN), or a name specified by the user. The recommended value
+        is the lowercase FQDN of the host.'
       flat_name: host.name
       ignore_above: 1024
       level: core
@@ -18587,14 +18613,32 @@ threat:
       normalize: []
       short: Date/time indicator was last reported.
       type: date
-    threat.enrichments.indicator.marking.tlp.version:
+    threat.enrichments.indicator.marking.tlp:
+      dashed_name: threat-enrichments-indicator-marking-tlp
+      description: Traffic Light Protocol sharing markings.
+      example: CLEAR
+      expected_values:
+      - WHITE
+      - CLEAR
+      - GREEN
+      - AMBER
+      - AMBER+STRICT
+      - RED
+      flat_name: threat.enrichments.indicator.marking.tlp
+      ignore_above: 1024
+      level: extended
+      name: enrichments.indicator.marking.tlp
+      normalize: []
+      short: Indicator TLP marking
+      type: keyword
+    threat.enrichments.indicator.marking.tlp_version:
       dashed_name: threat-enrichments-indicator-marking-tlp-version
       description: Traffic Light Protocol version.
       example: 2.0
-      flat_name: threat.enrichments.indicator.marking.tlp.version
+      flat_name: threat.enrichments.indicator.marking.tlp_version
       ignore_above: 1024
       level: extended
-      name: enrichments.indicator.marking.tlp.version
+      name: enrichments.indicator.marking.tlp_version
       normalize: []
       short: Indicator TLP version
       type: keyword
@@ -21312,6 +21356,17 @@ threat:
       normalize: []
       short: Indicator TLP marking
       type: keyword
+    threat.indicator.marking.tlp_version:
+      dashed_name: threat-indicator-marking-tlp-version
+      description: Traffic Light Protocol version.
+      example: 2.0
+      flat_name: threat.indicator.marking.tlp_version
+      ignore_above: 1024
+      level: extended
+      name: indicator.marking.tlp_version
+      normalize: []
+      short: Indicator TLP version
+      type: keyword
     threat.indicator.modified_at:
       dashed_name: threat-indicator-modified-at
       description: The date and time when intelligence source last modified information
@@ -22269,17 +22324,6 @@ threat:
       normalize:
       - array
       short: Threat subtechnique URL reference.
-      type: keyword
-    threat.threat.indicator.marking.tlp.version:
-      dashed_name: threat-threat-indicator-marking-tlp-version
-      description: Traffic Light Protocol version.
-      example: 2.0
-      flat_name: threat.threat.indicator.marking.tlp.version
-      ignore_above: 1024
-      level: extended
-      name: threat.indicator.marking.tlp.version
-      normalize: []
-      short: Indicator TLP version
       type: keyword
   group: 2
   name: threat

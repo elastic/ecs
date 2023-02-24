@@ -132,6 +132,7 @@ This field is an array. This will allow proper categorization of some events tha
 
 *Allowed Values*
 
+* <<ecs-event-category-api,api>>
 * <<ecs-event-category-authentication,authentication>>
 * <<ecs-event-category-configuration,configuration>>
 * <<ecs-event-category-database,database>>
@@ -141,6 +142,7 @@ This field is an array. This will allow proper categorization of some events tha
 * <<ecs-event-category-host,host>>
 * <<ecs-event-category-iam,iam>>
 * <<ecs-event-category-intrusion_detection,intrusion_detection>>
+* <<ecs-event-category-library,library>>
 * <<ecs-event-category-malware,malware>>
 * <<ecs-event-category-network,network>>
 * <<ecs-event-category-package,package>>
@@ -150,6 +152,18 @@ This field is an array. This will allow proper categorization of some events tha
 * <<ecs-event-category-threat,threat>>
 * <<ecs-event-category-vulnerability,vulnerability>>
 * <<ecs-event-category-web,web>>
+
+[float]
+[[ecs-event-category-api]]
+==== api
+
+Events in this category annotate API calls that occured on a system. Typical sources for those events could be from the Operating System level through the native libraries (for example Windows Win32, Linux libc, etc.), or managed sources of events (such as ETW, syslog), but can also include network protocols (such as SOAP, RPC, Websocket, REST, etc.)
+
+
+*Expected event types for category api:*
+
+access, admin, allowed, change, creation, deletion, denied, end, info, start, user
+
 
 [float]
 [[ecs-event-category-authentication]]
@@ -226,7 +240,7 @@ Relating to a set of information that has been created on, or has existed on a f
 
 *Expected event types for category file:*
 
-change, creation, deletion, info
+access, change, creation, deletion, info
 
 
 [float]
@@ -267,6 +281,18 @@ Relating to intrusion detections from IDS/IPS systems and functions, both networ
 *Expected event types for category intrusion_detection:*
 
 allowed, denied, info
+
+
+[float]
+[[ecs-event-category-library]]
+==== library
+
+Events in this category refer to the loading of a library, such as (dll / so / dynlib), into a process. Use this category to visualize and analyze library loading related activity on hosts.  Keep in mind that driver related activity will be captured under the "driver" category above.
+
+
+*Expected event types for category library:*
+
+start
 
 
 [float]
