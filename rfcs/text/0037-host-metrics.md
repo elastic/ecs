@@ -23,7 +23,7 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-The following high level metrics should be per host to indicate it's health:
+The following high level metrics should be per host to indicate its health:
 
 * CPU used (in %) and load
 * Memory used (in %, used, total)
@@ -37,11 +37,11 @@ This translates to the following metrics. The goal is to have as few as possible
 * host.cpu.user.norm.pct
 * host.fsstats.total_size.used (in bytes)
 * host.fsstats.total_size.total (in bytes)
-* host.fsstats.total_size.used.pct 
+* host.fsstats.total_size.used.pct
 * host.load.norm.1
 * host.load.norm.5
 * host.load.norm.15
-* host.memory.actual.used.bytes 
+* host.memory.actual.used.bytes
 * host.memory.actual.used.pct
 * host.memory.total
 * host.network.egress.bytes
@@ -92,6 +92,8 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
+Currently Elastic Agent and metricbeat ship data host/system metrics under the `system.*` prefix. This would change it to `host.*`. One of the reasons for this is that some metrics for network already exist under this prefix in ECS so conflicts can be prevented. Another advantage is that some of these fields might use newer field types like `gauge` and `counter` delivered by TSDB in Elasticsearch which is possible without a breaking change.
+
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
  * Ingestion mechanisms (e.g. beats/logstash)
@@ -102,7 +104,8 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-Currently Elastic Agent and metricbeat ship data host/system metrics under the `system.*` prefix. This would change it to `host.*`. One of the reasons for this is that some metrics for network already exist under this prefix in ECS. Another advantage is that some of these fields might use newer field types like `gauge` and `counter` delivered by TSDB in Elasticsearch which is possible without a breaking change. One of the big advantages is it needs to be figured out how to migrate to it with the existing shippers.
+
+One of the concerns is it needs to be figured out how to migrate to the new fields with the existing shippers.
 
 Not all metrics might be available on all operating systems. How will we deal with this limitation?
 
