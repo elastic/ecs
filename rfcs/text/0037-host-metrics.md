@@ -105,10 +105,9 @@ The goal here is to research and understand the impact of these changes on users
 ## Concerns
 
 
-One of the concerns is it needs to be figured out how to migrate to the new fields with the existing shippers.
-
-Not all metrics might be available on all operating systems. How will we deal with this limitation?
-
+* One of the concerns is it needs to be figured out how to migrate to the new fields with the existing shippers.
+* Not all metrics might be available on all operating systems. How will we deal with this limitation?
+* [host.cpu.usage](https://github.com/elastic/ecs/blob/main/schemas/host.yml#L122) already exist, how do the new fields relate to it.
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
