@@ -143,7 +143,7 @@ e.g.:
 
 * [Schema for metrics in ECS](https://github.com/elastic/ecs/issues/474)
 * [Otel host metrics](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/hostmetricsreceiver/README.md)
-* [ECS cgropu rfc](https://github.com/elastic/ecs/blob/main/rfcs/text/0028-cgroups.md)
+* [ECS cgroup rfc](https://github.com/elastic/ecs/blob/main/rfcs/text/0028-cgroups.md)
 * [Prometheus Node Exporter](https://prometheus.io/docs/guides/node-exporter/)
 * [APM System metrics fields](https://www.elastic.co/guide/en/apm/server/current/exported-fields-system.html)
 * [APM Agent system metrics fields](https://www.elastic.co/guide/en/apm/agent/java/current/metrics.html#metrics-system)
