@@ -23,7 +23,7 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-This RFC proposes the annotating of certain ecs fields as `dimension`. This change is proposed to take the advantage of using `TSDB` offerred by the elasticsearch without impacting the data injetion.  
+This RFC proposes the annotating of certain ecs fields as `dimension`. This change is proposed to take the advantage of using `TSDB` offered by the elasticsearch without impacting the data injection.  
 
 Annotating field as `dimension` is one of the important step in the process of TSDB adoption. Failing to annotate adequate number of fields as `dimension` when `TSDB` is enabled may lead to data loss. A large majority of fields that must be annotated as `dimension` fields are ecs fields. Presently, the Integration (Service Integration, Cloud Native, etc ) developers are expected to annotate ecs fields as `dimensions` in integration configuration. To avoid the duplicatation in configuration, minimize data loss probability, the RFC is proposed. `dimension` field takes two values - `true` and `false`.
 
