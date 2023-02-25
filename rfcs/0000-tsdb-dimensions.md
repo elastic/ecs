@@ -149,7 +149,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Integration package development is the key beneficiary of this change. The fields of the document that are received from an integration receives a field mapping. If and when TSDB benefits are to be utilised, along with the field mapping with a metric type, atleast one of the fields  must recieve `dimension: true` annotation. 
+Integration package development is the key beneficiary of this change. The fields of the document that are received from an integration receives a field mapping. If and when TSDB benefits are to be utilised, along with the field mapping with a metric type, at least one of the fields  must receive `dimension: true` annotation. 
 
 Example of field mapping in integrations with the field enabled as a dimension field.
 ```yaml
