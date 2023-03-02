@@ -35,11 +35,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-For the Entity Analytics project, we are looking to identify user, host, and other types of entity assets. The `event.kind` field with `asset` value will be used to identity these type of documents. It has also been proposed that we combine this with other fields to have a more exact definition. For example, a user document may have these event fields specified:
+For the Entity Analytics project, we are looking to identify user, host, and other types of entity assets. The `event.kind` field with `asset` value will be used to identity these types of documents. It has also been proposed that we combine this with other fields to have a more exact definition. For example, a user document may have these event fields specified:
 
 * `event.kind: asset`
 * `event.category: iam`
-* `event.type: info`
+* `event.type: user,info`
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -150,7 +150,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/2178
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
