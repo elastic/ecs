@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `access` as an allowed type for `event.type: file`. #2174
+
 #### Improvements
 
 #### Deprecated
@@ -27,6 +29,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+
+* Add `parameters` property for field definitions, to provide any mapping parameter. #2084
 
 #### Improvements
 

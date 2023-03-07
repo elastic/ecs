@@ -211,7 +211,12 @@ def entry_for(field: Field) -> Dict:
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['normalizer', 'ignore_above'])
                 elif mf_type == 'text':
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms', 'analyzer'])
+                if 'parameters' in mf:
+                    mf_entry.update(mf['parameters'])
                 field_entry['fields'][mf['name']] = mf_entry
+
+        if 'parameters' in field:
+            field_entry.update(field['parameters'])
 
     except KeyError as ex:
         print("Exception {} occurred for field {}".format(ex, field))

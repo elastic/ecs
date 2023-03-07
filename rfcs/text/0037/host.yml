@@ -1,0 +1,193 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+
+### Overview ###
+# 
+# The following metrics give an overview on the current state of a host. On a high level it collects
+# the following data:
+#
+# * CPU used (in %) and load
+# * Memory used (in %, used, total)
+# * Disk usage (in %)  and io -> summary
+# * Network (traffic in / out)
+#
+# This translates to the detailed metric list below.
+
+
+### CPU ###
+
+# The CPU metrics must indicate under how much load the system is. 
+#
+# The two metrics collected are normalized percentage of system and user CPU usage. 
+# Normalised means to 100% even if there are multiple cores.
+#
+# Idle can be calculated based on the delivered values if needed.
+
+- name: host.cpu.system.norm.pct
+  type: double
+  # Support this requires an Elasticsearch version on 8.6 or newer
+  time_series_metric: gauge
+  description: >
+    The normalised percentage of CPU time spent in kernel space.
+
+- name: host.cpu.user.norm.pct
+  type: double
+  time_series_metric: gauge
+  description: >
+    The normalised percentage of CPU time spent in user space.
+
+### Disk io ###
+
+# Disk io metrics describe the disk operations.
+# 
+# These are overall metrics applying to all disks of a host.
+# 
+# Existing `host.disk.read.bytes` and `host.disk.write.bytes` values 
+# [from ECS](https://www.elastic.co/guide/en/ecs/current/ecs-host.html)  were skipped here in purpose.
+#
+# TODO: Other potential metrics:
+# * CPU time spent in IO wait to be able to tell when you are waiting on the disk or some other IO device.
+
+
+- name: host.diskio.io.ops
+  type: long
+  time_series_metric: gauge
+  description: >
+    The total number of I/Os in progress.
+
+- name: host.diskio.io.time
+  type: long
+  time_series_metric: gauge
+  description: >
+    The total number of of milliseconds spent doing I/Os.
+
+
+### File system stats ###
+
+# The file system metrics indicate how full the disks are.
+# 
+# If there are multiple file systems, this is a summary of all the file systems.
+
+  # TODO: Discuss if it should be `fsstat` or `fsstats` (plural)
+- name: host.fsstats.total_size.used
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Total disk space used in bytes.
+
+- name: host.fsstats.total_size.total
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Total size of disks in bytes.
+
+  # TODO: Name discussion needed as `.pct` would conflict with keyword / object
+  # In case `subobject: false` is used, this would work.
+- name: host.fsstats.total_size.used.pct
+  type: long
+  format: bytes
+  time_series_metric: gauge
+  description: >
+    Percentage of disk space used.
+
+
+
+### Load ###
+
+# These are the normalised load metrics for a host.
+# 
+# The values are normalised by the number of cores available on the machine. If 4 cores are available, the values are devided by 4.
+#
+# These metrics might not be available on windows.
+#
+# Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-load.html
+#
+# DISCUSS: what should we do with these values around windows?
+
+- name: host.load.norm.1
+  type: double
+  # Support this requires an Elasticsearch version on 8.6 or newer
+  time_series_metric: gauge
+  description: >
+    Load on the host for the last minute divided by the number of cores.
+
+- name: host.load.norm.5
+  type: double
+  time_series_metric: gauge
+  description: >
+    Load on the host for the five minutes divided by the number of cores.
+
+- name: host.load.norm.15
+  type: double
+  time_series_metric: gauge
+  description: >
+    Load on the host for the fifteen minutes divided by the number of cores.
+
+
+### Memory ###
+
+# Memory metrics for the host
+#
+# Same metrics with a system.* prefix are collected by metricbeat: https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-metricset-system-memory.html
+
+  # TODO: There seems to be some ambiguity around this metric?
+- name: host.memory.actual.used.bytes
+  type: long
+  time_series_metric: gauge
+  description: >
+    Actual used memory in bytes. It represents the difference between the total and the available memory. 
+    The available memory depends on the OS.
+
+- name: host.memory.actual.used.pct
+  type: double
+  time_series_metric: gauge
+  description: >
+    The percentage of actual used memory.
+
+- name: host.memory.total
+  type: long
+  time_series_metric: gauge
+  description: >
+    Total memory available on the host machine.
+
+
+### Network ###
+
+# Network egress and ingress metrics.
+#
+# The following are 2 existing ECS metrics found under https://www.elastic.co/guide/en/ecs/current/ecs-host.html
+
+- name: host.network.egress.bytes
+  type: long
+  level: extended
+  short: The number of bytes sent on all network interfaces of a host.
+  time_series_metric: gauge # This part is new
+  description: >
+    The number of bytes (gauge) sent out on all network interfaces by the
+    host since the last metric collection.
+
+- name: host.network.egress.packets
+  type: long
+  level: extended
+  time_series_metric: gauge # This part is new
+  short: The number of packets sent on all network interfaces of a host.
+  description: >
+    The number of packets (gauge) sent out on all network interfaces by the
+    host since the last metric collection.
