@@ -93,15 +93,17 @@ Changes to host mapping
     Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
   type: group
   fields:
-    - name: hostname
+    - name: name
       level: core
       type: keyword
-      short: Hostname of the host.
+      short: Name of the host.
       dimension: true
       description: >
-        Hostname of the host.
+        Name of the host.
+        It can contain what hostname returns on Unix systems, the fully
+        qualified domain name (FQDN), or a name specified by the user.
+        The recommended value is the lowercase FQDN of the host.
 
-        It normally contains what the `hostname` command returns on the host machine.
 
 ```
 Changes to host mapping
