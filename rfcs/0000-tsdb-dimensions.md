@@ -104,7 +104,6 @@ Changes to host mapping
         qualified domain name (FQDN), or a name specified by the user.
         The recommended value is the lowercase FQDN of the host.
 
-
 ```
 Changes to host mapping
 
