@@ -35,11 +35,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-For the Entity Analytics project, we are looking to identify user, host, and other types of entity assets. The `event.kind` field with `asset` value will be used to identity these types of documents. It has also been proposed that we combine this with other fields to have a more exact definition. For example, a user document may have these event fields specified:
+We want to represent a catalog of assets where each document represents some type of user or device entity. The `event.kind` field with `asset` value will be used to identity these types of documents. It has also been proposed that we combine this with other fields to have a more exact definition. For example, a user document may have these event fields specified:
 
 * `event.kind: asset`
-* `event.category: iam`
-* `event.type: user,info`
+* `event.category: [iam]`
+* `event.type: [user, info]`
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -61,7 +61,9 @@ An example of a user entity document, with `event.kind: asset`:
                 "provider": "Azure AD",
                 "kind": "asset",
                 "action": "user-discovered",
-                "category": "iam",
+                "category": [
+                    "iam"
+                ],
                 "type": [
                     "user",
                     "info"
