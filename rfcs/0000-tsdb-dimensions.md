@@ -105,7 +105,7 @@ Changes to host mapping
         The recommended value is the lowercase FQDN of the host.
 
 ```
-Changes to host mapping
+Changes to agent mapping
 
 ```yaml
 ---
@@ -134,6 +134,97 @@ Changes to host mapping
 
         Example: For Beats this would be beat.id.
       example: 8a4f500d
+      dimension: true
+```
+
+Changes to cloud mapping
+
+```yaml
+---
+- name: cloud
+  title: Cloud
+  group: 2
+  short: Fields about the cloud resource.
+  description: >
+    Fields related to the cloud or infrastructure the events
+    are coming from.
+  footnote: >
+    Examples: If Metricbeat is running on an EC2 host and fetches data from its
+    host, the cloud info contains the data about this machine. If Metricbeat
+    runs on a remote machine outside the cloud and fetches data from a service
+    running in the cloud, the field contains cloud data from the machine the
+    service is running on.
+    The cloud fields may be self-nested under cloud.origin.* and cloud.target.*
+    to describe origin or target service's cloud information in the context of
+    incoming or outgoing requests, respectively. However, the fieldsets
+    cloud.origin.* and cloud.target.* must not be confused with the root cloud
+    fieldset that is used to describe the cloud context of the actual service
+    under observation. The fieldset cloud.origin.* may only be used in the
+    context of incoming requests or events to provide the originating service's
+    cloud information. The fieldset cloud.target.* may only be used in the
+    context of outgoing requests or events to describe the target service's
+    cloud information.
+  reusable:
+    top_level: true
+    expected:
+      - at: cloud
+        as: origin
+        beta: Reusing the `cloud` fields in this location is currently considered beta.
+        short_override: Provides the cloud information of the origin entity in case of an incoming request or event.
+      - at: cloud
+        as: target
+        beta: Reusing the `cloud` fields in this location is currently considered beta.
+        short_override: Provides the cloud information of the target entity in case of an outgoing request or event.
+  type: group
+  fields:
+    - name: project.id
+      level: extended
+      type: keyword
+      example: my-project
+      short: The cloud project id.
+      description: >
+        The cloud project identifier.
+        Examples: Google Cloud Project id, Azure Project id.
+      dimension: true
+
+    - name: instance.id
+      level: extended
+      type: keyword
+      example: i-1234567890abcdef0
+      description: >
+        Instance ID of the host machine.
+      dimension: true
+    
+    - name: provider
+      level: extended
+      example: aws
+      type: keyword
+      short: Name of the cloud provider.
+      description: >
+        Name of the cloud provider. Example values are aws, azure, gcp, or
+        digitalocean.
+      dimension: true 
+```
+
+Changes to container mapping
+
+```yaml
+---
+- name: container
+  title: Container
+  group: 2
+  short: Fields describing the container that generated this event.
+  description: >
+    Container fields are used for meta information about the specific container
+    that is the source of information.
+    These fields help correlate data based containers from any runtime.
+  type: group
+  fields:
+    - name: id
+      level: core
+      type: keyword
+      description: >
+        Unique container id.
       dimension: true
 ```
 <!--
