@@ -1,7 +1,7 @@
 # 0038: Extend event.kind allowed values with asset
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -109,6 +109,8 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
+We expect to use the `asset` value within the security solution consistently across asset management, external asset integrations, and persisting related metadata. This field may be further leveraged in o11y topology work as they also are exploring ways to extend the asset.* fields within ECS.
+
 ## Concerns
 
 <!--
@@ -122,6 +124,8 @@ Stage 2: Document new concerns or resolutions to previously listed concerns. It'
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
 -->
+
+There are no breaking changes identified. There are no other concerns to note at this time.
 
 ## People
 
@@ -152,7 +156,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/2178
+* Stage 0-2: https://github.com/elastic/ecs/pull/2178
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
