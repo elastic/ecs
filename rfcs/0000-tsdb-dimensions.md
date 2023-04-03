@@ -96,8 +96,8 @@ Changes to host mapping
     - name: name
       level: core
       type: keyword
-      short: Name of the host.
       dimension: true
+      short: Name of the host.
       description: >
         Name of the host.
         It can contain what hostname returns on Unix systems, the fully
@@ -128,13 +128,13 @@ Changes to agent mapping
     - name: id
       level: core
       type: keyword
+      dimension: true
       short: Unique identifier of this agent.
       description: >
         Unique identifier of this agent (if one exists).
 
         Example: For Beats this would be beat.id.
       example: 8a4f500d
-      dimension: true
 ```
 
 Changes to cloud mapping
@@ -180,30 +180,31 @@ Changes to cloud mapping
     - name: project.id
       level: extended
       type: keyword
+      dimension: true
       example: my-project
       short: The cloud project id.
       description: >
         The cloud project identifier.
         Examples: Google Cloud Project id, Azure Project id.
-      dimension: true
+      
 
     - name: instance.id
       level: extended
       type: keyword
+      dimension: true
       example: i-1234567890abcdef0
       description: >
         Instance ID of the host machine.
-      dimension: true
     
     - name: provider
       level: extended
       example: aws
       type: keyword
+      dimension: true
       short: Name of the cloud provider.
       description: >
         Name of the cloud provider. Example values are aws, azure, gcp, or
-        digitalocean.
-      dimension: true 
+        digitalocean. 
 ```
 
 Changes to container mapping
@@ -223,9 +224,9 @@ Changes to container mapping
     - name: id
       level: core
       type: keyword
+      dimension: true
       description: >
         Unique container id.
-      dimension: true
 ```
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -248,8 +249,8 @@ Example of field mapping in integrations with the field enabled as a dimension f
 ---
 - name: wait_class
   type: keyword
-  description: Every wait event belongs to a class of wait event. 
   dimension: true
+  description: Every wait event belongs to a class of wait event. 
 
 ```
 ## Source data
