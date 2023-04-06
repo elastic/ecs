@@ -1,8 +1,8 @@
-# 0000: TSDB Dimensions
+# 0039: TSDB Dimensions
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2023-04-06** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -23,7 +23,7 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-This RFC proposes the annotating of certain ecs fields as `dimension`. This change is proposed to take the advantage of using `TSDB` offered by the elasticsearch without impacting the data injection.  
+This RFC proposes the annotating of certain ecs fields as `dimension`. This change is proposed to take the advantage of using `TSDB` offered by the elasticsearch without impacting the data injection.
 
 Annotating field as `dimension` is one of the important step in the process of TSDB adoption. Failing to annotate adequate number of fields as `dimension` when `TSDB` is enabled may lead to data loss. A large majority of fields that must be annotated as `dimension` fields are ecs fields. Presently, the Integration (Service Integration, Cloud Native, etc ) developers are expected to annotate ecs fields as `dimensions` in integration configuration. To avoid the duplicatation in configuration, minimize data loss probability, the RFC is proposed. `dimension` field takes two values - `true` and `false`.
 
@@ -186,7 +186,7 @@ Changes to cloud mapping
       description: >
         The cloud project identifier.
         Examples: Google Cloud Project id, Azure Project id.
-      
+
 
     - name: instance.id
       level: extended
@@ -195,7 +195,7 @@ Changes to cloud mapping
       example: i-1234567890abcdef0
       description: >
         Instance ID of the host machine.
-    
+
     - name: provider
       level: extended
       example: aws
@@ -204,7 +204,7 @@ Changes to cloud mapping
       short: Name of the cloud provider.
       description: >
         Name of the cloud provider. Example values are aws, azure, gcp, or
-        digitalocean. 
+        digitalocean.
 ```
 
 Changes to container mapping
@@ -242,7 +242,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-Integration package development is the key beneficiary of this change. The fields of the document that are received from an integration receives a field mapping. If and when TSDB benefits are to be utilised, along with the field mapping with a metric type, at least one of the fields  must receive `dimension: true` annotation. 
+Integration package development is the key beneficiary of this change. The fields of the document that are received from an integration receives a field mapping. If and when TSDB benefits are to be utilised, along with the field mapping with a metric type, at least one of the fields  must receive `dimension: true` annotation.
 
 Example of field mapping in integrations with the field enabled as a dimension field.
 ```yaml
@@ -250,7 +250,7 @@ Example of field mapping in integrations with the field enabled as a dimension f
 - name: wait_class
   type: keyword
   dimension: true
-  description: Every wait event belongs to a class of wait event. 
+  description: Every wait event belongs to a class of wait event.
 
 ```
 ## Source data
@@ -280,7 +280,7 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-No concerns are known as of now. Presence of the `dimension:true` does not impact functionality. Elastic Stack version 8.7 is essential for this. 
+No concerns are known as of now. Presence of the `dimension:true` does not impact functionality. Elastic Stack version 8.7 is essential for this.
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
@@ -325,7 +325,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/1386
+* Stage 0: https://github.com/elastic/ecs/pull/2172
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
