@@ -40,6 +40,7 @@ The value of this field can be used to inform how these kinds of events should b
 *Allowed Values*
 
 * <<ecs-event-kind-alert,alert>>
+* <<ecs-event-kind-asset,asset>>
 * <<ecs-event-kind-enrichment,enrichment>>
 * <<ecs-event-kind-event,event>>
 * <<ecs-event-kind-metric,metric>>
@@ -56,6 +57,20 @@ This value indicates an event such as an alert or notable event, triggered by a 
 `event.kind:alert` is often populated for events coming from firewalls, intrusion detection systems, endpoint detection and response systems, and so on.
 
 This value is not used by Elastic solutions for alert documents that are created by rules executing within the Kibana alerting framework.
+
+
+
+[float]
+[[ecs-event-kind-asset]]
+==== asset
+
+beta:[ This event categorization value is beta and subject to change. ]
+
+This value indicates events whose primary purpose is to store an inventory of assets/entities and their attributes. Assets/entities are objects (such as users and hosts) that are expected to be subjects of detailed analysis within the system.
+
+Examples include lists of user identities or accounts ingested from directory services such as Active Directory (AD), inventory of hosts pulled from configuration management databases (CMDB), and lists of cloud storage buckets pulled from cloud provider APIs.
+
+This value is used by Elastic Security for asset management solutions. `event.kind: asset` is not used for normal system events or logs that are coming from an asset/entity, nor is it used for system events or logs coming from a directory or CMDB system.
 
 
 
