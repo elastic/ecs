@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `access` as an allowed type for `event.type: file`. #2174
+* Add `event.kind: asset` as a beta category. #2191
 
 #### Improvements
 
