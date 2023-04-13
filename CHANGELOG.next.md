@@ -22,6 +22,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
+* Removed `faas.trigger: nested` since we only have one trigger. #2194
 
 ### Tooling and Artifact Changes
 
