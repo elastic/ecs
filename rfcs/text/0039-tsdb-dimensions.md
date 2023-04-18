@@ -280,7 +280,25 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-No concerns are known as of now. Presence of the `dimension:true` does not impact functionality. Elastic Stack version 8.7 is essential for this.
+Presence of the `dimension:true` does not impact functionality. Elastic Stack version 8.7 is essential for this.
+
+### Automatic inclusion of ECS dimensions in index mappings
+
+Implementations consuming dimensions defined in ECS need to take into account
+that changes in the set of dimensions of a data set can produce different time
+series, even for the same data. This can produce unexpected results.
+
+Automatic inclusion of ECS dimensions should be done with care, informing
+developers whenever possible of possible changes in the set of dimensions for
+their data sets when they upgrade to a version of ECS including changes in
+dimensions. Additionaly, opt-in/out mechanisms can be implemented to give
+developers more control on what dimensions are automatically included on their
+solutions.
+
+Inclusion of new dimensions in ECS should be done with special care, to avoid
+silently introducing unexpected changes on implementations that directly include
+dimensions from ECS.
+
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
