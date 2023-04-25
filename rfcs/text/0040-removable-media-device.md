@@ -25,7 +25,8 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 This RFC propose adding the volume device fieldset to describe volume storage devices that are removable disks such as USB, mountable virtual disks such as ISO.
 
- * volume.name
+ * volume.mount_name
+ * volume.device_name
  * volume.dos_name
  * volume.nt_name
  * volume.bus_type
