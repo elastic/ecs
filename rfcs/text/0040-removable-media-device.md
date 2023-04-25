@@ -1,8 +1,8 @@
-# 0040: Removable media device
+# 0000: Removable media device
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2023-04-24** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -23,16 +23,16 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-This RFC propose adding the removable media fields to describe volume storage devices that are removable disks, or mountable virtual disks such as ISOs.
+This RFC propose adding the volume device fieldset to describe volume storage devices that are removable disks such as USB, mountable virtual disks such as ISO.
 
- * removable_media.dos_name
- * removable_media.nt_name
- * removable_media.bus_type
- * removable_media.file_system_type
- * removable_media.product_id
- * removable_media.vendor_id
- * removable_media.serial_number
- * removable_media.volume_device_type
+ * volume.dos_name
+ * volume.nt_name
+ * volume.bus_type
+ * volume.file_system_type
+ * volume.product_id
+ * volume.vendor_id
+ * volume.serial_number
+ * volume.volume_device_type
 
 
 <!--
@@ -45,9 +45,9 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
- * These storage device fields can be used to describe some events and alerts that's associated with a storage device and were proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
+ * These volume device fields can be used to describe some events and alerts that're associated with a volume device. It was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
 
- * A new [Device control](https://github.com/elastic/endpoint-dev/issues/12662) feature is being developed. The feature is based on these storage device information. These fields will be used by the UI management console as well as the software running on all the managed hosts to determine what kind of access to the storgae can be allowed.
+ * A new [Device control](https://github.com/elastic/endpoint-dev/issues/12662) feature is being developed. The feature is based on the volume device information defined in this fieldset, which will be used by the UI management console as well as the software running on all the managed hosts, Virtual Machines, and containers to determine what kind of protections can be applied.
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -55,7 +55,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 ## Source data
 
-The source of this data comes from monitoring a host or a k8s node.
+The source of this data comes from monitoring a host, a Virtual Machine, or a k8s node.
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
@@ -123,7 +123,7 @@ https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%2
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/2201
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
