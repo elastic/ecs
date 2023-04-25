@@ -31,7 +31,7 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.nt_name
  * volume.bus_type
  * volume.file_system_type
- * volume.product_id
+ * volume.product_name
  * volume.vendor_name
  * volume.serial_number
  * volume.volume_device_type
