@@ -26,9 +26,9 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.serial_number
  * volume.volume_device_type
  
-These volume device fields can be used to describe some events and alerts that're associated with a volume device. It was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
+These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
 
-These fields will also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
+These fields can also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
