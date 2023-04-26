@@ -13,16 +13,6 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
-<!--
-Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
--->
-
-## Fields
-
 This RFC propose adding the volume device fieldset to describe volume storage devices that are removable disks such as USB, mountable virtual disks such as ISO.
 
  * volume.mount_name
@@ -35,7 +25,20 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.vendor_name
  * volume.serial_number
  * volume.volume_device_type
+ 
+These volume device fields can be used to describe some events and alerts that're associated with a volume device. It was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
 
+These fields will also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
+
+<!--
+Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
+-->
+
+<!--
+Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
+-->
+
+## Fields
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -46,10 +49,6 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 -->
 
 ## Usage
-
- * These volume device fields can be used to describe some events and alerts that're associated with a volume device. It was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
-
- * The volume device information defined in this fieldset will also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
