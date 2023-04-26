@@ -49,7 +49,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
  * These volume device fields can be used to describe some events and alerts that're associated with a volume device. It was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
 
- * A new [Device control](https://github.com/elastic/endpoint-dev/issues/12662) feature is being developed. The feature is based on the volume device information defined in this fieldset, which will be used by the UI management console as well as the software running on all the managed hosts, Virtual Machines, and containers to determine what kind of protections can be applied.
+ * The volume device information defined in this fieldset will also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -99,8 +99,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
- * @trinity2019 | author
- * Will add soon
+ * @Trinity2019    | author
+ * @ricardoelastic | reviewer
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
