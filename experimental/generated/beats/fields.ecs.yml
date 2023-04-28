@@ -5174,6 +5174,13 @@
         setups).
       example: elastic
       default_field: false
+    - name: resource.annotation
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The list of annotations added to the resource.
+      example: '[''key1:value1'', ''key2:value2'', ''key3:value3'']'
+      default_field: false
     - name: resource.id
       level: extended
       type: keyword
@@ -5187,6 +5194,13 @@
         being observed. In the case of a Kubernetes Pod, this array would contain
         only one element: the IP of the Pod (as opposed to the Node on which the Pod
         is running).'
+      default_field: false
+    - name: resource.label
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The list of labels added to the resource.
+      example: '[''key1:value1'', ''key2:value2'', ''key3:value3'']'
       default_field: false
     - name: resource.name
       level: extended
