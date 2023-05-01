@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Add `vendor.name` as a field for package ECS fields
 
 #### Improvements
 
