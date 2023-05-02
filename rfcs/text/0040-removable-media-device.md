@@ -29,6 +29,7 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.serial_number
  * volume.volume_device_type
  * volume.change_type
+ * volume.size
  
 These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
 
