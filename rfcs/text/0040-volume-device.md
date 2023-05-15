@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This RFC propose adding the volume device fieldset to describe volume storage devices that are removable disks such as USB, mountable virtual disks such as ISO.
+This RFC propose adding the volume device fieldset to describe volume storage devices such as hard disks, removable USB, mountable virtual disks such as ISO.
 
  * volume.mount_name
  * volume.device_name
