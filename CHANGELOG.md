@@ -3,6 +3,22 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.8.0](https://github.com/elastic/ecs/compare/v8.7.0...v8.8.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `access` as an allowed type for `event.type: file`. #2174
+* Add `orchestrator.resource.annotation` and `orchestrator.resource.label`. #2181
+* Add `event.kind: asset` as a beta category. #2191
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Add `parameters` property for field definitions, to provide any mapping parameter. #2084
+
 ## [8.7.0](https://github.com/elastic/ecs/compare/v8.6.1...v8.7.0)
 
 ### Schema Changes
