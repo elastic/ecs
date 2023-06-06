@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+* Added `process.vpid` for namespaced process ids. #2211
 
 #### Improvements
 
