@@ -106,13 +106,28 @@ asset.create_date	            | date |	June 5, 2023 @ 18:25:57.001	| - | -      
 asset.end_date	                | date |	June 5, 2023 @ 18:25:57.002	| - | -             | For users, it's the termination date, for other assets, it's the out-of-service date.			
 asset.first_seen	            | date |	June 5, 2023 @ 18:25:57.003	| - | -             | The earliest date/time at which this asset was observed.  For assets added via config, this would remain empty until the asset was observed.			
 asset.last_seen	                | date |	June 5, 2023 @ 18:25:57.004	| - | -             | The most recent date/time at which this asset was observed.  Would remain empty until the asset was observed.			
-asset.last_updated	            | date |	June 5, 2023 @ 18:25:57.005	| - | -             | The most recent date/time this asset was updated in the inventory datasource.			
-
-**Note:** I will append the asset field sets with additional fields needed to ingest host inventory metadata. I will evaluate if any further changes are needed under the host.* object during this excercise.
-
+asset.last_updated	            | date |	June 5, 2023 @ 18:25:57.005	| - | -             | The most recent date/time this asset was updated in the inventory datasource.		
+asset.serial_number	            | keyword	| C02FG1G1MD6T	| - | -             |		Serial number of the asset.
+asset.tags	                    | keyword	  | watch, mdmaccess		| - | -             |	Tags assigned at the MDM.
+asset.assigned_users	          | keyword	  | user1@email.com, user2@email.com		| - | -             |	List of users assigned to the asset.
+asset.assigned_users_are_admin	| boolean	  | TRUE	| - | -             |		Flag to identify if the assigned users have admin priviledges.
+asset.is_managed	              | boolean	  | TRUE			| - | -             | If asset is managed by the organization.
+asset.last_enrolled_date	      | date	    | June 5, 2023 @ 18:25:57.005		| - | -             |	The most recent date/time the asset checked in with MDM.
+asset.data_classification	      | keyword	  | restricted		| - | -             |	Data classification tier for the asset.
 
 #### Nesting of existing risk.* fields under asset object
 * We have a set of risk.* fields in ECS which can be further nested under the asset.* object. Reference to [Risk RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0031-risk-fields.md).
+
+
+
+### Proposed New Fields for Host object
+Field | Type | Example | Description
+--- | --- | --- | ---
+host.os.build	| keyword		| 22F66   | Host OS Build information
+host.installed_extensions 	| keyword	  | <Nested objects>	  | List of installed extensions along with their metadata
+host.installed_applications	keyword	    | <Nested objects>	  | List of installed applications along with their metadata
+
+
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
