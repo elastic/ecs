@@ -124,8 +124,8 @@ asset.data_classification	      | keyword	  | restricted		| - | -             |	
 Field | Type | Example | Description
 --- | --- | --- | ---
 host.os.build	| keyword		| 22F66   | Host OS Build information
-host.installed_extensions 	| keyword	  | <Nested objects>	  | List of installed extensions along with their metadata
-host.installed_applications	keyword	    | <Nested objects>	  | List of installed applications along with their metadata
+host.installed_extensions 	| keyword	  | Nested objects	  | List of installed extensions along with their metadata
+host.installed_applications	| keyword	    | Nested objects	  | List of installed applications along with their metadata
 
 
 
