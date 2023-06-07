@@ -9,7 +9,7 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-
+<!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
@@ -71,7 +71,6 @@ user.profile.assigned_mdm_id	| keyword |	2950	| Primary host owned by the user. 
 user.account.create_date	| date |	June 5, 2023 @ 18:25:57.000	| Date account was created.
 user.account.activated_date	| date |	June 5, 2023 @ 18:25:57.000	| Date account was activated.
 user.account.change_date	| date |	June 5, 2023 @ 18:25:57.000	| Date user account record was last updated at source
-user.account.status.active	| boolean |	true/ false	| A flag indicating if account is active
 user.account.status.recovery	| boolean |	true/ false	| A flag indicating if account is in recovery
 user.account.status.locked_out	| boolean |	true/ false	| A flag indicating if account is currently locked out
 user.account.status.suspended	| boolean |	true/ false	| A flag indicating if account has been suspended
