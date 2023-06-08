@@ -348,7 +348,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2172
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
+* Stage 1: https://github.com/elastic/ecs/pull/2217
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
