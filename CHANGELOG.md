@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file based on the
 
 #### Added
 
-* Add `access` as an allowed type for `event.type: file`. #2174
+* Add `event.type: access` as an allowed value for `event.category: file`. #2174
 * Add `orchestrator.resource.annotation` and `orchestrator.resource.label`. #2181
 * Add `event.kind: asset` as a beta category. #2191
 
