@@ -34,7 +34,7 @@
       level: extended
       type: keyword
       description: >
-        Unique ID of the cluster.        
+        Unique ID of the cluster.
 
     - name: cluster.url
       level: extended
@@ -68,6 +68,24 @@
       example: kube-system
       description: >
         Namespace in which the action is taking place.
+
+    - name: resource.annotation
+      level: extended
+      type: keyword
+      example: "['key1:value1', 'key2:value2', 'key3:value3']"
+      description: >
+        The list of annotations added to the resource.
+      normalize:
+        - array
+
+    - name: resource.label
+      level: extended
+      type: keyword
+      example: "['key1:value1', 'key2:value2', 'key3:value3']"
+      description: >
+        The list of labels added to the resource.
+      normalize:
+        - array
 
     - name: resource.name
       level: extended
@@ -106,7 +124,7 @@
       level: extended
       type: keyword
       description: >
-        Unique ID of the resource being acted upon.            
+        Unique ID of the resource being acted upon.
 
     - name: api_version
       level: extended

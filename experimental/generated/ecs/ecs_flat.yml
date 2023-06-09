@@ -3794,15 +3794,6 @@ faas.name:
   normalize: []
   short: The name of a serverless function.
   type: keyword
-faas.trigger:
-  dashed_name: faas-trigger
-  description: Details about the function trigger.
-  flat_name: faas.trigger
-  level: extended
-  name: trigger
-  normalize: []
-  short: Details about the function trigger.
-  type: nested
 faas.trigger.request_id:
   dashed_name: faas-trigger-request-id
   description: The ID of the trigger request , message, event, etc.
@@ -7379,6 +7370,18 @@ orchestrator.organization:
   normalize: []
   short: Organization affected by the event (for multi-tenant orchestrator setups).
   type: keyword
+orchestrator.resource.annotation:
+  dashed_name: orchestrator-resource-annotation
+  description: The list of annotations added to the resource.
+  example: '[''key1:value1'', ''key2:value2'', ''key3:value3'']'
+  flat_name: orchestrator.resource.annotation
+  ignore_above: 1024
+  level: extended
+  name: resource.annotation
+  normalize:
+  - array
+  short: The list of annotations added to the resource.
+  type: keyword
 orchestrator.resource.id:
   dashed_name: orchestrator-resource-id
   description: Unique ID of the resource being acted upon.
@@ -7401,6 +7404,18 @@ orchestrator.resource.ip:
   - array
   short: IP address assigned to the resource associated with the event being observed.
   type: ip
+orchestrator.resource.label:
+  dashed_name: orchestrator-resource-label
+  description: The list of labels added to the resource.
+  example: '[''key1:value1'', ''key2:value2'', ''key3:value3'']'
+  flat_name: orchestrator.resource.label
+  ignore_above: 1024
+  level: extended
+  name: resource.label
+  normalize:
+  - array
+  short: The list of labels added to the resource.
+  type: keyword
 orchestrator.resource.name:
   dashed_name: orchestrator-resource-name
   description: Name of the resource being acted upon.
@@ -8545,6 +8560,22 @@ process.entry_leader.parent.session_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.entry_leader.parent.session_leader.vpid:
+  dashed_name: process-entry-leader-parent-session-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.entry_leader.parent.session_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.entry_leader.parent.start:
   dashed_name: process-entry-leader-parent-start
   description: The time the process started.
@@ -8556,6 +8587,22 @@ process.entry_leader.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.entry_leader.parent.vpid:
+  dashed_name: process-entry-leader-parent-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.entry_leader.parent.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.entry_leader.pid:
   dashed_name: process-entry-leader-pid
   description: Process id.
@@ -8798,6 +8845,22 @@ process.entry_leader.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+process.entry_leader.vpid:
+  dashed_name: process-entry-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.entry_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.entry_leader.working_directory:
   dashed_name: process-entry-leader-working-directory
   description: The working directory of the process.
@@ -9246,6 +9309,22 @@ process.group_leader.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+process.group_leader.vpid:
+  dashed_name: process-group-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.group_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.group_leader.working_directory:
   dashed_name: process-group-leader-working-directory
   description: The working directory of the process.
@@ -10426,6 +10505,22 @@ process.parent.group_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.parent.group_leader.vpid:
+  dashed_name: process-parent-group-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.parent.group_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.parent.hash.md5:
   dashed_name: process-parent-hash-md5
   description: MD5 hash.
@@ -11305,6 +11400,22 @@ process.parent.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+process.parent.vpid:
+  dashed_name: process-parent-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.parent.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.parent.working_directory:
   dashed_name: process-parent-working-directory
   description: The working directory of the process.
@@ -11999,6 +12110,22 @@ process.session_leader.parent.session_leader.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.session_leader.parent.session_leader.vpid:
+  dashed_name: process-session-leader-parent-session-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.session_leader.parent.session_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.session_leader.parent.start:
   dashed_name: process-session-leader-parent-start
   description: The time the process started.
@@ -12010,6 +12137,22 @@ process.session_leader.parent.start:
   original_fieldset: process
   short: The time the process started.
   type: date
+process.session_leader.parent.vpid:
+  dashed_name: process-session-leader-parent-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.session_leader.parent.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.session_leader.pid:
   dashed_name: process-session-leader-pid
   description: Process id.
@@ -12252,6 +12395,22 @@ process.session_leader.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+process.session_leader.vpid:
+  dashed_name: process-session-leader-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.session_leader.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  original_fieldset: process
+  short: Virtual process id.
+  type: long
 process.session_leader.working_directory:
   dashed_name: process-session-leader-working-directory
   description: The working directory of the process.
@@ -12441,6 +12600,21 @@ process.user.name:
   original_fieldset: user
   short: Short name or login of the user.
   type: keyword
+process.vpid:
+  dashed_name: process-vpid
+  description: 'Virtual process id.
+
+    The process id within a pid namespace. This is not necessarily unique across all
+    processes on the host but it is unique within the process namespace that the process
+    exists within.'
+  example: 4242
+  flat_name: process.vpid
+  format: string
+  level: core
+  name: vpid
+  normalize: []
+  short: Virtual process id.
+  type: long
 process.working_directory:
   dashed_name: process-working-directory
   description: The working directory of the process.

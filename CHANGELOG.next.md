@@ -15,13 +15,12 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
-* Add `access` as an allowed type for `event.type: file`. #2174
-* Add `event.kind: asset` as a beta category. #2191
+* Added `process.vpid` for namespaced process ids. #2211
 
 #### Improvements
 
 #### Deprecated
+* Removed `faas.trigger: nested` since we only have one trigger. #2194
 
 ### Tooling and Artifact Changes
 
@@ -31,11 +30,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `parameters` property for field definitions, to provide any mapping parameter. #2084
-
 #### Improvements
-
-* Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
 
 #### Deprecated
 
