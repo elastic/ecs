@@ -1,7 +1,7 @@
 # 0039: TSDB Dimensions
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2023-04-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
