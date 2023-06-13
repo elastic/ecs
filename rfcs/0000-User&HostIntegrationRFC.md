@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This proposal aims to extend existing ECS fieldset to store inventory metadata for hosts, users from external application repositories. Using ECS to store such fields will improve metadata queryring and retrieval across various use cases.
+This proposal aims to extend existing ECS fieldset to store inventory metadata for hosts, users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
 
 Within the Security `Entity Analytics` initiatve, we refer to hosts and users as `entities`. We also refer to hosts/ users as `assets` across generic security or obserbality use cases. For simplificaiton, entities, assets will refer to host and user objects.
 
