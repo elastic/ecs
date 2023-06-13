@@ -13,21 +13,17 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This proposal aims to extend existing ECS fieldset to store inventory metadata for hosts, users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
+This proposal aims to extend the existing ECS fieldset to store inventory metadata for hosts, and users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
 
-Within the Security `Entity Analytics` initiatve, we refer to hosts and users as `entities`. We also refer to hosts/ users as `assets` across generic security or obserbality use cases. For simplificaiton, entities, assets will refer to host and user objects.
+Within the Security `Entity Analytics` initiative, we refer to hosts and users as `entities`. We refer to hosts/ users as `assets` across generic security or observability use cases. For simplification, entities, and assets will refer to host and user objects.
 
 This proposal includes the following:
 * Additional fields in the `users` object 
 * Introduces a new field set called `assets`
 <!-- * Additional fields in the `host` object --->
 
-This proposal will also facilitate storing of host and user inventory within security solution (aka. the entity store).
+This proposal will also facilitate storing of host and user inventory within the security solution (aka. the entity store).
 
-### References:
-* [Entity Analytics Plugin Architecture for Host & User Integrations](https://github.com/elastic/beats/issues/33866#issuecomment-1165709940)
-* 0038: Extend event.kind allowed values with asset [Existing RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0038-event-kind-asset.md#0038-extend-eventkind-allowed-values-with-asset)
-* [Creation of an asset `super-schema`](https://github.com/elastic/security-team/issues/2347)
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -140,7 +136,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 
 * As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g. context enrichments) and detecting advanced analytics (UBA) use cases. 
 
-* This schema will be used to persist `Observed` (queried) entities from ingested security log dataset in an Entity store. This entity store can be further extended to meet broaded overall Asset Mangagement needs.
+* This schema will be used to persist `Observed` (queried) entities from ingested security log dataset in an Entity store. This entity store can be further extended to meet broader Asset Management needs.
 
 * We also envision additional enrichment use cases for existing prebuilt detection rules down the line.
 
@@ -151,7 +147,7 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
-There are many sources of asset inventory repositories. In the mid-term we are planning to ingest data from the following applicaiton providers:
+There are many sources of asset inventory repositories. In the mid-term, we are planning to ingest data from the following application providers:
 
 ### User (Identity) repository sources:
 * Azure Active Directory
@@ -167,8 +163,6 @@ There are many sources of asset inventory repositories. In the mid-term we are p
 * Active Directory DS
 * MS Intune
 * ServiceNow Asset CMDB
-
-Mapping of application fields from individual providers are documented here: [User](https://docs.google.com/spreadsheets/d/1ZHGQPGVr35vLZB3DcPnXWxLTkHad_S0YrhtTKO_LL4o/edit#gid=1940810377), [Host-TBD]().
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -201,8 +195,8 @@ Stage 1: Identify potential concerns, implementation challenges, or complexity. 
 -->
 
 * We have a couple fleet integrations under development. We want them to use these proposed ECS before being released.
-* Schema/ field sets defined here focuses on asset inventory datasources. Additional fields may need to be appeneded (ideally within this RFC lifecyle) to support the entity store needs.
-* Due deligence is needed to avoid proliferation of field sets and validating business requiurements.
+* Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
+* Due diligence is needed to avoid the proliferation of field sets and validate business requirements.
 * ?
 
 <!--
