@@ -62,7 +62,7 @@ user.profile.job_title	| keyword |	Field Sales	| Job title assigned to the user 
 user.profile.department	| keyword |	x256	| Department name associated with the user account.
 user.profile.organization	| keyword |	Elasticsearch Inc.	| Organization name associated with the account.
 user.profile.location	| keyword |	US - Washington - Distributed	| Assigned location for the user account.
-user.profile.mobilePhone	| keyword |	222-222-2222	
+user.profile.mobile_phone	| keyword |	222-222-2222	
 user.profile.primaryPhone	| keyword |	222-222-2222	
 user.profile.secondEmail	| keyword |	first.l@elastic.co	| Additional email addresses associated with the user account.
 user.profile.sup_org_id	| keyword |	SUP-ORG-75	| Primary organization ID for the user account.
