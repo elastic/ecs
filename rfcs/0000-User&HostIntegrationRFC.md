@@ -138,7 +138,7 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-* As part of Entity Analytics, we are ingesting metadata about [Users](https://github.com/elastic/security-team/issues/4163) and [Hosts](https://github.com/elastic/security-team/issues/4044) from various external vendor applications. We are storing all ingested metadat in ElasticSearch inde. After we map these fields to ECS, we will enrich these ingested events for risk scoring scenarios (e.g. of context enrichments) and detecting advanced analytics (UBA) use cases. 
+* As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g. context enrichments) and detecting advanced analytics (UBA) use cases. 
 
 * This schema will be used to persist `Observed` (queried) entities from ingested security log dataset in an Entity store. This entity store can be further extended to meet broaded overall Asset Mangagement needs.
 
@@ -154,7 +154,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 There are many sources of asset inventory repositories. In the mid-term we are planning to ingest data from the following applicaiton providers:
 
 ### User (Identity) repository sources:
-*  Azure Active Directory
+* Azure Active Directory
 * Active Directory DS
 * Okta 
 * Workday
@@ -219,7 +219,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * @sourinpaul | author
 * @andrewkroh | subject matter expert
-* @jamie Hynds | subject matter expert
+* @jamiehynds | subject matter expert
 * @lauravoicu | subject matter expert
 * @MikePaquette | subject matter expert
 * @sourinpaul | sponsor
