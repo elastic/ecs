@@ -34,6 +34,8 @@ Thanks, you're awesome :-) -->
 
 ## 8.9.0 (Feature Freeze)
 
+### Schema Changes
+
 ### Bugfixes
 
 #### Added
