@@ -18,11 +18,11 @@ This proposal aims to extend the existing ECS fieldset to store inventory metada
 Within the Security `Entity Analytics` initiative, we refer to hosts and users as `entities`. We refer to hosts/ users as `assets` across generic security or observability use cases. For simplification, entities, and assets will refer to host and user objects.
 
 This proposal includes the following:
-* Additional fields in the `users` object 
-* Introduces a new field set called `assets`
+* Additional fields in the `users` and `os` objects.
+* Introduces a new field set called `assets`.
 <!-- * Additional fields in the `host` object --->
 
-This proposal will also facilitate storing of host and user inventory within the security solution (aka. the entity store).
+This proposal will also facilitate storing host and user inventory within the security solution (the entity store).
 
 
 <!--
@@ -98,29 +98,29 @@ asset.cost_center_hierarchy	| keyword |	Engineering	 | - | -                    
 asset.status	    | keyword         |	ACTIVE      | - | -                                 | Current status of the asset in the inventory datasource.			
 asset.last_status_change_date	| date |	June 5, 2023 @ 18:25:57.000	| - | -             | The most recent date/time when the asset.status was updated.			
 asset.create_date	            | date |	June 5, 2023 @ 18:25:57.001	| - | -             | For users, it's the hire date, for other assets, it's the in service date.			
-asset.end_date	                | date |	June 5, 2023 @ 18:25:57.002	| - | -             | For users, it's the termination date, for other assets, it's the out-of-service date.			
-asset.first_seen	            | date |	June 5, 2023 @ 18:25:57.003	| - | -             | The earliest date/time at which this asset was observed.  For assets added via config, this would remain empty until the asset was observed.			
+asset.end_date	                | date |	June 5, 2023 @ 18:25:57.002	| - | -             | For users, it's the termination date; for other assets, it's the out-of-service date.			
+asset.first_seen	            | date |	June 5, 2023 @ 18:25:57.003	| - | -             | The earliest date/time at which this asset was observed by the directory service or the security solution. 
 asset.last_seen	                | date |	June 5, 2023 @ 18:25:57.004	| - | -             | The most recent date/time at which this asset was observed.  Would remain empty until the asset was observed.			
 asset.last_updated	            | date |	June 5, 2023 @ 18:25:57.005	| - | -             | The most recent date/time this asset was updated in the inventory datasource.		
 asset.serial_number	            | keyword	| C02FG1G1MD6T	| - | -             |		Serial number of the asset.
 asset.tags	                    | keyword	  | watch, mdmaccess		| - | -             |	Tags assigned at the MDM.
 asset.assigned_users	          | keyword	  | user1@email.com, user2@email.com		| - | -             |	List of users assigned to the asset.
-asset.assigned_users_are_admin	| boolean	  | TRUE	| - | -             |		Flag to identify if the assigned users have admin priviledges.
+asset.assigned_users_are_admin	| boolean	  | TRUE	| - | -             |		Flag to identify if the assigned users have admin privileges.
 asset.is_managed	              | boolean	  | TRUE			| - | -             | If asset is managed by the organization.
 asset.last_enrolled_date	      | date	    | June 5, 2023 @ 18:25:57.005		| - | -             |	The most recent date/time the asset checked in with MDM.
 asset.data_classification	      | keyword	  | restricted		| - | -             |	Data classification tier for the asset.
+asset.installed_extensions 	| keyword	  | Nested objects	  | List of installed extensions along with their metadata
+asset.installed_applications	| keyword	    | Nested objects	  | List of installed applications along with their metadata
 
 #### Nesting of existing risk.* fields under asset object
-* We have a set of risk.* fields in ECS which can be further nested under the asset.* object. Reference to [Risk RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0031-risk-fields.md).
+* We have a set of risk.* fields in ECS that can be further nested under the asset.* object. Reference to [Risk RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0031-risk-fields.md).
 
 
 
-### Proposed New Fields for Host object
+### Proposed New Fields for os.* object
 Field | Type | Example | Description
 --- | --- | --- | ---
-host.os.build	| keyword		| 22F66   | Host OS Build information
-host.installed_extensions 	| keyword	  | Nested objects	  | List of installed extensions along with their metadata
-host.installed_applications	| keyword	    | Nested objects	  | List of installed applications along with their metadata
+os.build	| keyword		| 22F66   | Host OS Build information
 
 
 
