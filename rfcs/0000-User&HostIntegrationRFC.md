@@ -13,9 +13,10 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This proposal aims to extend the existing ECS fieldset to store inventory metadata for hosts, and users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
+This proposal extends the existing ECS field set to store inventory metadata for hosts and users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
 
-Within the Security `Entity Analytics` initiative, we refer to hosts and users as `entities`. We refer to hosts/ users as `assets` across generic security or observability use cases. For simplification, entities, and assets will refer to host and user objects.
+Terminologies:
+The `Entity Analytics` initiative within Security refers to hosts and users as `entities`. Other generic security and observability use cases may refer to hosts/ users as `assets`. Certain directory services or asset management applications use the term 'device' when referring to a host.  In this RFC, I have simplified these terminologies to `users` and `hosts` and these will represent all the neighboring terms.
 
 This proposal includes the following:
 * Additional fields in the `users` and `os` objects.
@@ -48,7 +49,7 @@ user.profile.type	| keyword	| Employee	| Type of user account.
 user.profile.status	| keyword |	On board	| Status of the user account.
 user.profile.first_name	| keyword |	First	| First Name of the User.
 user.profile.last_name	| keyword |	Last	| Last Name of the user.
-user.profile.other_identities	| keyword , multifield |	first.last@elk.elastic.co	| Array of additional user identities.
+user.profile.other_identities	| keyword, text |	first.last@elk.elastic.co	| Array of additional user identities (usually email addresses).
 user.profile.manager	| keyword |	John Doe	| Assigned Manager for the user account.
 user.profile.employee_type	| keyword |	Regular | Further classification type for the user account.
 user.profile.job_family	| keyword |	65-Sales	| Job family associated with the user account.
@@ -63,7 +64,7 @@ user.profile.primaryPhone	| keyword |	222-222-2222
 user.profile.secondEmail	| keyword |	first.l@elastic.co	| Additional email addresses associated with the user account.
 user.profile.sup_org_id	| keyword |	SUP-ORG-75	| Primary organization ID for the user account.
 user.profile.supervisory_Org	| keyword |	Field Sales	| Primary organization name for the user account.
-user.profile.assigned_mdm_id	| keyword |	2950	| Primary host owned by the user. This acts as a correlation to identify the host event.			
+user.profile.assigned_mdm_id	| keyword |	2950	| The primary host identifier (usually `asset.id` value) assigned to the user. This field acts as a correlation identifier for the host event document.			
 user.account.create_date	| date |	June 5, 2023 @ 18:25:57.000	| Date account was created.
 user.account.activated_date	| date |	June 5, 2023 @ 18:25:57.000	| Date account was activated.
 user.account.change_date	| date |	June 5, 2023 @ 18:25:57.000	| Date user account record was last updated at source
@@ -81,30 +82,30 @@ user.account.password_change_date	| date |	June 5, 2023 @ 18:25:57.000	| Last da
 
 Field | Type | Generic Example |	User Entity Example | Host Entity Example | Description
 --- | --- | --- | --- | --- | ---
-asset.category	| keyword |	-	        | Null	                | hardware	                | A further classification of the asset type beyond event.category. For example for host assets {hardware, virtual, container, node}. For user assets {NULL ?}			
+asset.category	| keyword |	-	        | Null	                | hardware	                | A further classification of the asset type beyond event.category. For example, for host assets {hardware, virtual, container, node}. For user assets {NULL ?}			
 asset.type	    | keyword |	-	        | Null	                | workstation	            | A sub classification of asset. For host assets {workstation, S3, Compute}. For user assets {NULL?}.			
-asset.id	    | keyword |	-	        | 00uhs72c27s6PiK7x1t7	| 2950	                    | A unique ID for the asset. For inventory integrations, it's the id generated from inventory datasource			
+asset.id	    | keyword |	-	        | 00uhs72c27s6PiK7x1t7	| 2950	                    | A unique ID for the asset. For inventory integrations, it's the id generated from inventory data source.			
 asset.name	    | keyword |	-	        | Sourin Paul	        | Sourin Paul Macbook Pro	| A common name for the asset.			
 asset.vendor	| keyword |	-           |	-	                | Apple	                    | Used primarily for 'Host' entities, the vendor name or brand associated with the asset.			
 asset.product	| keyword |	-           |	-	                | MacBook Pro	            | Used primarily for 'Host' entities, the product name associated with the asset.			
 asset.model	    | keyword |	-           |	-	                |TBD	                    | Used primarily for 'Host' entities, the model name or number associated with this asset.			
 asset.version	| keyword |	-           |	-	                | TBD	                    | Used primarily for 'Host' entities, the version or year associated with the asset.			
-asset.owner	    | keyword |	-           |	-	                | sourin.paul@elastic.co	| The primary user entity who owns the 'Host' asset.			
-asset.priority	| keyword |	Priority 1	| -                     | -                         | A priority classification for the asset obtained from outside this system, such as from some external CMDB or Directory service.			
-asset.criticality	| keyword |	Critical	| - | -                                         | A criticality classification obtained from outside this system, such as from some external CMDB or Directory service.			
+asset.owner	    | keyword |	-           |	-	                | sourin.paul@elastic.co	| The primary user entity identifier (usually an email address) who owns the 'Host' asset.			
+asset.priority	| keyword |	Priority 1	| -                     | -                         | A priority classification for the asset obtained from outside the solution, such as from some external CMDB or Directory service.			
+asset.criticality	| keyword |	Critical	| - | -                                         | A criticality classification obtained from outside the solution, such as from some external CMDB or Directory service.
 asset.business_unit	| keyword |	Analyst Experience	| - | -                                 | Business Unit associated with the asset (user or host).			
 asset.costCenter	| keyword |	Security - Protections | - | -                              | Cost Center associated with the asset (user or host).			
 asset.cost_center_hierarchy	| keyword |	Engineering	 | - | -                                | Additional cost center information associated with the asset (user or host).			
 asset.status	    | keyword         |	ACTIVE      | - | -                                 | Current status of the asset in the inventory datasource.			
 asset.last_status_change_date	| date |	June 5, 2023 @ 18:25:57.000	| - | -             | The most recent date/time when the asset.status was updated.			
-asset.create_date	            | date |	June 5, 2023 @ 18:25:57.001	| - | -             | For users, it's the hire date, for other assets, it's the in service date.			
+asset.create_date	            | date |	June 5, 2023 @ 18:25:57.001	| - | -             | For users, it's the hire date. For other assets, it's the in-service date.			
 asset.end_date	                | date |	June 5, 2023 @ 18:25:57.002	| - | -             | For users, it's the termination date; for other assets, it's the out-of-service date.			
-asset.first_seen	            | date |	June 5, 2023 @ 18:25:57.003	| - | -             | The earliest date/time at which this asset was observed by the directory service or the security solution. 
-asset.last_seen	                | date |	June 5, 2023 @ 18:25:57.004	| - | -             | The most recent date/time at which this asset was observed.  Would remain empty until the asset was observed.			
-asset.last_updated	            | date |	June 5, 2023 @ 18:25:57.005	| - | -             | The most recent date/time this asset was updated in the inventory datasource.		
+asset.first_seen	            | date |	June 5, 2023 @ 18:25:57.003	| - | -             | The first date/time the directory service or the security solution observed this asset. 
+asset.last_seen	                | date |	June 5, 2023 @ 18:25:57.004	| - | -             | The most recent date/time the directory service or the security solution observed this asset. 			
+asset.last_updated	            | date |	June 5, 2023 @ 18:25:57.005	| - | -             | The most recent date/time this asset was updated in directory services. 		
 asset.serial_number	            | keyword	| C02FG1G1MD6T	| - | -             |		Serial number of the asset.
 asset.tags	                    | keyword	  | watch, mdmaccess		| - | -             |	Tags assigned at the MDM.
-asset.assigned_users	          | keyword	  | user1@email.com, user2@email.com		| - | -             |	List of users assigned to the asset.
+asset.assigned_users	          | keyword	  | user1@email.com, user2@email.com		| - | -             |	List of user ids (usually email addresses) assigned to the asset. The value from the `asset.owner` field should always be included.
 asset.assigned_users_are_admin	| boolean	  | TRUE	| - | -             |		Flag to identify if the assigned users have admin privileges.
 asset.is_managed	              | boolean	  | TRUE			| - | -             | If asset is managed by the organization.
 asset.last_enrolled_date	      | date	    | June 5, 2023 @ 18:25:57.005		| - | -             |	The most recent date/time the asset checked in with MDM.
@@ -134,11 +135,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-* As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g. context enrichments) and detecting advanced analytics (UBA) use cases. 
+* As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g., context enrichments) and detecting advanced analytics (UBA) use cases. 
 
-* This schema will be used to persist `Observed` (queried) entities from ingested security log dataset in an Entity store. This entity store can be further extended to meet broader Asset Management needs.
+* This schema will persist `Observed` (queried) entities from the ingested security log dataset in an Entity store. This entity store can be further extended to meet broader Asset Management needs.
 
-* We also envision additional enrichment use cases for existing prebuilt detection rules down the line.
+* Additional enrichment use cases for existing prebuilt detection rules will leverage these ECS fields.
 
 
 ## Source data
