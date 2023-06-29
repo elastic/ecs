@@ -133,6 +133,8 @@ https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%2
 
 * Stage 0: https://github.com/elastic/ecs/pull/2201
 
+* Stage 1: https://github.com/elastic/ecs/pull/2229
+
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
