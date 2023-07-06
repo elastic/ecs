@@ -195,10 +195,10 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-* We have a couple fleet integrations under development. We want them to use these proposed ECS before being released.
+* We have a couple of fleet integrations under development. We want them to use these proposed ECS before being released.
 * Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
 * Due diligence is needed to avoid the proliferation of field sets and validate business requirements.
-* ?
+* In stage1, @jasonrhodes identified fields from o11y use cases and a potential conflict: https://github.com/elastic/ecs/pull/2215#pullrequestreview-1498781860
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
