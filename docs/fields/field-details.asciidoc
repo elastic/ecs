@@ -1233,6 +1233,22 @@ example: `docker`
 
 // ===============================================================
 
+|
+[[field-container-security-context-privileged]]
+<<field-container-security-context-privileged, container.security_context.privileged>>
+
+a| Indicates whether the container is running in privileged mode.
+
+type: bool
+
+
+
+
+
+| extended
+
+// ===============================================================
+
 |=====
 
 
@@ -3421,13 +3437,13 @@ example: `4648`
 [[field-event-created]]
 <<field-event-created, event.created>>
 
-a| event.created contains the date/time when the event was first read by an agent, or by your pipeline.
+a| `event.created` contains the date/time when the event was first read by an agent, or by your pipeline.
 
-This field is distinct from @timestamp in that @timestamp typically contain the time extracted from the original event.
+This field is distinct from `@timestamp` in that `@timestamp` typically contain the time extracted from the original event.
 
 In most situations, these two timestamps will be slightly different. The difference can be used to calculate the delay between your source generating an event, and the time when your agent first processed it. This can be used to monitor your agent's or pipeline's ability to keep up with your event source.
 
-In case the two timestamps are identical, @timestamp should be used.
+In case the two timestamps are identical, `@timestamp` should be used.
 
 type: date
 
@@ -3465,7 +3481,7 @@ example: `apache.access`
 
 a| Duration of the event in nanoseconds.
 
-If event.start and event.end are known this value should be the difference between the end and start time.
+If `event.start` and `event.end` are known this value should be the difference between the end and start time.
 
 type: long
 
@@ -3481,7 +3497,7 @@ type: long
 [[field-event-end]]
 <<field-event-end, event.end>>
 
-a| event.end contains the date when the event ended or when the activity was last observed.
+a| `event.end` contains the date when the event ended or when the activity was last observed.
 
 type: date
 
@@ -3553,7 +3569,7 @@ a| This is one of four ECS Categorization Fields, and indicates the highest leve
 
 `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
-The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
+The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data is coming in at a regular interval or not.
 
 type: keyword
 
@@ -3769,7 +3785,7 @@ example: `7`
 [[field-event-start]]
 <<field-event-start, event.start>>
 
-a| event.start contains the date when the event started or when the activity was first observed.
+a| `event.start` contains the date when the event started or when the activity was first observed.
 
 type: date
 
@@ -8590,6 +8606,24 @@ type: long
 example: `1325`
 
 | extended
+
+// ===============================================================
+
+|
+[[field-process-vpid]]
+<<field-process-vpid, process.vpid>>
+
+a| Virtual process id.
+
+The process id within a pid namespace. This is not necessarily unique across all processes on the host but it is unique within the process namespace that the process exists within.
+
+type: long
+
+
+
+example: `4242`
+
+| core
 
 // ===============================================================
 
