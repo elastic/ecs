@@ -1,7 +1,7 @@
 # 0041: Asset Integration
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2023-07-07** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -11,6 +11,10 @@ Feel free to remove these comments as you go along.
 
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
+-->
+
+<!--
+Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
 -->
 
 This proposal extends the existing ECS field set to store inventory metadata for hosts and users from external application repositories. Using ECS to store such fields will improve metadata querying and retrieval across various use cases.
@@ -24,11 +28,6 @@ This proposal includes the following:
 <!-- * Additional fields in the `host` object --->
 
 This proposal will also facilitate storing host and user inventory within the security solution (the entity store).
-
-
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -135,11 +134,15 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-* As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g., context enrichments) and detecting advanced analytics (UBA) use cases.
+* As part of Entity Analytics, we are ingesting metadata about Users and from various external vendor applications. We are storing all ingested metadata in Elasticsearch. After we map these fields to ECS, we will enrich these ingested events for risk-scoring scenarios (e.g., context enrichments) and detecting advanced analytics (UEBA) use cases.
+
+### Example of Hosts and Users stored in ES
 
 * This schema will persist `Observed` (queried) entities from the ingested security log dataset in an Entity store. This entity store can be further extended to meet broader Asset Management needs.
 
 * Additional enrichment use cases for existing prebuilt detection rules will leverage these ECS fields.
+
+
 
 
 ## Source data
@@ -165,13 +168,22 @@ There are many sources of asset inventory repositories. In the mid-term, we are 
 * MS Intune
 * ServiceNow Asset CMDB
 
+
+
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
 
+
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
+
+### Real-world mapping of an Identity provider 
+
+#### Okta Users
+#### AzureAD Hosts
+
 
 ## Scope of impact
 
@@ -195,7 +207,6 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-* We have a couple of fleet integrations under development. We want them to use these proposed ECS before being released.
 * Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
 * Due diligence is needed to avoid the proliferation of field sets and validate business requirements.
 * In stage1, @jasonrhodes identified fields from o11y use cases and a potential conflict: https://github.com/elastic/ecs/pull/2215#pullrequestreview-1498781860
@@ -216,9 +227,8 @@ The following are the people that consulted on the contents of this RFC.
 * @andrewkroh | subject matter expert
 * @jamiehynds | subject matter expert
 * @lauravoicu | subject matter expert
-* @MikePaquette | subject matter expert
+* @MikePaquette | sponsor
 * @sourinpaul | sponsor
-* ?
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -242,6 +252,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2215
+* Stage 1: https://github.com/elastic/ecs/pull/NNN
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
