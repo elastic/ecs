@@ -1,26 +1,147 @@
-# Licensed to Elasticsearch B.V. under one or more contributor
-# license agreements. See the NOTICE file distributed with
-# this work for additional information regarding copyright
-# ownership. Elasticsearch B.V. licenses this file to you under
-# the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# 	http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the License is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-# KIND, either express or implied.  See the License for the
-# specific language governing permissions and limitations
-# under the License.
----
-- name: asset
-  fields:
-    - name: asset.name
-      level: extended
-      type: keyword
-      short: 
-      example: 88a1f0ed-5ae5-41ee-af6b-41921c311872
-      description: >
-        Asset name of ....
+- name: asset.category
+    level: extend
+    level: extend
+    type: keyword
+    example: hardware
+    description: A further classification of the asset type beyond event.category. Example for host assets {hardware, virtual, container, node}. 
+- name: asset.type
+    level: extend
+    level: extend
+    type: keyword
+    example: workstation
+    description: A sub-classification of assets. For host assets {workstation, S3, Compute}. For user assets {NULL?}
+- name: asset.id
+    level: extend
+    type: keyword
+    example: 2950
+    description: A unique ID for the asset. For inventory integrations, it's the id generated from the inventory data source
+- name: asset.name
+    level: extend
+    type: keyword
+    example: Sourin Paul Macbook Pro
+    description: A common name for the asset
+- name: asset.vendor
+    level: extend
+    type: keyword
+    example: Apple
+    description: Used primarily for 'Host' entities, the vendor name or brand associated with the asset.
+- name: asset.product
+    level: extend
+    type: keyword
+    example: MacBook Pro
+    description: Used primarily for 'Host' entities, the product name associated with the asset.
+- name: asset.model
+    level: extend
+    type: keyword
+    example: TBD
+    description: Used primarily for 'Host' entities, the model name or number associated with this asset.
+- name: asset.version
+    level: extend
+    type: keyword
+    example: TBD
+    description: Used primarily for 'Host' entities, the version or year associated with the asset.
+- name: asset.owner
+    level: extend
+    type: keyword
+    example: sourin.paul@elastic.co
+    description: The primary user entity who owns the 'Host' asset
+- name: asset.priority
+    level: extend
+    type: keyword
+    example: Priority 1
+    description: A priority classification for the asset obtained from outside this system, such as from some external CMDB or Directory service.
+- name: asset.criticality
+    level: extend
+    type: keyword
+    example: Critical
+    description: A criticality classification obtained from outside this system, such as from some external CMDB or Directory service.
+- name: asset.business_unit
+    level: extend
+    type: keyword
+    example: Analyst Experience
+    description: Business Unit associated with the asset (user or host).
+- name: asset.costCenter
+    level: extend
+    type: keyword
+    example: Security - Protections
+    description: Cost Center associated with the asset (user or host).
+- name: asset.cost_center_hierarchy
+    level: extend
+    type: keyword
+    example: Engineering
+    description: Additional cost center information associated with the asset (user or host).
+- name: 
+    level: extend
+    type: 
+    example: 
+    description: 
+- name: asset.status
+    level: extend
+    type: keyword
+    example: ACTIVE
+    description: Current status of the asset in the inventory data source.
+- name: asset.last_status_change_date
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.000
+    description: The most recent date/time when the asset.status was updated.
+- name: asset.create_date
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.001
+    description: For users, it's the hire date. For other assets, it's the in-service date.
+- name: asset.end_date
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.002
+    description: For users, it's the termination date. For other assets, it's the out-of-service date.
+- name: asset.first_seen
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.003
+    description: The earliest date/time at which this asset was observed.  
+- name: asset.last_seen
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.004
+    description: The most recent date/time this asset was observed.  It would remain empty until the asset was observed.
+- name: asset.last_updated
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.005
+    description: The most recent date/time this asset was updated in the inventory data source
+- name: asset.serial_number
+    level: extend
+    type: keyword
+    example: C02FG1G1MD6T
+    description: Serial number of the asset
+- name: asset.tags
+    level: extend
+    type: keyword
+    example: watch, mdmaccess
+    description: Tags assigned at the MDM
+- name: asset.assigned_users
+    level: extend
+    type: keyword
+    example: user1@email.com, user2@email.com
+    description: List of users assigned to the asset
+- name: asset.assigned_users_are_admin
+    level: extend
+    type: boolean
+    example: TRUE
+    description: Flag to identify if the assigned users have admin privileges
+- name: asset.is_managed
+    level: extend
+    type: boolean
+    example: TRUE
+    description: Flag to identify if the organization manages the asset
+- name: asset.last_enrolled_date
+    level: extend
+    type: date
+    example: June 5, 2023 @ 18:25:57.005
+    description: The most recent date/time the asset checked in with MDM
+- name: asset.data_classification
+    level: extend
+    type: keyword
+    example: restricted
+    description: Data classification tier for the asset
