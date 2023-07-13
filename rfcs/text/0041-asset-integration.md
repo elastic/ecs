@@ -27,7 +27,7 @@ This proposal includes the following:
 * Introduces a new field set called `assets`.
 <!-- * Additional fields in the `host` object --->
 
-This proposal will also facilitate storing host and user inventory within the security solution (the entity store).
+This proposal will also facilitate storing host and user inventory within the security solution (the entity store). Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -168,7 +168,55 @@ There are many sources of asset inventory repositories. In the mid-term, we are 
 * MS Intune
 * ServiceNow Asset CMDB
 
+### Examples of source data:
 
+#### Subset of User fields from Okta:
+
+```json
+{
+  "@timestamp": "2023-07-04T09:57:19.786056-05:00",
+  "event": {
+    "action": "user-discovered"
+  },
+  "okta": {
+    "id": "userid",
+    "status": "RECOVERY",
+    "created": "2023-06-02T09:33:00.189752+09:30",
+    "activated": "0001-01-01T00:00:00Z",
+    "statusChanged": "2023-06-02T09:33:00.189752+09:30",
+    "lastLogin": "2023-06-02T09:33:00.189752+09:30",
+    "lastUpdated": "2023-06-02T09:33:00.189753+09:30",
+    "passwordChanged": "2023-06-02T09:33:00.189753+09:30",
+    "type": {
+      "id": "typeid"
+    },
+    "profile": {
+      "login": "name.surname@example.com",
+      "email": "name.surname@example.com",
+      "firstName": "name",
+      "lastName": "surname"
+    },
+    "credentials": {
+      "password": {},
+      "provider": {
+        "type": "OKTA",
+        "name": "OKTA"
+      }
+    },
+    "_links": {
+      "self": {
+        "href": "https://localhost/api/v1/users/userid"
+      }
+    }
+  },
+  "user": {
+    "id": "userid"
+  },
+  "labels": {
+    "identity_source": "okta-1"
+  }
+}
+```
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -179,9 +227,77 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
-### Real-world mapping of an Identity provider 
+### Examples of Real-world mapping: 
 
-#### Okta Users
+#### Mapping User object from Okta (partial):
+```yml
+- set:
+      field: asset.status
+      copy_from: entityanalytics_okta.user.status
+      tag: set_asset_status
+      ignore_empty_value: true
+  - set:
+      field: user.profile.status
+      copy_from: entityanalytics_okta.user.status
+      tag: set_user_profile_status
+      ignore_empty_value: true
+  - date:
+      field: okta.created
+      target_field: entityanalytics_okta.user.created
+      tag: date_user_created
+      formats:
+        - ISO8601
+      if: ctx.okta?.created != null && ctx.okta.created != ''
+      on_failure:
+        - remove:
+            field: okta.created
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+  - set:
+      field: user.account.create_date
+      copy_from: entityanalytics_okta.user.created
+      tag: set_user_account_create_date
+      ignore_empty_value: true
+  - set:
+      field: asset.create_date
+      copy_from: entityanalytics_okta.user.created
+      tag: set_asset_create_date
+      ignore_empty_value: true
+  - date:
+      field: okta.activated
+      target_field: entityanalytics_okta.user.activated
+      tag: date_user_activated
+      formats:
+        - ISO8601
+      if: ctx.okta?.activated != null && ctx.okta.activated != ''
+      on_failure:
+        - remove:
+            field: okta.activated
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+  - set:
+      field: user.account.activated_date
+      copy_from: entityanalytics_okta.user.activated
+      tag: set_user_account_activated_date
+      ignore_empty_value: true
+  - date:
+      field: okta.statusChanged
+      target_field: entityanalytics_okta.user.status_changed
+      tag: date_user_status_changed
+      formats:
+        - ISO8601
+      if: ctx.okta?.statusChanged != null && ctx.okta.statusChanged != ''
+      on_failure:
+        - remove:
+            field: okta.statusChanged
+        - append:
+            field: error.message
+            value: 'Processor {{{_ingest.on_failure_processor_type}}} with tag {{{_ingest.on_failure_processor_tag}}} in pipeline {{{_ingest.pipeline}}} failed with message: {{{_ingest.on_failure_message}}}'
+```
+
+ 
 #### AzureAD Hosts
 
 
@@ -207,8 +323,6 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-* Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
-* Due diligence is needed to avoid the proliferation of field sets and validate business requirements.
 * In stage1, @jasonrhodes identified fields from o11y use cases and a potential conflict: https://github.com/elastic/ecs/pull/2215#pullrequestreview-1498781860
 
 <!--
@@ -227,7 +341,7 @@ The following are the people that consulted on the contents of this RFC.
 * @andrewkroh | subject matter expert
 * @jamiehynds | subject matter expert
 * @lauravoicu | subject matter expert
-* @MikePaquette | sponsor
+* @MikePaquette | subject matter expert
 * @sourinpaul | sponsor
 
 <!--
