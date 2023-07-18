@@ -1,0 +1,144 @@
+---
+- name: risk
+  title: Risk information
+  group: 2
+  short: Fields for describing risk score and level.
+  beta: >
+    These fields are in beta and are subject to change.
+  description: >
+    Fields for describing risk score and risk level of entities such as hosts and users.
+    These fields are not allowed to be nested under `event.*`. Please continue to use
+    `event.risk_score` and `event.risk_score_norm` for event risk.
+  reusable:
+    top_level: false
+    expected:
+      - host
+      - user
+  type: group
+  fields:
+    - name: identifier_field
+      level: extended
+      type: keyword
+      example: host.name
+      description: >
+        Identifies which field was used to group/calculate this risk score.
+        Typically, hosts use `host.name` and users use `user.name`.
+    - name: identifier_value
+      level: extended
+      type: keyword
+      example: host-001.local
+      description: >
+        Identifies which field value was used to group/calculate this risk score.
+        Typically, hosts use values from `host.name` and users use values from `user.name`.
+    - name: category_1_score
+      level: extended
+      type: float
+      example: 33.0
+      description: >
+        The contribution of Category 1 to the overall risk score (`calculated_score`). Category 1 contains Detection Engine Alerts.
+    - name: category_1_count
+      level: extended
+      type: long
+      example: 3291
+      description: >
+        The number of risk input documents that contributed to the Category 1
+        score.
+    - name: category_2_score
+      level: extended
+      type: float
+      example: 35.0
+      description: >
+        The contribution of Category 2 to the overall risk score (`calculated_score`). Category 2 contains inputs from Posture Management.
+    - name: category_2_count
+      level: extended
+      type: long
+      example: 1921
+      description: >
+        The number of risk input documents that contributed to the Category 2
+        score.
+    - name: category_3_score
+      level: extended
+      type: float
+      example: 25.0
+      description: >
+        The contribution of Category 3 to the overall risk score (`calculated_score`). Category 3 contains inputs from Vulnerabilities.
+    - name: category_3_count
+      level: extended
+      type: long
+      example: 4920
+      description: >
+        The number of risk input documents that contributed to the Category 3
+        score.
+    - name: category_4_score
+      level: extended
+      type: float
+      example: 55.0
+      description: >
+        The contribution of Category 4 to the overall risk score (`calculated_score`). Category 4 contains Entity Contexts.
+    - name: category_4_count
+      level: extended
+      type: long
+      example: 1308
+      description: >
+        The number of risk input documents that contributed to the Category 4
+        score.
+    - name: category_5_score
+      level: extended
+      type: float
+      example: 75.0
+      description: >
+        The contribution of Category 5 to the overall risk score (`calculated_score`). Category 5 contains inputs from Anomalies.
+    - name: category_5_count
+      level: extended
+      type: long
+      example: 14922
+      description: >
+        The number of risk input documents that contributed to the Category 5
+        score.
+    - name: riskiest_inputs
+      level: extended
+      type: object
+      normalize: array
+      description: >
+        An array of the top risk input documents that contributed to the overall risk score.
+    - name: riskiest_inputs.id
+      level: extended
+      type: keyword
+      description: >
+        The identifier (_id) of the risk input document.
+    - name: riskiest_inputs.index
+      level: extended
+      type: keyword
+      description: >
+        The index (`_index`) of the risk input document.
+    - name: riskiest_inputs.risk_category
+      level: extended
+      type: keyword
+      example: category_1
+      description: >
+        The risk category of the risk input document.
+    - name: riskiest_inputs.risk_description
+      level: extended
+      type: keyword
+      example: "Generated from Detection Engine Rule: Malware Prevention Alert"
+      description: >
+        A human-readable description of the risk input document.
+    - name: riskiest_inputs.risk_score
+      level: extended
+      type: float
+      example: 30.0
+      description: >
+        The weighted risk score of the risk input document.
+    - name: riskiest_inputs.timestamp
+      level: extended
+      type: date
+      example: '2019-08-16T01:40:25Z'
+      description: >
+        The @timestamp of the risk input document.
+    - name: notes
+      level: extended
+      type: keyword
+      normalize: array
+      example: ["This score was boosted due to the entity being a host."]
+      description: >
+        Notes about the risk score and/or its calculation.
