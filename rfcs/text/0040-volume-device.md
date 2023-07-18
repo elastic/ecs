@@ -29,12 +29,7 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.vendor_name
  * volume.serial_number
  * volume.volume_device_type
- * volume.action
  * volume.size
-
-These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
-
-These fields can also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -49,6 +44,133 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+Details of the proposed fields:
+
+```
+---
+- name: volume
+  title: Volume
+  group: 2
+  short: Fields relevant to storage volumes.
+  description: >
+    Fields that describe the storage volumes.
+  type: group
+  fields:          
+    - name: mount_name
+      level: extended
+      type: keyword
+      description: >
+        Mount name of the volume device.
+        The field is relevant to Posix only.
+ 
+    - name: device_name
+      level: extended
+      type: keyword
+      description: >
+        Full path of the device.
+        The field is relevant to Posix only.
+
+    - name: dos_name
+      level: extended
+      type: keyword
+      short: DOS name of the device.
+      description: >
+        DOS name of the device.
+        DOS device name is in the format of driver letters such as C:, D:,...
+        The field is relevant to Windows only.
+
+    - name: nt_name
+      level: custom
+      type: keyword
+      short: NT name of the device.
+      description: >
+        NT name of the device.
+        NT device name is in the format such as:
+        \Device\HarddiskVolume2
+        The field is relevant to Windows only.
+
+    - name: bus_type
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+
+    - name: writable
+      level: extended
+      type: keyword
+      description: >
+        This field indicates if the volume is writable.
+
+    - name: default_access
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        A string to describe the default access(es) of the volume.
+        
+    - name: file_system_type
+      level: custom
+      type: keyword
+      short: Volume device file system type.
+      description: >
+        Volume device file system type.
+
+        Following are examples of the most frequently seen volume device file system types:
+        NTFS
+        UDF
+
+    - name: product_id
+      level: custom
+      type: keyword
+      short: ProductID of the device.
+      description: >
+        ProductID of the device. It is provided by the vendor of the device if any.
+        
+    - name: product_name
+      level: extended
+      type: keyword
+      description: >
+        Product name of the volume device. It is provided by the vendor of the device.
+
+    - name: vendor_id
+      level: custom
+      type: keyword
+      short: VendorID of the device.
+      description: >
+        VendorID of the device. It is provided by the vendor of the device.
+
+    - name: vendor_name
+      level: custom
+      type: keyword
+      short: Vendor name of the device.
+      description: >
+        Vendor name of the volume device. It is provided by the vendor of the device.
+
+    - name: serial_number
+      level: custom
+      type: keyword
+      short: Serial Number of the device.
+      description: >
+        Serial Number of the device. It is provided by the vendor of the device if any.
+
+    - name: volume_device_type
+      level: custom
+      type: keyword
+      short: Volume device type.
+      description: >
+        Volume device type.
+
+        Following are examples of the most frequently seen volume device types:
+        Disk File System
+        CD-ROM File System
+
+    - name: size
+      level: custom
+      type: keyword
+      description: >
+        Size of the volume device in MB.
+```
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -59,6 +181,9 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
+These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
+
+These fields can also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 ## Source data
 
