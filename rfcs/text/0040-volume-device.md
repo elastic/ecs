@@ -192,7 +192,55 @@ The source of this data comes from monitoring a host, a Virtual Machine, or a k8
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
-Will fill in example document soon.
+```json
+{
+	"@timestamp": "2023-04-05T18:48:25.7435298Z",
+	"agent": {
+		"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+		"type": "endpoint",
+		"version": "8.8.0-SNAPSHOT"
+	},
+	"data_stream": {
+		"dataset": "endpoint.events.volume_device",
+		"namespace": "default",
+		"type": "logs"
+	},
+	"ecs": {
+		"version": "1.11.0"
+	},
+	"elastic": {
+		"agent": {
+			"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+		}
+	},
+	"event": {
+		"action": "attach",
+		"category": [
+			"volume_device"
+		],
+		"created": "2023-04-05T18:48:25.7435298Z",
+		"dataset": "endpoint.events.volume_device",
+		"id": "N0r0JIPXbQR6J+83++++++PP",
+		"kind": "event",
+		"module": "endpoint",
+		"outcome": "unknown",
+		"sequence": 1281,
+		"type": [
+			"attach"
+		]
+	},
+	"message": "Endpoint volume device event",
+	"volume.bus_type": "FileBackedVirtual",
+	"volume.dos_name": "E:",
+	"volume.file_system_type": "UDF",
+	"volume.nt_name": "\\Device\\CdRom1",
+	"volume.product_name": "Virtual DVD-ROM",
+	"volume.vendor_name": "Msft",
+	"volume.serial_number": "12345",
+	"volume.volume_device_type": "CD-ROM File System",
+	"volume.size": 1000,000
+}
+```
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
