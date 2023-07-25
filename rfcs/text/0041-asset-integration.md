@@ -26,8 +26,9 @@ This proposal includes the following:
 * Additional fields in the `users` and `os` objects.
 * Introduces a new field set called `assets`.
 <!-- * Additional fields in the `host` object --->
+* Fields required for storing host and user metadata as the Elastic Security entity store/ index. 
 
-This proposal will also facilitate storing host and user inventory within the security solution (the entity store). Schema/ field sets defined here focus on asset inventory data sources. Additional fields may need to be appended (ideally within this RFC lifecycle) to support the entity store needs.
+We will create new enhancement RFCs to extend these schemas as needed.
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -111,9 +112,13 @@ asset.installed_extensions 	| keyword	  | Nested objects	  | List of installed e
 asset.installed_applications	| keyword	    | Nested objects	  | List of installed applications along with their metadata
 
 #### Nesting of existing risk.* fields under asset object
-* We have a set of risk.* fields in ECS that can be further nested under the asset.* object. Reference to [Risk RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0031-risk-fields.md).
 
+We have a set of risk.* fields in ECS. A quick reference to past risk.* RFCs:
 
+* [Initial Risk RFC](https://github.com/elastic/ecs/blob/main/rfcs/text/0031-risk-fields.md)
+* [Risk Score Extenstions](https://github.com/elastic/ecs/pull/2236)
+
+These risk.* fields can be further nested under the asset.*
 
 ### Proposed New Fields for os.* object
 Field | Type | Example | Description
