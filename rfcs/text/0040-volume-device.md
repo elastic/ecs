@@ -169,7 +169,7 @@ Details of the proposed fields:
       level: custom
       type: keyword
       description: >
-        Size of the volume device in MB.
+        Size of the volume device in bytes.
 ```
 
 <!--
@@ -238,7 +238,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
 	"volume.vendor_name": "Msft",
 	"volume.serial_number": "12345",
 	"volume.volume_device_type": "CD-ROM File System",
-	"volume.size": 1000,000
+	"volume.size": 1000,000,000
 }
 ```
 
