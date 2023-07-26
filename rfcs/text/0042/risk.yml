@@ -21,47 +21,59 @@
       type: keyword
       example: host.name
       description: >
-        Identifies which field was used to group/calculate this risk score.
-        Typically, hosts use `host.name` and users use `user.name`.
+        The name of the ECS field that identifies the entity. Typically, hosts use `host.name` and users use `user.name`.
     - name: identifier_value
       level: extended
       type: keyword
       example: host-001.local
       description: >
-        Identifies which field value was used to group/calculate this risk score.
-        Typically, hosts use values from `host.name` and users use values from `user.name`.
+        The entity's identifier value that was used to calculate risk. Typically, hosts use values from `host.name` and users use values from `user.name`.
     - name: category_1_score
       level: extended
       type: float
       example: 33.0
       description: >
-        The contribution of Category 1 to the overall risk score (`calculated_score`). Category 1 contains Detection Engine Alerts.
+        The contribution of Category 1 to the overall risk score (`calculated_score`).
+
+        Category 1 includes Alerts, namely from Kibana's Detection Engine.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_1_count
       level: extended
       type: long
       example: 3291
       description: >
-        The number of risk input documents that contributed to the Category 1
-        score.
+        The number of risk input documents that contributed to the Category 1 score.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_2_score
       level: extended
       type: float
       example: 35.0
       description: >
-        The contribution of Category 2 to the overall risk score (`calculated_score`). Category 2 contains inputs from Posture Management.
+        The contribution of Category 2 to the overall risk score (`calculated_score`).
+
+        Category 2 includes inputs from Posture Management.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_2_count
       level: extended
       type: long
       example: 1921
       description: >
-        The number of risk input documents that contributed to the Category 2
-        score.
+        The number of risk input documents that contributed to the Category 2 score.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_3_score
       level: extended
       type: float
       example: 25.0
       description: >
-        The contribution of Category 3 to the overall risk score (`calculated_score`). Category 3 contains inputs from Vulnerabilities.
+        The contribution of Category 3 to the overall risk score (`calculated_score`).
+
+        Category 3 includes inputs from Vulnerabilities.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_3_count
       level: extended
       type: long
@@ -69,32 +81,44 @@
       description: >
         The number of risk input documents that contributed to the Category 3
         score.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_4_score
       level: extended
       type: float
       example: 55.0
       description: >
-        The contribution of Category 4 to the overall risk score (`calculated_score`). Category 4 contains Entity Contexts.
+        The contribution of Category 4 to the overall risk score (`calculated_score`).
+
+        Category 4 contains Entity Contexts.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_4_count
       level: extended
       type: long
       example: 1308
       description: >
-        The number of risk input documents that contributed to the Category 4
-        score.
+        The number of risk input documents that contributed to the Category 4 score.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_5_score
       level: extended
       type: float
       example: 75.0
       description: >
-        The contribution of Category 5 to the overall risk score (`calculated_score`). Category 5 contains inputs from Anomalies.
+        The contribution of Category 5 to the overall risk score (`calculated_score`).
+
+        Category 5 contains inputs from Anomalies.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: category_5_count
       level: extended
       type: long
       example: 14922
       description: >
-        The number of risk input documents that contributed to the Category 5
-        score.
+        The number of risk input documents that contributed to the Category 5 score.
+
+        Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
     - name: risk_inputs
       level: extended
       type: object
