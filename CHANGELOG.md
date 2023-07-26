@@ -3,6 +3,20 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.9.0](https://github.com/elastic/ecs/compare/v8.8.0...v8.9.0)
+
+### Schema Changes
+
+### Bugfixes
+
+#### Added
+* Added `process.vpid` for namespaced process ids. #2211
+
+### Improvements
+
+#### Deprecated
+* Removed `faas.trigger: nested` since we only have one trigger. #2194
+
 ## [8.8.0](https://github.com/elastic/ecs/compare/v8.7.0...v8.8.0)
 
 ### Schema Changes
