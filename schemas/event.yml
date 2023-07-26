@@ -70,7 +70,7 @@
 
         The value of this field can be used to inform how these kinds of events should be handled.
         They may warrant different retention, different access control, it may also
-        help understand whether the data coming in at a regular interval or not.
+        help understand whether the data is coming in at a regular interval or not.
       example: alert
       allowed_values:
         - name: alert
@@ -712,7 +712,7 @@
       description: >
         Duration of the event in nanoseconds.
 
-        If event.start and event.end are known this value should be the
+        If `event.start` and `event.end` are known this value should be the
         difference between the end and start time.
 
     - name: sequence
@@ -744,10 +744,10 @@
       short: Time when the event was first read by an agent or by your pipeline.
       example: '2016-05-23T08:05:34.857Z'
       description: >
-        event.created contains the date/time when the event was first read by an
+        `event.created` contains the date/time when the event was first read by an
         agent, or by your pipeline.
 
-        This field is distinct from @timestamp in that @timestamp typically contain
+        This field is distinct from `@timestamp` in that `@timestamp` typically contain
         the time extracted from the original event.
 
         In most situations, these two timestamps will be slightly different.
@@ -756,20 +756,20 @@
         This can be used to monitor your agent's or pipeline's ability to
         keep up with your event source.
 
-        In case the two timestamps are identical, @timestamp should be used.
+        In case the two timestamps are identical, `@timestamp` should be used.
 
     - name: start
       level: extended
       type: date
       description: >
-        event.start contains the date when the event started or when the
+        `event.start` contains the date when the event started or when the
         activity was first observed.
 
     - name: end
       level: extended
       type: date
       description: >
-        event.end contains the date when the event ended or when the activity
+        `event.end` contains the date when the event ended or when the activity
         was last observed.
 
     - name: risk_score
