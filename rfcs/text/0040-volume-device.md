@@ -55,14 +55,14 @@ Details of the proposed fields:
   description: >
     Fields that describe the storage volumes.
   type: group
-  fields:          
+  fields:
     - name: mount_name
       level: extended
       type: keyword
       description: >
         Mount name of the volume device.
         The field is relevant to Posix only.
- 
+
     - name: device_name
       level: extended
       type: keyword
@@ -108,7 +108,7 @@ Details of the proposed fields:
       short: Bus type of the device.
       description: >
         A string to describe the default access(es) of the volume.
-        
+
     - name: file_system_type
       level: custom
       type: keyword
@@ -126,7 +126,7 @@ Details of the proposed fields:
       short: ProductID of the device.
       description: >
         ProductID of the device. It is provided by the vendor of the device if any.
-        
+
     - name: product_name
       level: extended
       type: keyword
@@ -280,7 +280,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
  * @Trinity2019    | author
- * @ricardoelastic | reviewer
+ * @ricardoungureanu| reviewer
  * @stanek-michal  | reviewer
 
 <!--
