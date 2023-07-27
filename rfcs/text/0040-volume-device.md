@@ -76,7 +76,7 @@ Details of the proposed fields:
       short: DOS name of the device.
       description: >
         DOS name of the device.
-        DOS device name is in the format of driver letters such as C:, D:,...
+        DOS device name is in the format of uppercase driver letter followed by colon, such as C:, D:,...
         The field is relevant to Windows only.
 
     - name: nt_name
@@ -98,7 +98,7 @@ Details of the proposed fields:
 
     - name: writable
       level: extended
-      type: keyword
+      type: boolean
       description: >
         This field indicates if the volume is writable.
 
@@ -154,7 +154,7 @@ Details of the proposed fields:
       description: >
         Serial Number of the device. It is provided by the vendor of the device if any.
 
-    - name: volume_device_type
+    - name: device_type
       level: custom
       type: keyword
       short: Volume device type.
