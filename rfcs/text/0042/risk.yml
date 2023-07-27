@@ -125,43 +125,44 @@
       normalize: array
       description: >
         An array of the top risk input documents that contributed to the overall risk score.
-    - name: inputs.id
-      level: extended
-      type: keyword
-      description: >
-        The identifier (_id) of the risk input document.
-    - name: inputs.index
-      level: extended
-      type: keyword
-      description: >
-        The index (`_index`) of the risk input document.
-    - name: inputs.risk_category
-      level: extended
-      type: keyword
-      example: category_1
-      description: >
-        The risk category of the risk input document.
-    - name: inputs.risk_description
-      level: extended
-      type: keyword
-      example: "Generated from Detection Engine Rule: Malware Prevention Alert"
-      description: >
-        A human-readable description of the risk input document.
-      multi_fields:
-        - type: match_only_text
-          name: text
-    - name: inputs.risk_score
-      level: extended
-      type: float
-      example: 30.0
-      description: >
-        The weighted risk score of the risk input document.
-    - name: inputs.timestamp
-      level: extended
-      type: date
-      example: '2019-08-16T01:40:25Z'
-      description: >
-        The @timestamp of the risk input document.
+      fields:
+        - name: id
+          level: extended
+          type: keyword
+          description: >
+            The identifier (_id) of the risk input document.
+        - name: index
+          level: extended
+          type: keyword
+          description: >
+            The index (`_index`) of the risk input document.
+        - name: category
+          level: extended
+          type: keyword
+          example: category_1
+          description: >
+            The risk category of the risk input document.
+        - name: description
+          level: extended
+          type: keyword
+          example: "Generated from Detection Engine Rule: Malware Prevention Alert"
+          description: >
+            A human-readable description of the risk input document.
+          multi_fields:
+            - type: match_only_text
+              name: text
+        - name: risk_score
+          level: extended
+          type: float
+          example: 30.0
+          description: >
+            The weighted risk score of the risk input document.
+        - name: timestamp
+          level: extended
+          type: date
+          example: '2019-08-16T01:40:25Z'
+          description: >
+            The @timestamp of the risk input document.
     - name: notes
       level: extended
       type: keyword
