@@ -116,4 +116,4 @@ e.g.:
 ### RFC Pull Requests
 
 
-* Stage 0: https://github.com/elastic/ecs/pull/2237
+* Stage 0: https://github.com/elastic/ecs/pull/2244
