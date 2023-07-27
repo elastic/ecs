@@ -16,13 +16,13 @@
       - user
   type: group
   fields:
-    - name: identifier_field
+    - name: id_field
       level: extended
       type: keyword
       example: host.name
       description: >
         The name of the ECS field that identifies the entity. Typically, hosts use `host.name` and users use `user.name`.
-    - name: identifier_value
+    - name: id_value
       level: extended
       type: keyword
       example: host-001.local
@@ -119,29 +119,29 @@
         The number of risk input documents that contributed to the Category 5 score.
 
         Risk Categories logically group risk inputs from various domain use cases - e.g. Alert, Posture Management, Vulnerabilities, and others.
-    - name: risk_inputs
+    - name: inputs
       level: extended
       type: object
       normalize: array
       description: >
         An array of the top risk input documents that contributed to the overall risk score.
-    - name: risk_inputs.id
+    - name: inputs.id
       level: extended
       type: keyword
       description: >
         The identifier (_id) of the risk input document.
-    - name: risk_inputs.index
+    - name: inputs.index
       level: extended
       type: keyword
       description: >
         The index (`_index`) of the risk input document.
-    - name: risk_inputs.risk_category
+    - name: inputs.risk_category
       level: extended
       type: keyword
       example: category_1
       description: >
         The risk category of the risk input document.
-    - name: risk_inputs.risk_description
+    - name: inputs.risk_description
       level: extended
       type: keyword
       example: "Generated from Detection Engine Rule: Malware Prevention Alert"
@@ -150,13 +150,13 @@
       multi_fields:
         - type: match_only_text
           name: text
-    - name: risk_inputs.risk_score
+    - name: inputs.risk_score
       level: extended
       type: float
       example: 30.0
       description: >
         The weighted risk score of the risk input document.
-    - name: risk_inputs.timestamp
+    - name: inputs.timestamp
       level: extended
       type: date
       example: '2019-08-16T01:40:25Z'

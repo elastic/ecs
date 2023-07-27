@@ -33,8 +33,8 @@ I'll enumerate the fields being introduced here grouped by their motivation/goal
 ### Identifier Fields
 These fields are intended to allow future extensibility of our concept of an "identifier." Currently, we leverage two such fields: `host.name` and `user.name`, to group documents for the purposes of risk scoring, but we definitely imagine this being extended in the future to allow multiple such fields for hosts and users, or more simply to allow administrators to configure fields other than those above. The presence of these two fields allows us to audit/explain how a particular risk score was identified.
 
-* `identifier_field`
-* `identifier_value`
+* `id_field`
+* `id_value`
 
 
 ### Risk Category Fields
@@ -54,13 +54,13 @@ Some of the context here was discussed in Stage 0; please read the above for tha
 ### Risk Explainability
 Beyond the per-category explanations, these fields' purpose is to provide more insight/data for the analyst to further investigate the components of the risk score.
 
-* `risk_inputs`
+* `risk.inputs`
   * Generally, these objects are meant as a convenience for one investigating risk; they are the "most risky" inputs as determined by the risk engine, and serve as a shortcut to further investigation.
-* `risk_inputs.id`, `risk_inputs.index`
+* `inputs.id`, `inputs.index`
   * These fields allow one to uniquely identify the original risk input document.
-* `risk_inputs.risk_category`, `risk_inputs.risk_score`
+* `inputs.category`, `inputs.risk_score`
   * More "convenience" fields that could also be discovered in the original risk input document.
-* `risk_inputs.risk_description`
+* `inputs.description`
   * These field is intended to be a precursor to what we are referring to as "Risk Reasons," which seek to aggregate/present multiple risk inputs in an easier to consume/analyze format.
 * `notes`
   * Miscellaneous text field intended to provide more details that cannot be presented in the other fields.
@@ -105,8 +105,8 @@ There are two broad concerns at this stage:
 
 1. Category fields introducing a new "ordered" pattern
   * Rather than having either an array of objects, or an explicit `nested` field type, both of which allow an arbitrary number of items, we're instead opting to add 10 explicit fields (five explicit categories, each with two fields) under the _assumption_ that we won't extend the number of categories further. We have a bit of wiggle room (i.e. six categories, 12 fields wouldn't be out of question), but this is not a scalable solution if we need a large number of categories. However, that is only a potential future issue, and we can likely reevaluate and address it if/when it arises.
-2. Mapping of `risk_inputs` as a simple `object`
-  * The biggest motivation for this choice is to avoid the performance/storage/syntax complexities that come with a `nested` mapping, but we also don't have any feature requirements that would currently necessitate `risk_inputs` being `nested`.
+2. Mapping of `inputs` as a simple `object`
+  * The biggest motivation for this choice is to avoid the performance/storage/syntax complexities that come with a `nested` mapping, but we also don't have any feature requirements that would currently necessitate `inputs` being `nested`.
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
