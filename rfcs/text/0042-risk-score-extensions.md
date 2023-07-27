@@ -45,8 +45,8 @@ Some of the context here was discussed in Stage 0; please read the above for tha
 * `category_2_score`
 * `category_2_count`
 * `category_3_score`
-* `category_3_score`
-* `category_4_count`
+* `category_3_count`
+* `category_4_score`
 * `category_4_count`
 * `category_5_score`
 * `category_5_count`
