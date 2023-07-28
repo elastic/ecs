@@ -11221,6 +11221,36 @@ process.parent.supplemental_groups.name:
   original_fieldset: group
   short: Name of the group.
   type: keyword
+process.parent.thread.capabilities.effective:
+  dashed_name: process-parent-thread-capabilities-effective
+  description: This is the set of capabilities used by the kernel to perform permission
+    checks for the thread.
+  example: '["CAP_BPF", "CAP_SYS_ADMIN"]'
+  flat_name: process.parent.thread.capabilities.effective
+  ignore_above: 1024
+  level: extended
+  name: thread.capabilities.effective
+  normalize:
+  - array
+  original_fieldset: process
+  pattern: ^(CAP_[A-Z_]+|\d+)$
+  short: Array of capabilities used for permission checks.
+  type: keyword
+process.parent.thread.capabilities.permitted:
+  dashed_name: process-parent-thread-capabilities-permitted
+  description: This is a limiting superset for the effective capabilities that the
+    thread may assume.
+  example: '["CAP_BPF", "CAP_SYS_ADMIN"]'
+  flat_name: process.parent.thread.capabilities.permitted
+  ignore_above: 1024
+  level: extended
+  name: thread.capabilities.permitted
+  normalize:
+  - array
+  original_fieldset: process
+  pattern: ^(CAP_[A-Z_]+|\d+)$
+  short: Array of capabilities a thread could assume.
+  type: keyword
 process.parent.thread.id:
   dashed_name: process-parent-thread-id
   description: Thread ID.
