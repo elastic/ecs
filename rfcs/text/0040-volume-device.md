@@ -1,8 +1,8 @@
 # 0040: Volume device
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2023-06-09** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2023-07-27** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -29,12 +29,7 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.vendor_name
  * volume.serial_number
  * volume.volume_device_type
- * volume.action
  * volume.size
-
-These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
-
-These fields can also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -49,6 +44,133 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+Details of the proposed fields:
+
+```
+---
+- name: volume
+  title: Volume
+  group: 2
+  short: Fields relevant to storage volumes.
+  description: >
+    Fields that describe the storage volumes.
+  type: group
+  fields:
+    - name: mount_name
+      level: extended
+      type: keyword
+      description: >
+        Mount name of the volume device.
+        The field is relevant to Posix only.
+
+    - name: device_name
+      level: extended
+      type: keyword
+      description: >
+        Full path of the device.
+        The field is relevant to Posix only.
+
+    - name: dos_name
+      level: extended
+      type: keyword
+      short: DOS name of the device.
+      description: >
+        DOS name of the device.
+        DOS device name is in the format of uppercase driver letter followed by colon, such as C:, D:,...
+        The field is relevant to Windows only.
+
+    - name: nt_name
+      level: custom
+      type: keyword
+      short: NT name of the device.
+      description: >
+        NT name of the device.
+        NT device name is in the format such as:
+        \Device\HarddiskVolume2
+        The field is relevant to Windows only.
+
+    - name: bus_type
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+
+    - name: writable
+      level: extended
+      type: boolean
+      description: >
+        This field indicates if the volume is writable.
+
+    - name: default_access
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        A string to describe the default access(es) of the volume.
+
+    - name: file_system_type
+      level: custom
+      type: keyword
+      short: Volume device file system type.
+      description: >
+        Volume device file system type.
+
+        Following are examples of the most frequently seen volume device file system types:
+        NTFS
+        UDF
+
+    - name: product_id
+      level: custom
+      type: keyword
+      short: ProductID of the device.
+      description: >
+        ProductID of the device. It is provided by the vendor of the device if any.
+
+    - name: product_name
+      level: extended
+      type: keyword
+      description: >
+        Product name of the volume device. It is provided by the vendor of the device.
+
+    - name: vendor_id
+      level: custom
+      type: keyword
+      short: VendorID of the device.
+      description: >
+        VendorID of the device. It is provided by the vendor of the device.
+
+    - name: vendor_name
+      level: custom
+      type: keyword
+      short: Vendor name of the device.
+      description: >
+        Vendor name of the volume device. It is provided by the vendor of the device.
+
+    - name: serial_number
+      level: custom
+      type: keyword
+      short: Serial Number of the device.
+      description: >
+        Serial Number of the device. It is provided by the vendor of the device if any.
+
+    - name: device_type
+      level: custom
+      type: keyword
+      short: Volume device type.
+      description: >
+        Volume device type.
+
+        Following are examples of the most frequently seen volume device types:
+        Disk File System
+        CD-ROM File System
+
+    - name: size
+      level: custom
+      type: keyword
+      description: >
+        Size of the volume device in bytes.
+```
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -59,6 +181,9 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
+These volume device fields can be used to describe some events and alerts associated with a volume device, which was proven to be [useful](https://www.elastic.co/security-labs/Hunting-for-Suspicious-Windows-Libraries-for-Execution-and-Evasion) for Elastic Defend.
+
+These fields can also be used by the products and features to manage such devices based on their properties such as serial number and vendor name, etc.
 
 ## Source data
 
@@ -67,6 +192,55 @@ The source of this data comes from monitoring a host, a Virtual Machine, or a k8
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+```json
+{
+	"@timestamp": "2023-04-05T18:48:25.7435298Z",
+	"agent": {
+		"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
+		"type": "endpoint",
+		"version": "8.8.0-SNAPSHOT"
+	},
+	"data_stream": {
+		"dataset": "endpoint.events.volume_device",
+		"namespace": "default",
+		"type": "logs"
+	},
+	"ecs": {
+		"version": "1.11.0"
+	},
+	"elastic": {
+		"agent": {
+			"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+		}
+	},
+	"event": {
+		"action": "attach",
+		"category": [
+			"volume_device"
+		],
+		"created": "2023-04-05T18:48:25.7435298Z",
+		"dataset": "endpoint.events.volume_device",
+		"id": "N0r0JIPXbQR6J+83++++++PP",
+		"kind": "event",
+		"module": "endpoint",
+		"outcome": "unknown",
+		"sequence": 1281,
+		"type": [
+			"attach"
+		]
+	},
+	"message": "Endpoint volume device event",
+	"volume.bus_type": "FileBackedVirtual",
+	"volume.dos_name": "E:",
+	"volume.file_system_type": "UDF",
+	"volume.nt_name": "\\Device\\CdRom1",
+	"volume.product_name": "Virtual DVD-ROM",
+	"volume.vendor_name": "Msft",
+	"volume.serial_number": "12345",
+	"volume.volume_device_type": "CD-ROM File System",
+	"volume.size": 1000,000,000
+}
+```
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -91,6 +265,7 @@ The goal here is to research and understand the impact of these changes on users
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
+Implementing volume device related functions usually will be relying on low level operating system support. Due to the multitudes of operating system kernels we want to support and the potential stability,compatibility issues, the complexity level of the solution could increase.   Therefore we'll adopt a staged approach to implement it.
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
@@ -105,7 +280,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
  * @Trinity2019    | author
- * @ricardoelastic | reviewer
+ * @ricardoungureanu| reviewer
+ * @stanek-michal  | reviewer
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -131,6 +307,8 @@ https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%2
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2201
+
+* Stage 1: https://github.com/elastic/ecs/pull/2229
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
