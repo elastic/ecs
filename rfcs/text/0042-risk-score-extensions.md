@@ -125,7 +125,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @rylnd | author
-* @SourinPaul | SME / EA product manager
+* @SourinPaul | sponsor
 * @ebeahan | reviewer
 
 
