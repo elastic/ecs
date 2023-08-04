@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 * Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225
 
 #### Improvements
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
 
 #### Deprecated
 
