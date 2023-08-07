@@ -15,7 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225
+* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
 
 #### Improvements
 
