@@ -174,6 +174,44 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = {'type': 'constant_keyword'}
         self.assertEqual(es_template.entry_for(test_map), exp)
 
+    def test_keyword_pass_ignore_above(self):
+        test_map = {
+            'name': 'field_with_ignore_above_set',
+            'type': 'keyword',
+            'ignore_above': 1024
+        }
+
+        exp = {
+            'type': 'keyword',
+            'ignore_above': 1024
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_flattened_pass_ignore_above(self):
+        test_map = {
+            'name': 'field_with_ignore_above_set',
+            'type': 'flattened',
+            'ignore_above': 1024
+        }
+
+        exp = {
+            'type': 'flattened',
+            'ignore_above': 1024
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
+    def test_other_types_not_pass_ignore_above(self):
+        test_map = {
+            'name': 'field_should_not_have_ignore_above_set',
+            'type': 'text',
+            'ignore_above': 1024
+        }
+
+        exp = {
+            'type': 'text'
+        }
+        self.assertEqual(es_template.entry_for(test_map), exp)
+
     def test_parameters(self):
         test_map = {
             'name': 'field_with_parameters',
