@@ -698,7 +698,7 @@ processors:
       tag: rename_user_profile_organization
       ignore_missing: true
   - set:
-      field: organization.name
+      field: user.organization.name
       copy_from: entityanalytics_okta.user.profile.organization
       tag: set_user_profile_organization
       ignore_empty_value: true
