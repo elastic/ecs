@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 * Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
 
 #### Improvements
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
 
 #### Deprecated
 
