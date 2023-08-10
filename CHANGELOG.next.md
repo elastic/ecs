@@ -16,8 +16,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 * Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225
+* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
+* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
 
 #### Improvements
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
 
 #### Deprecated
 
