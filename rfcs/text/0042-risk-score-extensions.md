@@ -9,9 +9,6 @@ As you work on your RFC, use the "Stage N" comments to guide you in what you sho
 Feel free to remove these comments as you go along.
 -->
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
 This RFC seeks to extend the [existing risk fields](https://www.elastic.co/guide/en/ecs/current/ecs-risk.html) [(RFC 0031)](https://github.com/elastic/ecs/pull/2048) to support new/extended Risk Score investigation workflows. The workflows that this RFC intends to enable include all those described in 0031, along with the following:
 
 1. Risk Score Explainability
@@ -24,15 +21,49 @@ This RFC seeks to extend the [existing risk fields](https://www.elastic.co/guide
     * These categories' definitions may be _extended_ in the future to include new data sources
   * Due to the above category traits, we need to come up with a naming convention for these categorical score fields that allows them to be extended without invalidating the existing field names.
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
 -->
 
 ## Fields
+
+I'll enumerate the fields being introduced here grouped by their motivation/goal:
+
+### Identifier Fields
+These fields are intended to allow future extensibility of our concept of an "identifier." Currently, we leverage two such fields: `host.name` and `user.name`, to group documents for the purposes of risk scoring, but we definitely imagine this being extended in the future to allow multiple such fields for hosts and users, or more simply to allow administrators to configure fields other than those above. The presence of these two fields allows us to audit/explain how a particular risk score was identified.
+
+* `id_field`
+* `id_value`
+
+
+### Risk Category Fields
+Some of the context here was discussed in Stage 0; please read the above for that. More specifically, these fields seek to provide the category contributions to the score, and the number of risk inputs in that category, across each of the five proposed categories:
+
+* `category_1_score`
+* `category_1_count`
+* `category_2_score`
+* `category_2_count`
+* `category_3_score`
+* `category_3_count`
+* `category_4_score`
+* `category_4_count`
+* `category_5_score`
+* `category_5_count`
+
+### Risk Explainability
+Beyond the per-category explanations, these fields' purpose is to provide more insight/data for the analyst to further investigate the components of the risk score.
+
+* `risk.inputs`
+  * Generally, these objects are meant as a convenience for one investigating risk; they are the "most risky" inputs as determined by the risk engine, and serve as a shortcut to further investigation.
+* `inputs.id`, `inputs.index`
+  * These fields allow one to uniquely identify the original risk input document.
+* `inputs.category`, `inputs.risk_score`
+  * More "convenience" fields that could also be discovered in the original risk input document.
+* `inputs.description`
+  * These field is intended to be a precursor to what we are referring to as "Risk Reasons," which seek to aggregate/present multiple risk inputs in an easier to consume/analyze format.
+* `notes`
+  * Miscellaneous text field intended to provide more details that cannot be presented in the other fields.
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -44,15 +75,11 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+We intend to leverage these new fields as part of the new implementation of the Risk Engine within Kibana. In fact, we have already written [the code that uses these fields](https://github.com/elastic/kibana/pull/161503/files#diff-75c9ad5c7d4b56459148fd9c08cb6cb229e932ea00f3e39725134ba429ad2915R66-R85), albeit not in the exact form described here. Beyond the existing ECS `risk` fields, the new implementation mainly seeks to improve explainability of individual risk scores.
 
 ## Source data
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+The new Risk Engine will initially use Detection Engine Alerts as inputs to its scoring mechanism. However, we intend also to allow ingestion from the other Risk Categories described here, provided that they conform to the appropriate schema. Said schema is outside of the scope of this RFC, but based on the current implementation all we will need are a `score` field and a `category` field in order to ingest any arbitrary document.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -74,6 +101,13 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
+There are two broad concerns at this stage:
+
+1. Category fields introducing a new "ordered" pattern
+  * Rather than having either an array of objects, or an explicit `nested` field type, both of which allow an arbitrary number of items, we're instead opting to add 10 explicit fields (five explicit categories, each with two fields) under the _assumption_ that we won't extend the number of categories further. We have a bit of wiggle room (i.e. six categories, 12 fields wouldn't be out of question), but this is not a scalable solution if we need a large number of categories. However, that is only a potential future issue, and we can likely reevaluate and address it if/when it arises.
+2. Mapping of `inputs` as a simple `object`
+  * The biggest motivation for this choice is to avoid the performance/storage/syntax complexities that come with a `nested` mapping, but we also don't have any feature requirements that would currently necessitate `inputs` being `nested`.
+
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
@@ -91,19 +125,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @rylnd | author
-* @SourinPaul | SME / EA product manager
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
+* @SourinPaul | sponsor
+* @ebeahan | reviewer
 
 
 ## References
@@ -117,6 +140,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2232
+* Stage 1: https://github.com/elastic/ecs/pull/2236
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
