@@ -47,7 +47,7 @@
         The field is relevant to Windows only.
 
     - name: nt_name
-      level: custom
+      level: extended
       type: keyword
       short: NT name of the device.
       description: >
@@ -77,7 +77,7 @@
         A string to describe the default access(es) of the volume.
         
     - name: file_system_type
-      level: custom
+      level: extended
       type: keyword
       short: Volume device file system type.
       description: >
@@ -88,7 +88,7 @@
         UDF
 
     - name: product_id
-      level: custom
+      level: extended
       type: keyword
       short: ProductID of the device.
       description: >
@@ -101,28 +101,28 @@
         Product name of the volume device. It is provided by the vendor of the device.
 
     - name: vendor_id
-      level: custom
+      level: extended
       type: keyword
       short: VendorID of the device.
       description: >
         VendorID of the device. It is provided by the vendor of the device.
 
     - name: vendor_name
-      level: custom
+      level: extended
       type: keyword
       short: Vendor name of the device.
       description: >
         Vendor name of the volume device. It is provided by the vendor of the device.
 
     - name: serial_number
-      level: custom
+      level: extended
       type: keyword
       short: Serial Number of the device.
       description: >
         Serial Number of the device. It is provided by the vendor of the device if any.
 
     - name: device_type
-      level: custom
+      level: extended
       type: keyword
       short: Volume device type.
       description: >
@@ -133,7 +133,13 @@
         CD-ROM File System
 
     - name: size
-      level: custom
-      type: keyword
+      level: extended
+      type: long
       description: >
-        Size of the volume device in MB.
+        Size of the volume device in bytes.
+
+    - name: removable
+      level: extended
+      type: boolean
+      description: >
+        This field indicates if the volume is removable.
