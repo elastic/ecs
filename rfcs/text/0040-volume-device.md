@@ -312,9 +312,9 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "nt_name":"\\Device\\CdRom1",
         "product_name":"Virtual DVD-ROM",
         "serial_number":"",
-        "vendor_name":"Msft"
-		"size": 1000,000,000
-		"removable": true
+        "vendor_name":"Msft",
+        "size": 1000,000,000,
+        "removable": true
     }
 }
 ```
