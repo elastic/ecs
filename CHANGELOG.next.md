@@ -15,12 +15,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
-* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
-* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
 
 #### Improvements
-* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
 
 #### Deprecated
 
@@ -36,19 +32,22 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.9.0 (Feature Freeze)
+## 8.10.0 (Feature Freeze)
 
 ### Schema Changes
 
-### Bugfixes
-
 #### Added
-* Added `process.vpid` for namespaced process ids. #2211
+* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
+* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
+* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
 
-### Improvements
+#### Improvements
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
 
-#### Deprecated
-* Removed `faas.trigger: nested` since we only have one trigger. #2194
+### Tooling and Artifact Changes
+
+#### Improvements
+* Improved documentation formatting to better follow the contributing guide. #2226
 
 <!-- All empty sections:
 
