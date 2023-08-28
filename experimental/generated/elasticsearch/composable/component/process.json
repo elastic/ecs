@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "8.10.0-dev+exp"
+    "ecs_version": "8.11.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -1310,6 +1310,18 @@
                 },
                 "thread": {
                   "properties": {
+                    "capabilities": {
+                      "properties": {
+                        "effective": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "permitted": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
+                    },
                     "id": {
                       "type": "long"
                     },
@@ -1777,6 +1789,18 @@
             },
             "thread": {
               "properties": {
+                "capabilities": {
+                  "properties": {
+                    "effective": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "permitted": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
+                },
                 "id": {
                   "type": "long"
                 },
