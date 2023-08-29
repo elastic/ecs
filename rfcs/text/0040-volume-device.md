@@ -360,9 +360,10 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
- * @Trinity2019    | author
- * @ricardoungureanu| reviewer
- * @stanek-michal  | reviewer
+ * @Trinity2019      | author
+ * @ricardoungureanu | reviewer
+ * @stanek-michal    | reviewer
+ * @intxgo           | reviewer
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
