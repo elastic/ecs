@@ -48,6 +48,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 * Improved documentation formatting to better follow the contributing guide. #2226
+* Bump `gitpython` dependency from 3.1.30 to 3.1.35 for security fixes. #2251, #2264, #2265
 
 <!-- All empty sections:
 
