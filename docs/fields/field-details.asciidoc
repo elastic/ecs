@@ -12937,7 +12937,9 @@ Note also that the `vlan` fields are not expected to be used directly at the roo
 [[ecs-volume]]
 === Volume Fields
 
-Fields that describe the storage volumes.
+Fields related to storage volume details.
+
+beta::[ These fields are beta and are subject to change.]
 
 [discrete]
 ==== Volume Field Details
@@ -12952,13 +12954,13 @@ Fields that describe the storage volumes.
 [[field-volume-bus-type]]
 <<field-volume-bus-type, volume.bus_type>>
 
-a| Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+a| Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.
 
 type: keyword
 
 
 
-
+example: `FileBackedVirtual`
 
 | extended
 
@@ -12968,7 +12970,7 @@ type: keyword
 [[field-volume-default-access]]
 <<field-volume-default-access, volume.default_access>>
 
-a| A string to describe the default access(es) of the volume.
+a| Describes the default access(es) of the volume.
 
 type: keyword
 
@@ -12984,7 +12986,9 @@ type: keyword
 [[field-volume-device-name]]
 <<field-volume-device-name, volume.device_name>>
 
-a| Full path of the device. The field is relevant to Posix only.
+a| Full path of the volume device.
+
+Only populate this field for POSIX system volumes.
 
 type: keyword
 
@@ -13002,13 +13006,13 @@ type: keyword
 
 a| Volume device type.
 
-Following are examples of the most frequently seen volume device types: Disk File System CD-ROM File System
+The most frequently seen volume device types are `Disk File System` and `CD-ROM File System`.
 
 type: keyword
 
 
 
-
+example: `CD-ROM File System`
 
 | extended
 
@@ -13018,7 +13022,9 @@ type: keyword
 [[field-volume-dos-name]]
 <<field-volume-dos-name, volume.dos_name>>
 
-a| DOS name of the device. DOS device name is in the format of driver letters such as C:, D:,... The field is relevant to Windows only.
+a| The MS-DOS name of a device.
+
+DOS device name is in the format of driver letters such as `C:`. The field is relevant to Windows systems only.
 
 type: keyword
 
@@ -13036,7 +13042,7 @@ type: keyword
 
 a| Volume device file system type.
 
-Following are examples of the most frequently seen volume device file system types: NTFS UDF
+The most common volume file system types are `NTFS` and `UDF`.
 
 type: keyword
 
@@ -13052,7 +13058,9 @@ type: keyword
 [[field-volume-mount-name]]
 <<field-volume-mount-name, volume.mount_name>>
 
-a| Mount name of the volume device. The field is relevant to Posix only.
+a| Mount name of the volume device.
+
+Only populate this field for POSIX system volumes.
 
 type: keyword
 
@@ -13068,13 +13076,15 @@ type: keyword
 [[field-volume-nt-name]]
 <<field-volume-nt-name, volume.nt_name>>
 
-a| NT name of the device. NT device name is in the format such as: \Device\HarddiskVolume2 The field is relevant to Windows only.
+a| The NT device name.
+
+NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant to Windows systems only.
 
 type: keyword
 
 
 
-
+example: `\Device\Cdrom1`
 
 | extended
 
@@ -13084,7 +13094,9 @@ type: keyword
 [[field-volume-product-id]]
 <<field-volume-product-id, volume.product_id>>
 
-a| ProductID of the device. It is provided by the vendor of the device if any.
+a| ProductID of the device.
+
+The vendor provides the ProductID for the volume, if any.
 
 type: keyword
 
@@ -13100,13 +13112,15 @@ type: keyword
 [[field-volume-product-name]]
 <<field-volume-product-name, volume.product_name>>
 
-a| Product name of the volume device. It is provided by the vendor of the device.
+a| Product name of the volume.
+
+The volume device vendor provides this value.
 
 type: keyword
 
 
 
-
+example: `Virtual DVD-ROM`
 
 | extended
 
@@ -13116,7 +13130,7 @@ type: keyword
 [[field-volume-removable]]
 <<field-volume-removable, volume.removable>>
 
-a| This field indicates if the volume is removable.
+a| Indicates if the volume is removable.
 
 type: boolean
 
@@ -13132,7 +13146,9 @@ type: boolean
 [[field-volume-serial-number]]
 <<field-volume-serial-number, volume.serial_number>>
 
-a| Serial Number of the device. It is provided by the vendor of the device if any.
+a| Serial number identifier for the volume device.
+
+The serial number is provided by the vendor of the device, if any.
 
 type: keyword
 
@@ -13164,7 +13180,9 @@ type: long
 [[field-volume-vendor-id]]
 <<field-volume-vendor-id, volume.vendor_id>>
 
-a| VendorID of the device. It is provided by the vendor of the device.
+a| VendorID of the volume device.
+
+The volume device vendor provides this value.
 
 type: keyword
 
@@ -13180,13 +13198,15 @@ type: keyword
 [[field-volume-vendor-name]]
 <<field-volume-vendor-name, volume.vendor_name>>
 
-a| Vendor name of the volume device. It is provided by the vendor of the device.
+a| Vendor name of the volume device.
+
+The value is provided by the vendor of the device.
 
 type: keyword
 
 
 
-
+example: `Msft`
 
 | extended
 
@@ -13196,7 +13216,7 @@ type: keyword
 [[field-volume-writable]]
 <<field-volume-writable, volume.writable>>
 
-a| This field indicates if the volume is writable.
+a| Indicates if the volume is writable.
 
 type: boolean
 

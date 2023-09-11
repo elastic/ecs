@@ -21854,7 +21854,8 @@ user_agent.version:
   type: keyword
 volume.bus_type:
   dashed_name: volume-bus-type
-  description: Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+  description: Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.
+  example: FileBackedVirtual
   flat_name: volume.bus_type
   ignore_above: 1024
   level: extended
@@ -21864,7 +21865,7 @@ volume.bus_type:
   type: keyword
 volume.default_access:
   dashed_name: volume-default-access
-  description: A string to describe the default access(es) of the volume.
+  description: Describes the default access(es) of the volume.
   flat_name: volume.default_access
   ignore_above: 1024
   level: extended
@@ -21874,20 +21875,23 @@ volume.default_access:
   type: keyword
 volume.device_name:
   dashed_name: volume-device-name
-  description: Full path of the device. The field is relevant to Posix only.
+  description: 'Full path of the volume device.
+
+    Only populate this field for POSIX system volumes.'
   flat_name: volume.device_name
   ignore_above: 1024
   level: extended
   name: device_name
   normalize: []
-  short: Full path of the device. The field is relevant to Posix only.
+  short: Device name of the volume.
   type: keyword
 volume.device_type:
   dashed_name: volume-device-type
   description: 'Volume device type.
 
-    Following are examples of the most frequently seen volume device types: Disk File
-    System CD-ROM File System'
+    The most frequently seen volume device types are `Disk File System` and `CD-ROM
+    File System`.'
+  example: CD-ROM File System
   flat_name: volume.device_type
   ignore_above: 1024
   level: extended
@@ -21897,8 +21901,10 @@ volume.device_type:
   type: keyword
 volume.dos_name:
   dashed_name: volume-dos-name
-  description: DOS name of the device. DOS device name is in the format of driver
-    letters such as C:, D:,... The field is relevant to Windows only.
+  description: 'The MS-DOS name of a device.
+
+    DOS device name is in the format of driver letters such as `C:`. The field is
+    relevant to Windows systems only.'
   flat_name: volume.dos_name
   ignore_above: 1024
   level: extended
@@ -21910,8 +21916,7 @@ volume.file_system_type:
   dashed_name: volume-file-system-type
   description: 'Volume device file system type.
 
-    Following are examples of the most frequently seen volume device file system types:
-    NTFS UDF'
+    The most common volume file system types are `NTFS` and `UDF`.'
   flat_name: volume.file_system_type
   ignore_above: 1024
   level: extended
@@ -21921,18 +21926,23 @@ volume.file_system_type:
   type: keyword
 volume.mount_name:
   dashed_name: volume-mount-name
-  description: Mount name of the volume device. The field is relevant to Posix only.
+  description: 'Mount name of the volume device.
+
+    Only populate this field for POSIX system volumes.'
   flat_name: volume.mount_name
   ignore_above: 1024
   level: extended
   name: mount_name
   normalize: []
-  short: Mount name of the volume device. The field is relevant to Posix only.
+  short: Mount name of the volume.
   type: keyword
 volume.nt_name:
   dashed_name: volume-nt-name
-  description: 'NT name of the device. NT device name is in the format such as: \Device\HarddiskVolume2
-    The field is relevant to Windows only.'
+  description: 'The NT device name.
+
+    NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant
+    to Windows systems only.'
+  example: \Device\Cdrom1
   flat_name: volume.nt_name
   ignore_above: 1024
   level: extended
@@ -21942,8 +21952,9 @@ volume.nt_name:
   type: keyword
 volume.product_id:
   dashed_name: volume-product-id
-  description: ProductID of the device. It is provided by the vendor of the device
-    if any.
+  description: 'ProductID of the device.
+
+    The vendor provides the ProductID for the volume, if any.'
   flat_name: volume.product_id
   ignore_above: 1024
   level: extended
@@ -21953,34 +21964,37 @@ volume.product_id:
   type: keyword
 volume.product_name:
   dashed_name: volume-product-name
-  description: Product name of the volume device. It is provided by the vendor of
-    the device.
+  description: 'Product name of the volume.
+
+    The volume device vendor provides this value.'
+  example: Virtual DVD-ROM
   flat_name: volume.product_name
   ignore_above: 1024
   level: extended
   name: product_name
   normalize: []
-  short: Product name of the volume device. It is provided by the vendor of the device.
+  short: Produce name of the volume.
   type: keyword
 volume.removable:
   dashed_name: volume-removable
-  description: This field indicates if the volume is removable.
+  description: Indicates if the volume is removable.
   flat_name: volume.removable
   level: extended
   name: removable
   normalize: []
-  short: This field indicates if the volume is removable.
+  short: Indicates if the volume is removable.
   type: boolean
 volume.serial_number:
   dashed_name: volume-serial-number
-  description: Serial Number of the device. It is provided by the vendor of the device
-    if any.
+  description: 'Serial number identifier for the volume device.
+
+    The serial number is provided by the vendor of the device, if any.'
   flat_name: volume.serial_number
   ignore_above: 1024
   level: extended
   name: serial_number
   normalize: []
-  short: Serial Number of the device.
+  short: Serial number of the device.
   type: keyword
 volume.size:
   dashed_name: volume-size
@@ -21993,7 +22007,9 @@ volume.size:
   type: long
 volume.vendor_id:
   dashed_name: volume-vendor-id
-  description: VendorID of the device. It is provided by the vendor of the device.
+  description: 'VendorID of the volume device.
+
+    The volume device vendor provides this value.'
   flat_name: volume.vendor_id
   ignore_above: 1024
   level: extended
@@ -22003,8 +22019,10 @@ volume.vendor_id:
   type: keyword
 volume.vendor_name:
   dashed_name: volume-vendor-name
-  description: Vendor name of the volume device. It is provided by the vendor of the
-    device.
+  description: 'Vendor name of the volume device.
+
+    The value is provided by the vendor of the device.'
+  example: Msft
   flat_name: volume.vendor_name
   ignore_above: 1024
   level: extended
@@ -22014,12 +22032,12 @@ volume.vendor_name:
   type: keyword
 volume.writable:
   dashed_name: volume-writable
-  description: This field indicates if the volume is writable.
+  description: Indicates if the volume is writable.
   flat_name: volume.writable
   level: extended
   name: writable
   normalize: []
-  short: This field indicates if the volume is writable.
+  short: Indicates if the volume is writable.
   type: boolean
 vulnerability.category:
   dashed_name: vulnerability-category
