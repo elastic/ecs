@@ -360,7 +360,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
- * @Trinity2019      | author
+ * @Trinity2019      | author, sponsor
  * @ricardoungureanu | reviewer
  * @stanek-michal    | reviewer
  * @intxgo           | reviewer
