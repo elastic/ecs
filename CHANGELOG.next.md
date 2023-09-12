@@ -32,24 +32,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.10.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
-* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
-* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
-
-#### Improvements
-* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
-
-### Tooling and Artifact Changes
-
-#### Improvements
-* Improved documentation formatting to better follow the contributing guide. #2226
-* Bump `gitpython` dependency from 3.1.30 to 3.1.35 for security fixes. #2251, #2264, #2265
-
 <!-- All empty sections:
 
 ## Unreleased
