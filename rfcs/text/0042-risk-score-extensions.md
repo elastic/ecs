@@ -66,10 +66,6 @@ Beyond the per-category explanations, these fields' purpose is to provide more i
   * Miscellaneous text field intended to provide more details that cannot be presented in the other fields.
 
 <!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-<!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
@@ -81,9 +77,107 @@ We intend to leverage these new fields as part of the new implementation of the 
 
 The new Risk Engine will initially use Detection Engine Alerts as inputs to its scoring mechanism. However, we intend also to allow ingestion from the other Risk Categories described here, provided that they conform to the appropriate schema. Said schema is outside of the scope of this RFC, but based on the current implementation all we will need are a `score` field and a `category` field in order to ingest any arbitrary document.
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
+### Detection Engine Alert
+The following is an example alert from Kibana's detection engine. This alert would contribute to a user risk score for `Arturo_Haley`.
+
+```json
+{
+  "kibana.alert.start": "2023-04-11T20:18:15.816Z",
+  "kibana.alert.last_detected": "2023-04-11T20:18:15.816Z",
+  "kibana.version": "8.7.0",
+  "kibana.alert.rule.parameters": {
+    "description": "2",
+    "risk_score": 21,
+    "severity": "low",
+    "license": "",
+    "author": [],
+    "false_positives": [],
+    "from": "now-360s",
+    "rule_id": "d5496711-5f25-4fbf-a05a-4c708157fc7f",
+    "max_signals": 100,
+    "risk_score_mapping": [],
+    "severity_mapping": [],
+    "threat": [],
+    "to": "now",
+    "references": [],
+    "version": 3,
+    "exceptions_list": [],
+    "immutable": false,
+    "related_integrations": [],
+    "required_fields": [],
+    "setup": "",
+    "type": "query",
+    "language": "kuery",
+    "index": ["my*"],
+    "query": "*",
+    "filters": []
+  },
+  "kibana.alert.rule.category": "Custom Query Rule",
+  "kibana.alert.rule.consumer": "siem",
+  "kibana.alert.rule.execution.uuid": "dda06037-a804-4217-93b6-778a2f58dc1a",
+  "kibana.alert.rule.name": "1",
+  "kibana.alert.rule.producer": "siem",
+  "kibana.alert.rule.rule_type_id": "siem.queryRule",
+  "kibana.alert.rule.uuid": "8d7edef8-ae41-4b6e-aec9-783540a5ffb8",
+  "kibana.space_ids": ["default"],
+  "kibana.alert.rule.tags": [],
+  "@timestamp": 1691056730499,
+  "host": {
+    "name": "antique-leek.org",
+    "os": {
+      "full": "server"
+    }
+  },
+  "user": {
+    "name": "Arturo_Haley"
+  },
+  "event.kind": "signal",
+  "kibana.alert.original_time": "2023-04-11T20:17:14.851Z",
+  "kibana.alert.ancestors": [
+    {
+      "id": "8TD3cYcB1hicTK_CdP--",
+      "type": "event",
+      "index": "my-index",
+      "depth": 0
+    }
+  ],
+  "kibana.alert.status": "active",
+  "kibana.alert.workflow_status": "open",
+  "kibana.alert.depth": 1,
+  "kibana.alert.reason": "event on Host 4 created low alert 1.",
+  "kibana.alert.severity": "low",
+  "kibana.alert.risk_score": 21,
+  "kibana.alert.rule.actions": [],
+  "kibana.alert.rule.author": [],
+  "kibana.alert.rule.created_at": "2023-04-11T20:15:52.473Z",
+  "kibana.alert.rule.created_by": "elastic",
+  "kibana.alert.rule.description": "2",
+  "kibana.alert.rule.enabled": true,
+  "kibana.alert.rule.exceptions_list": [],
+  "kibana.alert.rule.false_positives": [],
+  "kibana.alert.rule.from": "now-360s",
+  "kibana.alert.rule.immutable": false,
+  "kibana.alert.rule.interval": "5m",
+  "kibana.alert.rule.indices": ["my*"],
+  "kibana.alert.rule.license": "",
+  "kibana.alert.rule.max_signals": 100,
+  "kibana.alert.rule.references": [],
+  "kibana.alert.rule.risk_score_mapping": [],
+  "kibana.alert.rule.rule_id": "cc066b08-b4d2-4e74-81cb-3cda5aaa612d",
+  "kibana.alert.rule.severity_mapping": [],
+  "kibana.alert.rule.threat": [],
+  "kibana.alert.rule.to": "now",
+  "kibana.alert.rule.type": "query",
+  "kibana.alert.rule.updated_at": "2023-04-11T20:18:11.024Z",
+  "kibana.alert.rule.updated_by": "elastic",
+  "kibana.alert.rule.version": 3,
+  "kibana.alert.rule.meta.from": "1m",
+  "kibana.alert.rule.meta.kibana_siem_app_url": "http://localhost:5601/app/security",
+  "kibana.alert.rule.risk_score": 21,
+  "kibana.alert.rule.severity": "low",
+  "kibana.alert.uuid": "856934e4-6d10-487e-9997-a9757b3f4927"
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -91,13 +185,14 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+As these proposed fields are currently employed by the entity analytics risk engine, there are no first-party adoption/deprecation concerns. Additionally, since these fields are purely additive with respect to the existing risk fields, there are no migration/deprecation concerns.
+
+* Ingestion mechanisms
+  * While not officially supported, any systems that are currently ingesting risk documents (as originally introduced in RFC 31) _may_ need to be updated to support these additional fields.
+* Usage mechanisms (e.g. Kibana applications, detections)
+  * Kibana's usage of these fields is being developed by the Entity Analytics team, mainly leveraging them to build novel UI features for Risk Explainability.
+* ECS project (e.g. docs, tooling)
+  * There are no novel field types/mechanisms presented here.
 
 ## Concerns
 
@@ -105,16 +200,12 @@ There are two broad concerns at this stage:
 
 1. Category fields introducing a new "ordered" pattern
   * Rather than having either an array of objects, or an explicit `nested` field type, both of which allow an arbitrary number of items, we're instead opting to add 10 explicit fields (five explicit categories, each with two fields) under the _assumption_ that we won't extend the number of categories further. We have a bit of wiggle room (i.e. six categories, 12 fields wouldn't be out of question), but this is not a scalable solution if we need a large number of categories. However, that is only a potential future issue, and we can likely reevaluate and address it if/when it arises.
+  * RESOLUTION: we've decided to stick with this approach, for now.
 2. Mapping of `inputs` as a simple `object`
   * The biggest motivation for this choice is to avoid the performance/storage/syntax complexities that come with a `nested` mapping, but we also don't have any feature requirements that would currently necessitate `inputs` being `nested`.
-
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
+  * RESOLUTION: we've decided to stick with the simple, non-`nested` mapping for now. This decision is reinforced by the fact that these fields are used for the _explanation_ of a risk score, and it is unlikely that they will be useful in searches.
+3. Lack of user feedback
+  * Since these fields have been developed in an unreleased kibana feature, we have not had the opportunity to e.g. release a Technical Preview in order to garner user adoption and feedback. Lack of community engagement on these fields is likely the biggest risk, at this point.
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
@@ -141,6 +232,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * Stage 0: https://github.com/elastic/ecs/pull/2232
 * Stage 1: https://github.com/elastic/ecs/pull/2236
+* Stage 2: https://github.com/elastic/ecs/pull/2276
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
