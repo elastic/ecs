@@ -169,5 +169,6 @@ class TestECSHelpers(unittest.TestCase):
         }
         self.assertEqual(ecs_helpers.remove_top_level_reusable_false(nested_schema_original), nested_schema_expected)
 
+
 if __name__ == '__main__':
     unittest.main()
