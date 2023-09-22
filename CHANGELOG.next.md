@@ -15,7 +15,6 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225
 
 #### Improvements
 
@@ -32,20 +31,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
-
-## 8.9.0 (Feature Freeze)
-
-### Schema Changes
-
-### Bugfixes
-
-#### Added
-* Added `process.vpid` for namespaced process ids. #2211
-
-### Improvements
-
-#### Deprecated
-* Removed `faas.trigger: nested` since we only have one trigger. #2194
 
 <!-- All empty sections:
 
