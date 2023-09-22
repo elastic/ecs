@@ -1,7 +1,7 @@
-# 0000: Risk Input fields
+# 0043: Risk Input fields
 
 - Stage: **0 (strawperson)**
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2023-09-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 ### Summary
 This RFC aims to add a few general fields that, when defined on a document, will allow that document containing them to be consumed by Kibana's Risk Engine for the purposes of entity analytics.
