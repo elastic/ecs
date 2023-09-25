@@ -26,6 +26,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Respect reusable.top_level in Beats generator #2278
+
 #### Added
 
 #### Improvements

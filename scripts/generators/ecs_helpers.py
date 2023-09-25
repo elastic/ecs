@@ -254,6 +254,17 @@ def is_intermediate(field: FieldEntry) -> bool:
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
 
 
+def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
+    """Returns same structure as ecs_nested, but skips all field sets with reusable.top_level: False"""
+    components: Dict[str, FieldNestedEntry] = {}
+    for (fieldset_name, fieldset) in ecs_nested.items():
+        if fieldset.get('reusable', None):
+            if not fieldset['reusable']['top_level']:
+                continue
+        components[fieldset_name] = fieldset
+    return components
+
+
 # Warning helper
 
 
