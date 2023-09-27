@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Remove `expected_values` from `threat.*.indicator.name` fields. #2281
+
 #### Added
 
 #### Improvements
