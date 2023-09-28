@@ -65,7 +65,7 @@ def all_component_templates(
     component_dir: str = join(out_dir, 'elasticsearch/composable/component')
     ecs_helpers.make_dirs(component_dir)
 
-    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
+    for (fieldset_name, fieldset) in ecs_helpers.remove_top_level_reusable_false(ecs_nested).items():
         field_mappings = {}
         for (flat_name, field) in fieldset['fields'].items():
             name_parts = flat_name.split('.')
@@ -104,20 +104,9 @@ def component_name_convention(
 ) -> List[str]:
     version: str = ecs_version.replace('+', '-')
     names: List[str] = []
-    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
+    for (fieldset_name, fieldset) in ecs_helpers.remove_top_level_reusable_false(ecs_nested).items():
         names.append("ecs_{}_{}".format(version, fieldset_name.lower()))
     return names
-
-
-def candidate_components(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
-    """Returns same structure as ecs_nested, but skips all field sets with reusable.top_level: False"""
-    components: Dict[str, FieldNestedEntry] = {}
-    for (fieldset_name, fieldset) in ecs_nested.items():
-        if fieldset.get('reusable', None):
-            if not fieldset['reusable']['top_level']:
-                continue
-        components[fieldset_name] = fieldset
-    return components
 
 
 # Legacy template
