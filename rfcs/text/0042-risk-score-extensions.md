@@ -196,7 +196,7 @@ As these proposed fields are currently employed by the entity analytics risk eng
 
 ## Concerns
 
-There are two broad concerns at this stage:
+There are three broad concerns at this stage:
 
 1. Category fields introducing a new "ordered" pattern
   * Rather than having either an array of objects, or an explicit `nested` field type, both of which allow an arbitrary number of items, we're instead opting to add 10 explicit fields (five explicit categories, each with two fields) under the _assumption_ that we won't extend the number of categories further. We have a bit of wiggle room (i.e. six categories, 12 fields wouldn't be out of question), but this is not a scalable solution if we need a large number of categories. However, that is only a potential future issue, and we can likely reevaluate and address it if/when it arises.
