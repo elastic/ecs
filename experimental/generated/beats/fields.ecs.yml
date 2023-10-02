@@ -799,11 +799,21 @@
       type: keyword
       ignore_above: 1024
       description: Name of the image the container was built on.
-    - name: image.tag
+    - name: image.repo_digests
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: '[Docker](https://docs.docker.com/engine/api/v1.43/#tag/Image/operation/ImageInspect)
+        and [CRI](https://github.com/kubernetes/cri-api/blob/c75ef5b473bbe2d0a4fc92f82235efd665ea8e9f/pkg/apis/runtime/v1/api.proto#L1237-L1238)
+        report those under the `RepoDigests` field.'
+      example: '[example@sha256:afcc7f1ac1b49db317a7196c902e61c6c3c4607d63599ee1a82d702d249a0ccb]'
+      default_field: false
+    - name: image.tags
       level: extended
       type: keyword
       ignore_above: 1024
       description: Container image tags.
+      default_field: false
     - name: labels
       level: extended
       type: object
