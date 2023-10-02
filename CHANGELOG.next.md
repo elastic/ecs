@@ -12,6 +12,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Tune container image fields to align with Otel SemConv #2282
+
 #### Bugfixes
 
 #### Added
