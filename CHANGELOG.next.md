@@ -33,7 +33,7 @@ Thanks, you're awesome :-) -->
 #### Deprecated
 
 
-## 8.10.0 (Feature Freeze)
+## 8.11.0 (Feature Freeze)
 
 ### Schema Changes
 
