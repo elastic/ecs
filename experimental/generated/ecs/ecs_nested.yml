@@ -24890,6 +24890,204 @@ vlan:
   short: Fields to describe observed VLAN information.
   title: VLAN
   type: group
+volume:
+  beta: These fields are beta and are subject to change.
+  description: Fields related to storage volume details.
+  fields:
+    volume.bus_type:
+      dashed_name: volume-bus-type
+      description: Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.
+      example: FileBackedVirtual
+      flat_name: volume.bus_type
+      ignore_above: 1024
+      level: extended
+      name: bus_type
+      normalize: []
+      short: Bus type of the device.
+      type: keyword
+    volume.default_access:
+      dashed_name: volume-default-access
+      description: Describes the default access(es) of the volume.
+      flat_name: volume.default_access
+      ignore_above: 1024
+      level: extended
+      name: default_access
+      normalize: []
+      short: Bus type of the device.
+      type: keyword
+    volume.device_name:
+      dashed_name: volume-device-name
+      description: 'Full path of the volume device.
+
+        Only populate this field for POSIX system volumes.'
+      flat_name: volume.device_name
+      ignore_above: 1024
+      level: extended
+      name: device_name
+      normalize: []
+      short: Device name of the volume.
+      type: keyword
+    volume.device_type:
+      dashed_name: volume-device-type
+      description: 'Volume device type.
+
+        The most frequently seen volume device types are `Disk File System` and `CD-ROM
+        File System`.'
+      example: CD-ROM File System
+      flat_name: volume.device_type
+      ignore_above: 1024
+      level: extended
+      name: device_type
+      normalize: []
+      short: Volume device type.
+      type: keyword
+    volume.dos_name:
+      dashed_name: volume-dos-name
+      description: 'The MS-DOS name of a device.
+
+        DOS device name is in the format of driver letters, such as `C:`. The field
+        is relevant to Windows systems only.'
+      example: 'E:'
+      flat_name: volume.dos_name
+      ignore_above: 1024
+      level: extended
+      name: dos_name
+      normalize: []
+      short: DOS name of the device.
+      type: keyword
+    volume.file_system_type:
+      dashed_name: volume-file-system-type
+      description: 'Volume device file system type.
+
+        The most common volume file system types are `NTFS` and `UDF`.'
+      flat_name: volume.file_system_type
+      ignore_above: 1024
+      level: extended
+      name: file_system_type
+      normalize: []
+      short: Volume device file system type.
+      type: keyword
+    volume.mount_name:
+      dashed_name: volume-mount-name
+      description: 'Mount name of the volume device.
+
+        Only populate this field for POSIX system volumes.'
+      flat_name: volume.mount_name
+      ignore_above: 1024
+      level: extended
+      name: mount_name
+      normalize: []
+      short: Mount name of the volume.
+      type: keyword
+    volume.nt_name:
+      dashed_name: volume-nt-name
+      description: 'The NT device name.
+
+        NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant
+        to Windows systems only.'
+      example: \Device\Cdrom1
+      flat_name: volume.nt_name
+      ignore_above: 1024
+      level: extended
+      name: nt_name
+      normalize: []
+      short: NT name of the device.
+      type: keyword
+    volume.product_id:
+      dashed_name: volume-product-id
+      description: 'ProductID of the device.
+
+        The vendor provides the ProductID for the volume, if any.'
+      flat_name: volume.product_id
+      ignore_above: 1024
+      level: extended
+      name: product_id
+      normalize: []
+      short: ProductID of the device.
+      type: keyword
+    volume.product_name:
+      dashed_name: volume-product-name
+      description: 'Product name of the volume.
+
+        The volume device vendor provides this value.'
+      example: Virtual DVD-ROM
+      flat_name: volume.product_name
+      ignore_above: 1024
+      level: extended
+      name: product_name
+      normalize: []
+      short: Produce name of the volume.
+      type: keyword
+    volume.removable:
+      dashed_name: volume-removable
+      description: Indicates if the volume is removable.
+      flat_name: volume.removable
+      level: extended
+      name: removable
+      normalize: []
+      short: Indicates if the volume is removable.
+      type: boolean
+    volume.serial_number:
+      dashed_name: volume-serial-number
+      description: 'Serial number identifier for the volume device.
+
+        The serial number is provided by the vendor of the device, if any.'
+      flat_name: volume.serial_number
+      ignore_above: 1024
+      level: extended
+      name: serial_number
+      normalize: []
+      short: Serial number of the device.
+      type: keyword
+    volume.size:
+      dashed_name: volume-size
+      description: Size of the volume device in bytes.
+      flat_name: volume.size
+      level: extended
+      name: size
+      normalize: []
+      short: Size of the volume device in bytes.
+      type: long
+    volume.vendor_id:
+      dashed_name: volume-vendor-id
+      description: 'VendorID of the volume device.
+
+        The volume device vendor provides this value.'
+      flat_name: volume.vendor_id
+      ignore_above: 1024
+      level: extended
+      name: vendor_id
+      normalize: []
+      short: VendorID of the device.
+      type: keyword
+    volume.vendor_name:
+      dashed_name: volume-vendor-name
+      description: 'Vendor name of the volume device.
+
+        The value is provided by the vendor of the device.'
+      example: Msft
+      flat_name: volume.vendor_name
+      ignore_above: 1024
+      level: extended
+      name: vendor_name
+      normalize: []
+      short: Vendor name of the device.
+      type: keyword
+    volume.writable:
+      dashed_name: volume-writable
+      description: Indicates if the volume is writable.
+      flat_name: volume.writable
+      level: extended
+      name: writable
+      normalize: []
+      short: Indicates if the volume is writable.
+      type: boolean
+  group: 2
+  name: volume
+  prefix: volume.
+  short: Fields related to storage volume details.
+  title: Volume
+  type: group
 vulnerability:
   description: The vulnerability fields describe information about a vulnerability
     that is relevant to an event.
