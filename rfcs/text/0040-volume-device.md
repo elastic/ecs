@@ -318,7 +318,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "vendor_name":"Msft",
         "size": 1439744,
         "removable": true,
-		"writable": false
+        "writable": false
     }
 }
 ```
@@ -429,11 +429,11 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "file_system_type": "UDF",
         "nt_name": "\\Device\\CdRom1",
         "product_name": "Virtual DVD-ROM",
-		"size": 1511424,
+        "size": 1511424,
         "serial_number": "",
         "vendor_name": "Msft",
-		"removable": true,
-		"writable": false
+        "removable": true,
+        "writable": false
     }
 }
 ```
