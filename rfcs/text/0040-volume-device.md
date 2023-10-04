@@ -195,7 +195,7 @@ These fields can also be used by the products and features to manage such device
 
 ## Source data
 
-The source of this data comes from monitoring a host, a Virtual Machine, or a k8s node.
+The source of this data comes from monitoring a host, or a Virtual Machine.
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
