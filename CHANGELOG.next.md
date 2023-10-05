@@ -15,6 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+Addition of related.mac and related.port #2288, to be reviewed
 
 #### Improvements
 
