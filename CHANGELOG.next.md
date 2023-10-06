@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+Updated description for 'syslog.severity.name' to clarify that the type is text-based. #2290
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
@@ -29,6 +31,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+
 
 #### Deprecated
 
