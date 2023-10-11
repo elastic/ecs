@@ -32,6 +32,25 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
+
+## 8.11.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Remove `expected_values` from `threat.*.indicator.name` fields. #2281
+
+#### Added
+
+* Added `volume.*` as beta field set. #2269
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Respect reusable.top_level in Beats generator #2278
+
 <!-- All empty sections:
 
 ## Unreleased

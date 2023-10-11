@@ -10526,19 +10526,7 @@ example: `2020-11-05T17:25:47.000Z`
 
 a| The display name indicator in an UI friendly format
 
-Expected values for this field:
-
-* `5.2.75.227`
-* `2a02:cf40:add:4002:91f2:a9b2:e09a:6fc6`
-* `https://example.com/some/path`
-* `example.com`
-* `373d34874d7bc89fd4cefa6272ee80bf`
-* `b0e914d1bbe19433cc9df64ea1ca07fe77f7b150b511b786e46e007941a62bd7`
-* `email@example.com`
-* `HKLM\\SOFTWARE\\Microsoft\\Active`
-* `13335`
-* `00:00:5e:00:53:af`
-* `8008`
+URL, IP address, email address, registry key, port number, hash value, or other relevant name can serve as the display name.
 
 type: keyword
 
@@ -11084,19 +11072,7 @@ example: `2020-11-05T17:25:47.000Z`
 
 a| The display name indicator in an UI friendly format
 
-Expected values for this field:
-
-* `5.2.75.227`
-* `2a02:cf40:add:4002:91f2:a9b2:e09a:6fc6`
-* `https://example.com/some/path`
-* `example.com`
-* `373d34874d7bc89fd4cefa6272ee80bf`
-* `b0e914d1bbe19433cc9df64ea1ca07fe77f7b150b511b786e46e007941a62bd7`
-* `email@example.com`
-* `HKLM\\SOFTWARE\\Microsoft\\Active`
-* `13335`
-* `00:00:5e:00:53:af`
-* `8008`
+URL, IP address, email address, registry key, port number, hash value, or other relevant name can serve as the display name.
 
 type: keyword
 
@@ -12958,6 +12934,303 @@ The `vlan` fields are expected to be nested at:
 
 
 Note also that the `vlan` fields are not expected to be used directly at the root of the events.
+[[ecs-volume]]
+=== Volume Fields
+
+Fields related to storage volume details.
+
+beta::[ These fields are beta and are subject to change.]
+
+[discrete]
+==== Volume Field Details
+
+[options="header"]
+|=====
+| Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-volume-bus-type]]
+<<field-volume-bus-type, volume.bus_type>>
+
+a| Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.
+
+type: keyword
+
+
+
+example: `FileBackedVirtual`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-default-access]]
+<<field-volume-default-access, volume.default_access>>
+
+a| Describes the default access(es) of the volume.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-device-name]]
+<<field-volume-device-name, volume.device_name>>
+
+a| Full path of the volume device.
+
+Only populate this field for POSIX system volumes.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-device-type]]
+<<field-volume-device-type, volume.device_type>>
+
+a| Volume device type.
+
+The most frequently seen volume device types are `Disk File System` and `CD-ROM File System`.
+
+type: keyword
+
+
+
+example: `CD-ROM File System`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-dos-name]]
+<<field-volume-dos-name, volume.dos_name>>
+
+a| The MS-DOS name of a device.
+
+DOS device name is in the format of driver letters, such as `C:`. The field is relevant to Windows systems only.
+
+type: keyword
+
+
+
+example: `E:`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-file-system-type]]
+<<field-volume-file-system-type, volume.file_system_type>>
+
+a| Volume device file system type.
+
+The most common volume file system types are `NTFS` and `UDF`.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-mount-name]]
+<<field-volume-mount-name, volume.mount_name>>
+
+a| Mount name of the volume device.
+
+Only populate this field for POSIX system volumes.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-nt-name]]
+<<field-volume-nt-name, volume.nt_name>>
+
+a| The NT device name.
+
+NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant to Windows systems only.
+
+type: keyword
+
+
+
+example: `\Device\Cdrom1`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-product-id]]
+<<field-volume-product-id, volume.product_id>>
+
+a| ProductID of the device.
+
+The vendor provides the ProductID for the volume, if any.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-product-name]]
+<<field-volume-product-name, volume.product_name>>
+
+a| Product name of the volume.
+
+The volume device vendor provides this value.
+
+type: keyword
+
+
+
+example: `Virtual DVD-ROM`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-removable]]
+<<field-volume-removable, volume.removable>>
+
+a| Indicates if the volume is removable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-serial-number]]
+<<field-volume-serial-number, volume.serial_number>>
+
+a| Serial number identifier for the volume device.
+
+The serial number is provided by the vendor of the device, if any.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-size]]
+<<field-volume-size, volume.size>>
+
+a| Size of the volume device in bytes.
+
+type: long
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-vendor-id]]
+<<field-volume-vendor-id, volume.vendor_id>>
+
+a| VendorID of the volume device.
+
+The volume device vendor provides this value.
+
+type: keyword
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-vendor-name]]
+<<field-volume-vendor-name, volume.vendor_name>>
+
+a| Vendor name of the volume device.
+
+The value is provided by the vendor of the device.
+
+type: keyword
+
+
+
+example: `Msft`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-volume-writable]]
+<<field-volume-writable, volume.writable>>
+
+a| Indicates if the volume is writable.
+
+type: boolean
+
+
+
+
+
+| extended
+
+// ===============================================================
+
+|=====
+
+
 [[ecs-vulnerability]]
 === Vulnerability Fields
 
