@@ -11,10 +11,6 @@ All notable changes to this project will be documented in this file based on the
 
 * Remove `expected_values` from `threat.*.indicator.name` fields. #2281
 
-#### Added
-
-* Added `volume.*` as beta field set. #2269
-
 ### Tooling and Artifact Changes
 
 #### Bugfixes
