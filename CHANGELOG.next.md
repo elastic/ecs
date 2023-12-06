@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `volume.*` as beta field set. #2269
+
 #### Improvements
 
 #### Deprecated
