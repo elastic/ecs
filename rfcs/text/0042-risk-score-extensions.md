@@ -95,7 +95,7 @@ The following is an example risk score generated from Detection Engine Alerts, c
         "id_value": "siem-kibana",
         "calculated_score": 150,
         "category_1_score": 150,
-        "category_1_count": 1,
+        "category_1_count": 4354,
         "notes": [],
         "inputs": [
           {
