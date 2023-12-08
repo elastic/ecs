@@ -36,7 +36,6 @@ These fields are intended to allow future extensibility of our concept of an "id
 * `id_field`
 * `id_value`
 
-
 ### Risk Category Fields
 Some of the context here was discussed in Stage 0; please read the above for that. More specifically, these fields seek to provide the category contributions to the score, and the number of risk inputs in that category, across each of the five proposed categories:
 
@@ -51,8 +50,14 @@ Some of the context here was discussed in Stage 0; please read the above for tha
 * `category_5_score`
 * `category_5_count`
 
+### Asset Criticality Fields
+Thes fields represent the designated criticality of the entity being described in the document.
+
+* `criticality_level`
+* `criticality_modifier`
+
 ### Risk Explainability
-Beyond the per-category explanations, these fields' purpose is to provide more insight/data for the analyst to further investigate the components of the risk score.
+Beyond the category and criticality explanations above, these fields' purpose is to provide more insight/data for the analyst to further investigate the components of the risk score.
 
 * `risk.inputs`
   * Generally, these objects are meant as a convenience for one investigating risk; they are the "most risky" inputs as determined by the risk engine, and serve as a shortcut to further investigation.
@@ -96,6 +101,8 @@ The following is an example risk score generated from Detection Engine Alerts, c
         "calculated_score": 150,
         "category_1_score": 150,
         "category_1_count": 4354,
+        "criticality_level": "very_important",
+        "criticality_modifier": 2.0,
         "notes": [],
         "inputs": [
           {
