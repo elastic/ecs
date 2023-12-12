@@ -3,6 +3,20 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.11.0](https://github.com/elastic/ecs/compare/v8.10.0...v8.11.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Remove `expected_values` from `threat.*.indicator.name` fields. #2281
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Respect reusable.top_level in Beats generator #2278
+
 ## [8.10.0](https://github.com/elastic/ecs/compare/v8.9.0...v8.10.0)
 
 ### Schema Changes
