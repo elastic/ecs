@@ -1,8 +1,8 @@
 # 0040: Volume device
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2023-09-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2023-12-12** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -195,14 +195,17 @@ These fields can also be used by the products and features to manage such device
 
 ## Source data
 
-The source of this data comes from monitoring a host, a Virtual Machine, or a k8s node.
+The source of this data comes from monitoring a host, or a Virtual Machine.
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+### Volume device event from a host
+
 ```json
 {
-    "@timestamp":"2023-08-24T12:37:59.9817807Z",
+    "@timestamp":"2023-10-04T06:04:02.1449425Z",
     "agent":
     {
         "id":"ada69fee-8801-4248-9ea5-acada41cef88",
@@ -232,13 +235,13 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "category": [
             "volume_device"
         ],
-        "created":"2023-08-24T12:37:59.9817807Z",
+        "created":"2023-10-04T06:04:02.1449425Z",
         "dataset":"endpoint.events.volume_device",
-        "id":"NCRD4OiOt10Kj8r9++++++e0",
+        "id":"NFo+FezAt1+c7ZVs++++++Lm",
         "kind":"event",
         "module":"endpoint",
         "outcome":"success",
-        "sequence":1759,
+        "sequence":1656,
         "type": [
             "start"
         ]
@@ -246,7 +249,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
     "host":
     {
         "architecture":"x86_64",
-        "hostname":"win11vm",
+        "hostname":"win11-laptop",
         "id":"01d52cf8-1917-4fab-8317-100076ab9aab",
         "ip":
         [
@@ -255,7 +258,7 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "mac": [
             "00-0a-9d-b2-55-61"
         ],
-        "name":"win11vm",
+        "name":"win11-laptop",
         "os":
         {
             "Ext":
@@ -292,16 +295,16 @@ Stage 1: Provide a high-level description of example sources of data. This does 
             "subject_name":"Microsoft Windows",
             "trusted":true
         },
-        "entity_id":"NWRhNjlkZWUtODgwNS00MjZiLTllYTUtYmM5ZGE0MGMwZjc3LTY1ODAtMTY5Mjc1ODgyNC40OTIxMjU5MDA=",
+        "entity_id":"MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTcwMDAtMTY5NjA4NDk2My40MjAxMDc1MDA=",
         "executable":"C:\\Windows\\explorer.exe",
         "name":"explorer.exe",
-        "pid":6580
+        "pid":7000
     },
     "user":
     {
-        "domain":"WIN11VM",
-        "id":"S-1-5-21-3464081356-156823451-1687200008-1001",
-        "name":"john"
+        "domain":"win11-laptop",
+        "id":"S-1-5-21-3464081356-168676461-1647206113-1001",
+        "name":"john doe"
     },
     "volume":
     {
@@ -313,8 +316,124 @@ Stage 1: Provide a high-level description of example sources of data. This does 
         "product_name":"Virtual DVD-ROM",
         "serial_number":"",
         "vendor_name":"Msft",
-        "size": 1000,000,000,
-        "removable": true
+        "size": 1439744,
+        "removable": true,
+        "writable": false
+    }
+}
+```
+
+### Volume device event from an AWS EC2 instance:
+
+```
+{
+    "@timestamp": "2023-10-03T09:11:44.7139082Z",
+    "agent": {
+        "id": "01010101-0101-0101-0101-010101010101",
+        "type": "endpoint",
+        "version": "8.11.0-SNAPSHOT"
+    },
+    "data_stream": {
+        "dataset": "endpoint.events.volume_device",
+        "namespace": "default",
+        "type": "logs"
+    },
+    "ecs": {
+        "version": "1.11.0"
+    },
+    "elastic": {
+        "agent": {
+            "id": "01010101-0101-0101-0101-010101010101"
+        }
+    },
+    "event": {
+        "action": "mount",
+        "category": [
+            "volume_device"
+        ],
+        "created": "2023-10-03T09:11:44.7139082Z",
+        "dataset": "endpoint.events.volume_device",
+        "id": "NFjOC63JOYrK5sD+++++++hN",
+        "kind": "event",
+        "module": "endpoint",
+        "outcome": "success",
+        "sequence": 1859,
+        "type": [
+            "start"
+        ]
+    },
+    "host": {
+        "architecture": "x86_64",
+        "hostname": "ec2amaz-9c327o5",
+        "id": "00000000-0000-0000-0000-000000000000",
+        "ip": [
+            "172.31.0.74",
+            "fe80::be8c:c386:ee1d:7361",
+            "127.0.0.1",
+            "::1"
+        ],
+        "mac": [
+            "02-86-18-1a-ff-5b"
+        ],
+        "name": "ec2amaz-9c327o5",
+        "os": {
+            "Ext": {
+                "variant": "Windows Server 2022 Datacenter"
+            },
+            "family": "windows",
+            "full": "Windows Server 2022 Datacenter 21H2 (10.0.20348.1970)",
+            "kernel": "21H2 (10.0.20348.1970)",
+            "name": "Windows",
+            "platform": "windows",
+            "type": "windows",
+            "version": "21H2 (10.0.20348.1970)"
+        }
+    },
+    "message": "Endpoint volume device event",
+    "process": {
+        "Ext": {
+            "ancestry": [
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTg4MC0xNjk2MzIwNDUzLjgxMjk5NTEwMA==",
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTc3Mi0xNjk2MzIwNDUyLjc3NjA4MTUwMA==",
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTY2MC0xNjk2MzIwNDUyLjUwMDIxMzQwMA=="
+            ],
+            "code_signature": [
+                {
+                    "exists": true,
+                    "status": "trusted",
+                    "subject_name": "Microsoft Windows",
+                    "trusted": true
+                }
+            ]
+        },
+        "code_signature": {
+            "exists": true,
+            "status": "trusted",
+            "subject_name": "Microsoft Windows",
+            "trusted": true
+        },
+        "entity_id": "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTU5NTItMTY5NjMyNDMwMS44NjM1NzI0MDA=",
+        "executable": "C:\\Windows\\System32\\dllhost.exe",
+        "name": "dllhost.exe",
+        "pid": 5952
+    },
+    "user": {
+        "domain": "EC2AMAZ-9C327O5",
+        "id": "S-1-5-21-1707753557-122306462-275618382-500",
+        "name": "Administrator"
+    },
+    "volume": {
+        "bus_type": "Ssa",
+        "device_type": "CD-ROM File System",
+        "dos_name": "D:",
+        "file_system_type": "UDF",
+        "nt_name": "\\Device\\CdRom1",
+        "product_name": "Virtual DVD-ROM",
+        "size": 1511424,
+        "serial_number": "",
+        "vendor_name": "Msft",
+        "removable": true,
+        "writable": false
     }
 }
 ```
@@ -393,6 +512,8 @@ https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%2
 * Stage 1: https://github.com/elastic/ecs/pull/2229
 
 * Stage 2: https://github.com/elastic/ecs/pull/2260
+
+* Stage 3: https://github.com/elastic/ecs/pull/2279
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
