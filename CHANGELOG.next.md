@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `volume.*` as beta field set. #2269
+* Added `threat.indicator.id` [#2252](https://github.com/elastic/ecs/issues/2252)
 
 #### Improvements
 
