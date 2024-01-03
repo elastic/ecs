@@ -1,0 +1,143 @@
+- name: observable
+  title: Observable
+  short: Fields describing an observable.
+  description: >-
+    Observable fields capture details about a cyber observable. Cyber observables are
+    raw artifacts that can be observed in network traffic, system logs, or other data sources.
+  
+  fields:
+
+    - name: description
+      level: custom
+      type: text
+      short: Description of the observable.
+      description: >-
+        A description of the observable.
+      example: IP x.x.x.x was observed in investigation y.
+
+    - name: domain
+      level: custom
+      type: keyword
+      short: Domain name of the observable.
+      description: >-
+        Only filled in when value is a domain.
+      example: elastic.co
+
+    - name: email.address
+      level: custom
+      type: keyword
+      short: Email address of the observable.
+      description: >-
+        Only filled in when value is an email address.
+      example: phish@example.com
+
+    - name: first_seen
+      level: custom
+      type: date
+      short: First time the observable was seen.
+      description: >-
+        Only filled in when value is a domain.
+      example: 2019-01-01T00:00:00.000Z
+
+    - name: id
+      level: custom
+      type: keyword
+      short: Unique identifier of the observable.
+      description: >-
+        The unique identifier of the observable typically in STIX serialization format.
+      example: ipv4-addr--cbd67181-b9f8-595b-8bc3-3971e34fa1cc
+
+    - name: ip
+      level: custom
+      type: ip
+      short: IP address of the observable.
+      description: >-
+        Only filled in when value is an ip address.
+      example: 1.1.1.1
+
+    - name: last_seen
+      level: custom
+      type: date
+      short: Last time the observable was seen.
+      description: >-
+        Only filled in when value is a domain.
+      example: 2019-01-01T00:00:00.000Z
+
+    - name: modified_at
+      level: custom
+      type: date
+      short: Last time the observable was modified.
+      description: >-
+        Only filled in when value is a domain.
+      example: 2019-01-01T00:00:00.000Z
+
+    - name: name
+      level: custom
+      type: keyword
+      short: observable display name.
+      description: >-
+        The display name observable in an UI friendly format
+
+        URL, IP address, email address, registry key, port number, hash value,
+        or other relevant name can serve as the display name.
+      example: 5.2.75.227
+
+    - name: port
+      level: custom
+      type: long
+      short: Port number of the observable.
+      description: >-
+        Identifies an observable as a port number (irrespective of direction).
+      example: 443
+
+    - name: provider
+      level: custom
+      type: keyword
+      short: Provider of the observable.
+      description: >-
+        The name of the observable's provider.
+      example: sensor
+      normalize:
+        - array
+
+    - name: reference
+      level: custom
+      type: keyword
+      short: Reference to the observable.
+      description: >-
+        Reference URL linking to additional information about this observable.
+      example: https://system.example.com/observable/0001234
+
+    - name: spec_version
+      level: custom
+      type: keyword
+      short: STIX 2.x specification version.
+      description: >-
+        STIX 2.x specification version.
+      example: 2.1
+
+    - name: type
+      level: custom
+      type: keyword
+      short: observable type.
+      description: >
+        Type of observable as represented by Cyber Observable in STIX 2.0.
+      expected_values:
+        - autonomous-system
+        - artifact
+        - directory
+        - domain-name
+        - email-addr
+        - file
+        - ipv4-addr
+        - ipv6-addr
+        - mac-addr
+        - mutex
+        - port
+        - process
+        - software
+        - url
+        - user-account
+        - windows-registry-key
+        - x509-certificate
+      example: ipv4-addr
