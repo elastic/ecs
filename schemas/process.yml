@@ -361,7 +361,6 @@
     - name: tty.rows
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The number of character rows in the terminal. e.g terminal height
       description: >
         The number of character rows in the terminal. e.g terminal height
@@ -372,7 +371,6 @@
     - name: tty.columns
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The number of character columns per line. e.g terminal width
       description: >
         The number of character columns per line. e.g terminal width
@@ -383,7 +381,6 @@
     - name: io
       level: extended
       type: object
-      beta: This field is beta and subject to change.
       short: A chunk of input or output (IO) from a single process.
       description: >
         A chunk of input or output (IO) from a single process.
@@ -393,7 +390,6 @@
     - name: io.type
       level: extended
       type: keyword
-      beta: This field is beta and subject to change.
       short: The type of object on which the IO action (read or write) was taken.
       description: >
         The type of object on which the IO action (read or write) was taken.
@@ -403,7 +399,6 @@
     - name: io.text
       level: extended
       type: wildcard
-      beta: This field is beta and subject to change.
       short: A chunk of output or input sanitized to UTF-8.
       description: >
         A chunk of output or input sanitized to UTF-8.
@@ -413,14 +408,12 @@
     - name: io.total_bytes_captured
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       description: >
         The total number of bytes captured in this event.
 
     - name: io.total_bytes_skipped
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The total number of bytes that were not captured due to implementation restrictions such as buffer size limits.
       description: >
         The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
@@ -428,14 +421,12 @@
     - name: io.max_bytes_per_process_exceeded
       level: extended
       type: boolean
-      beta: This field is beta and subject to change.
       description: >
         If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
 
     - name: io.bytes_skipped
       level: extended
       type: object
-      beta: This field is beta and subject to change.
       description: >
         An array of byte offsets and lengths denoting where IO data has been skipped.
 
@@ -445,13 +436,11 @@
     - name: io.bytes_skipped.offset
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       description: >
         The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
 
     - name: io.bytes_skipped.length
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       description: >
         The length of bytes skipped.
