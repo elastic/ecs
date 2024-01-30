@@ -731,7 +731,8 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-* In stage1, @jasonrhodes identified fields from o11y use cases and a potential conflict: https://github.com/elastic/ecs/pull/2215#pullrequestreview-1498781860
+~~* In stage1, @jasonrhodes identified fields from o11y use cases and a potential conflict: https://github.com/elastic/ecs/pull/2215#pullrequestreview-1498781860~~
+--> Resolution: Exclude `asset.ean`, `asset.parents`, and `asset.children` from this RFC proposal and reintroduce these fields at a later time. Refer to: [[PR comment]](https://github.com/elastic/ecs/pull/2233#issuecomment-1917633738).
 
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
