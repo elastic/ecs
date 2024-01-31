@@ -35,39 +35,30 @@
       - at: process
         as: entry_leader
         short_override: First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: session_leader
         short_override: Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: group_leader
         short_override: Information about the process group leader. In some cases this may be the same as the top level process.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.parent
         as: group_leader
         short_override: Information about the parent's process group leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.entry_leader
         as: parent
         short_override: Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.session_leader
         as: parent
         short_override: Information about the session leader's parent process. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.entry_leader.parent
         as: session_leader
         short_override: Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process.session_leader.parent
         as: session_leader
         short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
       - at: process
         as: previous
         short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
-        beta: Reusing the `process` fields in this location is currently considered beta.
         normalize:
           - array
 
@@ -79,6 +70,19 @@
       type: long
       description: >
         Process id.
+      example: 4242
+
+    - name: vpid
+      format: string
+      level: core
+      type: long
+      short: Virtual process id.
+      description: >
+        Virtual process id.
+
+        The process id within a pid namespace. This is not necessarily
+        unique across all processes on the host but it is unique within the
+        process namespace that the process exists within.
       example: 4242
 
     - name: entity_id
@@ -198,6 +202,30 @@
       description: >
         Thread name.
 
+    - name: thread.capabilities.permitted
+      level: extended
+      type: keyword
+      short: Array of capabilities a thread could assume.
+      pattern: ^(CAP_[A-Z_]+|\d+)$
+      description: >
+        This is a limiting superset for the effective capabilities that the
+        thread may assume.
+      example: "[\"CAP_BPF\", \"CAP_SYS_ADMIN\"]"
+      normalize:
+        - array
+
+    - name: thread.capabilities.effective
+      level: extended
+      type: keyword
+      short: Array of capabilities used for permission checks.
+      pattern: ^(CAP_[A-Z_]+|\d+)$
+      description: >
+        This is the set of capabilities used by the kernel to perform permission
+        checks for the thread.
+      example: "[\"CAP_BPF\", \"CAP_SYS_ADMIN\"]"
+      normalize:
+        - array
+
     - name: start
       level: extended
       type: date
@@ -244,7 +272,6 @@
       level: extended
       type: boolean
       example: true
-      beta: This field is beta and subject to change.
       short: Whether the process is connected to an interactive shell.
       description: >
         Whether the process is connected to an interactive shell.
@@ -257,7 +284,6 @@
       level: extended
       type: boolean
       example: true
-      beta: This field is beta and subject to change.
       short: This boolean is used to identify if a leader process is the same as the top level process.
       description: >
         This boolean is used to identify if a leader process is the same as the top level process.
@@ -280,20 +306,20 @@
 
     - name: env_vars
       level: extended
-      type: object
-      beta: This field is beta and subject to change.
-      short: Environment variables set at the time of the event.
+      type: keyword
+      short: Array of environment variable bindings.
       description: >
-        Environment variables (`env_vars`) set at the time of the event.
-        May be filtered to protect sensitive information.
+        Array of environment variable bindings.
+        Captured from a snapshot of the environment at the time of execution.
 
-        The field should not contain nested objects. All values should use `keyword`.
-      example: "{\"USER\": \"elastic\",\"LANG\": \"en_US.UTF-8\",\"HOME\": \"/home/elastic\"}"
+        May be filtered to protect sensitive information.
+      example: "[\"PATH=/usr/local/bin:/usr/bin\", \"USER=ubuntu\"]"
+      normalize:
+        - array
 
     - name: entry_meta.type
       level: extended
       type: keyword
-      beta: This field is beta and subject to change.
       short: The entry type for the entry session leader.
       description: >
         The entry type for the entry session leader.
@@ -304,7 +330,6 @@
     - name: entry_meta.source
       level: extended
       type: source
-      beta: This field is beta and subject to change.
       short: Entry point information for a session.
       description: >
         Entry point information for a session.
@@ -313,7 +338,6 @@
     - name: tty
       level: extended
       type: object
-      beta: This field is beta and subject to change.
       short: Information about the controlling TTY device.
       description: >
         Information about the controlling TTY device. If set, the process belongs to an interactive session.
@@ -321,17 +345,102 @@
     - name: tty.char_device.major
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The TTY character device's major number.
       description: >
-        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0. For more details, please refer to the Linux kernel documentation.
-      example: 1
+        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+      example: 4
 
     - name: tty.char_device.minor
       level: extended
       type: long
-      beta: This field is beta and subject to change.
       short: The TTY character device's minor number.
       description: >
         The minor number is used only by the driver specified by the major number; other parts of the kernel don’t use it, and merely pass it along to the driver. It is common for a driver to control several devices; the minor number provides a way for the driver to differentiate among them.
-      example: 128
+      example: 1
+
+    - name: tty.rows
+      level: extended
+      type: long
+      short: The number of character rows in the terminal. e.g terminal height
+      description: >
+        The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 24
+
+    - name: tty.columns
+      level: extended
+      type: long
+      short: The number of character columns per line. e.g terminal width
+      description: >
+        The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 80
+
+    - name: io
+      level: extended
+      type: object
+      short: A chunk of input or output (IO) from a single process.
+      description: >
+        A chunk of input or output (IO) from a single process.
+
+        This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+    - name: io.type
+      level: extended
+      type: keyword
+      short: The type of object on which the IO action (read or write) was taken.
+      description: >
+        The type of object on which the IO action (read or write) was taken.
+
+        Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+    - name: io.text
+      level: extended
+      type: wildcard
+      short: A chunk of output or input sanitized to UTF-8.
+      description: >
+        A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+    - name: io.total_bytes_captured
+      level: extended
+      type: long
+      description: >
+        The total number of bytes captured in this event.
+
+    - name: io.total_bytes_skipped
+      level: extended
+      type: long
+      short: The total number of bytes that were not captured due to implementation restrictions such as buffer size limits.
+      description: >
+        The total number of bytes that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+    - name: io.max_bytes_per_process_exceeded
+      level: extended
+      type: boolean
+      description: >
+        If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+    - name: io.bytes_skipped
+      level: extended
+      type: object
+      description: >
+        An array of byte offsets and lengths denoting where IO data has been skipped.
+
+      normalize:
+        - array
+
+    - name: io.bytes_skipped.offset
+      level: extended
+      type: long
+      description: >
+        The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+    - name: io.bytes_skipped.length
+      level: extended
+      type: long
+      description: >
+        The length of bytes skipped.

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-file.html",
-    "ecs_version": "8.5.0-dev+exp"
+    "ecs_version": "8.12.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -89,6 +89,22 @@
                 "exports": {
                   "type": "flattened"
                 },
+                "go_import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "go_imports": {
+                  "type": "flattened"
+                },
+                "go_imports_names_entropy": {
+                  "type": "long"
+                },
+                "go_imports_names_var_entropy": {
+                  "type": "long"
+                },
+                "go_stripped": {
+                  "type": "boolean"
+                },
                 "header": {
                   "properties": {
                     "abi_version": {
@@ -124,8 +140,18 @@
                     }
                   }
                 },
+                "import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "imports": {
                   "type": "flattened"
+                },
+                "imports_names_entropy": {
+                  "type": "long"
+                },
+                "imports_names_var_entropy": {
+                  "type": "long"
                 },
                 "sections": {
                   "properties": {
@@ -153,6 +179,9 @@
                     "type": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "var_entropy": {
+                      "type": "long"
                     },
                     "virtual_address": {
                       "type": "long"
@@ -238,6 +267,64 @@
               "ignore_above": 1024,
               "type": "keyword"
             },
+            "macho": {
+              "properties": {
+                "go_import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "go_imports": {
+                  "type": "flattened"
+                },
+                "go_imports_names_entropy": {
+                  "type": "long"
+                },
+                "go_imports_names_var_entropy": {
+                  "type": "long"
+                },
+                "go_stripped": {
+                  "type": "boolean"
+                },
+                "import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "imports": {
+                  "type": "flattened"
+                },
+                "imports_names_entropy": {
+                  "type": "long"
+                },
+                "imports_names_var_entropy": {
+                  "type": "long"
+                },
+                "sections": {
+                  "properties": {
+                    "entropy": {
+                      "type": "long"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "physical_size": {
+                      "type": "long"
+                    },
+                    "var_entropy": {
+                      "type": "long"
+                    },
+                    "virtual_size": {
+                      "type": "long"
+                    }
+                  },
+                  "type": "nested"
+                },
+                "symhash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
             "mime_type": {
               "ignore_above": 1024,
               "type": "keyword"
@@ -284,9 +371,38 @@
                   "ignore_above": 1024,
                   "type": "keyword"
                 },
+                "go_import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "go_imports": {
+                  "type": "flattened"
+                },
+                "go_imports_names_entropy": {
+                  "type": "long"
+                },
+                "go_imports_names_var_entropy": {
+                  "type": "long"
+                },
+                "go_stripped": {
+                  "type": "boolean"
+                },
                 "imphash": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "import_hash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
+                "imports": {
+                  "type": "flattened"
+                },
+                "imports_names_entropy": {
+                  "type": "long"
+                },
+                "imports_names_var_entropy": {
+                  "type": "long"
                 },
                 "original_file_name": {
                   "ignore_above": 1024,
@@ -299,6 +415,27 @@
                 "product": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "sections": {
+                  "properties": {
+                    "entropy": {
+                      "type": "long"
+                    },
+                    "name": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "physical_size": {
+                      "type": "long"
+                    },
+                    "var_entropy": {
+                      "type": "long"
+                    },
+                    "virtual_size": {
+                      "type": "long"
+                    }
+                  },
+                  "type": "nested"
                 }
               }
             },

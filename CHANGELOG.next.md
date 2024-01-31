@@ -16,9 +16,11 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-#### Improvements
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
 
-* Advances `threat.enrichments.indicator` to GA. #1928
+#### Improvements
 
 #### Deprecated
 
@@ -31,43 +33,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-#### Deprecated
-
-## 8.4.0 (Soft Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
-
-#### Improvements
-
-#### Deprecated
-
-#### Removed
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-* Added Deprecation Warning for `misspell` task #1993
-
-#### Added
-
-* Introduce `expected_values` attribute. #1952
-
-#### Improvements
-
-* Additional type annotations. #1950
 
 #### Deprecated
 

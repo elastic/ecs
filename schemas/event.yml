@@ -70,7 +70,7 @@
 
         The value of this field can be used to inform how these kinds of events should be handled.
         They may warrant different retention, different access control, it may also
-        help understand whether the data coming in at a regular interval or not.
+        help understand whether the data is coming in at a regular interval or not.
       example: alert
       allowed_values:
         - name: alert
@@ -83,6 +83,24 @@
 
             This value is not used by Elastic solutions for alert documents
             that are created by rules executing within the Kibana alerting framework.
+        - name: asset
+          description: >
+            This value indicates events whose primary purpose is to store an inventory of
+            assets/entities and their attributes. Assets/entities are objects (such as
+            users and hosts) that are expected to be subjects of detailed analysis within
+            the system.
+
+            Examples include lists of user identities or accounts ingested from directory
+            services such as Active Directory (AD), inventory of hosts pulled from
+            configuration management databases (CMDB), and lists of cloud storage buckets
+            pulled from cloud provider APIs.
+
+            This value is used by Elastic Security for asset management solutions.
+            `event.kind: asset` is not used for normal system events or logs that are coming
+            from an asset/entity, nor is it used for system events or logs coming from a
+            directory or CMDB system.
+          beta: >
+            This event categorization value is beta and subject to change.
         - name: enrichment
           description: >
             The `enrichment` value indicates an event collected to provide additional
@@ -156,6 +174,24 @@
       normalize:
         - array
       allowed_values:
+        - name: api
+          description: >
+            Events in this category annotate API calls that occured on a system. Typical sources
+            for those events could be from the Operating System level through the native libraries
+            (for example Windows Win32, Linux libc, etc.), or managed sources of events (such as ETW,
+            syslog), but can also include network protocols (such as SOAP, RPC, Websocket, REST, etc.)
+          expected_event_types:
+            - access
+            - admin
+            - allowed
+            - change
+            - creation
+            - deletion
+            - denied
+            - end
+            - info
+            - start
+            - user
         - name: authentication
           description: >
             Events in this category are related to the challenge and response process
@@ -221,6 +257,7 @@
             from both host-based and network-based sources. An example source of a network-based
             detection of a file transfer would be the Zeek file.log.
           expected_event_types:
+            - access
             - change
             - creation
             - deletion
@@ -265,6 +302,13 @@
             - allowed
             - denied
             - info
+        - name: library
+          description: >
+            Events in this category refer to the loading of a library, such as (dll / so / dynlib), into a process.
+            Use this category to visualize and analyze library loading related activity on
+            hosts.  Keep in mind that driver related activity will be captured under the "driver" category above.
+          expected_event_types:
+            - start
         - name: malware
           description: >
             Malware detection events and alerts. Use this category to visualize and analyze
@@ -335,6 +379,11 @@
             Use this category to visualize and analyze events describing threat actors' targets, motives, or behaviors.
           expected_event_types:
             - indicator
+        - name: vulnerability
+          description: >
+            Relating to vulnerability scan results. Use this category to analyze vulnerabilities detected by Tenable, Qualys, internal scanners, and other vulnerability management sources.
+          expected_event_types:
+            - info
         - name: web
           description: >
             Relating to web server access. Use this category to create a dashboard of
@@ -663,7 +712,7 @@
       description: >
         Duration of the event in nanoseconds.
 
-        If event.start and event.end are known this value should be the
+        If `event.start` and `event.end` are known this value should be the
         difference between the end and start time.
 
     - name: sequence
@@ -695,10 +744,10 @@
       short: Time when the event was first read by an agent or by your pipeline.
       example: '2016-05-23T08:05:34.857Z'
       description: >
-        event.created contains the date/time when the event was first read by an
+        `event.created` contains the date/time when the event was first read by an
         agent, or by your pipeline.
 
-        This field is distinct from @timestamp in that @timestamp typically contain
+        This field is distinct from `@timestamp` in that `@timestamp` typically contain
         the time extracted from the original event.
 
         In most situations, these two timestamps will be slightly different.
@@ -707,20 +756,20 @@
         This can be used to monitor your agent's or pipeline's ability to
         keep up with your event source.
 
-        In case the two timestamps are identical, @timestamp should be used.
+        In case the two timestamps are identical, `@timestamp` should be used.
 
     - name: start
       level: extended
       type: date
       description: >
-        event.start contains the date when the event started or when the
+        `event.start` contains the date when the event started or when the
         activity was first observed.
 
     - name: end
       level: extended
       type: date
       description: >
-        event.end contains the date when the event ended or when the activity
+        `event.end` contains the date when the event ended or when the activity
         was last observed.
 
     - name: risk_score

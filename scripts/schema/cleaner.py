@@ -281,7 +281,8 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
 
     if isinstance(example_value, (list, dict)):
         field_name: str = field['field_details']['name']
-        msg: str = f"Example value for field `{field_name}` contains an object or array which must be quoted to avoid YAML interpretation."
+        msg: str = "Example value for field `{}` contains an object or array which must be quoted to avoid YAML interpretation.".format(
+            field_name)
         strict_warning_handler(msg, strict)
 
     # Examples with arrays must be handled
@@ -295,13 +296,15 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
         for example_value in example_values:
             match = re.match(pattern, example_value)
             if not match:
-                msg = f"Example value for field `{name}` does not match the regex defined in the pattern attribute: `{pattern}`."
+                msg = "Example value for field `{}` does not match the regex defined in the pattern attribute: `{}`.".format(
+                    name, pattern)
                 strict_warning_handler(msg, strict)
 
     if expected_values:
         for example_value in example_values:
             if example_value not in expected_values:
-                msg = f"Example value `{example_value}` for field `{name}` is not one of the values defined in `expected_value`: {expected_values}."
+                msg = "Example value `{}` for field `{}` is not one of the values defined in `expected_value`: {}.".format(
+                    example_value, name, example_values)
                 strict_warning_handler(msg, strict)
 
 

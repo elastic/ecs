@@ -1,0 +1,64 @@
+---
+- name: risk
+  title: Risk information
+  group: 2
+  short: Fields for describing risk score and level.
+  beta: >
+    These fields are in beta and are subject to change.
+  description: >
+     Fields for describing risk score and risk level of entities such as hosts and users. 
+     These fields are not allowed to be nested under `event.*`. Please continue to use 
+     `event.risk_score` and `event.risk_score_norm` for event risk.
+  reusable:
+    top_level: false
+    expected:
+      - host
+      - user
+  type: group
+  fields:
+    - name: calculated_score
+      level: extended
+      type: float
+      example: 880.73
+      description: >
+        A risk classification score calculated by an internal system as part of
+        entity analytics and entity risk scoring.
+    - name: calculated_score_norm
+      level: extended
+      type: float
+      example: 88.73
+      short: A normalized risk score calculated by an internal system.
+      description: >
+        A risk classification score calculated by an internal system as part of
+        entity analytics and entity risk scoring, and normalized to a range of
+        0 to 100.
+    - name: static_score
+      level: extended
+      type: float
+      example: 830.0
+      description: >
+        A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+    - name: static_score_norm
+      level: extended
+      type: float
+      example: 83.0
+      short: A normalized risk score calculated by an external system.
+      description: >
+        A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform, and normalized to a
+        range of 0 to 100.
+    - name: calculated_level
+      level: extended
+      type: keyword
+      example: "High"
+      description: >
+        A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+    - name: static_level
+      level: extended
+      type: keyword
+      example: "High"
+      description: >
+        A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.

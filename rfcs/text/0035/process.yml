@@ -1,0 +1,119 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: process
+  fields:
+
+    # minor typo fix in description for this field. "pts/0 -> "pts/0"
+    - name: tty.char_device.major
+      description: >
+        The major number identifies the driver associated with the device. The character device's major and minor numbers can be algorithmically combined to produce the more familiar terminal identifiers such as "ttyS0" and "pts/0". For more details, please refer to the Linux kernel documentation.
+
+    - name: tty.rows
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character rows in the terminal. e.g terminal height
+      description: >
+        The number of character rows in the terminal. e.g terminal height
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 24
+
+    - name: tty.columns
+      level: extended
+      type: long
+      beta: This field is beta and subject to change.
+      short: The number of character columns per line. e.g terminal width
+      description: >
+        The number of character columns per line. e.g terminal width
+
+        Terminal sizes can change, so this value reflects the maximum value for a given IO event. i.e. where event.action = 'text_output'
+      example: 80
+
+    # new 'io' properties for tracking tty output
+    - name: io
+      level: extended
+      type: object
+      short: A chunk of input or output (IO) from a single process.
+      description: >
+        A chunk of input or output (IO) from a single process.
+
+        This field only appears on the top level process object, which is the process that wrote the output or read the input.
+
+    - name: io.type
+      level: extended
+      type: keyword
+      short: The type of object on which the IO action (read or write) was taken.
+      description: >
+        The type of object on which the IO action (read or write) was taken.
+
+        Currently only 'tty' is supported. Other types may be added in the future for 'file' and 'socket' support.
+
+    - name: io.text
+      level: extended
+      type: wildcard
+      short: A chunk of output or input sanitized to UTF-8.
+      description: >
+        A chunk of output or input sanitized to UTF-8.
+
+        Best efforts are made to ensure complete lines are captured in these events. Assumptions should NOT be made that multiple lines will appear in the same event. TTY output may contain terminal control codes such as for cursor movement, so some string queries may not match due to terminal codes inserted between characters of a word.
+
+    - name: io.total_bytes_captured
+      level: extended
+      type: number
+      description: >
+        The total number of bytes captured in this event.
+
+    - name: io.total_bytes_skipped
+      level: extended
+      type: number
+      description: >
+        The total number of bytes of output that were not captured due to implementation restrictions such as buffer size limits. Implementors should strive to ensure this value is always zero
+
+    - name: io.max_bytes_per_process_exceeded
+      level: extended
+      type: boolean
+      description: >
+        If true, the process producing the output has exceeded the max_kilobytes_per_process configuration setting.
+
+    - name: io.bytes_skipped
+      level: extended
+      type: object
+      description: >
+        An array of byte offsets and lengths denoting where IO data has been skipped.
+
+      normalize: array
+
+    - name: io.bytes_skipped.offset
+      level: extended
+      type: number
+      description: >
+        The byte offset into this event's io.text (or io.bytes in the future) where length bytes were skipped.
+
+    - name: io.bytes_skipped.length
+      level: extended
+      type: number
+      description: >
+        The length of bytes skipped.
+
+    # future addition (NOT TO BE INCLUDED IN THIS RFC)
+    - name: io.bytes
+      level: extended
+      type: binary
+      description: >
+        A base64 encoded string of binary data read or written by a process. It's preferable to use process.io.text instead, where possible, to improve searchability.

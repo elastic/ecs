@@ -32,18 +32,20 @@
       - at: process
         as: group
         short_override: The effective group (egid).
-        beta: Reusing the `group` fields in this location is currently considered beta.
       - at: process
         as: real_group
         short_override: The real group (rgid).
-        beta: Reusing the `group` fields in this location is currently considered beta.
       - at: process
         as: saved_group
         short_override: The saved group (sgid).
-        beta: Reusing the `group` fields in this location is currently considered beta.
       - at: process
         as: supplemental_groups
         short_override: An array of supplemental groups.
+        normalize:
+          - array
+      - at: process
+        as: attested_groups
+        short_override: The externally attested groups based on an external source such as the Kube API.
         beta: Reusing the `group` fields in this location is currently considered beta.
         normalize:
           - array
