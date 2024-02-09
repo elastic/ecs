@@ -106,7 +106,7 @@ def component_name_convention(
 ) -> List[str]:
     version: str = ecs_version.replace('+', '-')
     names: List[str] = []
-    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
+    for (fieldset_name, fieldset) in ecs_helpers.remove_top_level_reusable_false(ecs_nested).items():
         names.append("{}_{}_{}".format(ecs_component_name_prefix, version, fieldset_name.lower()))
     return names
 
