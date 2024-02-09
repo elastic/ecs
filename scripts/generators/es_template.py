@@ -102,7 +102,7 @@ def save_component_template(
 def component_name_convention(
     ecs_version: str,
     ecs_nested: Dict[str, FieldNestedEntry],
-    ecs_component_name_prefix: str
+    ecs_component_name_prefix: str="ecs"
 ) -> List[str]:
     version: str = ecs_version.replace('+', '-')
     names: List[str] = []
