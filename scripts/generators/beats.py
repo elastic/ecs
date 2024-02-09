@@ -44,6 +44,7 @@ def generate(
     else:
         beats_fields = []
 
+
     allowed_fieldset_keys: List[str] = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
     for fieldset_name in sorted(ecs_nested):

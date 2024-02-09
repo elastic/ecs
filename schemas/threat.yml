@@ -105,6 +105,17 @@
         - x509-certificate
       example: ipv4-addr
 
+    - name: enrichments.indicator.name
+      level: extended
+      type: keyword
+      short: Indicator display name
+      description: >
+        The display name indicator in an UI friendly format
+
+        URL, IP address, email address, registry key, port number, hash value,
+        or other relevant name can serve as the display name.
+      example: 5.2.75.227
+
     - name: enrichments.indicator.description
       level: extended
       type: keyword
@@ -168,10 +179,20 @@
         Traffic Light Protocol sharing markings.
       expected_values:
         - WHITE
+        - CLEAR
         - GREEN
         - AMBER
+        - AMBER+STRICT
         - RED
-      example: WHITE
+      example: CLEAR
+
+    - name: enrichments.indicator.marking.tlp_version
+      level: extended
+      type: keyword
+      short: Indicator TLP version
+      description: >
+        Traffic Light Protocol version.
+      example: 2.0
 
     - name: enrichments.indicator.reference
       level: extended
@@ -383,6 +404,17 @@
         - x509-certificate
       example: ipv4-addr
 
+    - name: indicator.name
+      level: extended
+      type: keyword
+      short: Indicator display name
+      description: >
+        The display name indicator in an UI friendly format
+
+        URL, IP address, email address, registry key, port number, hash value,
+        or other relevant name can serve as the display name.
+      example: 5.2.75.227
+
     - name: indicator.description
       level: extended
       type: keyword
@@ -451,10 +483,20 @@
         Traffic Light Protocol sharing markings.
       expected_values:
         - WHITE
+        - CLEAR
         - GREEN
         - AMBER
+        - AMBER+STRICT
         - RED
-      example: WHITE
+      example: CLEAR
+
+    - name: indicator.marking.tlp_version
+      level: extended
+      type: keyword
+      short: Indicator TLP version
+      description: >
+        Traffic Light Protocol version.
+      example: 2.0
 
     - name: indicator.reference
       level: extended

@@ -35,11 +35,12 @@ This is one of four ECS Categorization Fields, and indicates the highest level i
 
 `event.kind` gives high-level information about what type of information the event contains, without being specific to the contents of the event. For example, values of this field distinguish alert events from metric events.
 
-The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data coming in at a regular interval or not.
+The value of this field can be used to inform how these kinds of events should be handled. They may warrant different retention, different access control, it may also help understand whether the data is coming in at a regular interval or not.
 
 *Allowed Values*
 
 * <<ecs-event-kind-alert,alert>>
+* <<ecs-event-kind-asset,asset>>
 * <<ecs-event-kind-enrichment,enrichment>>
 * <<ecs-event-kind-event,event>>
 * <<ecs-event-kind-metric,metric>>
@@ -56,6 +57,20 @@ This value indicates an event such as an alert or notable event, triggered by a 
 `event.kind:alert` is often populated for events coming from firewalls, intrusion detection systems, endpoint detection and response systems, and so on.
 
 This value is not used by Elastic solutions for alert documents that are created by rules executing within the Kibana alerting framework.
+
+
+
+[float]
+[[ecs-event-kind-asset]]
+==== asset
+
+beta:[ This event categorization value is beta and subject to change. ]
+
+This value indicates events whose primary purpose is to store an inventory of assets/entities and their attributes. Assets/entities are objects (such as users and hosts) that are expected to be subjects of detailed analysis within the system.
+
+Examples include lists of user identities or accounts ingested from directory services such as Active Directory (AD), inventory of hosts pulled from configuration management databases (CMDB), and lists of cloud storage buckets pulled from cloud provider APIs.
+
+This value is used by Elastic Security for asset management solutions. `event.kind: asset` is not used for normal system events or logs that are coming from an asset/entity, nor is it used for system events or logs coming from a directory or CMDB system.
 
 
 
@@ -132,6 +147,7 @@ This field is an array. This will allow proper categorization of some events tha
 
 *Allowed Values*
 
+* <<ecs-event-category-api,api>>
 * <<ecs-event-category-authentication,authentication>>
 * <<ecs-event-category-configuration,configuration>>
 * <<ecs-event-category-database,database>>
@@ -141,6 +157,7 @@ This field is an array. This will allow proper categorization of some events tha
 * <<ecs-event-category-host,host>>
 * <<ecs-event-category-iam,iam>>
 * <<ecs-event-category-intrusion_detection,intrusion_detection>>
+* <<ecs-event-category-library,library>>
 * <<ecs-event-category-malware,malware>>
 * <<ecs-event-category-network,network>>
 * <<ecs-event-category-package,package>>
@@ -148,7 +165,20 @@ This field is an array. This will allow proper categorization of some events tha
 * <<ecs-event-category-registry,registry>>
 * <<ecs-event-category-session,session>>
 * <<ecs-event-category-threat,threat>>
+* <<ecs-event-category-vulnerability,vulnerability>>
 * <<ecs-event-category-web,web>>
+
+[float]
+[[ecs-event-category-api]]
+==== api
+
+Events in this category annotate API calls that occured on a system. Typical sources for those events could be from the Operating System level through the native libraries (for example Windows Win32, Linux libc, etc.), or managed sources of events (such as ETW, syslog), but can also include network protocols (such as SOAP, RPC, Websocket, REST, etc.)
+
+
+*Expected event types for category api:*
+
+access, admin, allowed, change, creation, deletion, denied, end, info, start, user
+
 
 [float]
 [[ecs-event-category-authentication]]
@@ -225,7 +255,7 @@ Relating to a set of information that has been created on, or has existed on a f
 
 *Expected event types for category file:*
 
-change, creation, deletion, info
+access, change, creation, deletion, info
 
 
 [float]
@@ -266,6 +296,18 @@ Relating to intrusion detections from IDS/IPS systems and functions, both networ
 *Expected event types for category intrusion_detection:*
 
 allowed, denied, info
+
+
+[float]
+[[ecs-event-category-library]]
+==== library
+
+Events in this category refer to the loading of a library, such as (dll / so / dynlib), into a process. Use this category to visualize and analyze library loading related activity on hosts.  Keep in mind that driver related activity will be captured under the "driver" category above.
+
+
+*Expected event types for category library:*
+
+start
 
 
 [float]
@@ -350,6 +392,18 @@ Use this category to visualize and analyze events describing threat actors' targ
 *Expected event types for category threat:*
 
 indicator
+
+
+[float]
+[[ecs-event-category-vulnerability]]
+==== vulnerability
+
+Relating to vulnerability scan results. Use this category to analyze vulnerabilities detected by Tenable, Qualys, internal scanners, and other vulnerability management sources.
+
+
+*Expected event types for category vulnerability:*
+
+info
 
 
 [float]

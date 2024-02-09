@@ -16,6 +16,10 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+
 #### Improvements
 
 #### Deprecated
@@ -29,62 +33,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-#### Deprecated
-
-## 8.5.0 (Soft Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Adding `risk.*` fields as experimental. #1994, #2010
-
-#### Improvements
-
-* Advances `threat.enrichments.indicator` to GA. #1928
-* Added `ios` and `android` as valid values for `os.type` #1999
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-* Added Deprecation Warning for `misspell` task #1993
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
-## 8.4.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Initial set of `expected_values`. #1962
-* Adding `service.node.roles`. #1981
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Added
-
-* Introduce `expected_values` attribute. #1952
-
-#### Improvements
-
-* Additional type annotations. #1950
 
 #### Deprecated
 

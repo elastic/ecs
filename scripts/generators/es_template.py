@@ -66,7 +66,7 @@ def all_component_templates(
     component_dir: str = join(out_dir, 'elasticsearch/composable/component')
     ecs_helpers.make_dirs(component_dir)
 
-    for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
+    for (fieldset_name, fieldset) in ecs_helpers.remove_top_level_reusable_false(ecs_nested).items():
         field_mappings = {}
         for (flat_name, field) in fieldset['fields'].items():
             name_parts = flat_name.split('.')
@@ -109,17 +109,6 @@ def component_name_convention(
     for (fieldset_name, fieldset) in candidate_components(ecs_nested).items():
         names.append("{}_{}_{}".format(ecs_component_name_prefix, version, fieldset_name.lower()))
     return names
-
-
-def candidate_components(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
-    """Returns same structure as ecs_nested, but skips all field sets with reusable.top_level: False"""
-    components: Dict[str, FieldNestedEntry] = {}
-    for (fieldset_name, fieldset) in ecs_nested.items():
-        if fieldset.get('reusable', None):
-            if not fieldset['reusable']['top_level']:
-                continue
-        components[fieldset_name] = fieldset
-    return components
 
 
 # Legacy template
@@ -193,7 +182,7 @@ def entry_for(field: Field) -> Dict:
         elif 'index' in field and not field['index']:
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['index', 'doc_values'])
 
-        if field['type'] == 'keyword':
+        if field['type'] == 'keyword' or field['type'] == 'flattened':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
         elif field['type'] == 'constant_keyword':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['value'])
@@ -213,7 +202,12 @@ def entry_for(field: Field) -> Dict:
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['normalizer', 'ignore_above'])
                 elif mf_type == 'text':
                     ecs_helpers.dict_copy_existing_keys(mf, mf_entry, ['norms', 'analyzer'])
+                if 'parameters' in mf:
+                    mf_entry.update(mf['parameters'])
                 field_entry['fields'][mf['name']] = mf_entry
+
+        if 'parameters' in field:
+            field_entry.update(field['parameters'])
 
     except KeyError as ex:
         print("Exception {} occurred for field {}".format(ex, field))
