@@ -99,19 +99,10 @@ Please follow these guidelines when submitting Issues:
 
 ## Feature freezes and branching
 
-ECS follows a two-stage feature freeze approach using the concepts of Soft Feature Freezes (SFF) and Hard Feature Freezes (HFF).
+For an upcoming release, ECS uses a feature freeze (FF) approach. A release branch is cut from `main` for an upcoming
+release. When a branch is frozen, changes are limited to bug fixes or doc updates.
 
-Once a branch enters SFF, only minor and low-impact features can be added. The ECS team will rely on the “scope of impact” assessment in the ECS RFC process to help assess the potential impact of a proposed change.
-
-When a branch enters HFF, from that point onward all new features of any size must be contributed to the next ECS version.
-
-For people contributing to the ECS repo, this change means there are two branches at any given time that are accepting at least some sort of feature changes. Here's an example using ECS 8.1:
-
-| Branch | Version | Change scope |
-| ------ | ------- | ------------ |
-| `main`  | 8.2    | Any enhancements or otherwise |
-| `8.1`   | 8.1    | SFF: Can have low impact enhancements |
-| `8.0`   | 8.0    | HFF: Only bug fixes, tooling, docs, etc |
+Any schema changes or tooling updates will be merged into `main` for the next ECS version.
 
 ### Changelogs
 
@@ -221,6 +212,12 @@ def page_field_index(intermediate_nested, ecs_version):
 The [schemas](schemas) directory contains the files which define the Elastic Common Schema data model. The file structure is documented in [schemas/README.md](schemas). Field additions and modifications will be made to the `schemas/*.yml` files.
 
 Users consuming ECS to generate something for other use cases should use the `generated/ecs/*.yml` files. More detail can be found [here](generated/README.md).
+
+### Subset Files
+
+The [schemas/subsets](schemas/subsets/) directory contains the configuration to control advanced field nesting use cases.
+The config is used with the `--subset` option to control which field sets or specific fields appear in the final generated
+artifacts.
 
 ## Additional Resources
 
