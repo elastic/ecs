@@ -80,8 +80,8 @@ def main() -> None:
         exit()
 
     csv_generator.generate(flat, ecs_generated_version, out_dir)
-    es_template.generate(nested, ecs_generated_version, args.component_name_prefix, out_dir,
-                         args.mapping_settings, args.template_settings)
+    es_template.generate(nested, ecs_generated_version, out_dir,
+                         args.mapping_settings, args.template_settings,ecs_component_name_prefix=args.component_name_prefix)
     es_template.generate_legacy(flat, ecs_generated_version, out_dir,
                                 args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)

@@ -38,10 +38,10 @@ from _types import (
 def generate(
     ecs_nested: Dict[str, FieldNestedEntry],
     ecs_version: str,
-    ecs_component_name_prefix: str,
     out_dir: str,
     mapping_settings_file: str,
-    template_settings_file: str
+    template_settings_file: str,
+    ecs_component_name_prefix: str = "ecs"
 ) -> None:
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
