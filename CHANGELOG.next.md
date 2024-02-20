@@ -21,6 +21,10 @@ Thanks, you're awesome :-) -->
 * Advanced `process.io` and `process.tty` fields to GA. #2317
 
 #### Improvements
+* Allow ECS from any directory #2019
+* Added ability to specify a prefix for es_templates #2019
+* Allow projects to create their own ACSIIDOC templates #2019
+
 
 #### Deprecated
 
