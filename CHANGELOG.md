@@ -3,6 +3,41 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.11.0](https://github.com/elastic/ecs/compare/v8.10.0...v8.11.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Remove `expected_values` from `threat.*.indicator.name` fields. #2281
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Respect reusable.top_level in Beats generator #2278
+
+## [8.10.0](https://github.com/elastic/ecs/compare/v8.9.0...v8.10.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
+* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
+* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
+
+#### Improvements
+
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Improved documentation formatting to better follow the contributing guide. #2226
+* Bump `gitpython` dependency from 3.1.30 to 3.1.35 for security fixes. #2251, #2264, #2265
+
 ## [8.9.0](https://github.com/elastic/ecs/compare/v8.8.0...v8.9.0)
 
 ### Schema Changes

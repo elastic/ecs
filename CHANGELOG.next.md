@@ -16,6 +16,10 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+
 #### Improvements
 
 #### Deprecated
@@ -31,23 +35,6 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
-
-## 8.10.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
-* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
-* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
-
-#### Improvements
-* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
-
-### Tooling and Artifact Changes
-
-#### Improvements
-* Improved documentation formatting to better follow the contributing guide. #2226
 
 <!-- All empty sections:
 

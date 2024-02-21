@@ -18,64 +18,73 @@
 - name: volume
   title: Volume
   group: 2
-  short: Fields relevant to storage volumes.
   description: >
-    Fields that describe the storage volumes.
+    Fields related to storage volume details.
+  beta: >
+    These fields are beta and are subject to change.
   type: group
-  fields:          
+  fields:
     - name: mount_name
       level: extended
       type: keyword
+      short: Mount name of the volume.
       description: >
         Mount name of the volume device.
-        The field is relevant to Posix only.
- 
+
+        Only populate this field for POSIX system volumes.
+
     - name: device_name
       level: extended
       type: keyword
+      short: Device name of the volume.
       description: >
-        Full path of the device.
-        The field is relevant to Posix only.
+        Full path of the volume device.
+
+        Only populate this field for POSIX system volumes.
 
     - name: dos_name
       level: extended
       type: keyword
       short: DOS name of the device.
       description: >
-        DOS name of the device.
-        DOS device name is in the format of driver letters such as C:, D:,...
-        The field is relevant to Windows only.
+        The MS-DOS name of a device.
+
+        DOS device name is in the format of driver letters, such as `C:`. The
+        field is relevant to Windows systems only.
+      example: "E:"
 
     - name: nt_name
       level: extended
       type: keyword
       short: NT name of the device.
       description: >
-        NT name of the device.
-        NT device name is in the format such as:
-        \Device\HarddiskVolume2
-        The field is relevant to Windows only.
+        The NT device name.
+
+        NT device name uses a format of `\Device\HarddiskVolume2`. The
+        field is relevant to Windows systems only.
+      example: \Device\Cdrom1
 
     - name: bus_type
       level: extended
       type: keyword
       short: Bus type of the device.
       description: >
-        Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+        Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.
+      example: "FileBackedVirtual"
 
     - name: writable
       level: extended
       type: boolean
       description: >
-        This field indicates if the volume is writable.
+        Indicates if the volume is writable.
 
     - name: default_access
       level: extended
       type: keyword
       short: Bus type of the device.
       description: >
-        A string to describe the default access(es) of the volume.
-        
+        Describes the default access(es) of the volume.
+
     - name: file_system_type
       level: extended
       type: keyword
@@ -83,43 +92,54 @@
       description: >
         Volume device file system type.
 
-        Following are examples of the most frequently seen volume device file system types:
-        NTFS
-        UDF
+        The most common volume file system types are `NTFS` and `UDF`.
 
     - name: product_id
       level: extended
       type: keyword
       short: ProductID of the device.
       description: >
-        ProductID of the device. It is provided by the vendor of the device if any.
-        
+        ProductID of the device.
+
+        The vendor provides the ProductID for the volume, if any.
+
     - name: product_name
       level: extended
       type: keyword
+      short: Produce name of the volume.
       description: >
-        Product name of the volume device. It is provided by the vendor of the device.
+        Product name of the volume.
+
+        The volume device vendor provides this value.
+      example: "Virtual DVD-ROM"
 
     - name: vendor_id
       level: extended
       type: keyword
       short: VendorID of the device.
       description: >
-        VendorID of the device. It is provided by the vendor of the device.
+        VendorID of the volume device.
+
+        The volume device vendor provides this value.
 
     - name: vendor_name
       level: extended
       type: keyword
       short: Vendor name of the device.
       description: >
-        Vendor name of the volume device. It is provided by the vendor of the device.
+        Vendor name of the volume device.
+
+        The value is provided by the vendor of the device.
+      example: "Msft"
 
     - name: serial_number
       level: extended
       type: keyword
-      short: Serial Number of the device.
+      short: Serial number of the device.
       description: >
-        Serial Number of the device. It is provided by the vendor of the device if any.
+        Serial number identifier for the volume device.
+
+        The serial number is provided by the vendor of the device, if any.
 
     - name: device_type
       level: extended
@@ -128,9 +148,9 @@
       description: >
         Volume device type.
 
-        Following are examples of the most frequently seen volume device types:
-        Disk File System
-        CD-ROM File System
+        The most frequently seen volume device types are `Disk File System` and
+        `CD-ROM File System`.
+      example: "CD-ROM File System"
 
     - name: size
       level: extended
@@ -142,4 +162,4 @@
       level: extended
       type: boolean
       description: >
-        This field indicates if the volume is removable.
+        Indicates if the volume is removable.

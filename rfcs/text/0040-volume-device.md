@@ -1,8 +1,8 @@
 # 0040: Volume device
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2023-07-27** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **3 (finished)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2023-12-12** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -28,8 +28,9 @@ This RFC propose adding the volume device fieldset to describe volume storage de
  * volume.vendor_id
  * volume.vendor_name
  * volume.serial_number
- * volume.volume_device_type
+ * volume.device_type
  * volume.size
+ * volume.removable
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -80,7 +81,7 @@ Details of the proposed fields:
         The field is relevant to Windows only.
 
     - name: nt_name
-      level: custom
+      level: extended
       type: keyword
       short: NT name of the device.
       description: >
@@ -110,7 +111,7 @@ Details of the proposed fields:
         A string to describe the default access(es) of the volume.
 
     - name: file_system_type
-      level: custom
+      level: extended
       type: keyword
       short: Volume device file system type.
       description: >
@@ -121,7 +122,7 @@ Details of the proposed fields:
         UDF
 
     - name: product_id
-      level: custom
+      level: extended
       type: keyword
       short: ProductID of the device.
       description: >
@@ -134,28 +135,28 @@ Details of the proposed fields:
         Product name of the volume device. It is provided by the vendor of the device.
 
     - name: vendor_id
-      level: custom
+      level: extended
       type: keyword
       short: VendorID of the device.
       description: >
         VendorID of the device. It is provided by the vendor of the device.
 
     - name: vendor_name
-      level: custom
+      level: extended
       type: keyword
       short: Vendor name of the device.
       description: >
         Vendor name of the volume device. It is provided by the vendor of the device.
 
     - name: serial_number
-      level: custom
+      level: extended
       type: keyword
       short: Serial Number of the device.
       description: >
         Serial Number of the device. It is provided by the vendor of the device if any.
 
     - name: device_type
-      level: custom
+      level: extended
       type: keyword
       short: Volume device type.
       description: >
@@ -166,10 +167,17 @@ Details of the proposed fields:
         CD-ROM File System
 
     - name: size
-      level: custom
-      type: keyword
+      level: extended
+      type: long
       description: >
         Size of the volume device in bytes.
+
+    - name: removable
+      level: extended
+      type: boolean
+      description: >
+        This field indicates if the volume is removable.
+
 ```
 
 <!--
@@ -187,58 +195,246 @@ These fields can also be used by the products and features to manage such device
 
 ## Source data
 
-The source of this data comes from monitoring a host, a Virtual Machine, or a k8s node.
+The source of this data comes from monitoring a host, or a Virtual Machine.
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+### Volume device event from a host
+
 ```json
 {
-	"@timestamp": "2023-04-05T18:48:25.7435298Z",
-	"agent": {
-		"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa",
-		"type": "endpoint",
-		"version": "8.8.0-SNAPSHOT"
-	},
-	"data_stream": {
-		"dataset": "endpoint.events.volume_device",
-		"namespace": "default",
-		"type": "logs"
-	},
-	"ecs": {
-		"version": "1.11.0"
-	},
-	"elastic": {
-		"agent": {
-			"id": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
-		}
-	},
-	"event": {
-		"action": "attach",
-		"category": [
-			"volume_device"
-		],
-		"created": "2023-04-05T18:48:25.7435298Z",
-		"dataset": "endpoint.events.volume_device",
-		"id": "N0r0JIPXbQR6J+83++++++PP",
-		"kind": "event",
-		"module": "endpoint",
-		"outcome": "unknown",
-		"sequence": 1281,
-		"type": [
-			"attach"
-		]
-	},
-	"message": "Endpoint volume device event",
-	"volume.bus_type": "FileBackedVirtual",
-	"volume.dos_name": "E:",
-	"volume.file_system_type": "UDF",
-	"volume.nt_name": "\\Device\\CdRom1",
-	"volume.product_name": "Virtual DVD-ROM",
-	"volume.vendor_name": "Msft",
-	"volume.serial_number": "12345",
-	"volume.volume_device_type": "CD-ROM File System",
-	"volume.size": 1000,000,000
+    "@timestamp":"2023-10-04T06:04:02.1449425Z",
+    "agent":
+    {
+        "id":"ada69fee-8801-4248-9ea5-acada41cef88",
+        "type":"endpoint",
+        "version":"8.10.0-SNAPSHOT"
+    },
+    "data_stream":
+    {
+        "dataset":"endpoint.events.volume_device",
+        "namespace":"default",
+        "type":"logs"
+    },
+    "ecs":
+    {
+        "version":"1.11.0"
+    },
+    "elastic":
+    {
+        "agent":
+        {
+            "id":"ada69fee-8801-4248-9ea5-acada41cef88"
+        }
+    },
+    "event":
+    {
+        "action":"mount",
+        "category": [
+            "volume_device"
+        ],
+        "created":"2023-10-04T06:04:02.1449425Z",
+        "dataset":"endpoint.events.volume_device",
+        "id":"NFo+FezAt1+c7ZVs++++++Lm",
+        "kind":"event",
+        "module":"endpoint",
+        "outcome":"success",
+        "sequence":1656,
+        "type": [
+            "start"
+        ]
+    },
+    "host":
+    {
+        "architecture":"x86_64",
+        "hostname":"win11-laptop",
+        "id":"01d52cf8-1917-4fab-8317-100076ab9aab",
+        "ip":
+        [
+            "192.168.2.3","127.0.0.1","::1"
+        ],
+        "mac": [
+            "00-0a-9d-b2-55-61"
+        ],
+        "name":"win11-laptop",
+        "os":
+        {
+            "Ext":
+            {
+                "variant":"Windows 11 Pro"
+            },
+            "family":"windows",
+            "full":"Windows 11 Pro 22H2 (10.0.22621.2134)",
+            "kernel":"22H2 (10.0.22621.2134)",
+            "name":"Windows",
+            "platform":"windows",
+            "type":"windows",
+            "version":"22H2 (10.0.22621.2134)"
+        }
+    },
+    "message":"Endpoint volume device event",
+    "process":
+    {
+        "Ext":
+        {
+            "code_signature": [
+                {
+                    "exists":true,
+                    "status":"trusted",
+                    "subject_name":"Microsoft Windows",
+                    "trusted":true
+                }
+            ]
+        },
+        "code_signature":
+        {
+            "exists":true,
+            "status":"trusted",
+            "subject_name":"Microsoft Windows",
+            "trusted":true
+        },
+        "entity_id":"MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTcwMDAtMTY5NjA4NDk2My40MjAxMDc1MDA=",
+        "executable":"C:\\Windows\\explorer.exe",
+        "name":"explorer.exe",
+        "pid":7000
+    },
+    "user":
+    {
+        "domain":"win11-laptop",
+        "id":"S-1-5-21-3464081356-168676461-1647206113-1001",
+        "name":"john doe"
+    },
+    "volume":
+    {
+        "bus_type":"FileBackedVirtual",
+        "device_type":"CD-ROM File System",
+        "dos_name":"E:",
+        "file_system_type":"UDF",
+        "nt_name":"\\Device\\CdRom1",
+        "product_name":"Virtual DVD-ROM",
+        "serial_number":"",
+        "vendor_name":"Msft",
+        "size": 1439744,
+        "removable": true,
+        "writable": false
+    }
+}
+```
+
+### Volume device event from an AWS EC2 instance:
+
+```
+{
+    "@timestamp": "2023-10-03T09:11:44.7139082Z",
+    "agent": {
+        "id": "01010101-0101-0101-0101-010101010101",
+        "type": "endpoint",
+        "version": "8.11.0-SNAPSHOT"
+    },
+    "data_stream": {
+        "dataset": "endpoint.events.volume_device",
+        "namespace": "default",
+        "type": "logs"
+    },
+    "ecs": {
+        "version": "1.11.0"
+    },
+    "elastic": {
+        "agent": {
+            "id": "01010101-0101-0101-0101-010101010101"
+        }
+    },
+    "event": {
+        "action": "mount",
+        "category": [
+            "volume_device"
+        ],
+        "created": "2023-10-03T09:11:44.7139082Z",
+        "dataset": "endpoint.events.volume_device",
+        "id": "NFjOC63JOYrK5sD+++++++hN",
+        "kind": "event",
+        "module": "endpoint",
+        "outcome": "success",
+        "sequence": 1859,
+        "type": [
+            "start"
+        ]
+    },
+    "host": {
+        "architecture": "x86_64",
+        "hostname": "ec2amaz-9c327o5",
+        "id": "00000000-0000-0000-0000-000000000000",
+        "ip": [
+            "172.31.0.74",
+            "fe80::be8c:c386:ee1d:7361",
+            "127.0.0.1",
+            "::1"
+        ],
+        "mac": [
+            "02-86-18-1a-ff-5b"
+        ],
+        "name": "ec2amaz-9c327o5",
+        "os": {
+            "Ext": {
+                "variant": "Windows Server 2022 Datacenter"
+            },
+            "family": "windows",
+            "full": "Windows Server 2022 Datacenter 21H2 (10.0.20348.1970)",
+            "kernel": "21H2 (10.0.20348.1970)",
+            "name": "Windows",
+            "platform": "windows",
+            "type": "windows",
+            "version": "21H2 (10.0.20348.1970)"
+        }
+    },
+    "message": "Endpoint volume device event",
+    "process": {
+        "Ext": {
+            "ancestry": [
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTg4MC0xNjk2MzIwNDUzLjgxMjk5NTEwMA==",
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTc3Mi0xNjk2MzIwNDUyLjc3NjA4MTUwMA==",
+                "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTY2MC0xNjk2MzIwNDUyLjUwMDIxMzQwMA=="
+            ],
+            "code_signature": [
+                {
+                    "exists": true,
+                    "status": "trusted",
+                    "subject_name": "Microsoft Windows",
+                    "trusted": true
+                }
+            ]
+        },
+        "code_signature": {
+            "exists": true,
+            "status": "trusted",
+            "subject_name": "Microsoft Windows",
+            "trusted": true
+        },
+        "entity_id": "MDEwMTAxMDEtMDEwMS0wMTAxLTAxMDEtMDEwMTAxMDEwMTAxLTU5NTItMTY5NjMyNDMwMS44NjM1NzI0MDA=",
+        "executable": "C:\\Windows\\System32\\dllhost.exe",
+        "name": "dllhost.exe",
+        "pid": 5952
+    },
+    "user": {
+        "domain": "EC2AMAZ-9C327O5",
+        "id": "S-1-5-21-1707753557-122306462-275618382-500",
+        "name": "Administrator"
+    },
+    "volume": {
+        "bus_type": "Ssa",
+        "device_type": "CD-ROM File System",
+        "dos_name": "D:",
+        "file_system_type": "UDF",
+        "nt_name": "\\Device\\CdRom1",
+        "product_name": "Virtual DVD-ROM",
+        "size": 1511424,
+        "serial_number": "",
+        "vendor_name": "Msft",
+        "removable": true,
+        "writable": false
+    }
 }
 ```
 
@@ -259,6 +455,10 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
+As this RFC involves the creation of an entirely new fieldset, no breaking
+changes are envisaged. Some existing tooling might need updates to factor in the
+new fieldset's availability, however.
+
 
 ## Concerns
 
@@ -279,9 +479,10 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
- * @Trinity2019    | author
- * @ricardoungureanu| reviewer
- * @stanek-michal  | reviewer
+ * @Trinity2019      | author, sponsor
+ * @ricardoungureanu | reviewer
+ * @stanek-michal    | reviewer
+ * @intxgo           | reviewer
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -309,6 +510,10 @@ https://github.com/microsoft/mdatp-devicecontrol/blob/main/Removable%20Storage%2
 * Stage 0: https://github.com/elastic/ecs/pull/2201
 
 * Stage 1: https://github.com/elastic/ecs/pull/2229
+
+* Stage 2: https://github.com/elastic/ecs/pull/2260
+
+* Stage 3: https://github.com/elastic/ecs/pull/2279
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
