@@ -1,8 +1,8 @@
 # 0041: Asset Integration
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2023-07-07** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2024-02-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -26,7 +26,7 @@ This proposal includes the following:
 * Additional fields in the `users` and `os` objects.
 * Introduces a new field set called `assets`.
 <!-- * Additional fields in the `host` object --->
-* Fields required for storing host and user metadata as the Elastic Security entity store/ index. 
+* Fields required for storing host and user metadata as the Elastic Security entity store/ index.
 
 We will create new enhancement RFCs to extend these schemas as needed.
 
@@ -76,7 +76,7 @@ user.account.status.deprovisioned	| boolean |	true/ false	| A flag indicating if
 user.account.password_change_date	| date |	June 5, 2023 @ 18:25:57.000	| Last date/time when account password was updated
 
 **Update:**
-Updated proposal to redact the below field. ECS guidance is to reuse existing organization.* fields instead 
+Updated proposal to redact the below field. ECS guidance is to reuse existing organization.* fields instead
 
 > user.profile.organization	| keyword |	Elasticsearch Inc.	| Organization name associated with the account.
 
@@ -234,7 +234,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
-### Examples of Real-world mapping: 
+### Examples of Real-world mapping:
 
 #### Mapping User object from Okta into ECS (partial):
 ```yml
@@ -705,7 +705,7 @@ processors:
 
 ```
 
- 
+
 #### AzureAD Hosts
 
 
@@ -775,7 +775,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2215
-* Stage 1: https://github.com/elastic/ecs/pull/2233
+* Stage 2: https://github.com/elastic/ecs/pull/2233
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
