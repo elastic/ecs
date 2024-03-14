@@ -17,6 +17,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
 
 #### Improvements
 
