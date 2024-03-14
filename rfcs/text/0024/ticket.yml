@@ -1,0 +1,127 @@
+---
+- name: ticket
+  group: 2
+  title: Ticket
+  short: Fields describing details of a ticket.
+  description: >
+    A ticket is defined as a documented record of any form of request or reported issue.
+    Tickets can be associated with hardware, software, access, procurement, etc. requests.
+    They can also be associated with ITIL /ITSM support processes
+    Ticket fields provide key basic details about the ticket itself.
+  footnote: >
+    Ticket types include, but are not limited to:
+    Alarm, Event, Incident, Problem, Case, Bug, Feature Request, Task, Epic, User Story,
+    Knowledge Article, Change Request, etc.
+  type: group
+
+  fields:
+
+    - name: assignee
+      level: extended
+      type: keyword
+      short: Assigned to name
+      description: >
+        Name of the person or group with whom the ticket is currently assigned.
+      example: Sector_7-G_Safety_Desk
+
+    - name: created
+      level: core
+      type: date
+      short: Timestamp the ticket was created
+      description: >
+        Timestamp the ticket was created.
+      example: 2021-03-09T17:05:23.773Z
+
+    - name: description
+      level: core
+      type: text
+      short: Long description of the ticket
+      description: >
+        Long description / body of the ticket.  Typically contains all details and
+        specifics of the ticket.
+      example: >
+        A fiber cut has occurred in Springfield due to a down telephone pole.  All internet and
+        IP related services are down diddly offline. Customer call in-rates are elevated.
+
+    - name: id
+      level: core
+      type: keyword
+      short: Ticket id
+      description: >
+        Numeric or alphanumeric unique identifier of the ticket; typically a ticket number or record ID.
+      example: REQ-1234
+
+    - name: priority
+      level: extended
+      type: keyword
+      short: Priority of the ticket
+      description: >
+        Numeric or alphanumeric priority value assigned to the ticket.
+      example: P1
+
+    - name: requester
+      level: extended
+      type: keyword
+      short: Name of person or group whom the request is for
+      description: >
+        The name of the person or group that is making the request.  Can be different than the
+        person or group who submitted the ticket.
+      example: jdoe1234
+
+    - name: severity
+      level: extended
+      type: keyword
+      short: Severity of the ticket
+      description: >
+        Numeric or alphanumeric severity value assigned to the ticket.
+      example: 2 - High
+
+    - name: source
+      level: core
+      type: keyword
+      short: Name of source system of the ticket
+      description: >
+        Name of the source system where the original ticket record is stored.
+      example: Jira
+
+    - name: state
+      level: extended
+      type: keyword
+      short: Current state of the ticket
+      description: >
+        Currently assigned state for the ticket.  May or may not be the same as ticket status.
+      example: In-Progress
+
+    - name: submitter
+      level: core
+      type: keyword
+      short: Name of person or group whom submitted the ticket
+      description: >
+        The name of the person or group that submitted the request.  Can be different than the
+        person or group that is the requester of the ticket.
+      example: Jane Doe
+
+    - name: summary
+      level: core
+      type: text
+      short: Short description of the ticket
+      description: >
+        Short description, title, or summary of the ticket.  Typically, a brief overview.
+      example: >
+        Fiber cut in Springfield - internet service down
+
+    - name: type
+      level: core
+      type: keyword
+      short: Type of ticket
+      description: >
+        The type categorization of the ticket.
+      example: Change
+
+    - name: updated
+      level: core
+      type: date
+      short: Timestamp the ticket was updated or changed by this event
+      description: >
+        Timestamp the ticket was updated.
+      example: 2021-06-11T14:38:16.645Z
