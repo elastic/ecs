@@ -286,6 +286,18 @@ class TestGeneratorsEsTemplate(unittest.TestCase):
         exp = ["ecs_{}_acme".format(version)]
         self.assertEqual(es_template.component_name_convention(version, test_map), exp)
 
+    def test_component_composable_template_name_with_custom_prefix(self):
+        version = "1.8"
+        prefix="custom"
+        test_map = {
+            "Acme": {
+                "name": "Acme",
+            }
+        }
+
+        exp = ["{}_{}_acme".format(prefix,version)]
+        self.assertEqual(es_template.component_name_convention(version, test_map,prefix), exp)
+
     def test_legacy_template_settings_override(self):
         ecs_version = 100
         default = es_template.default_legacy_template_settings(ecs_version)
