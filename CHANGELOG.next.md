@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+Updated description for 'syslog.severity.name' to clarify that the type is text-based. #2290
+
 #### Added
 
 * Added `volume.*` as beta field set. #2269
@@ -33,6 +35,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+
 
 #### Deprecated
 
