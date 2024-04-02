@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix broken link in docs for vulnerability.id. #2327
+
 #### Added
 
 * Added `volume.*` as beta field set. #2269
