@@ -13,6 +13,7 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+* Fix broken link in docs for vulnerability.id. #2327
 
 #### Added
 
