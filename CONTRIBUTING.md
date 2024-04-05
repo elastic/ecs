@@ -26,7 +26,7 @@ ECS is an open source project and we love to receive contributions from our comm
 
 ## How to contribute
 
-## ECS Donation to OpenTelemetry
+## ECS donation to OpenTelemetry
 In April 2023, OpenTelemetry and Elastic made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/). In this announcement Elastic
 shared its intention to achieve convergence of ECS and OTel Semantic Conventions into a single standard maintained
 by OpenTelemetry.
@@ -38,6 +38,15 @@ features for Elastic that rely on continued contributions to the schemas that dr
 
 For these reasons, we need a process and guidelines for contributing to these data schemas during this period that
 allows us to avoid breaking changes.
+
+### ECS releases during the donation to OpenTelemetry
+Historically, ECS has shipped a new version with every minor release of the Elastic stack. While the schema is
+effectively frozen during the Otel donation period, this approach has been halted.
+
+Moving forward, we will release ECS at the team's discretion as new material changes to the schema are adopted.
+
+While the decision to release will be discretionary, any release will still coincide with a minor Elastic stack release;
+however, not every minor version will warrant a new release of the stack.
 
 ### How to contribute during OTel donation of ECS
 
