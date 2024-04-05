@@ -34,6 +34,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
+
 #### Improvements
 
 #### Deprecated
