@@ -12,6 +12,7 @@ Feel free to remove these comments as you go along.
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
+This RFC proposes to expand the vulnerability fieldset to include more fields, the proposal takes into consideration various customer feedbacks provided to Security integration team, inputs from Infosec team managing vulnerabilities across Elastic and other companies. This will benefit our customers and internal product teams to provide more effective vulnerability management experience to end user. to come up with the list of fields, extensive research was done across various Vulnerability management products and schemas like OSV. It is a continuation of one of the previous RFC on similar topic- https://github.com/elastic/ecs/issues/1685
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -22,6 +23,37 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 -->
 
 ## Fields
+The `vulnerabilities` fields being proposed are as follows:
+
+Field | Type | Description /Use Case
+vulnerability.vendor.id | keyword | A vulnerability doesn't have necessary a CVE associated with it. I don't know if it makes sense to seperate vulnerability ID (like CVEs) to the vendor/detection IDs.
+vulnerability.title	| keyword | Title/Name/Short Description for vulnerability, to be used in flyout and dashboards.
+vulnerability.mitigation | text | Explains user how to fix or mitigate the problem, could be usefd to store resolution from the scanner vendor or document mitigation in place
+vulnerability.published	| date | The “published” field indicates the date when information about a specific vulnerability was publicly disclosed or made available.It represents the moment when details about the vulnerability were shared with the security community, vendors, and the public.This field helps security professionals track the timeline of vulnerability awareness.Example value: If a critical vulnerability (e.g., CVE-2024-1234) affecting a widely used software is disclosed on February 1, 2024, the published date for that CVE would be February 1, 2024.
+vulnerability.patch.* | object
+vulnerability.patch.exists | boolean | The “patch” field refers to whether a security fix or update (commonly known as a patch) is available to address the identified vulnerability. It indicates whether the software vendor or developer has released a solution to mitigate the vulnerability.
+vulnerability.patch.name | text | Name of the patch
+vulnerability.patch.code | keyword | Associated patch code for example ESA-2020-13
+vulnerability.evidence	| text | A demonstration of the validity of a vulnerability claim, e.g. app.any.run replaying the exploitation of the vulnerability.
+vulnerability.status | keyword | The status field helps security teams track vulnerabilities, prioritize actions, and communicate their progress effectively
+vulnerability.tags	| keyword | This is different from cloud provider assigned resource tags, this is specifically for vulnerability. Vulnerability tags serve as a way to add custom metadata to vulnerabilities, enhancing their context and aiding in search and automation. 
+vulnerability.firstfound	| date | First time a vulnerability was found on the asset
+vulnerability.lastfound	| date | Last time a vulnerability was found on the asset.
+vulnerability.lastscanned	date | Last time a scan was performed on the asset. It's important as some companies are scanning on a quarterly basis. If lastfound and lastscanned are close, it means it's still an active vulnerability. 
+vulnerability.age	| date | Numbers of days since the vulnerability is active. It should be dynamically calculated (runtime fields, ingest, ...). It could either be then difference between the lastfound date and the published date (preferred). It could also be the difference between the firstfound and lastfound dates. 
+vulnerability.uid	| keyword | It's extremely import to be able to deduplicate different scans. It's often that we have different scanners showing the same vulnerability on the same asset. 
+vulnerability.type	| keyword | To conclude it the vulnerability is confirmed or potential
+vulnerability.exploitability.*	| object
+vulnerability.exploitability.exploited	| boolean | To indicate if the vulnerability has been exploited or not.
+vulnerability.exploitability.reference | keyword	| Exploitability databse for example CSA-KEV
+vulnerability.exploitability.confidence	| keyword | Confidence measure the credibility of existence and exploitability
+vulnerability.exploitability.first_seen	| date | First time of exploitability
+vulnerability.exploitability.last_seen	| date | Last time of exploitability
+vulnerability.affected.* | object | The affected field is a JSON array containing objects that describes the affected package versions, meaning those that contain the vulnerability.
+vulnerability.affected.package | array | Package field is a JSON object identifying the affected code library or command provided by the package. 
+vulnerability.affected.serverity | array | This field applies to a specific package, in cases where affected packages have differing severities for the same vulnerability.
+vulnerability.affected.versions | array | Affected version in whatever version syntax is used by the given package ecosystem.
+
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -79,24 +111,19 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @smriti0321 | author 
+* @tinnytintin10 | Product Manager Cloud Security
+* @oren-zohar | Engineering Manager Cloud Security
+* @orouz | Engineer
+* @clement-fouque | Information Security Analyst
 
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
 
 
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
+previous RFC  - https://github.com/elastic/ecs/issues/1685
+https://ossf.github.io/osv-schema/#affected-fields
 
 ### RFC Pull Requests
 
