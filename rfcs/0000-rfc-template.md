@@ -27,8 +27,8 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 The `rule` fields being proposed are as follows:
 
 Field | Type | Description /Usage
--- | -- | -- | -- | -- 
-rule.tags | array | Used to track the set of tags applied to a rule | Customers can use it to indicate: author, benchmark partial name, rule number, rule category etc. It will be useful when we extend the capability to add more rules
+-- | -- | -- 
+
 rule.remediation | array | Used to capture remediation instructions that come from the benchmark / framework the rule is from 
 
 <!--
@@ -108,7 +108,7 @@ e.g.:
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
-EPIC with detailed discussion on addition of these fields - https://github.com/elastic/security-team/issues/7658
+
 
 ### RFC Pull Requests
 
