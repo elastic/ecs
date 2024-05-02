@@ -12,7 +12,7 @@ The following feelds needs to be considered being added:
 
 ## Fields
 
-#### Proposed New Fields for Process object
+##### Proposed New Fields for Process object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
@@ -20,25 +20,26 @@ platform_binary	| boolean	| true	| Indicates wethether this process executable i
 es_client	| boolean	| true	| Indicates wethether this process executable is an Endpoint Security client.
 thread.uuid	| keyword	| E0470DA-BFD6-5F44-9C25-CD4E3AB81737	| Globally unique identifier that can be utilised to correlate the activity of a thread.
 
-#### Proposed New Fields for Code Signature object
+##### Proposed New Fields for Code Signature object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
 codesigning_flags	| string	| 570522385	| The flags used to sign the process.
 
-#### Proposed New Fields for Hash object
+##### Proposed New Fields for Hash object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
 cdhash	| keyword	| 3783b4052fd474dbe30676b45c329e7a6d44acd9	| The Code Directory (CD) hash of an executable
 
-#### Proposed New Fields for Host object
+##### Proposed New Fields for Host object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
 serial_number	| keyword	| DJGAQS4CW5	| The unique serial number serves as a distinct identifier for each device, aiding in inventory management and device authentication.
 
 ### Motivation
+
 As the number of Apple endpoints in enterprises grows, having the right fields to map data becomes increasingly valuable. This enables security researchers using Elastic, particularly those focusing on macOS, to query data more effectively by leveraging enriched data sets.
 
 ## Usage
@@ -59,7 +60,7 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
-## Scope of impact
+<!--## Scope of impact
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
@@ -69,7 +70,7 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
 
-## Concerns
+<!--## Concerns
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
@@ -110,7 +111,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/2338
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
