@@ -4,44 +4,52 @@
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
+### Summary
+This RFC proposes the addition of Apple platform-specific fields to the ECS schema. This enhancement will enable security software vendors to more accurately map out data, particularly for Apple platforms.
 
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
-<!--
-Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
--->
+The following feelds needs to be considered being added:
 
 ## Fields
 
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+#### Proposed New Fields for Process object
 
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+Field | Type | Example | Description
+--- | --- | --- | ---
+platform_binary	| boolean	| true	| Indicates wethether this process executable is a default platform binary shipped with macOS.
+es_client	| boolean	| true	| Indicates wethether this process executable is an Endpoint Security client.
+thread.uuid	| keyword	| E0470DA-BFD6-5F44-9C25-CD4E3AB81737	| Globally unique identifier that can be utilised to correlate the activity of a thread.
+
+#### Proposed New Fields for Code Signature object
+
+Field | Type | Example | Description
+--- | --- | --- | ---
+codesigning_flags	| string	| 570522385	| The flags used to sign the process.
+
+#### Proposed New Fields for Hash object
+
+Field | Type | Example | Description
+--- | --- | --- | ---
+cdhash	| keyword	| 3783b4052fd474dbe30676b45c329e7a6d44acd9	| The Code Directory (CD) hash of an executable
+
+#### Proposed New Fields for Host object
+
+Field | Type | Example | Description
+--- | --- | --- | ---
+serial_number	| keyword	| DJGAQS4CW5	| The unique serial number serves as a distinct identifier for each device, aiding in inventory management and device authentication.
+
+### Motivation
+As the number of Apple endpoints in enterprises grows, having the right fields to map data becomes increasingly valuable. This enables security researchers using Elastic, particularly those focusing on macOS, to query data more effectively by leveraging enriched data sets.
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+As a developer at Jamf, working on the Elastic integration for Jamf Protect, our goal is to map as many fields as possible, especially as Jamf specializes in Apple platform security. While developing the integration, we've identified some gaps related to mapping events to ECS.
+
+These new fields offer versatile methods. For instance, they facilitate querying process executions by platform binaries or endpoint security clients without requiring specific identifiers. The added hash fields are particularly valuable for tracking the hash of an application bundle alongside the hash of the executable in the directory itself, while the others are self-explanatory.
 
 ## Source data
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+This data originates from Endpoint Security software operating on a macOS host and can be transmitted through various methods, including an Elastic Agent and as example the use of the Jamf Protect integration, which supports AWS S3 or HTTPs.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -79,7 +87,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* txhaflaire | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
