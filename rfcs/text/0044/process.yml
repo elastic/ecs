@@ -1,0 +1,25 @@
+---
+- name: process
+  fields:
+    - name: platform_binary
+      level: extended
+      type: boolean
+      short: Indicates wethether this process executable is a default platform binary shipped with macOS.
+      description: >
+          Binaries that are shipped by macOS are defined as platform binaries, this value is then set to true. 
+      example: true
+
+    - name: es_client
+      level: extended
+      type: boolean
+      short: Indicates wethether this process executable is an Endpoint Security client.
+      description: >
+          Processes that have an endpoint security client must have the com.apple.endpointsecurity entitlement and the value is set to true in the message.
+      example: true
+
+    - name: thread.uuid
+      level: extended
+      type: keyword
+      example: 5E0470DA-BFD6-5F44-9C25-CD4E3AB81737
+      description: >
+        Globally unique identifier that can be utilised to correlate the activity of a thread.
