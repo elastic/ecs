@@ -11595,6 +11595,17 @@
       description: The time zone of the location, such as IANA time zone name.
       example: America/Argentina/Buenos_Aires
       default_field: false
+    - name: indicator.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: "The ID of the indicator used by this threat to conduct behavior\
+        \ commonly modeled using MITRE ATT&CK\xAE. This field can have multiple values\
+        \ to allow for the identification of the same indicator across systems that\
+        \ use different ID formats.\nWhile not required, a common approach is to use\
+        \ a STIX 2.x indicator ID."
+      example: '[indicator--d7008e06-ab86-415a-9803-3c81ce2d3c37]'
+      default_field: false
     - name: indicator.ip
       level: extended
       type: ip
@@ -13586,8 +13597,8 @@
       ignore_above: 1024
       description: The identification (ID) is the number portion of a vulnerability
         entry. It includes a unique identification number for the vulnerability. For
-        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)[Common Vulnerabilities
-        and Exposure CVE ID]
+        example (https://cve.mitre.org/about/faqs.html#what_is_cve_id[Common Vulnerabilities
+        and Exposure CVE ID])
       example: CVE-2019-00001
       default_field: false
     - name: reference
