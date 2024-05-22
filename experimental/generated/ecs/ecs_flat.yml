@@ -2192,7 +2192,7 @@ dll.pe.pehash:
 dll.pe.product:
   dashed_name: dll-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: dll.pe.product
   ignore_above: 1024
   level: extended
@@ -5120,7 +5120,7 @@ file.pe.pehash:
 file.pe.product:
   dashed_name: file-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: file.pe.product
   ignore_above: 1024
   level: extended
@@ -8426,6 +8426,11 @@ process.entry_leader.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.entry_leader.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.entry_leader.executable.text
     name: text
     type: match_only_text
@@ -8487,6 +8492,11 @@ process.entry_leader.name:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.entry_leader.name.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.entry_leader.name.text
     name: text
     type: match_only_text
@@ -8816,9 +8826,9 @@ process.entry_leader.tty.char_device.major:
 process.entry_leader.tty.char_device.minor:
   dashed_name: process-entry-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
-    \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
-    \ to the driver. It is common for a driver to control several devices; the minor\
-    \ number provides a way for the driver to differentiate among them."
+    \ number; other parts of the kernel don\xE2\u20AC\u2122t use it, and merely pass\
+    \ it along to the driver. It is common for a driver to control several devices;\
+    \ the minor number provides a way for the driver to differentiate among them."
   example: 1
   flat_name: process.entry_leader.tty.char_device.minor
   level: extended
@@ -8910,6 +8920,11 @@ process.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.executable.text
     name: text
     type: match_only_text
@@ -9007,6 +9022,11 @@ process.group_leader.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.group_leader.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.group_leader.executable.text
     name: text
     type: match_only_text
@@ -9068,6 +9088,11 @@ process.group_leader.name:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.group_leader.name.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.group_leader.name.text
     name: text
     type: match_only_text
@@ -9279,9 +9304,9 @@ process.group_leader.tty.char_device.major:
 process.group_leader.tty.char_device.minor:
   dashed_name: process-group-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
-    \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
-    \ to the driver. It is common for a driver to control several devices; the minor\
-    \ number provides a way for the driver to differentiate among them."
+    \ number; other parts of the kernel don\xE2\u20AC\u2122t use it, and merely pass\
+    \ it along to the driver. It is common for a driver to control several devices;\
+    \ the minor number provides a way for the driver to differentiate among them."
   example: 1
   flat_name: process.group_leader.tty.char_device.minor
   level: extended
@@ -9757,6 +9782,11 @@ process.name:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.name.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.name.text
     name: text
     type: match_only_text
@@ -10418,6 +10448,11 @@ process.parent.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.parent.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.parent.executable.text
     name: text
     type: match_only_text
@@ -10827,6 +10862,11 @@ process.parent.name:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.parent.name.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.parent.name.text
     name: text
     type: match_only_text
@@ -11043,7 +11083,7 @@ process.parent.pe.pehash:
 process.parent.pe.product:
   dashed_name: process-parent-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: process.parent.pe.product
   ignore_above: 1024
   level: extended
@@ -11380,9 +11420,9 @@ process.parent.tty.char_device.major:
 process.parent.tty.char_device.minor:
   dashed_name: process-parent-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
-    \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
-    \ to the driver. It is common for a driver to control several devices; the minor\
-    \ number provides a way for the driver to differentiate among them."
+    \ number; other parts of the kernel don\xE2\u20AC\u2122t use it, and merely pass\
+    \ it along to the driver. It is common for a driver to control several devices;\
+    \ the minor number provides a way for the driver to differentiate among them."
   example: 1
   flat_name: process.parent.tty.char_device.minor
   level: extended
@@ -11670,7 +11710,7 @@ process.pe.pehash:
 process.pe.product:
   dashed_name: process-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: process.pe.product
   ignore_above: 1024
   level: extended
@@ -11811,6 +11851,11 @@ process.previous.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.previous.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.previous.executable.text
     name: text
     type: match_only_text
@@ -11996,6 +12041,11 @@ process.session_leader.executable:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.session_leader.executable.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.session_leader.executable.text
     name: text
     type: match_only_text
@@ -12057,6 +12107,11 @@ process.session_leader.name:
   ignore_above: 1024
   level: extended
   multi_fields:
+  - flat_name: process.session_leader.name.caseless
+    ignore_above: 1024
+    name: caseless
+    normalizer: lowercase
+    type: keyword
   - flat_name: process.session_leader.name.text
     name: text
     type: match_only_text
@@ -12386,9 +12441,9 @@ process.session_leader.tty.char_device.major:
 process.session_leader.tty.char_device.minor:
   dashed_name: process-session-leader-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
-    \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
-    \ to the driver. It is common for a driver to control several devices; the minor\
-    \ number provides a way for the driver to differentiate among them."
+    \ number; other parts of the kernel don\xE2\u20AC\u2122t use it, and merely pass\
+    \ it along to the driver. It is common for a driver to control several devices;\
+    \ the minor number provides a way for the driver to differentiate among them."
   example: 1
   flat_name: process.session_leader.tty.char_device.minor
   level: extended
@@ -12582,9 +12637,9 @@ process.tty.char_device.major:
 process.tty.char_device.minor:
   dashed_name: process-tty-char-device-minor
   description: "The minor number is used only by the driver specified by the major\
-    \ number; other parts of the kernel don\u2019t use it, and merely pass it along\
-    \ to the driver. It is common for a driver to control several devices; the minor\
-    \ number provides a way for the driver to differentiate among them."
+    \ number; other parts of the kernel don\xE2\u20AC\u2122t use it, and merely pass\
+    \ it along to the driver. It is common for a driver to control several devices;\
+    \ the minor number provides a way for the driver to differentiate among them."
   example: 1
   flat_name: process.tty.char_device.minor
   level: extended
@@ -15663,7 +15718,7 @@ threat.enrichments.indicator.file.pe.pehash:
 threat.enrichments.indicator.file.pe.product:
   dashed_name: threat-enrichments-indicator-file-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: threat.enrichments.indicator.file.pe.product
   ignore_above: 1024
   level: extended
@@ -17157,7 +17212,7 @@ threat.group.alias:
   dashed_name: threat-group-alias
   description: "The alias(es) of the group for a set of related intrusion activity\
     \ that are tracked by a common name in the security community.\nWhile not required,\
-    \ you can use a MITRE ATT&CK\xAE group alias(es)."
+    \ you can use a MITRE ATT&CK\xC2\xAE group alias(es)."
   example: '[ "Magecart Group 6" ]'
   flat_name: threat.group.alias
   ignore_above: 1024
@@ -17171,7 +17226,7 @@ threat.group.id:
   dashed_name: threat-group-id
   description: "The id of the group for a set of related intrusion activity that are\
     \ tracked by a common name in the security community.\nWhile not required, you\
-    \ can use a MITRE ATT&CK\xAE group id."
+    \ can use a MITRE ATT&CK\xC2\xAE group id."
   example: G0037
   flat_name: threat.group.id
   ignore_above: 1024
@@ -17184,7 +17239,7 @@ threat.group.name:
   dashed_name: threat-group-name
   description: "The name of the group for a set of related intrusion activity that\
     \ are tracked by a common name in the security community.\nWhile not required,\
-    \ you can use a MITRE ATT&CK\xAE group name."
+    \ you can use a MITRE ATT&CK\xC2\xAE group name."
   example: FIN6
   flat_name: threat.group.name
   ignore_above: 1024
@@ -17197,7 +17252,7 @@ threat.group.reference:
   dashed_name: threat-group-reference
   description: "The reference URL of the group for a set of related intrusion activity\
     \ that are tracked by a common name in the security community.\nWhile not required,\
-    \ you can use a MITRE ATT&CK\xAE group reference URL."
+    \ you can use a MITRE ATT&CK\xC2\xAE group reference URL."
   example: https://attack.mitre.org/groups/G0037/
   flat_name: threat.group.reference
   ignore_above: 1024
@@ -18373,7 +18428,7 @@ threat.indicator.file.pe.pehash:
 threat.indicator.file.pe.product:
   dashed_name: threat-indicator-file-pe-product
   description: Internal product name of the file, provided at compile-time.
-  example: "Microsoft\xAE Windows\xAE Operating System"
+  example: "Microsoft\xC2\xAE Windows\xC2\xAE Operating System"
   flat_name: threat.indicator.file.pe.product
   ignore_above: 1024
   level: extended
@@ -18963,7 +19018,7 @@ threat.indicator.geo.timezone:
 threat.indicator.id:
   dashed_name: threat-indicator-id
   description: "The ID of the indicator used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE. This field can have multiple values to allow\
+    \ modeled using MITRE ATT&CK\xC2\xAE. This field can have multiple values to allow\
     \ for the identification of the same indicator across systems that use different\
     \ ID formats.\nWhile not required, a common approach is to use a STIX 2.x indicator\
     \ ID."
@@ -19756,7 +19811,7 @@ threat.software.alias:
   dashed_name: threat-software-alias
   description: "The alias(es) of the software for a set of related intrusion activity\
     \ that are tracked by a common name in the security community.\nWhile not required,\
-    \ you can use a MITRE ATT&CK\xAE associated software description."
+    \ you can use a MITRE ATT&CK\xC2\xAE associated software description."
   example: '[ "X-Agent" ]'
   flat_name: threat.software.alias
   ignore_above: 1024
@@ -19769,8 +19824,8 @@ threat.software.alias:
 threat.software.id:
   dashed_name: threat-software-id
   description: "The id of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
-    \ software id."
+    \ modeled using MITRE ATT&CK\xC2\xAE.\nWhile not required, you can use a MITRE\
+    \ ATT&CK\xC2\xAE software id."
   example: S0552
   flat_name: threat.software.id
   ignore_above: 1024
@@ -19782,8 +19837,8 @@ threat.software.id:
 threat.software.name:
   dashed_name: threat-software-name
   description: "The name of the software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
-    \ software name."
+    \ modeled using MITRE ATT&CK\xC2\xAE.\nWhile not required, you can use a MITRE\
+    \ ATT&CK\xC2\xAE software name."
   example: AdFind
   flat_name: threat.software.name
   ignore_above: 1024
@@ -19795,8 +19850,8 @@ threat.software.name:
 threat.software.platforms:
   dashed_name: threat-software-platforms
   description: "The platforms of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use MITRE\
-    \ ATT&CK\xAE software platform values."
+    \ commonly modeled using MITRE ATT&CK\xC2\xAE.\nWhile not required, you can use\
+    \ MITRE ATT&CK\xC2\xAE software platform values."
   example: '[ "Windows" ]'
   expected_values:
   - AWS
@@ -19820,8 +19875,8 @@ threat.software.platforms:
 threat.software.reference:
   dashed_name: threat-software-reference
   description: "The reference URL of the software used by this threat to conduct behavior\
-    \ commonly modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a\
-    \ MITRE ATT&CK\xAE software reference URL."
+    \ commonly modeled using MITRE ATT&CK\xC2\xAE.\nWhile not required, you can use\
+    \ a MITRE ATT&CK\xC2\xAE software reference URL."
   example: https://attack.mitre.org/software/S0552/
   flat_name: threat.software.reference
   ignore_above: 1024
@@ -19833,8 +19888,8 @@ threat.software.reference:
 threat.software.type:
   dashed_name: threat-software-type
   description: "The type of software used by this threat to conduct behavior commonly\
-    \ modeled using MITRE ATT&CK\xAE.\nWhile not required, you can use a MITRE ATT&CK\xAE\
-    \ software type."
+    \ modeled using MITRE ATT&CK\xC2\xAE.\nWhile not required, you can use a MITRE\
+    \ ATT&CK\xC2\xAE software type."
   example: Tool
   expected_values:
   - Malware
@@ -19848,8 +19903,8 @@ threat.software.type:
   type: keyword
 threat.tactic.id:
   dashed_name: threat-tactic-id
-  description: "The id of tactic used by this threat. You can use a MITRE ATT&CK\xAE\
-    \ tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/ )"
+  description: "The id of tactic used by this threat. You can use a MITRE ATT&CK\xC2\
+    \xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/ )"
   example: TA0002
   flat_name: threat.tactic.id
   ignore_above: 1024
@@ -19862,7 +19917,7 @@ threat.tactic.id:
 threat.tactic.name:
   dashed_name: threat-tactic-name
   description: "Name of the type of tactic used by this threat. You can use a MITRE\
-    \ ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/)"
+    \ ATT&CK\xC2\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/)"
   example: Execution
   flat_name: threat.tactic.name
   ignore_above: 1024
@@ -19875,7 +19930,7 @@ threat.tactic.name:
 threat.tactic.reference:
   dashed_name: threat-tactic-reference
   description: "The reference url of tactic used by this threat. You can use a MITRE\
-    \ ATT&CK\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/\
+    \ ATT&CK\xC2\xAE tactic, for example. (ex. https://attack.mitre.org/tactics/TA0002/\
     \ )"
   example: https://attack.mitre.org/tactics/TA0002/
   flat_name: threat.tactic.reference
@@ -19888,8 +19943,8 @@ threat.tactic.reference:
   type: keyword
 threat.technique.id:
   dashed_name: threat-technique-id
-  description: "The id of technique used by this threat. You can use a MITRE ATT&CK\xAE\
-    \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+  description: "The id of technique used by this threat. You can use a MITRE ATT&CK\xC2\
+    \xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
   example: T1059
   flat_name: threat.technique.id
   ignore_above: 1024
@@ -19901,8 +19956,8 @@ threat.technique.id:
   type: keyword
 threat.technique.name:
   dashed_name: threat-technique-name
-  description: "The name of technique used by this threat. You can use a MITRE ATT&CK\xAE\
-    \ technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+  description: "The name of technique used by this threat. You can use a MITRE ATT&CK\xC2\
+    \xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
   example: Command and Scripting Interpreter
   flat_name: threat.technique.name
   ignore_above: 1024
@@ -19919,7 +19974,7 @@ threat.technique.name:
 threat.technique.reference:
   dashed_name: threat-technique-reference
   description: "The reference url of technique used by this threat. You can use a\
-    \ MITRE ATT&CK\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
+    \ MITRE ATT&CK\xC2\xAE technique, for example. (ex. https://attack.mitre.org/techniques/T1059/)"
   example: https://attack.mitre.org/techniques/T1059/
   flat_name: threat.technique.reference
   ignore_above: 1024
@@ -19932,7 +19987,7 @@ threat.technique.reference:
 threat.technique.subtechnique.id:
   dashed_name: threat-technique-subtechnique-id
   description: "The full id of subtechnique used by this threat. You can use a MITRE\
-    \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+    \ ATT&CK\xC2\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
   example: T1059.001
   flat_name: threat.technique.subtechnique.id
   ignore_above: 1024
@@ -19945,7 +20000,7 @@ threat.technique.subtechnique.id:
 threat.technique.subtechnique.name:
   dashed_name: threat-technique-subtechnique-name
   description: "The name of subtechnique used by this threat. You can use a MITRE\
-    \ ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+    \ ATT&CK\xC2\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
   example: PowerShell
   flat_name: threat.technique.subtechnique.name
   ignore_above: 1024
@@ -19962,7 +20017,7 @@ threat.technique.subtechnique.name:
 threat.technique.subtechnique.reference:
   dashed_name: threat-technique-subtechnique-reference
   description: "The reference url of subtechnique used by this threat. You can use\
-    \ a MITRE ATT&CK\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
+    \ a MITRE ATT&CK\xC2\xAE subtechnique, for example. (ex. https://attack.mitre.org/techniques/T1059/001/)"
   example: https://attack.mitre.org/techniques/T1059/001/
   flat_name: threat.technique.subtechnique.reference
   ignore_above: 1024
