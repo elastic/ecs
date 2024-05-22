@@ -6490,9 +6490,9 @@ log.syslog.severity.code:
   description: 'The Syslog numeric severity of the log event, if available.
 
     If the event source publishing via Syslog provides a different numeric severity
-    value (e.g. firewall, IDS), your source''s numeric severity should go to `event.severity`.
-    If the event source does not specify a distinct severity, you can optionally copy
-    the Syslog severity to `event.severity`.'
+    value than defined in RFC 5424 (0-7), your source''s numeric severity should go
+    to `event.severity`. If the event source does not specify a distinct severity,
+    you can optionally copy the Syslog severity to `event.severity`.'
   example: 3
   flat_name: log.syslog.severity.code
   level: extended
@@ -6505,8 +6505,9 @@ log.syslog.severity.name:
   description: 'The Syslog numeric severity of the log event, if available.
 
     If the event source publishing via Syslog provides a different severity value
-    (e.g. firewall, IDS), your source''s text severity should go to `log.level`. If
-    the event source does not specify a distinct severity, you can optionally copy
+    than defined in RFC 5424 (Emergency, Alert, Critical, Error, Warning, Notice,
+    Informational, Debug), your source''s text severity should go to `log.level`.
+    If the event source does not specify a distinct severity, you can optionally copy
     the Syslog severity to `log.level`.'
   example: Error
   flat_name: log.syslog.severity.name

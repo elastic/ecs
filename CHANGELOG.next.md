@@ -25,6 +25,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+Update description of `log.syslog.severity.name` and `log.syslog.severity.code` to list allowed values. #2291
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
