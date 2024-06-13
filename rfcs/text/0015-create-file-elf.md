@@ -1,7 +1,7 @@
 # 0015: Create the ELF sub-field of the File fieldset
 
-- Stage: **2 (candidate)**
-- Date: **2021-05-04**
+- Stage: **3 (candidate)**
+- Date: **2021-12-07**
 
 Create the Executable Linkable Format (ELF) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
 
@@ -236,8 +236,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 1: https://github.com/elastic/ecs/pull/1077
 * Stage 2: https://github.com/elastic/ecs/pull/1294
   * Stage 2 advancement date correction: https://github.com/elastic/ecs/pull/1409
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 3: https://github.com/elastic/ecs/pull/1686
