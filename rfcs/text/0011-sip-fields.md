@@ -1,8 +1,8 @@
 # 0011: SIP Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (proposal)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2020-12-04** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2021-2-08** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -15,112 +15,201 @@ Stage 0: Provide a high level summary of the premise of these changes. Briefly d
 
 ECS SIP Fields provide normalization for fields related to Session Initiation and Session Description Protocols used in IP based real time communications (voice, video, sip based messaging).
 
+Updates from previous version include:
+
+- nesting url fields for sip uris moved to [text](text/0011/) directory
+- corrected rfc number (0011)
+- removed AD reference
+- added Asserted Identities (https://tools.ietf.org/html/rfc3325)
+- revised SDP audio/video breakdowns
+- Built fields to enable nesting
 
 ## Fields
+| **SIP Field**  | **Type**  | **Description**  | **Example**  |
+| ---------------------------------- | ------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **SIP Top level fields**           |         |                                                               |                                                                                  |
+| sip.accept                         | keyword | SIP accept header                                             | application/sdp                                                                  |
+| sip.allow                          | keyword | SIP allow header                                              | REGISTER, INVITE, ACK, BYE                                                       |
+| sip.call\_id                       | keyword | SIP call\_id value                                            | 55112@192.168.1.100                                                              |
+| sip.code                           | keyword | SIP response code                                             | 200                                                                              |
+| sip.content\_length                | integer | Length of SIP message in bytes                                | 32                                                                               |
+| sip.content\_type                  | keyword | SIP message content type                                      | application/sdp                                                                  |
+| sip.cseq.code                      | integer | SIP CSeq Identifier                                           | 68                                                                               |
+| sip.cseq.method                    | keyword | SIP CSeq Request                                              | INVITE                                                                           |
+| sip.max\_forwards                  | integer | SIP maximum forward limit                                     |                                                                                  |
+| sip.method                         | keyword | SIP Request Method                                            | REGISTER                                                                         |
+| sip.status                         | keyword | SIP response message                                          | OK                                                                               |
+| sip.supported                      | keyword | Array of supported SIP extensions                             |                                                                                  |
+| sip.type                           | keyword | SIP Message type                                              | REQUEST                                                                          |
+| sip.url.domain                     | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.url.extension                  | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.url.fragment                   | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.url.full                       | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.url.full.text                  | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.url.original                   | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.url.original.text              | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.url.password                   | keyword | Password of the request.                                      |                                                                                  |
+| sip.url.path                       | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.url.port                       | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.url.query                      | keyword | Query string of the request.                                  |                                                                                  |
+| sip.url.registered\_domain         | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.url.scheme                     | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.url.subdomain                  | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.url.top\_level\_domain         | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.url.username                   | keyword | Username of the request.                                      |                                                                                  |
+| sip.version                        | keyword | SIP Protocol Version                                          | 2                                                                                |
+|                                    |         |                                                               |                                                                                  |
+| **SIP Auth**                       |         |                                                               |                                                                                  |
+| sip.auth.realm                     | keyword | SIP authorization realm realm                                 | sip.mydomain.com                                                                 |
+| sip.auth.scheme                    | keyword | SIP authentication scheme                                     | digest                                                                           |
+| sip.auth.url.domain                | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.auth.url.extension             | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.auth.url.fragment              | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.auth.url.full                  | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.auth.url.full.text             | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.auth.url.original              | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.auth.url.original.text         | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.auth.url.password              | keyword | Password of the request.                                      |                                                                                  |
+| sip.auth.url.path                  | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.auth.url.port                  | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.auth.url.query                 | keyword | Query string of the request.                                  |                                                                                  |
+| sip.auth.url.registered\_domain    | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.auth.url.scheme                | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.auth.url.subdomain             | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.auth.url.top\_level\_domain    | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.auth.url.username              | keyword | Username of the request.                                      |                                                                                  |
+|                                    |         |                                                               |                                                                                  |
+| **SIP Contact**                    |         |                                                               |                                                                                  |
+| sip.contact.display\_name          | keyword | SIP contact display name                                      | John Doe                                                                         |
+| sip.contact.expires                | integer | SIP contact expiration timer                                  | 1800                                                                             |
+| sip.contact.line                   | keyword | Sip contact line value                                        | aca6b97ca3f5e51a                                                                 |
+| sip.contact.q                      | keyword | SIP contact preference                                        | 0.2                                                                              |
+| sip.contact.transport              | keyword | SIP contact transport                                         | udp                                                                              |
+| sip.contact.url.domain             | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.contact.url.extension          | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.contact.url.fragment           | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.contact.url.full               | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.contact.url.full.text          | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.contact.url.original           | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.contact.url.original.text      | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.contact.url.password           | keyword | Password of the request.                                      |                                                                                  |
+| sip.contact.url.path               | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.contact.url.port               | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.contact.url.query              | keyword | Query string of the request.                                  |                                                                                  |
+| sip.contact.url.registered\_domain | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.contact.url.scheme             | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.contact.url.subdomain          | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.contact.url.top\_level\_domain | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.contact.url.username           | keyword | Username of the request.                                      |                                                                                  |
+|                                    |         |                                                               |                                                                                  |
+| **SIP From**                       |         |                                                               |                                                                                  |
+| sip.from.display\_info             | keyword | Source SIP entity alias                                       | John Doe                                                                         |
+| sip.from.tag                       | keyword | SIP source entity tag identifier                              | QvN92t713vSZK                                                                    |
+| sip.from.url.domain                | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.from.url.extension             | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.from.url.fragment              | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.from.url.full                  | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.from.url.full.text             | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.from.url.original              | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.from.url.original.text         | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.from.url.password              | keyword | Password of the request.                                      |                                                                                  |
+| sip.from.url.path                  | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.from.url.port                  | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.from.url.query                 | keyword | Query string of the request.                                  |                                                                                  |
+| sip.from.url.registered\_domain    | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.from.url.scheme                | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.from.url.subdomain             | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.from.url.top\_level\_domain    | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.from.url.username              | keyword | Username of the request.                                      |                                                                                  |
+|                                    |         |                                                               |                                                                                  |
+| **Sip Privacy**                    |         |                                                               |                                                                                  |
+| sip.privacy.type                   | keyword | SIP privacy headers                                           | user                                                                             |
+| sip.privacy.url.domain             | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.privacy.url.extension          | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.privacy.url.fragment           | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.privacy.url.full               | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.privacy.url.full.text          | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.privacy.url.original           | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.privacy.url.original.text      | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.privacy.url.password           | keyword | Password of the request.                                      |                                                                                  |
+| sip.privacy.url.path               | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.privacy.url.port               | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.privacy.url.query              | keyword | Query string of the request.                                  |                                                                                  |
+| sip.privacy.url.registered\_domain | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.privacy.url.scheme             | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.privacy.url.subdomain          | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.privacy.url.top\_level\_domain | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.privacy.url.username           | keyword | Username of the request.                                      |                                                                                  |
+|                                    |         |                                                               |                                                                                  |
+| **SIP SDP**                        |         |                                                               |                                                                                  |
+| sip.sdp.audio.format               | keyword | SIP SDP audio format                                          | 8,101                                                                            |
+| sip.sdp.audio.original             | keyword | SIP SDP audio information                                     | audio 6000 RTP/AVP 8                                                             |
+| sip.sdp.audio.port                 | long    | SIP SDP audio port                                            | 6000                                                                             |
+| sip.sdp.audio.protocol             | keyword | SIP SDP audio protocol                                        | RTP/AVP                                                                          |
+| sip.sdp.connection.address         | ip      | SIP SDP session connection address                            | 10.1.1.50                                                                        |
+| sip.sdp.media.flags                | keyword | SIP SDP media flags                                           | recvonly                                                                         |
+| sip.sdp.media.type                 | keyword | Array of SIP SDP media types offered                          | audio, video                                                                     |
+| sip.sdp.owner.ip                   | ip      | SIP SDP session owner IP                                      | 10.1.1.50                                                                        |
+| sip.sdp.owner.session\_id          | keyword | SIP SDP session id                                            | 1480144037                                                                       |
+| sip.sdp.owner.username             | keyword | SIP SDP session owner name                                    | FreeSWITCH                                                                       |
+| sip.sdp.owner.version              | keyword | SIP SDP session version                                       | 1480144038                                                                       |
+| sip.sdp.session.name               | keyword | SIP SDP session name                                          | Company All Hands                                                                |
+| sip.sdp.version                    | integer | SIP SDP version                                               | 0                                                                                |
+| sip.sdp.video.format               | keyword | Array of SIP SDP video formats supported                      | 31, 32                                                                           |
+| sip.sdp.video.original             | keyword | SIP SDP video information                                     | video 6001 RTP/AVP 31                                                            |
+| sip.sdp.video.port                 | long    | SIP SDP video port                                            | 6001                                                                             |
+| sip.sdp.video.protocol             | keyword | SIP SDP video protocol                                        | RTP/AVP                                                                          |
+|                                    |         |                                                               |                                                                                  |
+| **SIP To**                           |         |                                                               |                                                                                  |
+| sip.to.display\_info               | keyword | Destination SIP entity alias                                  | John Doe                                                                         |
+| sip.to.tag                         | keyword | SIP destination entity tag identifier                         | QvN92t713vSZK                                                                    |
+| sip.to.url.domain                  | keyword | Domain of the url.                                            | www.elastic.co                                                                   |
+| sip.to.url.extension               | keyword | File extension from the original request url.                 | png                                                                              |
+| sip.to.url.fragment                | keyword | Portion of the url after the \`#\`.                           |                                                                                  |
+| sip.to.url.full                    | keyword | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.to.url.full.text               | text    | Full unparsed URL.                                            | https://www.elastic.co:443/search?q=elasticsearch#top                            |
+| sip.to.url.original                | keyword | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.to.url.original.text           | text    | Unmodified original url as seen in the event source.          | https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch |
+| sip.to.url.password                | keyword | Password of the request.                                      |                                                                                  |
+| sip.to.url.path                    | keyword | Path of the request, such as "/search".                       |                                                                                  |
+| sip.to.url.port                    | long    | Port of the request, such as 443.                             | 443                                                                              |
+| sip.to.url.query                   | keyword | Query string of the request.                                  |                                                                                  |
+| sip.to.url.registered\_domain      | keyword | The highest registered url domain, stripped of the subdomain. | example.com                                                                      |
+| sip.to.url.scheme                  | keyword | Scheme of the url.                                            | https                                                                            |
+| sip.to.url.subdomain               | keyword | The subdomain of the domain.                                  | east                                                                             |
+| sip.to.url.top\_level\_domain      | keyword | The effective top level domain (com, org, net, co.uk).        | co.uk                                                                            |
+| sip.to.url.username                | keyword | Username of the request.                                      |                                                                                  |
+|                                    |         |                                                               |                                                                                  |
+| ** SIP Via **                       |         |                                                               |                                                                                  |
+| sip.via.branch                     | keyword | SIP Via Transaction ID                                        | z9hG4bK10\_16a83292baa1de54e0b7843\_I                                            |
+| sip.via.received.address           | ip      | SIP endpoint nat address                                      | 151.101.2.217                                                                    |
+| sip.via.received.port              | long    | SIP via rport                                                 | 5065                                                                             |
+| sip.via.sent\_by.address           | ip      | SIP via IP address                                            | 192.168.1.10                                                                     |
+| sip.via.sent\_by.port              | long    | Network port used by SIP proxy.                               | 5060                                                                             |
+| sip.via.transport                  | keyword | SIP via transport                                             | udp                                                                              |
+| sip.via.version                    | keyword | SIP Protocol version utilized by a proxy                      | 2                                                                                |
+||||
+| **Additional Fields** | |
+|---------------------------    |-----------    |
+| source.*          | network level ip info, uni/bi-directional concerns |
+| destination.*     | network level ip info, uni/bi-directional concerns |
+| client.*          | Typically used for e.g. client to SIP Server (not direct calls made up of multiple flows) |
+| server.*          | Typically used for e.g. client to SIP Server (not direct calls made up of multiple flows) |
+| network.*         | network level protocol information, etc. |
+| user.*            | user information associated with a particular connection, typically client to SIP server vs direct endpoint to endpoint calls |
+| session.*  ++     | RFC in process, session fields to normalize sessions across muultiple clients, etc. (ip phone, softphone, jabber client, etc) |
+| observer.*        | Whenever SIP data is observed by a proxy, netflow records, or network sensor/capture device |
+| organization.*    | Optional,  used in e.g. SIP SP environments to tag sessions, calls, etc. with an organizational identifier |
+| user_agent        | Original and parsed as neccesary from SIP headers |
+|||
 
-| Sip Fields                    | type          | Example                                          |
-|---------------------------    |-----------    |----------------------------------------------    |
-| | | |
-| **SIP Request** | | INVITE sip:test@10.0.2.15:5060 SIP/2.0 |
-| sip.type                      | keyword       | request / response |
-| sip.method                    | keyword       | invite |
-| sip.uri.original              | wildcard      | test@10.0.2.15:5060 |
-| sip.uri.original.text         | text          | test@10.0.2.15:5060 |
-| sip.uri.scheme                | keyword       | sip |
-| sip.uri.username              | keyword       | test |
-| sip.uri.host                  | keyword       | sip.cybercity.dk |
-| sip.uri.port                  | long          | 5060 |
-| sip.version                   | keyword       | 2 |
-| | | |
-| **SIP Response** | | SIP/2.0 200 OK |
-| sip.status_code               | keyword       | 200 |
-| sip.status                    | keyword       | ok |
-| sip.version                   | keyword       | 2 |
-| | | |
-| **SIP Headers** | | |
-| sip.accept                    | keyword       | application/sdp |
-| sip.allow[]                   | keyword[]     | REGISTER, INVITE, ACK, BYE |
-| sip.call_id                   | keyword       | 1-1966@10.0.2.20 |
-| sip.content_length            | integer       | 0 |
-| sip.content_type              | keyword       | application/sdp |
-| sip.max_forwards              | integer       | 70 |
-| sip.private.uri.original      | wildcard      | sip:35104723@sip.cybercity.dk |
-| sip.private.uri.scheme        | keyword       | sip |
-| sip.private.username          | keyword       | 35104723 |
-| sip.supported[]               | keyword[]     | timer, path, replaces |
-| user_agent.original           | keyword       | FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit |
-| user_agent.original.text      | text          | FreeSWITCH-mod_sofia/1.6.12-20-b91a0a6~64bit |
-| | | |
-| **SIP Headers CSEQ** | | 68 invite |
-| sip.cseq.code                 | integer       | 68 |
-| sip.cseq.method               | keyword       | invite |
-| | | |
-| **SIP Headers Via** | | SIP/2.0/UDP 192.168.1.2;received=80.230.219.70;rport=5061 branch=z9hG4bKnp112903503-43a64480192.168.1.2 |
-| sip.via.transport             | keyword       | udp |
-| sip.via.sent_by.address       | keyword       | 192.168.1.2 |
-| sip.via.sent_by.port          | long          | 5060 |
-| sip.via.received.address      | keyword       | 80.230.219.70 |
-| sip.via.rport                 | long          | 5060|
-| sip.via.branch                | keyword       | z9hG4bKnp112903503-43a64480192.168.1.2 |
-| | | |
-| **SIP Headers To** | | test <sip:test@10.0.2.15:5060>;tag=QvN92t713vSZK  |
-| sip.to.display_info           | keyword       | test |
-| sip.to.uri.original           | wildcard      | sip:test@10.0.2.15:5060 |
-| sip.to.uri.scheme             | keyword       | sip |
-| sip.to.uri.username           | keyword       | test |
-| sip.to.uri.host               | keyword       | 10.0.2.15 |
-| sip.to.uri.port               | long          | 5060 |
-| sip.to.tag                    | keyword       | QvN92t713vSZK |
-| | | |
-| **SIP Headers From** | |  "PCMU/8000" <sip:sipp@10.0.2.20:5060>;tag=1 |
-| sip.from.display_info         | keyword       | PCMU/8000 |
-| sip.from.uri.original         | wilcard       | sip:sipp@10.0.2.20:5060  |
-| sip.from.uri.scheme           | keyword       | sip | |
-| sip.from.uri.username         | keyword       | sipp | |
-| sip.from.uri.host             | keyword       | 10.0.2.20 | |
-| sip.from.uri.port             | long          | 5060 |
-| sip.from.tag                  | keyword       | 1 |
-| | | |
-| **SIP Headers Contact** | |  "Matthew Hodgson" <sip:voi18062@192.168.1.2:5060;line=aca6b97ca3f5e51a>;expires=1200;q=0.500 |
-| sip.contact.display_info      | keyword      | |
-| sip.contact.uri.original      | wildcard     | sip:test@10.0.2.15:5060 |
-| sip.contact.uri.scheme        | keyword      | sip |
-| sip.contact.uri.username      | keyword      | test |
-| sip.contact.uri.host          | keyword      | 10.0.2.15 |
-| sip.contact.uri.port          | long         | 5060 |
-| sip.contact.transport         | keyword      | udp | |
-| sip.contact.line              | keyword      | aca6b97ca3f5e51a |
-| sip.contact.expires           | integer      | 1200 |
-| sip.contact.q                 | float        | 0.5 |
-| | | |
-| **SIP Headers Auth** | | Authorization: Digest username="voi18062",realm="sip.cybercity.dk",uri="sip:192.168.1.2",nonce="1701b22972b90f440c3e4eb250842bb",opaque="1701a1351f70795",nc="00000001",response="79a0543188495d288c9ebbe0c881abdc" |
-| sip.auth.scheme               | keyword      | Digest |
-| sip.auth.realm                | keyword      | sip.cybercity.dk |
-| sip.auth.uri.original         | wildcard     | sip:192.168.1.2 |
-| sip.auth.uri.scheme           | keyword      | sip |
-| sip.auth.uri.host             | keyword      | 192.168.1.2 |
-| sip.auth.uri.port             | long         | |
-| user.name                     | keyword      | voi18062 |
-| | | |
-| **SIP Body / SDP** | | Needs Example |
-| sip.sdp.version               | integer      | 0 |
-| sip.sdp.owner.username        | keyword      | Matthew |
-| sip.sdp.owner.session_id      | keyword      | |
-| sip.sdp.owner.version         | keyword      | |
-| sip.sdp.owner.ip              | keyword      | 127.0.0.1 |
-| sip.sdp.session.name          | keyword      | CounterPath eyeBeam 1.5 |
-| sdp.connection.address        | keyword      | 127.0.0.1 |
-| | | |
-| **SIP Body / SDP Media**      |              | audio 27942 RTP/AVP 0 101 |
-| sip.sdp.audio.description[]   | wildcard     | audio 57126 RTP/AVP 8 101 |
-| sip.sdp.audio.port            | long         | 57126 |
-| sip.sdp.media.format[]        | wildcard     | 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101) |
-| sip.sdp.media.attributes[]    | wildcard     | 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16 |
-| sip.sdp.video.description[]   | wildcard     | video 57126 RTP/AVP 8 101 |
-| sip.sdp.video.port            | keyword      | 57126 |
-| sip.sdp.video.format[]        | wildcard     | 8, 101 (ITU-T G.711 PCMA, DynamicRTP-Type-101) |
-| sip.sdp.video.attributes[]    | wildcard     | 0 PCMU/8000, 101 telephone-event/8000, fmtp:101 0-16 |
+### Field Notes
+while the initial SIP field implementaiton was built around the concepts of a network level packet capture, inclusion of all of the fields presented is not necessary when normalizing e.g. SIP server or SIP proxy logs.
 
+To do items:
+
+1) Consider unidirectional SIP session ID implementation (https://tools.ietf.org/html/rfc7989)
+2) Consider tel uri implementation (https://tools.ietf.org/html/rfc3966)
 
 ## Usage
 
@@ -129,11 +218,16 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 -->
 Typical implementations will utilize these fields to describe and normalize the various stages of a SIP/SDP based communcations mechanism.  Additional considerations including call analytics, fraud detection, troubleshooting, and threat detection have been identified as additional considerations.
 
+Related nesting changes:
+ - [user fields](text/0011/user.yml)
+ - [url fields](text/0011/url.yml)
+
+
 ## Source data
 
 Source Data will come from packet/protocol analysis from endpoints (e.g. Packetbeat) or network observers (e.g. Zeek/Corelight & Suricata), logs from SIP Servers (e.g. Cisco Call Manager, Microsoft Lync), or logs from SIP-aware perimeter devices (e.g. Palo Alto NGFW).
 
-See this example of [raw SIP header](0011/Sip-via-ordering-example.txt).
+See this example of [raw SIP header](00011/Sip-via-ordering-example.txt).
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
