@@ -22,7 +22,9 @@ Thanks, you're awesome :-) -->
 * Advanced `process.io` and `process.tty` fields to GA. #2317
 * Added `threat.indicator.id`. #2324
 * Added `process.group` to generated schemas. #2335
+* Added `file.origin_referrer_url` and `file.origin_url` #2348
 
+* 
 #### Improvements
 
 #### Deprecated
