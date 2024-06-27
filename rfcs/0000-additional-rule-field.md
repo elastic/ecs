@@ -5,36 +5,15 @@
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 
-<<<<<<< HEAD
-=======
+
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 This RFC proposes addition of 2 new fields (rule.tags and rule.remediation) in rule fieldset to the Elastic Common Schema (ECS). The goal of these fields is to provide more context to the users in the rule fieldset, rule.tags will be used to track the set of tags applied to the rule, customers can use it to indicate metadata about the rule, and rule.remediation will be used to capture the remediation instructions associated with rules, it is generally provided by the benchmark or framework from which the rule is published. 
->>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
 
-<!--
-Stage 0: 
-Proposal is to add 2 new fields in the ECS Rule fieldset, to extend the scope of this fieldset to incorporate tags and remediation information. Current fieldset does not support these two pieces of information. 
-Detailed discussion in this EPIC- https://github.com/elastic/security-team/issues/7658
--->
 
 
 ## Fields
-
-<<<<<<< HEAD
-=======
-The `rule` fields being proposed are as follows:
-
-Field | Type | Description /Usage
--- | -- | -- 
-
-rule.remediation | array | Used to capture remediation instructions that come from the benchmark / framework the rule is from 
-
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
->>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
 
 The `rule` fields being proposed are as follows:
 
@@ -93,18 +72,12 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-<<<<<<< HEAD
 * @smriti0321 | author
 * @tinnytintin10 | Product Manager
 * @oren-zohar | Engineering Manager
 * @orouz | Engineer
 * @trisch-me | Security ECS team
-=======
-* @smriti0321 | author 
-* @tinnytintin10 | Product Manager Cloud Security
-* @oren-zohar | Engineering Manager Cloud Security
-* @orouz | Engineer
->>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
+
 
 
 
