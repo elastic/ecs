@@ -1,29 +1,29 @@
-# 0000: Name of RFC
+# 0000: Additional Rule Field
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
 
+<<<<<<< HEAD
+=======
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 This RFC proposes addition of 2 new fields (rule.tags and rule.remediation) in rule fieldset to the Elastic Common Schema (ECS). The goal of these fields is to provide more context to the users in the rule fieldset, rule.tags will be used to track the set of tags applied to the rule, customers can use it to indicate metadata about the rule, and rule.remediation will be used to capture the remediation instructions associated with rules, it is generally provided by the benchmark or framework from which the rule is published. 
+>>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
 
 <!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
+Stage 0: 
+Proposal is to add 2 new fields in the ECS Rule fieldset, to extend the scope of this fieldset to incorporate tags and remediation information. Current fieldset does not support these two pieces of information. 
+Detailed discussion in this EPIC- https://github.com/elastic/security-team/issues/7658
 -->
 
-<!--
-Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
--->
 
 ## Fields
 
+<<<<<<< HEAD
+=======
 The `rule` fields being proposed are as follows:
 
 Field | Type | Description /Usage
@@ -34,10 +34,16 @@ rule.remediation | array | Used to capture remediation instructions that come fr
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
+>>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
 
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+The `rule` fields being proposed are as follows:
+
+Field | Type | Example | Description/Usage
+-- | -- | -- 
+rule.tags | array  | Used to track the set of tags applied to a rule | Customers can use it to indicate: author, benchmark partial name, rule number, rule category etc. It will be useful when we extend the capability to add more rules
+rule.remediation | array | Enable encryption on all S3 buckets | Used to capture remediation instructions that come from the benchmark / framework the rule is from 
+
+
 
 ## Usage
 
@@ -87,27 +93,25 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
+<<<<<<< HEAD
+* @smriti0321 | author
+* @tinnytintin10 | Product Manager
+* @oren-zohar | Engineering Manager
+* @orouz | Engineer
+* @trisch-me | Security ECS team
+=======
 * @smriti0321 | author 
 * @tinnytintin10 | Product Manager Cloud Security
 * @oren-zohar | Engineering Manager Cloud Security
 * @orouz | Engineer
+>>>>>>> 8ee34ce1711cf2650998fffac178295a89396c56
 
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
 
 
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
+* EPIC- https://github.com/elastic/security-team/issues/7658
 
 
 ### RFC Pull Requests
