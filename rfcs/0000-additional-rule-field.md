@@ -18,8 +18,7 @@ This RFC proposes addition of 2 new fields (rule.tags and rule.remediation) in r
 The `rule` fields being proposed are as follows:
 
 Field | Type | Example | Description/Usage
--- | -- | -- 
-rule.tags | array  | Used to track the set of tags applied to a rule | Customers can use it to indicate: author, benchmark partial name, rule number, rule category etc. It will be useful when we extend the capability to add more rules
+-- | -- | -- | --
 rule.remediation | array | Enable encryption on all S3 buckets | Used to capture remediation instructions that come from the benchmark / framework the rule is from 
 
 
