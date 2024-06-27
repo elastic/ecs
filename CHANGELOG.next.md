@@ -21,6 +21,7 @@ Thanks, you're awesome :-) -->
 * Advanced `process.env_vars` to GA. #2315
 * Advanced `process.io` and `process.tty` fields to GA. #2317
 * Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
 
 #### Improvements
 
@@ -33,6 +34,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
+
+* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
 
 #### Improvements
 
