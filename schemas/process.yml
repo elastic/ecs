@@ -112,6 +112,10 @@
         Sometimes called program name or similar.
       example: ssh
       multi_fields:
+        - name: caseless
+          ignore_above: 1024
+          normalizer: lowercase
+          type: keyword
         - type: match_only_text
           name: text
 
@@ -171,6 +175,10 @@
         Absolute path to the process executable.
       example: /usr/bin/ssh
       multi_fields:
+        - name: caseless
+          ignore_above: 1024
+          normalizer: lowercase
+          type: keyword
         - type: match_only_text
           name: text
 
