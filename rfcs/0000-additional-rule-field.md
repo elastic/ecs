@@ -9,7 +9,7 @@
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
-This RFC proposes addition of 2 new fields (rule.tags and rule.remediation) in rule fieldset to the Elastic Common Schema (ECS). The goal of these fields is to provide more context to the users in the rule fieldset, rule.tags will be used to track the set of tags applied to the rule, customers can use it to indicate metadata about the rule, and rule.remediation will be used to capture the remediation instructions associated with rules, it is generally provided by the benchmark or framework from which the rule is published. 
+This RFC proposes addition of 1 new field (rule.remediation) in rule fieldset to the Elastic Common Schema (ECS). The goal of this field is to provide more context to the users in the rule fieldset, rule.remediation will be used to capture the remediation instructions associated with rules, it is generally provided by the benchmark or framework from which the rule is published. 
 
 
 
@@ -83,7 +83,7 @@ The following are the people that consulted on the contents of this RFC.
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
-* EPIC- https://github.com/elastic/security-team/issues/7658
+
 
 
 ### RFC Pull Requests
