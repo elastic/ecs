@@ -17,17 +17,16 @@ The following feelds needs to be considered being added:
 Field | Type | Example | Description
 --- | --- | --- | ---
 process.responsible	| keyword	| Terminal.app	| The responsible process on macOS, from an ancestry perspective, is the process that originally launched or spawned a given process.
-platform_binary	| boolean	| true	| Indicates wethether this process executable is a default platform binary shipped with macOS.
-es_client	| boolean	| true	| Indicates wethether this process executable is an Endpoint Security client.
-thread.uuid	| keyword	| E0470DA-BFD6-5F44-9C25-CD4E3AB81737	| Globally unique identifier that can be utilised to correlate the activity of a thread.
+platform_binary	| boolean	| true	| Indicates wethether this process executable is a default platform binary shipped with the operating system.
+endpoint_security_client	| boolean	| true	| Indicates wethether this process executable is an Endpoint Security client.
 
 ##### Proposed New Fields for Code Signature object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-codesigning_flags	| string	| 570522385	| The flags used to sign the process.
+flags	| string	| 570522385	| The flags used to sign the process.
 
-##### Proposed New Fields for Hash object
+##### Proposed New Fields for File object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
