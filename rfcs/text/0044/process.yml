@@ -14,40 +14,8 @@
     top_level: true
     expected:
       - at: process
-        as: parent
-        short_override: Information about the parent process.
-      - at: process
         as: responsible
         short_override: Information about the responsible process.
-      - at: process
-        as: entry_leader
-        short_override: First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process.
-      - at: process
-        as: session_leader
-        short_override: Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux
-      - at: process
-        as: group_leader
-        short_override: Information about the process group leader. In some cases this may be the same as the top level process.
-      - at: process.parent
-        as: group_leader
-        short_override: Information about the parent's process group leader. Only pid, start and entity_id fields are set.
-      - at: process.entry_leader
-        as: parent
-        short_override: Information about the entry leader's parent process. Only pid, start and entity_id fields are set.
-      - at: process.session_leader
-        as: parent
-        short_override: Information about the session leader's parent process. Only pid, start and entity_id fields are set.
-      - at: process.entry_leader.parent
-        as: session_leader
-        short_override: Information about the parent session of the entry leader. Only pid, start and entity_id fields are set.
-      - at: process.session_leader.parent
-        as: session_leader
-        short_override: Information about the parent session of the session leader. Only pid, start and entity_id fields are set.
-      - at: process
-        as: previous
-        short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
-        normalize:
-          - array
 
 - name: process
   fields:
