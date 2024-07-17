@@ -26,7 +26,7 @@ Field | Type | Example | Description
 --- | --- | --- | ---
 flags	| string	| 570522385	| The flags used to sign the process.
 
-##### Proposed New Fields for File object
+##### Proposed New Fields for Hash object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
