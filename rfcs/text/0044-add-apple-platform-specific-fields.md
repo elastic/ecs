@@ -16,7 +16,7 @@ The following feelds needs to be considered being added:
 
 Field | Type | Example | Description
 --- | --- | --- | ---
-process.responsible	| keyword	| Terminal.app	| The responsible process on macOS, from an ancestry perspective, is the process that originally launched or spawned a given process.
+responsible	| keyword	| Terminal.app	| The responsible process on macOS, from an ancestry perspective, is the process that originally launched or spawned a given process.
 platform_binary	| boolean	| true	| Indicates wethether this process executable is a default platform binary shipped with the operating system.
 endpoint_security_client	| boolean	| true	| Indicates wethether this process executable is an Endpoint Security client.
 
