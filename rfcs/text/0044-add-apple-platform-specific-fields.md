@@ -32,7 +32,7 @@ Field | Type | Example | Description
 --- | --- | --- | ---
 cdhash	| keyword	| 3783b4052fd474dbe30676b45c329e7a6d44acd9	| The Code Directory (CD) hash of an executable
 
-##### Proposed New Fields for Host object
+##### Proposed New Fields for Device object
 
 Field | Type | Example | Description
 --- | --- | --- | ---
