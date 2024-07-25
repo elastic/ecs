@@ -1,0 +1,36 @@
+---
+- name: process
+  title: Process
+  group: 2
+  short: These fields contain information about a process.
+  description: >
+    These fields contain information about a process.
+
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  type: group
+  reusable:
+    top_level: true
+    expected:
+      - at: process
+        as: responsible
+        short_override: Information about the responsible process.
+
+- name: process
+  fields:
+    - name: platform_binary
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is a default platform binary shipped with the operating system.
+      description: >
+          Binaries that are shipped by the operating system are defined as platform binaries, this value is then set to true. 
+      example: true
+
+    - name: endpoint_security_client
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is an Endpoint Security client.
+      description: >
+          Processes that have an endpoint security client must have the com.apple.endpointsecurity entitlement and the value is set to true in the message.
+      example: true
