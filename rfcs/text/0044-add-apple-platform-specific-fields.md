@@ -1,8 +1,8 @@
 # 0044: Apple Platform specific fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date:  **2024-08-13** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date:  **2024-08-20** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 
 ### Summary
@@ -60,7 +60,11 @@ Stage 2: Included a real world example source document. Ideally this example com
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
 
-<!--## Scope of impact
+# Scope of impact
+
+As this RFC involves the creation of new fields, no breaking
+changes are envisaged. Some existing tooling might need updates to factor in the
+new fieldset's availability, however.
 
 <!--
 Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
@@ -89,6 +93,9 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * txhaflaire | author
+* mjwolf | reviewer
+* trisch-me | reviewer
+* jamiehynds | subject matter expert
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -107,11 +114,22 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+https://developer.apple.com/documentation/endpointsecurity/es_process_t/3228978-is_es_client
+
+https://developer.apple.com/documentation/endpointsecurity/es_process_t/3228979-is_platform_binary
+
+https://developer.apple.com/documentation/endpointsecurity/es_process_t/3684982-responsible_audit_token
+
+https://developer.apple.com/documentation/endpointsecurity/es_process_t/3334987-codesigning_flags
+
+https://developer.apple.com/documentation/endpointsecurity/es_process_t/3228976-cdhash
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2338
+* Stage 2: https://github.com/elastic/ecs/pull/2338
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
