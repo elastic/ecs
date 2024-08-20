@@ -129,7 +129,7 @@ https://developer.apple.com/documentation/endpointsecurity/es_process_t/3228976-
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2338
-* Stage 2: https://github.com/elastic/ecs/pull/2338
+* Stage 2: https://github.com/elastic/ecs/pull/2370
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
