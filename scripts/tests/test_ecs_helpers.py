@@ -144,7 +144,7 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.glob_yaml_files('non_existent_wildcard.*'), [])
         self.assertEqual(ecs_helpers.glob_yaml_files('schemas/base.yml'), ['schemas/base.yml'])
         self.assertEqual(ecs_helpers.glob_yaml_files(['schemas/base.yml']), ['schemas/base.yml'])
-        # convert to set as element order is not being tested
+        #  convert to set as element order is not being tested
         self.assertEqual(set(ecs_helpers.glob_yaml_files(
             ['schemas/base.yml', 'schemas/log.yml'])), {'schemas/base.yml', 'schemas/log.yml'})
         self.assertTrue(set(ecs_helpers.glob_yaml_files('schemas/b*.yml')).intersection({'schemas/base.yml'}) != set())
