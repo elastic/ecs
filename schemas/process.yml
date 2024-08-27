@@ -63,7 +63,7 @@
           - array
       - at: process
         as: responsible
-        short_override: Information about the responsible process.
+        short_override: Information about the responsible process. The responsible process in macOS tracks the true originating process of an application, crucial for understanding permissions and process hierarchy beyond the standard parent process.
         beta: This field is beta and subject to change.
 
   fields:
@@ -74,7 +74,6 @@
       short: Indicates whether this process executable is an Endpoint Security client.
       description: >
           Processes that have an endpoint security client must have the com.apple.endpointsecurity entitlement and the value is set to true in the message.
-      example: true
       beta: This field is beta and subject to change.
 
     - name: pid
@@ -192,8 +191,7 @@
       type: boolean
       short: Indicates whether this process executable is a default platform binary shipped with the operating system.
       description: >
-          Binaries that are shipped by the operating system are defined as platform binaries, this value is then set to true. 
-      example: true
+          Binaries that are shipped by the operating system are defined as platform binaries, this value is then set to true.
       beta: This field is beta and subject to change.
 
     - name: title
