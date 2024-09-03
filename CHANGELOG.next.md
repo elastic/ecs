@@ -24,7 +24,6 @@ Thanks, you're awesome :-) -->
 * Added `process.group` to generated schemas. #2335
 * Added `file.origin_referrer_url` and `file.origin_url` #2348
 
-* 
 #### Improvements
 
 #### Deprecated
