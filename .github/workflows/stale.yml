@@ -15,10 +15,21 @@ jobs:
 
     steps:
     - name: "Check PRs"
-      uses: actions/stale@v4
+      uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-pr-message: 'This PR is stale because it has been open for 60 days with no activity.'
+        stale-pr-message: |
+          Hi!
+
+          We just realized that we haven't looked into this PR in a while. We're
+          sorry!
+
+          We're labeling this PR as `Stale` to make it hit our filters and
+          make sure we get back to it as soon as possible. In the meantime, it'd
+          be extremely helpful if you could take a look at it as well and confirm its
+          relevance. A simple comment with a nice emoji will be enough `:+1`.
+
+          Thank you for your contribution!
         stale-pr-label: 'stale'
         ascending: true
         days-before-pr-stale: 60

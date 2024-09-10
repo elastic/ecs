@@ -25,8 +25,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Added `.caseless` subfield to `process.name` and `process.executable`. #2341
-
 #### Deprecated
 
 ### Tooling and Artifact Changes
