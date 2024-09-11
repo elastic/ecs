@@ -61,8 +61,20 @@
         short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
         normalize:
           - array
+      - at: process
+        as: responsible
+        short_override: Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy.
+        beta: This field is beta and subject to change.
 
   fields:
+
+    - name: endpoint_security_client
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is an Endpoint Security client.
+      description: >
+          Processes that have an endpoint security client must have the com.apple.endpointsecurity entitlement and the value is set to true in the message.
+      beta: This field is beta and subject to change.
 
     - name: pid
       format: string
@@ -173,6 +185,14 @@
       multi_fields:
         - type: match_only_text
           name: text
+
+    - name: platform_binary
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is a default platform binary shipped with the operating system.
+      description: >
+          Binaries that are shipped by the operating system are defined as platform binaries, this value is then set to true.
+      beta: This field is beta and subject to change.
 
     - name: title
       level: extended
