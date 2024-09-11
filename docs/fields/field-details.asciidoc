@@ -866,6 +866,24 @@ example: `true`
 // ===============================================================
 
 |
+[[field-code-signature-flags]]
+<<field-code-signature-flags, code_signature.flags>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The flags used to sign the process.
+
+type: string
+
+
+
+example: `570522385`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-code-signature-signing-id]]
 <<field-code-signature-signing-id, code_signature.signing_id>>
 
@@ -1690,6 +1708,24 @@ type: keyword
 example: `Samsung Galaxy S6`
 
 | extended
+
+// ===============================================================
+
+|
+[[field-device-serial-number]]
+<<field-device-serial-number, device.serial_number>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The unique serial number serves as a distinct identifier for each device, aiding in inventory management and device authentication.
+
+type: keyword
+
+
+
+example: `DJGAQS4CW5`
+
+| core
 
 // ===============================================================
 
@@ -4808,6 +4844,24 @@ Note that this fieldset is used for common hashes that may be computed over a ra
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-hash-cdhash]]
+<<field-hash-cdhash, hash.cdhash>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+Code directory hash, utilized to uniquely identify and authenticate the integrity of the executable code.
+
+type: keyword
+
+
+
+example: `3783b4052fd474dbe30676b45c329e7a6d44acd9`
+
+| extended
 
 // ===============================================================
 
@@ -8685,6 +8739,8 @@ The `process` fields are expected to be nested at:
 
 * `process.previous`
 
+* `process.responsible`
+
 * `process.session_leader`
 
 * `process.session_leader.parent`
@@ -8835,6 +8891,14 @@ Note: this reuse should contain an array of process field set objects.
 | `process.real_user.*`
 | <<ecs-user,user>>
 | The real user (ruid). Identifies the real owner of the process.
+
+// ===============================================================
+
+
+| `process.responsible.*`
+| <<ecs-process,process>>| beta:[ This field is beta and subject to change.]
+
+Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy.
 
 // ===============================================================
 
