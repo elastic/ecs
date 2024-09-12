@@ -92,7 +92,7 @@ which can be thought of loosely as a "role".
 A good example is nesting `process` at `process.parent`, to capture the parent of a process.
 In these cases, we replace the "flat" key name with a small object with keys `at` and `as`:
 
-```
+```YAML
   reusable:
     top_level: true
     expected:
@@ -115,7 +115,7 @@ The above defines all process fields in both places:
 The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the field reuses section, marking specific reuse locations as beta.
 Beta notices should not have newlines.
 
-```
+```YAML
   reusable:
     top_level: true
     expected:
@@ -127,7 +127,7 @@ Beta notices should not have newlines.
 The `short_override` marker can optionally be used along with `at` and `as` to set the short description of the nested field, instead of defaulting to the top-level fieldset's short description.
 Like short, descriptions must not have newlines.
 
-```
+```YAML
   reusable:
     top_level: true
     expected:
