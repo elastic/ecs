@@ -20,6 +20,11 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
+Field | Type | Description /Usage
+-- | -- | -- 
+source.entity.id | keyword | All the entity identifiers that triggered the event. If the document contains multiple source entities, identifiers belonging to different entities will be present. Example identifiers include cloud resource IDs, ARNs, email addresses, or hostnames.
+target.entity.id | keyword | All the entity identifiers that were affected by the event. If the document contains multiple target entities, identifiers belonging to different entities will be present. Example identifiers include cloud resource IDs, ARNs, email addresses, or hostnames.
+
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
