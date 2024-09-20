@@ -4,11 +4,7 @@
 - Date: **TBD**
 
 
-Elastic Cloud Security Team has been focusing on Cloud Detection and Response (CDR). One of the first steps towards the CDR vision is to enhance investigation workflows for the Cloud Security use-case in SIEM.
-
-As part of enhancing incidents and attacks investigation workflows, it's of great value to identify, represent and index which entities took part in an event and what is their role - which entity has triggered the action and which one was affected by the action?
-
-The set of changes proposed in this RFC enables better and easier data exploration, as well graphical representations of events through graphs - one of the desired CDR features.
+This RFC proposes enhancements to the Elastic Common Schema (ECS) to improve how we capture actor and target information in events, particularly for security use cases. The proposal aims to address current limitations in representing and querying this information, especially for cloud-based events (but this is broadly applicable).
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -25,6 +21,12 @@ Field | Type | Description /Usage
 source.entity.id | keyword | All the entity identifiers that triggered the event. If the document contains multiple source entities, identifiers belonging to different entities will be present. Example identifiers include cloud resource IDs, ARNs, email addresses, or hostnames.
 target.entity.id | keyword | All the entity identifiers that were affected by the event. If the document contains multiple target entities, identifiers belonging to different entities will be present. Example identifiers include cloud resource IDs, ARNs, email addresses, or hostnames.
 
+
+### Proposed Changes
+- Extend source.entity.id to capture actor information within the existing source.* fields.
+- Introduce a new top-level target.* field set to explicitly represent the target of an action.
+- Allow nesting of entity fields under target.*, such as target.user, target.entity, and target.group.
+- Provide guidelines for consistently mapping common cloud event information (like role names, instance IDs, etc.) to these standardized fields.
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
@@ -34,6 +36,24 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 -->
 
 ## Usage
+
+Currently, ECS lacks a standardized way to explicitly capture/distinguish between the actor (entity performing an action) and the target (entity being acted upon) in events. This limitation makes it challenging to represent certain security events accurately and consistently across different data sources and cloud providers. Specific issues include:
+
+1. Difficulty in querying nested JSON objects containing critical information.
+2. Inconsistent data structures across different services and API calls.
+3. Field length limitations preventing effective searching and filtering.
+4. Challenges in correlating related events involving the same actors or targets.
+
+These issues are exemplified in the AWS CloudTrail integration (see [Issue #9586](https://github.com/elastic/integrations/issues/9586) and [Issue #10818](https://github.com/elastic/integrations/issues/10818)), but are not limited to AWS and likely affect other cloud providers and services.
+
+What we expect to gain with this proposal:
+
+- Improved clarity and consistency in representing security events across different platforms and data sources.
+- Enhanced ability to query and analyze events without relying on complex string parsing or wildcard searches.
+- Better correlation of related events, particularly in cloud environments with complex identity and access management scenarios.
+- Avoidance of field length limitations by extracting key information into separate fields.
+- Improved capability for creating effective detection rules and performing security analysis.
+- Maintains compatibility with existing ECS structure while expanding capabilities.
 
 <!--
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
@@ -64,6 +84,8 @@ The goal here is to research and understand the impact of these changes on users
 -->
 
 ## Concerns
+
+- Asymmetry between using source.* for actor and target.* for target
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
