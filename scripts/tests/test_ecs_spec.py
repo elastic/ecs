@@ -130,6 +130,41 @@ class TestEcsSpec(unittest.TestCase):
         for (field_name, field) in self.ecs_fields.items():
             self.assertIsInstance(field.get('normalize'), list, field_name)
 
+    def test_valid_type(self):
+        valid_types = ['binary',
+                       'boolean',
+                       'keyword',
+                       'constant_keyword',
+                       'wildcard',
+                       'long',
+                       'integer',
+                       'short',
+                       'byte',
+                       'double',
+                       'float',
+                       'half_float',
+                       'scaled_float',
+                       'unsigned_long',
+                       'date',
+                       'date_nanos',
+                       'alias',
+                       'object',
+                       'flattened',
+                       'nested',
+                       'join',
+                       'long_range',
+                       'double_range',
+                       'date_range',
+                       'ip',
+                       'text',
+                       'match_only_text',
+                       'geo_point',
+                       'geo_shape',
+                       'point',
+                       'shape']
+        for (field_name, field) in self.ecs_fields.items():
+            self.assertIn(field.get('type'), valid_types, field_name)
+
 
 if __name__ == '__main__':
     unittest.main()
