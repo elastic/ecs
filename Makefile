@@ -32,8 +32,7 @@ check_license_headers:
 	@echo "Files missing license headers:\n"
 	@find . -type f \( -path './scripts/*' -o -path './schemas/*' \) \
 	\( -name '*.py' -o -name '*.yml' \) \
-	-print0 | xargs -0 -n1 grep -L "Licensed to Elasticsearch B.V." \
-	|| exit 0
+	-print0 | xargs -0 -n1 grep -L "Licensed to Elasticsearch B.V."
 
 # Clean deletes all temporary and generated content.
 .PHONY: clean
@@ -86,7 +85,7 @@ misspell:
 	fi
 	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
 
-# Warn re misspell removal     
+# Warn re misspell removal
 .PHONY: misspell_warn
 misspell_warn:
 	@echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future\n"
