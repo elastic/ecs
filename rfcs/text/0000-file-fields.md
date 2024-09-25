@@ -13,7 +13,16 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This RFC proposes LLM fields, with the increase of Generative AI and LLM logging. This will benefit our customers and users, allowing them to monitor and protect their LLM/Generative AI deployments.
+This RFC adds two new fields in the file fields: `file.origin_referrer_url` and `file.origin_url`.
+In Windows, it is known that when downloading files from the internet using a web browser (eg. Chrome, Edge, etc), information about the file's source, known as the Mark of the Web, is added to the file's NTFS alternate data stream.
+For example, when you download an image file (`image17.webp`) from [this webpage](https://www.elastic.co/security-labs/pikabot-i-choose-you) using a web browser, the download source URL is automatically added to the file's Alternate Data Stream (ADS) as following.
+
+<img width="578" alt="image" src="https://github.com/user-attachments/assets/b3dba571-1155-4226-88a0-fb9d67424d64">
+
+* Inside `image17.webp:Zone.Identifier:$DATA`
+<img width="804" alt="image" src="https://github.com/user-attachments/assets/f6058d40-d060-4dcb-9bdc-760e76389b45">
+
+This PR adds a field to store the URL of the file's origin, which is saved in the NTFS alternate data stream (ADS). The ReferrerUrl is intended to be stored in the `origin_referrer_url field`, and the `HostUrl` is inteded to be stored in the `origin_url` field.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -29,12 +38,12 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
-The `llm` fields proposed are: [WIP]
+The new `file` fields proposed are:
 
 Field | Type | Description /Usage
 -- | -- | -- 
-file.
-file.
+file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
+file.origin_url | keyword | The URL where the file is hosted.
 
 
 <!--
@@ -90,8 +99,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @AsuNa-jp | author
-* @
-* @
+* @trisch-me 
+* @mjwolf 
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -110,11 +119,12 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/2337
+* Stage 0: https://github.com/elastic/ecs/pull/2387
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
