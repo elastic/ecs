@@ -1711,13 +1711,15 @@ destination.user.roles:
   type: keyword
 device.id:
   dashed_name: device-id
-  description: "The unique identifier of a device. The identifier must not change\
-    \ across application sessions but stay fixed for an instance of a (mobile) device.\
-    \ \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
-    \ On Android, this value must be equal to the Firebase Installation ID or a globally\
-    \ unique UUID which is persisted across sessions in your application.\nFor GDPR\
-    \ and data protection law reasons this identifier should not carry information\
-    \ that would allow to identify a user."
+  description: 'The unique identifier of a device. The identifier must not change
+    across application sessions but stay fixed for an instance of a (mobile) device.
+
+    On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).
+    On Android, this value must be equal to the Firebase Installation ID or a globally
+    unique UUID which is persisted across sessions in your application.
+
+    For GDPR and data protection law reasons this identifier should not carry information
+    that would allow to identify a user.'
   example: 00000000-54b3-e7c7-0000-000046bffd97
   flat_name: device.id
   ignore_above: 1024
@@ -1759,6 +1761,19 @@ device.model.name:
   normalize: []
   short: The human readable marketing name of the device model.
   type: keyword
+device.serial_number:
+  beta: This field is beta and subject to change.
+  dashed_name: device-serial-number
+  description: The unique serial number serves as a distinct identifier for each device,
+    aiding in inventory management and device authentication.
+  example: DJGAQS4CW5
+  flat_name: device.serial_number
+  ignore_above: 1024
+  level: core
+  name: serial_number
+  normalize: []
+  short: Serial Number of the device
+  type: keyword
 dll.code_signature.digest_algorithm:
   dashed_name: dll-code-signature-digest-algorithm
   description: 'The hashing algorithm used to sign the process.
@@ -1785,6 +1800,19 @@ dll.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+dll.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: dll.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 dll.code_signature.signing_id:
   dashed_name: dll-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -1883,6 +1911,20 @@ dll.code_signature.valid:
   short: Boolean to capture if the digital signature is verified against the binary
     content.
   type: boolean
+dll.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: dll.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
+  type: keyword
 dll.hash.md5:
   dashed_name: dll-hash-md5
   description: MD5 hash.
@@ -2565,6 +2607,20 @@ email.attachments.file.extension:
   name: attachments.file.extension
   normalize: []
   short: Attachment file extension.
+  type: keyword
+email.attachments.file.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: email-attachments-file-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: email.attachments.file.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
   type: keyword
 email.attachments.file.hash.md5:
   dashed_name: email-attachments-file-hash-md5
@@ -3896,6 +3952,19 @@ file.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+file.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: file-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: file.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 file.code_signature.signing_id:
   dashed_name: file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -4554,6 +4623,20 @@ file.group:
   name: group
   normalize: []
   short: Primary group name of the file.
+  type: keyword
+file.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: file-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: file.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
   type: keyword
 file.hash.md5:
   dashed_name: file-hash-md5
@@ -7700,6 +7783,19 @@ process.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+process.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: process-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: process.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 process.code_signature.signing_id:
   dashed_name: process-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -9372,6 +9468,20 @@ process.group_leader.working_directory:
   original_fieldset: process
   short: The working directory of the process.
   type: keyword
+process.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: process-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: process.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
+  type: keyword
 process.hash.md5:
   dashed_name: process-hash-md5
   description: MD5 hash.
@@ -9843,6 +9953,19 @@ process.parent.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+process.parent.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: process-parent-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: process.parent.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 process.parent.code_signature.signing_id:
   dashed_name: process-parent-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -10543,6 +10666,20 @@ process.parent.group_leader.vpid:
   original_fieldset: process
   short: Virtual process id.
   type: long
+process.parent.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: process-parent-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: process.parent.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
+  type: keyword
 process.parent.hash.md5:
   dashed_name: process-parent-hash-md5
   description: MD5 hash.
@@ -14643,6 +14780,19 @@ threat.enrichments.indicator.file.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+threat.enrichments.indicator.file.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: threat.enrichments.indicator.file.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 threat.enrichments.indicator.file.code_signature.signing_id:
   dashed_name: threat-enrichments-indicator-file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -15310,6 +15460,20 @@ threat.enrichments.indicator.file.group:
   normalize: []
   original_fieldset: file
   short: Primary group name of the file.
+  type: keyword
+threat.enrichments.indicator.file.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: threat.enrichments.indicator.file.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
   type: keyword
 threat.enrichments.indicator.file.hash.md5:
   dashed_name: threat-enrichments-indicator-file-hash-md5
@@ -17353,6 +17517,19 @@ threat.indicator.file.code_signature.exists:
   original_fieldset: code_signature
   short: Boolean to capture if a signature is present.
   type: boolean
+threat.indicator.file.code_signature.flags:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-code-signature-flags
+  description: The flags used to sign the process.
+  example: 570522385
+  flat_name: threat.indicator.file.code_signature.flags
+  ignore_above: 1024
+  level: extended
+  name: flags
+  normalize: []
+  original_fieldset: code_signature
+  short: Code signing flags of the process
+  type: keyword
 threat.indicator.file.code_signature.signing_id:
   dashed_name: threat-indicator-file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -18020,6 +18197,20 @@ threat.indicator.file.group:
   normalize: []
   original_fieldset: file
   short: Primary group name of the file.
+  type: keyword
+threat.indicator.file.hash.cdhash:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-hash-cdhash
+  description: Code directory hash, utilized to uniquely identify and authenticate
+    the integrity of the executable code.
+  example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+  flat_name: threat.indicator.file.hash.cdhash
+  ignore_above: 1024
+  level: extended
+  name: cdhash
+  normalize: []
+  original_fieldset: hash
+  short: The Code Directory (CD) hash of an executable.
   type: keyword
 threat.indicator.file.hash.md5:
   dashed_name: threat-indicator-file-hash-md5

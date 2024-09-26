@@ -1183,9 +1183,9 @@
   - name: device
     title: Device
     group: 2
-    description: 'Fields that describe a device instance and its characteristics.  Data
-      collected for applications and processes running on a (mobile) device can be
-      enriched with these fields to describe the identity, type and other characteristics
+    description: 'Fields that describe a device instance and its characteristics.
+      Data collected for applications and processes running on a (mobile) device can
+      be enriched with these fields to describe the identity, type and other characteristics
       of the device.
 
       This field group definition is based on the Device namespace of the OpenTelemetry
@@ -1197,13 +1197,15 @@
       level: extended
       type: keyword
       ignore_above: 1024
-      description: "The unique identifier of a device. The identifier must not change\
-        \ across application sessions but stay fixed for an instance of a (mobile)\
-        \ device. \nOn iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).\
-        \ On Android, this value must be equal to the Firebase Installation ID or\
-        \ a globally unique UUID which is persisted across sessions in your application.\n\
-        For GDPR and data protection law reasons this identifier should not carry\
-        \ information that would allow to identify a user."
+      description: 'The unique identifier of a device. The identifier must not change
+        across application sessions but stay fixed for an instance of a (mobile) device.
+
+        On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).
+        On Android, this value must be equal to the Firebase Installation ID or a
+        globally unique UUID which is persisted across sessions in your application.
+
+        For GDPR and data protection law reasons this identifier should not carry
+        information that would allow to identify a user.'
       example: 00000000-54b3-e7c7-0000-000046bffd97
       default_field: false
     - name: manufacturer
@@ -1226,6 +1228,14 @@
       ignore_above: 1024
       description: The human readable marketing name of the device model.
       example: Samsung Galaxy S6
+      default_field: false
+    - name: serial_number
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The unique serial number serves as a distinct identifier for each
+        device, aiding in inventory management and device authentication.
+      example: DJGAQS4CW5
       default_field: false
   - name: dll
     title: DLL
@@ -1260,6 +1270,13 @@
       type: boolean
       description: Boolean to capture if a signature is present.
       example: 'true'
+      default_field: false
+    - name: code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
       default_field: false
     - name: code_signature.signing_id
       level: extended
@@ -1322,6 +1339,14 @@
 
         Leave unpopulated if a certificate was unchecked.'
       example: 'true'
+      default_field: false
+    - name: hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
       default_field: false
     - name: hash.md5
       level: extended
@@ -1759,6 +1784,14 @@
       ignore_above: 1024
       description: Attachment file extension, excluding the leading dot.
       example: txt
+      default_field: false
+    - name: attachments.file.hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
       default_field: false
     - name: attachments.file.hash.md5
       level: extended
@@ -2405,6 +2438,13 @@
       description: Boolean to capture if a signature is present.
       example: 'true'
       default_field: false
+    - name: code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
+      default_field: false
     - name: code_signature.signing_id
       level: extended
       type: keyword
@@ -2789,6 +2829,14 @@
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
+    - name: hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -4745,6 +4793,13 @@
       description: Boolean to capture if a signature is present.
       example: 'true'
       default_field: false
+    - name: code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
+      default_field: false
     - name: code_signature.signing_id
       level: extended
       type: keyword
@@ -5774,6 +5829,14 @@
       description: The working directory of the process.
       example: /home/alice
       default_field: false
+    - name: hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
+      default_field: false
     - name: hash.md5
       level: extended
       type: keyword
@@ -6054,6 +6117,13 @@
       type: boolean
       description: Boolean to capture if a signature is present.
       example: 'true'
+      default_field: false
+    - name: parent.code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
       default_field: false
     - name: parent.code_signature.signing_id
       level: extended
@@ -6465,6 +6535,14 @@
         all processes on the host but it is unique within the process namespace that
         the process exists within.'
       example: 4242
+      default_field: false
+    - name: parent.hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
       default_field: false
     - name: parent.hash.md5
       level: extended
@@ -9101,6 +9179,13 @@
       description: Boolean to capture if a signature is present.
       example: 'true'
       default_field: false
+    - name: enrichments.indicator.file.code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
+      default_field: false
     - name: enrichments.indicator.file.code_signature.signing_id
       level: extended
       type: keyword
@@ -9491,6 +9576,14 @@
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
+      default_field: false
+    - name: enrichments.indicator.file.hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
       default_field: false
     - name: enrichments.indicator.file.hash.md5
       level: extended
@@ -10708,6 +10801,13 @@
       description: Boolean to capture if a signature is present.
       example: 'true'
       default_field: false
+    - name: indicator.file.code_signature.flags
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The flags used to sign the process.
+      example: 570522385
+      default_field: false
     - name: indicator.file.code_signature.signing_id
       level: extended
       type: keyword
@@ -11098,6 +11198,14 @@
       ignore_above: 1024
       description: Primary group name of the file.
       example: alice
+      default_field: false
+    - name: indicator.file.hash.cdhash
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Code directory hash, utilized to uniquely identify and authenticate
+        the integrity of the executable code.
+      example: 3783b4052fd474dbe30676b45c329e7a6d44acd9
       default_field: false
     - name: indicator.file.hash.md5
       level: extended

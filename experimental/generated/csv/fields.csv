@@ -146,8 +146,10 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,device,device.manufacturer,keyword,extended,,Samsung,The vendor name of the device manufacturer.
 8.12.0-dev+exp,true,device,device.model.identifier,keyword,extended,,SM-G920F,The machine readable identifier of the device model.
 8.12.0-dev+exp,true,device,device.model.name,keyword,extended,,Samsung Galaxy S6,The human readable marketing name of the device model.
+8.12.0-dev+exp,true,device,device.serial_number,keyword,core,,DJGAQS4CW5,Serial Number of the device
 8.12.0-dev+exp,true,dll,dll.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,dll,dll.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,dll,dll.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,dll,dll.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,dll,dll.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,dll,dll.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -155,6 +157,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,dll,dll.code_signature.timestamp,date,extended,,2021-01-01T12:10:30Z,When the signature was generated and signed.
 8.12.0-dev+exp,true,dll,dll.code_signature.trusted,boolean,extended,,true,Stores the trust status of the certificate chain.
 8.12.0-dev+exp,true,dll,dll.code_signature.valid,boolean,extended,,true,Boolean to capture if the digital signature is verified against the binary content.
+8.12.0-dev+exp,true,dll,dll.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,dll,dll.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,dll,dll.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,dll,dll.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -208,6 +211,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,ecs,ecs.version,keyword,core,,1.0.0,ECS version this event conforms to.
 8.12.0-dev+exp,true,email,email.attachments,nested,extended,array,,List of objects describing the attachments.
 8.12.0-dev+exp,true,email,email.attachments.file.extension,keyword,extended,,txt,Attachment file extension.
+8.12.0-dev+exp,true,email,email.attachments.file.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,email,email.attachments.file.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,email,email.attachments.file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,email,email.attachments.file.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -276,6 +280,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,file,file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 8.12.0-dev+exp,true,file,file.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,file,file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,file,file.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,file,file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,file,file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,file,file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -330,6 +335,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,file,file.fork_name,keyword,extended,,Zone.Identifer,A fork is additional data associated with a filesystem object.
 8.12.0-dev+exp,true,file,file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.12.0-dev+exp,true,file,file.group,keyword,extended,,alice,Primary group name of the file.
+8.12.0-dev+exp,true,file,file.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,file,file.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,file,file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,file,file.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -587,6 +593,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,process,process.args_count,long,extended,,4,Length of the process.args array.
 8.12.0-dev+exp,true,process,process.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,process,process.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,process,process.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,process,process.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,process,process.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,process,process.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -728,6 +735,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,process,process.group_leader.vpid,long,core,,4242,Virtual process id.
 8.12.0-dev+exp,true,process,process.group_leader.working_directory,keyword,extended,,/home/alice,The working directory of the process.
 8.12.0-dev+exp,true,process,process.group_leader.working_directory.text,match_only_text,extended,,/home/alice,The working directory of the process.
+8.12.0-dev+exp,true,process,process.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,process,process.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,process,process.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,process,process.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -767,6 +775,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,process,process.parent.args_count,long,extended,,4,Length of the process.args array.
 8.12.0-dev+exp,true,process,process.parent.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,process,process.parent.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,process,process.parent.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,process,process.parent.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,process,process.parent.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,process,process.parent.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -825,6 +834,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,process,process.parent.group_leader.pid,long,core,,4242,Process id.
 8.12.0-dev+exp,true,process,process.parent.group_leader.start,date,extended,,2016-05-23T08:05:34.853Z,The time the process started.
 8.12.0-dev+exp,true,process,process.parent.group_leader.vpid,long,core,,4242,Virtual process id.
+8.12.0-dev+exp,true,process,process.parent.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,process,process.parent.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,process,process.parent.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,process,process.parent.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -1152,6 +1162,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -1206,6 +1217,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.fork_name,keyword,extended,,Zone.Identifer,A fork is additional data associated with a filesystem object.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
+8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,threat,threat.enrichments.indicator.file.hash.sha256,keyword,extended,,,SHA256 hash.
@@ -1369,6 +1381,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,threat,threat.indicator.file.attributes,keyword,extended,array,"[""readonly"", ""system""]",Array of file attributes.
 8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.digest_algorithm,keyword,extended,,sha256,Hashing algorithm used to sign the process.
 8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.exists,boolean,core,,true,Boolean to capture if a signature is present.
+8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.flags,keyword,extended,,570522385,Code signing flags of the process
 8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.signing_id,keyword,extended,,com.apple.xpc.proxy,The identifier used to sign the process.
 8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.status,keyword,extended,,ERROR_UNTRUSTED_ROOT,Additional information about the certificate status.
 8.12.0-dev+exp,true,threat,threat.indicator.file.code_signature.subject_name,keyword,core,,Microsoft Corporation,Subject name of the code signer
@@ -1423,6 +1436,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 8.12.0-dev+exp,true,threat,threat.indicator.file.fork_name,keyword,extended,,Zone.Identifer,A fork is additional data associated with a filesystem object.
 8.12.0-dev+exp,true,threat,threat.indicator.file.gid,keyword,extended,,1001,Primary group ID (GID) of the file.
 8.12.0-dev+exp,true,threat,threat.indicator.file.group,keyword,extended,,alice,Primary group name of the file.
+8.12.0-dev+exp,true,threat,threat.indicator.file.hash.cdhash,keyword,extended,,3783b4052fd474dbe30676b45c329e7a6d44acd9,The Code Directory (CD) hash of an executable.
 8.12.0-dev+exp,true,threat,threat.indicator.file.hash.md5,keyword,extended,,,MD5 hash.
 8.12.0-dev+exp,true,threat,threat.indicator.file.hash.sha1,keyword,extended,,,SHA1 hash.
 8.12.0-dev+exp,true,threat,threat.indicator.file.hash.sha256,keyword,extended,,,SHA256 hash.

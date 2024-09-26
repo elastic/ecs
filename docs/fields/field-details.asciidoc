@@ -866,6 +866,24 @@ example: `true`
 // ===============================================================
 
 |
+[[field-code-signature-flags]]
+<<field-code-signature-flags, code_signature.flags>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The flags used to sign the process.
+
+type: keyword
+
+
+
+example: `570522385`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-code-signature-signing-id]]
 <<field-code-signature-signing-id, code_signature.signing_id>>
 
@@ -1610,7 +1628,7 @@ example: `co.uk`
 [[ecs-device]]
 === Device Fields
 
-Fields that describe a device instance and its characteristics.  Data collected for applications and processes running on a (mobile) device can be enriched with these fields to describe the identity, type and other characteristics of the device.
+Fields that describe a device instance and its characteristics. Data collected for applications and processes running on a (mobile) device can be enriched with these fields to describe the identity, type and other characteristics of the device.
 
 This field group definition is based on the Device namespace of the OpenTelemetry Semantic Conventions (https://opentelemetry.io/docs/reference/specification/resource/semantic_conventions/device/).
 
@@ -1629,7 +1647,7 @@ beta::[ These fields are in beta and are subject to change.]
 [[field-device-id]]
 <<field-device-id, device.id>>
 
-a| The unique identifier of a device. The identifier must not change across application sessions but stay fixed for an instance of a (mobile) device. 
+a| The unique identifier of a device. The identifier must not change across application sessions but stay fixed for an instance of a (mobile) device.
 
 On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor). On Android, this value must be equal to the Firebase Installation ID or a globally unique UUID which is persisted across sessions in your application.
 
@@ -1690,6 +1708,24 @@ type: keyword
 example: `Samsung Galaxy S6`
 
 | extended
+
+// ===============================================================
+
+|
+[[field-device-serial-number]]
+<<field-device-serial-number, device.serial_number>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The unique serial number serves as a distinct identifier for each device, aiding in inventory management and device authentication.
+
+type: keyword
+
+
+
+example: `DJGAQS4CW5`
+
+| core
 
 // ===============================================================
 
@@ -4808,6 +4844,24 @@ Note that this fieldset is used for common hashes that may be computed over a ra
 [options="header"]
 |=====
 | Field  | Description | Level
+
+// ===============================================================
+
+|
+[[field-hash-cdhash]]
+<<field-hash-cdhash, hash.cdhash>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+Code directory hash, utilized to uniquely identify and authenticate the integrity of the executable code.
+
+type: keyword
+
+
+
+example: `3783b4052fd474dbe30676b45c329e7a6d44acd9`
+
+| extended
 
 // ===============================================================
 
@@ -8685,6 +8739,8 @@ The `process` fields are expected to be nested at:
 
 * `process.previous`
 
+* `process.responsible`
+
 * `process.session_leader`
 
 * `process.session_leader.parent`
@@ -8835,6 +8891,14 @@ Note: this reuse should contain an array of process field set objects.
 | `process.real_user.*`
 | <<ecs-user,user>>
 | The real user (ruid). Identifies the real owner of the process.
+
+// ===============================================================
+
+
+| `process.responsible.*`
+| <<ecs-process,process>>| beta:[ This field is beta and subject to change.]
+
+Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy.
 
 // ===============================================================
 
@@ -9142,7 +9206,7 @@ Note: this field should contain an array of values.
 [[ecs-risk]]
 === Risk information Fields
 
-Fields for describing risk score and risk level of entities such as hosts and users.  These fields are not allowed to be nested under `event.*`. Please continue to use  `event.risk_score` and `event.risk_score_norm` for event risk.
+Fields for describing risk score and risk level of entities such as hosts and users. These fields are not allowed to be nested under `event.*`. Please continue to use `event.risk_score` and `event.risk_score_norm` for event risk.
 
 beta::[ These fields are in beta and are subject to change.]
 
