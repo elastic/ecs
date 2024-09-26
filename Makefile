@@ -86,7 +86,7 @@ misspell:
 	fi
 	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
 
-# Warn re misspell removal     
+# Warn re misspell removal
 .PHONY: misspell_warn
 misspell_warn:
 	@echo "Warning: due to lack of cross-platform support, misspell is no longer included in this task and may be deprecated in future\n"
@@ -110,4 +110,4 @@ build/ve/bin/activate: scripts/requirements.txt scripts/requirements-dev.txt
 # Check YAML syntax (currently not enforced).
 .PHONY: yamllint
 yamllint: ve
-	build/ve/bin/yamllint schemas/*.yml
+	build/ve/bin/yamllint -d '{extends: default, rules: {line-length: disable}}' schemas/*.yml
