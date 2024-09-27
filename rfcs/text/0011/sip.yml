@@ -1,0 +1,410 @@
+---
+- name: sip
+  title: SIP
+  group: 2
+  short: Fields describing SIP/SDP protocols, connections, and SIP/SDP based unified communications sessions.
+  description: >
+    These fields are used to describe SIP based conversations between endpoints and servers, as well
+    as direct communications sessions between endpoints.
+
+    Examples include network captures of SIP traffic, network sensors and observers providing SIP decode
+    information, as well as SIP server and SIP proxy logs.  It is not expected that a SIP proxy or server,
+    which is likely normalizing multiple SIP network conversations, will provide the full scope of SIP 
+    protocol fields.
+
+    URL and User_Agent fields have been nested under sip, sip.from, sip.to, sip.auth, sip.private, and sip.contact.
+    Typical implementations should minimally include url.original, url.host, url.port, and url.username, a 
+    standard processing of URI host domains is recommended (url.domain, url.top_level_domain, url.registered_domain, 
+    url.subdomain), as well as integrating User_Agent information, as available in the source data.
+
+  type: group
+  fields:
+  ## SIP REQUEST/RESPONSE
+    - name: type
+      level: extended
+      type: keyword
+      short: SIP Message type
+      example: REQUEST
+      description: SIP packet type e.g. REQUEST / RESPONSE
+
+    - name: method
+      level: extended
+      type: keyword
+      short: SIP Request Method
+      example: REGISTER
+      description: >
+        SIP request method, one of INVITE, ACK, BYE, CANCEL, REGISTER, OPTIONS, 
+        PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, SUB-NOT, MESSAGE, UPDATE.
+
+    - name: version
+      level: extended
+      type: keyword
+      short: SIP Protocol Version
+      example: 2.0
+      description: SIP protocol version used in the conversation (typically 2.0).
+
+    - name: code
+      level: extended
+      type: keyword
+      short: SIP response code
+      example: 200
+      description: SIP response code (1xx, 2xx, 3xx, 4xx, 5xx)
+
+    - name: status
+      level: extended
+      type: keyword
+      short: SIP response message 
+      example: OK
+      description: SIP response code status message
+
+    # SIP Headers
+    - name: accept
+      level: extended
+      type: keyword
+      short: SIP accept header
+      example: application/sdp
+      description: SIP accept header indicating application compatibility
+
+    - name: allow
+      level: extended
+      type: keyword
+      short: SIP allow header
+      example: REGISTER, INVITE, ACK, BYE
+      description: >
+        Array of allowed/supported SIP Methods (INVITE, ACK, BYE, CANCEL, REGISTER, OPTIONS, 
+        PRACK, SUBSCRIBE, NOTIFY, PUBLISH, INFO, REFER, MESSAGE, UPDATE.)
+
+    - name: call_id
+      level: extended
+      type: keyword
+      short: SIP call_id value
+      example: 55112@192.168.1.100
+      description: >
+        The SIP [RFC3261] Call-ID header value is a globally unique identifier, which is
+        mandatory in all requests/responses and identifies SIP messages belonging to the
+        same dialog or registration.
+
+    - name: content_length
+      level: extended
+      type: integer
+      short: Length of SIP message in bytes
+      example: 32
+      description: >
+        Size of the message portion of the SIP packet, in bytes.
+
+    - name: content_type
+      level: extended
+      type: keyword
+      short: SIP message content type
+      example: application/sdp
+      description: >
+        Content type identifies the media type used in the message.
+
+    - name: max_forwards
+      level: extended
+      type: integer
+      short: SIP maximum forward limit
+      example: 
+      description: >
+        The Max-Forwards header limits the number of times a request can be forwarded on 
+        its way to the recipient. 
+
+    - name: supported
+      level: extended
+      type: keyword
+      short: Array of supported SIP extensions
+      example: 
+      description: >
+        SIP supported headers list the SIP extensions supported by the device.
+
+    # SIP Auth
+    - name: auth.scheme
+      level: extended
+      type: keyword
+      short: SIP authentication scheme
+      example: digest
+      description: Supported SIP Authorization methods
+
+    - name: auth.realm
+      level: extended
+      type: keyword
+      short: SIP authorization realm realm  
+      example: sip.mydomain.com
+      description: Authorization realm for SIP authentication and authorization requests
+
+    # SIP Privacy Headers
+    - name: privacy.type
+      level: extended
+      type: keyword
+      short: SIP privacy headers 
+      example: user
+      description: >
+        Array of SIP privacy types implemented in the session.  One or more of user, header,
+        session, none, critical, id, and history.
+
+    # SIP CSEQ
+    - name: cseq.code
+      level: extended
+      type: integer
+      short: SIP CSeq Identifier
+      example: 68
+      description: Integer counter representing the SIP request sequence
+
+    - name: cseq.method
+      level: extended
+      type: keyword
+      short: SIP CSeq Request 
+      example: INVITE
+      description: SIP request type associated with the CSeq identifier.
+
+    # SIP  From
+    - name: from.display_info
+      level: extended
+      type: keyword
+      short: Source SIP entity alias
+      example: John Doe
+      description: This field records the associated contact name of the calling user or system.
+
+    - name: from.tag
+      level: extended
+      type: keyword
+      short: SIP source entity tag identifier
+      example: QvN92t713vSZK
+      description: > 
+        SIP source entity session tag, can be used with from.tag and call.id to build a unique
+        identifier for a given call session.
+
+    # SIP  To
+    - name: to.display_info
+      level: extended
+      type: keyword
+      short: Destination SIP entity alias
+      example: John Doe
+      description: This field records the associated contact name of the called user or system.
+
+    - name: to.tag
+      level: extended
+      type: keyword
+      short: SIP destination entity tag identifier
+      example: QvN92t713vSZK
+      description: > 
+        SIP called entity session tag, can be used with from.tag and call.id to build a unique
+        identifier for a given call session.
+
+    # SIP  Via
+    - name: via.transport
+      level: extended
+      type: keyword
+      short: SIP via transport 
+      example: udp
+      description: Network transport used by SIP proxy.
+
+    - name: via.sent_by.address
+      level: extended
+      type: ip
+      short: SIP via IP address
+      example: 192.168.1.10
+      description: IP address used by SIP proxy.
+
+    - name: via.sent_by.port
+      format: string
+      level: extended
+      type: long
+      example: 5060
+      description: Network port used by SIP proxy.
+
+    - name: via.received.address
+      level: extended
+      type: ip
+      short: SIP endpoint nat address
+      example: 151.101.2.217
+      description: >
+        Translated address of the SIP endpoint when address translation is being utilized.
+
+    - name: via.received.port
+      format: string
+      level: extended
+      example: 5065
+      short: SIP via rport
+      type: long
+      description: >
+        Translated network port of the SIP endpoint when address translation is being utilized.
+
+    - name: via.version
+      level: extended
+      type: keyword
+      short: SIP Protocol version utilized by a proxy
+      example: 2.0
+      description: SIP protocol version used in the proxyied conversation (typically 2.0).
+
+    - name: via.branch
+      level: extended
+      type: keyword 
+      short: SIP Via Transaction ID
+      example: z9hG4bK10_16a83292baa1de54e0b7843_I
+      description: The SIP via branch header is a unique transaction id 
+
+    # SIP  Contact
+    - name: contact.display_name
+      level: extended
+      type: keyword
+      short: SIP contact display name
+      example: John Doe
+      description: Display name used by the SIP contact.
+
+    - name: contact.transport
+      level: extended
+      type: keyword
+      short: SIP contact transport 
+      example: udp
+      description: Network transport used by SIP contact.
+
+    - name: contact.line
+      level: extended
+      type: keyword
+      short: Sip contact line value
+      example:  aca6b97ca3f5e51a
+      description: >
+        Optional SIP contact session identifier.
+
+    - name: contact.expires
+      level: extended
+      type: integer
+      short: SIP contact expiration timer
+      example: 1800
+      description: > 
+        The number of seconds before a specific SIP contact expires.
+
+    - name: contact.q
+      level: extended
+      type: keyword
+      short: SIP contact preference
+      example: .2
+      description: SIP contact preference q value.
+
+    # SIP Body / SDP
+    - name: sdp.version
+      level: extended
+      type: integer
+      short: SIP SDP version
+      example: 0
+      description: SIP Session Description Protocol version 
+
+    - name: sdp.owner.username
+      level: extended
+      type: keyword
+      short: SIP SDP session owner name
+      example: FreeSWITCH
+      description: >
+        Name of the system handling the SIP session, or username associated with the session.
+
+    - name: sdp.owner.session_id
+      level: extended
+      type: keyword
+      short: SIP SDP session id
+      example: 1480144037
+      description: SIP SDP session owners unique session id.
+
+    - name: sdp.owner.version
+      level: extended
+      type: keyword
+      short: SIP SDP session version
+      example: 1480144038
+      description: >
+        SIP SDP session version number, typically incremented any time session settings are modified.
+
+    - name: sdp.owner.ip
+      level: extended
+      type: ip
+      short: SIP SDP session owner IP
+      example: 10.1.1.50
+      description: IP address of the SIP SDP session owner.
+
+    - name: sdp.session.name
+      level: extended
+      type: keyword
+      short: SIP SDP session name
+      example: Company All Hands
+      description: Name of the SIP SDP session, when available.
+
+    - name: sdp.connection.address
+      level: extended
+      type: ip
+      short: SIP SDP session connection address
+      example: 10.1.1.50
+      description: IP address used to connect to the SIP SDP session
+
+    # SIP Body / SDP Media
+    - name: sdp.media.flags
+      level: extended
+      type: keyword
+      short: SIP SDP media flags
+      example: recvonly
+      description: Array of 0 or more flags provided for the SIP SDP session.
+
+    - name: sdp.media.type
+      level: extended
+      type: keyword
+      short: Array of SIP SDP media types offered
+      example: audio, video
+      description: One or more of available media types offered for the SIP SDP session (audio, video, etc.)
+
+    ## SIP/SDP Audio Fields
+    - name: sdp.audio.original
+      level: extended
+      type: keyword
+      short: SIP SDP audio information
+      example: audio 6000 RTP/AVP 8
+      description: Original value of SIP SDP audio protocols and codecs
+
+    - name: sdp.audio.port
+      format: string
+      level: extended
+      type: long
+      short: SIP SDP audio port
+      example: 6000
+      description: Network port used for the SIP SDP audio connection.
+
+    - name: sdp.audio.protocol
+      level: extended
+      type: keyword
+      short: SIP SDP audio protocol
+      example: RTP/AVP
+      description: Protocol offered for the SIP SDP audio connection.
+
+    - name: sdp.audio.format
+      level: extended
+      type: keyword
+      short: SIP SDP audio format
+      example: 8,101
+      description: Format offered for the SIP SDP audio connection.
+      
+    ## SIP/SDP Video Fields
+    - name: sdp.video.original
+      level: extended
+      type: keyword
+      short: SIP SDP video information
+      example: video 6001 RTP/AVP 31 
+      description: Original value of SIP SDP video protocols and codecs.
+
+    - name: sdp.video.port
+      format: string
+      level: extended
+      type: long
+      short: SIP SDP video port
+      example: 6001
+      description: Network port used for the SIP SDP video connection.
+
+    - name: sdp.video.protocol
+      level: extended
+      type: keyword
+      short: SIP SDP video protocol
+      example: RTP/AVP
+      description: Protocol offered for the SIP SDP video connection.
+
+    - name: sdp.video.format
+      level: extended
+      type: keyword
+      short: Array of SIP SDP video formats supported
+      example: 31, 32
+      description: Formats supported for the SIP SDP video connection.

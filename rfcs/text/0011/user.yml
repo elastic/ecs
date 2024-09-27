@@ -1,0 +1,84 @@
+---
+- name: user
+  title: User
+  group: 2
+  short: Fields to describe the user relevant to the event.
+  description: >
+    The user fields describe information about the user that is relevant
+    to the event.
+
+    Fields can have one entry or multiple entries. If a
+    user has more than one id, provide an array that includes all of
+    them.
+    
+  reusable:
+    top_level: true
+    expected:
+      - client
+      - destination
+      - host
+      - server
+      - source
+
+  type: group
+  fields:
+
+    - name: id
+      level: core
+      type: keyword
+      description: >
+        Unique identifier of the user.
+
+    - name: name
+      level: core
+      type: keyword
+      example: albert
+      description: >
+        Short name or login of the user.
+      multi_fields:
+      - type: text
+        name: text
+
+    - name: full_name
+      level: extended
+      type: keyword
+      example: Albert Einstein
+      description: >
+        User's full name, if available.
+      multi_fields:
+      - type: text
+        name: text
+
+    - name: email
+      level: extended
+      type: keyword
+      description: >
+        User email address.
+
+    - name: hash
+      level: extended
+      type: keyword
+      short: Unique user hash to correlate information for a user in anonymized form.
+      description: >
+        Unique user hash to correlate information for a user in anonymized form.
+
+        Useful if `user.id` or `user.name` contain confidential information and
+        cannot be used.
+
+    - name: domain
+      level: extended
+      type: keyword
+      short: Name of the directory the user is a member of.
+      description: >
+          Name of the directory the user is a member of.
+
+          For example, an LDAP or Active Directory domain name.
+
+    - name: roles
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Array of user roles at the time of the event.
+      example: '["kibana_admin", "reporting_user"]'
