@@ -24,6 +24,10 @@ Thanks, you're awesome :-) -->
 * Added `process.group` to generated schemas. #2335
 
 #### Improvements
+* Allow ECS from any directory #2019
+* Added ability to specify a prefix for es_templates #2019
+* Allow projects to create their own ACSIIDOC templates #2019
+
 
 #### Deprecated
 
