@@ -66,10 +66,6 @@ Beyond the per-category explanations, these fields' purpose is to provide more i
   * Miscellaneous text field intended to provide more details that cannot be presented in the other fields.
 
 <!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-<!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
@@ -81,9 +77,51 @@ We intend to leverage these new fields as part of the new implementation of the 
 
 The new Risk Engine will initially use Detection Engine Alerts as inputs to its scoring mechanism. However, we intend also to allow ingestion from the other Risk Categories described here, provided that they conform to the appropriate schema. Said schema is outside of the scope of this RFC, but based on the current implementation all we will need are a `score` field and a `category` field in order to ingest any arbitrary document.
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
+### Risk Score Document
+The following is an example risk score generated from Detection Engine Alerts, corresponding to the entity `host.name: 'siem-kibana'`
+
+```json
+{
+  "id": "a4cf452c1e0375c3d4412cb550ad1783358468a3b3b777da4829d72c7d6fb74f",
+  "index": "risk-score.risk-score-latest-default",
+  "source": {
+    "@timestamp": "2021-03-10T14:51:05.766Z",
+    "host": {
+      "name": "siem-kibana",
+      "risk": {
+        "calculated_level": "Critical",
+        "calculated_score_norm": 90,
+        "id_field": "host.name",
+        "id_value": "siem-kibana",
+        "calculated_score": 150,
+        "category_1_score": 80,
+        "category_1_count": 4354,
+        "category_2_score": 10,
+        "category_2_count": 1,
+        "notes": [],
+        "inputs": [
+          {
+            "id": "62895f54816047b9bf82929a61a6c571f41de9c2361670f6ef0136360e006f58",
+            "index": ".internal.alerts-security.alerts-default-000001",
+            "description": "New Rule Test",
+            "category": "category_1",
+            "risk_score": 70,
+            "timestamp": "2023-08-14T09:08:18.664Z"
+          },
+          {
+            "id": "e5bf3da3c855486ac7b40fa1aa33e19cf1380e413b79ed76bddf728f8fec4462",
+            "index": ".internal.alerts-security.alerts-default-000001",
+            "description": "New Rule Test",
+            "category": "category_1",
+            "risk_score": 70,
+            "timestamp": "2023-08-14T09:08:18.664Z"
+          }
+        ]
+      }
+    }
+  }
+}
+```
 
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
@@ -91,30 +129,27 @@ Stage 3: Add more real world example source documents so we have at least 2 tota
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+As these proposed fields are currently employed by the entity analytics risk engine, there are no first-party adoption/deprecation concerns. Additionally, since these fields are purely additive with respect to the existing risk fields, there are no migration/deprecation concerns.
+
+* Ingestion mechanisms
+  * While not officially supported, any systems that are currently ingesting risk documents (as originally introduced in RFC 31) _may_ need to be updated to support these additional fields.
+* Usage mechanisms (e.g. Kibana applications, detections)
+  * Kibana's usage of these fields is being developed by the Entity Analytics team, mainly leveraging them to build novel UI features for Risk Explainability.
+* ECS project (e.g. docs, tooling)
+  * There are no novel field types/mechanisms presented here.
 
 ## Concerns
 
-There are two broad concerns at this stage:
+There are three broad concerns at this stage:
 
 1. Category fields introducing a new "ordered" pattern
   * Rather than having either an array of objects, or an explicit `nested` field type, both of which allow an arbitrary number of items, we're instead opting to add 10 explicit fields (five explicit categories, each with two fields) under the _assumption_ that we won't extend the number of categories further. We have a bit of wiggle room (i.e. six categories, 12 fields wouldn't be out of question), but this is not a scalable solution if we need a large number of categories. However, that is only a potential future issue, and we can likely reevaluate and address it if/when it arises.
+  * RESOLUTION: we've decided to stick with this approach, for now.
 2. Mapping of `inputs` as a simple `object`
   * The biggest motivation for this choice is to avoid the performance/storage/syntax complexities that come with a `nested` mapping, but we also don't have any feature requirements that would currently necessitate `inputs` being `nested`.
-
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
+  * RESOLUTION: we've decided to stick with the simple, non-`nested` mapping for now. This decision is reinforced by the fact that these fields are used for the _explanation_ of a risk score, and it is unlikely that they will be useful in searches.
+3. Lack of user feedback
+  * Since these fields have been developed in an unreleased kibana feature, we have not had the opportunity to e.g. release a Technical Preview in order to garner user adoption and feedback. Lack of community engagement on these fields is likely the biggest risk, at this point.
 
 <!--
 Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
@@ -141,6 +176,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * Stage 0: https://github.com/elastic/ecs/pull/2232
 * Stage 1: https://github.com/elastic/ecs/pull/2236
+* Stage 2: https://github.com/elastic/ecs/pull/2276
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
