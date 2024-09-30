@@ -1,0 +1,85 @@
+---
+- name: session
+  title: Session
+  group: 2
+  type: group
+  short: User, admin, application, network, or service sessions
+  description: |-
+    These fields are used to track an entity's interaction with various assets, services, and applications in an enterprise.  Sessions will typically include a start event, often a login / authorization event performed locally or via network based mechanisms, and an end event indicating a logoff or session termination.  Related events during the scope of the session will typically be associated via tuples of user, source and or destination ip/port, or cookies.
+
+    When available, event start/end or duration fields should be populated, as well as iam, user, network, host, observer, process, source, destination, client, and server fields as appropriate to describe the specifics of the interaction.
+
+  fields:
+
+    - name: kind
+      level: extended
+      type: keyword
+      short: Session kind (system, application or network).
+      description: >
+        Session kind describes the type of access represented. Acceptable values are:
+        "application", "system", and "network".
+
+        "application" is relevant for application-level sessions such as web, ftp, database.
+
+        "system" is relevant for sessions initiated by computer systems rather than humans.
+
+        "network" is relevant to describe various kinds of network-level sessions
+        (VPN, 802.1x, wireless WPA sessions, NAC access to network).
+
+      example: network
+
+    - name: type
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      short: 'Session type (array of: local, remote, virtual, wired, wireless and/or vpn).'
+      description: >
+        Session type provides additional details on the scope of the interactions being tracked. Acceptable values are: "local", "remote", "virtual", "wired", "wireless", "vpn".
+
+        "local" is relevant e.g. for serial connections, physical sessions (hands on keyboard).
+
+        "remote" is relevant for any remote connection: direct system access via remote desktop, ssh, etc.
+
+        "virtual" is for VDI, VDA, etc.
+
+        (missing clarifications for: wired, wireless and vpn network connections?)
+
+        Session type is an array field, to provide the ability to capture multiple applicable values for a given session.
+
+      example: '["wireless"]'
+
+    - name: authorization
+      level: extended
+      type: keyword
+      short: Authorization scope of the session (user, admin or service).
+      description: >
+        Authorization scope of the session. Acceptable values are: "user", "admin" and "service".
+
+        "user" should be used for web sessions, network access, user vdi/vda, vpn, wired/wireless/vpn, etc.
+
+        "admin" should be used for administrative activity: root user, VMWare Host access, router "enable" level cli, etc.
+
+        "service" should be used for network to network VPN, non-user verified application service sessions, etc.
+
+      example: user
+
+    - name: name
+      level: extended
+      type: keyword
+      short: Session name as specified by this source.
+      description: The `session.name` field is meant to contain a locally significant textual identifier for the session as configured. This could represent a VPN group name, a wireless network name (ssid), a wired network segment, VDI service name, service or application identifier.
+
+      example: HQ-Wireless
+
+    - name: id
+      level: extended
+      type: keyword
+      short: Session id or fingerprint.
+      description: >
+        The id field is a locally significant identifier for the session as provided by the observer or host reporting the session.
+
+        If no id is provided, this field can remain blank, or a fingerprint function similar to network.community_id can be used to discretely identify sessions from unique values.
+
+      example: 7635344
+
