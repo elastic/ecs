@@ -25,6 +25,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Define base encoding of `x509.serial_number`. #2383
+
 #### Deprecated
 
 ### Tooling and Artifact Changes
