@@ -1,4 +1,4 @@
-# 0000: File Events Fields
+# 0000: File Origin Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -13,16 +13,20 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This RFC adds two new fields in the file fields: `file.origin_referrer_url` and `file.origin_url`.
-In Windows, it is known that when downloading files from the internet using a web browser (eg. Chrome, Edge, etc), information about the file's source, known as the Mark of the Web, is added to the file's NTFS alternate data stream.
-For example, when you download an image file (`image17.webp`) from [this webpage](https://www.elastic.co/security-labs/pikabot-i-choose-you) using a web browser, the download source URL is automatically added to the file's Alternate Data Stream (ADS) as following.
+It is known that when downloading files from the internet using a web browser (eg. Chrome, Edge, etc), information about the file's source is added to the file.
+In Windows, it is known as the Mark of the Web and stored in file's Alternate Data Stream (ADS). In MacOS, it is stored in file's extended file attributes (metadata).
+
+For example, in Windows, when you download an image file (`image17.webp`) from [this webpage](https://www.elastic.co/security-labs/pikabot-i-choose-you) using a web browser, the download source URL is automatically added to the file's Alternate Data Stream (ADS) as following.
 
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/b3dba571-1155-4226-88a0-fb9d67424d64">
 
 * Inside `image17.webp:Zone.Identifier:$DATA`
 <img width="804" alt="image" src="https://github.com/user-attachments/assets/f6058d40-d060-4dcb-9bdc-760e76389b45">
 
-This PR adds a field to store the URL of the file's origin, which is saved in the NTFS alternate data stream (ADS). The ReferrerUrl is intended to be stored in the `origin_referrer_url field`, and the `HostUrl` is inteded to be stored in the `origin_url` field.
+In ensuring endpoint security, the origin information of a file is crucial for determining whether a downloaded file or executable from the internet comes from a safe source and if it is safe to execute.
+
+Thus, this PR adds new fields to store the URL of the file's origin information for `file`, `process`, and `dll`.
+The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. The ZoneId is intended to be stored in the `zone_identifier` field.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -38,13 +42,18 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
-The new `file` fields proposed are:
+The new fields proposed are:
 
 Field | Type | Description /Usage
 -- | -- | -- 
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
-
+process.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
+process.origin_url | keyword | The URL where the file is hosted.
+process.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
+dll.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
+dll.origin_url | keyword | The URL where the file is hosted.
+dll.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -99,6 +108,7 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 The following are the people that consulted on the contents of this RFC.
 
 * @AsuNa-jp | author
+* @joe-desimone
 * @trisch-me 
 * @mjwolf 
 
