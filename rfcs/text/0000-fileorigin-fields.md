@@ -48,6 +48,7 @@ Field | Type | Description /Usage
 -- | -- | -- 
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
+file.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
 process.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 process.origin_url | keyword | The URL where the file is hosted.
 process.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
