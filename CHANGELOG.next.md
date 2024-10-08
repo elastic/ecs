@@ -15,6 +15,8 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 * Fix broken link in docs for vulnerability.id. #2328
 
+Updated description for 'syslog.severity.name' to clarify that the type is text-based. #2290
+
 #### Added
 
 * Added `volume.*` as beta field set. #2269
@@ -38,6 +40,8 @@ Thanks, you're awesome :-) -->
 * Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
 
 #### Improvements
+
+
 
 #### Deprecated
 
