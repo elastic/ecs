@@ -1,0 +1,33 @@
+- name: dll
+  title: DLL
+  group: 2
+  short: These fields contain information about code libraries dynamically loaded into processes.
+  description: |-
+    These fields contain information about code libraries dynamically loaded into processes.
+
+    Many operating systems refer to "shared code libraries" with different names, but this field set refers to all of the following:
+    * Dynamic-link library (`.dll`) commonly used on Windows
+    * Shared Object (`.so`) commonly used on Unix-like operating systems
+    * Dynamic library (`.dylib`) commonly used on macOS
+  type: group
+
+  fields:
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/files/example.dll
+
+    - name: zone_identifier
+      level: extended
+      type: short
+      description: Windows Zone Identifier for a file.
+      example: 3
