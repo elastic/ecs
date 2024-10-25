@@ -66,14 +66,12 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
-* DLL
-A process may load DLLs (libraries) as needed. However, there are cases where a malicious DLL prepared by an attacker might be loaded. To enhance security, we would like to check whether the loaded DLL was downloaded from the internet and, if so, where it was downloaded from. This information can help in determining whether the loaded DLL is malicious.
-
-* Process
-Generally, a process is generated from an executable file. However, there's a possibility that the executable file originating the process could be malware. To enhance security, we aim to include the executable file’s origin information at the process creation event and use the origin URL to help determine if the file is malicious.
-
 * File
-A file open event may be generated when a file is opened. By including the file's origin information in the event, the system can assess whether the file might be malware downloaded from a malicious website based on those URLs.
+  * A file open event may be generated when a file is opened. By including the file's origin information in the event, the system can assess whether the file might be malware downloaded from a malicious website based on those URLs.
+* Process
+  * Generally, a process is generated from an executable file. However, there's a possibility that the executable file originating the process could be malware. To enhance security, we aim to include the executable file’s origin information at the process creation event and use the origin URL to help determine if the file is malicious.
+* DLL
+  * A process may load DLLs (libraries) as needed. However, there are cases where a malicious DLL prepared by an attacker might be loaded. To enhance security, we would like to check whether the loaded DLL was downloaded from the internet and, if so, where it was downloaded from. This information can help in determining whether the loaded DLL is malicious.
 
 ## Source data
 
