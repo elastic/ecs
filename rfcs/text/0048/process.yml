@@ -1,0 +1,31 @@
+- name: process
+  title: Process
+  group: 2
+  short: These fields contain information about a process.
+  description: >
+    These fields contain information about a process.
+
+    These fields can help you correlate metrics information with a process id/name
+    from a log message.  The `process.pid` often stays in the metric itself and is
+    copied to the global field for correlation.
+  type: group
+  fields:
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
+
+    - name: zone_identifier
+      level: extended
+      type: short
+      description: Windows Zone Identifier for a file.
+      example: 3   
