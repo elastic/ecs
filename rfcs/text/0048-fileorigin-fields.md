@@ -49,12 +49,12 @@ Field | Type | Description /Usage
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
 file.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
-process.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
-process.origin_url | keyword | The URL where the file is hosted.
-process.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
-dll.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
-dll.origin_url | keyword | The URL where the file is hosted.
-dll.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
+process.origin_referrer_url | keyword | The URL of the webpage that linked to the process's executable file.
+process.origin_url | keyword | The URL where the process's executable file is hosted.
+process.zone_identifier | short | Numerical identifier that indicates the security zone of the executable file's origin.
+dll.origin_referrer_url | keyword | The URL of the webpage that linked to the dll file.
+dll.origin_url | keyword | The URL where the dll file is hosted.
+dll.zone_identifier | short | Numerical identifier that indicates the security zone of the dll file's origin.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -66,11 +66,22 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+* DLL
+A process may load DLLs (libraries) as needed. However, there are cases where a malicious DLL prepared by an attacker might be loaded. To enhance security, we would like to check whether the loaded DLL was downloaded from the internet and, if so, where it was downloaded from. This information can help in determining whether the loaded DLL is malicious.
+
+* Process
+Generally, a process is generated from an executable file. However, there's a possibility that the executable file originating the process could be malware. To enhance security, we aim to include the executable file’s origin information at the process creation event and use the origin URL to help determine if the file is malicious.
+
+* File
+A file open event may be generated when a file is opened. By including the file's origin information in the event, the system can assess whether the file might be malware downloaded from a malicious website based on those URLs.
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+Example sources of data is shown in the above.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
