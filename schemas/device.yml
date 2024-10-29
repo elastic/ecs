@@ -1,10 +1,26 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 - name: device
   title: Device
   group: 2
   short: Fields characterizing a (mobile) device a process or application is running on.
   description: >
-    Fields that describe a device instance and its characteristics. 
+    Fields that describe a device instance and its characteristics.
     Data collected for applications and processes running on a (mobile) device can be enriched with these fields
     to describe the identity, type and other characteristics of the device.
 
@@ -17,14 +33,14 @@
       level: extended
       example: 00000000-54b3-e7c7-0000-000046bffd97
       type: keyword
-      short: The unique identifier of a device. 
+      short: The unique identifier of a device.
       description: >
-        The unique identifier of a device. The identifier must not change across application sessions but stay fixed for an instance of a (mobile) device. 
+        The unique identifier of a device. The identifier must not change across application sessions but stay fixed for an instance of a (mobile) device.
 
         On iOS, this value must be equal to the vendor identifier (https://developer.apple.com/documentation/uikit/uidevice/1620059-identifierforvendor).
         On Android, this value must be equal to the Firebase Installation ID or a globally unique UUID which is persisted across sessions in your application.
 
-        For GDPR and data protection law reasons this identifier should not carry information that would allow to identify a user. 
+        For GDPR and data protection law reasons this identifier should not carry information that would allow to identify a user.
     - name: model.name
       level: extended
       example: Samsung Galaxy S6
@@ -42,4 +58,12 @@
       example: Samsung
       type: keyword
       description: >
-        The vendor name of the device manufacturer. 
+        The vendor name of the device manufacturer.
+    - name: serial_number
+      level: core
+      type: keyword
+      short: Serial Number of the device
+      description: >
+        The unique serial number serves as a distinct identifier for each device, aiding in inventory management and device authentication.
+      example: DJGAQS4CW5
+      beta: This field is beta and subject to change.
