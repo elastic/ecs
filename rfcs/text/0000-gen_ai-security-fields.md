@@ -1,4 +1,4 @@
-# 0000: LLM fields
+# 0000: GenAI fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
@@ -13,7 +13,7 @@ Feel free to remove these comments as you go along.
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-This RFC proposes LLM fields, with the increase of Generative AI and LLM logging. This will benefit our customers and users, allowing them to monitor and protect their LLM/Generative AI deployments.
+This RFC proposes GenAI fields, with the increase of Generative AI and LLM logging. This will benefit our customers and users, allowing them to monitor and protect their LLM/Generative AI deployments.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -29,6 +29,8 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
+<!--
+Archived by @peasead w/Elastic Security Labs 10/29/2024
 The `llm` fields proposed are: [WIP]
 
 Field | Type | Description /Usage
@@ -53,6 +55,36 @@ llm.model.type	|	keyword	|	Type of LLM model.
 llm.model.description	|	keyword	|	Description of the LLM model.
 llm.model.instructions	|	text	|	Custom instructions for the LLM model.
 llm.model.parameters	|	keyword	|	Parameters used to confirm the LLM model.
+-->
+
+The `gen_ai` fields proposed are: [WIP]
+
+Field | Type | Description /Usage
+-- | -- | -- 
+gen_ai | group | This defines the attributes used to describe telemetry in the context of Generative Artificial Intelligence (GenAI) Models requests and responses.
+gen_ai.system | keyword | The Generative AI product as identified by the client or server instrumentation. 
+gen_ai.request.model | keyword | 
+gen_ai.request.max_tokens | integer | 
+gen_ai.request.temperature | integer | 
+gen_ai.request.top_p | integer | 
+gen_ai.request.top_k | integer | 
+gen_ai.request.stop_sequences | keyword | 
+gen_ai.request.frequency_penalty | integer | 
+gen_ai.request.presence_penalty | integer | 
+gen_ai.response.id | keyword | 
+gen_ai.response.model | keyword | 
+gen_ai.response.finish_reasons | keyword | 
+gen_ai.usage.input_tokens | integer | 
+gen_ai.usage.output_tokens | integer | 
+gen_ai.token.type | keyword | 
+gen_ai.operation.name | keword | 
+
+
+Reuse fields: 
+* AWS - https://www.elastic.co/docs/current/integrations/aws
+* GCP - https://www.elastic.co/docs/current/integrations/gcp
+* Azure - https://www.elastic.co/docs/current/integrations/azure
+* Threat - https://www.elastic.co/guide/en/ecs/current/ecs-threat.html
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -108,7 +140,7 @@ The following are the people that consulted on the contents of this RFC.
 
 * @Mikaayenson | author
 * @susan-shu-c | author
-* @
+* @peasead | author
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
