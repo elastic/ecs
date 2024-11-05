@@ -59,8 +59,6 @@ llm.model.parameters	|	keyword	|	Parameters used to confirm the LLM model.
 
 The `gen_ai` fields proposed are: [WIP]
 
-**Note:** a `*` denotes that this field is not currenlty part of OTel or ECS, but is being used somewhere - most commonly in an Elastic integration
-
 Field | Type | Description /Usage | Example
 -- | -- | -- | --
 gen_ai | nested | This defines the attributes used to describe telemetry in the context of Generative Artificial Intelligence (GenAI) Models requests and responses.
@@ -215,6 +213,12 @@ The goal here is to research and understand the impact of these changes on users
 -->
 
 ## Concerns
+
+We have begun using OTel fields that were experimental and have since been depricated. This will lead to a breaking change.
+
+Example is `gen_ai.prompt`. This field has been deprecated by OTel and is handled by `gen_ai.`, but it is being used in the AWS Bedrock integration:
+- AWS Bedrock integration `gen_ai.prompt` being used [source](https://github.com/elastic/integrations/blob/main/packages/aws_bedrock/data_stream/invocation/fields/fields.yml#L64-L66)
+- [OTel deprecated fields](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/attributes-registry/gen-ai.md#deprecated-genai-attributes)
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
