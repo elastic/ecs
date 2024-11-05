@@ -216,7 +216,7 @@ The goal here is to research and understand the impact of these changes on users
 
 We have begun using OTel fields that were experimental and have since been depricated. This will lead to a breaking change.
 
-Example is `gen_ai.prompt`. This field has been deprecated by OTel and is handled by `gen_ai.`, but it is being used in the AWS Bedrock integration:
+Example is `gen_ai.prompt`. This field has been deprecated by OTel and is handled by [`gen_ai.user.message.content`](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/gen-ai/gen-ai-events.md)(?), but it is being used in the AWS Bedrock integration:
 - AWS Bedrock integration `gen_ai.prompt` being used [source](https://github.com/elastic/integrations/blob/main/packages/aws_bedrock/data_stream/invocation/fields/fields.yml#L64-L66)
 - [OTel deprecated fields](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/attributes-registry/gen-ai.md#deprecated-genai-attributes)
 
