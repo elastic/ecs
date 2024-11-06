@@ -26,6 +26,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
+* Restrict the encoding of `x509.serial_number` to base 16. #XXXX
 
 #### Deprecated
 
