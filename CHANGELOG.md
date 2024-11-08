@@ -3,11 +3,9 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [8.16.0](https://github.com/elastic/ecs/compare/v8.11.0...v8.16.0)
+## 8.16.0 (Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
 
 #### Bugfixes
 * Fix broken link in docs for vulnerability.id. #2328
@@ -24,21 +22,15 @@ All notable changes to this project will be documented in this file based on the
 
 * Define base encoding of `x509.serial_number`. #2383
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
+
+* Fix broken link for vulnerabilty.id #2328
 
 #### Added
 
 * Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
-
-#### Improvements
-
-#### Deprecated
 
 ## [8.11.0](https://github.com/elastic/ecs/compare/v8.10.0...v8.11.0)
 
