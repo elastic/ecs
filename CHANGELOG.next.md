@@ -22,6 +22,7 @@ Thanks, you're awesome :-) -->
 * Advanced `process.io` and `process.tty` fields to GA. #2317
 * Added `threat.indicator.id`. #2324
 * Added `process.group` to generated schemas. #2335
+* Added `*.domain` fields to ECS `email`. #2392
 
 #### Improvements
 
