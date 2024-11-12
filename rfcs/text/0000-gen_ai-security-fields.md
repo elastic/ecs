@@ -214,11 +214,17 @@ The goal here is to research and understand the impact of these changes on users
 
 ## Concerns
 
-We have begun using OTel fields that were experimental and have since been depricated. This will lead to a breaking change.
+**Experimental vs. Stable**
+We have begun using OTel fields that were experimental and have since been depricated.
 
 Example is `gen_ai.prompt`. This field has been deprecated by OTel and is handled by [`gen_ai.user.message.content`](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/gen-ai/gen-ai-events.md)(?), but it is being used in the AWS Bedrock integration:
 - AWS Bedrock integration `gen_ai.prompt` being used [source](https://github.com/elastic/integrations/blob/main/packages/aws_bedrock/data_stream/invocation/fields/fields.yml#L64-L66)
 - [OTel deprecated fields](https://github.com/open-telemetry/semantic-conventions/blob/main/docs/attributes-registry/gen-ai.md#deprecated-genai-attributes)
+
+Almost all of the GenAI fields are "Experimental", if we need to wait for "Stable", we'll probably want to pause this PR and recommend maturity promotion to the OTel team.
+
+**Fields not in OTel**
+Also, some of these fields do not exist in OTel yet, so do they need to be added in OTel before they can be considered for inclusion into ECS?
 
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
