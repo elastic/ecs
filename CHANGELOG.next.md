@@ -32,35 +32,6 @@ Thanks, you're awesome :-) -->
 
 #### Deprecated
 
-## 8.16.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Bugfixes
-* Fix broken link in docs for vulnerability.id. #2328
-
-#### Added
-
-* Added `volume.*` as beta field set. #2269
-* Advanced `process.env_vars` to GA. #2315
-* Advanced `process.io` and `process.tty` fields to GA. #2317
-* Added `threat.indicator.id`. #2324
-* Added `process.group` to generated schemas. #2335
-
-#### Improvements
-
-* Define base encoding of `x509.serial_number`. #2383
-
-### Tooling and Artifact Changes
-
-#### Bugfixes
-
-* Fix broken link for vulnerabilty.id #2328
-
-#### Added
-
-* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
-
 <!-- All empty sections:
 
 ## Unreleased
