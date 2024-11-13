@@ -13,6 +13,30 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+## 8.16.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Bugfixes
 * Fix broken link in docs for vulnerability.id. #2328
 
 #### Added
@@ -27,21 +51,15 @@ Thanks, you're awesome :-) -->
 
 * Define base encoding of `x509.serial_number`. #2383
 
-#### Deprecated
-
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
 #### Bugfixes
+
+* Fix broken link for vulnerabilty.id #2328
 
 #### Added
 
 * Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
-
-#### Improvements
-
-#### Deprecated
 
 <!-- All empty sections:
 
