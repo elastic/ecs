@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+Updated description for 'syslog.severity.name' to clarify that the type is text-based. #2290
+
 #### Added
 
 #### Improvements
@@ -32,6 +34,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+
 
 #### Deprecated
 
