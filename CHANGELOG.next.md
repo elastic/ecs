@@ -15,7 +15,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
+* Added `package.vendor` since we already had package version and package name. #2206
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
