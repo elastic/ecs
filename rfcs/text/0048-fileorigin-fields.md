@@ -26,7 +26,7 @@ For example, in Windows, when you download an image file (`image17.webp`) from [
 In ensuring endpoint security, the origin information of a file is crucial for determining whether a downloaded file or executable from the internet comes from a safe source and if it is safe to execute.
 
 Thus, this PR adds new fields to store the URL of the file's origin information for `file`, `process`, and `dll`.
-The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. The ZoneId is intended to be stored in the `zone_identifier` field.
+The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. 
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -48,13 +48,10 @@ Field | Type | Description /Usage
 -- | -- | -- 
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
-file.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
 process.origin_referrer_url | keyword | The URL of the webpage that linked to the process's executable file.
 process.origin_url | keyword | The URL where the process's executable file is hosted.
-process.zone_identifier | short | Numerical identifier that indicates the security zone of the executable file's origin.
 dll.origin_referrer_url | keyword | The URL of the webpage that linked to the dll file.
 dll.origin_url | keyword | The URL where the dll file is hosted.
-dll.zone_identifier | short | Numerical identifier that indicates the security zone of the dll file's origin.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
