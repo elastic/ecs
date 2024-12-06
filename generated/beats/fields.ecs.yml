@@ -6847,15 +6847,6 @@
       format: string
       description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
-    - name: parent.pgid
-      level: extended
-      type: long
-      format: string
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.'
-      default_field: false
     - name: parent.pid
       level: core
       type: long
@@ -7219,14 +7210,6 @@
       format: string
       description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
-    - name: pgid
-      level: extended
-      type: long
-      format: string
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.'
     - name: pid
       level: core
       type: long
@@ -8395,26 +8378,6 @@
         provide uniqueness (e.g. multiple instances of the service running on the
         same host) - the node name can be manually set.'
       example: instance-0000000016
-    - name: node.role
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Deprecated for removal in next major version release. This field
-        will be superseded by `node.roles`.
-
-        Role of a service node.
-
-        This allows for distinction between different running roles of the same service.
-
-        In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
-
-        In the case of Elasticsearch, the `service.node.role` could be `master` or
-        `data`.
-
-        Other services could use this to distinguish between a `web` and `worker`
-        role running as part of the service.'
-      example: background_tasks
-      default_field: false
     - name: node.roles
       level: extended
       type: keyword
@@ -8510,26 +8473,6 @@
         provide uniqueness (e.g. multiple instances of the service running on the
         same host) - the node name can be manually set.'
       example: instance-0000000016
-      default_field: false
-    - name: origin.node.role
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Deprecated for removal in next major version release. This field
-        will be superseded by `node.roles`.
-
-        Role of a service node.
-
-        This allows for distinction between different running roles of the same service.
-
-        In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
-
-        In the case of Elasticsearch, the `service.node.role` could be `master` or
-        `data`.
-
-        Other services could use this to distinguish between a `web` and `worker`
-        role running as part of the service.'
-      example: background_tasks
       default_field: false
     - name: origin.node.roles
       level: extended
@@ -8659,26 +8602,6 @@
         provide uniqueness (e.g. multiple instances of the service running on the
         same host) - the node name can be manually set.'
       example: instance-0000000016
-      default_field: false
-    - name: target.node.role
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'Deprecated for removal in next major version release. This field
-        will be superseded by `node.roles`.
-
-        Role of a service node.
-
-        This allows for distinction between different running roles of the same service.
-
-        In the case of Kibana, the `service.node.role` could be `ui` or `background_tasks`.
-
-        In the case of Elasticsearch, the `service.node.role` could be `master` or
-        `data`.
-
-        Other services could use this to distinguish between a `web` and `worker`
-        role running as part of the service.'
-      example: background_tasks
       default_field: false
     - name: target.node.roles
       level: extended

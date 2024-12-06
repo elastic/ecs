@@ -12,6 +12,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Remove deprecated fields from previous major release; `process.pgid`, `service.node.role`, and inherited users. #999999
+
 #### Bugfixes
 
 #### Added
