@@ -200,3 +200,30 @@
       description: >
         The name of the application that was used to draft and send the original email message.
       example: "Spambot v2.5"
+
+    - name: mailfrom.address
+      level: extended
+      type: keyword
+      beta: This field is beta and subject to change.
+      short: Email address from SMTP `MAIL` command.
+      description: >
+        The address from the SMTP `MAIL` command associated with the email, at the observed email relay host.
+
+        This is commonly called `MAIL FROM` value of the SMTP envelope.
+
+        For example, if the SMTP command is `MAIL FROM:<Smith@bar.com>`, this field has a value of `Smith@bar.com`
+      example: "userx@y.foo.org"
+
+    - name: recipient.addresses
+      level: extended
+      type: keyword
+      normalize: [ array ]
+      beta: This field is beta and subject to change.
+      short: Recipient addresses from the SMTP `RCPT` commands.
+      description: >
+        The email address(es) from SMTP `RCPT` command(s) associated with the email message.
+
+        This is commonly called `RCPT TO` value of the SMTP envelope.
+
+        As there may be multiple `RCPT` commands during a single message transaction, this may contain all email address from the entire transaction.
+      example: "[\"Jones@foo.com\", \"Green@foo.com\", \"Brown@foo.com\"]"

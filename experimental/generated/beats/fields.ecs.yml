@@ -1914,6 +1914,19 @@
         Identifier is not persistent across hops.'
       example: c26dbea0-80d5-463b-b93c-4e8b708219ce
       default_field: false
+    - name: mailfrom.address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The address from the SMTP `MAIL` command associated with the email,
+        at the observed email relay host.
+
+        This is commonly called `MAIL FROM` value of the SMTP envelope.
+
+        For example, if the SMTP command is `MAIL FROM:<Smith@bar.com>`, this field
+        has a value of `Smith@bar.com`'
+      example: userx@y.foo.org
+      default_field: false
     - name: message_id
       level: extended
       type: wildcard
@@ -1927,6 +1940,19 @@
       description: The date and time the email message was composed. Many email clients
         will fill in this value automatically when the message is sent by a user.
       example: '2020-11-10T22:12:34.8196921Z'
+      default_field: false
+    - name: recipient.addresses
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The email address(es) from SMTP `RCPT` command(s) associated with
+        the email message.
+
+        This is commonly called `RCPT TO` value of the SMTP envelope.
+
+        As there may be multiple `RCPT` commands during a single message transaction,
+        this may contain all email address from the entire transaction.'
+      example: '["Jones@foo.com", "Green@foo.com", "Brown@foo.com"]'
       default_field: false
     - name: reply_to.address
       level: extended
