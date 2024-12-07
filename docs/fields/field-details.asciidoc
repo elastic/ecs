@@ -3103,6 +3103,28 @@ example: `c26dbea0-80d5-463b-b93c-4e8b708219ce`
 // ===============================================================
 
 |
+[[field-email-mailfrom-address]]
+<<field-email-mailfrom-address, email.mailfrom.address>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The address from the SMTP `MAIL` command associated with the email, at the observed email relay host.
+
+This is commonly called `MAIL FROM` value of the SMTP envelope.
+
+For example, if the SMTP command is `MAIL FROM:<Smith@bar.com>`, this field has a value of `Smith@bar.com`
+
+type: keyword
+
+
+
+example: `userx@y.foo.org`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-email-message-id]]
 <<field-email-message-id, email.message_id>>
 
@@ -3129,6 +3151,31 @@ type: date
 
 
 example: `2020-11-10T22:12:34.8196921Z`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-email-recipient-addresses]]
+<<field-email-recipient-addresses, email.recipient.addresses>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The email address(es) from SMTP `RCPT` command(s) associated with the email message.
+
+This is commonly called `RCPT TO` value of the SMTP envelope.
+
+As there may be multiple `RCPT` commands during a single message transaction, this may contain all email address from the entire transaction.
+
+type: keyword
+
+
+Note: this field should contain an array of values.
+
+
+
+example: `["Jones@foo.com", "Green@foo.com", "Brown@foo.com"]`
 
 | extended
 
