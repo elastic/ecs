@@ -1,8 +1,8 @@
 # 0048: File Origin Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2024-10-15** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: **2024-XX-XX** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -26,7 +26,7 @@ For example, in Windows, when you download an image file (`image17.webp`) from [
 In ensuring endpoint security, the origin information of a file is crucial for determining whether a downloaded file or executable from the internet comes from a safe source and if it is safe to execute.
 
 Thus, this PR adds new fields to store the URL of the file's origin information for `file`, `process`, and `dll`.
-The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. The ZoneId is intended to be stored in the `zone_identifier` field.
+The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. 
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -48,13 +48,10 @@ Field | Type | Description /Usage
 -- | -- | -- 
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
-file.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
-process.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
-process.origin_url | keyword | The URL where the file is hosted.
-process.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
-dll.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
-dll.origin_url | keyword | The URL where the file is hosted.
-dll.zone_identifier | short | Numerical identifier that indicates the security zone of a file's origin.
+process.origin_referrer_url | keyword | The URL of the webpage that linked to the process's executable file.
+process.origin_url | keyword | The URL where the process's executable file is hosted.
+dll.origin_referrer_url | keyword | The URL of the webpage that linked to the dll file.
+dll.origin_url | keyword | The URL where the dll file is hosted.
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -66,11 +63,20 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+* File
+  * A file open event may be generated when a file is opened. By including the file's origin information in the event, the system can assess whether the file might be malware downloaded from a malicious website based on those URLs.
+* Process
+  * Generally, a process is generated from an executable file. However, there's a possibility that the executable file originating the process could be malware. To enhance security, we aim to include the executable file’s origin information at the process creation event and use the origin URL to help determine if the file is malicious.
+* DLL
+  * A process may load DLLs (libraries) as needed. However, there are cases where a malicious DLL prepared by an attacker might be loaded. To enhance security, we would like to check whether the loaded DLL was downloaded from the internet and, if so, where it was downloaded from. This information can help in determining whether the loaded DLL is malicious.
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+Example sources of data is shown in the above.
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -135,7 +141,7 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/2387
+* Stage 1: https://github.com/elastic/ecs/pull/2395
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
