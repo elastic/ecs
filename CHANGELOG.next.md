@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add email SMTP transmission fields for "MAIL FROM", "RCPT TO". #2413
+
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
