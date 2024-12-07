@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Promote beta fields to GA. #2411
 * Define base encoding of `x509.serial_number`. #2383
 * Restrict the encoding of `x509.serial_number` to base 16. #2398
 
