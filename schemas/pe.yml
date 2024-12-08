@@ -78,6 +78,80 @@
       description: CPU architecture target for the file.
       example: x64
 
+    - name: go_import_hash
+      short: A hash of the Go language imports in a PE file.
+      description: >
+        A hash of the Go language imports in a PE file excluding standard library imports.
+        An import hash can be used to fingerprint binaries even after recompilation or other
+        code-level transformations have occurred, which would change more traditional hash values.
+
+        The algorithm used to calculate the Go symbol hash and a reference implementation
+        are available [here](https://github.com/elastic/toutoumomoma).
+      example: 10bddcb4cee42080f76c88d9ff964491
+      type: keyword
+      level: extended
+
+    - name: go_imports
+      description: >
+        List of imported Go language element names and types.
+      type: flattened
+      level: extended
+
+    - name: go_imports_names_entropy
+      description: >
+        Shannon entropy calculation from the list of Go imports.
+      type: long
+      format: number
+      level: extended
+
+    - name: go_imports_names_var_entropy
+      description: >
+        Variance for Shannon entropy calculation from the list of Go imports.
+      type: long
+      format: number
+      level: extended
+
+    - name: go_stripped
+      short: Whether the file is a stripped or obfuscated Go executable.
+      description: >
+        Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.
+      type: boolean
+      level: extended
+
+    - name: import_hash
+      short: A hash of the imports in a PE file.
+      description: >
+        A hash of the imports in a PE file. An import hash can be used to
+        fingerprint binaries even after recompilation or other code-level
+        transformations have occurred, which would change more traditional hash values.
+
+        This is a synonym for imphash.
+      example: d41d8cd98f00b204e9800998ecf8427e
+      type: keyword
+      level: extended
+
+    - name: imports
+      description: >
+        List of imported element names and types.
+      type: flattened
+      level: extended
+      normalize:
+        - array
+
+    - name: imports_names_entropy
+      description: >
+        Shannon entropy calculation from the list of imported element names and types.
+      format: number
+      type: long
+      level: extended
+
+    - name: imports_names_var_entropy
+      description: >
+        Variance for Shannon entropy calculation from the list of imported element names and types.
+      format: number
+      type: long
+      level: extended
+
     - name: pehash
       level: extended
       type: keyword
@@ -88,3 +162,49 @@
 
         Learn more at https://www.usenix.org/legacy/events/leet09/tech/full_papers/wicherski/wicherski_html/index.html.
       example: 73ff189b63cd6be375a7ff25179a38d347651975
+
+    - name: sections
+      short: Section information of the PE file.
+      description: >
+        An array containing an object for each section of the PE file.
+
+        The keys that should be present in these objects are defined by sub-fields
+        underneath `pe.sections.*`.
+      type: nested
+      level: extended
+      normalize:
+        - "array"
+
+    - name: sections.entropy
+      description: >
+        Shannon entropy calculation from the section.
+      format: number
+      type: long
+      level: extended
+
+    - name: sections.name
+      description: >
+        PE Section List name.
+      type: keyword
+      level: extended
+
+    - name: sections.physical_size
+      description: >
+        PE Section List physical size.
+      format: bytes
+      type: long
+      level: extended
+
+    - name: sections.var_entropy
+      description: >
+        Variance for Shannon entropy calculation from the section.
+      format: number
+      type: long
+      level: extended
+
+    - name: sections.virtual_size
+      description: >
+        PE Section List virtual size. This is always the same as `physical_size`.
+      format: string
+      type: long
+      level: extended

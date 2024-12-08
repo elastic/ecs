@@ -1,16 +1,9 @@
 # 0031: Risk fields for multiple entities
 
-- Stage: **0 (strawperson)**
-- Date: **2022/01/27**
+- Stage: **3 (finished)**
+- Date: **2022/09/08**
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
-In 7.16, we released an experimental feature in the Security solution, called [Host Risk Score](https://www.elastic.co/guide/en/security/7.17/host-risk-score.html). Initially, the requirement of the feature was limited to surfacing risky hosts in a customer environment. As the feature matures, we want to further integrate it into the Security solution, and be able to perform filtering and sorting operations based on the risk information. Furthermore, there's also work currently in progress for a User Risk Score functionality, which will highlight users at risk within the Security solutions. Both these features (and potentially others) currently do not use could benefit from having a reusable risk field set highlighting information like risk score, risk level, contributors to risk etc.
-
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
+In 7.16, we released an experimental feature in the Security solution, called [Host Risk Score](https://www.elastic.co/guide/en/security/7.17/host-risk-score.html) to surface risky hosts in a customer environment. In 8.3, we released a similar feature called [User Risk Score](https://www.elastic.co/guide/en/security/current/user-risk-score.html) to expose at-risk users. As the two features mature, we want to further integrate them into the Security App, and enable users to perform filtering, sorting and enrichment based on the risk information. To that effect, we propose a reusable risk field set highlighting information like risk score, risk level etc., which could be used to express entity risk in the Security App.
 
 <!--
 Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
@@ -18,80 +11,148 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 ## Fields
 
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+The `risk` fields being proposed are as follows:
 
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+Field | Type | Example | Description | Use Case
+-- | -- | -- | -- | -- 
+risk.calculated_score | float | 880.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.calculated_score_norm | float | 88.73 | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100 | Can be used to indicate the risk associated with a particular host
+risk.static_score | float | 830.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+risk.static_score_norm | float | 83.0 | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100 | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed 
+risk.calculated_level | keyword | High | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring | Can be used to indicate the risk associated with a particular host
+risk.static_level | keyword | High | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform | Can be used to indicate the projected risk of a particular host based on a trusted third party intelligence feed
+
+### Nesting `risk.*` fields under other fields
+
+The `risk.*` fields mentioned above can be used to quantify the amount of risk associated with entities like hosts, users etc. For example, a host with a high risk score would imply that the probability of the host being exposed to harm during a cyber attack or breach is high. Attaching risk to entities can help analysts identify entities that require their immediate attention and hence drive investigations in a more systematic manner.
+
+To begin with, the `risk.*` fields could be nested under the existing `host.*` and `user.*` fields, since hosts and users tend to be important entities during investigations.
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+As mentioned previously, we currently have two experimental entity risk features in the Security App, namely Host Risk Score and User Risk Score. Host risk information can be viewed in [several locations](https://www.elastic.co/guide/en/security/8.4/host-risk-score.html#_additional_places_to_visualize_host_risk_score_data) in the Security App, including the Overview tab and the Hosts page.
+
+User risk information can be found on the [Users page](https://www.elastic.co/guide/en/security/8.4/user-risk-score.html#view-user-risk-score) in the Security App.
+
+Alerts are also being enriched with host and user risk information to help with alert investigation and triage.
+
+With `risk` information available in multiple locations in the Security App, users can use it as an additional vector to filter, sort and correlate information within the Security App. For example, users will be able to start investigations by running queries like the following:
+* "Show me the most critical and high-risk Windows hosts in my environment"
+* "Show me the activity that contributed towards making Host X high-risk"
+* "Show me the alerts corresponding to high-risk users in my environment"
+* "Show me how the risk of User X changed over time"
 
 ## Source data
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+* Host Risk Score Transform
+* User Risk Score Transform
+* Security Alerts 
+* [Potential] Data sources related to other assets
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
+### Host Risk Score Transform
 
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
+An example of a mapped document produced by the host risk score transform is as follows:
+
+```json
+{
+  "host": {
+    "name": "My-PC",
+    "risk": {
+      "rule_risks": [
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
+          "rule_risk": 73
+        },
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Remote File Execution via MSIEXEC",
+          "rule_risk": 73
+        },
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Script Execution via Microsoft HTML Application",
+          "rule_risk": 73
+        }
+      ],
+      "calculated_score_norm": 96.68615013176895,
+      "multipliers": [
+        "Host is a server"
+      ],
+      "calculated_level": "Critical"
+    }
+  },
+  "ingest_timestamp": "2022-08-15T16:32:16.142561766Z",
+  "@timestamp": "2022-08-12T14:45:36.171Z"
+}
+```
+
+### User Risk Score Transform
+
+An example of a mapped document produced by the user risk score transform is as follows:
+
+```json
+{
+  "user": {
+    "name": "random-user",
+    "risk": {
+      "rule_risks": [
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Regsvr32 Scriptlet Execution",
+          "rule_risk": 73
+        },
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Remote File Execution via MSIEXEC",
+          "rule_risk": 73
+        },
+        {
+          "rule_id": "499a4611-1a4b-11ed-bb53-ad8c26f4d942",
+          "rule_name": "Malicious Behavior Prevention Alert: Script Execution via Microsoft HTML Application",
+          "rule_risk": 73
+        }
+      ],
+      "calculated_score_norm": 96.68615013176895,
+      "calculated_level": "Critical"
+    }
+  },
+  "ingest_timestamp": "2022-08-15T16:32:16.142561766Z",
+  "@timestamp": "2022-08-12T14:45:36.171Z"
+}
+```
+
+### Alerts
+
+The risk fields will be used to enrich alerts with entity risk information coming from internal systems such as host and user risk score, as well as external sources such as third-party threat intelligence feeds. An example of an alert document enriched with entity risk data from internal and external sources is provided in the RFC folder `0031`.
 
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+We have several views in the Security App where host and user risk information is displayed. These views will need to be updated to use the new ECS fields. Any new workflows built on top of host and user risk scores will also need to adopt these new fields. 
+
+We currently have a small number (~60) of customer clusters that have deployed Host Risk Score in its experimental state. If these users were to upgrade to a Kibana version where the Security App uses the new ECS fields, they will also need to install the new Host Risk Score transforms and Lens dashboards. These users will also need to be informed that any views involving host risk in the Security App will cease to work on old (before upgrade) data.
+
+A similar process will follow for customers who have already enabled User Risk Score.
 
 ## Concerns
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
+We have an internal plan in place to port the Host and User Risk Score transforms, dashboards, and any existing host and user risk views in the Security App, to use the new ECS fields.
 
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
+For existing users, migrate buttons on the host and user risk score cards on the Overview page will delete existing artifacts and re-install new ones. This migration strategy does not involve preserving historical risk data- this is left up to the user since the features are still experimental. However, we will be sure to communicate this clearly via documentation and in the UI.
 
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+We currently have two risk fields, `risk_score` and `risk_score_norm` that can be associated with `event` object. We will clarify this in the description for the new risk fields, stating that these new fields apply to entities only and should not be nested under the event object.
 
 ## People
 
 The following are the people that consulted on the contents of this RFC.
 
 * @ajosh0504 | author
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
+* @ajosh0504 | sponsor
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+* [About Host Risk Score](https://www.elastic.co/guide/en/security/8.4/host-risk-score.html)
+* [About User Risk Score](https://www.elastic.co/guide/en/security/8.4/user-risk-score.html)
 
 ### RFC Pull Requests
 
@@ -99,7 +160,8 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/1740
 
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/1744
+
+* Stage 2: https://github.com/elastic/ecs/pull/2027
+
+* Stage 3: https://github.com/elastic/ecs/pull/2048

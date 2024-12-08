@@ -34,7 +34,6 @@
       level: extended
       type: nested
       short: List of objects containing indicators enriching the event.
-      beta: This field is beta and subject to change.
       description: >
         A list of associated indicators objects enriching the event, and the context of
         that association/enrichment.
@@ -45,7 +44,6 @@
       level: extended
       type: object
       short: Object containing indicators enriching the event.
-      beta: This field is beta and subject to change.
       description: >
         Object containing associated indicators enriching the event.
 
@@ -53,7 +51,6 @@
       level: extended
       type: date
       short: Date/time indicator was first reported.
-      beta: This field is beta and subject to change.
       description: >
         The date and time when intelligence source first reported sighting this indicator.
       example: "2020-11-05T17:25:47.000Z"
@@ -62,7 +59,6 @@
       level: extended
       type: date
       short: Date/time indicator was last reported.
-      beta: This field is beta and subject to change.
       description: >
         The date and time when intelligence source last reported sighting this indicator.
       example: "2020-11-05T17:25:47.000Z"
@@ -71,7 +67,6 @@
       level: extended
       type: date
       short: Date/time indicator was last updated.
-      beta: This field is beta and subject to change.
       description: >
         The date and time when intelligence source last modified information for this indicator.
       example: "2020-11-05T17:25:47.000Z"
@@ -80,7 +75,6 @@
       level: extended
       type: long
       short: Number of times indicator observed
-      beta: This field is beta and subject to change.
       description: >
         Number of times this indicator was observed conducting threat activity.
       example: 20
@@ -89,7 +83,6 @@
       level: extended
       type: keyword
       short: Type of indicator
-      beta: This field is beta and subject to change.
       description: >
         Type of indicator as represented by Cyber Observable in STIX 2.0.
       expected_values:
@@ -112,11 +105,21 @@
         - x509-certificate
       example: ipv4-addr
 
+    - name: enrichments.indicator.name
+      level: extended
+      type: keyword
+      short: Indicator display name
+      description: >
+        The display name indicator in an UI friendly format
+
+        URL, IP address, email address, registry key, port number, hash value,
+        or other relevant name can serve as the display name.
+      example: 5.2.75.227
+
     - name: enrichments.indicator.description
       level: extended
       type: keyword
       short: Indicator description
-      beta: This field is beta and subject to change.
       description: >
         Describes the type of action conducted by the threat.
       example: IP x.x.x.x was observed delivering the Angler EK.
@@ -125,7 +128,6 @@
       level: extended
       type: long
       short: Scanner statistics
-      beta: This field is beta and subject to change.
       description: >
         Count of AV/EDR vendors that successfully detected malicious file or URL.
       example: 4
@@ -134,7 +136,6 @@
       level: extended
       type: keyword
       short: Indicator confidence rating
-      beta: This field is beta and subject to change.
       description: >
         Identifies the vendor-neutral confidence rating using the None/Low/Medium/High scale defined in Appendix A of the STIX 2.1 framework. Vendor-specific
         confidence scales may be added as custom fields.
@@ -150,7 +151,6 @@
       level: extended
       type: ip
       short: Indicator IP address
-      beta: This field is beta and subject to change.
       description: >
         Identifies a threat indicator as an IP address (irrespective of direction).
       example: 1.2.3.4
@@ -159,7 +159,6 @@
       level: extended
       type: long
       short: Indicator port
-      beta: This field is beta and subject to change.
       description: >
         Identifies a threat indicator as a port number (irrespective of direction).
       example: 443
@@ -168,7 +167,6 @@
       level: extended
       type: keyword
       short: Indicator email address
-      beta: This field is beta and subject to change.
       description: >
         Identifies a threat indicator as an email address (irrespective of direction).
       example: phish@example.com
@@ -177,21 +175,29 @@
       level: extended
       type: keyword
       short: Indicator TLP marking
-      beta: This field is beta and subject to change.
       description: >
         Traffic Light Protocol sharing markings.
       expected_values:
         - WHITE
+        - CLEAR
         - GREEN
         - AMBER
+        - AMBER+STRICT
         - RED
-      example: WHITE
+      example: CLEAR
+
+    - name: enrichments.indicator.marking.tlp_version
+      level: extended
+      type: keyword
+      short: Indicator TLP version
+      description: >
+        Traffic Light Protocol version.
+      example: 2.0
 
     - name: enrichments.indicator.reference
       level: extended
       type: keyword
       short: Indicator reference URL
-      beta: This field is beta and subject to change.
       description: >
         Reference URL linking to additional information about this indicator.
       example: https://system.example.com/indicator/0001234
@@ -200,7 +206,6 @@
       level: extended
       type: keyword
       short: Indicator provider
-      beta: This field is beta and subject to change.
       description: >
         The name of the indicator's provider.
       example: lrz_urlhaus
@@ -209,7 +214,6 @@
       level: extended
       type: keyword
       short: Matched indicator value
-      beta: This field is beta and subject to change.
       description: >
         Identifies the atomic indicator value that matched a local environment endpoint or network event.
       example: bad-domain.com
@@ -218,7 +222,6 @@
       level: extended
       type: keyword
       short: Matched indicator field
-      beta: This field is beta and subject to change.
       description: >
         Identifies the field of the atomic indicator that matched a local environment endpoint or network event.
       example: file.hash.sha256
@@ -227,7 +230,6 @@
       level: extended
       type: keyword
       short: Matched indicator identifier
-      beta: This field is beta and subject to change.
       description: >
         Identifies the _id of the indicator document enriching the event.
       example: ff93aee5-86a1-4a61-b0e6-0cdc313d01b5
@@ -236,7 +238,6 @@
       level: extended
       type: keyword
       short: Matched indicator index
-      beta: This field is beta and subject to change.
       description: >
         Identifies the _index of the indicator document enriching the event.
       example: filebeat-8.0.0-2021.05.23-000011
@@ -253,7 +254,6 @@
       level: extended
       type: keyword
       short: Type of indicator match
-      beta: This field is beta and subject to change.
       description: >
         Identifies the type of match that caused the event to be enriched with the given indicator
       example: indicator_match_rule
@@ -404,6 +404,17 @@
         - x509-certificate
       example: ipv4-addr
 
+    - name: indicator.name
+      level: extended
+      type: keyword
+      short: Indicator display name
+      description: >
+        The display name indicator in an UI friendly format
+
+        URL, IP address, email address, registry key, port number, hash value,
+        or other relevant name can serve as the display name.
+      example: 5.2.75.227
+
     - name: indicator.description
       level: extended
       type: keyword
@@ -472,10 +483,20 @@
         Traffic Light Protocol sharing markings.
       expected_values:
         - WHITE
+        - CLEAR
         - GREEN
         - AMBER
+        - AMBER+STRICT
         - RED
-      example: WHITE
+      example: CLEAR
+
+    - name: indicator.marking.tlp_version
+      level: extended
+      type: keyword
+      short: Indicator TLP version
+      description: >
+        Traffic Light Protocol version.
+      example: 2.0
 
     - name: indicator.reference
       level: extended
@@ -492,6 +513,20 @@
       description: >
         The name of the indicator's provider.
       example: lrz_urlhaus
+
+    - name: indicator.id
+      level: extended
+      type: keyword
+      short: ID of the indicator
+      description: >
+        The ID of the indicator used by this threat to conduct behavior commonly modeled using MITRE ATT&CK®.
+        This field can have multiple values to allow for the identification of the same indicator across systems
+        that use different ID formats.
+
+        While not required, a common approach is to use a STIX 2.x indicator ID.
+      example: "[indicator--d7008e06-ab86-415a-9803-3c81ce2d3c37]"
+      normalize:
+        - array
 
     - name: software.id
       level: extended

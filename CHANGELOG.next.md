@@ -16,41 +16,14 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
-## 8.4.0 (Soft Feature Freeze)
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Add `service.node.role` #1916
 * Add `email.return_path.address` #1947
-* Initial set of `expected_values`. #1962
 
 #### Improvements
 
-#### Deprecated
+* Define base encoding of `x509.serial_number`. #2383
+* Restrict the encoding of `x509.serial_number` to base 16. #2398
 
-#### Removed
+#### Deprecated
 
 ### Tooling and Artifact Changes
 
@@ -60,27 +33,10 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Introduce `expected_values` attribute. #1952
-
 #### Improvements
-
-* Additional type annotations. #1950
 
 #### Deprecated
 
-## 8.3.0 (Hard Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `pattern` attribute to `.mac` fields. #1871
-* Add `orchestrator.cluster.id` #1875
-* Add `orchestrator.resource.id` #1878
-* Add `orchestrator.resource.parent.type` #1889
-* Add `orchestrator.resource.ip` #1889
-* Add `container.image.hash.all` #1889
-* Advanced `container.*` metric fields to GA. #1927
 
 <!-- All empty sections:
 

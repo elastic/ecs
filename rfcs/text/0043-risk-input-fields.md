@@ -1,17 +1,30 @@
-# 0000: Name of RFC
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
+# 0043: Risk Input fields
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **0 (strawperson)**
+- Date: **2023-09-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
+### Summary
+This RFC aims to add a few general fields that, when defined on a document, will allow that document containing them to be consumed by Kibana's Risk Engine for the purposes of entity analytics.
 
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
+Broadly, we need two fields to enable this behavior:
+
+* `risk_score`, a "base" risk score (numeric, float) defined by the data producer that is used as the basis for calculating risk for the entity represented in the document
+* `risk_category`, a keyword field defining to which of the five [proposed categories](https://github.com/elastic/ecs/pull/2236)
+
+### Motivation
+Kibana's Risk Engine (all iterations) currently only ingest Detection Engine Alerts. These are straightforward to score, as they contain:
+
+* an inherent risk score field (`kibana.alert.risk_score`)
+* an implicit category (`category_1`, which is described broadly as "Alerts")
+
+These fields are meant to allow the Risk Engine logic to be generalized to allow ingestion of any document containing these proposed fields.
+
+
+### Outstanding Questions/Concerns
+1. If we have need to represent multiple entities within the same document (i.e. both a host and a user), a single set of top-level fields may not be sufficient. In that case, nesting them separately under `host` and `user` would be appropriate.
+2. Related to the above, the fields proposed do not account for _multiple_ of either hosts or users within a single document. However, neither does the Risk Engine in general.
+3. We currently leverage the presence of either `host.name` or `user.name` to find/aggregate/score entities. It would seem reasonable that, in the future, data producers could define additional/other fields from which to "identify" host and user entities, respectively. This concept is already partly codified in the `identifier_field` and `identifier_value` fields on a [Risk Score document](https://github.com/elastic/ecs/pull/2236), but while those are meant for "outgoing" risk score documents, these fields would be used by the Risk Engine to identify incoming Risk Input documents. For complete disambiguation, this may also necessitate an explicit "entity type" field on both sides of this process.
+
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -79,7 +92,8 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* TBD | author
+* @rylnd | author
+* @SourinPaul | Subject Matter Expert, Product Manager
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -96,15 +110,10 @@ e.g.:
 
 ## References
 
+* Risk Score Fields RFC (Stage 1): https://github.com/elastic/ecs/pull/2236
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 ### RFC Pull Requests
 
-<!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 0: https://github.com/elastic/ecs/pull/2244

@@ -1,0 +1,50 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: event
+  title: Event
+  group: 2
+  short: Fields breaking down the event details.
+  description: >
+    The event fields are ... # Omitted for brevity
+  type: group
+
+  fields:
+    - name: kind
+      level: core
+      type: keyword
+      short: The kind of the event. The highest categorization field in the hierarchy.
+      description: >
+        This is one of four ECS ... # Omitted for brevity
+      example: alert
+      allowed_values:
+        - name: asset
+          description: >
+            This value indicates events whose primary purpose is to store an inventory of
+            assets/entities and their attributes. Assets/entities are objects (such as
+            users and hosts) that are expected to be subjects of detailed analysis within
+            the system.
+
+            Examples include lists of user identities or accounts ingested from directory
+            services such as Active Directory (AD), inventory of hosts pulled from
+            configuration management databases (CMDB), and lists of cloud storage buckets
+            pulled from cloud provider API's.
+
+            This value is used by Elastic Security for asset management solutions.
+            `event.kind: asset` is not used for normal system events or logs that are coming
+            from an asset/entity, nor is it used for system events or logs coming from a
+            directory or CMDB system.

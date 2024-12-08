@@ -4,7 +4,7 @@
   ],
   "mappings": {
     "_meta": {
-      "version": "8.5.0-dev+exp"
+      "version": "9.0.0-dev+exp"
     },
     "date_detection": false,
     "dynamic_templates": [
@@ -563,6 +563,13 @@
           "runtime": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "security_context": {
+            "properties": {
+              "privileged": {
+                "type": "boolean"
+              }
+            }
           }
         }
       },
@@ -754,6 +761,34 @@
           }
         }
       },
+      "device": {
+        "properties": {
+          "id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "manufacturer": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "model": {
+            "properties": {
+              "identifier": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
+          "serial_number": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          }
+        }
+      },
       "dll": {
         "properties": {
           "code_signature": {
@@ -764,6 +799,10 @@
               },
               "exists": {
                 "type": "boolean"
+              },
+              "flags": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "signing_id": {
                 "ignore_above": 1024,
@@ -794,6 +833,10 @@
           },
           "hash": {
             "properties": {
+              "cdhash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "md5": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -850,9 +893,38 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
               "imphash": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "imports": {
+                "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
               },
               "original_file_name": {
                 "ignore_above": 1024,
@@ -865,6 +937,27 @@
               "product": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "sections": {
+                "properties": {
+                  "entropy": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "physical_size": {
+                    "type": "long"
+                  },
+                  "var_entropy": {
+                    "type": "long"
+                  },
+                  "virtual_size": {
+                    "type": "long"
+                  }
+                },
+                "type": "nested"
               }
             }
           }
@@ -969,6 +1062,10 @@
                   },
                   "hash": {
                     "properties": {
+                      "cdhash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
                       "md5": {
                         "ignore_above": 1024,
                         "type": "keyword"
@@ -1261,8 +1358,7 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               }
-            },
-            "type": "nested"
+            }
           },
           "version": {
             "ignore_above": 1024,
@@ -1287,6 +1383,10 @@
               },
               "exists": {
                 "type": "boolean"
+              },
+              "flags": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "signing_id": {
                 "ignore_above": 1024,
@@ -1353,6 +1453,22 @@
               "exports": {
                 "type": "flattened"
               },
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
               "header": {
                 "properties": {
                   "abi_version": {
@@ -1388,8 +1504,18 @@
                   }
                 }
               },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "imports": {
                 "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
               },
               "sections": {
                 "properties": {
@@ -1417,6 +1543,9 @@
                   "type": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "var_entropy": {
+                    "type": "long"
                   },
                   "virtual_address": {
                     "type": "long"
@@ -1468,6 +1597,10 @@
           },
           "hash": {
             "properties": {
+              "cdhash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "md5": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -1501,6 +1634,64 @@
           "inode": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "macho": {
+            "properties": {
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "imports": {
+                "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
+              },
+              "sections": {
+                "properties": {
+                  "entropy": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "physical_size": {
+                    "type": "long"
+                  },
+                  "var_entropy": {
+                    "type": "long"
+                  },
+                  "virtual_size": {
+                    "type": "long"
+                  }
+                },
+                "type": "nested"
+              },
+              "symhash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           },
           "mime_type": {
             "ignore_above": 1024,
@@ -1548,9 +1739,38 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
               "imphash": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "imports": {
+                "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
               },
               "original_file_name": {
                 "ignore_above": 1024,
@@ -1563,6 +1783,27 @@
               "product": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "sections": {
+                "properties": {
+                  "entropy": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "physical_size": {
+                    "type": "long"
+                  },
+                  "var_entropy": {
+                    "type": "long"
+                  },
+                  "virtual_size": {
+                    "type": "long"
+                  }
+                },
+                "type": "nested"
               }
             }
           },
@@ -1889,6 +2130,30 @@
           "pid_ns_ino": {
             "ignore_above": 1024,
             "type": "keyword"
+          },
+          "risk": {
+            "properties": {
+              "calculated_level": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "calculated_score": {
+                "type": "float"
+              },
+              "calculated_score_norm": {
+                "type": "float"
+              },
+              "static_level": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "static_score": {
+                "type": "float"
+              },
+              "static_score_norm": {
+                "type": "float"
+              }
+            }
           },
           "type": {
             "ignore_above": 1024,
@@ -2384,12 +2649,20 @@
           },
           "resource": {
             "properties": {
+              "annotation": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "id": {
                 "ignore_above": 1024,
                 "type": "keyword"
               },
               "ip": {
                 "type": "ip"
+              },
+              "label": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "name": {
                 "ignore_above": 1024,
@@ -2504,6 +2777,10 @@
               "exists": {
                 "type": "boolean"
               },
+              "flags": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "signing_id": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -2559,6 +2836,22 @@
               "exports": {
                 "type": "flattened"
               },
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
               "header": {
                 "properties": {
                   "abi_version": {
@@ -2594,8 +2887,18 @@
                   }
                 }
               },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "imports": {
                 "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
               },
               "sections": {
                 "properties": {
@@ -2623,6 +2926,9 @@
                   "type": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "var_entropy": {
+                    "type": "long"
                   },
                   "virtual_address": {
                     "type": "long"
@@ -2671,6 +2977,31 @@
               },
               "args_count": {
                 "type": "long"
+              },
+              "attested_groups": {
+                "properties": {
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
+              "attested_user": {
+                "properties": {
+                  "id": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "name": {
+                    "fields": {
+                      "text": {
+                        "type": "match_only_text"
+                      }
+                    },
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
               },
               "command_line": {
                 "fields": {
@@ -2752,11 +3083,17 @@
                       },
                       "start": {
                         "type": "date"
+                      },
+                      "vpid": {
+                        "type": "long"
                       }
                     }
                   },
                   "start": {
                     "type": "date"
+                  },
+                  "vpid": {
+                    "type": "long"
                   }
                 }
               },
@@ -2871,6 +3208,9 @@
                   }
                 }
               },
+              "vpid": {
+                "type": "long"
+              },
               "working_directory": {
                 "fields": {
                   "text": {
@@ -2883,7 +3223,8 @@
             }
           },
           "env_vars": {
-            "type": "object"
+            "ignore_above": 1024,
+            "type": "keyword"
           },
           "executable": {
             "fields": {
@@ -2896,6 +3237,18 @@
           },
           "exit_code": {
             "type": "long"
+          },
+          "group": {
+            "properties": {
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
           },
           "group_leader": {
             "properties": {
@@ -3062,6 +3415,9 @@
                   }
                 }
               },
+              "vpid": {
+                "type": "long"
+              },
               "working_directory": {
                 "fields": {
                   "text": {
@@ -3075,6 +3431,10 @@
           },
           "hash": {
             "properties": {
+              "cdhash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "md5": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -3108,6 +3468,96 @@
           "interactive": {
             "type": "boolean"
           },
+          "io": {
+            "properties": {
+              "bytes_skipped": {
+                "properties": {
+                  "length": {
+                    "type": "long"
+                  },
+                  "offset": {
+                    "type": "long"
+                  }
+                },
+                "type": "object"
+              },
+              "max_bytes_per_process_exceeded": {
+                "type": "boolean"
+              },
+              "text": {
+                "type": "wildcard"
+              },
+              "total_bytes_captured": {
+                "type": "long"
+              },
+              "total_bytes_skipped": {
+                "type": "long"
+              },
+              "type": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "macho": {
+            "properties": {
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "imports": {
+                "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
+              },
+              "sections": {
+                "properties": {
+                  "entropy": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "physical_size": {
+                    "type": "long"
+                  },
+                  "var_entropy": {
+                    "type": "long"
+                  },
+                  "virtual_size": {
+                    "type": "long"
+                  }
+                },
+                "type": "nested"
+              },
+              "symhash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              }
+            }
+          },
           "name": {
             "fields": {
               "text": {
@@ -3134,6 +3584,10 @@
                   },
                   "exists": {
                     "type": "boolean"
+                  },
+                  "flags": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "signing_id": {
                     "ignore_above": 1024,
@@ -3190,6 +3644,22 @@
                   "exports": {
                     "type": "flattened"
                   },
+                  "go_import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "go_imports": {
+                    "type": "flattened"
+                  },
+                  "go_imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "go_imports_names_var_entropy": {
+                    "type": "long"
+                  },
+                  "go_stripped": {
+                    "type": "boolean"
+                  },
                   "header": {
                     "properties": {
                       "abi_version": {
@@ -3225,8 +3695,18 @@
                       }
                     }
                   },
+                  "import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
                   "imports": {
                     "type": "flattened"
+                  },
+                  "imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "imports_names_var_entropy": {
+                    "type": "long"
                   },
                   "sections": {
                     "properties": {
@@ -3254,6 +3734,9 @@
                       "type": {
                         "ignore_above": 1024,
                         "type": "keyword"
+                      },
+                      "var_entropy": {
+                        "type": "long"
                       },
                       "virtual_address": {
                         "type": "long"
@@ -3329,11 +3812,18 @@
                   },
                   "start": {
                     "type": "date"
+                  },
+                  "vpid": {
+                    "type": "long"
                   }
                 }
               },
               "hash": {
                 "properties": {
+                  "cdhash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
                   "md5": {
                     "ignore_above": 1024,
                     "type": "keyword"
@@ -3367,6 +3857,64 @@
               "interactive": {
                 "type": "boolean"
               },
+              "macho": {
+                "properties": {
+                  "go_import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "go_imports": {
+                    "type": "flattened"
+                  },
+                  "go_imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "go_imports_names_var_entropy": {
+                    "type": "long"
+                  },
+                  "go_stripped": {
+                    "type": "boolean"
+                  },
+                  "import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "imports": {
+                    "type": "flattened"
+                  },
+                  "imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "imports_names_var_entropy": {
+                    "type": "long"
+                  },
+                  "sections": {
+                    "properties": {
+                      "entropy": {
+                        "type": "long"
+                      },
+                      "name": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "physical_size": {
+                        "type": "long"
+                      },
+                      "var_entropy": {
+                        "type": "long"
+                      },
+                      "virtual_size": {
+                        "type": "long"
+                      }
+                    },
+                    "type": "nested"
+                  },
+                  "symhash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
               "name": {
                 "fields": {
                   "text": {
@@ -3394,9 +3942,38 @@
                     "ignore_above": 1024,
                     "type": "keyword"
                   },
+                  "go_import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "go_imports": {
+                    "type": "flattened"
+                  },
+                  "go_imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "go_imports_names_var_entropy": {
+                    "type": "long"
+                  },
+                  "go_stripped": {
+                    "type": "boolean"
+                  },
                   "imphash": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "import_hash": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "imports": {
+                    "type": "flattened"
+                  },
+                  "imports_names_entropy": {
+                    "type": "long"
+                  },
+                  "imports_names_var_entropy": {
+                    "type": "long"
                   },
                   "original_file_name": {
                     "ignore_above": 1024,
@@ -3409,6 +3986,27 @@
                   "product": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "sections": {
+                    "properties": {
+                      "entropy": {
+                        "type": "long"
+                      },
+                      "name": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "physical_size": {
+                        "type": "long"
+                      },
+                      "var_entropy": {
+                        "type": "long"
+                      },
+                      "virtual_size": {
+                        "type": "long"
+                      }
+                    },
+                    "type": "nested"
                   }
                 }
               },
@@ -3493,6 +4091,18 @@
               },
               "thread": {
                 "properties": {
+                  "capabilities": {
+                    "properties": {
+                      "effective": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "permitted": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      }
+                    }
+                  },
                   "id": {
                     "type": "long"
                   },
@@ -3546,6 +4156,9 @@
                   }
                 }
               },
+              "vpid": {
+                "type": "long"
+              },
               "working_directory": {
                 "fields": {
                   "text": {
@@ -3575,9 +4188,38 @@
                 "ignore_above": 1024,
                 "type": "keyword"
               },
+              "go_import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "go_imports": {
+                "type": "flattened"
+              },
+              "go_imports_names_entropy": {
+                "type": "long"
+              },
+              "go_imports_names_var_entropy": {
+                "type": "long"
+              },
+              "go_stripped": {
+                "type": "boolean"
+              },
               "imphash": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "import_hash": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "imports": {
+                "type": "flattened"
+              },
+              "imports_names_entropy": {
+                "type": "long"
+              },
+              "imports_names_var_entropy": {
+                "type": "long"
               },
               "original_file_name": {
                 "ignore_above": 1024,
@@ -3590,6 +4232,27 @@
               "product": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "sections": {
+                "properties": {
+                  "entropy": {
+                    "type": "long"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "physical_size": {
+                    "type": "long"
+                  },
+                  "var_entropy": {
+                    "type": "long"
+                  },
+                  "virtual_size": {
+                    "type": "long"
+                  }
+                },
+                "type": "nested"
               }
             }
           },
@@ -3751,11 +4414,17 @@
                       },
                       "start": {
                         "type": "date"
+                      },
+                      "vpid": {
+                        "type": "long"
                       }
                     }
                   },
                   "start": {
                     "type": "date"
+                  },
+                  "vpid": {
+                    "type": "long"
                   }
                 }
               },
@@ -3870,6 +4539,9 @@
                   }
                 }
               },
+              "vpid": {
+                "type": "long"
+              },
               "working_directory": {
                 "fields": {
                   "text": {
@@ -3898,6 +4570,18 @@
           },
           "thread": {
             "properties": {
+              "capabilities": {
+                "properties": {
+                  "effective": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "permitted": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  }
+                }
+              },
               "id": {
                 "type": "long"
               },
@@ -3927,6 +4611,12 @@
                     "type": "long"
                   }
                 }
+              },
+              "columns": {
+                "type": "long"
+              },
+              "rows": {
+                "type": "long"
               }
             },
             "type": "object"
@@ -3950,6 +4640,9 @@
                 "type": "keyword"
               }
             }
+          },
+          "vpid": {
+            "type": "long"
           },
           "working_directory": {
             "fields": {
@@ -4266,6 +4959,10 @@
               "role": {
                 "ignore_above": 1024,
                 "type": "keyword"
+              },
+              "roles": {
+                "ignore_above": 1024,
+                "type": "keyword"
               }
             }
           },
@@ -4298,6 +4995,10 @@
                     "type": "keyword"
                   },
                   "role": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "roles": {
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -4350,6 +5051,10 @@
                     "type": "keyword"
                   },
                   "role": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
+                  },
+                  "roles": {
                     "ignore_above": 1024,
                     "type": "keyword"
                   }
@@ -4626,6 +5331,10 @@
                           "exists": {
                             "type": "boolean"
                           },
+                          "flags": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
                           "signing_id": {
                             "ignore_above": 1024,
                             "type": "keyword"
@@ -4691,6 +5400,22 @@
                           "exports": {
                             "type": "flattened"
                           },
+                          "go_import_hash": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
+                          "go_imports": {
+                            "type": "flattened"
+                          },
+                          "go_imports_names_entropy": {
+                            "type": "long"
+                          },
+                          "go_imports_names_var_entropy": {
+                            "type": "long"
+                          },
+                          "go_stripped": {
+                            "type": "boolean"
+                          },
                           "header": {
                             "properties": {
                               "abi_version": {
@@ -4726,8 +5451,18 @@
                               }
                             }
                           },
+                          "import_hash": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
                           "imports": {
                             "type": "flattened"
+                          },
+                          "imports_names_entropy": {
+                            "type": "long"
+                          },
+                          "imports_names_var_entropy": {
+                            "type": "long"
                           },
                           "sections": {
                             "properties": {
@@ -4755,6 +5490,9 @@
                               "type": {
                                 "ignore_above": 1024,
                                 "type": "keyword"
+                              },
+                              "var_entropy": {
+                                "type": "long"
                               },
                               "virtual_address": {
                                 "type": "long"
@@ -4806,6 +5544,10 @@
                       },
                       "hash": {
                         "properties": {
+                          "cdhash": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
                           "md5": {
                             "ignore_above": 1024,
                             "type": "keyword"
@@ -4886,9 +5628,38 @@
                             "ignore_above": 1024,
                             "type": "keyword"
                           },
+                          "go_import_hash": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
+                          "go_imports": {
+                            "type": "flattened"
+                          },
+                          "go_imports_names_entropy": {
+                            "type": "long"
+                          },
+                          "go_imports_names_var_entropy": {
+                            "type": "long"
+                          },
+                          "go_stripped": {
+                            "type": "boolean"
+                          },
                           "imphash": {
                             "ignore_above": 1024,
                             "type": "keyword"
+                          },
+                          "import_hash": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
+                          "imports": {
+                            "type": "flattened"
+                          },
+                          "imports_names_entropy": {
+                            "type": "long"
+                          },
+                          "imports_names_var_entropy": {
+                            "type": "long"
                           },
                           "original_file_name": {
                             "ignore_above": 1024,
@@ -4901,6 +5672,27 @@
                           "product": {
                             "ignore_above": 1024,
                             "type": "keyword"
+                          },
+                          "sections": {
+                            "properties": {
+                              "entropy": {
+                                "type": "long"
+                              },
+                              "name": {
+                                "ignore_above": 1024,
+                                "type": "keyword"
+                              },
+                              "physical_size": {
+                                "type": "long"
+                              },
+                              "var_entropy": {
+                                "type": "long"
+                              },
+                              "virtual_size": {
+                                "type": "long"
+                              }
+                            },
+                            "type": "nested"
                           }
                         }
                       },
@@ -5093,11 +5885,19 @@
                       "tlp": {
                         "ignore_above": 1024,
                         "type": "keyword"
+                      },
+                      "tlp_version": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
                       }
                     }
                   },
                   "modified_at": {
                     "type": "date"
+                  },
+                  "name": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   },
                   "port": {
                     "type": "long"
@@ -5460,6 +6260,10 @@
                       "exists": {
                         "type": "boolean"
                       },
+                      "flags": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
                       "signing_id": {
                         "ignore_above": 1024,
                         "type": "keyword"
@@ -5525,6 +6329,22 @@
                       "exports": {
                         "type": "flattened"
                       },
+                      "go_import_hash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "go_imports": {
+                        "type": "flattened"
+                      },
+                      "go_imports_names_entropy": {
+                        "type": "long"
+                      },
+                      "go_imports_names_var_entropy": {
+                        "type": "long"
+                      },
+                      "go_stripped": {
+                        "type": "boolean"
+                      },
                       "header": {
                         "properties": {
                           "abi_version": {
@@ -5560,8 +6380,18 @@
                           }
                         }
                       },
+                      "import_hash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
                       "imports": {
                         "type": "flattened"
+                      },
+                      "imports_names_entropy": {
+                        "type": "long"
+                      },
+                      "imports_names_var_entropy": {
+                        "type": "long"
                       },
                       "sections": {
                         "properties": {
@@ -5589,6 +6419,9 @@
                           "type": {
                             "ignore_above": 1024,
                             "type": "keyword"
+                          },
+                          "var_entropy": {
+                            "type": "long"
                           },
                           "virtual_address": {
                             "type": "long"
@@ -5640,6 +6473,10 @@
                   },
                   "hash": {
                     "properties": {
+                      "cdhash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
                       "md5": {
                         "ignore_above": 1024,
                         "type": "keyword"
@@ -5720,9 +6557,38 @@
                         "ignore_above": 1024,
                         "type": "keyword"
                       },
+                      "go_import_hash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "go_imports": {
+                        "type": "flattened"
+                      },
+                      "go_imports_names_entropy": {
+                        "type": "long"
+                      },
+                      "go_imports_names_var_entropy": {
+                        "type": "long"
+                      },
+                      "go_stripped": {
+                        "type": "boolean"
+                      },
                       "imphash": {
                         "ignore_above": 1024,
                         "type": "keyword"
+                      },
+                      "import_hash": {
+                        "ignore_above": 1024,
+                        "type": "keyword"
+                      },
+                      "imports": {
+                        "type": "flattened"
+                      },
+                      "imports_names_entropy": {
+                        "type": "long"
+                      },
+                      "imports_names_var_entropy": {
+                        "type": "long"
                       },
                       "original_file_name": {
                         "ignore_above": 1024,
@@ -5735,6 +6601,27 @@
                       "product": {
                         "ignore_above": 1024,
                         "type": "keyword"
+                      },
+                      "sections": {
+                        "properties": {
+                          "entropy": {
+                            "type": "long"
+                          },
+                          "name": {
+                            "ignore_above": 1024,
+                            "type": "keyword"
+                          },
+                          "physical_size": {
+                            "type": "long"
+                          },
+                          "var_entropy": {
+                            "type": "long"
+                          },
+                          "virtual_size": {
+                            "type": "long"
+                          }
+                        },
+                        "type": "nested"
                       }
                     }
                   },
@@ -5916,6 +6803,10 @@
                   }
                 }
               },
+              "id": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
               "ip": {
                 "type": "ip"
               },
@@ -5927,11 +6818,19 @@
                   "tlp": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "tlp_version": {
+                    "ignore_above": 1024,
+                    "type": "keyword"
                   }
                 }
               },
               "modified_at": {
                 "type": "date"
+              },
+              "name": {
+                "ignore_above": 1024,
+                "type": "keyword"
               },
               "port": {
                 "type": "long"
@@ -6843,6 +7742,30 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "risk": {
+            "properties": {
+              "calculated_level": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "calculated_score": {
+                "type": "float"
+              },
+              "calculated_score_norm": {
+                "type": "float"
+              },
+              "static_level": {
+                "ignore_above": 1024,
+                "type": "keyword"
+              },
+              "static_score": {
+                "type": "float"
+              },
+              "static_score_norm": {
+                "type": "float"
+              }
+            }
+          },
           "roles": {
             "ignore_above": 1024,
             "type": "keyword"
@@ -6975,6 +7898,71 @@
           "version": {
             "ignore_above": 1024,
             "type": "keyword"
+          }
+        }
+      },
+      "volume": {
+        "properties": {
+          "bus_type": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "default_access": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "device_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "device_type": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "dos_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "file_system_type": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "mount_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "nt_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "product_id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "product_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "removable": {
+            "type": "boolean"
+          },
+          "serial_number": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "size": {
+            "type": "long"
+          },
+          "vendor_id": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "vendor_name": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "writable": {
+            "type": "boolean"
           }
         }
       },

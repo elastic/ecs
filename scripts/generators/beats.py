@@ -36,6 +36,7 @@ def generate(
     out_dir: str
 ) -> None:
     # base first
+    ecs_nested = ecs_helpers.remove_top_level_reusable_false(ecs_nested)
     beats_fields: List[OrderedDict] = fieldset_field_array(ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
 
     allowed_fieldset_keys: List[str] = ['name', 'title', 'group', 'description', 'footnote', 'type']

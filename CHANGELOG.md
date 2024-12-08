@@ -3,6 +3,232 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.16.0](https://github.com/elastic/ecs/compare/v8.11.0...v8.16.0)
+
+### Schema Changes
+
+#### Bugfixes
+* Fix broken link in docs for vulnerability.id. #2328
+
+#### Added
+
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+
+#### Improvements
+
+* Define base encoding of `x509.serial_number`. #2383
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix broken link for vulnerabilty.id #2328
+
+#### Added
+
+* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
+
+## [8.11.0](https://github.com/elastic/ecs/compare/v8.10.0...v8.11.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Remove `expected_values` from `threat.*.indicator.name` fields. #2281
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Respect reusable.top_level in Beats generator #2278
+
+## [8.10.0](https://github.com/elastic/ecs/compare/v8.9.0...v8.10.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `container.security_context.privileged` to indicated whether a container was started in privileged mode. #2219, #2225, #2246
+* Added `process.thread.capabilities.permitted` to contain the current thread's possible capabilities. #2245
+* Added `process.thread.capabilities.effective` to contain the current thread's effective capabilities. #2245
+
+#### Improvements
+
+* Permit `ignore_above` if explicitly set on a `flattened` field. #2248
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Improved documentation formatting to better follow the contributing guide. #2226
+* Bump `gitpython` dependency from 3.1.30 to 3.1.35 for security fixes. #2251, #2264, #2265
+
+## [8.9.0](https://github.com/elastic/ecs/compare/v8.8.0...v8.9.0)
+
+### Schema Changes
+
+### Bugfixes
+
+#### Added
+* Added `process.vpid` for namespaced process ids. #2211
+
+### Improvements
+
+#### Deprecated
+* Removed `faas.trigger: nested` since we only have one trigger. #2194
+
+## [8.8.0](https://github.com/elastic/ecs/compare/v8.7.0...v8.8.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `event.type: access` as an allowed value for `event.category: file`. #2174
+* Add `orchestrator.resource.annotation` and `orchestrator.resource.label`. #2181
+* Add `event.kind: asset` as a beta category. #2191
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Add `parameters` property for field definitions, to provide any mapping parameter. #2084
+
+## [8.7.0](https://github.com/elastic/ecs/compare/v8.6.1...v8.7.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* remove duplicated `client.domain` definition #2120
+
+#### Added
+
+* adding `name` field to `threat.indicator` #2121
+* adding `api` option to `event.category` #2147
+* adding `library` option to `event.category` #2154
+
+#### Improvements
+
+* description for `host.name` definition updated to encourage use of FDQN #2122
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Updated usage docs to include `threat.indicator.url.domain` and changed `indicator.marking.tlp` and `indicator.enrichments.marking.tlp` from "WHITE" to "CLEAR" to align with TLP 2.0. #2124
+* Bump `gitpython` from `3.1.27` to `3.1.30` in `/scripts`. #2139
+
+## [8.6.1](https://github.com/elastic/ecs/compare/v8.6.0...v8.6.1)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixing `tlp_version` and `tlp` field for threat. #2156
+
+## [8.6.0](https://github.com/elastic/ecs/compare/v8.5.2...v8.6.0)
+
+### Schema Changes
+
+#### Added
+
+* Adding `vulnerability` option for `event.category`. #2029
+* Added `device.*` field set as beta. #2030
+* Added `tlp.version` to threat #2074
+* Added fields for executable object format metadata for ELF, Mach-O and PE #2083
+
+#### Improvements
+
+* Added `CLEAR` and `AMBER+STRICT` as valid values for `threat.indicator.marking.tlp` and `enrichments.indicator.marking.tlp` to accept new [TLP 2.0](https://www.first.org/tlp/) markings #2022, #2074
+
+## [8.5.2](https://github.com/elastic/ecs/compare/v8.5.1...v8.5.2)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fixes invalid `number` type on 4 `process.io` subfields. #2105
+
+## [8.5.1](https://github.com/elastic/ecs/compare/v8.5.0...v8.5.1)
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix type of `normalize` in `process.io.bytes_skipped`. #2094
+
+## [8.5.0](https://github.com/elastic/ecs/compare/v8.4.0...v8.5.0)
+
+### Schema Changes
+
+#### Added
+
+* Adding `risk.*` fields as experimental. #1994, #2010
+* Adding `process.io.*` as beta fields. #1956, #2031
+* Adding `process.tty.rows` and `process.tty.columns` as beta fields. #2031
+* Changed `process.env_vars` field type to be an array of keywords. #2038
+* `process.attested_user` and `process.attested_groups` as beta fields. #2050
+* Added `risk.*` fieldset to beta. #2051, #2058
+* Moved Linux event model fields to GA. #2082
+
+#### Improvements
+
+* Advances `threat.enrichments.indicator` to GA. #1928
+* Added `ios` and `android` as valid values for `os.type` #1999
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Added Deprecation Warning for `misspell` task #1993
+* Fix typo in client schema #2014
+
+## [8.4.0](https://github.com/elastic/ecs/compare/v8.3.1...v8.4.0)
+
+### Schema Changes
+
+#### Added
+
+* Initial set of `expected_values`. #1962
+* Adding `service.node.roles`. #1981
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Introduce `expected_values` attribute. #1952
+
+#### Improvements
+
+* Additional type annotations. #1950
+
+## [8.3.1](https://github.com/elastic/ecs/compare/v8.3.0...v8.3.1)
+
+### Schema Changes
+
+#### Deprecated
+
+* Deprecate `service.node.role` in favor of upcoming `service.node.roles`. #1976
+
+## [8.3.0](https://github.com/elastic/ecs/compare/v8.2.1...v8.3.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `pattern` attribute to `.mac` fields. #1871
+* Add `orchestrator.cluster.id` #1875
+* Add `orchestrator.resource.id` #1878
+* Add `orchestrator.resource.parent.type` #1889
+* Add `orchestrator.resource.ip` #1889
+* Add `container.image.hash.all` #1889
+* Add `service.node.role` #1916
+* Advanced `container.*` metric fields to GA. #1927
+
 ## [8.2.1](https://github.com/elastic/ecs/compare/v8.2.0...v8.2.1)
 
 ### Schema Changes

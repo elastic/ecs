@@ -144,7 +144,7 @@ class TestECSHelpers(unittest.TestCase):
         self.assertEqual(ecs_helpers.glob_yaml_files('non_existent_wildcard.*'), [])
         self.assertEqual(ecs_helpers.glob_yaml_files('schemas/base.yml'), ['schemas/base.yml'])
         self.assertEqual(ecs_helpers.glob_yaml_files(['schemas/base.yml']), ['schemas/base.yml'])
-        # convert to set as element order is not being tested
+        #  convert to set as element order is not being tested
         self.assertEqual(set(ecs_helpers.glob_yaml_files(
             ['schemas/base.yml', 'schemas/log.yml'])), {'schemas/base.yml', 'schemas/log.yml'})
         self.assertTrue(set(ecs_helpers.glob_yaml_files('schemas/b*.yml')).intersection({'schemas/base.yml'}) != set())
@@ -156,6 +156,18 @@ class TestECSHelpers(unittest.TestCase):
         self.assertTrue(len(ecs_helpers.glob_yaml_files(
             ecs_helpers.glob_yaml_files('schemas/*.yml'))) >= min_schema_count)
         self.assertEqual(len(ecs_helpers.glob_yaml_files(ecs_helpers.glob_yaml_files('schemas/*.yaml'))), 0)
+
+    # Remove top_level:false field sets helper
+
+    def test_remove_top_level_false_field_sets(self):
+        nested_schema_original = {
+            'as': {'group': 2, 'name': 'as', 'reusable': {'top_level': False}},
+            'agent': {'group': 2, 'name': 'agent'},
+        }
+        nested_schema_expected = {
+            'agent': {'group': 2, 'name': 'agent'}
+        }
+        self.assertEqual(ecs_helpers.remove_top_level_reusable_false(nested_schema_original), nested_schema_expected)
 
 
 if __name__ == '__main__':

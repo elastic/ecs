@@ -1,3 +1,19 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
 ---
 name: main
 fields:
@@ -8,7 +24,36 @@ fields:
   as:
     fields: "*"
   client:
-    fields: "*"
+    fields:
+      address: {}
+      as:
+        fields: "*"
+      bytes: {}
+      domain: {}
+      geo:
+        fields: "*"
+      ip: {}
+      mac: {}
+      nat:
+        fields:
+          ip: {}
+          port: {}
+      packets: {}
+      port: {}
+      subdomain: {}
+      registered_domain: {}
+      top_level_domain: {}
+      user:
+        fields:
+          domain: {}
+          email: {}
+          full_name: {}
+          group:
+            fields: "*"
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
   cloud:
     fields: "*"
   code_signature:
@@ -18,6 +63,37 @@ fields:
   data_stream:
     fields: "*"
   destination:
+    fields:
+      address: {}
+      as:
+        fields: "*"
+      bytes: {}
+      domain: {}
+      geo:
+        fields: "*"
+      ip: {}
+      mac: {}
+      nat:
+        fields:
+          ip: {}
+          port: {}
+      packets: {}
+      port: {}
+      subdomain: {}
+      registered_domain: {}
+      top_level_domain: {}
+      user:
+        fields:
+          domain: {}
+          email: {}
+          full_name: {}
+          group:
+            fields: "*"
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
+  device:
     fields: "*"
   dll:
     fields: "*"
@@ -50,6 +126,8 @@ fields:
   interface:
     fields: "*"
   log:
+    fields: "*"
+  macho:
     fields: "*"
   network:
     fields: "*"
@@ -95,13 +173,16 @@ fields:
             fields:
               entity_id: {}
               pid: {}
+              vpid: {}
               start: {}
               session_leader:
                 fields:
                   entity_id: {}
                   pid: {}
+                  vpid: {}
                   start: {}
           pid: {}
+          vpid: {}
           same_as_process: {}
           start: {}
           tty:
@@ -139,6 +220,13 @@ fields:
             fields:
               id: {}
               name: {}
+          attested_user:
+            fields:
+              id: {}
+              name: {}
+          attested_groups:
+            fields:
+              name: {}
       entry_meta:
         fields:
           type:
@@ -156,6 +244,7 @@ fields:
           interactive: {}
           name: {}
           pid: {}
+          vpid: {}
           same_as_process: {}
           start: {}
           tty:
@@ -196,6 +285,10 @@ fields:
       hash:
         fields: "*"
       interactive: {}
+      io:
+        fields: "*"
+      macho:
+        fields: "*"
       name: {}
       parent:
         fields:
@@ -214,20 +307,28 @@ fields:
             fields:
               entity_id: {}
               pid: {}
+              vpid: {}
               start: {}
           hash:
             fields: "*"
           interactive: {}
+          macho:
+            fields: "*"
           name: {}
           pe:
             fields: "*"
           pgid: {}
           pid: {}
+          vpid: {}
           start: {}
           thread:
             fields:
               id: {}
               name: {}
+              capabilities:
+                fields:
+                  effective: {}
+                  permitted: {}
           title: {}
           tty:
             fields:
@@ -269,11 +370,16 @@ fields:
         fields: "*"
       pgid: {}
       pid: {}
+      vpid: {}
       previous:
         fields:
           args: {}
           args_count: {}
           executable: {}
+      group:
+        fields:
+          id: {}
+          name: {}
       real_group:
         fields:
           id: {}
@@ -307,6 +413,7 @@ fields:
           interactive: {}
           name: {}
           pid: {}
+          vpid: {}
           same_as_process: {}
           start: {}
           tty:
@@ -320,11 +427,13 @@ fields:
             fields:
               entity_id: {}
               pid: {}
+              vpid: {}
               start: {}
               session_leader:
                 fields:
                   entity_id: {}
                   pid: {}
+                  vpid: {}
                   start: {}
           user:
             fields:
@@ -358,6 +467,10 @@ fields:
         fields:
           id: {}
           name: {}
+          capabilities:
+            fields:
+              effective: {}
+              permitted: {}
       title: {}
       tty:
         fields: "*"
@@ -371,14 +484,74 @@ fields:
     fields: "*"
   related:
     fields: "*"
+  risk:
+    fields: "*"
   rule:
     fields: "*"
   server:
-    fields: "*"
+    fields:
+      address: {}
+      as:
+        fields: "*"
+      bytes: {}
+      domain: {}
+      geo:
+        fields: "*"
+      ip: {}
+      mac: {}
+      nat:
+        fields:
+          ip: {}
+          port: {}
+      packets: {}
+      port: {}
+      subdomain: {}
+      registered_domain: {}
+      top_level_domain: {}
+      user:
+        fields:
+          domain: {}
+          email: {}
+          full_name: {}
+          group:
+            fields: "*"
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
   service:
     fields: "*"
   source:
-    fields: "*"
+    fields:
+      address: {}
+      as:
+        fields: "*"
+      bytes: {}
+      domain: {}
+      geo:
+        fields: "*"
+      ip: {}
+      mac: {}
+      nat:
+        fields:
+          ip: {}
+          port: {}
+      packets: {}
+      port: {}
+      subdomain: {}
+      registered_domain: {}
+      top_level_domain: {}
+      user:
+        fields:
+          domain: {}
+          email: {}
+          full_name: {}
+          group:
+            fields: "*"
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
   threat:
     fields: "*"
   tls:
@@ -390,8 +563,54 @@ fields:
   user_agent:
     fields: "*"
   user:
-    fields: "*"
+    fields:
+      changes:
+        fields:
+          domain: {}
+          email: {}
+          group:
+            fields: "*"
+          full_name: {}
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
+      domain: {}
+      effective:
+        fields:
+          domain: {}
+          email: {}
+          group:
+            fields: "*"
+          full_name: {}
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
+      email: {}
+      group:
+        fields: "*"
+      full_name: {}
+      hash: {}
+      id: {}
+      name: {}
+      risk:
+        fields: "*"
+      roles: {}
+      target:
+        fields:
+          domain: {}
+          email: {}
+          group:
+            fields: "*"
+          full_name: {}
+          hash: {}
+          id: {}
+          name: {}
+          roles: {}
   vlan:
+    fields: "*"
+  volume:
     fields: "*"
   vulnerability:
     fields: "*"

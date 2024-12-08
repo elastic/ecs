@@ -38,7 +38,6 @@
         as: x509
       - at: threat.enrichments.indicator
         as: x509
-        beta: Reusing the `x509` fields in this location is currently considered beta.
       - tls.client
       - tls.server
   fields:
@@ -53,8 +52,8 @@
       type: keyword
       short: Unique serial number issued by the certificate authority.
       description: >
-        Unique serial number issued by the certificate authority. For consistency, if this value is alphanumeric, it should be
-        formatted without colons and uppercase characters.
+        Unique serial number issued by the certificate authority. For consistency, this must be
+        encoded in base 16 and formatted without colons and uppercase characters.
       example: 55FBB9C7DEBF09809D12CCAA
 
     - name: issuer.distinguished_name

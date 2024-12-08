@@ -1,0 +1,145 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: volume
+  title: Volume
+  group: 2
+  short: Fields relevant to storage volumes.
+  description: >
+    Fields that describe the storage volumes.
+  type: group
+  fields:          
+    - name: mount_name
+      level: extended
+      type: keyword
+      description: >
+        Mount name of the volume device.
+        The field is relevant to Posix only.
+ 
+    - name: device_name
+      level: extended
+      type: keyword
+      description: >
+        Full path of the device.
+        The field is relevant to Posix only.
+
+    - name: dos_name
+      level: extended
+      type: keyword
+      short: DOS name of the device.
+      description: >
+        DOS name of the device.
+        DOS device name is in the format of driver letters such as C:, D:,...
+        The field is relevant to Windows only.
+
+    - name: nt_name
+      level: extended
+      type: keyword
+      short: NT name of the device.
+      description: >
+        NT name of the device.
+        NT device name is in the format such as:
+        \Device\HarddiskVolume2
+        The field is relevant to Windows only.
+
+    - name: bus_type
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        Bus type of the device, such as Nvme, Usb, FileBackedVirtual,... etc.
+
+    - name: writable
+      level: extended
+      type: boolean
+      description: >
+        This field indicates if the volume is writable.
+
+    - name: default_access
+      level: extended
+      type: keyword
+      short: Bus type of the device.
+      description: >
+        A string to describe the default access(es) of the volume.
+        
+    - name: file_system_type
+      level: extended
+      type: keyword
+      short: Volume device file system type.
+      description: >
+        Volume device file system type.
+
+        Following are examples of the most frequently seen volume device file system types:
+        NTFS
+        UDF
+
+    - name: product_id
+      level: extended
+      type: keyword
+      short: ProductID of the device.
+      description: >
+        ProductID of the device. It is provided by the vendor of the device if any.
+        
+    - name: product_name
+      level: extended
+      type: keyword
+      description: >
+        Product name of the volume device. It is provided by the vendor of the device.
+
+    - name: vendor_id
+      level: extended
+      type: keyword
+      short: VendorID of the device.
+      description: >
+        VendorID of the device. It is provided by the vendor of the device.
+
+    - name: vendor_name
+      level: extended
+      type: keyword
+      short: Vendor name of the device.
+      description: >
+        Vendor name of the volume device. It is provided by the vendor of the device.
+
+    - name: serial_number
+      level: extended
+      type: keyword
+      short: Serial Number of the device.
+      description: >
+        Serial Number of the device. It is provided by the vendor of the device if any.
+
+    - name: device_type
+      level: extended
+      type: keyword
+      short: Volume device type.
+      description: >
+        Volume device type.
+
+        Following are examples of the most frequently seen volume device types:
+        Disk File System
+        CD-ROM File System
+
+    - name: size
+      level: extended
+      type: long
+      description: >
+        Size of the volume device in bytes.
+
+    - name: removable
+      level: extended
+      type: boolean
+      description: >
+        This field indicates if the volume is removable.
