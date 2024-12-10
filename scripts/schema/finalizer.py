@@ -200,6 +200,20 @@ def field_finalizer(details, path):
     """This is the function called by the visitor to perform the work of calculate_final_values"""
     name_array = path + [details['field_details']['node_name']]
     flat_name = '.'.join(name_array)
+
+    if 'original_fieldset' in details['field_details']:
+        if 'otel' in details['field_details']:
+            details['field_details'].pop('otel')
+
+        if 'otel_reuse' in details['field_details']:
+            otel_reuse = details['field_details']['otel_reuse']
+            for r_mapping in otel_reuse:
+                if 'ecs' in r_mapping and 'mapping' in r_mapping and r_mapping['ecs'] == flat_name:
+                    details['field_details']['otel'] = [r_mapping['mapping']]
+
+    if 'otel_reuse' in details['field_details']:
+        details['field_details'].pop('otel_reuse')
+
     details['field_details']['flat_name'] = flat_name
     details['field_details']['dashed_name'] = re.sub('[_\.]', '-', flat_name).replace('@', '')
     if 'multi_fields' in details['field_details']:

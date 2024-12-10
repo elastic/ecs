@@ -83,6 +83,15 @@
       description: >
         Process id.
       example: 4242
+      otel:
+        - relation: match
+      otel_reuse:
+        - ecs: process.group_leader.pid
+          mapping:
+            relation: match
+        - ecs: process.session_leader.pid
+          mapping:
+            relation: match
 
     - name: vpid
       format: string
@@ -96,6 +105,8 @@
         unique across all processes on the host but it is unique within the
         process namespace that the process exists within.
       example: 4242
+      otel:
+        - relation: match
 
     - name: entity_id
       level: extended
@@ -151,6 +162,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: args
       level: extended
@@ -175,6 +188,8 @@
         how many arguments were provided to start a process.
         More arguments may be an indication of suspicious activity.
       example: 4
+      otel:
+        - relation: match
 
     - name: executable
       level: extended
@@ -206,6 +221,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: thread.id
       format: string
@@ -269,6 +286,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: exit_code
       level: extended
@@ -299,6 +318,8 @@
         Process interactivity is inferred from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
 
         Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
+      otel:
+        - relation: match
 
     - name: same_as_process
       level: extended

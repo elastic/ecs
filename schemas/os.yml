@@ -48,6 +48,10 @@
         - ios
         - android
       example: macos
+      otel:
+        - relation: conflict
+          attribute: os.type
+          note: The expected values in ECS for `os.type` do not correspond with the values defined in semantic conventions!
 
     - name: platform
       level: extended
@@ -65,6 +69,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: full
       level: extended
@@ -89,6 +95,8 @@
       example: "10.14.1"
       description: >
         Operating system version as a raw string.
+      otel:
+        - relation: match
 
     - name: kernel
       level: extended

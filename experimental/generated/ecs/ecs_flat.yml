@@ -181,6 +181,9 @@ client.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Client network address.
   type: keyword
 client.as.number:
@@ -444,6 +447,9 @@ client.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Port of the client.
   type: long
 client.registered_domain:
@@ -641,6 +647,9 @@ cloud.account.id:
   level: extended
   name: account.id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The cloud account or organization id.
   type: keyword
 cloud.account.name:
@@ -666,6 +675,9 @@ cloud.availability_zone:
   level: extended
   name: availability_zone
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Availability zone in which this host, resource, or service is located.
   type: keyword
 cloud.instance.id:
@@ -882,6 +894,9 @@ cloud.provider:
   level: extended
   name: provider
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the cloud provider.
   type: keyword
 cloud.region:
@@ -893,6 +908,9 @@ cloud.region:
   level: extended
   name: region
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Region in which this host, resource, or service is located.
   type: keyword
 cloud.service.name:
@@ -908,6 +926,10 @@ cloud.service.name:
   level: extended
   name: service.name
   normalize: []
+  otel:
+  - attribute: cloud.platform
+    relation: equivalent
+    stability: experimental
   short: The cloud service name.
   type: keyword
 cloud.target.account.id:
@@ -1064,6 +1086,10 @@ container.cpu.usage:
   level: extended
   name: cpu.usage
   normalize: []
+  otel:
+  - metric: container.cpu.usage
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
@@ -1095,6 +1121,9 @@ container.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique container id.
   type: keyword
 container.image.hash.all:
@@ -1109,6 +1138,10 @@ container.image.hash.all:
   name: image.hash.all
   normalize:
   - array
+  otel:
+  - attribute: container.image.repo_digests
+    relation: equivalent
+    stability: experimental
   short: An array of digests of the image the container was built on.
   type: keyword
 container.image.name:
@@ -1119,6 +1152,9 @@ container.image.name:
   level: extended
   name: image.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the image the container was built on.
   type: keyword
 container.image.tag:
@@ -1130,6 +1166,10 @@ container.image.tag:
   name: image.tag
   normalize:
   - array
+  otel:
+  - attribute: container.image.tags
+    relation: equivalent
+    stability: experimental
   short: Container image tags.
   type: keyword
 container.labels:
@@ -1140,6 +1180,10 @@ container.labels:
   name: labels
   normalize: []
   object_type: keyword
+  otel:
+  - attribute: container.label
+    relation: related
+    stability: experimental
   short: Image labels.
   type: object
 container.memory.usage:
@@ -1150,6 +1194,10 @@ container.memory.usage:
   level: extended
   name: memory.usage
   normalize: []
+  otel:
+  - metric: container.memory.usage
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent memory used, between 0 and 1.
   type: scaled_float
@@ -1161,6 +1209,9 @@ container.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Container name.
   type: keyword
 container.network.egress.bytes:
@@ -1192,6 +1243,9 @@ container.runtime:
   level: extended
   name: runtime
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Runtime managing this container.
   type: keyword
 container.security_context.privileged:
@@ -1262,6 +1316,9 @@ destination.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Destination network address.
   type: keyword
 destination.as.number:
@@ -1524,6 +1581,9 @@ destination.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the destination.
   type: long
 destination.registered_domain:
@@ -1726,6 +1786,9 @@ device.id:
   level: extended
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The unique identifier of a device.
   type: keyword
 device.manufacturer:
@@ -1737,6 +1800,9 @@ device.manufacturer:
   level: extended
   name: manufacturer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The vendor name of the device manufacturer.
   type: keyword
 device.model.identifier:
@@ -1748,6 +1814,9 @@ device.model.identifier:
   level: extended
   name: model.identifier
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The machine readable identifier of the device model.
   type: keyword
 device.model.name:
@@ -1759,6 +1828,9 @@ device.model.name:
   level: extended
   name: model.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The human readable marketing name of the device model.
   type: keyword
 device.serial_number:
@@ -2463,6 +2535,9 @@ dns.question.name:
   level: extended
   name: question.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The name being queried.
   type: keyword
 dns.question.registered_domain:
@@ -2931,6 +3006,10 @@ error.message:
   level: core
   name: message
   normalize: []
+  otel:
+  - attribute: exception.message
+    relation: equivalent
+    stability: stable
   short: Error message.
   type: match_only_text
 error.stack_trace:
@@ -2944,6 +3023,10 @@ error.stack_trace:
     type: match_only_text
   name: stack_trace
   normalize: []
+  otel:
+  - attribute: exception.stacktrace
+    relation: equivalent
+    stability: stable
   short: The stack trace of this error in plain text.
   type: wildcard
 error.type:
@@ -2955,6 +3038,9 @@ error.type:
   level: extended
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: The type of the error, for example the class name of the exception.
   type: keyword
 event.action:
@@ -3822,6 +3908,9 @@ faas.coldstart:
   level: extended
   name: coldstart
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean value indicating a cold start of a function.
   type: boolean
 faas.execution:
@@ -3833,6 +3922,10 @@ faas.execution:
   level: extended
   name: execution
   normalize: []
+  otel:
+  - attribute: faas.invocation_id
+    relation: equivalent
+    stability: experimental
   short: The execution ID of the current function execution.
   type: keyword
 faas.id:
@@ -3858,6 +3951,9 @@ faas.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The name of a serverless function.
   type: keyword
 faas.trigger.request_id:
@@ -3886,6 +3982,10 @@ faas.trigger.type:
   level: extended
   name: trigger.type
   normalize: []
+  otel:
+  - attribute: faas.trigger
+    relation: equivalent
+    stability: experimental
   short: The trigger for the function execution.
   type: keyword
 faas.version:
@@ -3897,6 +3997,9 @@ faas.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The version of a serverless function.
   type: keyword
 file.accessed:
@@ -3908,6 +4011,9 @@ file.accessed:
   level: extended
   name: accessed
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Last time the file was accessed.
   type: date
 file.attributes:
@@ -3924,6 +4030,9 @@ file.attributes:
   name: attributes
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of file attributes.
   type: keyword
 file.code_signature.digest_algorithm:
@@ -4072,6 +4181,9 @@ file.created:
   level: extended
   name: created
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File creation time.
   type: date
 file.ctime:
@@ -4084,6 +4196,10 @@ file.ctime:
   level: extended
   name: ctime
   normalize: []
+  otel:
+  - attribute: file.changed
+    relation: equivalent
+    stability: experimental
   short: Last time the file attributes or metadata changed.
   type: date
 file.device:
@@ -4107,6 +4223,9 @@ file.directory:
   level: extended
   name: directory
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Directory where the file is located.
   type: keyword
 file.drive_letter:
@@ -4577,6 +4696,9 @@ file.extension:
   level: extended
   name: extension
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File extension, excluding the leading dot.
   type: keyword
 file.fork_name:
@@ -4600,6 +4722,9 @@ file.fork_name:
   level: extended
   name: fork_name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A fork is additional data associated with a filesystem object.
   type: keyword
 file.gid:
@@ -4611,6 +4736,10 @@ file.gid:
   level: extended
   name: gid
   normalize: []
+  otel:
+  - attribute: file.group.id
+    relation: equivalent
+    stability: experimental
   short: Primary group ID (GID) of the file.
   type: keyword
 file.group:
@@ -4622,6 +4751,10 @@ file.group:
   level: extended
   name: group
   normalize: []
+  otel:
+  - attribute: file.group.name
+    relation: equivalent
+    stability: experimental
   short: Primary group name of the file.
   type: keyword
 file.hash.cdhash:
@@ -4724,6 +4857,9 @@ file.inode:
   level: extended
   name: inode
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Inode representing the file in the filesystem.
   type: keyword
 file.macho.go_import_hash:
@@ -4946,6 +5082,9 @@ file.mode:
   level: extended
   name: mode
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Mode of the file in octal representation.
   type: keyword
 file.mtime:
@@ -4955,6 +5094,10 @@ file.mtime:
   level: extended
   name: mtime
   normalize: []
+  otel:
+  - attribute: file.modified
+    relation: equivalent
+    stability: experimental
   short: Last time the file content was modified.
   type: date
 file.name:
@@ -4966,6 +5109,9 @@ file.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the file including the extension, without the directory.
   type: keyword
 file.owner:
@@ -4977,6 +5123,10 @@ file.owner:
   level: extended
   name: owner
   normalize: []
+  otel:
+  - attribute: file.owner.name
+    relation: equivalent
+    stability: experimental
   short: File owner's username.
   type: keyword
 file.path:
@@ -4993,6 +5143,9 @@ file.path:
     type: match_only_text
   name: path
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full path to the file, including the file name.
   type: keyword
 file.pe.architecture:
@@ -5291,6 +5444,9 @@ file.size:
   level: extended
   name: size
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File size in bytes.
   type: long
 file.target_path:
@@ -5305,6 +5461,10 @@ file.target_path:
     type: match_only_text
   name: target_path
   normalize: []
+  otel:
+  - attribute: file.symbolic_link.target_path
+    relation: equivalent
+    stability: experimental
   short: Target path for symlinks.
   type: keyword
 file.type:
@@ -5327,6 +5487,10 @@ file.uid:
   level: extended
   name: uid
   normalize: []
+  otel:
+  - attribute: file.owner.id
+    relation: equivalent
+    stability: experimental
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 file.x509.alternative_names:
@@ -5675,6 +5839,10 @@ host.architecture:
   level: core
   name: architecture
   normalize: []
+  otel:
+  - attribute: host.arch
+    relation: equivalent
+    stability: experimental
   short: Operating system architecture.
   type: keyword
 host.boot.id:
@@ -5705,6 +5873,10 @@ host.cpu.usage:
   level: extended
   name: cpu.usage
   normalize: []
+  otel:
+  - metric: system.cpu.utilization
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
@@ -5716,6 +5888,10 @@ host.disk.read.bytes:
   level: extended
   name: disk.read.bytes
   normalize: []
+  otel:
+  - metric: system.disk.io
+    relation: metric
+    stability: experimental
   short: The number of bytes read by all disks.
   type: long
 host.disk.write.bytes:
@@ -5726,6 +5902,10 @@ host.disk.write.bytes:
   level: extended
   name: disk.write.bytes
   normalize: []
+  otel:
+  - metric: system.disk.io
+    relation: metric
+    stability: experimental
   short: The number of bytes written on all disks.
   type: long
 host.domain:
@@ -5906,6 +6086,9 @@ host.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique host id.
   type: keyword
 host.ip:
@@ -5916,6 +6099,9 @@ host.ip:
   name: ip
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Host ip addresses.
   type: ip
 host.mac:
@@ -5932,6 +6118,9 @@ host.mac:
   name: mac
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
   short: Host MAC addresses.
   type: keyword
@@ -5947,6 +6136,9 @@ host.name:
   level: core
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the host.
   type: keyword
 host.network.egress.bytes:
@@ -5957,6 +6149,10 @@ host.network.egress.bytes:
   level: extended
   name: network.egress.bytes
   normalize: []
+  otel:
+  - metric: system.network.io
+    relation: metric
+    stability: experimental
   short: The number of bytes sent on all network interfaces.
   type: long
 host.network.egress.packets:
@@ -5967,6 +6163,10 @@ host.network.egress.packets:
   level: extended
   name: network.egress.packets
   normalize: []
+  otel:
+  - metric: system.network.packets
+    relation: metric
+    stability: experimental
   short: The number of packets sent on all network interfaces.
   type: long
 host.network.ingress.bytes:
@@ -5977,6 +6177,10 @@ host.network.ingress.bytes:
   level: extended
   name: network.ingress.bytes
   normalize: []
+  otel:
+  - metric: system.network.io
+    relation: metric
+    stability: experimental
   short: The number of bytes received on all network interfaces.
   type: long
 host.network.ingress.packets:
@@ -5987,6 +6191,10 @@ host.network.ingress.packets:
   level: extended
   name: network.ingress.packets
   normalize: []
+  otel:
+  - metric: system.network.packets
+    relation: metric
+    stability: experimental
   short: The number of packets received on all network interfaces.
   type: long
 host.os.family:
@@ -6198,6 +6406,9 @@ host.type:
   level: core
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Type of host.
   type: keyword
 host.uptime:
@@ -6208,6 +6419,10 @@ host.uptime:
   level: extended
   name: uptime
   normalize: []
+  otel:
+  - metric: system.uptime
+    relation: metric
+    stability: experimental
   short: Seconds the host has been up.
   type: long
 http.request.body.bytes:
@@ -6219,6 +6434,10 @@ http.request.body.bytes:
   level: extended
   name: request.body.bytes
   normalize: []
+  otel:
+  - attribute: http.request.body.size
+    relation: equivalent
+    stability: experimental
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
@@ -6244,6 +6463,10 @@ http.request.bytes:
   level: extended
   name: request.bytes
   normalize: []
+  otel:
+  - attribute: http.request.size
+    relation: equivalent
+    stability: experimental
   short: Total size in bytes of the request (body and headers).
   type: long
 http.request.id:
@@ -6273,6 +6496,18 @@ http.request.method:
   level: extended
   name: request.method
   normalize: []
+  otel:
+  - attribute: http.request.method_original
+    relation: equivalent
+    stability: stable
+  - attribute: http.request.method
+    note: '`http.request.method` in SemConv is the known, normalized, upper case value
+      of the request method, other than the ECS'' `http.request.method` that retains
+      casing from the original event.
+
+      '
+    relation: conflict
+    stability: stable
   short: HTTP request method.
   type: keyword
 http.request.mime_type:
@@ -6310,6 +6545,10 @@ http.response.body.bytes:
   level: extended
   name: response.body.bytes
   normalize: []
+  otel:
+  - attribute: http.response.body.size
+    relation: equivalent
+    stability: experimental
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
@@ -6335,6 +6574,10 @@ http.response.bytes:
   level: extended
   name: response.bytes
   normalize: []
+  otel:
+  - attribute: http.response.size
+    relation: equivalent
+    stability: experimental
   short: Total size in bytes of the response (body and headers).
   type: long
 http.response.mime_type:
@@ -6361,6 +6604,9 @@ http.response.status_code:
   level: extended
   name: response.status_code
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: HTTP response status code.
   type: long
 http.version:
@@ -6372,6 +6618,17 @@ http.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - attribute: network.protocol.name
+    relation: related
+    stability: stable
+  - attribute: network.protocol.version
+    note: 'In OTel SemConv, `network.protocol.version` specifies the HTTP version
+      if the value of `network.protocol.name` is `http`.
+
+      '
+    relation: related
+    stability: stable
   short: HTTP version.
   type: keyword
 labels:
@@ -6402,6 +6659,9 @@ log.file.path:
   level: extended
   name: file.path
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full path to the log file this event came from.
   type: keyword
 log.level:
@@ -6809,6 +7069,10 @@ network.protocol:
   level: core
   name: protocol
   normalize: []
+  otel:
+  - attribute: network.protocol.name
+    relation: equivalent
+    stability: stable
   short: Application protocol name.
   type: keyword
 network.transport:
@@ -6823,6 +7087,9 @@ network.transport:
   level: core
   name: transport
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Protocol Name corresponding to the field `iana_number`.
   type: keyword
 network.type:
@@ -6837,6 +7104,9 @@ network.type:
   level: core
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim,
     etc
   type: keyword
@@ -7754,6 +8024,9 @@ process.args_count:
   level: extended
   name: args_count
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Length of the process.args array.
   type: long
 process.code_signature.digest_algorithm:
@@ -7908,6 +8181,9 @@ process.command_line:
     type: match_only_text
   name: command_line
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full command line that started the process.
   type: wildcard
 process.elf.architecture:
@@ -9203,6 +9479,9 @@ process.group_leader.pid:
   name: pid
   normalize: []
   original_fieldset: process
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.group_leader.real_group.id:
@@ -9576,6 +9855,9 @@ process.interactive:
   level: extended
   name: interactive
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Whether the process is connected to an interactive shell.
   type: boolean
 process.io:
@@ -11928,6 +12210,9 @@ process.pid:
   level: core
   name: pid
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.previous.args:
@@ -12009,6 +12294,9 @@ process.real_user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.real_user.name:
@@ -12025,6 +12313,9 @@ process.real_user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.saved_group.id:
@@ -12059,6 +12350,9 @@ process.saved_user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.saved_user.name:
@@ -12075,6 +12369,9 @@ process.saved_user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.session_leader.args:
@@ -12351,6 +12648,9 @@ process.session_leader.pid:
   name: pid
   normalize: []
   original_fieldset: process
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.session_leader.real_group.id:
@@ -12712,6 +13012,9 @@ process.title:
     type: match_only_text
   name: title
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Process title.
   type: keyword
 process.tty:
@@ -12796,6 +13099,9 @@ process.user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.user.name:
@@ -12812,6 +13118,9 @@ process.user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.vpid:
@@ -12827,6 +13136,9 @@ process.vpid:
   level: core
   name: vpid
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Virtual process id.
   type: long
 process.working_directory:
@@ -12842,6 +13154,9 @@ process.working_directory:
     type: match_only_text
   name: working_directory
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The working directory of the process.
   type: keyword
 registry.data.bytes:
@@ -13113,6 +13428,9 @@ server.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Server network address.
   type: keyword
 server.as.number:
@@ -13376,6 +13694,9 @@ server.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Port of the server.
   type: long
 server.registered_domain:
@@ -13589,6 +13910,10 @@ service.environment:
   level: extended
   name: environment
   normalize: []
+  otel:
+  - attribute: deployment.environment.name
+    relation: equivalent
+    stability: experimental
   short: Environment of the service.
   type: keyword
 service.ephemeral_id:
@@ -13639,6 +13964,9 @@ service.name:
   level: core
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Name of the service.
   type: keyword
 service.node.name:
@@ -13661,6 +13989,10 @@ service.node.name:
   level: extended
   name: node.name
   normalize: []
+  otel:
+  - attribute: service.instance.id
+    relation: equivalent
+    stability: experimental
   short: Name of the service node.
   type: keyword
 service.node.role:
@@ -14145,6 +14477,9 @@ service.version:
   level: core
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Version of the service.
   type: keyword
 source.address:
@@ -14160,6 +14495,9 @@ source.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Source network address.
   type: keyword
 source.as.number:
@@ -14423,6 +14761,9 @@ source.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the source.
   type: long
 source.registered_domain:
@@ -20189,6 +20530,9 @@ tls.cipher:
   level: extended
   name: cipher
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the cipher used during the current connection.
   type: keyword
 tls.client.certificate:
@@ -20202,6 +20546,9 @@ tls.client.certificate:
   level: extended
   name: client.certificate
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: PEM-encoded stand-alone certificate offered by the client.
   type: keyword
 tls.client.certificate_chain:
@@ -20216,6 +20563,9 @@ tls.client.certificate_chain:
   name: client.certificate_chain
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the client.
   type: keyword
@@ -20230,6 +20580,9 @@ tls.client.hash.md5:
   level: extended
   name: client.hash.md5
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the client.
   type: keyword
@@ -20244,6 +20597,9 @@ tls.client.hash.sha1:
   level: extended
   name: client.hash.sha1
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the client.
   type: keyword
@@ -20258,6 +20614,9 @@ tls.client.hash.sha256:
   level: extended
   name: client.hash.sha256
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the client.
   type: keyword
@@ -20271,6 +20630,9 @@ tls.client.issuer:
   level: extended
   name: client.issuer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Distinguished name of subject of the issuer of the x.509 certificate presented
     by the client.
   type: keyword
@@ -20284,6 +20646,9 @@ tls.client.ja3:
   level: extended
   name: client.ja3
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.client.not_after:
@@ -20295,6 +20660,9 @@ tls.client.not_after:
   level: extended
   name: client.not_after
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Date/Time indicating when client certificate is no longer considered valid.
   type: date
 tls.client.not_before:
@@ -20305,6 +20673,9 @@ tls.client.not_before:
   level: extended
   name: client.not_before
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Date/Time indicating when client certificate is first considered valid.
   type: date
 tls.client.server_name:
@@ -20330,6 +20701,9 @@ tls.client.subject:
   level: extended
   name: client.subject
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Distinguished name of subject of the x.509 certificate presented by the client.
   type: keyword
 tls.client.supported_ciphers:
@@ -20343,6 +20717,9 @@ tls.client.supported_ciphers:
   name: client.supported_ciphers
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of ciphers offered by the client during the client hello.
   type: keyword
 tls.client.x509.alternative_names:
@@ -20659,6 +21036,9 @@ tls.curve:
   level: extended
   name: curve
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the curve used for the given cipher, when applicable.
   type: keyword
 tls.established:
@@ -20669,6 +21049,9 @@ tls.established:
   level: extended
   name: established
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean flag indicating if the TLS negotiation was successful and transitioned
     to an encrypted tunnel.
   type: boolean
@@ -20683,6 +21066,9 @@ tls.next_protocol:
   level: extended
   name: next_protocol
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the protocol being tunneled.
   type: keyword
 tls.resumed:
@@ -20693,6 +21079,9 @@ tls.resumed:
   level: extended
   name: resumed
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean flag indicating if this TLS connection was resumed from an existing
     TLS negotiation.
   type: boolean
@@ -20707,6 +21096,9 @@ tls.server.certificate:
   level: extended
   name: server.certificate
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: PEM-encoded stand-alone certificate offered by the server.
   type: keyword
 tls.server.certificate_chain:
@@ -20721,6 +21113,9 @@ tls.server.certificate_chain:
   name: server.certificate_chain
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server.
   type: keyword
@@ -20735,6 +21130,9 @@ tls.server.hash.md5:
   level: extended
   name: server.hash.md5
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server.
   type: keyword
@@ -20749,6 +21147,9 @@ tls.server.hash.sha1:
   level: extended
   name: server.hash.sha1
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server.
   type: keyword
@@ -20763,6 +21164,9 @@ tls.server.hash.sha256:
   level: extended
   name: server.hash.sha256
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server.
   type: keyword
@@ -20775,6 +21179,9 @@ tls.server.issuer:
   level: extended
   name: server.issuer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Subject of the issuer of the x.509 certificate presented by the server.
   type: keyword
 tls.server.ja3s:
@@ -20787,6 +21194,9 @@ tls.server.ja3s:
   level: extended
   name: server.ja3s
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.server.not_after:
@@ -20798,6 +21208,9 @@ tls.server.not_after:
   level: extended
   name: server.not_after
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Timestamp indicating when server certificate is no longer considered valid.
   type: date
 tls.server.not_before:
@@ -20808,6 +21221,9 @@ tls.server.not_before:
   level: extended
   name: server.not_before
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Timestamp indicating when server certificate is first considered valid.
   type: date
 tls.server.subject:
@@ -20819,6 +21235,9 @@ tls.server.subject:
   level: extended
   name: server.subject
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Subject of the x.509 certificate presented by the server.
   type: keyword
 tls.server.x509.alternative_names:
@@ -21191,6 +21610,9 @@ url.domain:
   level: extended
   name: domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Domain of the url.
   type: keyword
 url.extension:
@@ -21211,6 +21633,9 @@ url.extension:
   level: extended
   name: extension
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File extension from the request url, excluding the leading dot.
   type: keyword
 url.fragment:
@@ -21223,6 +21648,9 @@ url.fragment:
   level: extended
   name: fragment
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
@@ -21238,6 +21666,9 @@ url.full:
     type: match_only_text
   name: full
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Full unparsed URL.
   type: wildcard
 url.original:
@@ -21257,6 +21688,9 @@ url.original:
     type: match_only_text
   name: original
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unmodified original url as seen in the event source.
   type: wildcard
 url.password:
@@ -21276,6 +21710,9 @@ url.path:
   level: extended
   name: path
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Path of the request, such as "/search".
   type: wildcard
 url.port:
@@ -21287,6 +21724,9 @@ url.port:
   level: extended
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the request, such as 443.
   type: long
 url.query:
@@ -21303,6 +21743,9 @@ url.query:
   level: extended
   name: query
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Query string of the request.
   type: keyword
 url.registered_domain:
@@ -21320,6 +21763,9 @@ url.registered_domain:
   level: extended
   name: registered_domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The highest registered url domain, stripped of the subdomain.
   type: keyword
 url.scheme:
@@ -21333,6 +21779,9 @@ url.scheme:
   level: extended
   name: scheme
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Scheme of the url.
   type: keyword
 url.subdomain:
@@ -21351,6 +21800,9 @@ url.subdomain:
   level: extended
   name: subdomain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The subdomain of the domain.
   type: keyword
 url.top_level_domain:
@@ -21368,6 +21820,9 @@ url.top_level_domain:
   level: extended
   name: top_level_domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 url.username:
@@ -21662,6 +22117,9 @@ user.email:
   level: extended
   name: email
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: User email address.
   type: keyword
 user.full_name:
@@ -21677,6 +22135,9 @@ user.full_name:
     type: match_only_text
   name: full_name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: User's full name, if available.
   type: keyword
 user.group.domain:
@@ -21726,6 +22187,9 @@ user.hash:
   level: extended
   name: hash
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 user.id:
@@ -21737,6 +22201,9 @@ user.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 user.name:
@@ -21752,6 +22219,9 @@ user.name:
     type: match_only_text
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 user.risk.calculated_level:
@@ -21844,6 +22314,9 @@ user.roles:
   name: roles
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of user roles at the time of the event.
   type: keyword
 user.target.domain:
@@ -21997,6 +22470,9 @@ user_agent.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the user agent.
   type: keyword
 user_agent.original:
@@ -22013,6 +22489,9 @@ user_agent.original:
     type: match_only_text
   name: original
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Unparsed user_agent string.
   type: keyword
 user_agent.os.family:
@@ -22129,6 +22608,9 @@ user_agent.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Version of the user agent.
   type: keyword
 volume.bus_type:

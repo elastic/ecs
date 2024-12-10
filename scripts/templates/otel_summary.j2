@@ -1,0 +1,30 @@
+{%import 'macros.j2' as macros%}
+The following table summarizes the alignment status by namespaces between ECS in version `{{ ecs_generated_version }}`
+and OpenTelemetry semantic conventions in version `{{ semconv_version }}`.
+
+[cols="8*"]
+|====
+h| 
+7+^h| Number of Fields / Attributes
+
+h| Namespace
+h| ECS
+h| OTel 
+h| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
+h| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
+h| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+h| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
+h| image:https://img.shields.io/badge/conflict-910000?style=flat[relation,title=conflict]
+
+{% for summary in summaries %}
+| {{ summary['title'] }}
+| {{ macros.format_number(summary['nr_plain_ecs_fields']) }}
+| {{ macros.format_number(summary['nr_otel_fields']) }}
+| {{ macros.format_number(summary['nr_matching_fields']) }}
+| {{ macros.format_number(summary['nr_equivalent_fields']) }}
+| {{ macros.format_number(summary['nr_related_fields']) }}
+| {{ macros.format_number(summary['nr_metric_fields']) }}
+| {{ macros.format_number(summary['nr_conflicting_fields']) }}
+
+{% endfor %}{# for 'summary' -#}
+|====

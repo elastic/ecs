@@ -1,0 +1,56 @@
+{%- import 'macros.j2' as macros -%}
+The following table gives an overview of mappings between individual ECS fields (in ECS version `{{ ecs_generated_version }}`)
+and corresponding OTel semantic convention attributes (in SemConv version `{{ semconv_version }}`).
+
+[%header]
+|====
+| ECS Field | Relation | OTel Semantic Conventions Attribute | Stability
+
+{% for fieldset in fieldsets -%}
+
+[[otel-mapping-namespace-{{fieldset['name']}}]]
+4+e| *{{ fieldset['title'] }} Fields*
+
+{# Iterate through each field in the set -#}
+{% for field in fieldset['fields'] -%}
+{% if 'otel' in field -%}
+
+{# `ECS` column -#}
+.{{ field['otel'] | length }}+|
+{% if 'original_fieldset' not in field -%}
+[[otel-mapping-for-{{field['dashed_name']}}]]
+<<field-{{field['dashed_name']}}, {{ field['flat_name'] }}>>
+{%- else -%}
+{{ field['flat_name'] }}
+{%- endif%}{# if 'original_fieldset' #} {% if 'beta' in fieldset or 'beta' in field -%}
+{{ '[beta]' }}
+{%- endif%}{# if 'beta' #}
+
+{% for otel in field['otel'] %}
+
+{# `Relation` column -#}
+^| {{ macros.otel_relation_badge(otel) }}
+
+{# `SemConv` column -#}
+<|
+{%- if otel['relation'] == 'metric' -%}
+{{ macros.otel_metric_link(otel) }}
+{%- else -%}
+{{ macros.otel_attribute_link(field, otel) }}
+{%- endif %} +
+{% if 'note' in otel %}
+Note: {{ otel['note'] }}
+{% endif %}{# if 'note' #}
+
+{# `Stability` column -#}
+^| {{ macros.otel_stability_badge(otel) }}
+
+
+// ===============================================================
+{% endfor %}{# for 'otel' -#}
+{% endif %}{# if 'otel' -#}
+{% endfor %}{# for 'field' -#}
+
+{% endfor %}{# for 'fieldset' -#}
+
+|====

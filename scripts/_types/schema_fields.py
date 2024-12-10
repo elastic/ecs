@@ -37,6 +37,19 @@ class AllowedValues(TypedDict, total=False):
     description: str
 
 
+class OTelMapping(TypedDict, total=False):
+    attribute: str
+    metric: str
+    relation: str
+    stability: str = "stable"
+    note: str
+
+
+class OTelReuseMapping(TypedDict, total=False):
+    ecs: str
+    mapping: OTelMapping
+
+
 class Field(TypedDict, total=False):
     allowed_values: List[AllowedValues]
     dashed_name: str
@@ -54,6 +67,8 @@ class Field(TypedDict, total=False):
     node_name: str
     normalize: List[str]
     norms: bool
+    otel: List[OTelMapping]
+    otel_reuse: List[OTelReuseMapping]
     required: bool
     short: str
     type: str
