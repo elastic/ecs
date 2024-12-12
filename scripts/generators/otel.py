@@ -42,8 +42,8 @@ def get_attributes(
     """Retrieves (non-deprecated) OTel attributes from the model files"""
 
     attributes: Dict[str, OTelAttribute] = {}
-    for mode_file in model_files:
-        for group in mode_file['groups']:
+    for model_file in model_files:
+        for group in model_file['groups']:
             if 'type' in group and group['type'] == 'attribute_group' and 'deprecated' not in group and 'attributes' in group:
                 for attribute in group['attributes']:
                     if 'id' in attribute and 'deprecated' not in attribute:
@@ -61,8 +61,8 @@ def get_metrics(
     """Retrieves (non-deprecated) OTel metrics from the model files"""
 
     metrics: Dict[str, OTelGroup] = {}
-    for mode_file in model_files:
-        for group in mode_file['groups']:
+    for model_file in model_files:
+        for group in model_file['groups']:
             if 'type' in group and group['type'] == 'metric' and 'metric_name' in group and 'deprecated' not in group:
                 metrics[group['metric_name']] = group
     return metrics
