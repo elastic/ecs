@@ -76,8 +76,7 @@ def main() -> None:
     fields = exclude_filter.exclude(fields, args.exclude)
 
     otel_generator = otel.OTelGenerator(args.semconv_version)
-    otel_generator.check_otel_attributes_mapping(fields)
-    otel_generator.set_otel_attributes_stability_property(fields)
+    otel_generator.validate_otel_mapping(fields)
 
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 

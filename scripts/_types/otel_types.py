@@ -37,3 +37,4 @@ class OTelMappingSummary(TypedDict, total=False):
     nr_conflicting_fields: int
     nr_related_fields: int
     nr_metric_fields: int
+    nr_not_applicable_fields: int

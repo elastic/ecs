@@ -5,6 +5,62 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 |====
 | ECS Field | Relation | OTel Semantic Conventions Attribute | Stability
 
+[[otel-mapping-namespace-base]]
+4+e| *Base Fields*
+
+.3+|
+[[otel-mapping-for-timestamp]]
+<<field-timestamp, @timestamp>> 
+
+
+
+^| image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp]
+
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+time_unix_nano+%22&type=code[time_unix_nano] +
+
+
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
+
+// ===============================================================
+
+
+^| image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp]
+
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+observed_time_unix_nano+%22&type=code[observed_time_unix_nano] +
+
+
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
+
+// ===============================================================
+
+
+^| image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp]
+
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+start_time_unix_nano+%22&type=code[start_time_unix_nano] +
+
+Note: On logs, events and metrics, `time_unix_nano` defines the time of the event. For logs, `observed_time_unix_nano` defines the time when the event was observed by the collection system. On spans, `start_time_unix_nano` represents the start time of the span.
+
+
+
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
+
+// ===============================================================
+.1+|
+[[otel-mapping-for-message]]
+<<field-message, message>> 
+
+
+
+^| image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp]
+
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+body+%22&type=code[body] +
+
+Note: The `body` in OTLP is of type `Any` and can be either an unstructured log message or a structured event.
+
+
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
+
+// ===============================================================
 [[otel-mapping-namespace-client]]
 4+e| *Client Fields*
 
@@ -16,11 +72,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-address[client.address] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-address[client.address] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -31,11 +86,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-port[client.port] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-port[client.port] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-cloud]]
@@ -49,11 +103,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-account-id[cloud.account.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-account-id[cloud.account.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -64,11 +117,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-availability-zone[cloud.availability_zone] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-availability-zone[cloud.availability_zone] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -79,11 +131,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-provider[cloud.provider] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-provider[cloud.provider] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -94,11 +145,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-region[cloud.region] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-region[cloud.region] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -109,11 +159,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-platform[cloud.platform] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-platform[cloud.platform] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-container]]
@@ -127,11 +176,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.cpu.usage+--%3E%22&type=code[container.cpu.usage] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.cpu.usage+--%3E%22&type=code[container.cpu.usage] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -142,11 +190,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-id[container.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-id[container.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -157,11 +204,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-repo-digests[container.image.repo_digests] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-repo-digests[container.image.repo_digests] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -172,11 +218,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-name[container.image.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-name[container.image.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -187,11 +232,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-tags[container.image.tags] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-tags[container.image.tags] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -200,13 +244,12 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 
 
-^| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+^| image:https://img.shields.io/badge/related-cb8f00?style=flat[relation,title=related]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-label[container.label] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-label[container.label] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -217,11 +260,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.memory.usage+--%3E%22&type=code[container.memory.usage] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.memory.usage+--%3E%22&type=code[container.memory.usage] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -232,11 +274,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-name[container.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-name[container.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -247,11 +288,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-runtime[container.runtime] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-runtime[container.runtime] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-destination]]
@@ -265,11 +305,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-address[destination.address] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-address[destination.address] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -280,11 +319,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-port[destination.port] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-port[destination.port] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-device]]
@@ -298,11 +336,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-id[device.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-id[device.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -313,11 +350,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-manufacturer[device.manufacturer] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-manufacturer[device.manufacturer] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -328,11 +364,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-identifier[device.model.identifier] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-identifier[device.model.identifier] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -343,11 +378,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-name[device.model.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-name[device.model.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-dns]]
@@ -361,11 +395,27 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/dns/#dns-question-name[dns.question.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/dns/#dns-question-name[dns.question.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
+// ===============================================================
+[[otel-mapping-namespace-ecs]]
+4+e| *ECS Fields*
+
+.1+|
+[[otel-mapping-for-ecs-version]]
+<<field-ecs-version, ecs.version>> 
+
+
+
+^| image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable]
+
+<| Not applicable. +
+
+
+^|
 
 // ===============================================================
 [[otel-mapping-namespace-error]]
@@ -379,11 +429,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-message[exception.message] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-message[exception.message] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -394,11 +443,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-stacktrace[exception.stacktrace] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-stacktrace[exception.stacktrace] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -409,11 +457,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/#error-type[error.type] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/#error-type[error.type] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-faas]]
@@ -427,11 +474,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-coldstart[faas.coldstart] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-coldstart[faas.coldstart] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -442,11 +488,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-invocation-id[faas.invocation_id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-invocation-id[faas.invocation_id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -457,11 +502,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-name[faas.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-name[faas.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -472,11 +516,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-trigger[faas.trigger] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-trigger[faas.trigger] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -487,11 +530,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-version[faas.version] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-version[faas.version] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-file]]
@@ -505,11 +547,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-accessed[file.accessed] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-accessed[file.accessed] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -520,11 +561,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-attributes[file.attributes] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-attributes[file.attributes] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -535,11 +575,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-created[file.created] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-created[file.created] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -550,11 +589,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-changed[file.changed] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-changed[file.changed] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -565,11 +603,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-directory[file.directory] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-directory[file.directory] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -580,11 +617,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-extension[file.extension] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-extension[file.extension] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -595,11 +631,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-fork-name[file.fork_name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-fork-name[file.fork_name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -610,11 +645,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-id[file.group.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-id[file.group.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -625,11 +659,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-name[file.group.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-name[file.group.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -640,11 +673,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-inode[file.inode] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-inode[file.inode] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -655,11 +687,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-mode[file.mode] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-mode[file.mode] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -670,11 +701,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-modified[file.modified] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-modified[file.modified] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -685,11 +715,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-name[file.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-name[file.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -700,11 +729,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-name[file.owner.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-name[file.owner.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -715,11 +743,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-path[file.path] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-path[file.path] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -730,11 +757,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-size[file.size] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-size[file.size] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -745,11 +771,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-symbolic-link-target-path[file.symbolic_link.target_path] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-symbolic-link-target-path[file.symbolic_link.target_path] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -760,11 +785,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-id[file.owner.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-id[file.owner.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-geo]]
@@ -778,11 +802,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-locality-name[geo.locality.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-locality-name[geo.locality.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -793,11 +816,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-continent-code[geo.continent.code] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-continent-code[geo.continent.code] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -808,11 +830,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-country-iso-code[geo.country.iso_code] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-country-iso-code[geo.country.iso_code] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .2+|
@@ -821,24 +842,22 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 
 
-^| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+^| image:https://img.shields.io/badge/related-cb8f00?style=flat[relation,title=related]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lat[geo.location.lat] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lat[geo.location.lat] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 
 
-^| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+^| image:https://img.shields.io/badge/related-cb8f00?style=flat[relation,title=related]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lon[geo.location.lon] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lon[geo.location.lon] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -849,11 +868,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-postal-code[geo.postal_code] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-postal-code[geo.postal_code] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -864,11 +882,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-region-iso-code[geo.region.iso_code] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-region-iso-code[geo.region.iso_code] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-host]]
@@ -882,11 +899,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-arch[host.arch] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-arch[host.arch] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -897,11 +913,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.cpu.utilization+--%3E%22&type=code[system.cpu.utilization] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.cpu.utilization+--%3E%22&type=code[system.cpu.utilization] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -912,11 +927,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -927,11 +941,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -942,11 +955,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-id[host.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-id[host.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -957,11 +969,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-ip[host.ip] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-ip[host.ip] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -972,11 +983,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-mac[host.mac] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-mac[host.mac] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -987,11 +997,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-name[host.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-name[host.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1002,11 +1011,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1017,11 +1025,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1032,11 +1039,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1047,11 +1053,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1062,11 +1067,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-type[host.type] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-type[host.type] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1077,11 +1081,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric]
 
-<|https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.uptime+--%3E%22&type=code[system.uptime] +
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.uptime+--%3E%22&type=code[system.uptime] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-http]]
@@ -1095,11 +1098,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-body-size[http.request.body.size] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-body-size[http.request.body.size] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1110,11 +1112,10 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-size[http.request.size] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-size[http.request.size] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .2+|
@@ -1125,25 +1126,23 @@ and corresponding OTel semantic convention attributes (in SemConv version `1.29.
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method-original[http.request.method_original] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method-original[http.request.method_original] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 
 
 ^| image:https://img.shields.io/badge/conflict-910000?style=flat[relation,title=conflict]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method[http.request.method] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method[http.request.method] +
 
 Note: `http.request.method` in SemConv is the known, normalized, upper case value of the request method, other than the ECS' `http.request.method` that retains casing from the original event.
 
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -1154,11 +1153,10 @@ Note: `http.request.method` in SemConv is the known, normalized, upper case valu
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-body-size[http.response.body.size] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-body-size[http.response.body.size] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1169,11 +1167,10 @@ Note: `http.request.method` in SemConv is the known, normalized, upper case valu
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-size[http.response.size] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-size[http.response.size] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1184,11 +1181,10 @@ Note: `http.request.method` in SemConv is the known, normalized, upper case valu
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-status-code[http.response.status_code] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-status-code[http.response.status_code] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .2+|
@@ -1197,27 +1193,25 @@ Note: `http.request.method` in SemConv is the known, normalized, upper case valu
 
 
 
-^| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+^| image:https://img.shields.io/badge/related-cb8f00?style=flat[relation,title=related]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 
 
-^| image:https://img.shields.io/badge/related-f2f4fb?style=flat[relation,title=related]
+^| image:https://img.shields.io/badge/related-cb8f00?style=flat[relation,title=related]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-version[network.protocol.version] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-version[network.protocol.version] +
 
 Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if the value of `network.protocol.name` is `http`.
 
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-log]]
@@ -1231,11 +1225,24 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/log/#log-file-path[log.file.path] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/log/#log-file-path[log.file.path] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
+// ===============================================================
+.1+|
+[[otel-mapping-for-log-level]]
+<<field-log-level, log.level>> 
+
+
+
+^| image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp]
+
+<| https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+severity_text+%22&type=code[severity_text] +
+
+
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-network]]
@@ -1249,11 +1256,10 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -1264,11 +1270,10 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-transport[network.transport] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-transport[network.transport] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -1279,11 +1284,10 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-type[network.type] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-type[network.type] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-os]]
@@ -1297,11 +1301,10 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-name[os.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-name[os.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1312,13 +1315,12 @@ Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if 
 
 ^| image:https://img.shields.io/badge/conflict-910000?style=flat[relation,title=conflict]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-type[os.type] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-type[os.type] +
 
 Note: The expected values in ECS for `os.type` do not correspond with the values defined in semantic conventions!
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1329,11 +1331,10 @@ Note: The expected values in ECS for `os.type` do not correspond with the values
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-version[os.version] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-version[os.version] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-process]]
@@ -1347,11 +1348,10 @@ Note: The expected values in ECS for `os.type` do not correspond with the values
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-args-count[process.args_count] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-args-count[process.args_count] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1362,11 +1362,10 @@ Note: The expected values in ECS for `os.type` do not correspond with the values
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-command-line[process.command_line] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-command-line[process.command_line] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1376,11 +1375,10 @@ process.real_user.id
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-real-user-id[process.real_user.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-real-user-id[process.real_user.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1390,11 +1388,10 @@ process.saved_user.id
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-saved-user-id[process.saved_user.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-saved-user-id[process.saved_user.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1404,11 +1401,10 @@ process.user.id
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-user-id[process.user.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-user-id[process.user.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1419,11 +1415,10 @@ process.user.id
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-interactive[process.interactive] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-interactive[process.interactive] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1433,11 +1428,10 @@ process.real_user.name
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-real-user-name[process.real_user.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-real-user-name[process.real_user.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1447,11 +1441,10 @@ process.saved_user.name
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-saved-user-name[process.saved_user.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-saved-user-name[process.saved_user.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1461,11 +1454,10 @@ process.user.name
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-user-name[process.user.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-user-name[process.user.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1475,11 +1467,10 @@ process.group_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-group-leader-pid[process.group_leader.pid] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-group-leader-pid[process.group_leader.pid] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1490,11 +1481,10 @@ process.group_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-pid[process.pid] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-pid[process.pid] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1504,11 +1494,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-session-leader-pid[process.session_leader.pid] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-session-leader-pid[process.session_leader.pid] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1519,11 +1508,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-title[process.title] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-title[process.title] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1534,11 +1522,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-vpid[process.vpid] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-vpid[process.vpid] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1549,11 +1536,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-working-directory[process.working_directory] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-working-directory[process.working_directory] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-server]]
@@ -1567,11 +1553,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-address[server.address] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-address[server.address] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -1582,11 +1567,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-port[server.port] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-port[server.port] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-service]]
@@ -1600,11 +1584,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment/#deployment-environment-name[deployment.environment.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment/#deployment-environment-name[deployment.environment.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1615,11 +1598,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-name[service.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-name[service.name] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -1630,11 +1612,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-instance-id[service.instance.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-instance-id[service.instance.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1645,11 +1626,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-version[service.version] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-version[service.version] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 [[otel-mapping-namespace-source]]
@@ -1663,11 +1643,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-address[source.address] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-address[source.address] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1678,11 +1657,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-port[source.port] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-port[source.port] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-tls]]
@@ -1696,11 +1674,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-cipher[tls.cipher] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-cipher[tls.cipher] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1711,11 +1688,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate[tls.client.certificate] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate[tls.client.certificate] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1726,11 +1702,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate-chain[tls.client.certificate_chain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate-chain[tls.client.certificate_chain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1741,11 +1716,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-md5[tls.client.hash.md5] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-md5[tls.client.hash.md5] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1756,11 +1730,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha1[tls.client.hash.sha1] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha1[tls.client.hash.sha1] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1771,11 +1744,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha256[tls.client.hash.sha256] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha256[tls.client.hash.sha256] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1786,11 +1758,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-issuer[tls.client.issuer] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-issuer[tls.client.issuer] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1801,11 +1772,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-ja3[tls.client.ja3] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-ja3[tls.client.ja3] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1816,11 +1786,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-after[tls.client.not_after] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-after[tls.client.not_after] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1831,11 +1800,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-before[tls.client.not_before] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-before[tls.client.not_before] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1846,11 +1814,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-subject[tls.client.subject] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-subject[tls.client.subject] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1861,11 +1828,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-supported-ciphers[tls.client.supported_ciphers] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-supported-ciphers[tls.client.supported_ciphers] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1876,11 +1842,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-curve[tls.curve] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-curve[tls.curve] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1891,11 +1856,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-established[tls.established] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-established[tls.established] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1906,11 +1870,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-next-protocol[tls.next_protocol] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-next-protocol[tls.next_protocol] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1921,11 +1884,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-resumed[tls.resumed] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-resumed[tls.resumed] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1936,11 +1898,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate[tls.server.certificate] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate[tls.server.certificate] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1951,11 +1912,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate-chain[tls.server.certificate_chain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate-chain[tls.server.certificate_chain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1966,11 +1926,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-md5[tls.server.hash.md5] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-md5[tls.server.hash.md5] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1981,11 +1940,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha1[tls.server.hash.sha1] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha1[tls.server.hash.sha1] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -1996,11 +1954,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha256[tls.server.hash.sha256] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha256[tls.server.hash.sha256] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2011,11 +1968,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-issuer[tls.server.issuer] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-issuer[tls.server.issuer] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2026,11 +1982,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-ja3s[tls.server.ja3s] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-ja3s[tls.server.ja3s] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2041,11 +1996,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-after[tls.server.not_after] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-after[tls.server.not_after] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2056,11 +2010,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-before[tls.server.not_before] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-before[tls.server.not_before] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2071,11 +2024,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-subject[tls.server.subject] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-subject[tls.server.subject] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-url]]
@@ -2089,11 +2041,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-domain[url.domain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-domain[url.domain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2104,11 +2055,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-extension[url.extension] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-extension[url.extension] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2119,11 +2069,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-fragment[url.fragment] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-fragment[url.fragment] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2134,11 +2083,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-full[url.full] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-full[url.full] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2149,11 +2097,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-original[url.original] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-original[url.original] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2164,11 +2111,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-path[url.path] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-path[url.path] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2179,11 +2125,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-port[url.port] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-port[url.port] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2194,11 +2139,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-query[url.query] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-query[url.query] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2209,11 +2153,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-registered-domain[url.registered_domain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-registered-domain[url.registered_domain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2224,11 +2167,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-scheme[url.scheme] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-scheme[url.scheme] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2239,11 +2181,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-subdomain[url.subdomain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-subdomain[url.subdomain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2254,11 +2195,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-top-level-domain[url.top_level_domain] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-top-level-domain[url.top_level_domain] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-user]]
@@ -2272,11 +2212,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-email[user.email] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-email[user.email] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2287,11 +2226,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-full-name[user.full_name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-full-name[user.full_name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2302,11 +2240,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-hash[user.hash] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-hash[user.hash] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2317,11 +2254,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-id[user.id] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-id[user.id] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2332,11 +2268,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-name[user.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-name[user.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2347,11 +2282,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-roles[user.roles] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-roles[user.roles] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 [[otel-mapping-namespace-user_agent]]
@@ -2365,11 +2299,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-name[user_agent.name] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-name[user_agent.name] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 .1+|
@@ -2380,11 +2313,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-original[user_agent.original] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-original[user_agent.original] +
 
 
-^| image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
-
+^|image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 
 // ===============================================================
 .1+|
@@ -2395,11 +2327,10 @@ process.session_leader.pid
 
 ^| image:https://img.shields.io/badge/exact%20match-93c93e?style=flat[relation,title=match]
 
-<|https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-version[user_agent.version] +
+<| https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-version[user_agent.version] +
 
 
-^| image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
-
+^|image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
 
 // ===============================================================
 |====

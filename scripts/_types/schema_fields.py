@@ -38,8 +38,10 @@ class AllowedValues(TypedDict, total=False):
 
 
 class OTelMapping(TypedDict, total=False):
+    type: str
     attribute: str
     metric: str
+    otlp_field: str
     relation: str
     stability: str = "stable"
     note: str

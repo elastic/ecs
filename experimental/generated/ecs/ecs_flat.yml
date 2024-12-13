@@ -14,6 +14,22 @@
   level: core
   name: '@timestamp'
   normalize: []
+  otel:
+  - otlp_field: time_unix_nano
+    relation: otlp
+    stability: stable
+  - otlp_field: observed_time_unix_nano
+    relation: otlp
+    stability: stable
+  - note: 'On logs, events and metrics, `time_unix_nano` defines the time of the event.
+      For logs, `observed_time_unix_nano` defines the time when the event was observed
+      by the collection system. On spans, `start_time_unix_nano` represents the start
+      time of the span.
+
+      '
+    otlp_field: start_time_unix_nano
+    relation: otlp
+    stability: stable
   required: true
   short: Date/time when the event originated.
   type: date
@@ -2658,6 +2674,8 @@ ecs.version:
   level: core
   name: version
   normalize: []
+  otel:
+  - relation: na
   required: true
   short: ECS version this event conforms to.
   type: keyword
@@ -6679,6 +6697,10 @@ log.level:
   level: core
   name: level
   normalize: []
+  otel:
+  - otlp_field: severity_text
+    relation: otlp
+    stability: stable
   short: Log level of the log event.
   type: keyword
 log.logger:
@@ -6895,6 +6917,12 @@ message:
   level: core
   name: message
   normalize: []
+  otel:
+  - note: The `body` in OTLP is of type `Any` and can be either an unstructured log
+      message or a structured event.
+    otlp_field: body
+    relation: otlp
+    stability: stable
   short: Log message optimized for viewing in a log viewer.
   type: match_only_text
 network.application:

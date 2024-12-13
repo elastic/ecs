@@ -114,6 +114,23 @@ def get_otel_attribute_name(
         return field['flat_name']
     elif 'attribute' in otel:
         return otel['attribute']
+    elif 'metric' in otel:
+        raise KeyError("Passed OTel mapping is of type 'metric', expected 'attribute' here!")
+    else:
+        raise KeyError(
+            f"On field '{field['flat_name']}': Cannot retrieve attribute name for an OTel mapping with relation '{otel['relation']}'!")
+
+
+def must_have(ecs_field_name, otel, relation_type, property):
+    if property not in otel:
+        raise ValueError(
+            f"On field '{ecs_field_name}': An OTel mapping with relation type '{relation_type}' must specify the property '{property}'!")
+
+
+def must_not_have(ecs_field_name, otel, relation_type, property):
+    if property in otel:
+        raise ValueError(
+            f"On field '{ecs_field_name}': An OTel mapping with relation type '{relation_type}' must not have the property '{property}'!")
 
 
 class OTelGenerator:
@@ -133,10 +150,21 @@ class OTelGenerator:
         field_details = details['field_details']
         if 'flat_name' in field_details and 'otel' in field_details:
             for otel in field_details['otel']:
-                if otel['relation'] == 'metric' and 'metric' in otel:
+                if otel['relation'] == 'metric':
                     otel['stability'] = self.metrics[otel['metric']]['stability']
-                else:
+                elif otel['relation'] == 'match' or 'attribute' in otel:
                     otel['stability'] = self.attributes[get_otel_attribute_name(field_details, otel)]['stability']
+
+    def __check_metric_name(self, field_name, metric_name):
+        if not metric_name in self.otel_metric_names:
+            raise ValueError(
+                f"On field '{field_name}': Metric '{metric_name}' does not exist in Semantic Conventions version {self.semconv_version}!")
+
+    def __check_attribute_name(self, field_details, otel):
+        otel_attr_name = get_otel_attribute_name(field_details, otel)
+        if not otel_attr_name in self.otel_attribute_names:
+            raise ValueError(
+                f"On field '{field_details['flat_name']}': Attribute '{otel_attr_name}' does not exist in Semantic Conventions version {self.semconv_version}!")
 
     def __check_mapping(self, details):
         field_details = details['field_details']
@@ -144,32 +172,51 @@ class OTelGenerator:
             ecs_field_name = field_details['flat_name']
             if 'otel' in field_details:
                 for otel in field_details['otel']:
-                    if otel['relation'] == 'metric' and 'metric' in otel:
-                        if not otel['metric'] in self.otel_metric_names:
-                            raise ValueError(
-                                f"Metric '{otel['metric']}' does not exist in Semantic Conventions version {self.semconv_version}!")
+                    if not 'relation' in otel:
+                        raise ValueError(
+                            f"On field '{field_details['flat_name']}': OTel mapping must specify the 'relation' property!")
+
+                    if otel['relation'] == 'metric':
+                        must_have(ecs_field_name, otel, otel['relation'], 'metric')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'attribute')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'otlp_field')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'stability')
+                        self.__check_metric_name(ecs_field_name, otel['metric'])
+                    elif otel['relation'] == 'otlp':
+                        must_have(ecs_field_name, otel, otel['relation'], 'otlp_field')
+                        must_have(ecs_field_name, otel, otel['relation'], 'stability')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'attribute')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'metric')
+                    elif otel['relation'] == 'na':
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'otlp_field')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'attribute')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'metric')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'stability')
+                    elif otel['relation'] == 'match':
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'otlp_field')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'attribute')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'metric')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'stability')
+                    elif otel['relation'] == 'equivalent' or otel['relation'] == 'related' or otel['relation'] == 'conflict':
+                        must_have(ecs_field_name, otel, otel['relation'], 'attribute')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'otlp_field')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'metric')
+                        must_not_have(ecs_field_name, otel, otel['relation'], 'stability')
+                        self.__check_attribute_name(field_details, otel)
                     else:
-                        otel_attr_name = get_otel_attribute_name(field_details, otel)
-                        if not otel_attr_name in self.otel_attribute_names:
-                            raise ValueError(
-                                f"Attribute '{otel_attr_name}' does not exist in Semantic Conventions version {self.semconv_version}!")
+                        raise ValueError(
+                            f"On field '{field_details['flat_name']}': Invalid relation type '{otel['relation']}'")
+
             elif ecs_field_name in self.otel_attribute_names:
-                if ecs_field_name == "faas.trigger":
-                    print("### " + repr(field_details))
                 print(
                     f'WARNING: Field "{ecs_field_name}" exists in OTel Semantic Conventions with exactly the same name but is not mapped in ECS!')
 
-    def set_otel_attributes_stability_property(
-        self,
-        field_entries: Dict[str, FieldEntry]
-    ) -> None:
-        visitor.visit_fields(field_entries, None, self.__set_stability)
-
-    def check_otel_attributes_mapping(
+    def validate_otel_mapping(
         self,
         field_entries: Dict[str, FieldEntry]
     ) -> None:
         visitor.visit_fields(field_entries, None, self.__check_mapping)
+        visitor.visit_fields(field_entries, None, self.__set_stability)
 
     def get_mapping_summaries(
         self,
@@ -195,6 +242,7 @@ class OTelGenerator:
             summary['nr_related_fields'] = 0
             summary['nr_metric_fields'] = 0
             summary['nr_conflicting_fields'] = 0
+            summary['nr_not_applicable_fields'] = 0
 
             for field in fieldset['fields'].values():
                 summary['nr_all_ecs_fields'] += 1
@@ -202,7 +250,7 @@ class OTelGenerator:
                     summary['nr_plain_ecs_fields'] += 1
 
                 if 'otel' in field:
-                    for otel in (o for o in field['otel'] if 'relation' in o):
+                    for otel in field['otel']:
                         if otel['relation'] == "match":
                             summary['nr_matching_fields'] += 1
                         elif otel['relation'] == "equivalent":
@@ -213,6 +261,8 @@ class OTelGenerator:
                             summary['nr_metric_fields'] += 1
                         elif otel['relation'] == "conflict":
                             summary['nr_conflicting_fields'] += 1
+                        elif otel['relation'] == "na":
+                            summary['nr_not_applicable_fields'] += 1
 
             summary['nr_otel_fields'] += len([attr for attr in list(self.attributes.keys())
                                              if attr.startswith(summary['namespace'] + ".")])
