@@ -176,6 +176,9 @@
       example: "[\"/usr/bin/ssh\", \"-l\", \"user\", \"10.0.0.16\"]"
       normalize:
         - array
+      otel:
+        - relation: equivalent
+          attribute: process.command_args
 
     - name: args_count
       level: extended
@@ -200,6 +203,9 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: equivalent
+          attribute: process.executable.path
 
     - name: platform_binary
       level: extended
@@ -276,6 +282,9 @@
       example: 1325
       description: >
         Seconds the process has been up.
+      otel:
+        - relation: metric
+          metric: process.uptime
 
     - name: working_directory
       level: extended

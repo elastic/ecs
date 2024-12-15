@@ -1218,6 +1218,8 @@ data_stream.dataset:
   level: extended
   name: dataset
   normalize: []
+  otel:
+  - relation: na
   short: The field can contain anything that makes sense to signify the source of
     the data.
   type: constant_keyword
@@ -1235,6 +1237,8 @@ data_stream.namespace:
   level: extended
   name: namespace
   normalize: []
+  otel:
+  - relation: na
   short: A user defined namespace. Namespaces are useful to allow grouping of data.
   type: constant_keyword
 data_stream.type:
@@ -1248,6 +1252,8 @@ data_stream.type:
   level: extended
   name: type
   normalize: []
+  otel:
+  - relation: na
   short: An overarching type for the data stream.
   type: constant_keyword
 destination.address:
@@ -6594,6 +6600,13 @@ labels:
   name: labels
   normalize: []
   object_type: keyword
+  otel:
+  - attribute: k8s.pod.label
+    relation: related
+    stability: experimental
+  - attribute: container.label
+    relation: related
+    stability: experimental
   short: Custom key/value pairs.
   type: object
 log.file.path:
@@ -7969,6 +7982,10 @@ process.args:
   name: args
   normalize:
   - array
+  otel:
+  - attribute: process.command_args
+    relation: equivalent
+    stability: experimental
   short: Array of process arguments.
   type: keyword
 process.args_count:
@@ -9245,6 +9262,10 @@ process.executable:
     type: match_only_text
   name: executable
   normalize: []
+  otel:
+  - attribute: process.executable.path
+    relation: equivalent
+    stability: experimental
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -13046,6 +13067,10 @@ process.uptime:
   level: extended
   name: uptime
   normalize: []
+  otel:
+  - metric: process.uptime
+    relation: metric
+    stability: experimental
   short: Seconds the process has been up.
   type: long
 process.user.id:
@@ -13217,6 +13242,8 @@ related.hash:
   name: hash
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the hashes seen on your event.
   type: keyword
 related.hosts:
@@ -13229,6 +13256,8 @@ related.hosts:
   name: hosts
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the host identifiers seen on your event.
   type: keyword
 related.ip:
@@ -13239,6 +13268,8 @@ related.ip:
   name: ip
   normalize:
   - array
+  otel:
+  - relation: na
   short: All of the IPs seen on your event.
   type: ip
 related.user:
@@ -13250,6 +13281,8 @@ related.user:
   name: user
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the user names or other user identifiers seen on the event.
   type: keyword
 rule.author:
@@ -14920,6 +14953,10 @@ span.id:
   level: extended
   name: span.id
   normalize: []
+  otel:
+  - otlp_field: span_id
+    relation: otlp
+    stability: stable
   short: Unique identifier of the span within the scope of its trace.
   type: keyword
 tags:
@@ -21538,6 +21575,10 @@ trace.id:
   level: extended
   name: trace.id
   normalize: []
+  otel:
+  - otlp_field: trace_id
+    relation: otlp
+    stability: stable
   short: Unique identifier of the trace.
   type: keyword
 transaction.id:
@@ -21552,6 +21593,8 @@ transaction.id:
   level: extended
   name: transaction.id
   normalize: []
+  otel:
+  - relation: na
   short: Unique identifier of the transaction within the scope of its trace.
   type: keyword
 url.domain:

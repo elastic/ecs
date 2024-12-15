@@ -211,6 +211,13 @@ base:
       name: labels
       normalize: []
       object_type: keyword
+      otel:
+      - attribute: k8s.pod.label
+        relation: related
+        stability: experimental
+      - attribute: container.label
+        relation: related
+        stability: experimental
       short: Custom key/value pairs.
       type: object
     message:
@@ -1627,6 +1634,8 @@ data_stream:
       level: extended
       name: dataset
       normalize: []
+      otel:
+      - relation: na
       short: The field can contain anything that makes sense to signify the source
         of the data.
       type: constant_keyword
@@ -1644,6 +1653,8 @@ data_stream:
       level: extended
       name: namespace
       normalize: []
+      otel:
+      - relation: na
       short: A user defined namespace. Namespaces are useful to allow grouping of
         data.
       type: constant_keyword
@@ -1658,6 +1669,8 @@ data_stream:
       level: extended
       name: type
       normalize: []
+      otel:
+      - relation: na
       short: An overarching type for the data stream.
       type: constant_keyword
   group: 2
@@ -9659,6 +9672,10 @@ os:
         type: match_only_text
       name: full
       normalize: []
+      otel:
+      - attribute: os.description
+        relation: equivalent
+        stability: experimental
       short: Operating system name, including the version or code name.
       type: keyword
     os.kernel:
@@ -10231,6 +10248,10 @@ process:
       name: args
       normalize:
       - array
+      otel:
+      - attribute: process.command_args
+        relation: equivalent
+        stability: experimental
       short: Array of process arguments.
       type: keyword
     process.args_count:
@@ -11508,6 +11529,10 @@ process:
         type: match_only_text
       name: executable
       normalize: []
+      otel:
+      - attribute: process.executable.path
+        relation: equivalent
+        stability: experimental
       short: Absolute path to the process executable.
       type: keyword
     process.exit_code:
@@ -15317,6 +15342,10 @@ process:
       level: extended
       name: uptime
       normalize: []
+      otel:
+      - metric: process.uptime
+        relation: metric
+        stability: experimental
       short: Seconds the process has been up.
       type: long
     process.user.id:
@@ -15712,6 +15741,8 @@ related:
       name: hash
       normalize:
       - array
+      otel:
+      - relation: na
       short: All the hashes seen on your event.
       type: keyword
     related.hosts:
@@ -15724,6 +15755,8 @@ related:
       name: hosts
       normalize:
       - array
+      otel:
+      - relation: na
       short: All the host identifiers seen on your event.
       type: keyword
     related.ip:
@@ -15734,6 +15767,8 @@ related:
       name: ip
       normalize:
       - array
+      otel:
+      - relation: na
       short: All of the IPs seen on your event.
       type: ip
     related.user:
@@ -15745,6 +15780,8 @@ related:
       name: user
       normalize:
       - array
+      otel:
+      - relation: na
       short: All the user names or other user identifiers seen on the event.
       type: keyword
   group: 2
@@ -24378,6 +24415,10 @@ tracing:
       level: extended
       name: span.id
       normalize: []
+      otel:
+      - otlp_field: span_id
+        relation: otlp
+        stability: stable
       short: Unique identifier of the span within the scope of its trace.
       type: keyword
     trace.id:
@@ -24392,6 +24433,10 @@ tracing:
       level: extended
       name: trace.id
       normalize: []
+      otel:
+      - otlp_field: trace_id
+        relation: otlp
+        stability: stable
       short: Unique identifier of the trace.
       type: keyword
     transaction.id:
@@ -24406,6 +24451,8 @@ tracing:
       level: extended
       name: transaction.id
       normalize: []
+      otel:
+      - relation: na
       short: Unique identifier of the transaction within the scope of its trace.
       type: keyword
   group: 2
