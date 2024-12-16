@@ -48,7 +48,7 @@ Not applicable.
 {%- macro otel_relation_badge(otel)-%}
 image:https://img.shields.io/badge/
 {%- if otel['relation'] == 'match' -%}
-exact%20match-93c93e?style=flat[relation,title=match
+match-93c93e?style=flat[relation,title=match
 {%- elif otel['relation'] == 'equivalent' -%}
 equivalent-1ba9f5?style=flat[relation,title=equivalent
 {%- elif otel['relation'] == 'metric' -%}
@@ -60,7 +60,7 @@ n%2Fa-f2f4fb?style=flat[relation,title=not-applicable
 {%- elif otel['relation'] == 'otlp' -%}
 OTLP-ffdcb2?style=flat[relation,title=otlp
 {%- else -%}
-related-cb8f00?style=flat[relation,title=related
+related-efc20d?style=flat[relation,title=related
 {%- endif -%}
 ,link=ecs-opentelemetry.html#ecs-opentelemetry-relation]
 {%- endmacro -%}
@@ -77,9 +77,27 @@ image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 {# macro - format number #}
 {%- macro format_number(num) -%}
 {%- if num == 0 -%}
--
+·
 {%- else -%}
 {{ num }}
+{%- endif -%}
+{%- endmacro -%}
+
+{# macro - format number with local link #}
+{%- macro format_number_with_local_link(num, link) -%}
+{%- if num == 0 -%}
+·
+{%- else -%}
+<<{{ link }},{{ num }}>>
+{%- endif -%}
+{%- endmacro -%}
+
+{# macro - format number with external link #}
+{%- macro format_number_with_ext_link(num, link) -%}
+{%- if num == 0 -%}
+·
+{%- else -%}
+{{ link }}[{{ num }}]
 {%- endif -%}
 {%- endmacro -%}
 

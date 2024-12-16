@@ -243,6 +243,7 @@ class OTelGenerator:
             summary['nr_metric_fields'] = 0
             summary['nr_conflicting_fields'] = 0
             summary['nr_not_applicable_fields'] = 0
+            summary['nr_otlp_fields'] = 0
 
             for field in fieldset['fields'].values():
                 summary['nr_all_ecs_fields'] += 1
@@ -263,6 +264,8 @@ class OTelGenerator:
                             summary['nr_conflicting_fields'] += 1
                         elif otel['relation'] == "na":
                             summary['nr_not_applicable_fields'] += 1
+                        elif otel['relation'] == "otlp":
+                            summary['nr_otlp_fields'] += 1
 
             summary['nr_otel_fields'] += len([attr for attr in list(self.attributes.keys())
                                              if attr.startswith(summary['namespace'] + ".")])
@@ -286,6 +289,8 @@ class OTelGenerator:
             summary['nr_equivalent_fields'] = 0
             summary['nr_related_fields'] = 0
             summary['nr_conflicting_fields'] = 0
+            summary['nr_metric_fields'] = 0
+            summary['nr_otlp_fields'] = 0
             summaries.append(summary)
 
         return sorted(summaries, key=lambda s: s['namespace'])
