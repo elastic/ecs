@@ -24,7 +24,7 @@ h| Namespace
 {% for summary in summaries %}
 | {{ summary['title'] }}
 ^| {{ macros.format_number_with_local_link(summary['nr_plain_ecs_fields'], "ecs-" + summary['namespace'] ) }}
-^| {{ macros.format_number_with_ext_link(summary['nr_otel_fields'], "https://opentelemetry.io/docs/specs/semconv/attributes-registry/" + summary['namespace'] ) }}
+^| {{ macros.format_number_with_ext_link(summary['nr_otel_fields'], "https://opentelemetry.io/docs/specs/semconv/attributes-registry/" + macros.dashed_name(summary['namespace'])) }}
 ^| {{ macros.format_number(summary['nr_matching_fields']) }}
 ^| {{ macros.format_number(summary['nr_equivalent_fields']) }}
 ^| {{ macros.format_number(summary['nr_related_fields']) }}

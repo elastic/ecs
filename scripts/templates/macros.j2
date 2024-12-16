@@ -8,8 +8,13 @@
 {%- endmacro -%}
 
 {# macro - OTel attribute dashed name #}
+{%- macro dashed_name(name) -%}
+{{ name | trim | lower | replace("_", "-") | replace(".", "-") }}
+{%- endmacro -%}
+
+{# macro - OTel attribute dashed name #}
 {%- macro otel_attribute_dashed_name(field, otel) -%}
-{{ otel_attribute(field, otel) | trim | lower | replace("_", "-") | replace(".", "-") }}
+{{ dashed_name(otel_attribute(field, otel)) }}
 {%- endmacro -%}
 
 {# macro - OTel attribute link #}
