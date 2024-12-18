@@ -69,7 +69,11 @@ def main() -> None:
         ecs_generated_version += "+exp"
         print('Experimental ECS version ' + ecs_generated_version)
 
-    fields: dict[str, FieldEntry] = loader.load_schemas(ref=args.ref, included_files=args.include)
+    fields: dict[str, FieldEntry] = loader.load_schemas(
+        ref=args.ref,
+        included_files=args.include,
+        no_ecs=args.no_ecs
+    )
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
     fields, docs_only_fields = subset_filter.filter(fields, args.subset, out_dir)
@@ -84,7 +88,8 @@ def main() -> None:
         exit()
 
     csv_generator.generate(flat, ecs_generated_version, out_dir)
-    es_template.generate(nested, ecs_generated_version, out_dir, args.mapping_settings, args.template_settings)
+    es_template.generate(nested, ecs_generated_version, out_dir,
+                         args.mapping_settings, args.template_settings,ecs_component_name_prefix=args.component_name_prefix)
     es_template.generate_legacy(flat, ecs_generated_version, out_dir,
                                 args.mapping_settings, args.template_settings_legacy)
     beats.generate(nested, ecs_generated_version, out_dir)
@@ -118,6 +123,10 @@ def argument_parser() -> argparse.Namespace:
                         help='enforce strict checking at schema cleanup')
     parser.add_argument('--intermediate-only', action='store_true',
                         help='generate intermediary files only')
+    parser.add_argument('--no-ecs', action='store_true',
+                        help='do not include ECS schemas')
+    parser.add_argument('--component-name-prefix', action='store', default="ecs",
+                        help='prefix to use for component names')
     parser.add_argument('--force-docs', action='store_true',
                         help='generate ECS docs even if --subset, --include, or --exclude are set')
     parser.add_argument('--semconv-version', action='store',
