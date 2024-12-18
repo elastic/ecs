@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `email.return_path.address` #1947
+
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
@@ -34,6 +36,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
+
 
 <!-- All empty sections:
 
