@@ -61,8 +61,20 @@
         short_override: An array of previous executions for the process, including the initial fork. Only executable and args are set.
         normalize:
           - array
+      - at: process
+        as: responsible
+        short_override: Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy.
+        beta: This field is beta and subject to change.
 
   fields:
+
+    - name: endpoint_security_client
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is an Endpoint Security client.
+      description: >
+          Processes that have an endpoint security client must have the com.apple.endpointsecurity entitlement and the value is set to true in the message.
+      beta: This field is beta and subject to change.
 
     - name: pid
       format: string
@@ -71,6 +83,15 @@
       description: >
         Process id.
       example: 4242
+      otel:
+        - relation: match
+      otel_reuse:
+        - ecs: process.group_leader.pid
+          mapping:
+            relation: match
+        - ecs: process.session_leader.pid
+          mapping:
+            relation: match
 
     - name: vpid
       format: string
@@ -84,6 +105,8 @@
         unique across all processes on the host but it is unique within the
         process namespace that the process exists within.
       example: 4242
+      otel:
+        - relation: match
 
     - name: entity_id
       level: extended
@@ -139,6 +162,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: args
       level: extended
@@ -151,6 +176,9 @@
       example: "[\"/usr/bin/ssh\", \"-l\", \"user\", \"10.0.0.16\"]"
       normalize:
         - array
+      otel:
+        - relation: equivalent
+          attribute: process.command_args
 
     - name: args_count
       level: extended
@@ -163,6 +191,8 @@
         how many arguments were provided to start a process.
         More arguments may be an indication of suspicious activity.
       example: 4
+      otel:
+        - relation: match
 
     - name: executable
       level: extended
@@ -173,6 +203,17 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: equivalent
+          attribute: process.executable.path
+
+    - name: platform_binary
+      level: extended
+      type: boolean
+      short: Indicates whether this process executable is a default platform binary shipped with the operating system.
+      description: >
+          Binaries that are shipped by the operating system are defined as platform binaries, this value is then set to true.
+      beta: This field is beta and subject to change.
 
     - name: title
       level: extended
@@ -186,6 +227,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: thread.id
       format: string
@@ -239,6 +282,9 @@
       example: 1325
       description: >
         Seconds the process has been up.
+      otel:
+        - relation: metric
+          metric: process.uptime
 
     - name: working_directory
       level: extended
@@ -249,6 +295,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: exit_code
       level: extended
@@ -279,6 +327,8 @@
         Process interactivity is inferred from the processes file descriptors. If the character device for the controlling tty is the same as stdin and stderr for the process, the process is considered interactive.
 
         Note: A non-interactive process can belong to an interactive session and is simply one that does not have open file descriptors reading the controlling TTY on FD 0 (stdin) or writing to the controlling TTY on FD 2 (stderr). A backgrounded process is still considered interactive if stdin and stderr are connected to the controlling TTY.
+      otel:
+        - relation: match
 
     - name: same_as_process
       level: extended

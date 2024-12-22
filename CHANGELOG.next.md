@@ -13,20 +13,17 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-* Fix broken link in docs for vulnerability.id. #2328
 
 #### Added
-
-* Added `volume.*` as beta field set. #2269
-* Advanced `process.env_vars` to GA. #2315
-* Advanced `process.io` and `process.tty` fields to GA. #2317
-* Added `threat.indicator.id`. #2324
 
 #### Improvements
 * Allow ECS from any directory #2019
 * Added ability to specify a prefix for es_templates #2019
 * Allow projects to create their own ACSIIDOC templates #2019
 
+
+* Define base encoding of `x509.serial_number`. #2383
+* Restrict the encoding of `x509.serial_number` to base 16. #2398
 
 #### Deprecated
 
@@ -37,8 +34,6 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
-* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
 
 #### Improvements
 

@@ -121,7 +121,7 @@ def remove_docs_only_entries(paths: List[str], fields: Dict[str, FieldEntry]) ->
         split_path = path.split('.')
         field_set = split_path[0]
         field = split_path[1]
-        del(fields[field_set]['fields'][field])
+        del (fields[field_set]['fields'][field])
     return fields
 
 

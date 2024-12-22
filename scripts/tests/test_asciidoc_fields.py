@@ -186,7 +186,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
 
     def test_validate_sort_fieldset(self):
         sorted_foo_fields = asciidoc_fields.sort_fields(self.foo_fieldset)
-        #import pdb;pdb.set_trace()
+        # import pdb;pdb.set_trace()
         self.assertIsInstance(sorted_foo_fields, list)
 
         # `allowed_value_names` always present

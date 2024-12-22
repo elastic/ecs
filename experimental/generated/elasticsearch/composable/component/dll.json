@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-dll.html",
-    "ecs_version": "8.12.0-dev+exp"
+    "ecs_version": "9.0.0-dev+exp"
   },
   "template": {
     "mappings": {
@@ -16,6 +16,10 @@
                 },
                 "exists": {
                   "type": "boolean"
+                },
+                "flags": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "signing_id": {
                   "ignore_above": 1024,
@@ -46,6 +50,10 @@
             },
             "hash": {
               "properties": {
+                "cdhash": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                },
                 "md5": {
                   "ignore_above": 1024,
                   "type": "keyword"

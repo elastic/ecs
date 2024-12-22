@@ -27,6 +27,7 @@ from generators import csv_generator
 from generators import es_template
 from generators import ecs_helpers
 from generators import intermediate_files
+from generators import otel
 
 from schema import loader
 from schema import cleaner
@@ -40,6 +41,9 @@ from _types import (
 
 def main() -> None:
     args = argument_parser()
+
+    if not args.semconv_version:
+        raise KeyError("OTel Semantic Conventions version has not been provided as a config option '--semconv-version'")
 
     ecs_generated_version: str = read_version(args.ref)
     print('Running generator. ECS version ' + ecs_generated_version)
@@ -74,6 +78,10 @@ def main() -> None:
     finalizer.finalize(fields)
     fields, docs_only_fields = subset_filter.filter(fields, args.subset, out_dir)
     fields = exclude_filter.exclude(fields, args.exclude)
+
+    otel_generator = otel.OTelGenerator(args.semconv_version)
+    otel_generator.validate_otel_mapping(fields)
+
     nested, flat = intermediate_files.generate(fields, os.path.join(out_dir, 'ecs'), default_dirs)
 
     if args.intermediate_only:
@@ -90,7 +98,8 @@ def main() -> None:
 
     ecs_helpers.make_dirs(docs_dir)
     docs_only_nested = intermediate_files.generate_nested_fields(docs_only_fields)
-    asciidoc_fields.generate(nested, docs_only_nested, ecs_generated_version, docs_dir)
+    asciidoc_fields.generate(nested, docs_only_nested, ecs_generated_version,
+                             args.semconv_version, otel_generator, docs_dir)
 
 
 def argument_parser() -> argparse.Namespace:
@@ -120,6 +129,8 @@ def argument_parser() -> argparse.Namespace:
                         help='prefix to use for component names')
     parser.add_argument('--force-docs', action='store_true',
                         help='generate ECS docs even if --subset, --include, or --exclude are set')
+    parser.add_argument('--semconv-version', action='store',
+                        help='Load OpenTelemetry Semantic Conventions from this specified version')
     args = parser.parse_args()
     # Clean up empty include of the Makefile
     if args.include and [''] == args.include:
