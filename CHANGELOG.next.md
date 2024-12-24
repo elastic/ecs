@@ -13,7 +13,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-* Fix broken link in docs for vulnerability.id. #2328
 
 #### Added
 
@@ -27,6 +26,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
+* Restrict the encoding of `x509.serial_number` to base 16. #2398
 
 #### Deprecated
 
@@ -37,8 +37,6 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
-* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
 
 #### Improvements
 

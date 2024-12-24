@@ -21,18 +21,27 @@ import os.path as path
 import jinja2
 
 from generators import ecs_helpers
+from copy import deepcopy
 
 
-def generate(nested, docs_only_nested, ecs_generated_version, out_dir):
+def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, otel_generator, out_dir):
     # fields docs now have a dedicated docs subdir: docs/fields
     fields_docs_dir = out_dir + '/fields'
+    otel_docs_dir = out_dir + '/opentelemetry'
 
     ecs_helpers.make_dirs(fields_docs_dir)
+
+    if semconv_version.startswith('v'):
+        semconv_version = semconv_version[1:]
 
     save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
     save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested, docs_only_nested))
     save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
+    save_asciidoc(path.join(otel_docs_dir, 'otel-fields-mapping.asciidoc'),
+                  page_otel_mapping(nested, ecs_generated_version, semconv_version))
+    save_asciidoc(path.join(otel_docs_dir, 'otel-mapping-summary.asciidoc'),
+                  page_otel_summary(otel_generator, nested, ecs_generated_version, semconv_version))
 
 # Helpers
 
@@ -191,8 +200,41 @@ def generate_field_details_page(fieldset):
                 sorted_fields=sorted_fields,
                 usage_doc=usage_doc)
 
+# OTel Fields Mapping Page
+
+
+@templated('otel_mapping.j2')
+def page_otel_mapping(nested, ecs_generated_version, semconv_version):
+    fieldsets = [deepcopy(fieldset) for fieldset in ecs_helpers.dict_sorted_by_keys(
+        nested, ['group', 'name']) if is_eligable_for_otel_mapping(fieldset)]
+    for fieldset in fieldsets:
+        sorted_fields = sort_fields(fieldset)
+        fieldset['fields'] = sorted_fields
+
+    return dict(fieldsets=fieldsets,
+                semconv_version=semconv_version,
+                ecs_generated_version=ecs_generated_version)
+
+
+def is_eligable_for_otel_mapping(fieldset):
+    for field in fieldset['fields'].values():
+        if 'otel' in field:
+            return True
+    return False
+
+# OTel Mapping Summary Page
+
+
+@templated('otel_summary.j2')
+def page_otel_summary(otel_generator, nested, ecs_generated_version, semconv_version):
+    fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
+    summaries = otel_generator.get_mapping_summaries(fieldsets)
+    return dict(summaries=summaries,
+                semconv_version=semconv_version,
+                ecs_generated_version=ecs_generated_version)
 
 # Allowed values section
+
 
 @templated('field_values.j2')
 def page_field_values(nested, template_name='field_values_template.j2'):

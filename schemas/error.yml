@@ -38,6 +38,9 @@
       type: match_only_text
       description: >
         Error message.
+      otel:
+        - relation: equivalent
+          attribute: exception.message
 
     - name: code
       level: core
@@ -51,6 +54,8 @@
       example: java.lang.NullPointerException
       description: >
         The type of the error, for example the class name of the exception.
+      otel:
+        - relation: match
 
     - name: stack_trace
       level: extended
@@ -60,3 +65,6 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: equivalent
+          attribute: exception.stacktrace

@@ -8,6 +8,7 @@ PYTHON           := build/ve/bin/python
 SUBSETS_DIR      := schemas/subsets/
 EXP_SUBSETS_DIR  := experimental/schemas/subsets/
 VERSION          := $(shell cat version)
+SEMCONV_VERSION  := $(shell cat otel-semconv-version)
 
 #
 # Targets (sorted alphabetically)
@@ -51,7 +52,7 @@ docs:
 # Alias to generate experimental artifacts
 .PHONY: experimental
 experimental: ve
-	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" "${EXP_SUBSETS_DIR}" --out experimental
+	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" "${EXP_SUBSETS_DIR}" --semconv-version "${SEMCONV_VERSION}" --out experimental
 
 # Format code and files in the repo.
 .PHONY: fmt
@@ -66,7 +67,7 @@ generate: generator
 # Run the new generator
 .PHONY: generator
 generator: ve
-	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}" --force-docs
+	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}" --semconv-version "${SEMCONV_VERSION}" --force-docs
 
 # Check Makefile format.
 .PHONY: makelint
