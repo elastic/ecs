@@ -40,6 +40,10 @@
 
         A trace groups multiple events like transactions that belong together.
         For example, a user request handled by multiple inter-connected services.
+      otel:
+        - relation: otlp
+          otlp_field: trace_id
+          stability: stable
 
     - name: transaction.id
       level: extended
@@ -50,6 +54,8 @@
         Unique identifier of the transaction within the scope of its trace.
 
         A transaction is the highest level of work measured within a service, such as a request to a server.
+      otel:
+        - relation: na
 
     - name: span.id
       level: extended
@@ -60,3 +66,7 @@
         Unique identifier of the span within the scope of its trace.
 
         A span represents an operation within a transaction, such as a request to another service, or a database query.
+      otel:
+        - relation: otlp
+          otlp_field: span_id
+          stability: stable

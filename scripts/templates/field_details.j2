@@ -1,3 +1,4 @@
+{%- import 'macros.j2' as macros -%}
 {# Title & Description
 -#}
 [[ecs-{{ fieldset['name'] }}]]
@@ -81,6 +82,17 @@ To learn more about when to use which value, visit the page
 example: `{{ field['example'] }}`
 
 {%- endif %}{# if 'allowed_values' elif 'example' #}
+
+{%-if field['otel'] -%}
+{%- for otel in field['otel'] %}
+
+{{ macros.otel_badge }} {{ macros.otel_relation_badge(otel) }} {{ macros.otel_link(field, otel) }}
+{%- if 'note' in otel %}
+
+Note: {{ otel['note'] }}
+{%- endif -%}{# if 'note' #}
+{%- endfor -%}{# for otel #}
+{%- endif -%}{# if 'otel' #}
 
 {# `Level` column -#}
 | {{ field['level'] }}

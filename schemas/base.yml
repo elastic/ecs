@@ -41,6 +41,20 @@
         populated by the first time the event was received by the pipeline.
 
         Required field for all events.
+      otel:
+        - relation: otlp
+          otlp_field: time_unix_nano
+          stability: stable
+        - relation: otlp
+          otlp_field: observed_time_unix_nano
+          stability: stable
+        - relation: otlp
+          otlp_field: start_time_unix_nano
+          note: >
+            On logs, events and metrics, `time_unix_nano` defines the time of the event.
+            For logs, `observed_time_unix_nano` defines the time when the event was observed by the collection system.
+            On spans, `start_time_unix_nano` represents the start time of the span.
+          stability: stable
 
     - name: tags
       level: core
@@ -64,6 +78,11 @@
         objects. All values are stored as keyword.
 
         Example: `docker` and `k8s` labels.
+      otel:
+        - relation: related
+          attribute: k8s.pod.label
+        - relation: related
+          attribute: container.label
 
     - name: message
       level: core
@@ -78,3 +97,8 @@
         be concatenated to form a human-readable summary of the event.
 
         If multiple messages exist, they can be combined into one message.
+      otel:
+        - relation: otlp
+          otlp_field: body
+          stability: stable
+          note: The `body` in OTLP is of type `Any` and can be either an unstructured log message or a structured event.

@@ -24,6 +24,14 @@ from .schema_fields import (
     MultiField,
     Reuseable,
     SchemaDetails,
+    OTelMapping,
+)
+
+from .otel_types import (
+    OTelAttribute,
+    OTelGroup,
+    OTelModelFile,
+    OTelMappingSummary,
 )
 
 __all__ = [
@@ -35,4 +43,9 @@ __all__ = [
     "MultiField",
     "Reuseable",
     "SchemaDetails",
+    "OTelMapping",
+    "OTelAttribute",
+    "OTelGroup",
+    "OTelModelFile",
+    "OTelMappingSummary",
 ]
