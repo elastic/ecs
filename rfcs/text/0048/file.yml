@@ -1,0 +1,25 @@
+- name: file
+  group: 2
+  title: File
+  short: Fields describing files.
+  description: >
+    A file is defined as a set of information that has been created on, or has existed on a filesystem.
+
+    File objects can be associated with host events, network events,
+    and/or file events (e.g., those produced by File Integrity Monitoring [FIM] products or services).
+    File fields provide details about the affected file associated with the event or metric.
+  type: group
+  fields:
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
