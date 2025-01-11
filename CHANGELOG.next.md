@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 
 * Define base encoding of `x509.serial_number`. #2383
 * Restrict the encoding of `x509.serial_number` to base 16. #2398
+* Increase ignore_above value for url.query. #2424
 
 #### Deprecated
 
