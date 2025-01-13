@@ -372,7 +372,9 @@ This is an example `template.json` to be passed with `--template-setting-legacy`
       "refresh_interval": "1s"
     }
   },
-  "mappings": {}
+  "template": {
+    "mappings": {}
+  }
 }
 ```
 

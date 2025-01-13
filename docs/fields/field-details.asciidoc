@@ -30,6 +30,15 @@ type: date
 
 example: `2016-05-23T08:05:34.853Z`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+time_unix_nano+%22&type=code[time_unix_nano]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+observed_time_unix_nano+%22&type=code[observed_time_unix_nano]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+start_time_unix_nano+%22&type=code[start_time_unix_nano]
+
+Note: On logs, events and metrics, `time_unix_nano` defines the time of the event. For logs, `observed_time_unix_nano` defines the time when the event was observed by the collection system. On spans, `start_time_unix_nano` represents the start time of the span.
+
+
 | core
 
 // ===============================================================
@@ -50,6 +59,10 @@ type: object
 
 example: `{"application": "foo-bar", "env": "production"}`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/k8s/#k8s-pod-label[k8s.pod.label]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-label[container.label]
+
 | core
 
 // ===============================================================
@@ -69,6 +82,10 @@ type: match_only_text
 
 
 example: `Hello World`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+body+%22&type=code[body]
+
+Note: The `body` in OTLP is of type `Any` and can be either an unstructured log message or a structured event.
 
 | core
 
@@ -327,6 +344,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-address[client.address]
+
 | extended
 
 // ===============================================================
@@ -463,6 +482,8 @@ type: long
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/client/#client-port[client.port]
+
 | core
 
 // ===============================================================
@@ -591,6 +612,8 @@ type: keyword
 
 example: `666777888999`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-account-id[cloud.account.id]
+
 | extended
 
 // ===============================================================
@@ -624,6 +647,8 @@ type: keyword
 
 
 example: `us-east-1c`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-availability-zone[cloud.availability_zone]
 
 | extended
 
@@ -725,6 +750,8 @@ type: keyword
 
 example: `aws`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-provider[cloud.provider]
+
 | extended
 
 // ===============================================================
@@ -740,6 +767,8 @@ type: keyword
 
 
 example: `us-east-1`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-region[cloud.region]
 
 | extended
 
@@ -758,6 +787,8 @@ type: keyword
 
 
 example: `lambda`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-platform[cloud.platform]
 
 | extended
 
@@ -1049,6 +1080,8 @@ type: scaled_float
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.cpu.usage+--%3E%22&type=code[container.cpu.usage]
+
 | extended
 
 // ===============================================================
@@ -1097,6 +1130,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-id[container.id]
+
 | core
 
 // ===============================================================
@@ -1116,6 +1151,8 @@ Note: this field should contain an array of values.
 
 example: `[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-repo-digests[container.image.repo_digests]
+
 | extended
 
 // ===============================================================
@@ -1131,6 +1168,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-name[container.image.name]
 
 | extended
 
@@ -1151,6 +1190,8 @@ Note: this field should contain an array of values.
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-tags[container.image.tags]
+
 | extended
 
 // ===============================================================
@@ -1166,6 +1207,8 @@ type: object
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-label[container.label]
 
 | extended
 
@@ -1183,6 +1226,8 @@ type: scaled_float
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.container.memory.usage+--%3E%22&type=code[container.memory.usage]
+
 | extended
 
 // ===============================================================
@@ -1198,6 +1243,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-name[container.name]
 
 | extended
 
@@ -1246,6 +1293,8 @@ type: keyword
 
 
 example: `docker`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-runtime[container.runtime]
 
 | extended
 
@@ -1310,6 +1359,8 @@ type: constant_keyword
 
 example: `nginx.access`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
+
 | extended
 
 // ===============================================================
@@ -1334,6 +1385,8 @@ type: constant_keyword
 
 example: `production`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
+
 | extended
 
 // ===============================================================
@@ -1351,6 +1404,8 @@ type: constant_keyword
 
 
 example: `logs`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
 
 | extended
 
@@ -1388,6 +1443,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-address[destination.address]
 
 | extended
 
@@ -1525,6 +1582,8 @@ type: long
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination/#destination-port[destination.port]
+
 | core
 
 // ===============================================================
@@ -1659,6 +1718,8 @@ type: keyword
 
 example: `00000000-54b3-e7c7-0000-000046bffd97`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-id[device.id]
+
 | extended
 
 // ===============================================================
@@ -1674,6 +1735,8 @@ type: keyword
 
 
 example: `Samsung`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-manufacturer[device.manufacturer]
 
 | extended
 
@@ -1691,6 +1754,8 @@ type: keyword
 
 example: `SM-G920F`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-identifier[device.model.identifier]
+
 | extended
 
 // ===============================================================
@@ -1706,6 +1771,8 @@ type: keyword
 
 
 example: `Samsung Galaxy S6`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/device/#device-model-name[device.model.name]
 
 | extended
 
@@ -2044,6 +2111,8 @@ type: keyword
 
 example: `www.example.com`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/dns/#dns-question-name[dns.question.name]
+
 | extended
 
 // ===============================================================
@@ -2207,6 +2276,8 @@ type: keyword
 
 
 example: `1.0.0`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
 
 | core
 
@@ -3312,6 +3383,8 @@ type: match_only_text
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-message[exception.message]
+
 | core
 
 // ===============================================================
@@ -3334,6 +3407,8 @@ Multi-fields:
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-stacktrace[exception.stacktrace]
+
 | extended
 
 // ===============================================================
@@ -3349,6 +3424,8 @@ type: keyword
 
 
 example: `java.lang.NullPointerException`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/#error-type[error.type]
 
 | extended
 
@@ -3930,6 +4007,8 @@ type: boolean
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-coldstart[faas.coldstart]
+
 | extended
 
 // ===============================================================
@@ -3945,6 +4024,8 @@ type: keyword
 
 
 example: `af9d5aa4-a685-4c5f-a22b-444f80b3cc28`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-invocation-id[faas.invocation_id]
 
 | extended
 
@@ -3979,6 +4060,8 @@ type: keyword
 
 
 example: `my-function`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-name[faas.name]
 
 | extended
 
@@ -4020,6 +4103,8 @@ type: keyword
 
 example: `http`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-trigger[faas.trigger]
+
 | extended
 
 // ===============================================================
@@ -4035,6 +4120,8 @@ type: keyword
 
 
 example: `123`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas/#faas-version[faas.version]
 
 | extended
 
@@ -4073,6 +4160,8 @@ type: date
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-accessed[file.accessed]
+
 | extended
 
 // ===============================================================
@@ -4094,6 +4183,8 @@ Note: this field should contain an array of values.
 
 example: `["readonly", "system"]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-attributes[file.attributes]
+
 | extended
 
 // ===============================================================
@@ -4112,6 +4203,8 @@ type: date
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-created[file.created]
+
 | extended
 
 // ===============================================================
@@ -4129,6 +4222,8 @@ type: date
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-changed[file.changed]
 
 | extended
 
@@ -4161,6 +4256,8 @@ type: keyword
 
 
 example: `/home/alice`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-directory[file.directory]
 
 | extended
 
@@ -4198,6 +4295,8 @@ type: keyword
 
 example: `png`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-extension[file.extension]
+
 | extended
 
 // ===============================================================
@@ -4218,6 +4317,8 @@ type: keyword
 
 example: `Zone.Identifer`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-fork-name[file.fork_name]
+
 | extended
 
 // ===============================================================
@@ -4233,6 +4334,8 @@ type: keyword
 
 
 example: `1001`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-id[file.group.id]
 
 | extended
 
@@ -4250,6 +4353,8 @@ type: keyword
 
 example: `alice`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-group-name[file.group.name]
+
 | extended
 
 // ===============================================================
@@ -4265,6 +4370,8 @@ type: keyword
 
 
 example: `256383`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-inode[file.inode]
 
 | extended
 
@@ -4298,6 +4405,8 @@ type: keyword
 
 example: `0640`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-mode[file.mode]
+
 | extended
 
 // ===============================================================
@@ -4313,6 +4422,8 @@ type: date
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-modified[file.modified]
 
 | extended
 
@@ -4330,6 +4441,8 @@ type: keyword
 
 example: `example.png`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-name[file.name]
+
 | extended
 
 // ===============================================================
@@ -4345,6 +4458,8 @@ type: keyword
 
 
 example: `alice`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-name[file.owner.name]
 
 | extended
 
@@ -4368,6 +4483,8 @@ Multi-fields:
 
 example: `/home/alice/example.png`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-path[file.path]
+
 | extended
 
 // ===============================================================
@@ -4385,6 +4502,8 @@ type: long
 
 
 example: `16384`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-size[file.size]
 
 | extended
 
@@ -4407,6 +4526,8 @@ Multi-fields:
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-symbolic-link-target-path[file.symbolic_link.target_path]
 
 | extended
 
@@ -4439,6 +4560,8 @@ type: keyword
 
 
 example: `1001`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/file/#file-owner-id[file.owner.id]
 
 | extended
 
@@ -4545,6 +4668,8 @@ type: keyword
 
 example: `Montreal`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-locality-name[geo.locality.name]
+
 | core
 
 // ===============================================================
@@ -4560,6 +4685,8 @@ type: keyword
 
 
 example: `NA`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-continent-code[geo.continent.code]
 
 | core
 
@@ -4593,6 +4720,8 @@ type: keyword
 
 example: `CA`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-country-iso-code[geo.country.iso_code]
+
 | core
 
 // ===============================================================
@@ -4624,6 +4753,10 @@ type: geo_point
 
 
 example: `{ "lon": -73.614830, "lat": 45.505918 }`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lat[geo.location.lat]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-location-lon[geo.location.lon]
 
 | core
 
@@ -4663,6 +4796,8 @@ type: keyword
 
 example: `94040`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-postal-code[geo.postal_code]
+
 | core
 
 // ===============================================================
@@ -4678,6 +4813,8 @@ type: keyword
 
 
 example: `CA-QC`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo/#geo-region-iso-code[geo.region.iso_code]
 
 | core
 
@@ -5023,6 +5160,8 @@ type: keyword
 
 example: `x86_64`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-arch[host.arch]
+
 | core
 
 // ===============================================================
@@ -5061,6 +5200,8 @@ type: scaled_float
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.cpu.utilization+--%3E%22&type=code[system.cpu.utilization]
+
 | extended
 
 // ===============================================================
@@ -5077,6 +5218,8 @@ type: long
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io]
+
 | extended
 
 // ===============================================================
@@ -5092,6 +5235,8 @@ type: long
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.disk.io+--%3E%22&type=code[system.disk.io]
 
 | extended
 
@@ -5149,6 +5294,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-id[host.id]
+
 | core
 
 // ===============================================================
@@ -5167,6 +5314,8 @@ Note: this field should contain an array of values.
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-ip[host.ip]
 
 | core
 
@@ -5189,6 +5338,8 @@ Note: this field should contain an array of values.
 
 example: `["00-00-5E-00-53-23", "00-00-5E-00-53-24"]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-mac[host.mac]
+
 | core
 
 // ===============================================================
@@ -5207,6 +5358,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-name[host.name]
+
 | core
 
 // ===============================================================
@@ -5222,6 +5375,8 @@ type: long
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io]
 
 | extended
 
@@ -5239,6 +5394,8 @@ type: long
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets]
+
 | extended
 
 // ===============================================================
@@ -5255,6 +5412,8 @@ type: long
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.io+--%3E%22&type=code[system.network.io]
+
 | extended
 
 // ===============================================================
@@ -5270,6 +5429,8 @@ type: long
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.network.packets+--%3E%22&type=code[system.network.packets]
 
 | extended
 
@@ -5307,6 +5468,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-type[host.type]
+
 | core
 
 // ===============================================================
@@ -5322,6 +5485,8 @@ type: long
 
 
 example: `1325`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.uptime+--%3E%22&type=code[system.uptime]
 
 | extended
 
@@ -5393,6 +5558,8 @@ type: long
 
 example: `887`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-body-size[http.request.body.size]
+
 | extended
 
 // ===============================================================
@@ -5431,6 +5598,8 @@ type: long
 
 example: `1437`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-size[http.request.size]
+
 | extended
 
 // ===============================================================
@@ -5466,6 +5635,13 @@ type: keyword
 
 
 example: `POST`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method-original[http.request.method_original]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/conflict-910000?style=flat[relation,title=conflict,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-request-method[http.request.method]
+
+Note: `http.request.method` in SemConv is the known, normalized, upper case value of the request method, other than the ECS' `http.request.method` that retains casing from the original event.
+
 
 | extended
 
@@ -5517,6 +5693,8 @@ type: long
 
 example: `887`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-body-size[http.response.body.size]
+
 | extended
 
 // ===============================================================
@@ -5555,6 +5733,8 @@ type: long
 
 example: `1437`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-size[http.response.size]
+
 | extended
 
 // ===============================================================
@@ -5589,6 +5769,8 @@ type: long
 
 example: `404`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/http/#http-response-status-code[http.response.status_code]
+
 | extended
 
 // ===============================================================
@@ -5604,6 +5786,13 @@ type: keyword
 
 
 example: `1.1`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name]
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/related-efc20d?style=flat[relation,title=related,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-version[network.protocol.version]
+
+Note: In OTel SemConv, `network.protocol.version` specifies the HTTP version if the value of `network.protocol.name` is `http`.
+
 
 | extended
 
@@ -5720,6 +5909,8 @@ type: keyword
 
 example: `/var/log/fun-times.log`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/log/#log-file-path[log.file.path]
+
 | extended
 
 // ===============================================================
@@ -5739,6 +5930,8 @@ type: keyword
 
 
 example: `error`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+severity_text+%22&type=code[severity_text]
 
 | core
 
@@ -6513,6 +6706,8 @@ type: keyword
 
 example: `http`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-protocol-name[network.protocol.name]
+
 | core
 
 // ===============================================================
@@ -6531,6 +6726,8 @@ type: keyword
 
 example: `tcp`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-transport[network.transport]
+
 | core
 
 // ===============================================================
@@ -6548,6 +6745,8 @@ type: keyword
 
 
 example: `ipv4`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/network/#network-type[network.type]
 
 | core
 
@@ -7256,6 +7455,8 @@ Multi-fields:
 
 example: `Mac OS Mojave`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-description[os.description]
+
 | extended
 
 // ===============================================================
@@ -7293,6 +7494,8 @@ Multi-fields:
 
 
 example: `Mac OS X`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-name[os.name]
 
 | extended
 
@@ -7337,6 +7540,10 @@ type: keyword
 
 example: `macos`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/conflict-910000?style=flat[relation,title=conflict,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-type[os.type]
+
+Note: The expected values in ECS for `os.type` do not correspond with the values defined in semantic conventions!
+
 | extended
 
 // ===============================================================
@@ -7352,6 +7559,8 @@ type: keyword
 
 
 example: `10.14.1`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-version[os.version]
 
 | extended
 
@@ -8051,6 +8260,8 @@ Note: this field should contain an array of values.
 
 example: `["/usr/bin/ssh", "-l", "user", "10.0.0.16"]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-command-args[process.command_args]
+
 | extended
 
 // ===============================================================
@@ -8068,6 +8279,8 @@ type: long
 
 
 example: `4`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-args-count[process.args_count]
 
 | extended
 
@@ -8092,6 +8305,8 @@ Multi-fields:
 
 
 example: `/usr/bin/ssh -l user 10.0.0.16`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-command-line[process.command_line]
 
 | extended
 
@@ -8190,6 +8405,8 @@ Multi-fields:
 
 example: `/usr/bin/ssh`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-executable-path[process.executable.path]
+
 | extended
 
 // ===============================================================
@@ -8227,6 +8444,8 @@ type: boolean
 
 
 example: `True`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-interactive[process.interactive]
 
 | extended
 
@@ -8439,6 +8658,8 @@ type: long
 
 example: `4242`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-pid[process.pid]
+
 | core
 
 // ===============================================================
@@ -8573,6 +8794,8 @@ Multi-fields:
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-title[process.title]
+
 | extended
 
 // ===============================================================
@@ -8673,6 +8896,8 @@ type: long
 
 example: `1325`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/metric-cb00cb?style=flat[relation,title=metric,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.process.uptime+--%3E%22&type=code[process.uptime]
+
 | extended
 
 // ===============================================================
@@ -8690,6 +8915,8 @@ type: long
 
 
 example: `4242`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-vpid[process.vpid]
 
 | core
 
@@ -8712,6 +8939,8 @@ Multi-fields:
 
 
 example: `/home/alice`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/process/#process-working-directory[process.working_directory]
 
 | extended
 
@@ -9139,6 +9368,8 @@ Note: this field should contain an array of values.
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
+
 | extended
 
 // ===============================================================
@@ -9157,6 +9388,8 @@ Note: this field should contain an array of values.
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
 
 | extended
 
@@ -9177,6 +9410,8 @@ Note: this field should contain an array of values.
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
+
 | extended
 
 // ===============================================================
@@ -9195,6 +9430,8 @@ Note: this field should contain an array of values.
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
 
 | extended
 
@@ -9545,6 +9782,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-address[server.address]
+
 | extended
 
 // ===============================================================
@@ -9680,6 +9919,8 @@ type: long
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-port[server.port]
 
 | core
 
@@ -9831,6 +10072,8 @@ type: keyword
 
 example: `production`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment/#deployment-environment-name[deployment.environment.name]
+
 | extended
 
 // ===============================================================
@@ -9889,6 +10132,8 @@ type: keyword
 
 example: `elasticsearch-metrics`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-name[service.name]
+
 | core
 
 // ===============================================================
@@ -9908,6 +10153,8 @@ type: keyword
 
 
 example: `instance-0000000016`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/equivalent-1ba9f5?style=flat[relation,title=equivalent,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-instance-id[service.instance.id]
 
 | extended
 
@@ -10016,6 +10263,8 @@ type: keyword
 
 example: `3.2.4`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-version[service.version]
+
 | core
 
 // ===============================================================
@@ -10103,6 +10352,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-address[source.address]
 
 | extended
 
@@ -10239,6 +10490,8 @@ type: long
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/source/#source-port[source.port]
 
 | core
 
@@ -11714,6 +11967,8 @@ type: keyword
 
 example: `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-cipher[tls.cipher]
+
 | extended
 
 // ===============================================================
@@ -11729,6 +11984,8 @@ type: keyword
 
 
 example: `MII...`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate[tls.client.certificate]
 
 | extended
 
@@ -11749,6 +12006,8 @@ Note: this field should contain an array of values.
 
 example: `["MII...", "MII..."]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-certificate-chain[tls.client.certificate_chain]
+
 | extended
 
 // ===============================================================
@@ -11764,6 +12023,8 @@ type: keyword
 
 
 example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-md5[tls.client.hash.md5]
 
 | extended
 
@@ -11781,6 +12042,8 @@ type: keyword
 
 example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha1[tls.client.hash.sha1]
+
 | extended
 
 // ===============================================================
@@ -11796,6 +12059,8 @@ type: keyword
 
 
 example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-hash-sha256[tls.client.hash.sha256]
 
 | extended
 
@@ -11813,6 +12078,8 @@ type: keyword
 
 example: `CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-issuer[tls.client.issuer]
+
 | extended
 
 // ===============================================================
@@ -11828,6 +12095,8 @@ type: keyword
 
 
 example: `d4e5b18d6b55c71272893221c96ba240`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-ja3[tls.client.ja3]
 
 | extended
 
@@ -11845,6 +12114,8 @@ type: date
 
 example: `2021-01-01T00:00:00.000Z`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-after[tls.client.not_after]
+
 | extended
 
 // ===============================================================
@@ -11860,6 +12131,8 @@ type: date
 
 
 example: `1970-01-01T00:00:00.000Z`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-not-before[tls.client.not_before]
 
 | extended
 
@@ -11893,6 +12166,8 @@ type: keyword
 
 example: `CN=myclient, OU=Documentation Team, DC=example, DC=com`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-subject[tls.client.subject]
+
 | extended
 
 // ===============================================================
@@ -11912,6 +12187,8 @@ Note: this field should contain an array of values.
 
 example: `["TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384", "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384", "..."]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-client-supported-ciphers[tls.client.supported_ciphers]
+
 | extended
 
 // ===============================================================
@@ -11927,6 +12204,8 @@ type: keyword
 
 
 example: `secp256r1`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-curve[tls.curve]
 
 | extended
 
@@ -11944,6 +12223,8 @@ type: boolean
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-established[tls.established]
+
 | extended
 
 // ===============================================================
@@ -11959,6 +12240,8 @@ type: keyword
 
 
 example: `http/1.1`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-next-protocol[tls.next_protocol]
 
 | extended
 
@@ -11976,6 +12259,8 @@ type: boolean
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-resumed[tls.resumed]
+
 | extended
 
 // ===============================================================
@@ -11991,6 +12276,8 @@ type: keyword
 
 
 example: `MII...`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate[tls.server.certificate]
 
 | extended
 
@@ -12011,6 +12298,8 @@ Note: this field should contain an array of values.
 
 example: `["MII...", "MII..."]`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-certificate-chain[tls.server.certificate_chain]
+
 | extended
 
 // ===============================================================
@@ -12026,6 +12315,8 @@ type: keyword
 
 
 example: `0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-md5[tls.server.hash.md5]
 
 | extended
 
@@ -12043,6 +12334,8 @@ type: keyword
 
 example: `9E393D93138888D288266C2D915214D1D1CCEB2A`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha1[tls.server.hash.sha1]
+
 | extended
 
 // ===============================================================
@@ -12058,6 +12351,8 @@ type: keyword
 
 
 example: `0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-hash-sha256[tls.server.hash.sha256]
 
 | extended
 
@@ -12075,6 +12370,8 @@ type: keyword
 
 example: `CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-issuer[tls.server.issuer]
+
 | extended
 
 // ===============================================================
@@ -12090,6 +12387,8 @@ type: keyword
 
 
 example: `394441ab65754e2207b1e1b457b3641d`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-ja3s[tls.server.ja3s]
 
 | extended
 
@@ -12107,6 +12406,8 @@ type: date
 
 example: `2021-01-01T00:00:00.000Z`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-after[tls.server.not_after]
+
 | extended
 
 // ===============================================================
@@ -12123,6 +12424,8 @@ type: date
 
 example: `1970-01-01T00:00:00.000Z`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-not-before[tls.server.not_before]
+
 | extended
 
 // ===============================================================
@@ -12138,6 +12441,8 @@ type: keyword
 
 
 example: `CN=www.example.com, OU=Infrastructure Team, DC=example, DC=com`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/tls/#tls-server-subject[tls.server.subject]
 
 | extended
 
@@ -12238,6 +12543,8 @@ type: keyword
 
 example: `3ff9a8981b7ccd5a`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+span_id+%22&type=code[span_id]
+
 | extended
 
 // ===============================================================
@@ -12256,6 +12563,8 @@ type: keyword
 
 example: `4bf92f3577b34da6a3ce929d0e0e4736`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/OTLP-ffdcb2?style=flat[relation,title=otlp,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+trace_id+%22&type=code[trace_id]
+
 | extended
 
 // ===============================================================
@@ -12273,6 +12582,8 @@ type: keyword
 
 
 example: `00f067aa0ba902b7`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat[relation,title=not-applicable,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] Not applicable.
 
 | extended
 
@@ -12311,6 +12622,8 @@ type: keyword
 
 example: `www.elastic.co`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-domain[url.domain]
+
 | extended
 
 // ===============================================================
@@ -12333,6 +12646,8 @@ type: keyword
 
 example: `png`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-extension[url.extension]
+
 | extended
 
 // ===============================================================
@@ -12350,6 +12665,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-fragment[url.fragment]
 
 | extended
 
@@ -12372,6 +12689,8 @@ Multi-fields:
 
 
 example: `https://www.elastic.co:443/search?q=elasticsearch#top`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-full[url.full]
 
 | extended
 
@@ -12398,6 +12717,8 @@ Multi-fields:
 
 
 example: `https://www.elastic.co:443/search?q=elasticsearch#top or /search?q=elasticsearch`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-original[url.original]
 
 | extended
 
@@ -12431,6 +12752,8 @@ type: wildcard
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-path[url.path]
+
 | extended
 
 // ===============================================================
@@ -12446,6 +12769,8 @@ type: long
 
 
 example: `443`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-port[url.port]
 
 | extended
 
@@ -12464,6 +12789,8 @@ type: keyword
 
 
 
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-query[url.query]
 
 | extended
 
@@ -12485,6 +12812,8 @@ type: keyword
 
 example: `example.com`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-registered-domain[url.registered_domain]
+
 | extended
 
 // ===============================================================
@@ -12502,6 +12831,8 @@ type: keyword
 
 
 example: `https`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-scheme[url.scheme]
 
 | extended
 
@@ -12521,6 +12852,8 @@ type: keyword
 
 example: `east`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-subdomain[url.subdomain]
+
 | extended
 
 // ===============================================================
@@ -12538,6 +12871,8 @@ type: keyword
 
 
 example: `co.uk`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/url/#url-top-level-domain[url.top_level_domain]
 
 | extended
 
@@ -12621,6 +12956,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-email[user.email]
+
 | extended
 
 // ===============================================================
@@ -12643,6 +12980,8 @@ Multi-fields:
 
 example: `Albert Einstein`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-full-name[user.full_name]
+
 | extended
 
 // ===============================================================
@@ -12661,6 +13000,8 @@ type: keyword
 
 
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-hash[user.hash]
+
 | extended
 
 // ===============================================================
@@ -12676,6 +13017,8 @@ type: keyword
 
 
 example: `S-1-5-21-202424912787-2692429404-2351956786-1000`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-id[user.id]
 
 | core
 
@@ -12699,6 +13042,8 @@ Multi-fields:
 
 example: `a.einstein`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-name[user.name]
+
 | core
 
 // ===============================================================
@@ -12717,6 +13062,8 @@ Note: this field should contain an array of values.
 
 
 example: `["kibana_admin", "reporting_user"]`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user/#user-roles[user.roles]
 
 | extended
 
@@ -12857,6 +13204,8 @@ type: keyword
 
 example: `Safari`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-name[user_agent.name]
+
 | extended
 
 // ===============================================================
@@ -12879,6 +13228,8 @@ Multi-fields:
 
 example: `Mozilla/5.0 (iPhone; CPU iPhone OS 12_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Mobile/15E148 Safari/604.1`
 
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-original[user_agent.original]
+
 | extended
 
 // ===============================================================
@@ -12894,6 +13245,8 @@ type: keyword
 
 
 example: `12.0`
+
+image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge] image:https://img.shields.io/badge/match-93c93e?style=flat[relation,title=match,link=ecs-opentelemetry.html#ecs-opentelemetry-relation] https://opentelemetry.io/docs/specs/semconv/attributes-registry/user_agent/#user-agent-version[user_agent.version]
 
 | extended
 
@@ -13803,7 +14156,7 @@ example: `2048`
 [[field-x509-serial-number]]
 <<field-x509-serial-number, x509.serial_number>>
 
-a| Unique serial number issued by the certificate authority. For consistency, this should be encoded in base 16 and formatted without colons and uppercase characters.
+a| Unique serial number issued by the certificate authority. For consistency, this must be encoded in base 16 and formatted without colons and uppercase characters.
 
 type: keyword
 
