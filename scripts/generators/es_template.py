@@ -181,7 +181,7 @@ def entry_for(field: Field) -> Dict:
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['index', 'doc_values'])
 
         if field['type'] == 'keyword' or field['type'] == 'flattened':
-            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above'])
+            ecs_helpers.dict_copy_existing_keys(field, field_entry, ['ignore_above', 'synthetic_source_keep'])
         elif field['type'] == 'constant_keyword':
             ecs_helpers.dict_copy_existing_keys(field, field_entry, ['value'])
         elif field['type'] == 'text':
