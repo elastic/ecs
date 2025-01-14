@@ -17,6 +17,10 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+* Allow ECS from any directory #2019
+* Added ability to specify a prefix for es_templates #2019
+* Allow projects to create their own ACSIIDOC templates #2019
+
 
 * Define base encoding of `x509.serial_number`. #2383
 * Restrict the encoding of `x509.serial_number` to base 16. #2398
