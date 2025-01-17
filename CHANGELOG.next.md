@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix link rendering issues and usage of http in links. #2423
+
 #### Added
 
 #### Improvements
