@@ -18,6 +18,9 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Set synthetic_source_keep = none on fields that represent sets. #2422
+
+#### Deprecated
 
 ### Tooling and Artifact Changes
 
