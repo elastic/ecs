@@ -23,6 +23,7 @@ Thanks, you're awesome :-) -->
 * Define base encoding of `x509.serial_number`. #2383
 * Restrict the encoding of `x509.serial_number` to base 16. #2398
 * Set synthetic_source_keep = none on fields that represent sets. #2422
+* Increase ignore_above value for url.query. #2424
 
 #### Deprecated
 
