@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Increase ignore_above value for url.query. #2424
 * Set synthetic_source_keep = none on fields that represent sets. #2422
 
 #### Deprecated
