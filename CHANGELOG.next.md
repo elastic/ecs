@@ -14,6 +14,33 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
+
+
+## 8.17.0 (Feature Freeze)
+
+### Schema Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
 * Fix link rendering issues and usage of http in links. #2423
 
 #### Added
