@@ -65,6 +65,18 @@
       example: S-1-5-21-202424912787-2692429404-2351956786-1000
       description: >
         Unique identifier of the user.
+      otel:
+        - relation: match
+      otel_reuse:
+        - ecs: process.user.id
+          mapping:
+            relation: match
+        - ecs: process.real_user.id
+          mapping:
+            relation: match
+        - ecs: process.saved_user.id
+          mapping:
+            relation: match
 
     - name: name
       level: core
@@ -75,6 +87,18 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
+      otel_reuse:
+        - ecs: process.user.name
+          mapping:
+            relation: match
+        - ecs: process.real_user.name
+          mapping:
+            relation: match
+        - ecs: process.saved_user.name
+          mapping:
+            relation: match
 
     - name: full_name
       level: extended
@@ -85,12 +109,16 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: email
       level: extended
       type: keyword
       description: >
         User email address.
+      otel:
+        - relation: match
 
     - name: hash
       level: extended
@@ -101,6 +129,8 @@
 
         Useful if `user.id` or `user.name` contain confidential information and
         cannot be used.
+      otel:
+        - relation: match
 
     - name: domain
       level: extended
@@ -116,6 +146,9 @@
       type: keyword
       normalize:
         - array
+      synthetic_source_keep: "none"
       description: >
         Array of user roles at the time of the event.
       example: '["kibana_admin", "reporting_user"]'
+      otel:
+        - relation: match
