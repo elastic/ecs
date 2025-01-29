@@ -14,14 +14,9 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fix link rendering issues and usage of http in links. #2423
-
 #### Added
 
 #### Improvements
-
-* Increase ignore_above value for url.query. #2424
-* Set synthetic_source_keep = none on fields that represent sets. #2422
 
 #### Deprecated
 
