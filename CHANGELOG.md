@@ -3,6 +3,19 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.17.0](https://github.com/elastic/ecs/compare/v8.16.0...v8.17.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fix link rendering issues and usage of http in links. #2423
+
+#### Improvements
+
+* Increase ignore_above value for url.query. #2424
+* Set synthetic_source_keep = none on fields that represent sets. #2422
+
 ## [8.16.0](https://github.com/elastic/ecs/compare/v8.11.0...v8.16.0)
 
 ### Schema Changes
