@@ -155,4 +155,4 @@ The following are the people that consulted on the contents of this RFC.
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
 -->
-* Stage 0: https://github.com/elastic/ecs/pull/TBD
+* Stage 0: https://github.com/elastic/ecs/pull/2434
