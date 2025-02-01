@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix link rendering issues and usage of http in links. #2423
+
 #### Added
 
 #### Improvements
@@ -21,6 +23,8 @@ Thanks, you're awesome :-) -->
 * Promote beta fields to GA. #2411
 * Define base encoding of `x509.serial_number`. #2383
 * Restrict the encoding of `x509.serial_number` to base 16. #2398
+* Set synthetic_source_keep = none on fields that represent sets. #2422
+* Increase ignore_above value for url.query. #2424
 
 #### Deprecated
 

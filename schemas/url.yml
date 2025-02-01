@@ -48,6 +48,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: full
       level: extended
@@ -61,6 +63,8 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: match
 
     - name: scheme
       level: extended
@@ -71,6 +75,8 @@
 
         Note: The `:` is not part of the scheme.
       example: https
+      otel:
+        - relation: match
 
     - name: domain
       level: extended
@@ -85,6 +91,8 @@
         If the URL contains a literal IPv6 address enclosed by `[` and `]` (IETF RFC 2732),
         the `[` and `]` characters should also be captured in the `domain` field.
       example: www.elastic.co
+      otel:
+        - relation: match
 
     - name: registered_domain
       level: extended
@@ -96,9 +104,11 @@
         For example, the registered domain for "foo.example.com" is "example.com".
 
         This value can be determined precisely with a list like the public
-        suffix list (http://publicsuffix.org). Trying to approximate this by
+        suffix list (https://publicsuffix.org). Trying to approximate this by
         simply taking the last two labels will not work well for TLDs such as "co.uk".
       example: example.com
+      otel:
+        - relation: match
 
     - name: top_level_domain
       level: extended
@@ -110,9 +120,11 @@
         For example, the top level domain for example.com is "com".
 
         This value can be determined precisely with a list like the public
-        suffix list (http://publicsuffix.org). Trying to approximate this by
+        suffix list (https://publicsuffix.org). Trying to approximate this by
         simply taking the last label will not work well for effective TLDs such as "co.uk".
       example: co.uk
+      otel:
+        - relation: match
 
     - name: subdomain
       level: extended
@@ -128,6 +140,8 @@
         If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com",
         the subdomain field should contain "sub2.sub1", with no trailing period.
       example: east
+      otel:
+        - relation: match
 
     - name: port
       format: string
@@ -136,12 +150,16 @@
       description: >
         Port of the request, such as 443.
       example: 443
+      otel:
+        - relation: match
 
     - name: path
       level: extended
       type: wildcard
       description: >
         Path of the request, such as "/search".
+      otel:
+        - relation: match
 
     - name: query
       level: extended
@@ -155,6 +173,9 @@
         no `?`, there is no query field. If there is a `?` but no query,
         the query field exists with an empty string. The `exists`
         query can be used to differentiate between the two cases.
+      ignore_above: 2083
+      otel:
+        - relation: match
 
     - name: extension
       level: extended
@@ -171,6 +192,8 @@
         Note that when the file name has multiple extensions (example.tar.gz),
         only the last one should be captured ("gz", not "tar.gz").
       example: png
+      otel:
+        - relation: match
 
     - name: fragment
       level: extended
@@ -180,6 +203,8 @@
         Portion of the url after the `#`, such as "top".
 
         The `#` is not part of the fragment.
+      otel:
+        - relation: match
 
     - name: username
       level: extended

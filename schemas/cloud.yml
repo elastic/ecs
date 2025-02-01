@@ -58,6 +58,8 @@
       description: >
         Name of the cloud provider. Example values are aws, azure, gcp, or
         digitalocean.
+      otel:
+        - relation: match
 
     - name: availability_zone
       level: extended
@@ -65,6 +67,8 @@
       type: keyword
       description: >
         Availability zone in which this host, resource, or service is located.
+      otel:
+        - relation: match
 
     - name: region
       level: extended
@@ -72,6 +76,8 @@
       example: us-east-1
       description: >
         Region in which this host, resource, or service is located.
+      otel:
+        - relation: match
 
     - name: instance.id
       level: extended
@@ -104,6 +110,8 @@
 
         Examples: AWS account id, Google Cloud ORG Id, or other unique
         identifier.
+      otel:
+        - relation: match
 
     - name: account.name
       level: extended
@@ -127,6 +135,9 @@
         GCP GCE vs App Engine, Azure VM vs App Server.
 
         Examples: app engine, app service, cloud run, fargate, lambda.
+      otel:
+        - attribute: cloud.platform
+          relation: equivalent
 
     - name: project.id
       level: extended
