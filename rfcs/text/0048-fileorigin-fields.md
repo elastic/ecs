@@ -1,7 +1,7 @@
 # 0048: File Origin Fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2024-XX-XX** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -82,6 +82,8 @@ Example sources of data is shown in the above.
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
 
+
+
 <!--
 Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
 -->
@@ -141,7 +143,9 @@ e.g.:
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
+* Stage 0: https://github.com/elastic/ecs/pull/2387
 * Stage 1: https://github.com/elastic/ecs/pull/2395
+* Stage 2: https://github.com/elastic/ecs/pull/XXXX
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
