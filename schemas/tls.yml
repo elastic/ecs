@@ -42,23 +42,31 @@
       level: extended
       description: String indicating the cipher used during the current connection.
       example: "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+      otel:
+        - relation: match
 
     - name: curve
       type: keyword
       level: extended
       description: String indicating the curve used for the given cipher, when applicable.
       example: "secp256r1"
+      otel:
+        - relation: match
 
     - name: resumed
       type: boolean
       level: extended
       description: Boolean flag indicating if this TLS connection was resumed from an existing TLS negotiation.
+      otel:
+        - relation: match
 
     - name: established
       type: boolean
       level: extended
       description: >
         Boolean flag indicating if the TLS negotiation was successful and transitioned to an encrypted tunnel.
+      otel:
+        - relation: match
 
     - name: next_protocol
       type: keyword
@@ -69,12 +77,16 @@
         (https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids),
         this string should be lower case.
       example: "http/1.1"
+      otel:
+        - relation: match
 
     - name: client.ja3
       type: keyword
       level: extended
       description: A hash that identifies clients based on how they perform an SSL/TLS handshake.
       example: d4e5b18d6b55c71272893221c96ba240
+      otel:
+        - relation: match
 
     - name: client.server_name
       type: keyword
@@ -92,30 +104,40 @@
       example: "[\"TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384\", \"TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384\", \"...\"]"
       normalize:
         - array
+      otel:
+        - relation: match
 
     - name: client.subject
       type: keyword
       level: extended
       description: Distinguished name of subject of the x.509 certificate presented by the client.
       example: "CN=myclient, OU=Documentation Team, DC=example, DC=com"
+      otel:
+        - relation: match
 
     - name: client.issuer
       type: keyword
       level: extended
       description: Distinguished name of subject of the issuer of the x.509 certificate presented by the client.
       example: "CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com"
+      otel:
+        - relation: match
 
     - name: client.not_before
       type: date
       level: extended
       description: Date/Time indicating when client certificate is first considered valid.
       example: "1970-01-01T00:00:00.000Z"
+      otel:
+        - relation: match
 
     - name: client.not_after
       type: date
       level: extended
       description: Date/Time indicating when client certificate is no longer considered valid.
       example: "2021-01-01T00:00:00.000Z"
+      otel:
+        - relation: match
 
     - name: client.certificate_chain
       type: keyword
@@ -128,6 +150,8 @@
       example: "[\"MII...\", \"MII...\"]"
       normalize:
         - array
+      otel:
+        - relation: match
 
     - name: client.certificate
       type: keyword
@@ -137,6 +161,8 @@
         PEM-encoded stand-alone certificate offered by the client. This is usually mutually-exclusive of
         `client.certificate_chain` since this value also exists in that list.
       example: "MII..."
+      otel:
+        - relation: match
 
     - name: client.hash.md5
       type: keyword
@@ -146,6 +172,8 @@
         Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the client.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+      otel:
+        - relation: match
 
     - name: client.hash.sha1
       type: keyword
@@ -156,6 +184,8 @@
         Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the client.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+      otel:
+        - relation: match
 
     - name: client.hash.sha256
       type: keyword
@@ -165,36 +195,48 @@
         Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the client.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+      otel:
+        - relation: match
 
     - name: server.ja3s
       type: keyword
       level: extended
       description: A hash that identifies servers based on how they perform an SSL/TLS handshake.
       example: 394441ab65754e2207b1e1b457b3641d
+      otel:
+        - relation: match
 
     - name: server.subject
       type: keyword
       level: extended
       description: Subject of the x.509 certificate presented by the server.
       example: "CN=www.example.com, OU=Infrastructure Team, DC=example, DC=com"
+      otel:
+        - relation: match
 
     - name: server.issuer
       type: keyword
       level: extended
       description: Subject of the issuer of the x.509 certificate presented by the server.
       example: "CN=Example Root CA, OU=Infrastructure Team, DC=example, DC=com"
+      otel:
+        - relation: match
 
     - name: server.not_before
       type: date
       level: extended
       description: Timestamp indicating when server certificate is first considered valid.
       example: "1970-01-01T00:00:00.000Z"
+      otel:
+        - relation: match
 
     - name: server.not_after
       type: date
       level: extended
       description: Timestamp indicating when server certificate is no longer considered valid.
       example: "2021-01-01T00:00:00.000Z"
+      otel:
+        - relation: match
 
     - name: server.certificate_chain
       type: keyword
@@ -207,6 +249,8 @@
       example: "[\"MII...\", \"MII...\"]"
       normalize:
         - array
+      otel:
+        - relation: match
 
     - name: server.certificate
       type: keyword
@@ -216,6 +260,8 @@
         PEM-encoded stand-alone certificate offered by the server. This is usually mutually-exclusive of
         `server.certificate_chain` since this value also exists in that list.
       example: "MII..."
+      otel:
+        - relation: match
 
     - name: server.hash.md5
       type: keyword
@@ -225,6 +271,8 @@
         Certificate fingerprint using the MD5 digest of DER-encoded version of certificate offered by the server.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 0F76C7F2C55BFD7D8E8B8F4BFBF0C9EC
+      otel:
+        - relation: match
 
     - name: server.hash.sha1
       type: keyword
@@ -234,6 +282,8 @@
         Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate offered by the server.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 9E393D93138888D288266C2D915214D1D1CCEB2A
+      otel:
+        - relation: match
 
     - name: server.hash.sha256
       type: keyword
@@ -243,3 +293,5 @@
         Certificate fingerprint using the SHA256 digest of DER-encoded version of certificate offered by the server.
         For consistency with other hash values, this value should be formatted as an uppercase hash.
       example: 0687F666A054EF17A08E2F2162EAB4CBC0D265E1D7875BE74BF3C712CA92DAF0
+      otel:
+        - relation: match
