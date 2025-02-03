@@ -17,7 +17,7 @@ Thanks, you're awesome :-) -->
 * Fix link rendering issues and usage of http in links. #2423
 
 #### Added
-
+* Added `package.vendor` since we already had package version and package name. #2206
 #### Improvements
 
 * Define base encoding of `x509.serial_number`. #2383
