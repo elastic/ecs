@@ -35,6 +35,9 @@
       description: >
         Percent CPU used which is normalized by the number of CPU cores and it
         ranges from 0 to 1. Scaling factor: 1000.
+      otel:
+        - metric: container.cpu.usage
+          relation: metric
 
     - name: disk.read.bytes
       type: long
@@ -57,12 +60,16 @@
       type: keyword
       description: >
         Unique container id.
+      otel:
+        - relation: match
 
     - name: image.name
       level: extended
       type: keyword
       description: >
         Name of the image the container was built on.
+      otel:
+        - relation: match
 
     - name: image.tag
       level: extended
@@ -71,6 +78,10 @@
         Container image tags.
       normalize:
         - array
+      synthetic_source_keep: "none"
+      otel:
+        - attribute: container.image.tags
+          relation: equivalent
 
     - name: image.hash.all
       level: extended
@@ -83,6 +94,9 @@
       example: '[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]'
       normalize:
         - array
+      otel:
+        - attribute: container.image.repo_digests
+          relation: equivalent
 
     - name: labels
       level: extended
@@ -90,6 +104,9 @@
       object_type: keyword
       description: >
         Image labels.
+      otel:
+        - attribute: container.label
+          relation: related
 
     - name: memory.usage
       type: scaled_float
@@ -98,12 +115,17 @@
       short: Percent memory used, between 0 and 1.
       description: >
         Memory usage percentage and it ranges from 0 to 1. Scaling factor: 1000.
+      otel:
+        - metric: container.memory.usage
+          relation: metric
 
     - name: name
       level: extended
       type: keyword
       description: >
         Container name.
+      otel:
+        - relation: match
 
     - name: network.ingress.bytes
       type: long
@@ -134,3 +156,5 @@
       description: >
         Runtime managing this container.
       example: docker
+      otel:
+        - relation: match
