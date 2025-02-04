@@ -88,7 +88,7 @@ The following is the real world example and usage for these fields.
 As mentioned above, when a file is downloaded from a web browser, the source URL information is recorded and attached to it.
 <img width="804" alt="image" src="https://github.com/user-attachments/assets/f6058d40-d060-4dcb-9bdc-760e76389b45">
 
-These fields could be invaluable in determining whether a file is downloaded from a malicious website, or a file which was previously downloaded originated from a newly identified malicious website. Just as an example, let’s say `https://outlook.office.com/` was discovered today to be a malicious website. These fields would help answer questions like, "How many files were downloaded from this website?"
+These fields could be invaluable in determining whether a file was downloaded from a malicious website or if a previously downloaded file originated from a newly identified malicious site. For example, suppose `https://outlook.office.com/` was discovered today to be malicious. These fields would help answer questions like, "How many files were downloaded from this website?"
 ![image](https://github.com/user-attachments/assets/9a546e7d-a0dd-4a1a-929d-12d8cbcc7c72)
 
 Note - These fields are currently intended for use in file creation events, but I believe they could also be applied to file open events and other similar cases.
