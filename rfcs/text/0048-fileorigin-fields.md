@@ -82,6 +82,45 @@ Example sources of data is shown in the above.
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
 
+The following is the real world example and usage for these fields.
+
+* file
+As mentioned above, when a file is downloaded from a web browser, the source URL information is recorded and attached to it.
+<img width="804" alt="image" src="https://github.com/user-attachments/assets/f6058d40-d060-4dcb-9bdc-760e76389b45">
+
+Use case
+These fields could be invaluable in determining whether a previously downloaded originated from a newly identified malicious website. Just as an example, let’s say `https://outlook.office.com/` was discovered today to be a malicious website. These fields would help answer questions like, "How many files were downloaded from this website?"
+![image](https://github.com/user-attachments/assets/9a546e7d-a0dd-4a1a-929d-12d8cbcc7c72)
+
+Note - These fields are currently intended for use in file creation events, but I believe they could also be applied to file open events and other similar cases.
+
+* Process
+A process is created from an executable file, which contains the program's code and instructions.
+Running a legitimate executable file is not an issue, but there is a risk that the file could be malware downloaded from a malicious website set up by an attacker. Therefore, if an executable file was downloaded from the internet, verifying its source is important for security.
+
+Therefore, for security purposes, I would like to add these file origin fields to the process creation event. During process creation, the path of the executable file from which the process originates is typically included as following, and we expect to use this to identify the executable file path and collect the file origin information.
+
+![image](https://github.com/user-attachments/assets/d95e35bc-7f92-4708-ba2c-3cc51c96ed62)
+
+
+* DLL
+DLL (shared code libraries) events indicate information about the libraries loaded by a process, and each event field contains details about the loaded DLL. As written in ECS(dll) yaml file, shared code libraries are used across all major operating systems, and each OS refers to them as follows:
+Windows: Commonly, Dynamic-link library (`.dll`)
+Unix-like operating systems: Commonly, Shared Object (`.so`)
+MacOS: Commonly, dynamic library (`.dylib`)
+
+For reference, I investigated how many DLLs the Windows notepad.exe process loads. The results showed that over 100 DLLs are loaded. This indicates that checking which DLLs are loaded is crucial for both security and observability when analyzing a process's behavior.
+
+![image](https://github.com/user-attachments/assets/7b5dadea-fd27-4c63-8d14-0b66ce39caef)
+
+Use Cases
+In security use cases, it is used to determine whether a DLL loaded by a process is a malicious one prepared by an attacker.
+You might think that a legitimate process wouldn't load an unrelated third-party library, but in reality, there are techniques to force such libraries to be loaded (for example, a method known as DLL injection). Thus, in Elastic Defend, we monitor the behavior of processes loading DLLs in order to detect such attack techniques.
+
+Additionally, there have been recent cases where legitimate programs were tampered with to load libraries prepared by attackers. For more details, please refer to the explanation below.
+https://www.elastic.co/security-labs/sinking-macos-pirate-ships
+
+Note - These fields are currently intended for use in DLL load events.
 
 
 <!--
@@ -145,7 +184,7 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/2387
 * Stage 1: https://github.com/elastic/ecs/pull/2395
-* Stage 2: https://github.com/elastic/ecs/pull/XXXX
+* Stage 2: https://github.com/elastic/ecs/pull/2441
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
