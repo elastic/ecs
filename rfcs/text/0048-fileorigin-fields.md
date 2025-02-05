@@ -86,7 +86,14 @@ The following is the real world example and usage for these fields.
 
 ### File (use case)
 As mentioned above, when a file is downloaded from a web browser, the source URL information is recorded and attached to it.
+* **Windows(Added in the file's Alternate Data Stream)**
 <img width="804" alt="image" src="https://github.com/user-attachments/assets/f6058d40-d060-4dcb-9bdc-760e76389b45">
+
+* **MacOS (Added in the file's extended attributes)**
+<img width="536" alt="image" src="https://github.com/user-attachments/assets/d73ed826-bfb0-4538-88b8-160723b17b8f">
+
+The image source is as follows (since I don't have MacOS device):
+https://stackoverflow.com/questions/70444996/obtaining-metadata-where-from-of-a-file-on-mac
 
 These fields could be invaluable in determining whether a file was downloaded from a malicious website or if a previously downloaded file originated from a newly identified malicious site. For example, suppose `https://outlook.office.com/` was discovered today to be malicious. These fields would help answer questions like, "How many files were downloaded from this website?"
 ![image](https://github.com/user-attachments/assets/9a546e7d-a0dd-4a1a-929d-12d8cbcc7c72)
