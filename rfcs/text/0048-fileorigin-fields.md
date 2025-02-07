@@ -2,7 +2,7 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2024-XX-XX** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2025-02-07* <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -26,7 +26,7 @@ For example, in Windows, when you download an image file (`image17.webp`) from [
 In ensuring endpoint security, the origin information of a file is crucial for determining whether a downloaded file or executable from the internet comes from a safe source and if it is safe to execute.
 
 Thus, this PR adds new fields to store the URL of the file's origin information for `file`, `process`, and `dll`.
-The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field. 
+The ReferrerUrl is intended to be stored in the `origin_referrer_url` field, and the `HostUrl` is inteded to be stored in the `origin_url` field.
 
 <!--
 Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
@@ -45,7 +45,7 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 The new fields proposed are:
 
 Field | Type | Description /Usage
--- | -- | -- 
+-- | -- | --
 file.origin_referrer_url | keyword | The URL of the webpage that linked to the file.
 file.origin_url | keyword | The URL where the file is hosted.
 process.origin_referrer_url | keyword | The URL of the webpage that linked to the process's executable file.
@@ -161,8 +161,8 @@ The following are the people that consulted on the contents of this RFC.
 
 * @AsuNa-jp | author
 * @joe-desimone
-* @trisch-me 
-* @mjwolf 
+* @trisch-me
+* @mjwolf
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
