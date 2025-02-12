@@ -1349,6 +1349,20 @@
         This generally maps to the name of the file on disk.'
       example: kernel32.dll
       default_field: false
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the dll file.
+      example: http://example.com/article1.html
+      default_field: false
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the dll file is hosted.
+      example: http://example.com/files/example.dll
+      default_field: false
     - name: path
       level: extended
       type: keyword
@@ -2971,6 +2985,20 @@
       ignore_above: 1024
       description: Name of the file including the extension, without the directory.
       example: example.png
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+      default_field: false
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
+      default_field: false
     - name: owner
       level: extended
       type: keyword
@@ -6847,15 +6875,6 @@
       format: string
       description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
-    - name: parent.pgid
-      level: extended
-      type: long
-      format: string
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.'
-      default_field: false
     - name: parent.pid
       level: core
       type: long
@@ -7219,14 +7238,6 @@
       format: string
       description: PE Section List virtual size. This is always the same as `physical_size`.
       default_field: false
-    - name: pgid
-      level: extended
-      type: long
-      format: string
-      description: 'Deprecated for removal in next major version release. This field
-        is superseded by `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.'
     - name: pid
       level: core
       type: long
@@ -9612,6 +9623,20 @@
       description: Name of the file including the extension, without the directory.
       example: example.png
       default_field: false
+    - name: enrichments.indicator.file.origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+      default_field: false
+    - name: enrichments.indicator.file.origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
+      default_field: false
     - name: enrichments.indicator.file.owner
       level: extended
       type: keyword
@@ -11233,6 +11258,20 @@
       ignore_above: 1024
       description: Name of the file including the extension, without the directory.
       example: example.png
+      default_field: false
+    - name: indicator.file.origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+      default_field: false
+    - name: indicator.file.origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
       default_field: false
     - name: indicator.file.owner
       level: extended
