@@ -14,6 +14,22 @@
   level: core
   name: '@timestamp'
   normalize: []
+  otel:
+  - otlp_field: time_unix_nano
+    relation: otlp
+    stability: stable
+  - otlp_field: observed_time_unix_nano
+    relation: otlp
+    stability: stable
+  - note: 'On logs, events and metrics, `time_unix_nano` defines the time of the event.
+      For logs, `observed_time_unix_nano` defines the time when the event was observed
+      by the collection system. On spans, `start_time_unix_nano` represents the start
+      time of the span.
+
+      '
+    otlp_field: start_time_unix_nano
+    relation: otlp
+    stability: stable
   required: true
   short: Date/time when the event originated.
   type: date
@@ -181,6 +197,9 @@ client.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Client network address.
   type: keyword
 client.as.number:
@@ -444,6 +463,9 @@ client.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Port of the client.
   type: long
 client.registered_domain:
@@ -453,7 +475,7 @@ client.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: client.registered_domain
@@ -488,7 +510,7 @@ client.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: client.top_level_domain
@@ -628,6 +650,7 @@ client.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 cloud.account.id:
   dashed_name: cloud-account-id
@@ -641,6 +664,9 @@ cloud.account.id:
   level: extended
   name: account.id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The cloud account or organization id.
   type: keyword
 cloud.account.name:
@@ -666,6 +692,9 @@ cloud.availability_zone:
   level: extended
   name: availability_zone
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Availability zone in which this host, resource, or service is located.
   type: keyword
 cloud.instance.id:
@@ -882,6 +911,9 @@ cloud.provider:
   level: extended
   name: provider
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the cloud provider.
   type: keyword
 cloud.region:
@@ -893,6 +925,9 @@ cloud.region:
   level: extended
   name: region
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Region in which this host, resource, or service is located.
   type: keyword
 cloud.service.name:
@@ -908,6 +943,10 @@ cloud.service.name:
   level: extended
   name: service.name
   normalize: []
+  otel:
+  - attribute: cloud.platform
+    relation: equivalent
+    stability: experimental
   short: The cloud service name.
   type: keyword
 cloud.target.account.id:
@@ -1064,6 +1103,10 @@ container.cpu.usage:
   level: extended
   name: cpu.usage
   normalize: []
+  otel:
+  - metric: container.cpu.usage
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
@@ -1095,6 +1138,9 @@ container.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique container id.
   type: keyword
 container.image.hash.all:
@@ -1109,6 +1155,10 @@ container.image.hash.all:
   name: image.hash.all
   normalize:
   - array
+  otel:
+  - attribute: container.image.repo_digests
+    relation: equivalent
+    stability: experimental
   short: An array of digests of the image the container was built on.
   type: keyword
 container.image.name:
@@ -1119,6 +1169,9 @@ container.image.name:
   level: extended
   name: image.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the image the container was built on.
   type: keyword
 container.image.tag:
@@ -1130,7 +1183,12 @@ container.image.tag:
   name: image.tag
   normalize:
   - array
+  otel:
+  - attribute: container.image.tags
+    relation: equivalent
+    stability: experimental
   short: Container image tags.
+  synthetic_source_keep: none
   type: keyword
 container.labels:
   dashed_name: container-labels
@@ -1140,6 +1198,10 @@ container.labels:
   name: labels
   normalize: []
   object_type: keyword
+  otel:
+  - attribute: container.label
+    relation: related
+    stability: experimental
   short: Image labels.
   type: object
 container.memory.usage:
@@ -1150,6 +1212,10 @@ container.memory.usage:
   level: extended
   name: memory.usage
   normalize: []
+  otel:
+  - metric: container.memory.usage
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent memory used, between 0 and 1.
   type: scaled_float
@@ -1161,6 +1227,9 @@ container.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Container name.
   type: keyword
 container.network.egress.bytes:
@@ -1192,6 +1261,9 @@ container.runtime:
   level: extended
   name: runtime
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Runtime managing this container.
   type: keyword
 container.security_context.privileged:
@@ -1217,6 +1289,8 @@ data_stream.dataset:
   level: extended
   name: dataset
   normalize: []
+  otel:
+  - relation: na
   short: The field can contain anything that makes sense to signify the source of
     the data.
   type: constant_keyword
@@ -1234,6 +1308,8 @@ data_stream.namespace:
   level: extended
   name: namespace
   normalize: []
+  otel:
+  - relation: na
   short: A user defined namespace. Namespaces are useful to allow grouping of data.
   type: constant_keyword
 data_stream.type:
@@ -1247,6 +1323,8 @@ data_stream.type:
   level: extended
   name: type
   normalize: []
+  otel:
+  - relation: na
   short: An overarching type for the data stream.
   type: constant_keyword
 destination.address:
@@ -1262,6 +1340,9 @@ destination.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Destination network address.
   type: keyword
 destination.as.number:
@@ -1524,6 +1605,9 @@ destination.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the destination.
   type: long
 destination.registered_domain:
@@ -1533,7 +1617,7 @@ destination.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: destination.registered_domain
@@ -1568,7 +1652,7 @@ destination.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: destination.top_level_domain
@@ -1708,6 +1792,7 @@ destination.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 device.id:
   dashed_name: device-id
@@ -1726,6 +1811,9 @@ device.id:
   level: extended
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The unique identifier of a device.
   type: keyword
 device.manufacturer:
@@ -1737,6 +1825,9 @@ device.manufacturer:
   level: extended
   name: manufacturer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The vendor name of the device manufacturer.
   type: keyword
 device.model.identifier:
@@ -1748,6 +1839,9 @@ device.model.identifier:
   level: extended
   name: model.identifier
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The machine readable identifier of the device model.
   type: keyword
 device.model.name:
@@ -1759,6 +1853,9 @@ device.model.name:
   level: extended
   name: model.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The human readable marketing name of the device model.
   type: keyword
 device.serial_number:
@@ -1806,12 +1903,13 @@ dll.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: dll.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 dll.code_signature.signing_id:
   dashed_name: dll-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -2014,6 +2112,30 @@ dll.name:
   normalize: []
   short: Name of the library.
   type: keyword
+dll.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-origin-referrer-url
+  description: The URL of the webpage that linked to the dll file.
+  example: http://example.com/article1.html
+  flat_name: dll.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  short: The URL of the webpage that linked to the dll file.
+  type: keyword
+dll.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-origin-url
+  description: The URL where the dll file is hosted.
+  example: http://example.com/files/example.dll
+  flat_name: dll.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  short: The URL where the dll file is hosted.
+  type: keyword
 dll.path:
   dashed_name: dll-path
   description: Full file path of the library.
@@ -2081,7 +2203,7 @@ dll.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: dll.pe.go_import_hash
   ignore_above: 1024
@@ -2411,6 +2533,7 @@ dns.header_flags:
   normalize:
   - array
   short: Array of DNS header flags.
+  synthetic_source_keep: none
   type: keyword
 dns.id:
   dashed_name: dns-id
@@ -2462,6 +2585,9 @@ dns.question.name:
   level: extended
   name: question.name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The name being queried.
   type: keyword
 dns.question.registered_domain:
@@ -2471,7 +2597,7 @@ dns.question.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: dns.question.registered_domain
@@ -2502,7 +2628,7 @@ dns.question.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: dns.question.top_level_domain
@@ -2582,6 +2708,8 @@ ecs.version:
   level: core
   name: version
   normalize: []
+  otel:
+  - relation: na
   required: true
   short: ECS version this event conforms to.
   type: keyword
@@ -2743,6 +2871,7 @@ email.bcc.address:
   normalize:
   - array
   short: Email address of BCC recipient
+  synthetic_source_keep: none
   type: keyword
 email.cc.address:
   dashed_name: email-cc-address
@@ -2755,6 +2884,7 @@ email.cc.address:
   normalize:
   - array
   short: Email address of CC recipient
+  synthetic_source_keep: none
   type: keyword
 email.content_type:
   dashed_name: email-content-type
@@ -2803,6 +2933,7 @@ email.from.address:
   normalize:
   - array
   short: The sender's email address.
+  synthetic_source_keep: none
   type: keyword
 email.local_id:
   dashed_name: email-local-id
@@ -2852,6 +2983,7 @@ email.reply_to.address:
   normalize:
   - array
   short: Address replies should be delivered to.
+  synthetic_source_keep: none
   type: keyword
 email.sender.address:
   dashed_name: email-sender-address
@@ -2863,6 +2995,7 @@ email.sender.address:
   name: sender.address
   normalize: []
   short: Address of the message sender.
+  synthetic_source_keep: none
   type: keyword
 email.subject:
   dashed_name: email-subject
@@ -2890,6 +3023,7 @@ email.to.address:
   normalize:
   - array
   short: Email address of recipient
+  synthetic_source_keep: none
   type: keyword
 email.x_mailer:
   dashed_name: email-x-mailer
@@ -2930,6 +3064,10 @@ error.message:
   level: core
   name: message
   normalize: []
+  otel:
+  - attribute: exception.message
+    relation: equivalent
+    stability: stable
   short: Error message.
   type: match_only_text
 error.stack_trace:
@@ -2943,6 +3081,10 @@ error.stack_trace:
     type: match_only_text
   name: stack_trace
   normalize: []
+  otel:
+  - attribute: exception.stacktrace
+    relation: equivalent
+    stability: stable
   short: The stack trace of this error in plain text.
   type: wildcard
 error.type:
@@ -2954,6 +3096,9 @@ error.type:
   level: extended
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: The type of the error, for example the class name of the exception.
   type: keyword
 event.action:
@@ -3236,6 +3381,7 @@ event.category:
   normalize:
   - array
   short: Event category. The second categorization field in the hierarchy.
+  synthetic_source_keep: none
   type: keyword
 event.code:
   dashed_name: event-code
@@ -3369,8 +3515,7 @@ event.kind:
       This value is not used by Elastic solutions for alert documents that are created
       by rules executing within the Kibana alerting framework.'
     name: alert
-  - beta: This event categorization value is beta and subject to change.
-    description: 'This value indicates events whose primary purpose is to store an
+  - description: 'This value indicates events whose primary purpose is to store an
       inventory of assets/entities and their attributes. Assets/entities are objects
       (such as users and hosts) that are expected to be subjects of detailed analysis
       within the system.
@@ -3797,6 +3942,7 @@ event.type:
   normalize:
   - array
   short: Event type. The third categorization field in the hierarchy.
+  synthetic_source_keep: none
   type: keyword
 event.url:
   dashed_name: event-url
@@ -3808,7 +3954,7 @@ event.url:
     are a common use case for this field.'
   example: https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38fe
   flat_name: event.url
-  ignore_above: 1024
+  ignore_above: 2083
   level: extended
   name: url
   normalize: []
@@ -3821,6 +3967,9 @@ faas.coldstart:
   level: extended
   name: coldstart
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean value indicating a cold start of a function.
   type: boolean
 faas.execution:
@@ -3832,6 +3981,10 @@ faas.execution:
   level: extended
   name: execution
   normalize: []
+  otel:
+  - attribute: faas.invocation_id
+    relation: equivalent
+    stability: experimental
   short: The execution ID of the current function execution.
   type: keyword
 faas.id:
@@ -3857,6 +4010,9 @@ faas.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The name of a serverless function.
   type: keyword
 faas.trigger.request_id:
@@ -3885,6 +4041,10 @@ faas.trigger.type:
   level: extended
   name: trigger.type
   normalize: []
+  otel:
+  - attribute: faas.trigger
+    relation: equivalent
+    stability: experimental
   short: The trigger for the function execution.
   type: keyword
 faas.version:
@@ -3896,6 +4056,9 @@ faas.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The version of a serverless function.
   type: keyword
 file.accessed:
@@ -3907,6 +4070,9 @@ file.accessed:
   level: extended
   name: accessed
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Last time the file was accessed.
   type: date
 file.attributes:
@@ -3923,7 +4089,11 @@ file.attributes:
   name: attributes
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of file attributes.
+  synthetic_source_keep: none
   type: keyword
 file.code_signature.digest_algorithm:
   dashed_name: file-code-signature-digest-algorithm
@@ -3957,12 +4127,13 @@ file.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: file.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 file.code_signature.signing_id:
   dashed_name: file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -4070,6 +4241,9 @@ file.created:
   level: extended
   name: created
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File creation time.
   type: date
 file.ctime:
@@ -4082,6 +4256,10 @@ file.ctime:
   level: extended
   name: ctime
   normalize: []
+  otel:
+  - attribute: file.changed
+    relation: equivalent
+    stability: experimental
   short: Last time the file attributes or metadata changed.
   type: date
 file.device:
@@ -4105,6 +4283,9 @@ file.directory:
   level: extended
   name: directory
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Directory where the file is located.
   type: keyword
 file.drive_letter:
@@ -4187,7 +4368,7 @@ file.elf.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: file.elf.go_import_hash
   ignore_above: 1024
@@ -4575,6 +4756,9 @@ file.extension:
   level: extended
   name: extension
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File extension, excluding the leading dot.
   type: keyword
 file.fork_name:
@@ -4598,6 +4782,9 @@ file.fork_name:
   level: extended
   name: fork_name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A fork is additional data associated with a filesystem object.
   type: keyword
 file.gid:
@@ -4609,6 +4796,10 @@ file.gid:
   level: extended
   name: gid
   normalize: []
+  otel:
+  - attribute: file.group.id
+    relation: equivalent
+    stability: experimental
   short: Primary group ID (GID) of the file.
   type: keyword
 file.group:
@@ -4620,6 +4811,10 @@ file.group:
   level: extended
   name: group
   normalize: []
+  otel:
+  - attribute: file.group.name
+    relation: equivalent
+    stability: experimental
   short: Primary group name of the file.
   type: keyword
 file.hash.cdhash:
@@ -4722,6 +4917,9 @@ file.inode:
   level: extended
   name: inode
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Inode representing the file in the filesystem.
   type: keyword
 file.macho.go_import_hash:
@@ -4732,7 +4930,7 @@ file.macho.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: file.macho.go_import_hash
   ignore_above: 1024
@@ -4944,6 +5142,9 @@ file.mode:
   level: extended
   name: mode
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Mode of the file in octal representation.
   type: keyword
 file.mtime:
@@ -4953,6 +5154,10 @@ file.mtime:
   level: extended
   name: mtime
   normalize: []
+  otel:
+  - attribute: file.modified
+    relation: equivalent
+    stability: experimental
   short: Last time the file content was modified.
   type: date
 file.name:
@@ -4964,7 +5169,34 @@ file.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the file including the extension, without the directory.
+  type: keyword
+file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  short: The URL where the file is hosted.
   type: keyword
 file.owner:
   dashed_name: file-owner
@@ -4975,6 +5207,10 @@ file.owner:
   level: extended
   name: owner
   normalize: []
+  otel:
+  - attribute: file.owner.name
+    relation: equivalent
+    stability: experimental
   short: File owner's username.
   type: keyword
 file.path:
@@ -4991,6 +5227,9 @@ file.path:
     type: match_only_text
   name: path
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full path to the file, including the file name.
   type: keyword
 file.pe.architecture:
@@ -5049,7 +5288,7 @@ file.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: file.pe.go_import_hash
   ignore_above: 1024
@@ -5289,6 +5528,9 @@ file.size:
   level: extended
   name: size
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File size in bytes.
   type: long
 file.target_path:
@@ -5303,6 +5545,10 @@ file.target_path:
     type: match_only_text
   name: target_path
   normalize: []
+  otel:
+  - attribute: file.symbolic_link.target_path
+    relation: equivalent
+    stability: experimental
   short: Target path for symlinks.
   type: keyword
 file.type:
@@ -5325,6 +5571,10 @@ file.uid:
   level: extended
   name: uid
   normalize: []
+  otel:
+  - attribute: file.owner.id
+    relation: equivalent
+    stability: experimental
   short: The user ID (UID) or security identifier (SID) of the file owner.
   type: keyword
 file.x509.alternative_names:
@@ -5508,8 +5758,7 @@ file.x509.public_key_size:
 file.x509.serial_number:
   dashed_name: file-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: file.x509.serial_number
   ignore_above: 1024
@@ -5674,10 +5923,13 @@ host.architecture:
   level: core
   name: architecture
   normalize: []
+  otel:
+  - attribute: host.arch
+    relation: equivalent
+    stability: experimental
   short: Operating system architecture.
   type: keyword
 host.boot.id:
-  beta: This field is beta and subject to change.
   dashed_name: host-boot-id
   description: Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the
     boot_id value from /proc may or may not be the same in containers as on the host.
@@ -5704,6 +5956,10 @@ host.cpu.usage:
   level: extended
   name: cpu.usage
   normalize: []
+  otel:
+  - metric: system.cpu.utilization
+    relation: metric
+    stability: experimental
   scaling_factor: 1000
   short: Percent CPU used, between 0 and 1.
   type: scaled_float
@@ -5715,6 +5971,10 @@ host.disk.read.bytes:
   level: extended
   name: disk.read.bytes
   normalize: []
+  otel:
+  - metric: system.disk.io
+    relation: metric
+    stability: experimental
   short: The number of bytes read by all disks.
   type: long
 host.disk.write.bytes:
@@ -5725,6 +5985,10 @@ host.disk.write.bytes:
   level: extended
   name: disk.write.bytes
   normalize: []
+  otel:
+  - metric: system.disk.io
+    relation: metric
+    stability: experimental
   short: The number of bytes written on all disks.
   type: long
 host.domain:
@@ -5905,6 +6169,9 @@ host.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique host id.
   type: keyword
 host.ip:
@@ -5915,7 +6182,11 @@ host.ip:
   name: ip
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Host ip addresses.
+  synthetic_source_keep: none
   type: ip
 host.mac:
   dashed_name: host-mac
@@ -5931,8 +6202,12 @@ host.mac:
   name: mac
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
   short: Host MAC addresses.
+  synthetic_source_keep: none
   type: keyword
 host.name:
   dashed_name: host-name
@@ -5946,6 +6221,9 @@ host.name:
   level: core
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the host.
   type: keyword
 host.network.egress.bytes:
@@ -5956,6 +6234,10 @@ host.network.egress.bytes:
   level: extended
   name: network.egress.bytes
   normalize: []
+  otel:
+  - metric: system.network.io
+    relation: metric
+    stability: experimental
   short: The number of bytes sent on all network interfaces.
   type: long
 host.network.egress.packets:
@@ -5966,6 +6248,10 @@ host.network.egress.packets:
   level: extended
   name: network.egress.packets
   normalize: []
+  otel:
+  - metric: system.network.packets
+    relation: metric
+    stability: experimental
   short: The number of packets sent on all network interfaces.
   type: long
 host.network.ingress.bytes:
@@ -5976,6 +6262,10 @@ host.network.ingress.bytes:
   level: extended
   name: network.ingress.bytes
   normalize: []
+  otel:
+  - metric: system.network.io
+    relation: metric
+    stability: experimental
   short: The number of bytes received on all network interfaces.
   type: long
 host.network.ingress.packets:
@@ -5986,6 +6276,10 @@ host.network.ingress.packets:
   level: extended
   name: network.ingress.packets
   normalize: []
+  otel:
+  - metric: system.network.packets
+    relation: metric
+    stability: experimental
   short: The number of packets received on all network interfaces.
   type: long
 host.os.family:
@@ -6094,7 +6388,6 @@ host.os.version:
   short: Operating system version as a raw string.
   type: keyword
 host.pid_ns_ino:
-  beta: This field is beta and subject to change.
   dashed_name: host-pid-ns-ino
   description: This is the inode number of the namespace in the namespace file system
     (nsfs). Unsigned int inum in include/linux/ns_common.h.
@@ -6197,6 +6490,9 @@ host.type:
   level: core
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Type of host.
   type: keyword
 host.uptime:
@@ -6207,6 +6503,10 @@ host.uptime:
   level: extended
   name: uptime
   normalize: []
+  otel:
+  - metric: system.uptime
+    relation: metric
+    stability: experimental
   short: Seconds the host has been up.
   type: long
 http.request.body.bytes:
@@ -6218,6 +6518,10 @@ http.request.body.bytes:
   level: extended
   name: request.body.bytes
   normalize: []
+  otel:
+  - attribute: http.request.body.size
+    relation: equivalent
+    stability: experimental
   short: Size in bytes of the request body.
   type: long
 http.request.body.content:
@@ -6243,6 +6547,10 @@ http.request.bytes:
   level: extended
   name: request.bytes
   normalize: []
+  otel:
+  - attribute: http.request.size
+    relation: equivalent
+    stability: experimental
   short: Total size in bytes of the request (body and headers).
   type: long
 http.request.id:
@@ -6272,6 +6580,18 @@ http.request.method:
   level: extended
   name: request.method
   normalize: []
+  otel:
+  - attribute: http.request.method_original
+    relation: equivalent
+    stability: stable
+  - attribute: http.request.method
+    note: '`http.request.method` in SemConv is the known, normalized, upper case value
+      of the request method, other than the ECS'' `http.request.method` that retains
+      casing from the original event.
+
+      '
+    relation: conflict
+    stability: stable
   short: HTTP request method.
   type: keyword
 http.request.mime_type:
@@ -6309,6 +6629,10 @@ http.response.body.bytes:
   level: extended
   name: response.body.bytes
   normalize: []
+  otel:
+  - attribute: http.response.body.size
+    relation: equivalent
+    stability: experimental
   short: Size in bytes of the response body.
   type: long
 http.response.body.content:
@@ -6334,6 +6658,10 @@ http.response.bytes:
   level: extended
   name: response.bytes
   normalize: []
+  otel:
+  - attribute: http.response.size
+    relation: equivalent
+    stability: experimental
   short: Total size in bytes of the response (body and headers).
   type: long
 http.response.mime_type:
@@ -6360,6 +6688,9 @@ http.response.status_code:
   level: extended
   name: response.status_code
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: HTTP response status code.
   type: long
 http.version:
@@ -6371,6 +6702,17 @@ http.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - attribute: network.protocol.name
+    relation: related
+    stability: stable
+  - attribute: network.protocol.version
+    note: 'In OTel SemConv, `network.protocol.version` specifies the HTTP version
+      if the value of `network.protocol.name` is `http`.
+
+      '
+    relation: related
+    stability: stable
   short: HTTP version.
   type: keyword
 labels:
@@ -6387,6 +6729,13 @@ labels:
   name: labels
   normalize: []
   object_type: keyword
+  otel:
+  - attribute: k8s.pod.label
+    relation: related
+    stability: experimental
+  - attribute: container.label
+    relation: related
+    stability: experimental
   short: Custom key/value pairs.
   type: object
 log.file.path:
@@ -6401,6 +6750,9 @@ log.file.path:
   level: extended
   name: file.path
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full path to the log file this event came from.
   type: keyword
 log.level:
@@ -6418,6 +6770,10 @@ log.level:
   level: core
   name: level
   normalize: []
+  otel:
+  - otlp_field: severity_text
+    relation: otlp
+    stability: stable
   short: Log level of the log event.
   type: keyword
 log.logger:
@@ -6634,6 +6990,12 @@ message:
   level: core
   name: message
   normalize: []
+  otel:
+  - note: The `body` in OTLP is of type `Any` and can be either an unstructured log
+      message or a structured event.
+    otlp_field: body
+    relation: otlp
+    stability: stable
   short: Log message optimized for viewing in a log viewer.
   type: match_only_text
 network.application:
@@ -6808,6 +7170,10 @@ network.protocol:
   level: core
   name: protocol
   normalize: []
+  otel:
+  - attribute: network.protocol.name
+    relation: equivalent
+    stability: stable
   short: Application protocol name.
   type: keyword
 network.transport:
@@ -6822,6 +7188,9 @@ network.transport:
   level: core
   name: transport
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Protocol Name corresponding to the field `iana_number`.
   type: keyword
 network.type:
@@ -6836,6 +7205,9 @@ network.type:
   level: core
   name: type
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: In the OSI Model this would be the Network Layer. ipv4, ipv6, ipsec, pim,
     etc
   type: keyword
@@ -7193,6 +7565,7 @@ observer.ip:
   normalize:
   - array
   short: IP addresses of the observer.
+  synthetic_source_keep: none
   type: ip
 observer.mac:
   dashed_name: observer-mac
@@ -7210,6 +7583,7 @@ observer.mac:
   - array
   pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
   short: MAC addresses of the observer.
+  synthetic_source_keep: none
   type: keyword
 observer.name:
   dashed_name: observer-name
@@ -7472,6 +7846,7 @@ orchestrator.resource.annotation:
   normalize:
   - array
   short: The list of annotations added to the resource.
+  synthetic_source_keep: none
   type: keyword
 orchestrator.resource.id:
   dashed_name: orchestrator-resource-id
@@ -7494,6 +7869,7 @@ orchestrator.resource.ip:
   normalize:
   - array
   short: IP address assigned to the resource associated with the event being observed.
+  synthetic_source_keep: none
   type: ip
 orchestrator.resource.label:
   dashed_name: orchestrator-resource-label
@@ -7506,6 +7882,7 @@ orchestrator.resource.label:
   normalize:
   - array
   short: The list of labels added to the resource.
+  synthetic_source_keep: none
   type: keyword
 orchestrator.resource.name:
   dashed_name: orchestrator-resource-name
@@ -7739,6 +8116,10 @@ process.args:
   name: args
   normalize:
   - array
+  otel:
+  - attribute: process.command_args
+    relation: equivalent
+    stability: experimental
   short: Array of process arguments.
   type: keyword
 process.args_count:
@@ -7753,6 +8134,9 @@ process.args_count:
   level: extended
   name: args_count
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Length of the process.args array.
   type: long
 process.code_signature.digest_algorithm:
@@ -7787,12 +8171,13 @@ process.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: process.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 process.code_signature.signing_id:
   dashed_name: process-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -7906,6 +8291,9 @@ process.command_line:
     type: match_only_text
   name: command_line
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Full command line that started the process.
   type: wildcard
 process.elf.architecture:
@@ -7974,7 +8362,7 @@ process.elf.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.elf.go_import_hash
   ignore_above: 1024
@@ -8994,6 +9382,7 @@ process.env_vars:
   normalize:
   - array
   short: Array of environment variable bindings.
+  synthetic_source_keep: none
   type: keyword
 process.executable:
   dashed_name: process-executable
@@ -9008,6 +9397,10 @@ process.executable:
     type: match_only_text
   name: executable
   normalize: []
+  otel:
+  - attribute: process.executable.path
+    relation: equivalent
+    stability: experimental
   short: Absolute path to the process executable.
   type: keyword
 process.exit_code:
@@ -9201,6 +9594,9 @@ process.group_leader.pid:
   name: pid
   normalize: []
   original_fieldset: process
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.group_leader.real_group.id:
@@ -9574,6 +9970,9 @@ process.interactive:
   level: extended
   name: interactive
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Whether the process is connected to an interactive shell.
   type: boolean
 process.io:
@@ -9686,7 +10085,7 @@ process.macho.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.macho.go_import_hash
   ignore_above: 1024
@@ -9956,12 +10355,13 @@ process.parent.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: process.parent.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 process.parent.code_signature.signing_id:
   dashed_name: process-parent-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -10144,7 +10544,7 @@ process.parent.elf.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.parent.elf.go_import_hash
   ignore_above: 1024
@@ -10782,7 +11182,7 @@ process.parent.macho.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.parent.macho.go_import_hash
   ignore_above: 1024
@@ -11046,7 +11446,7 @@ process.parent.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.parent.pe.go_import_hash
   ignore_above: 1024
@@ -11276,20 +11676,6 @@ process.parent.pe.sections.virtual_size:
   original_fieldset: pe
   short: PE Section List virtual size. This is always the same as `physical_size`.
   type: long
-process.parent.pgid:
-  dashed_name: process-parent-pgid
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `process.group_leader.pid`.
-
-    Identifier of the group of processes the process belongs to.'
-  flat_name: process.parent.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  original_fieldset: process
-  short: Deprecated identifier of the group of processes the process belongs to.
-  type: long
 process.parent.pid:
   dashed_name: process-parent-pid
   description: Process id.
@@ -11449,6 +11835,7 @@ process.parent.thread.capabilities.effective:
   original_fieldset: process
   pattern: ^(CAP_[A-Z_]+|\d+)$
   short: Array of capabilities used for permission checks.
+  synthetic_source_keep: none
   type: keyword
 process.parent.thread.capabilities.permitted:
   dashed_name: process-parent-thread-capabilities-permitted
@@ -11464,6 +11851,7 @@ process.parent.thread.capabilities.permitted:
   original_fieldset: process
   pattern: ^(CAP_[A-Z_]+|\d+)$
   short: Array of capabilities a thread could assume.
+  synthetic_source_keep: none
   type: keyword
 process.parent.thread.id:
   dashed_name: process-parent-thread-id
@@ -11673,7 +12061,7 @@ process.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: process.pe.go_import_hash
   ignore_above: 1024
@@ -11903,19 +12291,6 @@ process.pe.sections.virtual_size:
   original_fieldset: pe
   short: PE Section List virtual size. This is always the same as `physical_size`.
   type: long
-process.pgid:
-  dashed_name: process-pgid
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `process.group_leader.pid`.
-
-    Identifier of the group of processes the process belongs to.'
-  flat_name: process.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  short: Deprecated identifier of the group of processes the process belongs to.
-  type: long
 process.pid:
   dashed_name: process-pid
   description: Process id.
@@ -11925,6 +12300,9 @@ process.pid:
   level: core
   name: pid
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.previous.args:
@@ -12006,6 +12384,9 @@ process.real_user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.real_user.name:
@@ -12022,6 +12403,9 @@ process.real_user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.saved_group.id:
@@ -12056,6 +12440,9 @@ process.saved_user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.saved_user.name:
@@ -12072,6 +12459,9 @@ process.saved_user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.session_leader.args:
@@ -12348,6 +12738,9 @@ process.session_leader.pid:
   name: pid
   normalize: []
   original_fieldset: process
+  otel:
+  - relation: match
+    stability: experimental
   short: Process id.
   type: long
 process.session_leader.real_group.id:
@@ -12657,6 +13050,7 @@ process.thread.capabilities.effective:
   - array
   pattern: ^(CAP_[A-Z_]+|\d+)$
   short: Array of capabilities used for permission checks.
+  synthetic_source_keep: none
   type: keyword
 process.thread.capabilities.permitted:
   dashed_name: process-thread-capabilities-permitted
@@ -12671,6 +13065,7 @@ process.thread.capabilities.permitted:
   - array
   pattern: ^(CAP_[A-Z_]+|\d+)$
   short: Array of capabilities a thread could assume.
+  synthetic_source_keep: none
   type: keyword
 process.thread.id:
   dashed_name: process-thread-id
@@ -12709,6 +13104,9 @@ process.title:
     type: match_only_text
   name: title
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Process title.
   type: keyword
 process.tty:
@@ -12781,6 +13179,10 @@ process.uptime:
   level: extended
   name: uptime
   normalize: []
+  otel:
+  - metric: process.uptime
+    relation: metric
+    stability: experimental
   short: Seconds the process has been up.
   type: long
 process.user.id:
@@ -12793,6 +13195,9 @@ process.user.id:
   name: id
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 process.user.name:
@@ -12809,6 +13214,9 @@ process.user.name:
   name: name
   normalize: []
   original_fieldset: user
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 process.vpid:
@@ -12824,6 +13232,9 @@ process.vpid:
   level: core
   name: vpid
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Virtual process id.
   type: long
 process.working_directory:
@@ -12839,6 +13250,9 @@ process.working_directory:
     type: match_only_text
   name: working_directory
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The working directory of the process.
   type: keyword
 registry.data.bytes:
@@ -12940,7 +13354,10 @@ related.hash:
   name: hash
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the hashes seen on your event.
+  synthetic_source_keep: none
   type: keyword
 related.hosts:
   dashed_name: related-hosts
@@ -12952,7 +13369,10 @@ related.hosts:
   name: hosts
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the host identifiers seen on your event.
+  synthetic_source_keep: none
   type: keyword
 related.ip:
   dashed_name: related-ip
@@ -12962,7 +13382,10 @@ related.ip:
   name: ip
   normalize:
   - array
+  otel:
+  - relation: na
   short: All of the IPs seen on your event.
+  synthetic_source_keep: none
   type: ip
 related.user:
   dashed_name: related-user
@@ -12973,7 +13396,10 @@ related.user:
   name: user
   normalize:
   - array
+  otel:
+  - relation: na
   short: All the user names or other user identifiers seen on the event.
+  synthetic_source_keep: none
   type: keyword
 rule.author:
   dashed_name: rule-author
@@ -12987,6 +13413,7 @@ rule.author:
   normalize:
   - array
   short: Rule author
+  synthetic_source_keep: none
   type: keyword
 rule.category:
   dashed_name: rule-category
@@ -13110,6 +13537,9 @@ server.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Server network address.
   type: keyword
 server.as.number:
@@ -13373,6 +13803,9 @@ server.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Port of the server.
   type: long
 server.registered_domain:
@@ -13382,7 +13815,7 @@ server.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: server.registered_domain
@@ -13417,7 +13850,7 @@ server.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: server.top_level_domain
@@ -13557,6 +13990,7 @@ server.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 service.address:
   dashed_name: service-address
@@ -13586,6 +14020,10 @@ service.environment:
   level: extended
   name: environment
   normalize: []
+  otel:
+  - attribute: deployment.environment.name
+    relation: equivalent
+    stability: experimental
   short: Environment of the service.
   type: keyword
 service.ephemeral_id:
@@ -13636,6 +14074,9 @@ service.name:
   level: core
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Name of the service.
   type: keyword
 service.node.name:
@@ -13658,6 +14099,10 @@ service.node.name:
   level: extended
   name: node.name
   normalize: []
+  otel:
+  - attribute: service.instance.id
+    relation: equivalent
+    stability: experimental
   short: Name of the service node.
   type: keyword
 service.node.role:
@@ -13705,6 +14150,7 @@ service.node.roles:
   normalize:
   - array
   short: Roles of the service node.
+  synthetic_source_keep: none
   type: keyword
 service.origin.address:
   dashed_name: service-origin-address
@@ -13861,6 +14307,7 @@ service.origin.node.roles:
   - array
   original_fieldset: service
   short: Roles of the service node.
+  synthetic_source_keep: none
   type: keyword
 service.origin.state:
   dashed_name: service-origin-state
@@ -14070,6 +14517,7 @@ service.target.node.roles:
   - array
   original_fieldset: service
   short: Roles of the service node.
+  synthetic_source_keep: none
   type: keyword
 service.target.state:
   dashed_name: service-target-state
@@ -14142,6 +14590,9 @@ service.version:
   level: core
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Version of the service.
   type: keyword
 source.address:
@@ -14157,6 +14608,9 @@ source.address:
   level: extended
   name: address
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Source network address.
   type: keyword
 source.as.number:
@@ -14420,6 +14874,9 @@ source.port:
   level: core
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the source.
   type: long
 source.registered_domain:
@@ -14429,7 +14886,7 @@ source.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: source.registered_domain
@@ -14464,7 +14921,7 @@ source.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: source.top_level_domain
@@ -14604,6 +15061,7 @@ source.user.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 span.id:
   dashed_name: span-id
@@ -14617,6 +15075,10 @@ span.id:
   level: extended
   name: span.id
   normalize: []
+  otel:
+  - otlp_field: span_id
+    relation: otlp
+    stability: stable
   short: Unique identifier of the span within the scope of its trace.
   type: keyword
 tags:
@@ -14630,6 +15092,7 @@ tags:
   normalize:
   - array
   short: List of keywords used to tag each event.
+  synthetic_source_keep: none
   type: keyword
 threat.enrichments:
   dashed_name: threat-enrichments
@@ -14641,6 +15104,7 @@ threat.enrichments:
   normalize:
   - array
   short: List of objects containing indicators enriching the event.
+  synthetic_source_keep: none
   type: nested
 threat.enrichments.indicator:
   dashed_name: threat-enrichments-indicator
@@ -14749,6 +15213,7 @@ threat.enrichments.indicator.file.attributes:
   - array
   original_fieldset: file
   short: Array of file attributes.
+  synthetic_source_keep: none
   type: keyword
 threat.enrichments.indicator.file.code_signature.digest_algorithm:
   dashed_name: threat-enrichments-indicator-file-code-signature-digest-algorithm
@@ -14782,12 +15247,13 @@ threat.enrichments.indicator.file.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: threat.enrichments.indicator.file.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 threat.enrichments.indicator.file.code_signature.signing_id:
   dashed_name: threat-enrichments-indicator-file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -15017,7 +15483,7 @@ threat.enrichments.indicator.file.elf.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: threat.enrichments.indicator.file.elf.go_import_hash
   ignore_above: 1024
@@ -15607,6 +16073,32 @@ threat.enrichments.indicator.file.name:
   original_fieldset: file
   short: Name of the file including the extension, without the directory.
   type: keyword
+threat.enrichments.indicator.file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: threat.enrichments.indicator.file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  original_fieldset: file
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+threat.enrichments.indicator.file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: threat.enrichments.indicator.file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  original_fieldset: file
+  short: The URL where the file is hosted.
+  type: keyword
 threat.enrichments.indicator.file.owner:
   dashed_name: threat-enrichments-indicator-file-owner
   description: File owner's username.
@@ -15692,7 +16184,7 @@ threat.enrichments.indicator.file.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: threat.enrichments.indicator.file.pe.go_import_hash
   ignore_above: 1024
@@ -16155,8 +16647,7 @@ threat.enrichments.indicator.file.x509.public_key_size:
 threat.enrichments.indicator.file.x509.serial_number:
   dashed_name: threat-enrichments-indicator-file-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: threat.enrichments.indicator.file.x509.serial_number
   ignore_above: 1024
@@ -16814,7 +17305,7 @@ threat.enrichments.indicator.url.query:
     empty string. The `exists` query can be used to differentiate between the two
     cases.'
   flat_name: threat.enrichments.indicator.url.query
-  ignore_above: 1024
+  ignore_above: 2083
   level: extended
   name: query
   normalize: []
@@ -16828,7 +17319,7 @@ threat.enrichments.indicator.url.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: threat.enrichments.indicator.url.registered_domain
@@ -16879,7 +17370,7 @@ threat.enrichments.indicator.url.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: threat.enrichments.indicator.url.top_level_domain
@@ -17082,8 +17573,7 @@ threat.enrichments.indicator.x509.public_key_size:
 threat.enrichments.indicator.x509.serial_number:
   dashed_name: threat-enrichments-indicator-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: threat.enrichments.indicator.x509.serial_number
   ignore_above: 1024
@@ -17347,6 +17837,7 @@ threat.group.alias:
   normalize:
   - array
   short: Alias of the group.
+  synthetic_source_keep: none
   type: keyword
 threat.group.id:
   dashed_name: threat-group-id
@@ -17485,6 +17976,7 @@ threat.indicator.file.attributes:
   - array
   original_fieldset: file
   short: Array of file attributes.
+  synthetic_source_keep: none
   type: keyword
 threat.indicator.file.code_signature.digest_algorithm:
   dashed_name: threat-indicator-file-code-signature-digest-algorithm
@@ -17518,12 +18010,13 @@ threat.indicator.file.code_signature.flags:
   description: The flags used to sign the process.
   example: 570522385
   flat_name: threat.indicator.file.code_signature.flags
+  ignore_above: 1024
   level: extended
   name: flags
   normalize: []
   original_fieldset: code_signature
   short: Code signing flags of the process
-  type: string
+  type: keyword
 threat.indicator.file.code_signature.signing_id:
   dashed_name: threat-indicator-file-code-signature-signing-id
   description: 'The identifier used to sign the process.
@@ -17753,7 +18246,7 @@ threat.indicator.file.elf.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: threat.indicator.file.elf.go_import_hash
   ignore_above: 1024
@@ -18343,6 +18836,32 @@ threat.indicator.file.name:
   original_fieldset: file
   short: Name of the file including the extension, without the directory.
   type: keyword
+threat.indicator.file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: threat.indicator.file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  original_fieldset: file
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+threat.indicator.file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: threat.indicator.file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  original_fieldset: file
+  short: The URL where the file is hosted.
+  type: keyword
 threat.indicator.file.owner:
   dashed_name: threat-indicator-file-owner
   description: File owner's username.
@@ -18428,7 +18947,7 @@ threat.indicator.file.pe.go_import_hash:
     more traditional hash values.
 
     The algorithm used to calculate the Go symbol hash and a reference implementation
-    are available [here](https://github.com/elastic/toutoumomoma).'
+    are available here: https://github.com/elastic/toutoumomoma'
   example: 10bddcb4cee42080f76c88d9ff964491
   flat_name: threat.indicator.file.pe.go_import_hash
   ignore_above: 1024
@@ -18891,8 +19410,7 @@ threat.indicator.file.x509.public_key_size:
 threat.indicator.file.x509.serial_number:
   dashed_name: threat-indicator-file-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: threat.indicator.file.x509.serial_number
   ignore_above: 1024
@@ -19182,6 +19700,7 @@ threat.indicator.id:
   normalize:
   - array
   short: ID of the indicator
+  synthetic_source_keep: none
   type: keyword
 threat.indicator.ip:
   dashed_name: threat-indicator-ip
@@ -19566,7 +20085,7 @@ threat.indicator.url.query:
     empty string. The `exists` query can be used to differentiate between the two
     cases.'
   flat_name: threat.indicator.url.query
-  ignore_above: 1024
+  ignore_above: 2083
   level: extended
   name: query
   normalize: []
@@ -19580,7 +20099,7 @@ threat.indicator.url.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: threat.indicator.url.registered_domain
@@ -19631,7 +20150,7 @@ threat.indicator.url.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: threat.indicator.url.top_level_domain
@@ -19834,8 +20353,7 @@ threat.indicator.x509.public_key_size:
 threat.indicator.x509.serial_number:
   dashed_name: threat-indicator-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: threat.indicator.x509.serial_number
   ignore_above: 1024
@@ -19972,6 +20490,7 @@ threat.software.alias:
   normalize:
   - array
   short: Alias of the software
+  synthetic_source_keep: none
   type: keyword
 threat.software.id:
   dashed_name: threat-software-id
@@ -20023,6 +20542,7 @@ threat.software.platforms:
   normalize:
   - array
   short: Platforms of the software.
+  synthetic_source_keep: none
   type: keyword
 threat.software.reference:
   dashed_name: threat-software-reference
@@ -20188,6 +20708,9 @@ tls.cipher:
   level: extended
   name: cipher
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the cipher used during the current connection.
   type: keyword
 tls.client.certificate:
@@ -20201,6 +20724,9 @@ tls.client.certificate:
   level: extended
   name: client.certificate
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: PEM-encoded stand-alone certificate offered by the client.
   type: keyword
 tls.client.certificate_chain:
@@ -20215,6 +20741,9 @@ tls.client.certificate_chain:
   name: client.certificate_chain
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the client.
   type: keyword
@@ -20229,6 +20758,9 @@ tls.client.hash.md5:
   level: extended
   name: client.hash.md5
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the client.
   type: keyword
@@ -20243,6 +20775,9 @@ tls.client.hash.sha1:
   level: extended
   name: client.hash.sha1
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the client.
   type: keyword
@@ -20257,6 +20792,9 @@ tls.client.hash.sha256:
   level: extended
   name: client.hash.sha256
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the client.
   type: keyword
@@ -20270,6 +20808,9 @@ tls.client.issuer:
   level: extended
   name: client.issuer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Distinguished name of subject of the issuer of the x.509 certificate presented
     by the client.
   type: keyword
@@ -20283,6 +20824,9 @@ tls.client.ja3:
   level: extended
   name: client.ja3
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A hash that identifies clients based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.client.not_after:
@@ -20294,6 +20838,9 @@ tls.client.not_after:
   level: extended
   name: client.not_after
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Date/Time indicating when client certificate is no longer considered valid.
   type: date
 tls.client.not_before:
@@ -20304,6 +20851,9 @@ tls.client.not_before:
   level: extended
   name: client.not_before
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Date/Time indicating when client certificate is first considered valid.
   type: date
 tls.client.server_name:
@@ -20329,6 +20879,9 @@ tls.client.subject:
   level: extended
   name: client.subject
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Distinguished name of subject of the x.509 certificate presented by the client.
   type: keyword
 tls.client.supported_ciphers:
@@ -20342,6 +20895,9 @@ tls.client.supported_ciphers:
   name: client.supported_ciphers
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of ciphers offered by the client during the client hello.
   type: keyword
 tls.client.x509.alternative_names:
@@ -20525,8 +21081,7 @@ tls.client.x509.public_key_size:
 tls.client.x509.serial_number:
   dashed_name: tls-client-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: tls.client.x509.serial_number
   ignore_above: 1024
@@ -20659,6 +21214,9 @@ tls.curve:
   level: extended
   name: curve
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the curve used for the given cipher, when applicable.
   type: keyword
 tls.established:
@@ -20669,6 +21227,9 @@ tls.established:
   level: extended
   name: established
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean flag indicating if the TLS negotiation was successful and transitioned
     to an encrypted tunnel.
   type: boolean
@@ -20683,6 +21244,9 @@ tls.next_protocol:
   level: extended
   name: next_protocol
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: String indicating the protocol being tunneled.
   type: keyword
 tls.resumed:
@@ -20693,6 +21257,9 @@ tls.resumed:
   level: extended
   name: resumed
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Boolean flag indicating if this TLS connection was resumed from an existing
     TLS negotiation.
   type: boolean
@@ -20707,6 +21274,9 @@ tls.server.certificate:
   level: extended
   name: server.certificate
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: PEM-encoded stand-alone certificate offered by the server.
   type: keyword
 tls.server.certificate_chain:
@@ -20721,6 +21291,9 @@ tls.server.certificate_chain:
   name: server.certificate_chain
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of PEM-encoded certificates that make up the certificate chain offered
     by the server.
   type: keyword
@@ -20735,6 +21308,9 @@ tls.server.hash.md5:
   level: extended
   name: server.hash.md5
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the MD5 digest of DER-encoded version of certificate
     offered by the server.
   type: keyword
@@ -20749,6 +21325,9 @@ tls.server.hash.sha1:
   level: extended
   name: server.hash.sha1
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA1 digest of DER-encoded version of certificate
     offered by the server.
   type: keyword
@@ -20763,6 +21342,9 @@ tls.server.hash.sha256:
   level: extended
   name: server.hash.sha256
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Certificate fingerprint using the SHA256 digest of DER-encoded version of
     certificate offered by the server.
   type: keyword
@@ -20775,6 +21357,9 @@ tls.server.issuer:
   level: extended
   name: server.issuer
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Subject of the issuer of the x.509 certificate presented by the server.
   type: keyword
 tls.server.ja3s:
@@ -20787,6 +21372,9 @@ tls.server.ja3s:
   level: extended
   name: server.ja3s
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: A hash that identifies servers based on how they perform an SSL/TLS handshake.
   type: keyword
 tls.server.not_after:
@@ -20798,6 +21386,9 @@ tls.server.not_after:
   level: extended
   name: server.not_after
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Timestamp indicating when server certificate is no longer considered valid.
   type: date
 tls.server.not_before:
@@ -20808,6 +21399,9 @@ tls.server.not_before:
   level: extended
   name: server.not_before
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Timestamp indicating when server certificate is first considered valid.
   type: date
 tls.server.subject:
@@ -20819,6 +21413,9 @@ tls.server.subject:
   level: extended
   name: server.subject
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Subject of the x.509 certificate presented by the server.
   type: keyword
 tls.server.x509.alternative_names:
@@ -21002,8 +21599,7 @@ tls.server.x509.public_key_size:
 tls.server.x509.serial_number:
   dashed_name: tls-server-x509-serial-number
   description: Unique serial number issued by the certificate authority. For consistency,
-    if this value is alphanumeric, it should be formatted without colons and uppercase
-    characters.
+    this must be encoded in base 16 and formatted without colons and uppercase characters.
   example: 55FBB9C7DEBF09809D12CCAA
   flat_name: tls.server.x509.serial_number
   ignore_above: 1024
@@ -21161,6 +21757,10 @@ trace.id:
   level: extended
   name: trace.id
   normalize: []
+  otel:
+  - otlp_field: trace_id
+    relation: otlp
+    stability: stable
   short: Unique identifier of the trace.
   type: keyword
 transaction.id:
@@ -21175,6 +21775,8 @@ transaction.id:
   level: extended
   name: transaction.id
   normalize: []
+  otel:
+  - relation: na
   short: Unique identifier of the transaction within the scope of its trace.
   type: keyword
 url.domain:
@@ -21192,6 +21794,9 @@ url.domain:
   level: extended
   name: domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Domain of the url.
   type: keyword
 url.extension:
@@ -21212,6 +21817,9 @@ url.extension:
   level: extended
   name: extension
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: File extension from the request url, excluding the leading dot.
   type: keyword
 url.fragment:
@@ -21224,6 +21832,9 @@ url.fragment:
   level: extended
   name: fragment
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Portion of the url after the `#`.
   type: keyword
 url.full:
@@ -21239,6 +21850,9 @@ url.full:
     type: match_only_text
   name: full
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Full unparsed URL.
   type: wildcard
 url.original:
@@ -21258,6 +21872,9 @@ url.original:
     type: match_only_text
   name: original
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unmodified original url as seen in the event source.
   type: wildcard
 url.password:
@@ -21277,6 +21894,9 @@ url.path:
   level: extended
   name: path
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Path of the request, such as "/search".
   type: wildcard
 url.port:
@@ -21288,6 +21908,9 @@ url.port:
   level: extended
   name: port
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Port of the request, such as 443.
   type: long
 url.query:
@@ -21300,10 +21923,13 @@ url.query:
     empty string. The `exists` query can be used to differentiate between the two
     cases.'
   flat_name: url.query
-  ignore_above: 1024
+  ignore_above: 2083
   level: extended
   name: query
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Query string of the request.
   type: keyword
 url.registered_domain:
@@ -21313,7 +21939,7 @@ url.registered_domain:
     For example, the registered domain for "foo.example.com" is "example.com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     two labels will not work well for TLDs such as "co.uk".'
   example: example.com
   flat_name: url.registered_domain
@@ -21321,6 +21947,9 @@ url.registered_domain:
   level: extended
   name: registered_domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The highest registered url domain, stripped of the subdomain.
   type: keyword
 url.scheme:
@@ -21334,6 +21963,9 @@ url.scheme:
   level: extended
   name: scheme
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Scheme of the url.
   type: keyword
 url.subdomain:
@@ -21352,6 +21984,9 @@ url.subdomain:
   level: extended
   name: subdomain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The subdomain of the domain.
   type: keyword
 url.top_level_domain:
@@ -21361,7 +21996,7 @@ url.top_level_domain:
     is "com".
 
     This value can be determined precisely with a list like the public suffix list
-    (http://publicsuffix.org). Trying to approximate this by simply taking the last
+    (https://publicsuffix.org). Trying to approximate this by simply taking the last
     label will not work well for effective TLDs such as "co.uk".'
   example: co.uk
   flat_name: url.top_level_domain
@@ -21369,6 +22004,9 @@ url.top_level_domain:
   level: extended
   name: top_level_domain
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: The effective top level domain (com, org, net, co.uk).
   type: keyword
 url.username:
@@ -21511,6 +22149,7 @@ user.changes.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 user.domain:
   dashed_name: user-domain
@@ -21654,6 +22293,7 @@ user.effective.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 user.email:
   dashed_name: user-email
@@ -21663,6 +22303,9 @@ user.email:
   level: extended
   name: email
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: User email address.
   type: keyword
 user.full_name:
@@ -21678,6 +22321,9 @@ user.full_name:
     type: match_only_text
   name: full_name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: User's full name, if available.
   type: keyword
 user.group.domain:
@@ -21727,6 +22373,9 @@ user.hash:
   level: extended
   name: hash
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique user hash to correlate information for a user in anonymized form.
   type: keyword
 user.id:
@@ -21738,6 +22387,9 @@ user.id:
   level: core
   name: id
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Unique identifier of the user.
   type: keyword
 user.name:
@@ -21753,6 +22405,9 @@ user.name:
     type: match_only_text
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Short name or login of the user.
   type: keyword
 user.risk.calculated_level:
@@ -21845,7 +22500,11 @@ user.roles:
   name: roles
   normalize:
   - array
+  otel:
+  - relation: match
+    stability: experimental
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 user.target.domain:
   dashed_name: user-target-domain
@@ -21977,6 +22636,7 @@ user.target.roles:
   - array
   original_fieldset: user
   short: Array of user roles at the time of the event.
+  synthetic_source_keep: none
   type: keyword
 user_agent.device.name:
   dashed_name: user-agent-device-name
@@ -21998,6 +22658,9 @@ user_agent.name:
   level: extended
   name: name
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Name of the user agent.
   type: keyword
 user_agent.original:
@@ -22014,6 +22677,9 @@ user_agent.original:
     type: match_only_text
   name: original
   normalize: []
+  otel:
+  - relation: match
+    stability: stable
   short: Unparsed user_agent string.
   type: keyword
 user_agent.os.family:
@@ -22130,6 +22796,9 @@ user_agent.version:
   level: extended
   name: version
   normalize: []
+  otel:
+  - relation: match
+    stability: experimental
   short: Version of the user agent.
   type: keyword
 volume.bus_type:
@@ -22324,8 +22993,7 @@ vulnerability.category:
   dashed_name: vulnerability-category
   description: 'The type of system or architecture that the vulnerability affects.
     These may be platform-specific (for example, Debian or SUSE) or general (for example,
-    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys
-    vulnerability categories])
+    Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
 
     This field must be an array.'
   example: '["Firewall"]'
@@ -22336,6 +23004,7 @@ vulnerability.category:
   normalize:
   - array
   short: Category of a vulnerability.
+  synthetic_source_keep: none
   type: keyword
 vulnerability.classification:
   dashed_name: vulnerability-classification
@@ -22352,8 +23021,7 @@ vulnerability.classification:
 vulnerability.description:
   dashed_name: vulnerability-description
   description: The description of the vulnerability that provides additional context
-    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common
-    Vulnerabilities and Exposure CVE description])
+    of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
   example: In macOS before 2.12.6, there is a vulnerability in the RPC...
   flat_name: vulnerability.description
   ignore_above: 1024
@@ -22381,8 +23049,7 @@ vulnerability.id:
   dashed_name: vulnerability-id
   description: The identification (ID) is the number portion of a vulnerability entry.
     It includes a unique identification number for the vulnerability. For example
-    (https://cve.mitre.org/about/faqs.html#what_is_cve_id[Common Vulnerabilities and
-    Exposure CVE ID])
+    (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
   example: CVE-2019-00001
   flat_name: vulnerability.id
   ignore_above: 1024

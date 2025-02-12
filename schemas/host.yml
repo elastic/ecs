@@ -46,6 +46,8 @@
         It can contain what hostname returns on Unix systems, the fully
         qualified domain name (FQDN), or a name specified by the user.
         The recommended value is the lowercase FQDN of the host.
+      otel:
+        - relation: match
 
     - name: id
       level: core
@@ -58,6 +60,8 @@
         in your environment.
 
         Example: The current usage of `beat.name`.
+      otel:
+        - relation: match
 
     - name: ip
       level: core
@@ -66,6 +70,9 @@
         Host ip addresses.
       normalize:
         - array
+      synthetic_source_keep: "none"
+      otel:
+        - relation: match
 
     - name: mac
       level: core
@@ -82,6 +89,9 @@
         hyphen.
       normalize:
         - array
+      synthetic_source_keep: "none"
+      otel:
+        - relation: match
 
     - name: type
       level: core
@@ -93,6 +103,8 @@
         For Cloud providers this can be the machine type like `t2.medium`.
         If vm, this could be the container, for example, or other information
         meaningful in your environment.
+      otel:
+        - relation: match
 
     - name: uptime
       level: extended
@@ -100,6 +112,9 @@
       example: 1325
       description: >
         Seconds the host has been up.
+      otel:
+        - metric: system.uptime
+          relation: metric
 
     - name: architecture
       level: core
@@ -107,6 +122,9 @@
       example: "x86_64"
       description: >
         Operating system architecture.
+      otel:
+        - relation: equivalent
+          attribute: host.arch
 
     - name: domain
       level: extended
@@ -132,6 +150,9 @@
 
         For example: For a two core host, this value should be the average of
         the two cores, between 0 and 1.
+      otel:
+        - metric: system.cpu.utilization
+          relation: metric
 
     - name: disk.read.bytes
       type: long
@@ -140,6 +161,9 @@
       description: >
         The total number of bytes (gauge) read successfully (aggregated from all
         disks) since the last metric collection.
+      otel:
+        - metric: system.disk.io
+          relation: metric
 
     - name: disk.write.bytes
       type: long
@@ -148,6 +172,9 @@
       description: >
         The total number of bytes (gauge) written successfully (aggregated from
         all disks) since the last metric collection.
+      otel:
+        - metric: system.disk.io
+          relation: metric
 
     - name: network.ingress.bytes
       type: long
@@ -156,6 +183,9 @@
       description: >
         The number of bytes received (gauge) on all network interfaces by the
         host since the last metric collection.
+      otel:
+        - metric: system.network.io
+          relation: metric
 
     - name: network.ingress.packets
       type: long
@@ -164,6 +194,9 @@
       description: >
         The number of packets (gauge) received on all network interfaces by the
         host since the last metric collection.
+      otel:
+        - metric: system.network.packets
+          relation: metric
 
     - name: network.egress.bytes
       type: long
@@ -172,6 +205,9 @@
       description: >
         The number of bytes (gauge) sent out on all network interfaces by the
         host since the last metric collection.
+      otel:
+        - metric: system.network.io
+          relation: metric
 
     - name: network.egress.packets
       type: long
@@ -180,13 +216,15 @@
       description: >
         The number of packets (gauge) sent out on all network interfaces by the
         host since the last metric collection.
+      otel:
+        - metric: system.network.packets
+          relation: metric
 
     - name: boot.id
       level: extended
       type: keyword
       short: Linux boot uuid taken from /proc/sys/kernel/random/boot_id
       example: 88a1f0ed-5ae5-41ee-af6b-41921c311872
-      beta: This field is beta and subject to change.
       description: >
         Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
 
@@ -195,6 +233,5 @@
       type: keyword
       short: Pid namespace inode
       example: 256383
-      beta: This field is beta and subject to change.
       description: >
         This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.

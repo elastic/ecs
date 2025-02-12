@@ -62,7 +62,9 @@
         group services and applications from the same environment.
 
       example: production
-
+      otel:
+        - relation: equivalent
+          attribute: deployment.environment.name
     - name: id
       level: core
       type: keyword
@@ -95,6 +97,8 @@
         In the case of Elasticsearch the `service.name` could contain the cluster
         name. For Beats the `service.name` is by default a copy of the `service.type`
         field if no name is specified.
+      otel:
+        - relation: match
 
     - name: node.name
       level: extended
@@ -115,7 +119,9 @@
         instances that make up this service. If those do not provide uniqueness
         (e.g. multiple instances of the service running on the same host) - the
         node name can be manually set.
-
+      otel:
+        - relation: equivalent
+          attribute: service.instance.id
     - name: node.role
       level: extended
       type: keyword
@@ -141,6 +147,7 @@
       example: "[\"ui\", \"background_tasks\"]"
       normalize:
         - array
+      synthetic_source_keep: "none"
       short: Roles of the service node.
       description: >
         Roles of a service node.
@@ -183,6 +190,8 @@
 
         This allows to look at a data set only for a specific version of a
         service.
+      otel:
+        - relation: match
 
     - name: ephemeral_id
       level: extended

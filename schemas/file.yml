@@ -39,7 +39,8 @@
       type: keyword
       description: Name of the file including the extension, without the directory.
       example: example.png
-
+      otel:
+        - relation: match
     - name: attributes
       level: extended
       type: keyword
@@ -53,7 +54,9 @@
       example: '["readonly", "system"]'
       normalize:
         - array
-
+      synthetic_source_keep: "none"
+      otel:
+        - relation: match
     - name: directory
       level: extended
       type: keyword
@@ -62,7 +65,8 @@
         Directory where the file is located. It should include the drive letter,
         when appropriate.
       example: "/home/alice"
-
+      otel:
+        - relation: match
     - name: drive_letter
       level: extended
       type: keyword
@@ -85,7 +89,8 @@
       multi_fields:
         - type: match_only_text
           name: text
-
+      otel:
+        - relation: match
     - name: target_path
       level: extended
       type: keyword
@@ -93,7 +98,9 @@
       multi_fields:
         - type: match_only_text
           name: text
-
+      otel:
+        - relation: equivalent
+          attribute: file.symbolic_link.target_path
     - name: extension
       level: extended
       type: keyword
@@ -104,7 +111,8 @@
         Note that when the file name has multiple extensions (example.tar.gz),
         only the last one should be captured ("gz", not "tar.gz").
       example: png
-
+      otel:
+        - relation: match
     - name: type
       level: extended
       type: keyword
@@ -122,38 +130,48 @@
       type: keyword
       description: Inode representing the file in the filesystem.
       example: "256383"
-
+      otel:
+        - relation: match
     - name: uid
       level: extended
       type: keyword
       description: >
         The user ID (UID) or security identifier (SID) of the file owner.
       example: "1001"
-
+      otel:
+        - relation: equivalent
+          attribute: file.owner.id
     - name: owner
       level: extended
       type: keyword
       description: File owner's username.
       example: alice
-
+      otel:
+        - relation: equivalent
+          attribute: file.owner.name
     - name: gid
       level: extended
       type: keyword
       description: Primary group ID (GID) of the file.
       example: "1001"
-
+      otel:
+        - relation: equivalent
+          attribute: file.group.id
     - name: group
       level: extended
       type: keyword
       description: Primary group name of the file.
       example: alice
-
+      otel:
+        - relation: equivalent
+          attribute: file.group.name
     - name: mode
       level: extended
       type: keyword
       description: Mode of the file in octal representation.
       example: "0640"
-
+      otel:
+        - relation: match
     - name: size
       level: extended
       type: long
@@ -163,12 +181,15 @@
 
         Only relevant when `file.type` is "file".
       example: 16384
-
+      otel:
+        - relation: match
     - name: mtime
       level: extended
       type: date
       description: Last time the file content was modified.
-
+      otel:
+        - relation: equivalent
+          attribute: file.modified
     - name: ctime
       level: extended
       type: date
@@ -179,7 +200,9 @@
         Note that changes to the file content will update `mtime`. This implies
         `ctime` will be adjusted at the same time, since `mtime` is an attribute
         of the file.
-
+      otel:
+        - relation: equivalent
+          attribute: file.changed
     - name: created
       level: extended
       type: date
@@ -188,7 +211,8 @@
         File creation time.
 
         Note that not all filesystems store the creation time.
-
+      otel:
+        - relation: match
     - name: accessed
       level: extended
       type: date
@@ -197,7 +221,8 @@
         Last time the file was accessed.
 
         Note that not all filesystems keep track of access time.
-
+      otel:
+        - relation: match
     - name: mime_type
       level: extended
       type: keyword
@@ -225,3 +250,21 @@
 
       short: A fork is additional data associated with a filesystem object.
       example: Zone.Identifer
+      otel:
+        - relation: match
+
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+      beta: This field is beta and subject to change.
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
+      beta: This field is beta and subject to change.

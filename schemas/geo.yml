@@ -46,7 +46,11 @@
       description: >
         Longitude and latitude.
       example: '{ "lon": -73.614830, "lat": 45.505918 }'
-
+      otel:
+        - relation: related
+          attribute: geo.location.lat
+        - relation: related
+          attribute: geo.location.lon
     - name: continent_code
       level: core
       type: keyword
@@ -54,7 +58,9 @@
       description: >
         Two-letter code representing continent's name.
       example: NA
-
+      otel:
+        - relation: equivalent
+          attribute: geo.continent.code
     - name: continent_name
       level: core
       type: keyword
@@ -82,14 +88,18 @@
       description: >
         City name.
       example: Montreal
-
+      otel:
+        - relation: equivalent
+          attribute: geo.locality.name
     - name: country_iso_code
       level: core
       type: keyword
       description: >
         Country ISO code.
       example: CA
-
+      otel:
+        - relation: equivalent
+          attribute: geo.country.iso_code
     - name: postal_code
       level: core
       type: keyword
@@ -101,14 +111,17 @@
          as a postcode or ZIP code and will vary widely from
          country to country.
       example: 94040
-
+      otel:
+        - relation: match
     - name: region_iso_code
       level: core
       type: keyword
       description: >
         Region ISO code.
       example: CA-QC
-
+      otel:
+        - relation: equivalent
+          attribute: geo.region.iso_code
     - name: timezone
       level: core
       type: keyword

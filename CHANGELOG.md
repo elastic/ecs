@@ -3,6 +3,48 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.17.0](https://github.com/elastic/ecs/compare/v8.16.0...v8.17.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fix link rendering issues and usage of http in links. #2423
+
+#### Improvements
+
+* Increase ignore_above value for url.query. #2424
+* Set synthetic_source_keep = none on fields that represent sets. #2422
+
+## [8.16.0](https://github.com/elastic/ecs/compare/v8.11.0...v8.16.0)
+
+### Schema Changes
+
+#### Bugfixes
+* Fix broken link in docs for vulnerability.id. #2328
+
+#### Added
+
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+
+#### Improvements
+
+* Define base encoding of `x509.serial_number`. #2383
+
+### Tooling and Artifact Changes
+
+#### Bugfixes
+
+* Fix broken link for vulnerabilty.id #2328
+
+#### Added
+
+* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
+
 ## [8.11.0](https://github.com/elastic/ecs/compare/v8.10.0...v8.11.0)
 
 ### Schema Changes

@@ -12,18 +12,22 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Remove deprecated fields from previous major release; `process.pgid`, `service.node.role`, and inherited users. #2410
+
 #### Bugfixes
-* Fix broken link in docs for vulnerability.id. #2328
+
+* Fix link rendering issues and usage of http in links. #2423
 
 #### Added
-
-* Added `volume.*` as beta field set. #2269
-* Advanced `process.env_vars` to GA. #2315
-* Advanced `process.io` and `process.tty` fields to GA. #2317
-* Added `threat.indicator.id`. #2324
-* Added `process.group` to generated schemas. #2335
+* Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
 #### Improvements
+
+* Promote beta fields to GA. #2411
+* Define base encoding of `x509.serial_number`. #2383
+* Restrict the encoding of `x509.serial_number` to base 16. #2398
+* Set synthetic_source_keep = none on fields that represent sets. #2422
+* Increase ignore_above value for url.query. #2424
 
 #### Deprecated
 
@@ -34,8 +38,6 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 #### Added
-
-* Documentation in README.md providing instruction on contributions to ECS during the OTel donation #2325
 
 #### Improvements
 

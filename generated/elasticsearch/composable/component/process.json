@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "8.12.0-dev"
+    "ecs_version": "9.0.0-dev"
   },
   "template": {
     "mappings": {
@@ -25,7 +25,8 @@
                   "type": "boolean"
                 },
                 "flags": {
-                  "type": "string"
+                  "ignore_above": 1024,
+                  "type": "keyword"
                 },
                 "signing_id": {
                   "ignore_above": 1024,
@@ -470,6 +471,7 @@
             },
             "env_vars": {
               "ignore_above": 1024,
+              "synthetic_source_keep": "none",
               "type": "keyword"
             },
             "executable": {
@@ -832,7 +834,8 @@
                       "type": "boolean"
                     },
                     "flags": {
-                      "type": "string"
+                      "ignore_above": 1024,
+                      "type": "keyword"
                     },
                     "signing_id": {
                       "ignore_above": 1024,
@@ -1255,9 +1258,6 @@
                     }
                   }
                 },
-                "pgid": {
-                  "type": "long"
-                },
                 "pid": {
                   "type": "long"
                 },
@@ -1340,10 +1340,12 @@
                       "properties": {
                         "effective": {
                           "ignore_above": 1024,
+                          "synthetic_source_keep": "none",
                           "type": "keyword"
                         },
                         "permitted": {
                           "ignore_above": 1024,
+                          "synthetic_source_keep": "none",
                           "type": "keyword"
                         }
                       }
@@ -1500,9 +1502,6 @@
                   "type": "nested"
                 }
               }
-            },
-            "pgid": {
-              "type": "long"
             },
             "pid": {
               "type": "long"
@@ -1819,10 +1818,12 @@
                   "properties": {
                     "effective": {
                       "ignore_above": 1024,
+                      "synthetic_source_keep": "none",
                       "type": "keyword"
                     },
                     "permitted": {
                       "ignore_above": 1024,
+                      "synthetic_source_keep": "none",
                       "type": "keyword"
                     }
                   }
