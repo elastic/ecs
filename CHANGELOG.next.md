@@ -21,6 +21,8 @@ Thanks, you're awesome :-) -->
 #### Added
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
+* Add `email.return_path.address` #1947
+
 #### Improvements
 
 * Promote beta fields to GA. #2411
@@ -42,6 +44,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
+
 
 <!-- All empty sections:
 
