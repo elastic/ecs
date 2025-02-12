@@ -1321,25 +1321,21 @@ cloud:
     expected:
     - as: origin
       at: cloud
-      beta: Reusing the `cloud` fields in this location is currently considered beta.
       full: cloud.origin
       short_override: Provides the cloud information of the origin entity in case
         of an incoming request or event.
     - as: target
       at: cloud
-      beta: Reusing the `cloud` fields in this location is currently considered beta.
       full: cloud.target
       short_override: Provides the cloud information of the target entity in case
         of an outgoing request or event.
     top_level: true
   reused_here:
-  - beta: Reusing the `cloud` fields in this location is currently considered beta.
-    full: cloud.origin
+  - full: cloud.origin
     schema_name: cloud
     short: Provides the cloud information of the origin entity in case of an incoming
       request or event.
-  - beta: Reusing the `cloud` fields in this location is currently considered beta.
-    full: cloud.target
+  - full: cloud.target
     schema_name: cloud
     short: Provides the cloud information of the target entity in case of an outgoing
       request or event.
@@ -3259,7 +3255,6 @@ ecs:
   title: ECS
   type: group
 elf:
-  beta: These fields are in beta and are subject to change.
   description: These fields contain Linux Executable Linkable Format (ELF) metadata.
   fields:
     elf.architecture:
@@ -3674,11 +3669,9 @@ elf:
     expected:
     - as: elf
       at: file
-      beta: This field reuse is beta and subject to change.
       full: file.elf
     - as: elf
       at: process
-      beta: This field reuse is beta and subject to change.
       full: process.elf
     top_level: false
   short: These fields contain Linux Executable Linkable Format (ELF) metadata.
@@ -4538,8 +4531,7 @@ event:
           This value is not used by Elastic solutions for alert documents that are
           created by rules executing within the Kibana alerting framework.'
         name: alert
-      - beta: This event categorization value is beta and subject to change.
-        description: 'This value indicates events whose primary purpose is to store
+      - description: 'This value indicates events whose primary purpose is to store
           an inventory of assets/entities and their attributes. Assets/entities are
           objects (such as users and hosts) that are expected to be subjects of detailed
           analysis within the system.
@@ -5001,7 +4993,6 @@ event:
   title: Event
   type: group
 faas:
-  beta: These fields are in beta and are subject to change.
   description: The user fields describe information about the function as a service
     (FaaS) that is relevant to the event.
   fields:
@@ -6978,8 +6969,7 @@ file:
   - full: file.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
-  - beta: This field reuse is beta and subject to change.
-    full: file.elf
+  - full: file.elf
     schema_name: elf
     short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - beta: This field reuse is beta and subject to change.
@@ -7397,7 +7387,6 @@ host:
       short: Operating system architecture.
       type: keyword
     host.boot.id:
-      beta: This field is beta and subject to change.
       dashed_name: host-boot-id
       description: Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note
         the boot_id value from /proc may or may not be the same in containers as on
@@ -7858,7 +7847,6 @@ host:
       short: Operating system version as a raw string.
       type: keyword
     host.pid_ns_ino:
-      beta: This field is beta and subject to change.
       dashed_name: host-pid-ns-ino
       description: This is the inode number of the namespace in the namespace file
         system (nsfs). Unsigned int inum in include/linux/ns_common.h.
@@ -15666,8 +15654,7 @@ process:
   - full: process.code_signature
     schema_name: code_signature
     short: These fields contain information about binary code signatures.
-  - beta: This field reuse is beta and subject to change.
-    full: process.elf
+  - full: process.elf
     schema_name: elf
     short: These fields contain Linux Executable Linkable Format (ELF) metadata.
   - beta: This field reuse is beta and subject to change.
@@ -25860,7 +25847,6 @@ vlan:
   title: VLAN
   type: group
 volume:
-  beta: These fields are beta and are subject to change.
   description: Fields related to storage volume details.
   fields:
     volume.bus_type:
