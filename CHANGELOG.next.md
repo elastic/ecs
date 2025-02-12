@@ -21,6 +21,8 @@ Thanks, you're awesome :-) -->
 #### Added
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
+* Add email SMTP transmission fields for "MAIL FROM", "RCPT TO". #2413
+
 #### Improvements
 
 * Promote beta fields to GA. #2411

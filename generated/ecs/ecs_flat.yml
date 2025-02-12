@@ -2880,6 +2880,24 @@ email.local_id:
   normalize: []
   short: Unique identifier given by the source.
   type: keyword
+email.mailfrom.address:
+  beta: This field is beta and subject to change.
+  dashed_name: email-mailfrom-address
+  description: 'The address from the SMTP `MAIL` command associated with the email,
+    at the observed email relay host.
+
+    This is commonly called `MAIL FROM` value of the SMTP envelope.
+
+    For example, if the SMTP command is `MAIL FROM:<Smith@bar.com>`, this field has
+    a value of `Smith@bar.com`'
+  example: userx@y.foo.org
+  flat_name: email.mailfrom.address
+  ignore_above: 1024
+  level: extended
+  name: mailfrom.address
+  normalize: []
+  short: Email address from SMTP `MAIL` command.
+  type: keyword
 email.message_id:
   dashed_name: email-message-id
   description: Identifier from the RFC 5322 `Message-ID:` email header that refers
@@ -2902,6 +2920,25 @@ email.origination_timestamp:
   normalize: []
   short: Date and time the email was composed.
   type: date
+email.recipient.addresses:
+  beta: This field is beta and subject to change.
+  dashed_name: email-recipient-addresses
+  description: 'The email address(es) from SMTP `RCPT` command(s) associated with
+    the email message.
+
+    This is commonly called `RCPT TO` value of the SMTP envelope.
+
+    As there may be multiple `RCPT` commands during a single message transaction,
+    this may contain all email address from the entire transaction.'
+  example: '["Jones@foo.com", "Green@foo.com", "Brown@foo.com"]'
+  flat_name: email.recipient.addresses
+  ignore_above: 1024
+  level: extended
+  name: recipient.addresses
+  normalize:
+  - array
+  short: Recipient addresses from the SMTP `RCPT` commands.
+  type: keyword
 email.reply_to.address:
   dashed_name: email-reply-to-address
   description: The address that replies should be delivered to based on the value
