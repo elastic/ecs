@@ -26,31 +26,24 @@ rule.remediation | array | Enable encryption on all S3 buckets | Used to capture
 ## Usage
 
 <!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+The new remediation field will be used to track and manage remediation actions for compliance findings identified by the CIS benchmarks across AWS, GCP, and Azure environments. This field will help security teams to document the steps taken to address non-compliance issues, ensuring that all actions are recorded and can be audited. For example, if a CIS benchmark identifies that multi-factor authentication (MFA) is not enabled for all users, the remediation field will include details on how MFA was enabled and verified.
+
+In practice, this field will be leveraged by security operations teams to ensure that all compliance gaps are addressed promptly and effectively. It will also be used by auditors to verify that the organization is adhering to security best practices and regulatory requirements. By having a standardized field for remediation, organizations can streamline their compliance processes and improve their overall security posture.
 
 ## Source data
 
 <!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+Potential sources of data for the remediation field include:
 
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
+AWS Config rules and AWS Security Hub findings
+GCP Security Command Center findings
+Azure Security Center and Azure Policy compliance data
 -->
 
 ## Scope of impact
 
 <!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
+Currently this is achieved in product using a custom field, adding this new field will standardize the mapping for new and existing integrations. No major impact on Ingestion/ Kibana and Documentation expected.
 -->
 
 ## Concerns
