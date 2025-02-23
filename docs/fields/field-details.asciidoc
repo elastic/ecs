@@ -496,7 +496,7 @@ a| The highest registered client domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -532,7 +532,7 @@ example: `east`
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -821,17 +821,15 @@ Note also that the `cloud` fields may be used directly at the root of the events
 
 
 | `cloud.origin.*`
-| <<ecs-cloud,cloud>>| beta:[ Reusing the `cloud` fields in this location is currently considered beta.]
-
-Provides the cloud information of the origin entity in case of an incoming request or event.
+| <<ecs-cloud,cloud>>
+| Provides the cloud information of the origin entity in case of an incoming request or event.
 
 // ===============================================================
 
 
 | `cloud.target.*`
-| <<ecs-cloud,cloud>>| beta:[ Reusing the `cloud` fields in this location is currently considered beta.]
-
-Provides the cloud information of the target entity in case of an outgoing request or event.
+| <<ecs-cloud,cloud>>
+| Provides the cloud information of the target entity in case of an outgoing request or event.
 
 // ===============================================================
 
@@ -1596,7 +1594,7 @@ a| The highest registered destination domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -1632,7 +1630,7 @@ example: `east`
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -1838,6 +1836,42 @@ type: keyword
 example: `kernel32.dll`
 
 | core
+
+// ===============================================================
+
+|
+[[field-dll-origin-referrer-url]]
+<<field-dll-origin-referrer-url, dll.origin_referrer_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL of the webpage that linked to the dll file.
+
+type: keyword
+
+
+
+example: `http://example.com/article1.html`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-dll-origin-url]]
+<<field-dll-origin-url, dll.origin_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL where the dll file is hosted.
+
+type: keyword
+
+
+
+example: `http://example.com/files/example.dll`
+
+| extended
 
 // ===============================================================
 
@@ -2125,7 +2159,7 @@ a| The highest registered domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -2161,7 +2195,7 @@ example: `www`
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -2291,8 +2325,6 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 
 These fields contain Linux Executable Linkable Format (ELF) metadata.
 
-beta::[ These fields are in beta and are subject to change.]
-
 [discrete]
 ==== ELF Header Field Details
 
@@ -2391,7 +2423,7 @@ Note: this field should contain an array of values.
 
 a| A hash of the Go language imports in an ELF file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
 
-The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+The algorithm used to calculate the Go symbol hash and a reference implementation are available here: https://github.com/elastic/toutoumomoma
 
 type: keyword
 
@@ -3984,8 +4016,6 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 
 The user fields describe information about the function as a service (FaaS) that is relevant to the event.
 
-beta::[ These fields are in beta and are subject to change.]
-
 [discrete]
 ==== FaaS Field Details
 
@@ -4448,6 +4478,42 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 // ===============================================================
 
 |
+[[field-file-origin-referrer-url]]
+<<field-file-origin-referrer-url, file.origin_referrer_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL of the webpage that linked to the file.
+
+type: keyword
+
+
+
+example: `http://example.com/article1.html`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-file-origin-url]]
+<<field-file-origin-url, file.origin_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL where the file is hosted.
+
+type: keyword
+
+
+
+example: `http://example.com/imgs/article1_img1.jpg`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-file-owner]]
 <<field-file-owner, file.owner>>
 
@@ -4601,9 +4667,8 @@ Note also that the `file` fields may be used directly at the root of the events.
 
 
 | `file.elf.*`
-| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
-
-These fields contain Linux Executable Linkable Format (ELF) metadata.
+| <<ecs-elf,elf>>
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
@@ -5170,9 +5235,7 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 [[field-host-boot-id]]
 <<field-host-boot-id, host.boot.id>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
+a| Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
 
 type: keyword
 
@@ -5440,9 +5503,7 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 [[field-host-pid-ns-ino]]
 <<field-host-pid-ns-ino, host.pid_ns_ino>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.
+a| This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.
 
 type: keyword
 
@@ -6228,7 +6289,7 @@ beta::[ These fields are in beta and are subject to change.]
 
 a| A hash of the Go language imports in a Mach-O file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
 
-The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+The algorithm used to calculate the Go symbol hash and a reference implementation are available here: https://github.com/elastic/toutoumomoma
 
 type: keyword
 
@@ -7897,7 +7958,7 @@ example: `6.3.9600.17415`
 
 a| A hash of the Go language imports in a PE file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.
 
-The algorithm used to calculate the Go symbol hash and a reference implementation are available [here](https://github.com/elastic/toutoumomoma).
+The algorithm used to calculate the Go symbol hash and a reference implementation are available here: https://github.com/elastic/toutoumomoma
 
 type: keyword
 
@@ -8629,24 +8690,6 @@ example: `ssh`
 // ===============================================================
 
 |
-[[field-process-pgid]]
-<<field-process-pgid, process.pgid>>
-
-a| Deprecated for removal in next major version release. This field is superseded by `process.group_leader.pid`.
-
-Identifier of the group of processes the process belongs to.
-
-type: long
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-|
 [[field-process-pid]]
 <<field-process-pid, process.pid>>
 
@@ -9016,9 +9059,8 @@ The externally attested user based on an external source such as the Kube API.
 
 
 | `process.elf.*`
-| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
-
-These fields contain Linux Executable Linkable Format (ELF) metadata.
+| <<ecs-elf,elf>>
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
@@ -9934,7 +9976,7 @@ a| The highest registered server domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -9970,7 +10012,7 @@ example: `east`
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -10505,7 +10547,7 @@ a| The highest registered source domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -10541,7 +10583,7 @@ example: `east`
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -12804,7 +12846,7 @@ a| The highest registered url domain, stripped of the subdomain.
 
 For example, the registered domain for "foo.example.com" is "example.com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".
 
 type: keyword
 
@@ -12864,7 +12906,7 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 
 a| The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".
 
-This value can be determined precisely with a list like the public suffix list (http://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
+This value can be determined precisely with a list like the public suffix list (https://publicsuffix.org). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".
 
 type: keyword
 
@@ -13353,8 +13395,6 @@ Note also that the `vlan` fields are not expected to be used directly at the roo
 
 Fields related to storage volume details.
 
-beta::[ These fields are beta and are subject to change.]
-
 [discrete]
 ==== Volume Field Details
 
@@ -13663,7 +13703,7 @@ The vulnerability fields describe information about a vulnerability that is rele
 [[field-vulnerability-category]]
 <<field-vulnerability-category, vulnerability.category>>
 
-a| The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm[Qualys vulnerability categories])
+a| The type of system or architecture that the vulnerability affects. These may be platform-specific (for example, Debian or SUSE) or general (for example, Database or Firewall). For example (https://qualysguard.qualys.com/qwebhelp/fo_portal/knowledgebase/vulnerability_categories.htm)
 
 This field must be an array.
 
@@ -13700,7 +13740,7 @@ example: `CVSS`
 [[field-vulnerability-description]]
 <<field-vulnerability-description, vulnerability.description>>
 
-a| The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created[Common Vulnerabilities and Exposure CVE description])
+a| The description of the vulnerability that provides additional context of the vulnerability. For example (https://cve.mitre.org/about/faqs.html#cve_entry_descriptions_created)
 
 type: keyword
 
@@ -13738,7 +13778,7 @@ example: `CVE`
 [[field-vulnerability-id]]
 <<field-vulnerability-id, vulnerability.id>>
 
-a| The identification (ID) is the number portion of a vulnerability entry. It includes a unique identification number for the vulnerability. For example (https://cve.mitre.org/about/faqs.html#what_is_cve_id[Common Vulnerabilities and Exposure CVE ID])
+a| The identification (ID) is the number portion of a vulnerability entry. It includes a unique identification number for the vulnerability. For example (https://cve.mitre.org/about/faqs.html#what_is_cve_id)
 
 type: keyword
 

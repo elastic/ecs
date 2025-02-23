@@ -99,8 +99,6 @@
             `event.kind: asset` is not used for normal system events or logs that are coming
             from an asset/entity, nor is it used for system events or logs coming from a
             directory or CMDB system.
-          beta: >
-            This event categorization value is beta and subject to change.
         - name: enrichment
           description: >
             The `enrichment` value indicates an event collected to provide additional
@@ -173,6 +171,7 @@
       example: authentication
       normalize:
         - array
+      synthetic_source_keep: "none"
       allowed_values:
         - name: api
           description: >
@@ -466,6 +465,7 @@
         that fall in multiple event types.
       normalize:
         - array
+      synthetic_source_keep: "none"
       allowed_values:
         - name: access
           description: >
@@ -819,6 +819,7 @@
     - name: url
       level: extended
       type: keyword
+      ignore_above: 2083
       short: Event investigation URL
       description: >
         URL linking to an external system to continue investigation of this event.
