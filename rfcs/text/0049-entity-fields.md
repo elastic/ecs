@@ -39,7 +39,7 @@ This approach would allow ECS to accommodate new types of entities without requi
 
 | Field | Type | Description |
 |-------|------|-------------|
-| entity.id | keyword | A unique identifier for the entity. This should be a stable, unique value that persists across different observations of the same entity. For entities with dedicated field sets (e.g., host.id, user.id), this value should match the corresponding *.id field. |
+| entity.id | keyword | A unique identifier for the entity. When multiple identifiers exist, this should be the most stable and commonly used identifier that: 1) persists across the entity's lifecycle, 2) ensures uniqueness within its scope, 3) is commonly used for queries and correlation, and 4) is readily available in most observations (logs/events). For entities with dedicated field sets (e.g., host, user), this value should match the corresponding *.id field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved in entity.raw. |
 | entity.source | keyword | The module or integration that provided this entity data (similar to event.module). |
 | entity.category | keyword | A standardized high-level classification of the entity type. This provides a normalized way to group similar entities across different providers or systems. Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`, `user`, etc.,. There will be an allowed set of values maintained for this field to ensure consistency. |
 | entity.type | keyword | The specific type designation for the entity as defined by its provider or system. This field provides more granular classification than entity.category. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container` would all map to category `bucket`. |
