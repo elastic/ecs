@@ -166,6 +166,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,dll,dll.hash.ssdeep,keyword,extended,,,SSDEEP hash.
 9.0.0-dev+exp,true,dll,dll.hash.tlsh,keyword,extended,,,TLSH hash.
 9.0.0-dev+exp,true,dll,dll.name,keyword,core,,kernel32.dll,Name of the library.
+9.0.0-dev+exp,true,dll,dll.origin_referrer_url,keyword,extended,,http://example.com/article1.html,The URL of the webpage that linked to the dll file.
+9.0.0-dev+exp,true,dll,dll.origin_url,keyword,extended,,http://example.com/files/example.dll,The URL where the dll file is hosted.
 9.0.0-dev+exp,true,dll,dll.path,keyword,extended,,C:\Windows\System32\kernel32.dll,Full file path of the library.
 9.0.0-dev+exp,true,dll,dll.pe.architecture,keyword,extended,,x64,CPU architecture target for the file.
 9.0.0-dev+exp,true,dll,dll.pe.company,keyword,extended,,Microsoft Corporation,"Internal company name of the file, provided at compile-time."
@@ -364,6 +366,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,file,file.mode,keyword,extended,,0640,Mode of the file in octal representation.
 9.0.0-dev+exp,true,file,file.mtime,date,extended,,,Last time the file content was modified.
 9.0.0-dev+exp,true,file,file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+9.0.0-dev+exp,true,file,file.origin_referrer_url,keyword,extended,,http://example.com/article1.html,The URL of the webpage that linked to the file.
+9.0.0-dev+exp,true,file,file.origin_url,keyword,extended,,http://example.com/imgs/article1_img1.jpg,The URL where the file is hosted.
 9.0.0-dev+exp,true,file,file.owner,keyword,extended,,alice,File owner's username.
 9.0.0-dev+exp,true,file,file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 9.0.0-dev+exp,true,file,file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
@@ -884,7 +888,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,process,process.parent.pe.sections.physical_size,long,extended,,,PE Section List physical size.
 9.0.0-dev+exp,true,process,process.parent.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 9.0.0-dev+exp,true,process,process.parent.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
-9.0.0-dev+exp,true,process,process.parent.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 9.0.0-dev+exp,true,process,process.parent.pid,long,core,,4242,Process id.
 9.0.0-dev+exp,true,process,process.parent.real_group.id,keyword,extended,,,Unique identifier for the group on the system/platform.
 9.0.0-dev+exp,true,process,process.parent.real_group.name,keyword,extended,,,Name of the group.
@@ -938,7 +941,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,process,process.pe.sections.physical_size,long,extended,,,PE Section List physical size.
 9.0.0-dev+exp,true,process,process.pe.sections.var_entropy,long,extended,,,Variance for Shannon entropy calculation from the section.
 9.0.0-dev+exp,true,process,process.pe.sections.virtual_size,long,extended,,,PE Section List virtual size. This is always the same as `physical_size`.
-9.0.0-dev+exp,true,process,process.pgid,long,extended,,,Deprecated identifier of the group of processes the process belongs to.
 9.0.0-dev+exp,true,process,process.pid,long,core,,4242,Process id.
 9.0.0-dev+exp,true,process,process.previous.args,keyword,extended,array,"[""/usr/bin/ssh"", ""-l"", ""user"", ""10.0.0.16""]",Array of process arguments.
 9.0.0-dev+exp,true,process,process.previous.args_count,long,extended,,4,Length of the process.args array.
@@ -1230,6 +1232,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.mtime,date,extended,,,Last time the file content was modified.
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.origin_referrer_url,keyword,extended,,http://example.com/article1.html,The URL of the webpage that linked to the file.
+9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.origin_url,keyword,extended,,http://example.com/imgs/article1_img1.jpg,The URL where the file is hosted.
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.owner,keyword,extended,,alice,File owner's username.
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 9.0.0-dev+exp,true,threat,threat.enrichments.indicator.file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."
@@ -1449,6 +1453,8 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.0.0-dev+exp,true,threat,threat.indicator.file.mode,keyword,extended,,0640,Mode of the file in octal representation.
 9.0.0-dev+exp,true,threat,threat.indicator.file.mtime,date,extended,,,Last time the file content was modified.
 9.0.0-dev+exp,true,threat,threat.indicator.file.name,keyword,extended,,example.png,"Name of the file including the extension, without the directory."
+9.0.0-dev+exp,true,threat,threat.indicator.file.origin_referrer_url,keyword,extended,,http://example.com/article1.html,The URL of the webpage that linked to the file.
+9.0.0-dev+exp,true,threat,threat.indicator.file.origin_url,keyword,extended,,http://example.com/imgs/article1_img1.jpg,The URL where the file is hosted.
 9.0.0-dev+exp,true,threat,threat.indicator.file.owner,keyword,extended,,alice,File owner's username.
 9.0.0-dev+exp,true,threat,threat.indicator.file.path,keyword,extended,,/home/alice/example.png,"Full path to the file, including the file name."
 9.0.0-dev+exp,true,threat,threat.indicator.file.path.text,match_only_text,extended,,/home/alice/example.png,"Full path to the file, including the file name."

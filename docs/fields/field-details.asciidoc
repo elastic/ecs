@@ -821,17 +821,15 @@ Note also that the `cloud` fields may be used directly at the root of the events
 
 
 | `cloud.origin.*`
-| <<ecs-cloud,cloud>>| beta:[ Reusing the `cloud` fields in this location is currently considered beta.]
-
-Provides the cloud information of the origin entity in case of an incoming request or event.
+| <<ecs-cloud,cloud>>
+| Provides the cloud information of the origin entity in case of an incoming request or event.
 
 // ===============================================================
 
 
 | `cloud.target.*`
-| <<ecs-cloud,cloud>>| beta:[ Reusing the `cloud` fields in this location is currently considered beta.]
-
-Provides the cloud information of the target entity in case of an outgoing request or event.
+| <<ecs-cloud,cloud>>
+| Provides the cloud information of the target entity in case of an outgoing request or event.
 
 // ===============================================================
 
@@ -1842,6 +1840,42 @@ example: `kernel32.dll`
 // ===============================================================
 
 |
+[[field-dll-origin-referrer-url]]
+<<field-dll-origin-referrer-url, dll.origin_referrer_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL of the webpage that linked to the dll file.
+
+type: keyword
+
+
+
+example: `http://example.com/article1.html`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-dll-origin-url]]
+<<field-dll-origin-url, dll.origin_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL where the dll file is hosted.
+
+type: keyword
+
+
+
+example: `http://example.com/files/example.dll`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-dll-path]]
 <<field-dll-path, dll.path>>
 
@@ -2290,8 +2324,6 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 === ELF Header Fields
 
 These fields contain Linux Executable Linkable Format (ELF) metadata.
-
-beta::[ These fields are in beta and are subject to change.]
 
 [discrete]
 ==== ELF Header Field Details
@@ -3984,8 +4016,6 @@ example: `https://mysystem.example.com/alert/5271dedb-f5b0-4218-87f0-4ac4870a38f
 
 The user fields describe information about the function as a service (FaaS) that is relevant to the event.
 
-beta::[ These fields are in beta and are subject to change.]
-
 [discrete]
 ==== FaaS Field Details
 
@@ -4448,6 +4478,42 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 // ===============================================================
 
 |
+[[field-file-origin-referrer-url]]
+<<field-file-origin-referrer-url, file.origin_referrer_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL of the webpage that linked to the file.
+
+type: keyword
+
+
+
+example: `http://example.com/article1.html`
+
+| extended
+
+// ===============================================================
+
+|
+[[field-file-origin-url]]
+<<field-file-origin-url, file.origin_url>>
+
+a| beta:[ This field is beta and subject to change. ]
+
+The URL where the file is hosted.
+
+type: keyword
+
+
+
+example: `http://example.com/imgs/article1_img1.jpg`
+
+| extended
+
+// ===============================================================
+
+|
 [[field-file-owner]]
 <<field-file-owner, file.owner>>
 
@@ -4601,9 +4667,8 @@ Note also that the `file` fields may be used directly at the root of the events.
 
 
 | `file.elf.*`
-| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
-
-These fields contain Linux Executable Linkable Format (ELF) metadata.
+| <<ecs-elf,elf>>
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
@@ -5170,9 +5235,7 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 [[field-host-boot-id]]
 <<field-host-boot-id, host.boot.id>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
+a| Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.
 
 type: keyword
 
@@ -5440,9 +5503,7 @@ image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentele
 [[field-host-pid-ns-ino]]
 <<field-host-pid-ns-ino, host.pid_ns_ino>>
 
-a| beta:[ This field is beta and subject to change. ]
-
-This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.
+a| This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.
 
 type: keyword
 
@@ -8629,24 +8690,6 @@ example: `ssh`
 // ===============================================================
 
 |
-[[field-process-pgid]]
-<<field-process-pgid, process.pgid>>
-
-a| Deprecated for removal in next major version release. This field is superseded by `process.group_leader.pid`.
-
-Identifier of the group of processes the process belongs to.
-
-type: long
-
-
-
-
-
-| extended
-
-// ===============================================================
-
-|
 [[field-process-pid]]
 <<field-process-pid, process.pid>>
 
@@ -9016,9 +9059,8 @@ The externally attested user based on an external source such as the Kube API.
 
 
 | `process.elf.*`
-| <<ecs-elf,elf>>| beta:[ This field reuse is beta and subject to change.]
-
-These fields contain Linux Executable Linkable Format (ELF) metadata.
+| <<ecs-elf,elf>>
+| These fields contain Linux Executable Linkable Format (ELF) metadata.
 
 // ===============================================================
 
@@ -13352,8 +13394,6 @@ Note also that the `vlan` fields are not expected to be used directly at the roo
 === Volume Fields
 
 Fields related to storage volume details.
-
-beta::[ These fields are beta and are subject to change.]
 
 [discrete]
 ==== Volume Field Details

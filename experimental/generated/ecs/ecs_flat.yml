@@ -2112,6 +2112,30 @@ dll.name:
   normalize: []
   short: Name of the library.
   type: keyword
+dll.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-origin-referrer-url
+  description: The URL of the webpage that linked to the dll file.
+  example: http://example.com/article1.html
+  flat_name: dll.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  short: The URL of the webpage that linked to the dll file.
+  type: keyword
+dll.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: dll-origin-url
+  description: The URL where the dll file is hosted.
+  example: http://example.com/files/example.dll
+  flat_name: dll.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  short: The URL where the dll file is hosted.
+  type: keyword
 dll.path:
   dashed_name: dll-path
   description: Full file path of the library.
@@ -3491,8 +3515,7 @@ event.kind:
       This value is not used by Elastic solutions for alert documents that are created
       by rules executing within the Kibana alerting framework.'
     name: alert
-  - beta: This event categorization value is beta and subject to change.
-    description: 'This value indicates events whose primary purpose is to store an
+  - description: 'This value indicates events whose primary purpose is to store an
       inventory of assets/entities and their attributes. Assets/entities are objects
       (such as users and hosts) that are expected to be subjects of detailed analysis
       within the system.
@@ -5151,6 +5174,30 @@ file.name:
     stability: experimental
   short: Name of the file including the extension, without the directory.
   type: keyword
+file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  short: The URL where the file is hosted.
+  type: keyword
 file.owner:
   dashed_name: file-owner
   description: File owner's username.
@@ -5883,7 +5930,6 @@ host.architecture:
   short: Operating system architecture.
   type: keyword
 host.boot.id:
-  beta: This field is beta and subject to change.
   dashed_name: host-boot-id
   description: Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the
     boot_id value from /proc may or may not be the same in containers as on the host.
@@ -6342,7 +6388,6 @@ host.os.version:
   short: Operating system version as a raw string.
   type: keyword
 host.pid_ns_ino:
-  beta: This field is beta and subject to change.
   dashed_name: host-pid-ns-ino
   description: This is the inode number of the namespace in the namespace file system
     (nsfs). Unsigned int inum in include/linux/ns_common.h.
@@ -11631,20 +11676,6 @@ process.parent.pe.sections.virtual_size:
   original_fieldset: pe
   short: PE Section List virtual size. This is always the same as `physical_size`.
   type: long
-process.parent.pgid:
-  dashed_name: process-parent-pgid
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `process.group_leader.pid`.
-
-    Identifier of the group of processes the process belongs to.'
-  flat_name: process.parent.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  original_fieldset: process
-  short: Deprecated identifier of the group of processes the process belongs to.
-  type: long
 process.parent.pid:
   dashed_name: process-parent-pid
   description: Process id.
@@ -12259,19 +12290,6 @@ process.pe.sections.virtual_size:
   normalize: []
   original_fieldset: pe
   short: PE Section List virtual size. This is always the same as `physical_size`.
-  type: long
-process.pgid:
-  dashed_name: process-pgid
-  description: 'Deprecated for removal in next major version release. This field is
-    superseded by `process.group_leader.pid`.
-
-    Identifier of the group of processes the process belongs to.'
-  flat_name: process.pgid
-  format: string
-  level: extended
-  name: pgid
-  normalize: []
-  short: Deprecated identifier of the group of processes the process belongs to.
   type: long
 process.pid:
   dashed_name: process-pid
@@ -16055,6 +16073,32 @@ threat.enrichments.indicator.file.name:
   original_fieldset: file
   short: Name of the file including the extension, without the directory.
   type: keyword
+threat.enrichments.indicator.file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: threat.enrichments.indicator.file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  original_fieldset: file
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+threat.enrichments.indicator.file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-enrichments-indicator-file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: threat.enrichments.indicator.file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  original_fieldset: file
+  short: The URL where the file is hosted.
+  type: keyword
 threat.enrichments.indicator.file.owner:
   dashed_name: threat-enrichments-indicator-file-owner
   description: File owner's username.
@@ -18791,6 +18835,32 @@ threat.indicator.file.name:
   normalize: []
   original_fieldset: file
   short: Name of the file including the extension, without the directory.
+  type: keyword
+threat.indicator.file.origin_referrer_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-origin-referrer-url
+  description: The URL of the webpage that linked to the file.
+  example: http://example.com/article1.html
+  flat_name: threat.indicator.file.origin_referrer_url
+  ignore_above: 8192
+  level: extended
+  name: origin_referrer_url
+  normalize: []
+  original_fieldset: file
+  short: The URL of the webpage that linked to the file.
+  type: keyword
+threat.indicator.file.origin_url:
+  beta: This field is beta and subject to change.
+  dashed_name: threat-indicator-file-origin-url
+  description: The URL where the file is hosted.
+  example: http://example.com/imgs/article1_img1.jpg
+  flat_name: threat.indicator.file.origin_url
+  ignore_above: 8192
+  level: extended
+  name: origin_url
+  normalize: []
+  original_fieldset: file
+  short: The URL where the file is hosted.
   type: keyword
 threat.indicator.file.owner:
   dashed_name: threat-indicator-file-owner
