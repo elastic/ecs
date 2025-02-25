@@ -1,0 +1,55 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-hash.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Hash fields [ecs-hash]
+
+The hash fields represent different bitwise hash algorithms and their values.
+
+Field names for common hashes (e.g. MD5, SHA1) are predefined. Add fields for other hashes by lowercasing the hash algorithm name and using underscore separators as appropriate (snake case, e.g. sha3_512).
+
+Note that this fieldset is used for common hashes that may be computed over a range of generic bytes. Entity-specific hashes such as ja3 or imphash are placed in the fieldsets to which they relate (tls and pe, respectively).
+
+
+## Hash field details [_hash_field_details]
+
+::::{tab-set}
+
+:::{tab-item} Fields
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-hash-md5$$$[hash.md5](#field-hash-md5) | MD5 hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-sha1$$$[hash.sha1](#field-hash-sha1) | SHA1 hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-sha256$$$[hash.sha256](#field-hash-sha256) | SHA256 hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-sha384$$$[hash.sha384](#field-hash-sha384) | SHA384 hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-sha512$$$[hash.sha512](#field-hash-sha512) | SHA512 hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-ssdeep$$$[hash.ssdeep](#field-hash-ssdeep) | SSDEEP hash.<br><br>type: keyword<br> | extended |
+| $$$field-hash-tlsh$$$[hash.tlsh](#field-hash-tlsh) | TLSH hash.<br><br>type: keyword<br> | extended |
+
+:::
+
+:::{tab-item} Beta Fields
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-hash-cdhash$$$[hash.cdhash](#field-hash-cdhash) | Code directory hash, utilized to uniquely identify and authenticate the integrity of the executable code.<br><br>type: keyword<br><br>example: `3783b4052fd474dbe30676b45c329e7a6d44acd9`<br> | extended |
+
+:::
+::::
+
+## Field reuse [_field_reuse_12]
+
+The `hash` fields are expected to be nested at:
+
+* `dll.hash`
+* `email.attachments.file.hash`
+* `file.hash`
+* `process.hash`
+
+Note also that the `hash` fields are not expected to be used directly at the root of the events.
+

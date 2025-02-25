@@ -1,0 +1,39 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-risk.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Risk information fields [ecs-risk]
+
+Fields for describing risk score and risk level of entities such as hosts and users. These fields are not allowed to be nested under `event.*`. Please continue to use `event.risk_score` and `event.risk_score_norm` for event risk.
+
+::::{warning}
+These fields are in beta and are subject to change.
+::::
+
+
+
+## Risk information field details [_risk_information_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-risk-calculated-level$$$[risk.calculated_level](#field-risk-calculated-level) | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: keyword<br><br>example: `High`<br> | extended |
+| $$$field-risk-calculated-score$$$[risk.calculated_score](#field-risk-calculated-score) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: float<br><br>example: `880.73`<br> | extended |
+| $$$field-risk-calculated-score-norm$$$[risk.calculated_score_norm](#field-risk-calculated-score-norm) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `88.73`<br> | extended |
+| $$$field-risk-static-level$$$[risk.static_level](#field-risk-static-level) | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: keyword<br><br>example: `High`<br> | extended |
+| $$$field-risk-static-score$$$[risk.static_score](#field-risk-static-score) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: float<br><br>example: `830.0`<br> | extended |
+| $$$field-risk-static-score-norm$$$[risk.static_score_norm](#field-risk-static-score-norm) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `83.0`<br> | extended |
+
+
+## Field reuse [_field_reuse_22]
+
+The `risk` fields are expected to be nested at:
+
+* `host.risk`
+* `user.risk`
+
+Note also that the `risk` fields are not expected to be used directly at the root of the events.
+

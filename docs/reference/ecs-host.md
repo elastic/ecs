@@ -1,0 +1,64 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-host.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Host fields [ecs-host]
+
+A host is defined as a general computing instance.
+
+ECS host.* fields should be populated with details about the host on which the event happened, or from which the measurement was taken. Host types include hardware, virtual machines, Docker containers, and Kubernetes nodes.
+
+
+## Host field details [_host_field_details]
+
+::::{tab-set}
+
+:::{tab-item} Fields
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-host-architecture$$$[host.architecture](#field-host-architecture) | Operating system architecture.<br><br>type: keyword<br><br>example: `x86_64`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [host.arch](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-arch)<br> | core |
+| $$$field-host-cpu-usage$$$[host.cpu.usage](#field-host-cpu-usage) | Percent CPU used which is normalized by the number of CPU cores and it ranges from 0 to 1.<br><br>Scaling factor: 1000.<br><br>For example: For a two core host, this value should be the average of the two cores, between 0 and 1.<br><br>type: scaled_float<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.cpu.utilization](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.cpu.utilization+--%3E%22&type=code)<br> | extended |
+| $$$field-host-disk-read-bytes$$$[host.disk.read.bytes](#field-host-disk-read-bytes) | The total number of bytes (gauge) read successfully (aggregated from all disks) since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.disk.io](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.disk.io+--%3E%22&type=code)<br> | extended |
+| $$$field-host-disk-write-bytes$$$[host.disk.write.bytes](#field-host-disk-write-bytes) | The total number of bytes (gauge) written successfully (aggregated from all disks) since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.disk.io](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.disk.io+--%3E%22&type=code)<br> | extended |
+| $$$field-host-domain$$$[host.domain](#field-host-domain) | Name of the domain of which the host is a member.<br><br>For example, on Windows this could be the host’s Active Directory domain or NetBIOS domain name. For Linux this could be the domain of the host’s LDAP provider.<br><br>type: keyword<br><br>example: `CONTOSO`<br> | extended |
+| $$$field-host-hostname$$$[host.hostname](#field-host-hostname) | Hostname of the host.<br><br>It normally contains what the `hostname` command returns on the host machine.<br><br>type: keyword<br> | core |
+| $$$field-host-id$$$[host.id](#field-host-id) | Unique host id.<br><br>As hostname is not always unique, use values that are meaningful in your environment.<br><br>Example: The current usage of `beat.name`.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [host.id](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-id)<br> | core |
+| $$$field-host-ip$$$[host.ip](#field-host-ip) | Host ip addresses.<br><br>type: ip<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [host.ip](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-ip)<br> | core |
+| $$$field-host-mac$$$[host.mac](#field-host-mac) | Host MAC addresses.<br><br>The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>example: `["00-00-5E-00-53-23", "00-00-5E-00-53-24"]`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [host.mac](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-mac)<br> | core |
+| $$$field-host-name$$$[host.name](#field-host-name) | Name of the host.<br><br>It can contain what hostname returns on Unix systems, the fully qualified domain name (FQDN), or a name specified by the user. The recommended value is the lowercase FQDN of the host.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [host.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-name)<br> | core |
+| $$$field-host-network-egress-bytes$$$[host.network.egress.bytes](#field-host-network-egress-bytes) | The number of bytes (gauge) sent out on all network interfaces by the host since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.network.io](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.network.io+--%3E%22&type=code)<br> | extended |
+| $$$field-host-network-egress-packets$$$[host.network.egress.packets](#field-host-network-egress-packets) | The number of packets (gauge) sent out on all network interfaces by the host since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.network.packets](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.network.packets+--%3E%22&type=code)<br> | extended |
+| $$$field-host-network-ingress-bytes$$$[host.network.ingress.bytes](#field-host-network-ingress-bytes) | The number of bytes received (gauge) on all network interfaces by the host since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.network.io](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.network.io+--%3E%22&type=code)<br> | extended |
+| $$$field-host-network-ingress-packets$$$[host.network.ingress.packets](#field-host-network-ingress-packets) | The number of packets (gauge) received on all network interfaces by the host since the last metric collection.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.network.packets](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.network.packets+--%3E%22&type=code)<br> | extended |
+| $$$field-host-type$$$[host.type](#field-host-type) | Type of host.<br><br>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [host.type](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-type)<br> | core |
+| $$$field-host-uptime$$$[host.uptime](#field-host-uptime) | Seconds the host has been up.<br><br>type: long<br><br>example: `1325`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [system.uptime](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.system.uptime+--%3E%22&type=code)<br> | extended |
+
+:::
+
+:::{tab-item} Beta Fields
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-host-boot-id$$$[host.boot.id](#field-host-boot-id) | Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note the boot_id value from /proc may or may not be the same in containers as on the host. Some container runtimes will bind mount a new boot_id value onto the proc file in each container.<br><br>type: keyword<br><br>example: `88a1f0ed-5ae5-41ee-af6b-41921c311872`<br> | extended |
+| $$$field-host-pid-ns-ino$$$[host.pid_ns_ino](#field-host-pid-ns-ino) | This is the inode number of the namespace in the namespace file system (nsfs). Unsigned int inum in include/linux/ns_common.h.<br><br>type: keyword<br><br>example: `256383`<br> | extended |
+
+:::
+::::
+
+
+## Field reuse [_field_reuse_13]
+
+
+### Field sets that can be nested under host [ecs-host-nestings]
+
+| Location | Field Set | Description |
+| --- | --- | --- |
+| `host.geo.*` | [geo](/reference/ecs-geo.md) | Fields describing a location. |
+| `host.os.*` | [os](/reference/ecs-os.md) | OS fields contain information about the operating system. |
+| `host.risk.*` | [risk](/reference/ecs-risk.md) | Fields for describing risk score and level. |
+

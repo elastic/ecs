@@ -1,0 +1,19 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-ecs.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# ECS fields [ecs-ecs]
+
+Meta-information specific to ECS.
+
+
+## ECS field details [_ecs_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-ecs-version$$$[ecs.version](#field-ecs-version) | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br><br>When querying across multiple indices — which may conform to slightly different ECS versions — this field lets integrations adjust to the schema version of the events.<br><br>type: keyword<br><br>example: `1.0.0`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | core |
+

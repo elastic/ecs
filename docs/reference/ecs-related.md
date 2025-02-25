@@ -1,0 +1,26 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-related.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Related fields [ecs-related]
+
+This field set is meant to facilitate pivoting around a piece of data.
+
+Some pieces of information can be seen in many places in an ECS event. To facilitate searching for them, store an array of all seen values to their corresponding field in `related.`.
+
+A concrete example is IP addresses, which can be under host, observer, source, destination, client, server, and network.forwarded_ip. If you append all IPs to `related.ip`, you can then search for a given IP trivially, no matter where it appeared, by querying `related.ip:192.0.2.15`.
+
+
+## Related field details [_related_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-related-hash$$$[related.hash](#field-related-hash) | All the hashes seen on your event. Populating this field, then using it to search for hashes can help in situations where you’re unsure what the hash algorithm is (and therefore which key name to search).<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+| $$$field-related-hosts$$$[related.hosts](#field-related-hosts) | All hostnames or other host identifiers seen on your event. Example identifiers include FQDNs, domain names, workstation names, or aliases.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+| $$$field-related-ip$$$[related.ip](#field-related-ip) | All of the IPs seen on your event.<br><br>type: ip<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+| $$$field-related-user$$$[related.user](#field-related-user) | All the user names or other user identifiers seen on the event.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+

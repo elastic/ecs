@@ -1,0 +1,36 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-os.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Operating system fields [ecs-os]
+
+The OS fields contain information about the operating system.
+
+
+## Operating system field details [_operating_system_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-os-family$$$[os.family](#field-os-family) | OS family (such as redhat, debian, freebsd, windows).<br><br>type: keyword<br><br>example: `debian`<br> | extended |
+| $$$field-os-full$$$[os.full](#field-os-full) | Operating system name, including the version or code name.<br><br>type: keyword<br><br>Multi-fields:<br><br>- os.full.text (type: match_only_text)<br><br>example: `Mac OS Mojave`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [os.description](https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-description)<br> | extended |
+| $$$field-os-kernel$$$[os.kernel](#field-os-kernel) | Operating system kernel version as a raw string.<br><br>type: keyword<br><br>example: `4.4.0-112-generic`<br> | extended |
+| $$$field-os-name$$$[os.name](#field-os-name) | Operating system name, without the version.<br><br>type: keyword<br><br>Multi-fields:<br><br>- os.name.text (type: match_only_text)<br><br>example: `Mac OS X`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [os.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-name)<br> | extended |
+| $$$field-os-platform$$$[os.platform](#field-os-platform) | Operating system platform (such centos, ubuntu, windows).<br><br>type: keyword<br><br>example: `darwin`<br> | extended |
+| $$$field-os-type$$$[os.type](#field-os-type) | Use the `os.type` field to categorize the operating system into one of the broad commercial families.<br><br>If the OS you’re dealing with is not listed as an expected value, the field should not be populated. Please let us know by opening an issue with ECS, to propose its addition.<br><br>Expected values for this field:<br><br>- `linux`<br>- `macos`<br>- `unix`<br>- `windows`<br>- `ios`<br>- `android`<br><br>type: keyword<br><br>example: `macos`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/conflict-910000?style=flat "conflict") [os.type](https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-type)<br><br>Note: The expected values in ECS for `os.type` do not correspond with the values defined in semantic conventions!<br> | extended |
+| $$$field-os-version$$$[os.version](#field-os-version) | Operating system version as a raw string.<br><br>type: keyword<br><br>example: `10.14.1`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [os.version](https://opentelemetry.io/docs/specs/semconv/attributes-registry/os/#os-version)<br> | extended |
+
+
+## Field reuse [_field_reuse_18]
+
+The `os` fields are expected to be nested at:
+
+* `host.os`
+* `observer.os`
+* `user_agent.os`
+
+Note also that the `os` fields are not expected to be used directly at the root of the events.
+

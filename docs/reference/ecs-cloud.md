@@ -1,0 +1,57 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-cloud.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Cloud fields [ecs-cloud]
+
+Fields related to the cloud or infrastructure the events are coming from.
+
+
+## Cloud field details [_cloud_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-cloud-account-id$$$[cloud.account.id](#field-cloud-account-id) | The cloud account or organization id used to identify different entities in a multi-tenant environment.<br><br>Examples: AWS account id, Google Cloud ORG Id, or other unique identifier.<br><br>type: keyword<br><br>example: `666777888999`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [cloud.account.id](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-account-id)<br> | extended |
+| $$$field-cloud-account-name$$$[cloud.account.name](#field-cloud-account-name) | The cloud account name or alias used to identify different entities in a multi-tenant environment.<br><br>Examples: AWS account name, Google Cloud ORG display name.<br><br>type: keyword<br><br>example: `elastic-dev`<br> | extended |
+| $$$field-cloud-availability-zone$$$[cloud.availability_zone](#field-cloud-availability-zone) | Availability zone in which this host, resource, or service is located.<br><br>type: keyword<br><br>example: `us-east-1c`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [cloud.availability_zone](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-availability-zone)<br> | extended |
+| $$$field-cloud-instance-id$$$[cloud.instance.id](#field-cloud-instance-id) | Instance ID of the host machine.<br><br>type: keyword<br><br>example: `i-1234567890abcdef0`<br> | extended |
+| $$$field-cloud-instance-name$$$[cloud.instance.name](#field-cloud-instance-name) | Instance name of the host machine.<br><br>type: keyword<br> | extended |
+| $$$field-cloud-machine-type$$$[cloud.machine.type](#field-cloud-machine-type) | Machine type of the host machine.<br><br>type: keyword<br><br>example: `t2.medium`<br> | extended |
+| $$$field-cloud-project-id$$$[cloud.project.id](#field-cloud-project-id) | The cloud project identifier.<br><br>Examples: Google Cloud Project id, Azure Project id.<br><br>type: keyword<br><br>example: `my-project`<br> | extended |
+| $$$field-cloud-project-name$$$[cloud.project.name](#field-cloud-project-name) | The cloud project name.<br><br>Examples: Google Cloud Project name, Azure Project name.<br><br>type: keyword<br><br>example: `my project`<br> | extended |
+| $$$field-cloud-provider$$$[cloud.provider](#field-cloud-provider) | Name of the cloud provider. Example values are aws, azure, gcp, or digitalocean.<br><br>type: keyword<br><br>example: `aws`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [cloud.provider](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-provider)<br> | extended |
+| $$$field-cloud-region$$$[cloud.region](#field-cloud-region) | Region in which this host, resource, or service is located.<br><br>type: keyword<br><br>example: `us-east-1`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [cloud.region](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-region)<br> | extended |
+| $$$field-cloud-service-name$$$[cloud.service.name](#field-cloud-service-name) | The cloud service name is intended to distinguish services running on different platforms within a provider, eg AWS EC2 vs Lambda, GCP GCE vs App Engine, Azure VM vs App Server.<br><br>Examples: app engine, app service, cloud run, fargate, lambda.<br><br>type: keyword<br><br>example: `lambda`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [cloud.platform](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloud/#cloud-platform)<br> | extended |
+
+
+## Field reuse [_field_reuse_3]
+
+The `cloud` fields are expected to be nested at:
+
+* `cloud.origin`
+* `cloud.target`
+
+Note also that the `cloud` fields may be used directly at the root of the events.
+
+
+### Field sets that can be nested under Cloud [ecs-cloud-nestings]
+
+::::{warning}
+These fields are in beta and are subject to change.
+::::
+
+| Location | Field Set | Description |
+| --- | --- | --- |
+| `cloud.origin.*` | `cloud` | Provides the cloud information of the origin entity in case of an incoming request or event. |
+| `cloud.target.*` | `cloud` | Provides the cloud information of the target entity in case of an outgoing request or event. |
+
+
+## Cloud field usage [_cloud_field_usage]
+
+For usage and examples of the cloud fields, please see the [Cloud fields usage and examples](/reference/ecs-cloud-usage.md) section.
+
+
