@@ -1,0 +1,30 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-data_stream.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Data stream fields [ecs-data_stream]
+
+The data_stream fields take part in defining the new data stream naming scheme.
+
+In the new data stream naming scheme the value of the data stream fields combine to the name of the actual data stream in the following manner: `{data_stream.type}-{data_stream.dataset}-{data_stream.namespace}`. This means the fields can only contain characters that are valid as part of names of data streams. More details about this can be found in this [blog post](https://www.elastic.co/blog/an-introduction-to-the-elastic-data-stream-naming-scheme).
+
+An Elasticsearch data stream consists of one or more backing indices, and a data stream name forms part of the backing indices names. Due to this convention, data streams must also follow index naming restrictions. For example, data stream names cannot include `\`, `/`, `*`, `?`, `"`, `<`, `>`, `|`, ` ` (space character), `,`, or `#`. Please see the Elasticsearch reference for additional [restrictions](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create).
+
+::::{warning}
+These fields are in beta and are subject to change.
+::::
+
+
+
+## Data stream field details [_data_stream_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-data-stream-dataset$$$[data_stream.dataset](#field-data-stream-dataset) | The field can contain anything that makes sense to signify the source of the data.<br><br>Examples include `nginx.access`, `prometheus`, `endpoint` etc. For data streams that otherwise fit, but that do not have dataset set we use the value "generic" for the dataset value. `event.dataset` should have the same value as `data_stream.dataset`.<br><br>Beyond the Elasticsearch data stream naming criteria noted above, the `dataset` value has additional restrictions:<br><br>- Must not contain `-`<br>- No longer than 100 characters<br><br>type: constant_keyword<br><br>example: `nginx.access`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+| $$$field-data-stream-namespace$$$[data_stream.namespace](#field-data-stream-namespace) | A user defined namespace. Namespaces are useful to allow grouping of data.<br><br>Many users already organize their indices this way, and the data stream naming scheme now provides this best practice as a default. Many users will populate this field with `default`. If no value is used, it falls back to `default`.<br><br>Beyond the Elasticsearch index naming criteria noted above, `namespace` value has the additional restrictions:<br><br>- Must not contain `-`<br>- No longer than 100 characters<br><br>type: constant_keyword<br><br>example: `production`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+| $$$field-data-stream-type$$$[data_stream.type](#field-data-stream-type) | An overarching type for the data stream.<br><br>Currently allowed values are "logs" and "metrics". We expect to also add "traces" and "synthetics" in the near future.<br><br>type: constant_keyword<br><br>example: `logs`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "not-applicable") Not applicable.<br> | extended |
+

@@ -1,0 +1,46 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-server.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Server fields [ecs-server]
+
+A server is defined as the responder in a network connection for events regarding sessions, connections, or bidirectional flow records.
+
+For TCP events, the server is the receiver of the initial SYN packet(s) of the TCP connection. For other protocols, the server is generally the responder in the network transaction. Some systems actually use the term "responder" to refer the server in TCP connections. The server fields describe details about the system acting as the server in the network event. Server fields are usually populated in conjunction with client fields. Server fields are generally not populated for packet-level events.
+
+Client / server representations can add semantic context to an exchange, which is helpful to visualize the data in certain situations. If your context falls in that category, you should still ensure that source and destination are filled appropriately.
+
+
+## Server field details [_server_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-server-address$$$[server.address](#field-server-address) | Some event server addresses are defined ambiguously. The event will sometimes list an IP, a domain or a unix socket.  You should always store the raw address in the `.address` field.<br><br>Then it should be duplicated to `.ip` or `.domain`, depending on which one it is.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [server.address](https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-address)<br> | extended |
+| $$$field-server-bytes$$$[server.bytes](#field-server-bytes) | Bytes sent from the server to the client.<br><br>type: long<br><br>example: `184`<br> | core |
+| $$$field-server-domain$$$[server.domain](#field-server-domain) | The domain name of the server system.<br><br>This value may be a host name, a fully qualified domain name, or another host naming format. The value may derive from the original event or be added from enrichment.<br><br>type: keyword<br><br>example: `foo.example.com`<br> | core |
+| $$$field-server-ip$$$[server.ip](#field-server-ip) | IP address of the server (IPv4 or IPv6).<br><br>type: ip<br> | core |
+| $$$field-server-mac$$$[server.mac](#field-server-mac) | MAC address of the server.<br><br>The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit byte) is represented by two [uppercase] hexadecimal digits giving the value of the octet as an unsigned integer. Successive octets are separated by a hyphen.<br><br>type: keyword<br><br>example: `00-00-5E-00-53-23`<br> | core |
+| $$$field-server-nat-ip$$$[server.nat.ip](#field-server-nat-ip) | Translated ip of destination based NAT sessions (e.g. internet to private DMZ)<br><br>Typically used with load balancers, firewalls, or routers.<br><br>type: ip<br> | extended |
+| $$$field-server-nat-port$$$[server.nat.port](#field-server-nat-port) | Translated port of destination based NAT sessions (e.g. internet to private DMZ)<br><br>Typically used with load balancers, firewalls, or routers.<br><br>type: long<br> | extended |
+| $$$field-server-packets$$$[server.packets](#field-server-packets) | Packets sent from the server to the client.<br><br>type: long<br><br>example: `12`<br> | core |
+| $$$field-server-port$$$[server.port](#field-server-port) | Port of the server.<br><br>type: long<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [server.port](https://opentelemetry.io/docs/specs/semconv/attributes-registry/server/#server-port)<br> | core |
+| $$$field-server-registered-domain$$$[server.registered_domain](#field-server-registered-domain) | The highest registered server domain, stripped of the subdomain.<br><br>For example, the registered domain for "foo.example.com" is "example.com".<br><br>This value can be determined precisely with a list like the public suffix list ([https://publicsuffix.org](https://publicsuffix.org)). Trying to approximate this by simply taking the last two labels will not work well for TLDs such as "co.uk".<br><br>type: keyword<br><br>example: `example.com`<br> | extended |
+| $$$field-server-subdomain$$$[server.subdomain](#field-server-subdomain) | The subdomain portion of a fully qualified domain name includes all of the names except the host name under the registered_domain.  In a partially qualified domain, or if the the qualification level of the full name cannot be determined, subdomain contains all of the names below the registered domain.<br><br>For example the subdomain portion of "www.east.mydomain.co.uk" is "east". If the domain has multiple levels of subdomain, such as "sub2.sub1.example.com", the subdomain field should contain "sub2.sub1", with no trailing period.<br><br>type: keyword<br><br>example: `east`<br> | extended |
+| $$$field-server-top-level-domain$$$[server.top_level_domain](#field-server-top-level-domain) | The effective top level domain (eTLD), also known as the domain suffix, is the last part of the domain name. For example, the top level domain for example.com is "com".<br><br>This value can be determined precisely with a list like the public suffix list ([https://publicsuffix.org](https://publicsuffix.org)). Trying to approximate this by simply taking the last label will not work well for effective TLDs such as "co.uk".<br><br>type: keyword<br><br>example: `co.uk`<br> | extended |
+
+
+## Field reuse [_field_reuse_23]
+
+
+### Field sets that can be nested under server [ecs-server-nestings]
+
+| Location | Field Set | Description |
+| --- | --- | --- |
+| `server.as.*` | [as](/reference/ecs-as.md) | Fields describing an Autonomous System (Internet routing prefix). |
+| `server.geo.*` | [geo](/reference/ecs-geo.md) | Fields describing a location. |
+| `server.user.*` | [user](/reference/ecs-user.md) | Fields to describe the user relevant to the event. |
+

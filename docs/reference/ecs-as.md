@@ -1,0 +1,34 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-as.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Autonomous system fields [ecs-as]
+
+An autonomous system (AS) is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the internet.
+
+
+## Autonomous system field details [_autonomous_system_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-as-number$$$[as.number](#field-as-number) | Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.<br><br>type: long<br><br>example: `15169`<br> | extended |
+| $$$field-as-organization-name$$$[as.organization.name](#field-as-organization-name) | Organization name.<br><br>type: keyword<br><br>Multi-fields:<br><br>* as.organization.name.text (type: match_only_text)<br><br>example: `Google LLC`<br> | extended |
+
+
+## Field reuse [_field_reuse]
+
+The `as` fields are expected to be nested at:
+
+* `client.as`
+* `destination.as`
+* `server.as`
+* `source.as`
+* `threat.enrichments.indicator.as`
+* `threat.indicator.as`
+
+Note also that the `as` fields are not expected to be used directly at the root of the events.
+

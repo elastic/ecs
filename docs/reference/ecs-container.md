@@ -1,0 +1,34 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-container.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Container fields [ecs-container]
+
+Container fields are used for meta information about the specific container that is the source of information.
+
+These fields help correlate data based containers from any runtime.
+
+
+## Container field details [_container_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-container-cpu-usage$$$[container.cpu.usage](#field-container-cpu-usage) | Percent CPU used which is normalized by the number of CPU cores and it ranges from 0 to 1. Scaling factor: 1000.<br><br>type: scaled_float<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [container.cpu.usage](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.container.cpu.usage+--%3E%22&type=code)<br> | extended |
+| $$$field-container-disk-read-bytes$$$[container.disk.read.bytes](#field-container-disk-read-bytes) | The total number of bytes (gauge) read successfully (aggregated from all disks) since the last metric collection.<br><br>type: long<br> | extended |
+| $$$field-container-disk-write-bytes$$$[container.disk.write.bytes](#field-container-disk-write-bytes) | The total number of bytes (gauge) written successfully (aggregated from all disks) since the last metric collection.<br><br>type: long<br> | extended |
+| $$$field-container-id$$$[container.id](#field-container-id) | Unique container id.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [container.id](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-id)<br> | core |
+| $$$field-container-image-hash-all$$$[container.image.hash.all](#field-container-image-hash-all) | An array of digests of the image the container was built on. Each digest consists of the hash algorithm and value in this format: `algorithm:value`. Algorithm names should align with the field names in the ECS hash field set.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>example: `[sha256:f8fefc80e3273dc756f288a63945820d6476ad64883892c771b5e2ece6bf1b26]`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [container.image.repo_digests](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-repo-digests)<br> | extended |
+| $$$field-container-image-name$$$[container.image.name](#field-container-image-name) | Name of the image the container was built on.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [container.image.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-name)<br> | extended |
+| $$$field-container-image-tag$$$[container.image.tag](#field-container-image-tag) | Container image tags.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [container.image.tags](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-image-tags)<br> | extended |
+| $$$field-container-labels$$$[container.labels](#field-container-labels) | Image labels.<br><br>type: object<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/related-efc20d?style=flat "related") [container.label](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-label)<br> | extended |
+| $$$field-container-memory-usage$$$[container.memory.usage](#field-container-memory-usage) | Memory usage percentage and it ranges from 0 to 1. Scaling factor: 1000.<br><br>type: scaled_float<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") [container.memory.usage](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--+semconv+metric.container.memory.usage+--%3E%22&type=code)<br> | extended |
+| $$$field-container-name$$$[container.name](#field-container-name) | Container name.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [container.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-name)<br> | extended |
+| $$$field-container-network-egress-bytes$$$[container.network.egress.bytes](#field-container-network-egress-bytes) | The number of bytes (gauge) sent out on all network interfaces by the container since the last metric collection.<br><br>type: long<br> | extended |
+| $$$field-container-network-ingress-bytes$$$[container.network.ingress.bytes](#field-container-network-ingress-bytes) | The number of bytes received (gauge) on all network interfaces by the container since the last metric collection.<br><br>type: long<br> | extended |
+| $$$field-container-runtime$$$[container.runtime](#field-container-runtime) | Runtime managing this container.<br><br>type: keyword<br><br>example: `docker`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [container.runtime](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container/#container-runtime)<br> | extended |
+| $$$field-container-security-context-privileged$$$[container.security_context.privileged](#field-container-security-context-privileged) | Indicates whether the container is running in privileged mode.<br><br>type: boolean<br> | extended |
+
