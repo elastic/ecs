@@ -26,7 +26,7 @@ Each ECS [field](/reference/ecs-field-reference.md) in a table is identified as 
 ## General guidelines [_general_guidelines]
 
 * The document MUST have the `@timestamp` field.
-* Use the [data types](elasticsearch://docs/reference/elasticsearch/mapping-reference/field-data-types.md) defined for an ECS field.
+* Use the [data types](elasticsearch://reference/elasticsearch/mapping-reference/field-data-types.md) defined for an ECS field.
 * Use the `ecs.version` field to define which version of ECS is used.
 * Map as many fields as possible to ECS.
 

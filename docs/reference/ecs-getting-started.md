@@ -89,7 +89,7 @@ Lastly, existing field values can be interpreted or enriched using a processor, 
 * The `user_agent` processor extracts details from the original user agent string, `user_agent.original`.
 * IP fields like `source.ip` can provide enrichment using the `geoip` processor to add information about the location and autonomous system number (ASN) associated with an IP address.
 * The `registered domain` processor reads a field containing a hostname and writes the registered domain to another field
-* Event collectors, such as [Beats](beats://docs/reference/index.md), can enrich each event with metadata from the machine’s hosting provider (cloud) and/or from the host machine (host).
+* Event collectors, such as [Beats](beats://reference/index.md), can enrich each event with metadata from the machine’s hosting provider (cloud) and/or from the host machine (host).
 
 Here are some examples of additional fields processed by metadata or parser processors.
 

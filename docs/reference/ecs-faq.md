@@ -27,7 +27,7 @@ The benefits to a user adopting these fields and names in their clusters are:
 
 ## What if I have fields that conflict with ECS? [conflict]
 
-The [rename processor](elasticsearch://docs/reference/ingestion-tools/enrich-processor/rename-processor.md) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
+The [rename processor](elasticsearch://reference/ingestion-tools/enrich-processor/rename-processor.md) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
 
 
 ## What if my events have additional fields? [addl-fields]
@@ -56,12 +56,12 @@ Ingesting `user.firstname: Nicolas` and `user.lastname: Ruflin` is identical to 
     }
 ```
 
-In Elasticsearch, `user` is represented as an [object datatype](elasticsearch://docs/reference/elasticsearch/mapping-reference/object.md). In the case of the underline notation, both are just [string datatypes](elasticsearch://docs/reference/elasticsearch/mapping-reference/field-data-types.md).
+In Elasticsearch, `user` is represented as an [object datatype](elasticsearch://reference/elasticsearch/mapping-reference/object.md). In the case of the underline notation, both are just [string datatypes](elasticsearch://reference/elasticsearch/mapping-reference/field-data-types.md).
 
 
 ### Advantages of dot notation [dot-adv]
 
-With dot notation, each prefix in Elasticsearch is an object. Each object can have [parameters](elasticsearch://docs/reference/elasticsearch/mapping-reference/object.md#object-params) that control how fields inside the object are treated. In the context of ECS, for example, these parameters would allow you to disable dynamic property creation for certain prefixes.
+With dot notation, each prefix in Elasticsearch is an object. Each object can have [parameters](elasticsearch://reference/elasticsearch/mapping-reference/object.md#object-params) that control how fields inside the object are treated. In the context of ECS, for example, these parameters would allow you to disable dynamic property creation for certain prefixes.
 
 Individual objects give you more flexibility on both the ingest and the event sides. In Elasticsearch, for example, you can use the remove processor to drop complete objects instead of selecting each key inside. You don’t have to know ahead of time which keys will be in an object.
 
@@ -84,4 +84,4 @@ In Elasticsearch, field types are grouped by family. Types in the same family su
 
 The field types defined in ECS provide the best default experience for most users. However, a different type from the same family can replace the default defined in ECS if required for a specific use cases. Users should understand any potential performance or storage differences before changing from a default field type.
 
-The Elasticsearch [mapping types](elasticsearch://docs/reference/elasticsearch/mapping-reference/field-data-types.md) section has more information about type families.
+The Elasticsearch [mapping types](elasticsearch://reference/elasticsearch/mapping-reference/field-data-types.md) section has more information about type families.

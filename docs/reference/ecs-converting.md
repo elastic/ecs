@@ -103,7 +103,7 @@ If the `destination field` is `@timestamp`, a `format_action` of `parse_timestam
 ::::
 
 `timestamp_format`
-:   (Optional) Time and date format to use with the `parse_timestamp` format action. Valid values are `UNIX`, `UNIX_MS`, `ISO8601`, `TAI64N`, and [Java time patterns](elasticsearch://docs/reference/elasticsearch/mapping-reference/mapping-date-format.md). Defaults to `UNIX_MS`.
+:   (Optional) Time and date format to use with the `parse_timestamp` format action. Valid values are `UNIX`, `UNIX_MS`, `ISO8601`, `TAI64N`, and [Java time patterns](elasticsearch://reference/elasticsearch/mapping-reference/mapping-date-format.md). Defaults to `UNIX_MS`.
 
 `copy_action`
 :   (Optional) Action to take on the `source_field`. Valid values are:
