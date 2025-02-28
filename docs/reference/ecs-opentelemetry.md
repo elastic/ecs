@@ -1,3 +1,8 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/master/ecs-opentelemetry.html
+---
+
 # ECS & OpenTelemetry [ecs-opentelemetry]
 
 In April 2023, Elastic donated ECS to OpenTelemetry and together with the OTel community [jointly announced](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/) the intention to achieve convergence of ECS and [OTel Semantic Conventions (SemConv)](https://opentelemetry.io/docs/specs/semconv/). This donation should be seen as a directional decision for the evolution of both standards rather than a single event that merged both schemas into a single standard.

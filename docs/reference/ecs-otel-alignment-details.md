@@ -1,3 +1,8 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/master/ecs-otel-alignment-details.html
+---
+
 # Field & Attributes Alignment [ecs-otel-alignment-details]
 
 The following table gives an overview of mappings between individual ECS fields (in ECS version `9.0.0-dev`) and corresponding OTel semantic convention attributes (in SemConv version `1.29.0`).

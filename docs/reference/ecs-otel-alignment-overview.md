@@ -1,3 +1,8 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/master/ecs-otel-alignment-overview.html
+---
+
 # OTel Alignment Overview [ecs-otel-alignment-overview]
 
 The following table summarizes the alignment status by namespaces between ECS in version `9.0.0-dev` and OpenTelemetry semantic conventions in version `1.29.0`.
