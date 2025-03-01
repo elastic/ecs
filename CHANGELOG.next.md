@@ -21,6 +21,13 @@ Thanks, you're awesome :-) -->
 #### Added
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+* Added `*.domain` fields to ECS `email`. #2392
+
 #### Improvements
 
 * Promote beta fields to GA. #2411
