@@ -65,7 +65,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-Update data_stream.yml with top level type: group. #2414
+* Update data_stream.yml with top level type: group. #2414
 
 <!-- All empty sections:
 
