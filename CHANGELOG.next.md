@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
+* Add `thumbprint` to `code_signature` schema. #2452
 
 #### Improvements
 
