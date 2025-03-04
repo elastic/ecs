@@ -5,7 +5,7 @@ mapped_pages:
 
 # Field & Attributes Alignment [ecs-otel-alignment-details]
 
-The following table gives an overview of mappings between individual ECS fields (in ECS version `9.0.0-dev`) and corresponding OTel semantic convention attributes (in SemConv version `1.29.0`).
+The following table gives an overview of mappings between individual ECS fields (in ECS version `9.1.0-dev`) and corresponding OTel semantic convention attributes (in SemConv version `1.29.0`).
 
 | ECS Field | Relation | OTel Semantic Conventions Attribute | Stability  $$$otel-mapping-namespace-base$$$ |
 | --- | --- | --- | --- |
