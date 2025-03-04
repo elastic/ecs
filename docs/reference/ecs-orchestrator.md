@@ -1,0 +1,33 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-orchestrator.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# Orchestrator fields [ecs-orchestrator]
+
+Fields that describe the resources which container orchestrators manage or act upon.
+
+
+## Orchestrator field details [_orchestrator_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-orchestrator-api-version$$$[orchestrator.api_version](#field-orchestrator-api-version) | API version being used to carry out the action<br><br>type: keyword<br><br>example: `v1beta1`<br> | extended |
+| $$$field-orchestrator-cluster-id$$$[orchestrator.cluster.id](#field-orchestrator-cluster-id) | Unique ID of the cluster.<br><br>type: keyword<br> | extended |
+| $$$field-orchestrator-cluster-name$$$[orchestrator.cluster.name](#field-orchestrator-cluster-name) | Name of the cluster.<br><br>type: keyword<br> | extended |
+| $$$field-orchestrator-cluster-url$$$[orchestrator.cluster.url](#field-orchestrator-cluster-url) | URL of the API used to manage the cluster.<br><br>type: keyword<br> | extended |
+| $$$field-orchestrator-cluster-version$$$[orchestrator.cluster.version](#field-orchestrator-cluster-version) | The version of the cluster.<br><br>type: keyword<br> | extended |
+| $$$field-orchestrator-namespace$$$[orchestrator.namespace](#field-orchestrator-namespace) | Namespace in which the action is taking place.<br><br>type: keyword<br><br>example: `kube-system`<br> | extended |
+| $$$field-orchestrator-organization$$$[orchestrator.organization](#field-orchestrator-organization) | Organization affected by the event (for multi-tenant orchestrator setups).<br><br>type: keyword<br><br>example: `elastic`<br> | extended |
+| $$$field-orchestrator-resource-annotation$$$[orchestrator.resource.annotation](#field-orchestrator-resource-annotation) | The list of annotations added to the resource.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>example: `['key1:value1', 'key2:value2', 'key3:value3']`<br> | extended |
+| $$$field-orchestrator-resource-id$$$[orchestrator.resource.id](#field-orchestrator-resource-id) | Unique ID of the resource being acted upon.<br><br>type: keyword<br> | extended |
+| $$$field-orchestrator-resource-ip$$$[orchestrator.resource.ip](#field-orchestrator-resource-ip) | IP address assigned to the resource associated with the event being observed. In the case of a Kubernetes Pod, this array would contain only one element: the IP of the Pod (as opposed to the Node on which the Pod is running).<br><br>type: ip<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-orchestrator-resource-label$$$[orchestrator.resource.label](#field-orchestrator-resource-label) | The list of labels added to the resource.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br><br>example: `['key1:value1', 'key2:value2', 'key3:value3']`<br> | extended |
+| $$$field-orchestrator-resource-name$$$[orchestrator.resource.name](#field-orchestrator-resource-name) | Name of the resource being acted upon.<br><br>type: keyword<br><br>example: `test-pod-cdcws`<br> | extended |
+| $$$field-orchestrator-resource-parent-type$$$[orchestrator.resource.parent.type](#field-orchestrator-resource-parent-type) | Type or kind of the parent resource associated with the event being observed. In Kubernetes, this will be the name of a built-in workload resource (e.g., Deployment, StatefulSet, DaemonSet).<br><br>type: keyword<br><br>example: `DaemonSet`<br> | extended |
+| $$$field-orchestrator-resource-type$$$[orchestrator.resource.type](#field-orchestrator-resource-type) | Type of resource being acted upon.<br><br>type: keyword<br><br>example: `service`<br> | extended |
+| $$$field-orchestrator-type$$$[orchestrator.type](#field-orchestrator-type) | Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).<br><br>type: keyword<br><br>example: `kubernetes`<br> | extended |
+

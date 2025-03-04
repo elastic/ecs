@@ -1,0 +1,128 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-field-reference.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# ECS field reference [ecs-field-reference]
+
+This is the documentation of ECS version 9.1.0-dev.
+
+ECS defines multiple groups of related fields. They are called "field sets". The [Base](/reference/ecs-base.md) field set is the only one whose fields are defined at the root of the event.
+
+All other field sets are defined as objects in {{es}}, under which all fields are defined.
+
+For a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/master/generated/csv/fields.csv).
+
+
+## Field sets [ecs-fieldsets]
+
+| Field Set | Description |
+| --- | --- |
+| [Base](/reference/ecs-base.md) | All fields defined directly at the root of the events. |
+| [Agent](/reference/ecs-agent.md) | Fields about the monitoring agent. |
+| [Autonomous system](/reference/ecs-as.md) | Fields describing an Autonomous System (Internet routing prefix). |
+| [Client](/reference/ecs-client.md) | Fields about the client side of a network connection, used with server. |
+| [Cloud](/reference/ecs-cloud.md) | Fields about the cloud resource. |
+| [Code signature](/reference/ecs-code_signature.md) | These fields contain information about binary code signatures. |
+| [Container](/reference/ecs-container.md) | Fields describing the container that generated this event. |
+| [Data stream](/reference/ecs-data_stream.md) | The data_stream fields take part in defining the new data stream naming scheme. |
+| [Destination](/reference/ecs-destination.md) | Fields about the destination side of a network connection, used with source. |
+| [Device](/reference/ecs-device.md) | Fields characterizing a (mobile) device a process or application is running on. |
+| [DLL](/reference/ecs-dll.md) | These fields contain information about code libraries dynamically loaded into processes. |
+| [DNS](/reference/ecs-dns.md) | Fields describing DNS queries and answers. |
+| [ECS](/reference/ecs-ecs.md) | Meta-information specific to ECS. |
+| [ELF header](/reference/ecs-elf.md) | These fields contain Linux Executable Linkable Format (ELF) metadata. |
+| [Email](/reference/ecs-email.md) | Describes an email transaction. |
+| [Error](/reference/ecs-error.md) | Fields about errors of any kind. |
+| [Event](/reference/ecs-event.md) | Fields breaking down the event details. |
+| [FaaS](/reference/ecs-faas.md) | Fields describing functions as a service. |
+| [File](/reference/ecs-file.md) | Fields describing files. |
+| [Geo](/reference/ecs-geo.md) | Fields describing a location. |
+| [Group](/reference/ecs-group.md) | User’s group relevant to the event. |
+| [Hash](/reference/ecs-hash.md) | Hashes, usually file hashes. |
+| [Host](/reference/ecs-host.md) | Fields describing the relevant computing instance. |
+| [HTTP](/reference/ecs-http.md) | Fields describing an HTTP request. |
+| [Interface](/reference/ecs-interface.md) | Fields to describe observer interface information. |
+| [Log](/reference/ecs-log.md) | Details about the event’s logging mechanism. |
+| [Mach-O header](/reference/ecs-macho.md) | These fields contain Mac OS Mach Object file format (Mach-O) metadata. |
+| [Network](/reference/ecs-network.md) | Fields describing the communication path over which the event happened. |
+| [Observer](/reference/ecs-observer.md) | Fields describing an entity observing the event from outside the host. |
+| [Orchestrator](/reference/ecs-orchestrator.md) | Fields relevant to container orchestrators. |
+| [Organization](/reference/ecs-organization.md) | Fields describing the organization or company the event is associated with. |
+| [Operating system](/reference/ecs-os.md) | OS fields contain information about the operating system. |
+| [Package](/reference/ecs-package.md) | These fields contain information about an installed software package. |
+| [PE header](/reference/ecs-pe.md) | These fields contain Windows Portable Executable (PE) metadata. |
+| [Process](/reference/ecs-process.md) | These fields contain information about a process. |
+| [Registry](/reference/ecs-registry.md) | Fields related to Windows Registry operations. |
+| [Related](/reference/ecs-related.md) | Fields meant to facilitate pivoting around a piece of data. |
+| [Risk information](/reference/ecs-risk.md) | Fields for describing risk score and level. |
+| [Rule](/reference/ecs-rule.md) | Fields to capture details about rules used to generate alerts or other notable events. |
+| [Server](/reference/ecs-server.md) | Fields about the server side of a network connection, used with client. |
+| [Service](/reference/ecs-service.md) | Fields describing the service for or from which the data was collected. |
+| [Source](/reference/ecs-source.md) | Fields about the source side of a network connection, used with destination. |
+| [Threat](/reference/ecs-threat.md) | Fields to classify events and alerts according to a threat taxonomy. |
+| [TLS](/reference/ecs-tls.md) | Fields describing a TLS connection. |
+| [Tracing](/reference/ecs-tracing.md) | Fields related to distributed tracing. |
+| [URL](/reference/ecs-url.md) | Fields that let you store URLs in various forms. |
+| [User](/reference/ecs-user.md) | Fields to describe the user relevant to the event. |
+| [User agent](/reference/ecs-user_agent.md) | Fields to describe a browser user_agent string. |
+| [VLAN](/reference/ecs-vlan.md) | Fields to describe observed VLAN information. |
+| [Volume](/reference/ecs-volume.md) | Fields related to storage volume details. |
+| [Vulnerability](/reference/ecs-vulnerability.md) | Fields to describe the vulnerability relevant to an event. |
+| [x509 certificate](/reference/ecs-x509.md) | These fields contain x509 certificate metadata. |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

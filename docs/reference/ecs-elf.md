@@ -1,0 +1,71 @@
+---
+mapped_pages:
+  - https://www.elastic.co/guide/en/ecs/current/ecs-elf.html
+applies_to:
+  stack: all
+  serverless: all
+---
+
+# ELF header fields [ecs-elf]
+
+These fields contain Linux Executable Linkable Format (ELF) metadata.
+
+::::{warning}
+These fields are in beta and are subject to change.
+::::
+
+
+
+## ELF header field details [_elf_header_field_details]
+
+| Field | Description | Level |
+| --- | --- | --- |
+| $$$field-elf-architecture$$$[elf.architecture](#field-elf-architecture) | Machine architecture of the ELF file.<br><br>type: keyword<br><br>example: `x86-64`<br> | extended |
+| $$$field-elf-byte-order$$$[elf.byte_order](#field-elf-byte-order) | Byte sequence of ELF file.<br><br>type: keyword<br><br>example: `Little Endian`<br> | extended |
+| $$$field-elf-cpu-type$$$[elf.cpu_type](#field-elf-cpu-type) | CPU type of the ELF file.<br><br>type: keyword<br><br>example: `Intel`<br> | extended |
+| $$$field-elf-creation-date$$$[elf.creation_date](#field-elf-creation-date) | Extracted when possible from the file’s metadata. Indicates when it was built or compiled. It can also be faked by malware creators.<br><br>type: date<br> | extended |
+| $$$field-elf-exports$$$[elf.exports](#field-elf-exports) | List of exported element names and types.<br><br>type: flattened<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-elf-go-import-hash$$$[elf.go_import_hash](#field-elf-go-import-hash) | A hash of the Go language imports in an ELF file excluding standard library imports. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.<br><br>The algorithm used to calculate the Go symbol hash and a reference implementation are available here: [https://github.com/elastic/toutoumomoma](https://github.com/elastic/toutoumomoma)<br><br>type: keyword<br><br>example: `10bddcb4cee42080f76c88d9ff964491`<br> | extended |
+| $$$field-elf-go-imports$$$[elf.go_imports](#field-elf-go-imports) | List of imported Go language element names and types.<br><br>type: flattened<br> | extended |
+| $$$field-elf-go-imports-names-entropy$$$[elf.go_imports_names_entropy](#field-elf-go-imports-names-entropy) | Shannon entropy calculation from the list of Go imports.<br><br>type: long<br> | extended |
+| $$$field-elf-go-imports-names-var-entropy$$$[elf.go_imports_names_var_entropy](#field-elf-go-imports-names-var-entropy) | Variance for Shannon entropy calculation from the list of Go imports.<br><br>type: long<br> | extended |
+| $$$field-elf-go-stripped$$$[elf.go_stripped](#field-elf-go-stripped) | Set to true if the file is a Go executable that has had its symbols stripped or obfuscated and false if an unobfuscated Go executable.<br><br>type: boolean<br> | extended |
+| $$$field-elf-header-abi-version$$$[elf.header.abi_version](#field-elf-header-abi-version) | Version of the ELF Application Binary Interface (ABI).<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-class$$$[elf.header.class](#field-elf-header-class) | Header class of the ELF file.<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-data$$$[elf.header.data](#field-elf-header-data) | Data table of the ELF header.<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-entrypoint$$$[elf.header.entrypoint](#field-elf-header-entrypoint) | Header entrypoint of the ELF file.<br><br>type: long<br> | extended |
+| $$$field-elf-header-object-version$$$[elf.header.object_version](#field-elf-header-object-version) | "0x1" for original ELF files.<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-os-abi$$$[elf.header.os_abi](#field-elf-header-os-abi) | Application Binary Interface (ABI) of the Linux OS.<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-type$$$[elf.header.type](#field-elf-header-type) | Header type of the ELF file.<br><br>type: keyword<br> | extended |
+| $$$field-elf-header-version$$$[elf.header.version](#field-elf-header-version) | Version of the ELF header.<br><br>type: keyword<br> | extended |
+| $$$field-elf-import-hash$$$[elf.import_hash](#field-elf-import-hash) | A hash of the imports in an ELF file. An import hash can be used to fingerprint binaries even after recompilation or other code-level transformations have occurred, which would change more traditional hash values.<br><br>This is an ELF implementation of the Windows PE imphash.<br><br>type: keyword<br><br>example: `d41d8cd98f00b204e9800998ecf8427e`<br> | extended |
+| $$$field-elf-imports$$$[elf.imports](#field-elf-imports) | List of imported element names and types.<br><br>type: flattened<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-elf-imports-names-entropy$$$[elf.imports_names_entropy](#field-elf-imports-names-entropy) | Shannon entropy calculation from the list of imported element names and types.<br><br>type: long<br> | extended |
+| $$$field-elf-imports-names-var-entropy$$$[elf.imports_names_var_entropy](#field-elf-imports-names-var-entropy) | Variance for Shannon entropy calculation from the list of imported element names and types.<br><br>type: long<br> | extended |
+| $$$field-elf-sections$$$[elf.sections](#field-elf-sections) | An array containing an object for each section of the ELF file.<br><br>The keys that should be present in these objects are defined by sub-fields underneath `elf.sections.*`.<br><br>type: nested<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-elf-sections-chi2$$$[elf.sections.chi2](#field-elf-sections-chi2) | Chi-square probability distribution of the section.<br><br>type: long<br> | extended |
+| $$$field-elf-sections-entropy$$$[elf.sections.entropy](#field-elf-sections-entropy) | Shannon entropy calculation from the section.<br><br>type: long<br> | extended |
+| $$$field-elf-sections-flags$$$[elf.sections.flags](#field-elf-sections-flags) | ELF Section List flags.<br><br>type: keyword<br> | extended |
+| $$$field-elf-sections-name$$$[elf.sections.name](#field-elf-sections-name) | ELF Section List name.<br><br>type: keyword<br> | extended |
+| $$$field-elf-sections-physical-offset$$$[elf.sections.physical_offset](#field-elf-sections-physical-offset) | ELF Section List offset.<br><br>type: keyword<br> | extended |
+| $$$field-elf-sections-physical-size$$$[elf.sections.physical_size](#field-elf-sections-physical-size) | ELF Section List physical size.<br><br>type: long<br> | extended |
+| $$$field-elf-sections-type$$$[elf.sections.type](#field-elf-sections-type) | ELF Section List type.<br><br>type: keyword<br> | extended |
+| $$$field-elf-sections-var-entropy$$$[elf.sections.var_entropy](#field-elf-sections-var-entropy) | Variance for Shannon entropy calculation from the section.<br><br>type: long<br> | extended |
+| $$$field-elf-sections-virtual-address$$$[elf.sections.virtual_address](#field-elf-sections-virtual-address) | ELF Section List virtual address.<br><br>type: long<br> | extended |
+| $$$field-elf-sections-virtual-size$$$[elf.sections.virtual_size](#field-elf-sections-virtual-size) | ELF Section List virtual size.<br><br>type: long<br> | extended |
+| $$$field-elf-segments$$$[elf.segments](#field-elf-segments) | An array containing an object for each segment of the ELF file.<br><br>The keys that should be present in these objects are defined by sub-fields underneath `elf.segments.*`.<br><br>type: nested<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-elf-segments-sections$$$[elf.segments.sections](#field-elf-segments-sections) | ELF object segment sections.<br><br>type: keyword<br> | extended |
+| $$$field-elf-segments-type$$$[elf.segments.type](#field-elf-segments-type) | ELF object segment type.<br><br>type: keyword<br> | extended |
+| $$$field-elf-shared-libraries$$$[elf.shared_libraries](#field-elf-shared-libraries) | List of shared libraries used by this ELF object.<br><br>type: keyword<br><br>Note: this field should contain an array of values.<br> | extended |
+| $$$field-elf-telfhash$$$[elf.telfhash](#field-elf-telfhash) | telfhash symbol hash for ELF file.<br><br>type: keyword<br> | extended |
+
+
+## Field reuse [_field_reuse_7]
+
+The `elf` fields are expected to be nested at:
+
+* `file.elf`
+* `process.elf`
+
+Note also that the `elf` fields are not expected to be used directly at the root of the events.
+
