@@ -1,9 +1,9 @@
-# 0000: Entity Field Set
+# 0049: Entity Field Set
 
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)**
-- Date: **TBD**
+- Date: 2025-03-06
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -136,8 +136,8 @@ The following are the people that consulted on the contents of this RFC.
 
 The following are the people that consulted on the contents of this RFC.
 
-* Author: @tinnytintin10  
-* Sponsor: @MikePaquette & @YulNaumenko 
+* Author: @tinnytintin10
+* Sponsor: @MikePaquette & @YulNaumenko
 
 
 ## References
