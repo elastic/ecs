@@ -138,17 +138,6 @@
         - type: match_only_text
           name: text
 
-    - name: pgid
-      format: string
-      level: extended
-      type: long
-      short: Deprecated identifier of the group of processes the process belongs to.
-      description: >
-        Deprecated for removal in next major version release. This field is superseded by
-        `process.group_leader.pid`.
-
-        Identifier of the group of processes the process belongs to.
-
     - name: command_line
       level: extended
       type: wildcard
@@ -497,3 +486,19 @@
       type: long
       description: >
         The length of bytes skipped.
+
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the process's executable file.
+      example: http://example.com/article1.html
+      beta: This field is beta and subject to change.
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the process's executable file is hosted.
+      example: http://example.com/files/example.exe
+      beta: This field is beta and subject to change.
