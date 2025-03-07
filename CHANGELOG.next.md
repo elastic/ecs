@@ -22,6 +22,10 @@ Thanks, you're awesome :-) -->
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
 #### Improvements
+* Allow ECS from any directory #2019
+* Added ability to specify a prefix for es_templates #2019
+* Allow projects to create their own ACSIIDOC templates #2019
+
 
 * Promote beta fields to GA. #2411
 * Define base encoding of `x509.serial_number`. #2383

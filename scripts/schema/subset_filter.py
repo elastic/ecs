@@ -179,8 +179,15 @@ def extract_matching_fields(
     subset_definitions: Dict[str, Any]
 ) -> Dict[str, FieldEntry]:
     """Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict."""
-    retained_fields: Dict[str, FieldEntry] = {x: fields[x].copy() for x in subset_definitions}
+    retained_fields: Dict[str, FieldEntry] = {}
+    for x in subset_definitions:
+        if x not in fields:
+            print('{0} included in subset but has not been loaded'.format(x))
+        else:
+            retained_fields[x] = fields[x].copy()
     for key, val in subset_definitions.items():
+        if key not in fields:
+            continue
         retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
         for option in val:
             if option != 'fields':

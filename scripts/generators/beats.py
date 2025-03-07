@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from os.path import join
+from os.path import join, dirname
 from collections import OrderedDict
 from typing import (
     Dict,
@@ -29,6 +29,8 @@ from _types import (
     FieldNestedEntry,
 )
 
+BEATS_DEFAULT_FIELDS = join(dirname(ecs_helpers.__file__), "beats_default_fields_allowlist.yml")
+
 
 def generate(
     ecs_nested: Dict[str, FieldNestedEntry],
@@ -36,8 +38,12 @@ def generate(
     out_dir: str
 ) -> None:
     # base first
-    ecs_nested = ecs_helpers.remove_top_level_reusable_false(ecs_nested)
-    beats_fields: List[OrderedDict] = fieldset_field_array(ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
+    if 'base' in ecs_nested:
+        beats_fields: List[OrderedDict] = fieldset_field_array(
+            ecs_nested['base']['fields'], ecs_nested['base']['prefix'])
+    else:
+        beats_fields = []
+
 
     allowed_fieldset_keys: List[str] = ['name', 'title', 'group', 'description', 'footnote', 'type']
     # other fieldsets
@@ -56,7 +62,7 @@ def generate(
         beats_fields.append(beats_field)
 
     # Load temporary allowlist for default_fields workaround.
-    df_allowlist = ecs_helpers.yaml_load('scripts/generators/beats_default_fields_allowlist.yml')
+    df_allowlist = ecs_helpers.yaml_load(BEATS_DEFAULT_FIELDS)
     # Set default_field configuration.
     set_default_field(beats_fields, df_allowlist)
 

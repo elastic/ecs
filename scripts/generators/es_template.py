@@ -40,11 +40,12 @@ def generate(
     ecs_version: str,
     out_dir: str,
     mapping_settings_file: str,
-    template_settings_file: str
+    template_settings_file: str,
+    ecs_component_name_prefix: str = "ecs"
 ) -> None:
     """This generates all artifacts for the composable template approach"""
     all_component_templates(ecs_nested, ecs_version, out_dir)
-    component_names = component_name_convention(ecs_version, ecs_nested)
+    component_names = component_name_convention(ecs_version, ecs_nested, ecs_component_name_prefix)
     save_composable_template(ecs_version, component_names, out_dir, mapping_settings_file, template_settings_file)
 
 
@@ -100,12 +101,13 @@ def save_component_template(
 
 def component_name_convention(
     ecs_version: str,
-    ecs_nested: Dict[str, FieldNestedEntry]
+    ecs_nested: Dict[str, FieldNestedEntry],
+    ecs_component_name_prefix: str="ecs"
 ) -> List[str]:
     version: str = ecs_version.replace('+', '-')
     names: List[str] = []
     for (fieldset_name, fieldset) in ecs_helpers.remove_top_level_reusable_false(ecs_nested).items():
-        names.append("ecs_{}_{}".format(version, fieldset_name.lower()))
+        names.append("{}_{}_{}".format(ecs_component_name_prefix, version, fieldset_name.lower()))
     return names
 
 
