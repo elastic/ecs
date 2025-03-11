@@ -13,14 +13,11 @@ These fields contain information about binary code signatures.
 
 ## Code signature field details [_code_signature_field_details]
 
-::::{tab-set}
-
-:::{tab-item} Fields
-
 | Field | Description | Level |
 | --- | --- | --- |
 | $$$field-code-signature-digest-algorithm$$$[code_signature.digest_algorithm](#field-code-signature-digest-algorithm) | The hashing algorithm used to sign the process.<br><br>This value can distinguish signatures when a file is signed multiple times by the same signer but with a different digest algorithm.<br><br>type: keyword<br><br>example: `sha256`<br> | extended |
 | $$$field-code-signature-exists$$$[code_signature.exists](#field-code-signature-exists) | Boolean to capture if a signature is present.<br><br>type: boolean<br><br>example: `true`<br> | core |
+| $$$field-code-signature-flags$$$[code_signature.flags](#field-code-signature-flags) | This field is beta and subject to change.<br>The flags used to sign the process.<br><br>type: keyword<br><br>example: `570522385`<br> | extended |
 | $$$field-code-signature-signing-id$$$[code_signature.signing_id](#field-code-signature-signing-id) | The identifier used to sign the process.<br><br>This is used to identify the application manufactured by a software vendor. The field is relevant to Apple *OS only.<br><br>type: keyword<br><br>example: `com.apple.xpc.proxy`<br> | extended |
 | $$$field-code-signature-status$$$[code_signature.status](#field-code-signature-status) | Additional information about the certificate status.<br><br>This is useful for logging cryptographic errors with the certificate validity or trust status. Leave unpopulated if the validity or trust of the certificate was unchecked.<br><br>type: keyword<br><br>example: `ERROR_UNTRUSTED_ROOT`<br> | extended |
 | $$$field-code-signature-subject-name$$$[code_signature.subject_name](#field-code-signature-subject-name) | Subject name of the code signer<br><br>type: keyword<br><br>example: `Microsoft Corporation`<br> | core |
@@ -29,17 +26,11 @@ These fields contain information about binary code signatures.
 | $$$field-code-signature-trusted$$$[code_signature.trusted](#field-code-signature-trusted) | Stores the trust status of the certificate chain.<br><br>Validating the trust of the certificate chain may be complicated, and this field should only be populated by tools that actively check the status.<br><br>type: boolean<br><br>example: `true`<br> | extended |
 | $$$field-code-signature-valid$$$[code_signature.valid](#field-code-signature-valid) | Boolean to capture if the digital signature is verified against the binary content.<br><br>Leave unpopulated if a certificate was unchecked.<br><br>type: boolean<br><br>example: `true`<br> | extended |
 
-:::
 
-:::{tab-item} Beta Fields
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-code-signature-flags$$$[code_signature.flags](#field-code-signature-flags) | The flags used to sign the process.<br><br>type: keyword<br><br>example: `570522385`<br> | extended |
 
-
-:::
-::::
 
 ## Field reuse [_field_reuse_4]
 
