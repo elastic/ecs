@@ -53,27 +53,11 @@ Note also that the `file` fields may be used directly at the root of the events.
 
 ### Field sets that can be nested under file [ecs-file-nestings]
 
-::::{tab-set}
-
-:::{tab-item} Field set
-
 | Location | Field Set | Description |
 | --- | --- | --- |
 | `file.code_signature.*` | [code_signature](/reference/ecs-code_signature.md) | These fields contain information about binary code signatures. |
+| `file.elf.*` | [elf](/reference/ecs-elf.md) | This field re-use is beta and subject to change. These fields contain Linux Executable Linkable Format (ELF) metadata. |
 | `file.hash.*` | [hash](/reference/ecs-hash.md) | Hashes, usually file hashes. |
+| `file.macho.*` | [macho](/reference/ecs-macho.md) | This field reuse is beta and subject to change. These fields contain Mac OS Mach Object file format (Mach-O) metadata. |
 | `file.pe.*` | [pe](/reference/ecs-pe.md) | These fields contain Windows Portable Executable (PE) metadata. |
 | `file.x509.*` | [x509](/reference/ecs-x509.md) | These fields contain x509 certificate metadata. |
-
-
-:::
-
-:::{tab-item} Beta Field set
-
-| Location | Field Set | Description |
-| --- | --- | --- |
-| `file.elf.*` | [elf](/reference/ecs-elf.md) | These fields contain Linux Executable Linkable Format (ELF) metadata. |
-| `file.macho.*` | [macho](/reference/ecs-macho.md) | These fields contain Mac OS Mach Object file format (Mach-O) metadata. |
-
-:::
-::::
-

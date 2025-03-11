@@ -17,12 +17,9 @@ Note that this fieldset is used for common hashes that may be computed over a ra
 
 ## Hash field details [_hash_field_details]
 
-::::{tab-set}
-
-:::{tab-item} Fields
-
 | Field | Description | Level |
 | --- | --- | --- |
+| $$$field-hash-cdhash$$$[hash.cdhash](#field-hash-cdhash) | This field is beta and subject to change.<br>Code directory hash, utilized to uniquely identify and authenticate the integrity of the executable code.<br><br>type: keyword<br><br>example: `3783b4052fd474dbe30676b45c329e7a6d44acd9`<br> | extended |
 | $$$field-hash-md5$$$[hash.md5](#field-hash-md5) | MD5 hash.<br><br>type: keyword<br> | extended |
 | $$$field-hash-sha1$$$[hash.sha1](#field-hash-sha1) | SHA1 hash.<br><br>type: keyword<br> | extended |
 | $$$field-hash-sha256$$$[hash.sha256](#field-hash-sha256) | SHA256 hash.<br><br>type: keyword<br> | extended |
@@ -30,17 +27,6 @@ Note that this fieldset is used for common hashes that may be computed over a ra
 | $$$field-hash-sha512$$$[hash.sha512](#field-hash-sha512) | SHA512 hash.<br><br>type: keyword<br> | extended |
 | $$$field-hash-ssdeep$$$[hash.ssdeep](#field-hash-ssdeep) | SSDEEP hash.<br><br>type: keyword<br> | extended |
 | $$$field-hash-tlsh$$$[hash.tlsh](#field-hash-tlsh) | TLSH hash.<br><br>type: keyword<br> | extended |
-
-:::
-
-:::{tab-item} Beta Fields
-
-| Field | Description | Level |
-| --- | --- | --- |
-| $$$field-hash-cdhash$$$[hash.cdhash](#field-hash-cdhash) | Code directory hash, utilized to uniquely identify and authenticate the integrity of the executable code.<br><br>type: keyword<br><br>example: `3783b4052fd474dbe30676b45c329e7a6d44acd9`<br> | extended |
-
-:::
-::::
 
 ## Field reuse [_field_reuse_12]
 

@@ -15,13 +15,10 @@ These fields help you find and correlate logs for a specific service and version
 
 ## Service field details [_service_field_details]
 
-::::{tab-set}
-
-:::{tab-item} Fields
-
 | Field | Description | Level |
 | --- | --- | --- |
 | $$$field-service-address$$$[service.address](#field-service-address) | Address where data about this service was collected from.<br><br>This should be a URI, network address (ipv4:port or [ipv6]:port) or a resource path (sockets).<br><br>type: keyword<br><br>example: `172.26.0.2:5432`<br> | extended |
+| $$$field-service-environment$$$[service.environment](#field-service-environment) | This field is beta and subject to change.<br>Identifies the environment where the service is running.<br><br>If the same service runs in different environments (production, staging, QA, development, etc.), the environment can identify other instances of the same service. Can also group services and applications from the same environment.<br><br>type: keyword<br><br>example: `production`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [deployment.environment.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment/#deployment-environment-name)<br> | extended |
 | $$$field-service-ephemeral-id$$$[service.ephemeral_id](#field-service-ephemeral-id) | Ephemeral identifier of this service (if one exists).<br><br>This id normally changes across restarts, but `service.id` does not.<br><br>type: keyword<br><br>example: `8a4f500f`<br> | extended |
 | $$$field-service-id$$$[service.id](#field-service-id) | Unique identifier of the running service. If the service is comprised of many nodes, the `service.id` should be the same for all nodes.<br><br>This id should uniquely identify the service. This makes it possible to correlate logs and metrics for one specific service, no matter which particular node emitted the event.<br><br>Note that if you need to see the events from one specific host of the service, you should filter on that `host.name` or `host.id` instead.<br><br>type: keyword<br><br>example: `d37e5ebfe0ae6c4972dbe9f0174a1637bb8247f6`<br> | core |
 | $$$field-service-name$$$[service.name](#field-service-name) | Name of the service data is collected from.<br><br>The name of the service is normally user given. This allows for distributed services that run on multiple hosts to correlate the related instances based on the name.<br><br>In the case of Elasticsearch the `service.name` could contain the cluster name. For Beats the `service.name` is by default a copy of the `service.type` field if no name is specified.<br><br>type: keyword<br><br>example: `elasticsearch-metrics`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [service.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-name)<br> | core |
@@ -31,18 +28,6 @@ These fields help you find and correlate logs for a specific service and version
 | $$$field-service-state$$$[service.state](#field-service-state) | Current state of the service.<br><br>type: keyword<br> | core |
 | $$$field-service-type$$$[service.type](#field-service-type) | The type of the service data is collected from.<br><br>The type can be used to group and correlate logs and metrics from one service type.<br><br>Example: If logs or metrics are collected from Elasticsearch, `service.type` would be `elasticsearch`.<br><br>type: keyword<br><br>example: `elasticsearch`<br> | core |
 | $$$field-service-version$$$[service.version](#field-service-version) | Version of the service the data was collected from.<br><br>This allows to look at a data set only for a specific version of a service.<br><br>type: keyword<br><br>example: `3.2.4`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") [service.version](https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-version)<br> | core |
-
-:::
-
-:::{tab-item} Beta Fields
-
-| Field | Description | Level |
-| --- | --- | --- |
-| $$$field-service-environment$$$[service.environment](#field-service-environment) | Identifies the environment where the service is running.<br><br>If the same service runs in different environments (production, staging, QA, development, etc.), the environment can identify other instances of the same service. Can also group services and applications from the same environment.<br><br>type: keyword<br><br>example: `production`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry "") ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") [deployment.environment.name](https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment/#deployment-environment-name)<br> | extended |
-
-:::
-::::
-
 
 ## Field reuse [_field_reuse_24]
 
@@ -57,7 +42,7 @@ Note also that the `service` fields may be used directly at the root of the even
 ### Field sets that can be nested under Service [ecs-service-nestings]
 
 ::::{warning}
-These fields are in beta and are subject to change.
+Reusing the service fields in this location is currently considered beta.
 ::::
 
 | Location | Field Set | Description |

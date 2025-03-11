@@ -77,13 +77,12 @@ Note also that the `process` fields may be used directly at the root of the even
 
 ### Field sets that can be nested under process [ecs-process-nestings]
 
-::::{tab-set}
-
-:::{tab-item} Field sets
-
 | Location | Field Set | Description |
 | --- | --- | --- |
+| `process.attested_groups.*` | [group](/reference/ecs-group.md) | Reusing the `group` fields in this location is currently considered beta.<br>The externally attested groups based on an external source such as the Kube API.<br>Note: this reuse should contain an array of group field set objects. |
+| `process.attested_user.*` | [user](/reference/ecs-user.md) | Reusing the `user` fields in this location is currently considered beta.<br>The externally attested user based on an external source such as the Kube API. |
 | `process.code_signature.*` | [code_signature](/reference/ecs-code_signature.md) | These fields contain information about binary code signatures. |
+| `process.elf.*` | [elf](/reference/ecs-elf.md) | This field reuse is beta and subject to change.<br>These fields contain Linux Executable Linkable Format (ELF) metadata. |
 | `process.entry_leader.*` | `process` | First process from terminal or remote access via SSH, SSM, etc OR a service directly started by the init process. |
 | `process.entry_leader.parent.*` | `process` | Information about the entry leader’s parent process. Only pid, start and entity_id fields are set. |
 | `process.entry_leader.parent.session_leader.*` | `process` | Information about the parent session of the entry leader. Only pid, start and entity_id fields are set. |
@@ -91,12 +90,14 @@ Note also that the `process` fields may be used directly at the root of the even
 | `process.group.*` | [group](/reference/ecs-group.md) | The effective group (egid). |
 | `process.group_leader.*` | `process` | Information about the process group leader. In some cases this may be the same as the top level process. |
 | `process.hash.*` | [hash](/reference/ecs-hash.md) | Hashes, usually file hashes. |
+| `process.macho.*` | [macho](/reference/ecs-macho.md) | This field reuse is beta and subject to change.<br>These fields contain Mac OS Mach Object file format (Mach-O) metadata. |
 | `process.parent.*` | `process` | Information about the parent process. |
 | `process.parent.group_leader.*` | `process` | Information about the parent’s process group leader. Only pid, start and entity_id fields are set. |
 | `process.pe.*` | [pe](/reference/ecs-pe.md) | These fields contain Windows Portable Executable (PE) metadata. |
 | `process.previous.*` | `process` | An array of previous executions for the process, including the initial fork. Only executable and args are set.<br>Note: this reuse should contain an array of process field set objects. |
 | `process.real_group.*` | [group](/reference/ecs-group.md) | The real group (rgid). |
 | `process.real_user.*` | [user](/reference/ecs-user.md) | The real user (ruid). Identifies the real owner of the process. |
+| `process.responsible.*` | `process` | This field is beta and subject to change.<br>Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy. |
 | `process.saved_group.*` | [group](/reference/ecs-group.md) | The saved group (sgid). |
 | `process.saved_user.*` | [user](/reference/ecs-user.md) | The saved user (suid). |
 | `process.session_leader.*` | `process` | Often the same as entry_leader. When it differs, it represents a session started within another session. e.g. using tmux |
@@ -104,20 +105,3 @@ Note also that the `process` fields may be used directly at the root of the even
 | `process.session_leader.parent.session_leader.*` | `process` | Information about the parent session of the session leader. Only pid, start and entity_id fields are set. |
 | `process.supplemental_groups.*` | [group](/reference/ecs-group.md) | An array of supplemental groups.<br>Note: this reuse should contain an array of group field set objects. |
 | `process.user.*` | [user](/reference/ecs-user.md) | The effective user (euid). |
-
-:::
-
-:::{tab-item} Beta field sets
-
-| Location | Field Set | Description |
-| --- | --- | --- |
-| `process.attested_groups.*` | [group](/reference/ecs-group.md) | The externally attested groups based on an external source such as the Kube API.<br>Note: this reuse should contain an array of group field set objects. |
-| `process.attested_user.*` | [user](/reference/ecs-user.md) | The externally attested user based on an external source such as the Kube API. |
-| `process.elf.*` | [elf](/reference/ecs-elf.md) | These fields contain Linux Executable Linkable Format (ELF) metadata. |
-| `process.macho.*` | [macho](/reference/ecs-macho.md) | These fields contain Mac OS Mach Object file format (Mach-O) metadata. |
-| `process.responsible.*` | `process` | Responsible process in macOS tracks the originating process of an app, key for understanding permissions and hierarchy. |
-
-
-:::
-::::
-
