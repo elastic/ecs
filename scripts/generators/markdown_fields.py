@@ -17,6 +17,7 @@
 
 from functools import wraps
 import os.path as path
+import os
 
 import jinja2
 
@@ -25,23 +26,20 @@ from copy import deepcopy
 
 
 def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, otel_generator, out_dir):
-    # fields docs now have a dedicated docs subdir: docs/fields
-    fields_docs_dir = out_dir + '/fields'
-    otel_docs_dir = out_dir + '/opentelemetry'
 
-    ecs_helpers.make_dirs(fields_docs_dir)
+    ecs_helpers.make_dirs(out_dir)
 
     if semconv_version.startswith('v'):
         semconv_version = semconv_version[1:]
 
-    save_asciidoc(path.join(out_dir, 'index.asciidoc'), page_index(ecs_generated_version))
-    save_asciidoc(path.join(fields_docs_dir, 'fields.asciidoc'), page_field_index(nested, ecs_generated_version))
-    save_asciidoc(path.join(fields_docs_dir, 'field-details.asciidoc'), page_field_details(nested, docs_only_nested))
-    save_asciidoc(path.join(fields_docs_dir, 'field-values.asciidoc'), page_field_values(nested))
-    save_asciidoc(path.join(otel_docs_dir, 'otel-fields-mapping.asciidoc'),
-                  page_otel_mapping(nested, ecs_generated_version, semconv_version))
-    save_asciidoc(path.join(otel_docs_dir, 'otel-mapping-summary.asciidoc'),
-                  page_otel_summary(otel_generator, nested, ecs_generated_version, semconv_version))
+    save_markdown(path.join(out_dir, 'index.md'), page_index(ecs_generated_version))
+    save_markdown(path.join(out_dir, 'ecs-otel-alignment-details.md'),
+                  page_otel_alignment_details(nested, ecs_generated_version, semconv_version))
+    save_markdown(path.join(out_dir, 'ecs-otel-alignment-overview.md'),
+                  page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version))
+    fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
+    for fieldset in fieldsets:
+        save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'), page_fieldset(fieldset, nested, ecs_generated_version))
 
 # Helpers
 
@@ -112,7 +110,7 @@ def check_for_usage_doc(fieldset_name, usage_file_list=ecs_helpers.usage_doc_fil
 
     :param fieldset_name: The name of the target fieldset
     """
-    return f"{fieldset_name}.asciidoc" in usage_file_list
+    return f"ecs-{fieldset_name}-usage.md" in usage_file_list
 
 
 def templated(template_name):
@@ -145,7 +143,8 @@ def render_template(template_name, **context):
     return template.render(**context)
 
 
-def save_asciidoc(f, text):
+def save_markdown(f, text):
+    os.makedirs(path.dirname(f), exist_ok=True)
     with open(f, "w") as outfile:
         outfile.write(text)
 
@@ -155,7 +154,10 @@ def save_asciidoc(f, text):
 local_dir = path.dirname(path.abspath(__file__))
 TEMPLATE_DIR = path.join(local_dir, '../templates')
 template_loader = jinja2.FileSystemLoader(searchpath=TEMPLATE_DIR)
-template_env = jinja2.Environment(loader=template_loader, keep_trailing_newline=True)
+template_env = jinja2.Environment(loader=template_loader,
+                                  keep_trailing_newline=True,
+                                  trim_blocks=True,
+                                  lstrip_blocks=False)
 
 # Rendering schemas
 
@@ -170,11 +172,17 @@ def page_index(ecs_generated_version):
 # Field Index
 
 
-@templated('fields.j2')
-def page_field_index(nested, ecs_generated_version):
-    fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
-    return dict(ecs_generated_version=ecs_generated_version, fieldsets=fieldsets)
-
+@templated('fieldset.j2')
+def page_fieldset(fieldset, nested, ecs_generated_version):
+    sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
+    render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
+    sorted_fields = sort_fields(fieldset)
+    usage_doc = check_for_usage_doc(fieldset.get('name'))
+    return dict(fieldset=fieldset,
+                sorted_reuse_fields=sorted_reuse_fields,
+                render_nestings_reuse_section=render_nestings_reuse_fields,
+                sorted_fields=sorted_fields,
+                usage_doc=usage_doc)
 
 # Field Details Page
 
@@ -203,8 +211,8 @@ def generate_field_details_page(fieldset):
 # OTel Fields Mapping Page
 
 
-@templated('otel_mapping.j2')
-def page_otel_mapping(nested, ecs_generated_version, semconv_version):
+@templated('otel_alignment_details.j2')
+def page_otel_alignment_details(nested, ecs_generated_version, semconv_version):
     fieldsets = [deepcopy(fieldset) for fieldset in ecs_helpers.dict_sorted_by_keys(
         nested, ['group', 'name']) if is_eligable_for_otel_mapping(fieldset)]
     for fieldset in fieldsets:
@@ -225,8 +233,8 @@ def is_eligable_for_otel_mapping(fieldset):
 # OTel Mapping Summary Page
 
 
-@templated('otel_summary.j2')
-def page_otel_summary(otel_generator, nested, ecs_generated_version, semconv_version):
+@templated('otel_alignment_overview.j2')
+def page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version):
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     summaries = otel_generator.get_mapping_summaries(fieldsets)
     return dict(summaries=summaries,

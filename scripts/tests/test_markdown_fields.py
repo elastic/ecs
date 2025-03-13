@@ -21,10 +21,10 @@ import unittest
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from scripts.generators import asciidoc_fields
+from scripts.generators import markdown_fields
 
 
-class TestGeneratorsAsciiFields(unittest.TestCase):
+class TestGeneratorsMarkdownFields(unittest.TestCase):
 
     def setUp(self):
         self.foo_fieldset = self.dummy_fieldset()
@@ -185,7 +185,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         }
 
     def test_validate_sort_fieldset(self):
-        sorted_foo_fields = asciidoc_fields.sort_fields(self.foo_fieldset)
+        sorted_foo_fields = markdown_fields.sort_fields(self.foo_fieldset)
         # import pdb;pdb.set_trace()
         self.assertIsInstance(sorted_foo_fields, list)
 
@@ -200,7 +200,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         self.assertIn('coarse', sorted_foo_fields[1]['allowed_value_names'])
 
     def test_rendering_fieldset_reuse(self):
-        foo_reuse_fields = asciidoc_fields.render_fieldset_reuse_text(self.foo_fieldset)
+        foo_reuse_fields = markdown_fields.render_fieldset_reuse_text(self.foo_fieldset)
         expected_sorted_reuse_fields = (
             'client.foo',
             'destination.foo',
@@ -211,7 +211,7 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         self.assertEqual(expected_sorted_reuse_fields, tuple(foo_reuse_fields))
 
     def test_rendering_fieldset_nesting(self):
-        foo_nesting_fields = asciidoc_fields.render_nestings_reuse_section(self.foo_fieldset)
+        foo_nesting_fields = markdown_fields.render_nestings_reuse_section(self.foo_fieldset)
         self.assertIsInstance(foo_nesting_fields, list)
         self.assertEqual('foo.as.*', foo_nesting_fields[0]['flat_nesting'])
         self.assertEqual('as', foo_nesting_fields[0]['name'])
@@ -223,18 +223,14 @@ class TestGeneratorsAsciiFields(unittest.TestCase):
         self.assertEqual(['array'], foo_nesting_fields[1]['normalize'])
 
     def test_check_for_usage_doc_true(self):
-        usage_files = ["foo.asciidoc"]
+        usage_files = ["ecs-foo-usage.md"]
         foo_name = self.foo_fieldset.get('name')
-        self.assertTrue(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
+        self.assertTrue(markdown_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
 
     def test_check_for_usage_doc_false(self):
-        usage_files = ["notfoo.asciidoc"]
+        usage_files = ["ecs-notfoo-usage.md"]
         foo_name = self.foo_fieldset.get('name')
-        self.assertFalse(asciidoc_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
-
-    def test_check_for_page_field_value_rendering(self):
-        rendered_field_values = asciidoc_fields.page_field_values(self.event_dummy_nested_fields)
-        self.assertIn('beta', rendered_field_values)
+        self.assertFalse(markdown_fields.check_for_usage_doc(foo_name, usage_file_list=usage_files))
 
 
 if __name__ == '__main__':
