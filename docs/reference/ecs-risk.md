@@ -19,12 +19,12 @@ These fields are in beta and are subject to change.
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-risk-calculated-level$$$ [risk.calculated_level](#field-risk-calculated-level) | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: keyword<br><br>example: `High`<br> | extended |
-| $$$field-risk-calculated-score$$$ [risk.calculated_score](#field-risk-calculated-score) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: float<br><br>example: `880.73`<br> | extended |
-| $$$field-risk-calculated-score-norm$$$ [risk.calculated_score_norm](#field-risk-calculated-score-norm) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `88.73`<br> | extended |
-| $$$field-risk-static-level$$$ [risk.static_level](#field-risk-static-level) | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: keyword<br><br>example: `High`<br> | extended |
-| $$$field-risk-static-score$$$ [risk.static_score](#field-risk-static-score) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: float<br><br>example: `830.0`<br> | extended |
-| $$$field-risk-static-score-norm$$$ [risk.static_score_norm](#field-risk-static-score-norm) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `83.0`<br> | extended |
+| $$$field-risk-calculated-level$$$ [risk.calculated_level](#field-risk-calculated-level) | A risk classification level calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: keyword<br><br>example: `High` | extended |
+| $$$field-risk-calculated-score$$$ [risk.calculated_score](#field-risk-calculated-score) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring.<br><br>type: float<br><br>example: `880.73` | extended |
+| $$$field-risk-calculated-score-norm$$$ [risk.calculated_score_norm](#field-risk-calculated-score-norm) | A risk classification score calculated by an internal system as part of entity analytics and entity risk scoring, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `88.73` | extended |
+| $$$field-risk-static-level$$$ [risk.static_level](#field-risk-static-level) | A risk classification level obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: keyword<br><br>example: `High` | extended |
+| $$$field-risk-static-score$$$ [risk.static_score](#field-risk-static-score) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform.<br><br>type: float<br><br>example: `830.0` | extended |
+| $$$field-risk-static-score-norm$$$ [risk.static_score_norm](#field-risk-static-score-norm) | A risk classification score obtained from outside the system, such as from some external Threat Intelligence Platform, and normalized to a range of 0 to 100.<br><br>type: float<br><br>example: `83.0` | extended |
 
 ## Field reuse [_field_reuse]
 

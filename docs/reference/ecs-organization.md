@@ -17,7 +17,7 @@ These fields help you arrange or filter data stored in an index by one or multip
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-organization-id$$$ [organization.id](#field-organization-id) | Unique identifier for the organization.<br><br>type: keyword<br><br> | extended |
-| $$$field-organization-name$$$ [organization.name](#field-organization-name) | Organization name.<br><br>type: keyword<br><br>Multi-fields:<br><br>* organization.name.text (type: match_only_text)<br><br> | extended |
+| $$$field-organization-id$$$ [organization.id](#field-organization-id) | Unique identifier for the organization.<br><br>type: keyword | extended |
+| $$$field-organization-name$$$ [organization.name](#field-organization-name) | Organization name.<br><br>type: keyword<br><br>Multi-fields:<br><br>* organization.name.text (type: match_only_text) | extended |
 
 

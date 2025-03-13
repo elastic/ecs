@@ -15,21 +15,21 @@ Fields related to storage volume details.
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-volume-bus-type$$$ [volume.bus_type](#field-volume-bus-type) | Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.<br><br>type: keyword<br><br>example: `FileBackedVirtual`<br> | extended |
-| $$$field-volume-default-access$$$ [volume.default_access](#field-volume-default-access) | Describes the default access(es) of the volume.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-device-name$$$ [volume.device_name](#field-volume-device-name) | Full path of the volume device.<br><br>Only populate this field for POSIX system volumes.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-device-type$$$ [volume.device_type](#field-volume-device-type) | Volume device type.<br><br>The most frequently seen volume device types are `Disk File System` and `CD-ROM File System`.<br><br>type: keyword<br><br>example: `CD-ROM File System`<br> | extended |
-| $$$field-volume-dos-name$$$ [volume.dos_name](#field-volume-dos-name) | The MS-DOS name of a device.<br><br>DOS device name is in the format of driver letters, such as `C:`. The field is relevant to Windows systems only.<br><br>type: keyword<br><br>example: `E:`<br> | extended |
-| $$$field-volume-file-system-type$$$ [volume.file_system_type](#field-volume-file-system-type) | Volume device file system type.<br><br>The most common volume file system types are `NTFS` and `UDF`.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-mount-name$$$ [volume.mount_name](#field-volume-mount-name) | Mount name of the volume device.<br><br>Only populate this field for POSIX system volumes.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-nt-name$$$ [volume.nt_name](#field-volume-nt-name) | The NT device name.<br><br>NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant to Windows systems only.<br><br>type: keyword<br><br>example: `\Device\Cdrom1`<br> | extended |
-| $$$field-volume-product-id$$$ [volume.product_id](#field-volume-product-id) | ProductID of the device.<br><br>The vendor provides the ProductID for the volume, if any.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-product-name$$$ [volume.product_name](#field-volume-product-name) | Product name of the volume.<br><br>The volume device vendor provides this value.<br><br>type: keyword<br><br>example: `Virtual DVD-ROM`<br> | extended |
-| $$$field-volume-removable$$$ [volume.removable](#field-volume-removable) | Indicates if the volume is removable.<br><br>type: boolean<br><br> | extended |
-| $$$field-volume-serial-number$$$ [volume.serial_number](#field-volume-serial-number) | Serial number identifier for the volume device.<br><br>The serial number is provided by the vendor of the device, if any.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-size$$$ [volume.size](#field-volume-size) | Size of the volume device in bytes.<br><br>type: long<br><br> | extended |
-| $$$field-volume-vendor-id$$$ [volume.vendor_id](#field-volume-vendor-id) | VendorID of the volume device.<br><br>The volume device vendor provides this value.<br><br>type: keyword<br><br> | extended |
-| $$$field-volume-vendor-name$$$ [volume.vendor_name](#field-volume-vendor-name) | Vendor name of the volume device.<br><br>The value is provided by the vendor of the device.<br><br>type: keyword<br><br>example: `Msft`<br> | extended |
-| $$$field-volume-writable$$$ [volume.writable](#field-volume-writable) | Indicates if the volume is writable.<br><br>type: boolean<br><br> | extended |
+| $$$field-volume-bus-type$$$ [volume.bus_type](#field-volume-bus-type) | Bus type of the device, such as `Nvme`, `Usb`, or `FileBackedVirtual`.<br><br>type: keyword<br><br>example: `FileBackedVirtual` | extended |
+| $$$field-volume-default-access$$$ [volume.default_access](#field-volume-default-access) | Describes the default access(es) of the volume.<br><br>type: keyword | extended |
+| $$$field-volume-device-name$$$ [volume.device_name](#field-volume-device-name) | Full path of the volume device.<br><br>Only populate this field for POSIX system volumes.<br><br>type: keyword | extended |
+| $$$field-volume-device-type$$$ [volume.device_type](#field-volume-device-type) | Volume device type.<br><br>The most frequently seen volume device types are `Disk File System` and `CD-ROM File System`.<br><br>type: keyword<br><br>example: `CD-ROM File System` | extended |
+| $$$field-volume-dos-name$$$ [volume.dos_name](#field-volume-dos-name) | The MS-DOS name of a device.<br><br>DOS device name is in the format of driver letters, such as `C:`. The field is relevant to Windows systems only.<br><br>type: keyword<br><br>example: `E:` | extended |
+| $$$field-volume-file-system-type$$$ [volume.file_system_type](#field-volume-file-system-type) | Volume device file system type.<br><br>The most common volume file system types are `NTFS` and `UDF`.<br><br>type: keyword | extended |
+| $$$field-volume-mount-name$$$ [volume.mount_name](#field-volume-mount-name) | Mount name of the volume device.<br><br>Only populate this field for POSIX system volumes.<br><br>type: keyword | extended |
+| $$$field-volume-nt-name$$$ [volume.nt_name](#field-volume-nt-name) | The NT device name.<br><br>NT device name uses a format of `\Device\HarddiskVolume2`. The field is relevant to Windows systems only.<br><br>type: keyword<br><br>example: `\Device\Cdrom1` | extended |
+| $$$field-volume-product-id$$$ [volume.product_id](#field-volume-product-id) | ProductID of the device.<br><br>The vendor provides the ProductID for the volume, if any.<br><br>type: keyword | extended |
+| $$$field-volume-product-name$$$ [volume.product_name](#field-volume-product-name) | Product name of the volume.<br><br>The volume device vendor provides this value.<br><br>type: keyword<br><br>example: `Virtual DVD-ROM` | extended |
+| $$$field-volume-removable$$$ [volume.removable](#field-volume-removable) | Indicates if the volume is removable.<br><br>type: boolean | extended |
+| $$$field-volume-serial-number$$$ [volume.serial_number](#field-volume-serial-number) | Serial number identifier for the volume device.<br><br>The serial number is provided by the vendor of the device, if any.<br><br>type: keyword | extended |
+| $$$field-volume-size$$$ [volume.size](#field-volume-size) | Size of the volume device in bytes.<br><br>type: long | extended |
+| $$$field-volume-vendor-id$$$ [volume.vendor_id](#field-volume-vendor-id) | VendorID of the volume device.<br><br>The volume device vendor provides this value.<br><br>type: keyword | extended |
+| $$$field-volume-vendor-name$$$ [volume.vendor_name](#field-volume-vendor-name) | Vendor name of the volume device.<br><br>The value is provided by the vendor of the device.<br><br>type: keyword<br><br>example: `Msft` | extended |
+| $$$field-volume-writable$$$ [volume.writable](#field-volume-writable) | Indicates if the volume is writable.<br><br>type: boolean | extended |
 
 

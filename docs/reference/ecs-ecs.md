@@ -15,6 +15,6 @@ Meta-information specific to ECS.
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-ecs-version$$$ [ecs.version](#field-ecs-version) | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br><br>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br><br>type: keyword<br><br>example: `1.0.0`<br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![not-applicable](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) Not applicable. | core |
+| $$$field-ecs-version$$$ [ecs.version](#field-ecs-version) | ECS version this event conforms to. `ecs.version` is a required field and must exist in all events.<br><br>When querying across multiple indices -- which may conform to slightly different ECS versions -- this field lets integrations adjust to the schema version of the events.<br><br>type: keyword<br><br>example: `1.0.0`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![not-applicable](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) Not applicable. | core |
 
 

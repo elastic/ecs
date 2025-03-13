@@ -17,10 +17,10 @@ Use them for errors that happen while fetching events or in cases where the even
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-error-code$$$ [error.code](#field-error-code) | Error code describing the error.<br><br>type: keyword<br><br> | core |
-| $$$field-error-id$$$ [error.id](#field-error-id) | Unique identifier for the error.<br><br>type: keyword<br><br> | core |
+| $$$field-error-code$$$ [error.code](#field-error-code) | Error code describing the error.<br><br>type: keyword | core |
+| $$$field-error-id$$$ [error.id](#field-error-id) | Unique identifier for the error.<br><br>type: keyword | core |
 | $$$field-error-message$$$ [error.message](#field-error-message) | Error message.<br><br>type: match_only_text<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![equivalent](https://img.shields.io/badge/equivalent-1ba9f5?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [exception.message](https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-message) | core |
 | $$$field-error-stack-trace$$$ [error.stack_trace](#field-error-stack-trace) | The stack trace of this error in plain text.<br><br>type: wildcard<br><br>Multi-fields:<br><br>* error.stack_trace.text (type: match_only_text)<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![equivalent](https://img.shields.io/badge/equivalent-1ba9f5?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [exception.stacktrace](https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception/#exception-stacktrace) | extended |
-| $$$field-error-type$$$ [error.type](#field-error-type) | The type of the error, for example the class name of the exception.<br><br>type: keyword<br><br>example: `java.lang.NullPointerException`<br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![match](https://img.shields.io/badge/match-93c93e?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [error.type](https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/#error-type) | extended |
+| $$$field-error-type$$$ [error.type](#field-error-type) | The type of the error, for example the class name of the exception.<br><br>type: keyword<br><br>example: `java.lang.NullPointerException`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![match](https://img.shields.io/badge/match-93c93e?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [error.type](https://opentelemetry.io/docs/specs/semconv/attributes-registry/error/#error-type) | extended |
 
 

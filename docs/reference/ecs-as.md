@@ -15,8 +15,8 @@ An autonomous system (AS) is a collection of connected Internet Protocol (IP) ro
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-as-number$$$ [as.number](#field-as-number) | Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.<br><br>type: long<br><br>example: `15169`<br> | extended |
-| $$$field-as-organization-name$$$ [as.organization.name](#field-as-organization-name) | Organization name.<br><br>type: keyword<br><br>Multi-fields:<br><br>* as.organization.name.text (type: match_only_text)<br><br>example: `Google LLC`<br> | extended |
+| $$$field-as-number$$$ [as.number](#field-as-number) | Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.<br><br>type: long<br><br>example: `15169` | extended |
+| $$$field-as-organization-name$$$ [as.organization.name](#field-as-organization-name) | Organization name.<br><br>type: keyword<br><br>Multi-fields:<br><br>* as.organization.name.text (type: match_only_text)<br><br>example: `Google LLC` | extended |
 
 ## Field reuse [_field_reuse]
 

@@ -21,8 +21,8 @@ Observer.ingress and observer.egress VLAN values are used to record observer spe
 
 | Field | Description | Level |
 | --- | --- | --- |
-| $$$field-vlan-id$$$ [vlan.id](#field-vlan-id) | VLAN ID as reported by the observer.<br><br>type: keyword<br><br>example: `10`<br> | extended |
-| $$$field-vlan-name$$$ [vlan.name](#field-vlan-name) | Optional VLAN name as reported by the observer.<br><br>type: keyword<br><br>example: `outside`<br> | extended |
+| $$$field-vlan-id$$$ [vlan.id](#field-vlan-id) | VLAN ID as reported by the observer.<br><br>type: keyword<br><br>example: `10` | extended |
+| $$$field-vlan-name$$$ [vlan.name](#field-vlan-name) | Optional VLAN name as reported by the observer.<br><br>type: keyword<br><br>example: `outside` | extended |
 
 ## Field reuse [_field_reuse]
 
