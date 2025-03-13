@@ -19,21 +19,21 @@
 
 {# macro - OTel attribute link #}
 {%- macro otel_attribute_link(field, otel) -%}
-https://opentelemetry.io/docs/specs/semconv/attributes-registry/
+[{{ otel_attribute(field, otel) }}](https://opentelemetry.io/docs/specs/semconv/attributes-registry/
 {{- otel_attribute(field, otel).split(".")[0] -}}
 /#
 {{- otel_attribute_dashed_name(field, otel) -}}
-[{{ otel_attribute(field, otel) }}]
+)
 {%- endmacro -%}
 
 {# macro - OTel metric link #}
 {%- macro otel_metric_link(otel) -%}
-https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.{{otel['metric']}}+--%3E%22&type=code[{{ otel['metric'] }}]
+[{{ otel['metric'] }}](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.{{otel['metric']}}+--%3E%22&type=code)
 {%- endmacro -%}
 
 {# macro - OTel OTLP link #}
 {%- macro otel_otlp_link(otel) -%}
-https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+{{ otel['otlp_field'] }}+%22&type=code[{{ otel['otlp_field'] }}]
+[{{ otel['otlp_field'] }}](https://github.com/search?q=repo%3Aopen-telemetry%2Fopentelemetry-proto+%22\+{{ otel['otlp_field'] }}+%22&type=code)
 {%- endmacro -%}
 
 {# macro - OTel link #}
@@ -51,31 +51,31 @@ Not applicable.
 
 {# macro - OTel relation badge #}
 {%- macro otel_relation_badge(otel)-%}
-image:https://img.shields.io/badge/
+[
 {%- if otel['relation'] == 'match' -%}
-match-93c93e?style=flat[relation,title=match
+![match](https://img.shields.io/badge/match-93c93e?style=flat)
 {%- elif otel['relation'] == 'equivalent' -%}
-equivalent-1ba9f5?style=flat[relation,title=equivalent
+![equivalent](https://img.shields.io/badge/equivalent-1ba9f5?style=flat)
 {%- elif otel['relation'] == 'metric' -%}
-metric-cb00cb?style=flat[relation,title=metric
+![metric](https://img.shields.io/badge/metric-cb00cb?style=flat)
 {%- elif otel['relation'] == 'conflict' -%}
-conflict-910000?style=flat[relation,title=conflict
+![conflict](https://img.shields.io/badge/conflict-910000?style=flat)
 {%- elif otel['relation'] == 'na' -%}
-n%2Fa-f2f4fb?style=flat[relation,title=not-applicable
+![not-applicable](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat)
 {%- elif otel['relation'] == 'otlp' -%}
-OTLP-ffdcb2?style=flat[relation,title=otlp
+![otlp](https://img.shields.io/badge/OTLP-ffdcb2?style=flat)
 {%- else -%}
-related-efc20d?style=flat[relation,title=related
+![related](https://img.shields.io/badge/related-efc20d?style=flat)
 {%- endif -%}
-,link=ecs-opentelemetry.html#ecs-opentelemetry-relation]
+](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation)
 {%- endmacro -%}
 
 {# macro - OTel stability badge #}
 {%- macro otel_stability_badge(otel)-%}
 {%- if 'stability' in otel and otel['stability'] == 'experimental' -%}
-image:https://img.shields.io/badge/✘-fed10c?style=flat[experimental,title=experimental]
+![experimental](https://img.shields.io/badge/✘-fed10c?style=flat)
 {%- elif otel['stability'] == 'stable' -%}
-image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
+![stable](https://img.shields.io/badge/✔-93c93e?style=flat)
 {%- endif -%}
 {%- endmacro -%}
 
@@ -93,7 +93,7 @@ image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 {%- if num == 0 -%}
 ·
 {%- else -%}
-<<{{ link }},{{ num }}>>
+[{{ num }}]({{ link }})
 {%- endif -%}
 {%- endmacro -%}
 
@@ -102,9 +102,9 @@ image:https://img.shields.io/badge/✔-93c93e?style=flat[stable,title=stable]
 {%- if num == 0 -%}
 ·
 {%- else -%}
-{{ link }}[{{ num }}]
+[{{ num }}]({{ link }})
 {%- endif -%}
 {%- endmacro -%}
 
 {# OTel badge #}
-{%- set otel_badge = "image:https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry[OTel Badge]" -%}
+{%- set otel_badge = "![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry)" -%}

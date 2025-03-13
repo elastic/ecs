@@ -41,13 +41,53 @@ check_license_headers:
 clean:
 	rm -rf build generated/elasticsearch/composable/component experimental/generated/elasticsearch/composable/component
 
-# Build the asciidoc book.
+# Build and serve the docs
 .PHONY: docs
 docs:
-	if [ ! -d $(PWD)/build/docs ]; then \
-		git clone --depth=1 https://github.com/elastic/docs.git ./build/docs ; \
+	@echo "Building documentation with docs-builder..."
+	@mkdir -p $(PWD)/build/docs
+	@if [ ! -f "$(PWD)/build/docs/docs-builder" ] && [ ! -f "$(PWD)/build/docs/docs-builder.exe" ]; then \
+		echo "Downloading docs-builder..."; \
+		OS=$$(uname -s 2>/dev/null || echo "Windows_NT"); \
+		cd $(PWD)/build/docs && \
+		if [ "$$OS" = "Darwin" ]; then \
+			ARCH=$$(uname -m); \
+			if [ "$$ARCH" = "arm64" ]; then \
+				echo "Detected macOS on ARM64"; \
+				curl -LO https://github.com/elastic/docs-builder/releases/latest/download/docs-builder-mac-arm64.zip; \
+				ZIPFILE="docs-builder-mac-arm64.zip"; \
+			else \
+				echo "Detected macOS on x86_64"; \
+				curl -LO https://github.com/elastic/docs-builder/releases/latest/download/docs-builder-mac-x86_64.zip; \
+				ZIPFILE="docs-builder-mac-x86_64.zip"; \
+			fi; \
+		elif [ "$$OS" = "Linux" ]; then \
+			echo "Detected Linux"; \
+			curl -LO https://github.com/elastic/docs-builder/releases/latest/download/docs-builder-linux-x86_64.zip; \
+			ZIPFILE="docs-builder-linux-x86_64.zip"; \
+		elif echo "$$OS" | grep -q "Windows"; then \
+			echo "Detected Windows"; \
+			curl -LO https://github.com/elastic/docs-builder/releases/latest/download/docs-builder-windows-x86_64.zip; \
+			ZIPFILE="docs-builder-windows-x86_64.zip"; \
+		else \
+			echo "Unsupported platform: $$OS"; \
+			exit 1; \
+		fi && \
+		unzip -o $$ZIPFILE && \
+		rm $$ZIPFILE && \
+		if echo "$$OS" | grep -q "Windows"; then \
+			chmod +x docs-builder.exe 2>/dev/null || true; \
+		else \
+			chmod +x docs-builder; \
+		fi; \
 	fi
-	./build/docs/build_docs --asciidoctor --doc ./docs/index.asciidoc --chunk=2 $(OPEN_DOCS) --out ./build/html_docs
+	@echo "Running docs-builder to serve documentation..."
+	@cd $(PWD) && \
+	if [ -f "$(PWD)/build/docs/docs-builder.exe" ]; then \
+		$(PWD)/build/docs/docs-builder.exe serve; \
+	else \
+		$(PWD)/build/docs/docs-builder serve; \
+	fi
 
 # Alias to generate experimental artifacts
 .PHONY: experimental
