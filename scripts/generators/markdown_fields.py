@@ -39,7 +39,8 @@ def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, o
                   page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version))
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     for fieldset in fieldsets:
-        save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'), page_fieldset(fieldset, nested, ecs_generated_version))
+        save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'),
+                      page_fieldset(fieldset, nested, ecs_generated_version))
 
 # Helpers
 
@@ -185,6 +186,7 @@ def page_fieldset(fieldset, nested, ecs_generated_version):
                 usage_doc=usage_doc)
 
 # Field Details Page
+
 
 def page_field_details(nested, docs_only_nested):
     if docs_only_nested:
