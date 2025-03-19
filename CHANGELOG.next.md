@@ -14,6 +14,9 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix link rendering issues and usage of http in links. #2423
+* Fix link rendering for additional fields. #2458
+
 #### Added
 
 #### Improvements
