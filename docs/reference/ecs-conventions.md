@@ -28,7 +28,7 @@ Some specific kinds of codes are always integers, like HTTP status codes. If tho
 Elasticsearch can index text using datatypes:
 
 * **`text`** Text indexing allows for full text search, or searching arbitrary words that are part of the field. See [Text datatype](elasticsearch://reference/elasticsearch/mapping-reference/text.md) in the {{es}} Reference Guide.
-* **`keyword`** Keyword indexing offers faster exact match filtering, prefix search (like autocomplete), and makes aggregations (like {{kib}} visualizations) possible. See the {{es}} Reference Guide for more information on [exact match filtering](elasticsearch://reference/query-languages/query-dsl-term-query.md), [prefix search](elasticsearch://reference/query-languages/query-dsl-prefix-query.md), or [aggregations](elasticsearch://reference/data-analysis/aggregations/index.md).
+* **`keyword`** Keyword indexing offers faster exact match filtering, prefix search (like autocomplete), and makes aggregations (like {{kib}} visualizations) possible. See the {{es}} Reference Guide for more information on [exact match filtering](elasticsearch://reference/query-languages/query-dsl/query-dsl-term-query.md), [prefix search](elasticsearch://reference/query-languages/query-dsl/query-dsl-prefix-query.md), or [aggregations](elasticsearch://reference/data-analysis/aggregations/index.md).
 
 
 ## Default Elasticsearch convention for indexing text fields [_default_elasticsearch_convention_for_indexing_text_fields]

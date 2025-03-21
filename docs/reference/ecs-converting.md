@@ -129,7 +129,7 @@ If the `destination field` is `@timestamp`, a `format_action` of `parse_timestam
 
 4. In {{kib}}, open the main menu and click **Stack Management > Ingest Pipelines > Create pipeline > New pipeline from CSV**.
 
-   :::{image} ../images/kib-create-pipeline-from-csv.png
+   :::{image} images/kib-create-pipeline-from-csv.png
    :alt: Create Pipeline from CSV in Kibana
    :class: screenshot
    :::
@@ -147,7 +147,7 @@ If the `destination field` is `@timestamp`, a `format_action` of `parse_timestam
 
    {{kib}} displays a JSON preview of the ingest pipeline generated from your CSV file.
 
-   :::{image} ../images/kib-create-pipeline-from-csv-preview.png
+   :::{image} images/kib-create-pipeline-from-csv-preview.png
    :alt: Preview pipeline from CSV in Kibana
    :class: screenshot
    :::
