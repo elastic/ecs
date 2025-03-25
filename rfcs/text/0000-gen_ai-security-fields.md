@@ -57,8 +57,43 @@ llm.model.instructions	|	text	|	Custom instructions for the LLM model.
 llm.model.parameters	|	keyword	|	Parameters used to confirm the LLM model.
 -->
 
-The `gen_ai` fields proposed are: [WIP]
+The `gen_ai` fields proposed to be backported from Open Telemetry are: 
 
+Fields, types, and descriptions are sourced from [OTel GenAI documentation](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/) as of March 25, 2025
+
+| Attribute | Type | Description | Examples |
+|---|---|---|---|
+| `gen_ai.agent.description` | string | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` | 
+| `gen_ai.agent.id` | string | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` | 
+| `gen_ai.agent.name` | string | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` | 
+| `gen_ai.operation.name` | string | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` | 
+| `gen_ai.output.type` | string | Represents the content type requested by the client. [2] | `text`; `json`; `image` | 
+|`gen_ai.request.choice.count` | int | The target number of candidate completions to return. | `3` | 
+| `gen_ai.request.encoding_formats` | string[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` | 
+| `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` | 
+| `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` | 
+| `gen_ai.request.model` | string | The name of the GenAI model a request is being made to. | `gpt-4` | 
+| `gen_ai.request.presence_penalty` | double | The presence penalty setting for the GenAI request. | `0.1` | 
+| `gen_ai.request.seed` | int | Requests with same seed value more likely to return same result. | `100` | 
+| `gen_ai.request.stop_sequences` | string[] | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]` | 
+| `gen_ai.request.temperature` | double | The temperature setting for the GenAI request. | `0.0` | 
+| `gen_ai.request.top_k` | double | The top_k sampling setting for the GenAI request. | `1.0` | 
+| `gen_ai.request.top_p` | double | The top_p sampling setting for the GenAI request. | `1.0` | 
+| `gen_ai.response.finish_reasons` | string[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` | 
+| `gen_ai.response.id` | string | The unique identifier for the completion. | `chatcmpl-123` | 
+| `gen_ai.response.model` | string | The name of the model that generated the response. | `gpt-4-0613` | 
+| `gen_ai.system` | string | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` | 
+| `gen_ai.token.type` | string | The type of token being counted. | `input`; `output` | 
+| `gen_ai.tool.call.id` | string | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` | 
+| `gen_ai.tool.name` | string | Name of the tool utilized by the agent. | `Flights` | 
+| `gen_ai.tool.type` | string | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` | 
+| `gen_ai.usage.input_tokens` | int | The number of tokens used in the GenAI input (prompt). | `100` | 
+| `gen_ai.usage.output_tokens` | int | The number of tokens used in the GenAI response (completion). | `180` | 
+
+Fields as of Mar 25, 2025 at this OTel [commit](https://github.com/open-telemetry/semantic-conventions/blob/78c42c576a25743902192466cf7ff81889bf3630/docs/attributes-registry/gen-ai.md).
+
+<!-- Archived by @susan-shu-c w/Elastic Security 03/25/2025 -->
+<!-- 
 Field | Type | Description /Usage | Example
 -- | -- | -- | --
 gen_ai | nested | This defines the attributes used to describe telemetry in the context of Generative Artificial Intelligence (GenAI) Models requests and responses.
@@ -176,7 +211,8 @@ gen_ai.user.role | keyword | The actual role of the message author as passed in 
 
 Reuse fields: 
 * Threat - https://www.elastic.co/guide/en/ecs/current/ecs-threat.html
-* Rule - https://www.elastic.co/guide/en/ecs/current/ecs-rule.html
+* Rule - https://www.elastic.co/guide/en/ecs/current/ecs-rule.html 
+-->
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
