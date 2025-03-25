@@ -54,6 +54,7 @@
       example: '["readonly", "system"]'
       normalize:
         - array
+      synthetic_source_keep: "none"
       otel:
         - relation: match
     - name: directory
@@ -227,11 +228,10 @@
       type: keyword
       short: Media type of file, document, or arrangement of bytes.
       description: >
-        MIME type should identify the format of the file or stream of bytes using
-        https://www.iana.org/assignments/media-types/media-types.xhtml[IANA official types],
+        MIME type should identify the format of the file or stream of bytes using IANA official types:
+        https://www.iana.org/assignments/media-types/media-types.xhtml,
         where possible. When more than one type is applicable, the most specific
         type should be used.
-
     - name: fork_name
       level: extended
       type: keyword
@@ -251,3 +251,19 @@
       example: Zone.Identifer
       otel:
         - relation: match
+
+    - name: origin_referrer_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL of the webpage that linked to the file.
+      example: http://example.com/article1.html
+      beta: This field is beta and subject to change.
+
+    - name: origin_url
+      level: extended
+      type: keyword
+      ignore_above: 8192
+      description: The URL where the file is hosted.
+      example: http://example.com/imgs/article1_img1.jpg
+      beta: This field is beta and subject to change.

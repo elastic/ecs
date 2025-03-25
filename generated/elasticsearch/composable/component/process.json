@@ -1,7 +1,7 @@
 {
   "_meta": {
     "documentation": "https://www.elastic.co/guide/en/ecs/current/ecs-process.html",
-    "ecs_version": "9.0.0-dev"
+    "ecs_version": "9.1.0-dev"
   },
   "template": {
     "mappings": {
@@ -471,6 +471,7 @@
             },
             "env_vars": {
               "ignore_above": 1024,
+              "synthetic_source_keep": "none",
               "type": "keyword"
             },
             "executable": {
@@ -1257,9 +1258,6 @@
                     }
                   }
                 },
-                "pgid": {
-                  "type": "long"
-                },
                 "pid": {
                   "type": "long"
                 },
@@ -1342,10 +1340,12 @@
                       "properties": {
                         "effective": {
                           "ignore_above": 1024,
+                          "synthetic_source_keep": "none",
                           "type": "keyword"
                         },
                         "permitted": {
                           "ignore_above": 1024,
+                          "synthetic_source_keep": "none",
                           "type": "keyword"
                         }
                       }
@@ -1502,9 +1502,6 @@
                   "type": "nested"
                 }
               }
-            },
-            "pgid": {
-              "type": "long"
             },
             "pid": {
               "type": "long"
@@ -1821,10 +1818,12 @@
                   "properties": {
                     "effective": {
                       "ignore_above": 1024,
+                      "synthetic_source_keep": "none",
                       "type": "keyword"
                     },
                     "permitted": {
                       "ignore_above": 1024,
+                      "synthetic_source_keep": "none",
                       "type": "keyword"
                     }
                   }
