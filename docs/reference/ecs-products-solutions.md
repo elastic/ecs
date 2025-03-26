@@ -20,5 +20,5 @@ The following Elastic products support ECS out of the box, as of version 7.0:
 * [Log Monitoring](docs-content://solutions/observability/logs/explore-logs.md)
 * Log formatters that support ECS out of the box for various languages can be found [here](https://github.com/elastic/ecs-logging/blob/master/README.md).
 * [Metrics Monitoring](docs-content://solutions/observability/infra-and-hosts/analyze-infrastructure-host-metrics.md)
-* {{ls}}' {{es}} output has an [ECS compatibility mode](logstash://reference/plugins-outputs-elasticsearch.md#_compatibility_with_the_elastic_common_schema_ecs)
+* {{ls}}' {{es}} output has an [ECS compatibility mode](logstash-docs-md://lsr/plugins-outputs-elasticsearch.md#_compatibility_with_the_elastic_common_schema_ecs)
 
