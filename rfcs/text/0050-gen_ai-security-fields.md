@@ -1,8 +1,8 @@
-# 0000: GenAI fields
+# 0050: GenAI fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: 2025-03-26 <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -34,7 +34,7 @@ Archived by @peasead w/Elastic Security Labs 10/29/2024
 The `llm` fields proposed are: [WIP]
 
 Field | Type | Description /Usage
--- | -- | -- 
+-- | -- | --
 llm.request.content	|	text	|	The full text of the user's request to the LLM.
 llm.request.token_count	|	integer	|	Number of tokens in the user's request.
 llm.response.content	|	text	|	The full text of the LLM's response.
@@ -57,56 +57,56 @@ llm.model.instructions	|	text	|	Custom instructions for the LLM model.
 llm.model.parameters	|	keyword	|	Parameters used to confirm the LLM model.
 -->
 
-The `gen_ai` fields proposed to be backported from Open Telemetry are: 
+The `gen_ai` fields proposed to be backported from Open Telemetry are:
 
 Fields, types, and descriptions are sourced from [OTel GenAI documentation](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/) as of March 25, 2025
 
 | Attribute | Type | Description | Examples |
 |---|---|---|---|
-| `gen_ai.agent.description` | string | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` | 
-| `gen_ai.agent.id` | string | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` | 
-| `gen_ai.agent.name` | string | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` | 
-| `gen_ai.operation.name` | string | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` | 
-| `gen_ai.output.type` | string | Represents the content type requested by the client. [2] | `text`; `json`; `image` | 
-|`gen_ai.request.choice.count` | int | The target number of candidate completions to return. | `3` | 
-| `gen_ai.request.encoding_formats` | string[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` | 
-| `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` | 
-| `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` | 
-| `gen_ai.request.model` | string | The name of the GenAI model a request is being made to. | `gpt-4` | 
-| `gen_ai.request.presence_penalty` | double | The presence penalty setting for the GenAI request. | `0.1` | 
-| `gen_ai.request.seed` | int | Requests with same seed value more likely to return same result. | `100` | 
-| `gen_ai.request.stop_sequences` | string[] | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]` | 
-| `gen_ai.request.temperature` | double | The temperature setting for the GenAI request. | `0.0` | 
-| `gen_ai.request.top_k` | double | The top_k sampling setting for the GenAI request. | `1.0` | 
-| `gen_ai.request.top_p` | double | The top_p sampling setting for the GenAI request. | `1.0` | 
-| `gen_ai.response.finish_reasons` | string[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` | 
-| `gen_ai.response.id` | string | The unique identifier for the completion. | `chatcmpl-123` | 
-| `gen_ai.response.model` | string | The name of the model that generated the response. | `gpt-4-0613` | 
-| `gen_ai.system` | string | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` | 
-| `gen_ai.token.type` | string | The type of token being counted. | `input`; `output` | 
-| `gen_ai.tool.call.id` | string | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` | 
-| `gen_ai.tool.name` | string | Name of the tool utilized by the agent. | `Flights` | 
-| `gen_ai.tool.type` | string | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` | 
-| `gen_ai.usage.input_tokens` | int | The number of tokens used in the GenAI input (prompt). | `100` | 
-| `gen_ai.usage.output_tokens` | int | The number of tokens used in the GenAI response (completion). | `180` | 
+| `gen_ai.agent.description` | string | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` |
+| `gen_ai.agent.id` | string | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` |
+| `gen_ai.agent.name` | string | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` |
+| `gen_ai.operation.name` | string | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` |
+| `gen_ai.output.type` | string | Represents the content type requested by the client. [2] | `text`; `json`; `image` |
+|`gen_ai.request.choice.count` | int | The target number of candidate completions to return. | `3` |
+| `gen_ai.request.encoding_formats` | string[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` |
+| `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` |
+| `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` |
+| `gen_ai.request.model` | string | The name of the GenAI model a request is being made to. | `gpt-4` |
+| `gen_ai.request.presence_penalty` | double | The presence penalty setting for the GenAI request. | `0.1` |
+| `gen_ai.request.seed` | int | Requests with same seed value more likely to return same result. | `100` |
+| `gen_ai.request.stop_sequences` | string[] | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]` |
+| `gen_ai.request.temperature` | double | The temperature setting for the GenAI request. | `0.0` |
+| `gen_ai.request.top_k` | double | The top_k sampling setting for the GenAI request. | `1.0` |
+| `gen_ai.request.top_p` | double | The top_p sampling setting for the GenAI request. | `1.0` |
+| `gen_ai.response.finish_reasons` | string[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` |
+| `gen_ai.response.id` | string | The unique identifier for the completion. | `chatcmpl-123` |
+| `gen_ai.response.model` | string | The name of the model that generated the response. | `gpt-4-0613` |
+| `gen_ai.system` | string | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` |
+| `gen_ai.token.type` | string | The type of token being counted. | `input`; `output` |
+| `gen_ai.tool.call.id` | string | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` |
+| `gen_ai.tool.name` | string | Name of the tool utilized by the agent. | `Flights` |
+| `gen_ai.tool.type` | string | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` |
+| `gen_ai.usage.input_tokens` | int | The number of tokens used in the GenAI input (prompt). | `100` |
+| `gen_ai.usage.output_tokens` | int | The number of tokens used in the GenAI response (completion). | `180` |
 
 Fields as of Mar 25, 2025 at this OTel [commit](https://github.com/open-telemetry/semantic-conventions/blob/78c42c576a25743902192466cf7ff81889bf3630/docs/attributes-registry/gen-ai.md).
 
 <!-- Archived by @susan-shu-c w/Elastic Security 03/25/2025 -->
-<!-- 
+<!--
 Field | Type | Description /Usage | Example
 -- | -- | -- | --
 gen_ai | nested | This defines the attributes used to describe telemetry in the context of Generative Artificial Intelligence (GenAI) Models requests and responses.
-gen_ai.analysis | nested | 
-gen_ai.analysis.action_recommended | keyword | Recommended actions based on the analysis. 
+gen_ai.analysis | nested |
+gen_ai.analysis.action_recommended | keyword | Recommended actions based on the analysis.
 gen_ai.analysis.finding | keyword | Detailed findings from security tools.
 gen_ai.analysis.function | keyword | Name of the security or analysis function used.
 gen_ai.analysis.tool_names | keyword | Name of the security or analysis tools used.
-gen_ai.assistant | nested | 
-gen_ai.assistant.message | nested | 
+gen_ai.assistant | nested |
+gen_ai.assistant.message | nested |
 gen_ai.assistant.message.role | keyword | The actual role of the message author as passed in the message. | `assistant` or `bot`
 gen_ai.assistant.message.content | keyword | The contents of the assistant message. | `Spans, events, metrics defined by the GenAI semantic conventions.`
-gen_ai.assistant.message.tool_calls | nested | The tool calls generated by the model, such as function calls. | 
+gen_ai.assistant.message.tool_calls | nested | The tool calls generated by the model, such as function calls. |
 gen_ai.assistant.message.tool_calls.id | text | The id of the tool call | `call_mszuSIzqtI65i1wAUOE8w5H4`
 gen_ai.assistant.message.tool_calls.type | keyword | The type of the tool | `function`
 gen_ai.assistant.message.tool_calls.function | nested
@@ -115,10 +115,10 @@ gen_ai.assistant.message.tool_calls.function.arguments | keyword | The arguments
 gen_ai.choice | nested | This event describes model-generated individual chat response
 gen_ai.choice.finish_reason | keyword | The reason the model stopped generating tokens. | `stop`, `tool_calls`, `content_filter`
 gen_ai.choice.index | intiger | The index of the choice in the list of choices. | `1`
-gen_ai.choice.message | nested | GenAI response message. | 
+gen_ai.choice.message | nested | GenAI response message. |
 gen_ai.choice.message.role | The actual role of the message author as passed in the message. | `assistant` or `bot`
 gen_ai.choice.message.content | The contents of the choice message. | `Spans, events, metrics defined by the GenAI semantic conventions.`
-gen_ai.choice.message.tool_calls | nested | The tool calls generated by the model, such as function calls. | 
+gen_ai.choice.message.tool_calls | nested | The tool calls generated by the model, such as function calls. |
 gen_ai.choice.message.tool_calls.id | text | The id of the tool call | `call_mszuSIzqtI65i1wAUOE8w5H4`
 gen_ai.choice.message.tool_calls.type | keyword | The type of the tool | `function`
 gen_ai.choice.message.tool_calls.function | nested
@@ -135,7 +135,7 @@ gen_ai.openai.request.response_format | keyword | The response format that is re
 gen_ai.openai.request.seed | integer | Requests with same seed value more likely to return same result. | `100`
 gen_ai.openai.request.service_tier | keyword | The service tier requested. May be a specific tier, detault, or auto. | `auto`, `default`
 gen_ai.openai.response.service_tier | keyword | The service tier used for the response. | `scale`, `default`
-gen_ai.owasp | nested | 
+gen_ai.owasp | nested |
 gen_ai.owasp.description | text | Description of the OWASP risk triggered.
 gen_ai.owasp.id | keyword | Identifier for the OWASP risk addressed.
 gen_ai.performance | nested
@@ -152,7 +152,7 @@ gen_ai.policy.violation | boolean | Specifies if a security policy was violated.
 gen_ai.request | nested | This group defines attributes for GenAI request actions. |
 gen_ai.request.id | keyword | Unique identifier for the LLM request.
 gen_ai.request.max_tokens | integer | The maximum number of tokens the model generates for a request. | `100`
-gen_ai.request.model | nested | 
+gen_ai.request.model | nested |
 gen_ai.request.model.description | text | Description of the LLM model.
 gen_ai.request.model.instructions | text | Custom instructions for the LLM model.
 gen_ai.request.model.role | keyword | Role of the LLM model in the interaction.
@@ -172,18 +172,18 @@ gen_ai.response.finish_reasons | keyword | Array of reasons the model stopped ge
 gen_ai.response.id | keyword | The unique identifier for the completion. | `chatcmpl-123`
 gen_ai.response.model | keyword | The name of the model that generated the response. | `gpt-4-0613`
 gen_ai.response.timestamp | date | Timestamp when the response was received.
-gen_ai.security | nested | 
-gen_ai.security.halluncination_consistency | integer | Consistency check between multiple responses. 
+gen_ai.security | nested |
+gen_ai.security.halluncination_consistency | integer | Consistency check between multiple responses.
 gen_ai.security.jailbreak_score | integer | Measures similarity to known jailbreak attempts.
 gen_ai.security.prompt_injection_score | integer | Measures similarity to known prompt injection attacks.
 gen_ai.security.refusal_score | integer | Measures similarity to known LLM refusal responses.
 gen_ai.security.regex_pattern_count | integer | Counts occurrences of strings matching user-defined regex patterns.
-gen_ai.sentiment | nested | 
+gen_ai.sentiment | nested |
 gen_ai.sentiment.content_categories | keyword | Categories of content identified as sensitive or requiring moderation.
 gen_ai.sentiment.content_inappropriate | keyword | Whether the content was flagged as inappropriate or sensitive.
 gen_ai.sentiment.score | integer | Sentiment analysis score.
 gen_ai.sentiment.toxicity_score | integer | Toxicity analysis score.
-gen_ai.system | nested | 
+gen_ai.system | nested |
 gen_ai.system.product | keyword | The Generative AI product as identified by the client or server instrumentation. | `openai`
 gen_ai.system.message | nested | This event describes the instructions passed to the GenAI model.
 gen_ai.system.message.role | keyword | The actual role of the message author as passed in the message. | `system` or `instructions`
@@ -209,9 +209,9 @@ gen_ai.user.id | keyword | Unique identifier for the user.
 gen_ai.user.rn | keyword | Unique resource name for the user.
 gen_ai.user.role | keyword | The actual role of the message author as passed in the message. | `user` or `customer`
 
-Reuse fields: 
+Reuse fields:
 * Threat - https://www.elastic.co/guide/en/ecs/current/ecs-threat.html
-* Rule - https://www.elastic.co/guide/en/ecs/current/ecs-rule.html 
+* Rule - https://www.elastic.co/guide/en/ecs/current/ecs-rule.html
 -->
 
 <!--
