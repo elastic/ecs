@@ -1,27 +1,7 @@
 # 0049: Entity Field Set
 
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
-
-- Stage: **0 (strawperson)**
-- Date: 2025-03-06
-
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
-
-
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
-<!--
-Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
--->
+- Stage: **1 (draft)**
+- Date: 
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
@@ -48,14 +28,11 @@ This approach would allow ECS to accommodate new types of entities without requi
 | entity.attributes.* | object | Normalized entity attributes using capitalized field names (e.g., `entity.attributes.StorageClass`, `entity.attributes.MfaEnabled`). Use this field set when you need specific data types, advanced search capabilities, or normalized values across different providers/sources. The capitalization pattern indicates these are entity-specific fields that won't be enumerated in the ECS schema. |
 | entity.raw.* | flattened | Original, unmodified fields from the source system stored in a flattened format that maintains basic searchability. While `entity.attributes` should be used for normalized fields requiring advanced queries, this field preserves all source metadata with basic search capabilities. Supports existence queries, exact value matches, and simple aggregations. |
 
-
-
 The fields from the ECS [risk field set](https://www.elastic.co/guide/en/ecs/current/ecs-risk.html) can be nested under entity
 
 | Field | Type | Description |
 |-------|------|-------------|
 | entity.risk.* | * | Fields for describing risk score and risk level of entities such as hosts and users. |
-
 
 When representing entities that correspond to existing ECS field sets (e.g., hosts, users, services, containers), the relevant ECS field set should be used to capture detailed metadata about that entity. For example:
 
@@ -68,91 +45,38 @@ This approach ensures backward compatibility, maintains existing ECS patterns, a
 
 ## Usage
 
-Out Of Scope for Stage 0 (based on template)
+The entity field set enables us to normalize entity data in such a way where we can easily query key attributes in a standardized way regardless of the type and source of the entity. This will be how we'll normalize all entity data in the upcoming inventory experience that we're planning for the security solution.
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+This approach will enable security analysts to view all the entities discovered inside of their environment, whether from logs or other data sources. The entity field set will then begin powering all parts of our security solution experience like alerts, where we can now represent more entities beyond just users and hosts.
+
+Essentially, this field set gives us a standard way to represent any entity's metadata, regardless of its type or source, and provides customers with the same ability to standardize that information across their environments.
 
 ## Source data
 
-Out Of Scope for Stage 0 (based on template)
-
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
-
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
+Due to the high-level taxonomy approach we've developed for the entity field set, it doesn't exclude any data source. Any data source can model an entity using this field set, making it universally applicable across different technologies, platforms, and environments.
 
 ## Scope of impact
 
-Out Of Scope for Stage 0 (based on template)
-
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+TO DO
 
 ## Concerns
 
-Out Of Scope for Stage 0 (based on template)
+### Entity Type Governance
+The `entity.type` field needs a controlled vocabulary to maintain consistency and interoperability. However, an overly restrictive list might limit the field set's utility for emerging technologies and use cases.
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
-
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
-
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+**Potential solution:** Establish a governance process for `entity.type` values, including an initial set of well-defined types and a mechanism for proposing and reviewing new types. Document a clear taxonomy with examples to guide users in selecting appropriate types.
 
 ## People
 
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
 The following are the people that consulted on the contents of this RFC.
 
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
-The following are the people that consulted on the contents of this RFC.
-
-* Author: @tinnytintin10
-* Sponsor: @MikePaquette & @YulNaumenko
-
+TO DO 
 
 ## References
 
-- Related effort in Otel: [Resource and Entities - Data Model](https://github.com/open-telemetry/opentelemetry-specification/blob/main/oteps/entities/0264-resource-and-entities.md)
-
-<!-- Insert any links appropriate to this RFC in this section. -->
-
+TO DO 
 
 ### RFC Pull Requests
 
-<!-- An RFC should link to the PRs for each of it stage advancements. -->
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
 * Stage 0: https://github.com/elastic/ecs/pull/2434
+* Stage 1: TBD
