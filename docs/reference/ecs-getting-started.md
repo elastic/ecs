@@ -37,7 +37,7 @@ Not only does this simplify writing queries, but saved queries shared with other
 
 With normalized data from different data sources, building insightful visualizations across sources is simple. From a single, centralized dashboard, events from web servers, IDS/IPS devices, and firewalls can be aggregated and visualized, and enhanced with drill-downs, and pivoting for delving into deeper investigations. Centralized monitoring of diverse data sources is straightforward with normalized ECS data.
 
-![Simplify visualization using ECS](../images/ecs-getting-started-dashboard.png "")
+![Simplify visualization using ECS](images/ecs-getting-started-dashboard.png "")
 
 
 ## Translating data sources [_translating_data_sources]
