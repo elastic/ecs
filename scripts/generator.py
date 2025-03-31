@@ -21,7 +21,7 @@ from typing import (
     Optional,
 )
 
-from generators import asciidoc_fields
+from generators import markdown_fields
 from generators import beats
 from generators import csv_generator
 from generators import es_template
@@ -50,7 +50,7 @@ def main() -> None:
 
     # default location to save files
     out_dir = 'generated'
-    docs_dir = 'docs'
+    docs_dir = 'docs/reference'
     if args.out:
         default_dirs = False
         out_dir = os.path.join(args.out, out_dir)
@@ -93,7 +93,7 @@ def main() -> None:
 
     ecs_helpers.make_dirs(docs_dir)
     docs_only_nested = intermediate_files.generate_nested_fields(docs_only_fields)
-    asciidoc_fields.generate(nested, docs_only_nested, ecs_generated_version,
+    markdown_fields.generate(nested, docs_only_nested, ecs_generated_version,
                              args.semconv_version, otel_generator, docs_dir)
 
 

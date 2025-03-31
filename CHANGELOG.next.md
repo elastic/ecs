@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Bugfixes
 
 * Fix link rendering issues and usage of http in links. #2423
+* Fix link rendering for additional fields. #2458
 
 #### Added
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
