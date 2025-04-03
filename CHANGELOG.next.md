@@ -20,7 +20,7 @@ Thanks, you're awesome :-) -->
 * Fix link rendering for additional fields. #2458
 
 #### Added
-* Add `thumbprint` to `code_signature` schema. #2452
+* Add `thumbprint_sha256` to `code_signature` schema. #2452
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
 #### Improvements
