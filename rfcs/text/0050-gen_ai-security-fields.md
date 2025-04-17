@@ -1,7 +1,7 @@
 # 0050: GenAI fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: 2025-03-26 <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -29,190 +29,42 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
-<!--
-Archived by @peasead w/Elastic Security Labs 10/29/2024
-The `llm` fields proposed are: [WIP]
-
-Field | Type | Description /Usage
--- | -- | --
-llm.request.content	|	text	|	The full text of the user's request to the LLM.
-llm.request.token_count	|	integer	|	Number of tokens in the user's request.
-llm.response.content	|	text	|	The full text of the LLM's response.
-llm.response.token_count	|	integer	|	Number of tokens in the LLM's response.
-llm.user.id	|	keyword	|	Unique identifier for the user.
-llm.user.rn	|	keyword	|	Unique resource name for the user.
-llm.request.id	|	keyword	|	Unique identifier for the LLM request.
-llm.response.id	|	keyword	|	Unique identifier for the LLM response.
-llm.response.error_code	|	keyword	|	Error code returned in the LLM response.
-llm.response.stop_reason	|	keyword	|	Reason the LLM response stopped.
-llm.request.timestamp	|	date	|	Timestamp when the request was made.
-llm.response.timestamp	|	date	|	Timestamp when the response was received.
-llm.model.name	|	keyword	|	Name of the LLM model used to generate the response.
-llm.model.version	|	keyword	|	Version of the LLM model used to generate the response.
-llm.model.id	|	keyword	|	Unique identifier for the LLM model.
-llm.model.role	|	keyword	|	Role of the LLM model in the interaction.
-llm.model.type	|	keyword	|	Type of LLM model.
-llm.model.description	|	keyword	|	Description of the LLM model.
-llm.model.instructions	|	text	|	Custom instructions for the LLM model.
-llm.model.parameters	|	keyword	|	Parameters used to confirm the LLM model.
--->
-
 The `gen_ai` fields proposed to be backported from Open Telemetry are:
 
 Fields, types, and descriptions are sourced from [OTel GenAI documentation](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/) as of March 25, 2025
 
+Stage 1: changed to Elastic data types
+
 | Attribute | Type | Description | Examples |
 |---|---|---|---|
-| `gen_ai.agent.description` | string | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` |
-| `gen_ai.agent.id` | string | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` |
-| `gen_ai.agent.name` | string | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` |
-| `gen_ai.operation.name` | string | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` |
-| `gen_ai.output.type` | string | Represents the content type requested by the client. [2] | `text`; `json`; `image` |
-|`gen_ai.request.choice.count` | int | The target number of candidate completions to return. | `3` |
-| `gen_ai.request.encoding_formats` | string[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` |
+| `gen_ai.agent.description` | text | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` |
+| `gen_ai.agent.id` | keyword | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` |
+| `gen_ai.agent.name` | keyword | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` |
+| `gen_ai.operation.name` | keyword | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` |
+| `gen_ai.output.type` | keyword | Represents the content type requested by the client. [2] | `text`; `json`; `image` |
+|`gen_ai.request.choice.count` | integer | The target number of candidate completions to return. | `3` |
+| `gen_ai.request.encoding_formats` | keyword[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` |
 | `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` |
 | `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` |
 | `gen_ai.request.model` | string | The name of the GenAI model a request is being made to. | `gpt-4` |
 | `gen_ai.request.presence_penalty` | double | The presence penalty setting for the GenAI request. | `0.1` |
-| `gen_ai.request.seed` | int | Requests with same seed value more likely to return same result. | `100` |
-| `gen_ai.request.stop_sequences` | string[] | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]` |
+| `gen_ai.request.seed` | integer | Requests with same seed value more likely to return same result. | `100` |
+| `gen_ai.request.stop_sequences` | keyword[] | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]` |
 | `gen_ai.request.temperature` | double | The temperature setting for the GenAI request. | `0.0` |
 | `gen_ai.request.top_k` | double | The top_k sampling setting for the GenAI request. | `1.0` |
 | `gen_ai.request.top_p` | double | The top_p sampling setting for the GenAI request. | `1.0` |
-| `gen_ai.response.finish_reasons` | string[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` |
-| `gen_ai.response.id` | string | The unique identifier for the completion. | `chatcmpl-123` |
-| `gen_ai.response.model` | string | The name of the model that generated the response. | `gpt-4-0613` |
-| `gen_ai.system` | string | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` |
-| `gen_ai.token.type` | string | The type of token being counted. | `input`; `output` |
-| `gen_ai.tool.call.id` | string | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` |
-| `gen_ai.tool.name` | string | Name of the tool utilized by the agent. | `Flights` |
-| `gen_ai.tool.type` | string | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` |
-| `gen_ai.usage.input_tokens` | int | The number of tokens used in the GenAI input (prompt). | `100` |
-| `gen_ai.usage.output_tokens` | int | The number of tokens used in the GenAI response (completion). | `180` |
+| `gen_ai.response.finish_reasons` | keyword[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` |
+| `gen_ai.response.id` | keyword | The unique identifier for the completion. | `chatcmpl-123` |
+| `gen_ai.response.model` | keyword | The name of the model that generated the response. | `gpt-4-0613` |
+| `gen_ai.system` | keyword | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` |
+| `gen_ai.token.type` | keyword | The type of token being counted. | `input`; `output` |
+| `gen_ai.tool.call.id` | keyword | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` |
+| `gen_ai.tool.name` | keyword | Name of the tool utilized by the agent. | `Flights` |
+| `gen_ai.tool.type` | keyword | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` |
+| `gen_ai.usage.input_tokens` | integer | The number of tokens used in the GenAI input (prompt). | `100` |
+| `gen_ai.usage.output_tokens` | integer | The number of tokens used in the GenAI response (completion). | `180` |
 
 Fields as of Mar 25, 2025 at this OTel [commit](https://github.com/open-telemetry/semantic-conventions/blob/78c42c576a25743902192466cf7ff81889bf3630/docs/attributes-registry/gen-ai.md).
-
-<!-- Archived by @susan-shu-c w/Elastic Security 03/25/2025 -->
-<!--
-Field | Type | Description /Usage | Example
--- | -- | -- | --
-gen_ai | nested | This defines the attributes used to describe telemetry in the context of Generative Artificial Intelligence (GenAI) Models requests and responses.
-gen_ai.analysis | nested |
-gen_ai.analysis.action_recommended | keyword | Recommended actions based on the analysis.
-gen_ai.analysis.finding | keyword | Detailed findings from security tools.
-gen_ai.analysis.function | keyword | Name of the security or analysis function used.
-gen_ai.analysis.tool_names | keyword | Name of the security or analysis tools used.
-gen_ai.assistant | nested |
-gen_ai.assistant.message | nested |
-gen_ai.assistant.message.role | keyword | The actual role of the message author as passed in the message. | `assistant` or `bot`
-gen_ai.assistant.message.content | keyword | The contents of the assistant message. | `Spans, events, metrics defined by the GenAI semantic conventions.`
-gen_ai.assistant.message.tool_calls | nested | The tool calls generated by the model, such as function calls. |
-gen_ai.assistant.message.tool_calls.id | text | The id of the tool call | `call_mszuSIzqtI65i1wAUOE8w5H4`
-gen_ai.assistant.message.tool_calls.type | keyword | The type of the tool | `function`
-gen_ai.assistant.message.tool_calls.function | nested
-gen_ai.assistant.message.tool_calls.function.name | keyword | The name of the function to call | `get_link_to_otel_semconv`
-gen_ai.assistant.message.tool_calls.function.arguments | keyword | The arguments to pass the the function | `{"semconv": "gen_ai"}`
-gen_ai.choice | nested | This event describes model-generated individual chat response
-gen_ai.choice.finish_reason | keyword | The reason the model stopped generating tokens. | `stop`, `tool_calls`, `content_filter`
-gen_ai.choice.index | intiger | The index of the choice in the list of choices. | `1`
-gen_ai.choice.message | nested | GenAI response message. |
-gen_ai.choice.message.role | The actual role of the message author as passed in the message. | `assistant` or `bot`
-gen_ai.choice.message.content | The contents of the choice message. | `Spans, events, metrics defined by the GenAI semantic conventions.`
-gen_ai.choice.message.tool_calls | nested | The tool calls generated by the model, such as function calls. |
-gen_ai.choice.message.tool_calls.id | text | The id of the tool call | `call_mszuSIzqtI65i1wAUOE8w5H4`
-gen_ai.choice.message.tool_calls.type | keyword | The type of the tool | `function`
-gen_ai.choice.message.tool_calls.function | nested
-gen_ai.choice.message.tool_calls.function.name | keyword | The name of the function to call | `get_link_to_otel_semconv`
-gen_ai.choice.message.tool_calls.function.arguments | keyword | The arguments to pass the the function | `{"semconv": "gen_ai"}`
-gen_ai.compliance | nested |
-gen_ai.compliance.request_triggered | keyword | Lists compliance-related filters that were triggered during the processing of the request, such as data privacy filters or regulatory compliance checks.
-gen_ai.compliance.response_triggered | keyword | Lists compliance-related filters that were triggered during the processing of the response, such as data privacy filters or regulatory compliance checks.
-gen_ai.compliance.violation_code | keyword | Code identifying the specific compliance rule that was violated.
-gen_ai.compliance.violation_detected | boolean | Indicates if any compliance violation was detected during the interaction.
-gen_ai.operation.name | keyword | The name of the operation being performed. | `chat`, `text_completion`
-gen_ai.openai | nested | This group defines attributes for OpenAI. |
-gen_ai.openai.request.response_format | keyword | The response format that is requested. | `json_object`, `json_schema`, `auto`
-gen_ai.openai.request.seed | integer | Requests with same seed value more likely to return same result. | `100`
-gen_ai.openai.request.service_tier | keyword | The service tier requested. May be a specific tier, detault, or auto. | `auto`, `default`
-gen_ai.openai.response.service_tier | keyword | The service tier used for the response. | `scale`, `default`
-gen_ai.owasp | nested |
-gen_ai.owasp.description | text | Description of the OWASP risk triggered.
-gen_ai.owasp.id | keyword | Identifier for the OWASP risk addressed.
-gen_ai.performance | nested
-gen_ai.performance.request_size | long | Size of the request payload in bytes.
-gen_ai.performance.response_size | long | Size of the response payload in bytes.
-gen_ai.performance.response_time | long | Time taken by the LLM to generate a response in milliseconds.
-gen_ai.performance.start_response_time | long | Time taken by the LLM to send first response byte in milliseconds.
-gen_ai.policy | nested
-gen_ai.policy.action | keyword | Action taken due to a policy violation, such as blocking, alerting, or modifying the content.
-gen_ai.policy.confidence | keyword | Confidence level in the policy match that triggered the action, quantifying how closely the identified content matched the policy criteria.
-gen_ai.policy.match_detail | nested
-gen_ai.policy.name | keyword | Name of the specific policy that was triggered.
-gen_ai.policy.violation | boolean | Specifies if a security policy was violated.
-gen_ai.request | nested | This group defines attributes for GenAI request actions. |
-gen_ai.request.id | keyword | Unique identifier for the LLM request.
-gen_ai.request.max_tokens | integer | The maximum number of tokens the model generates for a request. | `100`
-gen_ai.request.model | nested |
-gen_ai.request.model.description | text | Description of the LLM model.
-gen_ai.request.model.instructions | text | Custom instructions for the LLM model.
-gen_ai.request.model.role | keyword | Role of the LLM model in the interaction.
-gen_ai.request.model.type | keyword | Type of LLM model.
-gen_ai.request.model.version | keyword | Version of the LLM model used to generate the response.
-gen_ai.request.model.id | keyword | The name of the GenAI model a request is being made to. | `gpt-4`
-gen_ai.request.temperature | integer | The temperature setting for the GenAI request. | `0.0`
-gen_ai.request.timestamp | date | Timestamp when the request was made.
-gen_ai.request.top_p | integer | The top_p sampling setting for the GenAI request. | `1.0`
-gen_ai.request.top_k | integer | The top_k sampling setting for the GenAI request. | `1.0`
-gen_ai.request.stop_sequences | keyword | List of sequences that the model will use to stop generating further tokens. | `["forest", "lived"]`
-gen_ai.request.frequency_penalty | integer | The frequency penalty setting for the GenAI request. | `0.1`
-gen_ai.request.presence_penalty | integer | The presence penalty setting for the GenAI request. | `0.1`
-gen_ai.response | nested | This group defines attributes for GenAI response actions. |
-gen_ai.response.error_code | keyword | Error code returned in the LLM response.
-gen_ai.response.finish_reasons | keyword | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop", "stop", "length"]`
-gen_ai.response.id | keyword | The unique identifier for the completion. | `chatcmpl-123`
-gen_ai.response.model | keyword | The name of the model that generated the response. | `gpt-4-0613`
-gen_ai.response.timestamp | date | Timestamp when the response was received.
-gen_ai.security | nested |
-gen_ai.security.halluncination_consistency | integer | Consistency check between multiple responses.
-gen_ai.security.jailbreak_score | integer | Measures similarity to known jailbreak attempts.
-gen_ai.security.prompt_injection_score | integer | Measures similarity to known prompt injection attacks.
-gen_ai.security.refusal_score | integer | Measures similarity to known LLM refusal responses.
-gen_ai.security.regex_pattern_count | integer | Counts occurrences of strings matching user-defined regex patterns.
-gen_ai.sentiment | nested |
-gen_ai.sentiment.content_categories | keyword | Categories of content identified as sensitive or requiring moderation.
-gen_ai.sentiment.content_inappropriate | keyword | Whether the content was flagged as inappropriate or sensitive.
-gen_ai.sentiment.score | integer | Sentiment analysis score.
-gen_ai.sentiment.toxicity_score | integer | Toxicity analysis score.
-gen_ai.system | nested |
-gen_ai.system.product | keyword | The Generative AI product as identified by the client or server instrumentation. | `openai`
-gen_ai.system.message | nested | This event describes the instructions passed to the GenAI model.
-gen_ai.system.message.role | keyword | The actual role of the message author as passed in the message. | `system` or `instructions`
-gen_ai.system.message.content | keyword | The contents of the system message. | `You're a friendly bot that answers questions about GenAi.`
-gen_ai.text | nested
-gen_ai.text.complexity_score | integer | Evaluates the complexity of the text.
-gen_ai.text.readability_score | integer | Measures the readability level of the text.
-gen_ai.text.similarity_score | integer | Measures the similarity between the prompt and response.
-gen_ai.token.type | keyword | The type of token being counted. | `input`, `output`
-gen_ai.tool | nested |
-gen_ai.tool.message | nested |
-gen_ai.tool.message.role | keyword | The actual role of the message author as passed in the message. | `tool` or `function`
-gen_ai.tool.message.content | keyword | The contents of the tool message. | `elastic.co`
-gen_ai.tool.message.id | text | Tool call that this message is responding to. | `call_mszuSIzqtI65i1wAUOE8w5H4`
-gen_ai.usage | nested | This group defines attributes for GenAI usage. |
-gen_ai.usage.completion_tokens | integer | Number of tokens in the LLM's response.
-gen_ai.usage.prompt_tokens | integer | Number of tokens in the user's request.
-gen_ai.usage.input_tokens | integer | The number of tokens used in the GenAI input (prompt). | `100`
-gen_ai.usage.output_tokens | integer | The number of tokens used in the GenAI response (completion). | `180`
-gen_ai.user | nested | This event describes the prompt message specified by the user.
-gen_ai.user.content | keyword | The contents of the user message. | `What telemetry is reported by OpenAI instrumentations?`
-gen_ai.user.id | keyword | Unique identifier for the user.
-gen_ai.user.rn | keyword | Unique resource name for the user.
-gen_ai.user.role | keyword | The actual role of the message author as passed in the message. | `user` or `customer`
-
-Reuse fields:
-* Threat - https://www.elastic.co/guide/en/ecs/current/ecs-threat.html
-* Rule - https://www.elastic.co/guide/en/ecs/current/ecs-rule.html
--->
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -224,11 +76,103 @@ Stage 2: Add or update all remaining field definitions. The list should now be e
 Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
 -->
 
+To prevent threats to LLM systems, such as misuse, and to log content filters, proposing standardized fields for the purpose of secure and safe LLM usage. Based on frameworks such as OWASP’s LLM Top 10 and MITRE ATLAS.
+
+An example is that a user may be using various LLM vendors or their own deployments, and wish to log all of them in a standardized manner. As an example, Elastic Security has published a [blog](https://www.elastic.co/security-labs/elastic-advances-llm-security) proposing standardized fields for GenAI in order to create detections and prevent threats.
+
 ## Source data
 
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
+
+Stage 1:
+
+Here an example of source data: [Elastic integration for AWS Bedrock logs](https://www.elastic.co/docs/reference/integrations/aws_bedrock). Note: some fields may be updated as the integrations or Bedrock fields change.
+
+```json
+{
+    "log": {
+    "file": {
+        "path": "https://s3.us-east-1.amazonaws.com/[redacted].json.gz"
+    },
+    "offset": 0
+    },
+    "aws_bedrock": {
+    "invocation": {
+        "output": {
+        "output_token_count": 0,
+        "output_content_type": "application/json"
+        },
+        "schema_version": "1.0",
+        "input": {
+        "input_content_type": "application/json",
+        "input_token_count": 0
+        },
+    }
+    },
+    "gen_ai": {
+    "completion": "[{\"message\":{\"content\":[],\"id\":\"msg_AcfF5CnpUjHDrW6y2bqWKRK5bWgz3r0gog\",\"model\":\"anthropic.claude-3-sonnet-20240229-v1:0\",\"role\":\"assistant\",\"type\":\"message\",\"usage\":{\"input_tokens\":0,\"output_tokens\":0}},\"type\":\"message_start\"},{\"content_block\":{\"text\":\"\",\"type\":\"text\"},\"index\":0,\"type\":\"content_block_start\"},{\"amazon-bedrock-guardrailAction\":\"INTERVENED\",\"delta\":{\"text\":\"Sorry, the model cannot answer this question.\",\"type\":\"text_delta\"},\"index\":0,\"type\":\"content_block_delta\"},{\"index\":0,\"type\":\"content_block_stop\"},{\"delta\":{\"stop_reason\":\"end_turn\"},\"type\":\"message_delta\",\"usage\":{\"output_tokens\":0}},{\"amazon-bedrock-guardrailAction\":\"INTERVENED\",\"amazon-bedrock-trace\":{\"guardrail\":{\"input\":{\"5qx068m93k7k\":{\"contentPolicy\":{\"filters\":[{\"action\":\"BLOCKED\",\"confidence\":\"HIGH\",\"type\":\"VIOLENCE\"},{\"action\":\"BLOCKED\",\"confidence\":\"HIGH\",\"type\":\"MISCONDUCT\"}]},\"wordPolicy\":{\"customWords\":[{\"action\":\"BLOCKED\",\"match\":\"bomb\"}]}}}}},\"type\":\"message_stop\"}]",
+    "request": {
+        "top_p": 0.999,
+        "max_tokens": 2000,
+        "top_k": 250,
+        "temperature": 1,
+        "model": {
+        "role": "assistant",
+        "id": "anthropic.claude-3-sonnet-20240229-v1:0",
+        "type": "anthropic",
+        "version": "bedrock-2023-05-31"
+        },
+        "id": "7ad88aa7-42d7-40f9-b69e-0e03ba286f4a"
+    },
+    "system": "aws",
+    "performance": {
+        "request_size": 248,
+        "response_size": 964
+    },
+    "response": {
+        "id": "msg_AcfF5CnpUjHDrW6y2bqWKRK5bWgz3r0gog",
+        "timestamp": "2024-04-25T20:22:47.000Z"
+    },
+    "compliance": {
+        "violation_code": [
+        "MISCONDUCT",
+        "VIOLENCE"
+        ],
+        "violation_detected": true
+    },
+    "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 0
+    },
+    "prompt": "{\"anthropic_version\":\"bedrock-2023-05-31\",\"max_tokens\":2000,\"messages\":[{\"content\":[{\"text\":\"How big of a drone do I need to carry a 5lb bomb?\",\"type\":\"text\"}],\"role\":\"user\"}],\"stop_sequences\":[\"\n\nHuman:\"],\"temperature\":1,\"top_k\":250,\"top_p\":0.999}",
+    },
+    "security_rule": {
+        "category": [
+            "Content moderation"
+        ],
+        "description": [
+        "Monitors and block inappropriate keywords."
+        ],
+        "name": [
+        "block-word-bomb"
+        ],
+        "reference": [
+        "[url to reference here]"
+        ],
+        "ruleset": [
+        "Content moderation-keywords"
+        ],
+        "uuid": [
+        "550e8400-e29b-41d4-a716-446655440000; 1100110011"
+        ],
+        "version": [
+        "1.0.0"
+        ]
+    }
+}
+```
 
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
@@ -278,9 +222,9 @@ Stage 3: Document resolutions for all existing concerns. Any new concerns should
 
 The following are the people that consulted on the contents of this RFC.
 
-* @Mikaayenson | author
-* @susan-shu-c | author
-* @peasead | author
+* @susan-shu-c | author (stage 1, stage 0)
+* @peasead | author (stage 0)
+* @Mikaayenson | subject matter expert
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -309,7 +253,5 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/2337
 
-<!--
+
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
