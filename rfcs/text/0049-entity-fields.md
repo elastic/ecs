@@ -24,7 +24,7 @@ This approach would allow ECS to accommodate new types of entities without requi
 | entity.source | keyword | The module or integration that provided this entity data (similar to event.module). |
 | entity.type | keyword | A standardized high-level classification of the entity. This provides a normalized way to group similar entities across different providers or systems. Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`, `user`, etc. There will be an allowed set of values maintained for this field to ensure consistency. |
 | entity.sub_type | keyword | The specific type designation for the entity as defined by its provider or system. This field provides more granular classification than entity.type. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container` would all map to type `bucket`. |
-| entity.name | keyword, text | The human-readable name of the entity. The keyword field enables exact matches for filtering and aggregations, while the text field enables full-text search. For entities with dedicated field sets (e.g., `host`), this field should mirrors the corresponding *.name value. |
+| entity.name | keyword, text | The name of the entity. The keyword field enables exact matches for filtering and aggregations, while the text field enables full-text search. For entities with dedicated field sets (e.g., `host`), this field should mirrors the corresponding *.name value. |
 | entity.reference | keyword | A URI, URL, or other direct reference to access or locate the entity in its source system. This could be an API endpoint, web console URL, or other addressable location. Format may vary by entity type and source system. |
 | entity.attributes.* | object | Normalized entity attributes using capitalized field names (e.g., `entity.attributes.StorageClass`, `entity.attributes.MfaEnabled`). Use this field set when you need specific data types, advanced search capabilities, or normalized values across different providers/sources. The capitalization pattern indicates these are entity-specific fields that won't be enumerated in the ECS schema. |
 | entity.raw.* | flattened | Original, unmodified fields from the source system stored in a flattened format that maintains basic searchability. While `entity.attributes` should be used for normalized fields requiring advanced queries, this field preserves all source metadata with basic search capabilities. Supports existence queries, exact value matches, and simple aggregations. |
@@ -72,7 +72,8 @@ The `entity.type` field needs a controlled vocabulary to maintain consistency an
 
 The following are the people that consulted on the contents of this RFC.
 
-TO DO
+- Author: @tinnytintin10
+- Sponsor: @MikePaquette & @YulNaumenko
 
 ## References
 
