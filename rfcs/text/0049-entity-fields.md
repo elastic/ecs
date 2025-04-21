@@ -1,13 +1,14 @@
 # 0049: Entity Field Set
 
 - Stage: **1 (draft)**
-- Date: 
+- Date:
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
 Currently, ECS provides specific field sets for certain categories of entities (e.g., host, user, cloud, orchestrator) to capture their metadata. However, as IT infrastructure continues to evolve, we encounter an increasing number of entity types that don't cleanly fit into existing field sets – for example, storage services like S3, database instances like DynamoDB, or various other cloud services and IT related infrastructure components (both digital and physical).
 
 This field set aims to solve several key challenges:
+
 1. Providing a flexible way to represent different types of entities without requiring new field sets for each category
 2. Supporting a consistent structure for capturing entity metadata across different entity types
 3. Enabling the representation of entities that don't fit into existing field sets
@@ -62,6 +63,7 @@ TO DO
 ## Concerns
 
 ### Entity Type Governance
+
 The `entity.type` field needs a controlled vocabulary to maintain consistency and interoperability. However, an overly restrictive list might limit the field set's utility for emerging technologies and use cases.
 
 **Potential solution:** Establish a governance process for `entity.type` values, including an initial set of well-defined types and a mechanism for proposing and reviewing new types. Document a clear taxonomy with examples to guide users in selecting appropriate types.
@@ -70,13 +72,13 @@ The `entity.type` field needs a controlled vocabulary to maintain consistency an
 
 The following are the people that consulted on the contents of this RFC.
 
-TO DO 
+TO DO
 
 ## References
 
-TO DO 
+TO DO
 
 ### RFC Pull Requests
 
-* Stage 0: https://github.com/elastic/ecs/pull/2434
-* Stage 1: TBD
+- Stage 0: <https://github.com/elastic/ecs/pull/2434>
+- Stage 1: <https://github.com/elastic/ecs/pull/2461>
