@@ -30,6 +30,8 @@ fields:
   - name: entity.source
     level: core
     type: keyword
+    normalize:
+      - array
     short: Source module or integration that provided the entity data.
     description: >
       The module or integration that provided this entity data (similar to event.module).
@@ -103,12 +105,3 @@ fields:
       advanced queries, this field preserves all source metadata with basic search capabilities.
       Supports existence queries, exact value matches, and simple aggregations.
     dynamic: true
-
-  - name: entity.risk
-    level: extended
-    type: group
-    short: Fields for describing risk score and risk level of entities.
-    description: >
-      Fields for describing risk score and risk level of entities such as hosts and users.
-      These fields mirror the structure of the ECS risk field set but are nested under entity
-      to provide consistent risk assessments for all entity types.

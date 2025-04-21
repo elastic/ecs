@@ -29,12 +29,6 @@ This approach would allow ECS to accommodate new types of entities without requi
 | entity.attributes.* | object | Normalized entity attributes using capitalized field names (e.g., `entity.attributes.StorageClass`, `entity.attributes.MfaEnabled`). Use this field set when you need specific data types, advanced search capabilities, or normalized values across different providers/sources. The capitalization pattern indicates these are entity-specific fields that won't be enumerated in the ECS schema. |
 | entity.raw.* | flattened | Original, unmodified fields from the source system stored in a flattened format that maintains basic searchability. While `entity.attributes` should be used for normalized fields requiring advanced queries, this field preserves all source metadata with basic search capabilities. Supports existence queries, exact value matches, and simple aggregations. |
 
-The fields from the ECS [risk field set](https://www.elastic.co/guide/en/ecs/current/ecs-risk.html) can be nested under entity
-
-| Field | Type | Description |
-|-------|------|-------------|
-| entity.risk.* | * | Fields for describing risk score and risk level of entities such as hosts and users. |
-
 When representing entities that correspond to existing ECS field sets (e.g., hosts, users, services, containers), the relevant ECS field set should be used to capture detailed metadata about that entity. For example:
 
 - Host entities should utilize the `host.*` field set to capture detailed host information
