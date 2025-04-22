@@ -27,7 +27,7 @@ The benefits to a user adopting these fields and names in their clusters are:
 
 ## What if I have fields that conflict with ECS? [conflict]
 
-The [rename processor](elasticsearch://reference/ingestion-tools/enrich-processor/rename-processor.md) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
+The [rename processor](elasticsearch://reference/enrich-processor/rename-processor.md) can help you resolve field conflicts. For example, imagine that you already have a field called "user," but ECS employs `user` as an object. You can use the rename processor on ingest time to rename your field to the matching ECS field. If your field does not match ECS, you can rename your field to `user.value` instead.
 
 
 ## What if my events have additional fields? [addl-fields]
