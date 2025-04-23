@@ -129,10 +129,8 @@ If the `destination field` is `@timestamp`, a `format_action` of `parse_timestam
 
 4. In {{kib}}, open the main menu and click **Stack Management > Ingest Pipelines > Create pipeline > New pipeline from CSV**.
 
-   :::{image} ../images/kib-create-pipeline-from-csv.png
-   :alt: Create Pipeline from CSV in Kibana
-   :class: screenshot
-   :::
+   % TO DO: Use `:class: screenshot`
+   ![Create Pipeline from CSV in Kibana](images/kib-create-pipeline-from-csv.png)
 
 5. On the **Create pipeline from CSV** page, upload your CSV file.
 6. Under **Default action**, select the **Copy field name** or **Rename field** option.
@@ -147,10 +145,9 @@ If the `destination field` is `@timestamp`, a `format_action` of `parse_timestam
 
    {{kib}} displays a JSON preview of the ingest pipeline generated from your CSV file.
 
-   :::{image} ../images/kib-create-pipeline-from-csv-preview.png
-   :alt: Preview pipeline from CSV in Kibana
-   :class: screenshot
-   :::
+    % TO DO: Use `:class: screenshot`
+    ![Preview pipeline from CSV in Kibana](images/kib-create-pipeline-from-csv-preview.png)
+
 
 8. To create the pipeline, click **Continue to create pipeline**.
 9. On the **Create pipeline** page, you can add additional ingest processors to your pipeline.
