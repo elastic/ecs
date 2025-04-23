@@ -1,7 +1,7 @@
 # 0049: Entity Field Set
 
 - Stage: **1 (draft)**
-- Date:
+- Date: 2025-04-23
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
