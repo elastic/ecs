@@ -1,0 +1,106 @@
+---
+# Entity field set schema definition
+name: entity
+title: Entity
+group: 2
+type: group
+short: Fields to describe various types of entities across IT environments.
+description: >
+  The entity fields provide a standardized way to represent and categorize
+  different types of components within an IT environment, including those
+  that don't have dedicated field sets in ECS. An entity represents a discrete,
+  identifiable component that can be described by a set of attributes and
+  maintains its identity over time.
+root: true
+fields:
+
+  - name: entity.id
+    level: core
+    type: keyword
+    short: Unique identifier for the entity.
+    description: >
+      A unique identifier for the entity. When multiple identifiers exist, this should be
+      the most stable and commonly used identifier that: 1) persists across the entity's
+      lifecycle, 2) ensures uniqueness within its scope, 3) is commonly used for queries
+      and correlation, and 4) is readily available in most observations (logs/events).
+      For entities with dedicated field sets (e.g., host, user), this value should match
+      the corresponding *.id field. If the entity has multiple identifiers, these alternative identifiers can be preserved in entity.raw.
+    example: i-04ff5d36be3d6896c, arn:aws:s3:::my-bucket, projects/123456789/locations/us-central1/instances/my-db
+
+  - name: entity.source
+    level: core
+    type: keyword
+    normalize:
+      - array
+    short: Source module or integration that provided the entity data.
+    description: >
+      The module or integration that provided this entity data (similar to event.module).
+      This helps identify the origin of the entity information and aids in troubleshooting
+      or validating data quality.
+    example: aws, azure, gcp, kubernetes, cloudflare
+
+  - name: entity.type
+    level: core
+    type: keyword
+    short: Standardized high-level classification of the entity.
+    description: >
+      A standardized high-level classification of the entity. This provides a normalized way
+      to group similar entities across different providers or systems. 
+    example: bucket, database, container, function, queue, host, user, loadbalancer
+
+  - name: entity.sub_type
+    level: extended
+    type: keyword
+    short: The specific type designation for the entity as defined by its provider or system.
+    description: >
+      The specific type designation for the entity as defined by its provider or system. This field
+      provides more granular classification than entity.type. While entity.type provides a normalized
+      classification across different systems, entity.sub_type preserves the provider-specific
+      categorization.
+    example: aws_s3_bucket, gcp_cloud_storage_bucket, azure_blob_container, aws_lambda_function
+
+  - name: entity.name
+    level: core
+    type: keyword
+    multi_fields:
+      - name: text
+        type: text
+    short: The name of the entity.
+    description: >
+      The name of the entity. The keyword field enables exact matches for filtering
+      and aggregations, while the text field enables full-text search. For entities with dedicated
+      field sets (e.g., user, host. etc.,), this field should mirror the corresponding *.name value.
+    example: my-production-database, web-server-01, payment-processing-queue
+
+  - name: entity.reference
+    level: extended
+    type: keyword
+    short: A URI, URL, or other direct reference to access or locate the entity.
+    description: >
+      A URI, URL, or other direct reference to access or locate the entity in its source system.
+      This could be an API endpoint, web console URL, or other addressable location. Format may
+      vary by entity type and source system.
+    example: https://console.aws.amazon.com/s3/buckets/my-bucket/, https://us-central1-myproject.cloudfunctions.net/processPayment
+
+  - name: entity.attributes
+    level: extended
+    type: object
+    object_type: keyword
+    short: Normalized entity attributes with specific data types.
+    description: >
+      Normalized entity attributes using capitalized field names (e.g., entity.attributes.StorageClass,
+      entity.attributes.MfaEnabled). Use this field set when you need specific data types, advanced
+      search capabilities, or normalized values across different providers/sources. The capitalization
+      pattern indicates these are entity-specific fields that won't be enumerated in the ECS schema.
+    dynamic: true
+
+  - name: entity.raw
+    level: extended
+    type: flattened
+    short: Original, unmodified fields from the source system.
+    description: >
+      Original, unmodified fields from the source system stored in a flattened format that maintains
+      basic searchability. While entity.attributes should be used for normalized fields requiring
+      advanced queries, this field preserves all source metadata with basic search capabilities.
+      Supports existence queries, exact value matches, and simple aggregations.
+    dynamic: true
