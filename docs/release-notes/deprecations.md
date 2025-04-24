@@ -17,13 +17,6 @@ While deprecations have no immediate impact, we strongly encourage you update yo
 % **Action**<br> Steps for mitigating deprecation impact.
 % ::::
 
-% ## 9.0.0 [ecs-900-deprecations]
-
-% ::::{dropdown} Deprecation title
-% Description of the deprecation.
-% For more information, check [PR #](PR link).
-% **Impact**<br> Impact of deprecation.
-% **Action**<br> Steps for mitigating deprecation impact.
-% ::::
+## 9.0.0 [ecs-9-0-0-deprecations]
 
 None at this time

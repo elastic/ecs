@@ -15,7 +15,7 @@ Before you upgrade, carefully review the ECS breaking changes and take the neces
 % **Action**<br> Steps for mitigating deprecation impact.
 % ::::
 
-## 9.0.0 [ecs-900-breaking-changes]
+## 9.0.0 [ecs-9-0-0-breaking-changes]
 
 
 :::::{dropdown} Remove previously deprecated fields
@@ -27,4 +27,4 @@ The removed fields are: `process.parent.pgid`, `process.pgid`, `service.node.rol
 `service.origin.node.role`, `service.target.node.role`.
 
 For more information, check [#2410](https://github.com/elastic/ecs/pull/2410).
-::::
+:::::

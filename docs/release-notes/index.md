@@ -20,9 +20,9 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [ecs-next-fixes]
 % *
 
-## 9.0.0 [ecs-900-release-notes]
+## 9.0.0 [ecs-9-0-0-release-notes]
 
-### Features and enhancements [ecs-900-features-enhancements]
+### Features and enhancements [ecs-9-0-0-features-enhancements]
 
 * Define base encoding of `x509.serial_number`. [#2383](https://github.com/elastic/ecs/pull/2383)
 * Restrict the encoding of `x509.serial_number` to base 16. [#2398](https://github.com/elastic/ecs/pull/2398)
@@ -32,7 +32,7 @@ To check for security updates, go to [Security announcements for the Elastic sta
 * Increase ignore_above value for url.query. [#2424](https://github.com/elastic/ecs/pull/2424)
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas. [#2441](https://github.com/elastic/ecs/pull/2441)
 
-### Fixes [ecs-900-fixes]
+### Fixes [ecs-9-0-0-fixes]
 
 * Fix link rendering issues and usage of http in links. [#2423](https://github.com/elastic/ecs/pull/2423)
 * Fix link rendering for additional fields. [#2458](https://github.com/elastic/ecs/pull/2458)
