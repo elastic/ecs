@@ -12,23 +12,11 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
-* Remove deprecated fields from previous major release; `process.pgid`, `service.node.role`, and inherited users. #2410
-
 #### Bugfixes
 
-* Fix link rendering issues and usage of http in links. #2423
-* Fix link rendering for additional fields. #2458
-
 #### Added
-* Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
 #### Improvements
-
-* Promote beta fields to GA. #2411
-* Define base encoding of `x509.serial_number`. #2383
-* Restrict the encoding of `x509.serial_number` to base 16. #2398
-* Set synthetic_source_keep = none on fields that represent sets. #2422
-* Increase ignore_above value for url.query. #2424
 
 #### Deprecated
 
