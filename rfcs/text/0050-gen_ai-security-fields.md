@@ -42,7 +42,7 @@ Stage 1: changed to Elastic data types
 | `gen_ai.agent.name` | keyword | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` |
 | `gen_ai.operation.name` | keyword | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` |
 | `gen_ai.output.type` | keyword | Represents the content type requested by the client. [2] | `text`; `json`; `image` |
-|`gen_ai.request.choice.count` | integer | The target number of candidate completions to return. | `3` |
+| `gen_ai.request.choice.count` | integer | The target number of candidate completions to return. | `3` |
 | `gen_ai.request.encoding_formats` | keyword[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` |
 | `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` |
 | `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` |
