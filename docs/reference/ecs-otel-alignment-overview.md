@@ -27,7 +27,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | CloudEvents | · | [5](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloudevents) | · | · | · | · | · | · |  |
 | cloudfoundry | · | [11](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cloudfoundry) | · | · | · | · | · | · |  |
 | Code | · | [6](https://opentelemetry.io/docs/specs/semconv/attributes-registry/code) | · | · | · | · | · | · |  |
-| Code Signature | [10](/reference/ecs-code_signature.md) | · | · | · | · | · | · | · | · |
+| Code Signature | [11](/reference/ecs-code_signature.md) | · | · | · | · | · | · | · | · |
 | Container | [14](/reference/ecs-container.md) | [13](https://opentelemetry.io/docs/specs/semconv/attributes-registry/container) | 4 | 2 | 1 | · | 2 | · | · |
 | CPU | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/cpu) | · | · | · | · | · | · |  |
 | Data Stream | [3](/reference/ecs-data_stream.md) | · | · | · | · | · | · | · | 3 |
