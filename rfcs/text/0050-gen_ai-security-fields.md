@@ -1,8 +1,8 @@
 # 0050: GenAI fields
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **1** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: 2025-03-26 <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **2** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Date: 2025-05-20 <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
@@ -40,10 +40,10 @@ Stage 1: changed to Elastic data types
 | `gen_ai.agent.description` | text | Free-form description of the GenAI agent provided by the application. | `Helps with math problems`; `Generates fiction stories` |
 | `gen_ai.agent.id` | keyword | The unique identifier of the GenAI agent. | `asst_5j66UpCpwteGg4YSxUnt7lPY` |
 | `gen_ai.agent.name` | keyword | Human-readable name of the GenAI agent provided by the application. | `Math Tutor`; `Fiction Writer` |
-| `gen_ai.operation.name` | keyword | The name of the operation being performed. [1] | `chat`; `text_completion`; `embeddings` |
-| `gen_ai.output.type` | keyword | Represents the content type requested by the client. [2] | `text`; `json`; `image` |
+| `gen_ai.operation.name` | keyword | The name of the operation being performed. | `chat`; `text_completion`; `embeddings` |
+| `gen_ai.output.type` | keyword | Represents the content type requested by the client. | `text`; `json`; `image` |
 | `gen_ai.request.choice.count` | integer | The target number of candidate completions to return. | `3` |
-| `gen_ai.request.encoding_formats` | keyword[] | The encoding formats requested in an embeddings operation, if specified. [3] | `["base64"]`; `["float", "binary"]` |
+| `gen_ai.request.encoding_formats` | keyword[] | The encoding formats requested in an embeddings operation, if specified. | `["base64"]`; `["float", "binary"]` |
 | `gen_ai.request.frequency_penalty` | double | The frequency penalty setting for the GenAI request. | `0.1` |
 | `gen_ai.request.max_tokens` | int | The maximum number of tokens the model generates for a request. | `100` |
 | `gen_ai.request.model` | string | The name of the GenAI model a request is being made to. | `gpt-4` |
@@ -56,11 +56,11 @@ Stage 1: changed to Elastic data types
 | `gen_ai.response.finish_reasons` | keyword[] | Array of reasons the model stopped generating tokens, corresponding to each generation received. | `["stop"]`; `["stop", "length"]` |
 | `gen_ai.response.id` | keyword | The unique identifier for the completion. | `chatcmpl-123` |
 | `gen_ai.response.model` | keyword | The name of the model that generated the response. | `gpt-4-0613` |
-| `gen_ai.system` | keyword | The Generative AI product as identified by the client or server instrumentation. [4] | `openai` |
+| `gen_ai.system` | keyword | The Generative AI product as identified by the client or server instrumentation. | `openai` |
 | `gen_ai.token.type` | keyword | The type of token being counted. | `input`; `output` |
 | `gen_ai.tool.call.id` | keyword | The tool call identifier. | `call_mszuSIzqtI65i1wAUOE8w5H4` |
 | `gen_ai.tool.name` | keyword | Name of the tool utilized by the agent. | `Flights` |
-| `gen_ai.tool.type` | keyword | Type of the tool utilized by the agent [5] | `function`; `extension`; `datastore` |
+| `gen_ai.tool.type` | keyword | Type of the tool utilized by the agent | `function`; `extension`; `datastore` |
 | `gen_ai.usage.input_tokens` | integer | The number of tokens used in the GenAI input (prompt). | `100` |
 | `gen_ai.usage.output_tokens` | integer | The number of tokens used in the GenAI response (completion). | `180` |
 
@@ -191,6 +191,8 @@ Stage 2: Identifies scope of impact of changes. Are breaking changes required? S
  * ECS project (e.g. docs, tooling)
 The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
 -->
+
+As these are new fields, there shouldn't be breaking changes.
 
 ## Concerns
 
