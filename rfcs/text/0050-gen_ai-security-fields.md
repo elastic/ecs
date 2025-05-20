@@ -257,3 +257,6 @@ e.g.:
 
 
 * Stage 1: https://github.com/elastic/ecs/pull/2465
+
+
+* Stage 2: https://github.com/elastic/ecs/pull/2475
