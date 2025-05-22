@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 * Add `thumbprint_sha256` to `code_signature` schema. #2452
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
-* Allow use of the dash character `-` in the `data_stream.namespace` field. #1
+* Allow use of the dash character `-` in the `data_stream.namespace` field. #2477
 
 #### Improvements
 
