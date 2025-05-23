@@ -223,7 +223,7 @@ def yaml_dump(
     with open(filename, 'w') as outfile:
         if preamble:
             outfile.write(preamble)
-        yaml.dump(data, outfile, default_flow_style=False)
+        yaml.dump(data, outfile, default_flow_style=False, allow_unicode=True)
 
 
 def yaml_load(filename: str) -> Set[str]:
