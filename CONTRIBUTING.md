@@ -54,36 +54,15 @@ Bug fixes or minor field addition changes can be made directly to the ECS projec
 
 Significant changes that add new use cases, top-level fieldsets, or could be considered controversial are
 considered material. The general rule for contributing new material changes to schemas during the transition period is
+to follow the ECS RFC process for these changes.
 
-- First, merge a pull request to
-[OTel Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/CONTRIBUTING.md) with new
-fields, namespaces or schemas
-- Second, to backport those changes to ECS at the starting point indicated in the table below
-- Finally, once the Semantic Conventions changes are marked as stable, remove the Beta designation in ECS
+When writing the ECS RFC and designing fields, consider how it will be possible to contribute the field to semantic conventions in the future.
+Consider naming conventions, field definitions, mapping types and conflicts with existing or proposed semantic conventions.
 
-This will ensure that the latest changes are included in OTel Semantic Conventions, where schema evolution will continue
-as the merger proceeds. It will also allow teams and users to continue using ECS while OTel migration tools and guidance
-are being developed. Finally, this will reduce the risk of breaking changes if new fields are merged first to ECS, and
-then require changes before being adopted in Semantic Conventions.
+The same changes should be proposed to be added to OTel semantic conventions in parallel with the ECS RFC process.
 
-_There are some exceptions to this rule._
-
-1. My contribution to OTel Semantic Conventions is stalled. We are waiting for a sign-off from a second company.
-In the meantime, our Elastic feature is blocked.
-2. I want to build a workflow in Elastic, and the fields I need to proceed are already in OTel but not in ECS where I
-need them today.
-
-In these cases, the recommendation is to make a contribution to ECS to unblock development. The appropriate ECS starting
-point can be an [RFC](./rfcs/README.md) or pull request based on the maturity of the Otel changes. Please see the
-following table.
-
-| OTel submission maturity                                                                                                                                                             | Breaking changes expected | ECS starting point                                   |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|------------------------------------------------------|
-| OTel working groups accepts the premise of the addition and commits to considering this proposal as it advances.                                                                     | Major                     | RFC Stage 1                                          |
-| The initial field definitions comprehensively model the addition to the schema. Fundamental questions and concerns are resolved, though some less significant questions remain open. | Iterative                 | RFC Stage 2                                          |
-| All requested changes from codeowners have been addressed, and there are no open discussions.                                                                                        | Iterative                 | Open an ECS pull request with new fields marked Beta |
-| Fields, schema, namespace exists in OTel and are designated experimental                                                                                                             | Iterative                 | Open an ECS pull request with new fields marked Beta |
-| Fields, schema, namespace exists in OTel and are designated stable                                                                                                                   | None                      | Open an ECS pull request with new fields marked GA   |
+The ECS RFC process should not advance past stage 2, moving fields from beta to GA, until the fields are accepted into OTel.
+This will allow for the possibility of breaking changes that may be needed to maintain compatibility with OTel semantic conventions.
 
 ### Dev Tools
 
