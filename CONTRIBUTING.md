@@ -47,7 +47,7 @@ Any changes proposed for ECS should also be submitted to the [OpenTelemetry Sema
 
 ECS will be released at the discretion of the ECS team as schema changes are approved. Releases will not necessarily align with every Elastic Stack release.
 
-While ECS updates may coincide with minor Elastic Stack versions, not every minor version will trigger an ECS release.
+While ECS updates will coincide with Elastic Stack releases, not every stack version will trigger an ECS release.
 
 ### Dev Tools
 
