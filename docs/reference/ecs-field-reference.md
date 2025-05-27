@@ -14,7 +14,7 @@ This is the documentation of ECS version 9.1.0-dev.
 
 ECS defines multiple groups of related fields. They are called "field sets". The [Base](/reference/ecs-base.md) field set is the only one whose fields are defined at the root of the event.
 
-All other field sets are defined as objects in ElasticSearch, under which all fields are defined.
+All other field sets are defined as objects in Elasticsearch, under which all fields are defined.
 
 For a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/master/generated/csv/fields.csv).
 
