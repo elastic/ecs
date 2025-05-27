@@ -17,6 +17,13 @@ Thanks, you're awesome :-) -->
 * Add `thumbprint_sha256` to `code_signature` schema. #2452
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+* Added `*.domain` fields to ECS `email`. #2392
+
 #### Improvements
 
 #### Deprecated
