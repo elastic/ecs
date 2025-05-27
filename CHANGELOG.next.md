@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Allow Unicode characters in generated ECS yml files. #2478
+
 #### Deprecated
 
 <!-- All empty sections:
