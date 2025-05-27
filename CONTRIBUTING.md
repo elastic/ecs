@@ -28,43 +28,26 @@ ECS is an open source project and we love to receive contributions from our comm
 
 ### ECS donation to OpenTelemetry
 
-In April 2023, OpenTelemetry and Elastic made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/). In this announcement Elastic
-shared its intention to achieve convergence of ECS and OTel Semantic Conventions into a single standard maintained
-by OpenTelemetry.
-
+In April 2023, Elastic and OpenTelemetry made an important joint announcement: Elastic intends to align the Elastic Common Schema (ECS) with
+OpenTelemetry (OTel) Semantic Conventions, aiming to create a unified, community-maintained standard under OpenTelemetry.
 
 #### How to contribute during OTel donation of ECS
 
-During the contribution of ECS to OpenTelemetry, changes to the ECS schema can be made, but they should take into consideration how the changes
-can eventually be added to OpenTelemetry.
+While ECS is being contributed to OpenTelemetry, schema changes are still possible—but they should align with how the changes could eventually be integrated into OpenTelemetry.
 
-The [ECS RFC process](rfcs/PROCESS.md) will apply to larger, material changes to the schema, such as changes that add new use cases, top-level fieldsets, or could
-be considered controversial. Bug fixes or minor field addition changes can be made directly to the ECS project and submitted as pull requests.
+For significant changes—like new top-level fieldsets, use cases, or anything potentially controversial—follow the [ECS RFC process](rfcs/PROCESS.md).
 
-When writing the ECS RFC and designing fields, consider how it will be possible to contribute the field to semantic conventions in the future.
-Consider naming conventions, field definitions, mapping types, and conflicts with existing or proposed semantic conventions.
+Minor changes (e.g., bug fixes or small field additions) can go directly through pull requests to the ECS repository.
 
-The same changes should be proposed to be added to [OpenTelemetry semantic conventions](https://github.com/open-telemetry/semantic-conventions)
-before, or in parallel with, adding to the ECS schema.
+When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions.
 
-The ECS RFC process should not advance past stage 2, moving fields from beta to GA, until the fields are accepted into OpenTelemetry.
-This will allow for the possibility of breaking changes that may be needed to maintain compatibility with OTel semantic conventions.
+Any changes proposed for ECS should also be submitted to the [OpenTelemetry Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions)—either before or in parallel.
 
 #### ECS releases during the donation to OpenTelemetry
 
-During the donation of ECS to OpenTelemetry, ECS will be released at the team's discretion as changes to the schema are adopted. ECS will not
-be released with every Elastic stack release.
+ECS will be released at the discretion of the ECS team as schema changes are approved. Releases will not necessarily align with every Elastic Stack release.
 
-While the decision to release will be discretionary, any release will still coincide with a minor Elastic stack release;
-however, not every minor version will warrant a new release of the stack.
-
-#### ECS releases during the donation to OpenTelemetry
-
-During the donation of ECS to OpenTelemetry, ECS will be released at the team's discretion as changes to the schema are adopted. ECS will not
-be released with every Elastic stack release.
-
-While the decision to release will be discretionary, any release will still coincide with a minor Elastic stack release;
-however, not every minor version will warrant a new release of the stack.
+While ECS updates may coincide with minor Elastic Stack versions, not every minor version will trigger an ECS release.
 
 ### Dev Tools
 
