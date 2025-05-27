@@ -39,7 +39,7 @@ def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, o
                   page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version))
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     save_markdown(path.join(out_dir, 'ecs-field-reference.md'),
-                  page_field_reference(ecs_generated_version, "ElasticSearch", fieldsets))
+                  page_field_reference(ecs_generated_version, "Elasticsearch", fieldsets))
     for fieldset in fieldsets:
         save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'),
                       page_fieldset(fieldset, nested, ecs_generated_version))
