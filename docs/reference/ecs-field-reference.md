@@ -10,7 +10,7 @@ applies_to:
 
 # ECS field reference [ecs-field-reference]
 
-This is the documentation of ECS version 9.1.0-dev.
+This is the documentation of ECS version 9.0.0.
 
 ECS defines multiple groups of related fields. They are called "field sets". The [Base](/reference/ecs-base.md) field set is the only one whose fields are defined at the root of the event.
 
