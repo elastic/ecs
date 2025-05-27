@@ -39,7 +39,7 @@
     example: 3
     level: extended
   - name: gen_ai.request.encoding_formats
-    type: keyword[]
+    type: nested
     description: The encoding formats requested in an embeddings operation, if specified.
     example: '["float", "binary"]'
     level: extended
@@ -49,12 +49,12 @@
     example: 0.1
     level: extended
   - name: gen_ai.request.max_tokens
-    type: int
+    type: integer
     description: The maximum number of tokens the model generates for a request.
     example: 100
     level: extended
   - name: gen_ai.request.model
-    type: string
+    type: text
     description: The name of the GenAI model a request is being made to.
     example: gpt-4
     level: extended
@@ -69,7 +69,7 @@
     example: 100
     level: extended
   - name: gen_ai.request.stop_sequences
-    type: keyword[]
+    type: nested
     description: List of sequences that the model will use to stop generating further tokens.
     example: '["forest", "lived"]'
     level: extended
@@ -89,7 +89,7 @@
     example: 1.0
     level: extended
   - name: gen_ai.response.finish_reasons
-    type: keyword[]
+    type: nested
     description: Array of reasons the model stopped generating tokens, corresponding to each generation received.
     example: '["stop", "length"]'
     level: extended
@@ -124,7 +124,7 @@
     example: Flights
     level: extended
   - name: gen_ai.tool.type
-    type: keywo
+    type: keyword
     description: Type of the tool utilized by the agent
     example: function; extension; datastore
     level: extended
