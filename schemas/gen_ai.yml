@@ -1,0 +1,114 @@
+---
+- name: gen_ai
+  title: Gen AI
+  short: Fields on Generative Artificial Intelligence (GenAI) Models requests and responses
+  description: >
+    Fields that capture the context of Generative Artificial Intelligence (GenAI) Models requests and responses
+
+    This field group definition is based on the Gen AI namespace of the OpenTelemetry Semantic Conventions (https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/).
+
+  fields:
+  - name: gen_ai.agent.description
+    type: text
+    description: Free-form description of the GenAI agent provided by the application.
+    example: Helps with math problems; Generates fiction stories
+  - name: gen_ai.agent.id
+    type: keyword
+    description: The unique identifier of the GenAI agent.
+    example: asst_5j66UpCpwteGg4YSxUnt7lPY
+  - name: gen_ai.agent.name
+    type: keyword
+    description: Human-readable name of the GenAI agent provided by the application.
+    example: Math Tutor; Fiction Writer
+  - name: gen_ai.operation.name
+    type: keyword
+    description: The name of the operation being performed.
+    example: chat; text_completion; embeddings
+  - name: gen_ai.output.type
+    type: keyword
+    description: Represents the content type requested by the client.
+    example: text; json; image
+  - name: gen_ai.request.choice.count
+    type: integer
+    description: The target number of candidate completions to return.
+    example: 3
+  - name: gen_ai.request.encoding_formats
+    type: keyword[]
+    description: The encoding formats requested in an embeddings operation, if specified.
+    example: ["base64"]; ["float", "binary"]
+  - name: gen_ai.request.frequency_penalty
+    type: double
+    description: The frequency penalty setting for the GenAI request.
+    example: 0.1
+  - name: gen_ai.request.max_tokens
+    type: int
+    description: The maximum number of tokens the model generates for a request.
+    example: 100
+  - name: gen_ai.request.model
+    type: string
+    description: The name of the GenAI model a request is being made to.
+    example: gpt-4
+  - name: gen_ai.request.presence_penalty
+    type: double
+    description: The presence penalty setting for the GenAI request.
+    example: 0.1
+  - name: gen_ai.request.seed
+    type: integer
+    description: Requests with same seed value more likely to return same result.
+    example: 100
+  - name: gen_ai.request.stop_sequences
+    type: keyword[]
+    description: List of sequences that the model will use to stop generating further tokens.
+    example: ["forest", "lived"]
+  - name: gen_ai.request.temperature
+    type: double
+    description: The temperature setting for the GenAI request.
+    example: 0.0
+  - name: gen_ai.request.top_k
+    type: double
+    description: The top_k sampling setting for the GenAI request.
+    example: 1.0
+  - name: gen_ai.request.top_p
+    type: double
+    description: The top_p sampling setting for the GenAI request.
+    example: 1.0
+  - name: gen_ai.response.finish_reasons
+    type: keyword[]
+    description: Array of reasons the model stopped generating tokens, corresponding to each generation received.
+    example: ["stop"]; ["stop", "length"]
+  - name: gen_ai.response.id
+    type: keyword
+    description: The unique identifier for the completion.
+    example: chatcmpl-123
+  - name: gen_ai.response.model
+    type: keyword
+    description: The name of the model that generated the response.
+    example: gpt-4-0613
+  - name: gen_ai.system
+    type: keyword
+    description: The Generative AI product as identified by the client or server instrumentation.
+    example: openai
+  - name: gen_ai.token.type
+    type: keyword
+    description: The type of token being counted.
+    example: input; output
+  - name: gen_ai.tool.call.id
+    type: keyword
+    description: The tool call identifier.
+    example: call_mszuSIzqtI65i1wAUOE8w5H4
+  - name: gen_ai.tool.name
+    type: keyword
+    description: Name of the tool utilized by the agent.
+    example: Flights
+  - name: gen_ai.tool.type
+    type: keywo
+    description: Type of the tool utilized by the agent
+    example: function; extension; datastore
+  - name: gen_ai.usage.input_tokens
+    type: integer
+    description: The number of tokens used in the GenAI input (prompt).
+    example: 100
+  - name: gen_ai.usage.output_tokens
+    type: integer
+    description: The number of tokens used in the GenAI response (completion).
+    example: 180
