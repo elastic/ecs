@@ -31,7 +31,7 @@ ECS is an open source project and we love to receive contributions from our comm
 In April 2023, Elastic and OpenTelemetry made an important joint announcement: Elastic intends to align the Elastic Common Schema (ECS) with
 OpenTelemetry (OTel) Semantic Conventions, aiming to create a unified, community-maintained standard under OpenTelemetry.
 
-#### How to contribute during OTel donation of ECS
+#### How to contribute during ECS donation to OpenTelemetry
 
 While ECS is being contributed to OpenTelemetry, schema changes are still possible—but they should align with how the changes could eventually be integrated into OpenTelemetry.
 
