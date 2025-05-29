@@ -38,6 +38,8 @@ def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, o
     save_markdown(path.join(out_dir, 'ecs-otel-alignment-overview.md'),
                   page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version))
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
+    save_markdown(path.join(out_dir, 'ecs-field-reference.md'),
+                  page_field_reference(ecs_generated_version, "Elasticsearch", fieldsets))
     for fieldset in fieldsets:
         save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'),
                       page_fieldset(fieldset, nested, ecs_generated_version))
@@ -184,6 +186,16 @@ def page_fieldset(fieldset, nested, ecs_generated_version):
                 render_nestings_reuse_section=render_nestings_reuse_fields,
                 sorted_fields=sorted_fields,
                 usage_doc=usage_doc)
+
+# Field Reference Page
+
+
+@templated('ecs_field_reference.j2')
+def page_field_reference(ecs_generated_version, es, fieldsets):
+    return dict(ecs_generated_version=ecs_generated_version,
+                es=es,
+                fieldsets=fieldsets)
+
 
 # Field Details Page
 
