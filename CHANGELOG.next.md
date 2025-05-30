@@ -32,6 +32,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Allow Unicode characters in generated ECS yml files. #2478
+* Update semconv version used in file generation to v1.34.0 #2483
 
 #### Deprecated
 
