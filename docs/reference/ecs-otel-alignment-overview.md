@@ -62,7 +62,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Group | [3](/reference/ecs-group.md) | · | · | · | · | · | · | · | · |
 | Hash | [8](/reference/ecs-hash.md) | · | · | · | · | · | · | · | · |
 | Heroku | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/heroku) | · | · | · | · | · | · |  |
-| Host | [18](/reference/ecs-host.md) | [15](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host) | 5 | 1 | · | · | 7 | · | · |
+| Host | [18](/reference/ecs-host.md) | [15](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host) | 5 | 1 | · | · | 8 | · | · |
 | HTTP | [13](/reference/ecs-http.md) | [12](https://opentelemetry.io/docs/specs/semconv/attributes-registry/http) | 1 | 5 | 2 | 1 | · | · | · |
 | Hardware | · | [5](https://opentelemetry.io/docs/specs/semconv/attributes-registry/hw) | · | · | · | · | · | · |  |
 | Interface | [3](/reference/ecs-interface.md) | · | · | · | · | · | · | · | · |
