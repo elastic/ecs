@@ -17,6 +17,10 @@ Thanks, you're awesome :-) -->
 * Add `thumbprint_sha256` to `code_signature` schema. #2452
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
 
+#### Added
+
+* Add `gen_ai` fields to schema as beta. #2475
+
 #### Improvements
 
 #### Deprecated
