@@ -20,7 +20,7 @@
 {# macro - OTel attribute link #}
 {%- macro otel_attribute_link(field, otel) -%}
 [{{ otel_attribute(field, otel) }}](https://opentelemetry.io/docs/specs/semconv/attributes-registry/
-{{- otel_attribute(field, otel).split(".")[0] -}}
+{{- otel_attribute(field, otel).split(".")[0] | replace("_", "-") -}}
 /#
 {{- otel_attribute_dashed_name(field, otel) -}}
 )
