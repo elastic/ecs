@@ -55,7 +55,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Feature Flag | · | [8](https://opentelemetry.io/docs/specs/semconv/attributes-registry/feature-flag) | · | · | · | · | · | · |  |
 | File | [24](/reference/ecs-file.md) | [18](https://opentelemetry.io/docs/specs/semconv/attributes-registry/file) | 11 | 7 | · | · | · | · | · |
 | GCP Client | · | [14](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gcp) | · | · | · | · | · | · |  |
-| GenAI | · | [32](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai) | · | · | · | · | · | · |  |
+| Gen AI | [26](/reference/ecs-gen_ai.md) | [32](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai) | 26 | · | · | · | · | · | · |
 | Geo | [11](/reference/ecs-geo.md) | [7](https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo) | 1 | 4 | 2 | · | · | · | · |
 | Go | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/go) | · | · | · | · | · | · |  |
 | GraphQL | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/graphql) | · | · | · | · | · | · |  |
