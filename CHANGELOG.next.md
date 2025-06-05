@@ -31,6 +31,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix otel urls for fieldsets with underscores. #2486
+
 #### Added
 
 #### Improvements
