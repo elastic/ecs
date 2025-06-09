@@ -42,6 +42,7 @@ For a single page representation of all fields, please see the [generated CSV of
 | [Event](/reference/ecs-event.md) | Fields breaking down the event details. |
 | [FaaS](/reference/ecs-faas.md) | Fields describing functions as a service. |
 | [File](/reference/ecs-file.md) | Fields describing files. |
+| [Gen AI](/reference/ecs-gen_ai.md) | Fields on Generative Artificial Intelligence (GenAI) Models requests and responses |
 | [Geo](/reference/ecs-geo.md) | Fields describing a location. |
 | [Group](/reference/ecs-group.md) | User's group relevant to the event. |
 | [Hash](/reference/ecs-hash.md) | Hashes, usually file hashes. |

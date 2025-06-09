@@ -3401,6 +3401,187 @@
       description: Version of x509 format.
       example: 3
       default_field: false
+  - name: gen_ai
+    title: Gen AI
+    group: 2
+    description: 'Fields that capture the context of Generative Artificial Intelligence
+      (GenAI) Models requests and responses
+
+      This field group definition is based on the Gen AI namespace of the OpenTelemetry
+      Semantic Conventions (https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/).'
+    type: group
+    default_field: true
+    fields:
+    - name: agent.description
+      level: extended
+      type: text
+      description: Free-form description of the GenAI agent provided by the application.
+      example: Helps with math problems; Generates fiction stories
+      default_field: false
+    - name: agent.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The unique identifier of the GenAI agent.
+      example: asst_5j66UpCpwteGg4YSxUnt7lPY
+      default_field: false
+    - name: agent.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Human-readable name of the GenAI agent provided by the application.
+      example: Math Tutor; Fiction Writer
+      default_field: false
+    - name: operation.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of the operation being performed.
+      example: chat; text_completion; embeddings
+      default_field: false
+    - name: output.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Represents the content type requested by the client.
+      example: text; json; image
+      default_field: false
+    - name: request.choice.count
+      level: extended
+      type: integer
+      description: The target number of candidate completions to return.
+      example: 3
+      default_field: false
+    - name: request.encoding_formats
+      level: extended
+      type: nested
+      description: The encoding formats requested in an embeddings operation, if specified.
+      example: '["float", "binary"]'
+      default_field: false
+    - name: request.frequency_penalty
+      level: extended
+      type: double
+      description: The frequency penalty setting for the GenAI request.
+      example: 0.1
+      default_field: false
+    - name: request.max_tokens
+      level: extended
+      type: integer
+      description: The maximum number of tokens the model generates for a request.
+      example: 100
+      default_field: false
+    - name: request.model
+      level: extended
+      type: text
+      description: The name of the GenAI model a request is being made to.
+      example: gpt-4
+      default_field: false
+    - name: request.presence_penalty
+      level: extended
+      type: double
+      description: The presence penalty setting for the GenAI request.
+      example: 0.1
+      default_field: false
+    - name: request.seed
+      level: extended
+      type: integer
+      description: Requests with same seed value more likely to return same result.
+      example: 100
+      default_field: false
+    - name: request.stop_sequences
+      level: extended
+      type: nested
+      description: List of sequences that the model will use to stop generating further
+        tokens.
+      example: '["forest", "lived"]'
+      default_field: false
+    - name: request.temperature
+      level: extended
+      type: double
+      description: The temperature setting for the GenAI request.
+      example: 0.0
+      default_field: false
+    - name: request.top_k
+      level: extended
+      type: double
+      description: The top_k sampling setting for the GenAI request.
+      example: 1.0
+      default_field: false
+    - name: request.top_p
+      level: extended
+      type: double
+      description: The top_p sampling setting for the GenAI request.
+      example: 1.0
+      default_field: false
+    - name: response.finish_reasons
+      level: extended
+      type: nested
+      description: Array of reasons the model stopped generating tokens, corresponding
+        to each generation received.
+      example: '["stop", "length"]'
+      default_field: false
+    - name: response.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The unique identifier for the completion.
+      example: chatcmpl-123
+      default_field: false
+    - name: response.model
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of the model that generated the response.
+      example: gpt-4-0613
+      default_field: false
+    - name: system
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The Generative AI product as identified by the client or server
+        instrumentation.
+      example: openai
+      default_field: false
+    - name: token.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The type of token being counted.
+      example: input; output
+      default_field: false
+    - name: tool.call.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The tool call identifier.
+      example: call_mszuSIzqtI65i1wAUOE8w5H4
+      default_field: false
+    - name: tool.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Name of the tool utilized by the agent.
+      example: Flights
+      default_field: false
+    - name: tool.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Type of the tool utilized by the agent
+      example: function; extension; datastore
+      default_field: false
+    - name: usage.input_tokens
+      level: extended
+      type: integer
+      description: The number of tokens used in the GenAI input (prompt).
+      example: 100
+      default_field: false
+    - name: usage.output_tokens
+      level: extended
+      type: integer
+      description: The number of tokens used in the GenAI response (completion).
+      example: 180
+      default_field: false
   - name: group
     title: Group
     group: 2
