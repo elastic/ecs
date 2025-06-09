@@ -31,7 +31,7 @@ ECS is an open source project and we love to receive contributions from our comm
 In April 2023, Elastic and OpenTelemetry made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/): Elastic intends to align the Elastic Common Schema (ECS) with
 OpenTelemetry (OTel) Semantic Conventions, aiming to create a unified, community-maintained standard under OpenTelemetry.
 
-During the contribution process, several guidelines have been added to allow contributions to ECS which can be adopted to OpenTelemetry. 
+During the contribution process, several guidelines have been added to allow contributions to ECS, ensuring they are aligned with OpenTelemetry.
 
 #### How to contribute during ECS donation to OpenTelemetry
 
@@ -41,9 +41,9 @@ For significant changes—like new top-level fieldsets, use cases, or anything p
 
 Minor changes (e.g., bug fixes or small field additions) can go directly through pull requests to the ECS repository.
 
-When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions.
+When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions. Contributors should seek guidance from ECS maintainers or the Semantic Conventions community if in doubt.
 
-Any changes proposed for ECS should also be submitted to the [OpenTelemetry Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions)—either before or in parallel.
+Any changes proposed for ECS should also be submitted to the [OpenTelemetry Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions)—either before or in parallel; however, your Otel PR does not need to be merged first.
 
 #### ECS releases during the donation to OpenTelemetry
 
