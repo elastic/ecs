@@ -166,6 +166,8 @@
       type: keyword
       short: Query string of the request.
       description: >
+        The field contains the entire query string excluding the leading `?`.
+        
         The query field describes the query string of the request,
         such as "q=elasticsearch".
 
@@ -174,6 +176,7 @@
         the query field exists with an empty string. The `exists`
         query can be used to differentiate between the two cases.
       ignore_above: 2083
+      example: q=elasticsearch&sort=desc
       otel:
         - relation: match
 
