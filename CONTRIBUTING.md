@@ -26,64 +26,30 @@ ECS is an open source project and we love to receive contributions from our comm
 
 ## How to contribute
 
-## ECS donation to OpenTelemetry
-In April 2023, OpenTelemetry and Elastic made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/). In this announcement Elastic
-shared its intention to achieve convergence of ECS and OTel Semantic Conventions into a single standard maintained
-by OpenTelemetry.
+### ECS donation to OpenTelemetry
 
-The stated plan has been to keep ECS in a frozen state during the transition. However, it is also apparent that these
-things take time. It takes time for the OTel community to adopt donated fields, and it will take time for development
-teams to build OTel native constructs in the Elastic stack. In the meantime, ECS users need to be able to develop
-features for Elastic that rely on continued contributions to the schemas that drive our technology.
+In April 2023, Elastic and OpenTelemetry made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/): Elastic intends to align the Elastic Common Schema (ECS) with
+OpenTelemetry (OTel) Semantic Conventions, aiming to create a unified, community-maintained standard under OpenTelemetry.
 
-For these reasons, we need a process and guidelines for contributing to these data schemas during this period that
-allows us to avoid breaking changes.
+During the contribution process, several guidelines have been added to allow contributions to ECS, ensuring they are aligned with OpenTelemetry.
 
-### ECS releases during the donation to OpenTelemetry
-Historically, ECS has shipped a new version with every minor release of the Elastic stack. While the schema is
-effectively frozen during the Otel donation period, this approach has been halted.
+#### How to contribute during ECS donation to OpenTelemetry
 
-Moving forward, we will release ECS at the team's discretion as new material changes to the schema are adopted.
+While ECS is being contributed to OpenTelemetry, schema changes are still possible—but they should align with how the changes could eventually be integrated into OpenTelemetry.
 
-While the decision to release will be discretionary, any release will still coincide with a minor Elastic stack release;
-however, not every minor version will warrant a new release of the stack.
+For significant changes—like new top-level fieldsets, use cases, or anything potentially controversial—follow the [ECS RFC process](rfcs/PROCESS.md).
 
-### How to contribute during OTel donation of ECS
+Minor changes (e.g., bug fixes or small field additions) can go directly through pull requests to the ECS repository.
 
-Bug fixes or minor field addition changes can be made directly to the ECS project and submitted as pull requests.
+When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions. Contributors should seek guidance from ECS maintainers or the Semantic Conventions community if in doubt.
 
-Significant changes that add new use cases, top-level fieldsets, or could be considered controversial are
-considered material. The general rule for contributing new material changes to schemas during the transition period is
+Any changes proposed for ECS should also be submitted to the [OpenTelemetry Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions)—either before or in parallel; however, your Otel PR does not need to be merged first.
 
-- First, merge a pull request to
-[OTel Semantic Conventions](https://github.com/open-telemetry/semantic-conventions/blob/main/CONTRIBUTING.md) with new
-fields, namespaces or schemas
-- Second, to backport those changes to ECS at the starting point indicated in the table below
-- Finally, once the Semantic Conventions changes are marked as stable, remove the Beta designation in ECS
+#### ECS releases during the donation to OpenTelemetry
 
-This will ensure that the latest changes are included in OTel Semantic Conventions, where schema evolution will continue
-as the merger proceeds. It will also allow teams and users to continue using ECS while OTel migration tools and guidance
-are being developed. Finally, this will reduce the risk of breaking changes if new fields are merged first to ECS, and
-then require changes before being adopted in Semantic Conventions.
+ECS will be released at the discretion of the ECS team as schema changes are approved. Releases will not necessarily align with every Elastic Stack release.
 
-_There are some exceptions to this rule._
-
-1. My contribution to OTel Semantic Conventions is stalled. We are waiting for a sign-off from a second company.
-In the meantime, our Elastic feature is blocked.
-2. I want to build a workflow in Elastic, and the fields I need to proceed are already in OTel but not in ECS where I
-need them today.
-
-In these cases, the recommendation is to make a contribution to ECS to unblock development. The appropriate ECS starting
-point can be an [RFC](./rfcs/README.md) or pull request based on the maturity of the Otel changes. Please see the
-following table.
-
-| OTel submission maturity                                                                                                                                                             | Breaking changes expected | ECS starting point                                   |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|------------------------------------------------------|
-| OTel working groups accepts the premise of the addition and commits to considering this proposal as it advances.                                                                     | Major                     | RFC Stage 1                                          |
-| The initial field definitions comprehensively model the addition to the schema. Fundamental questions and concerns are resolved, though some less significant questions remain open. | Iterative                 | RFC Stage 2                                          |
-| All requested changes from codeowners have been addressed, and there are no open discussions.                                                                                        | Iterative                 | Open an ECS pull request with new fields marked Beta |
-| Fields, schema, namespace exists in OTel and are designated experimental                                                                                                             | Iterative                 | Open an ECS pull request with new fields marked Beta |
-| Fields, schema, namespace exists in OTel and are designated stable                                                                                                                   | None                      | Open an ECS pull request with new fields marked GA   |
+While ECS updates will coincide with Elastic Stack releases, not every stack version will trigger an ECS release.
 
 ### Dev Tools
 
