@@ -27,7 +27,8 @@
   type: group
   fields:
     - name: agent.description
-      type: text
+      type: keyword
+      index: false
       description: Free-form description of the GenAI agent provided by the application.
       example: Helps with math problems; Generates fiction stories
       level: extended
@@ -99,7 +100,7 @@
       otel:
         - relation: match
     - name: request.model
-      type: text
+      type: keyword
       description: The name of the GenAI model a request is being made to.
       example: gpt-4
       level: extended
