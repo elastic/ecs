@@ -73,7 +73,7 @@ The following are the people that consulted on the contents of this RFC.
 
 ### RFC Pull Requests
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/2493
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
