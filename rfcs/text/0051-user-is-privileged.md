@@ -1,7 +1,7 @@
-# 0000: Add user.is_privileged boolean field
+# 0051: Add user.is_privileged boolean field
 
-- Stage: **0 (strawperson)** 
-- Date: **TBD** 
+- Stage: **0 (strawperson)**
+- Date: **2025-06-23**
 
 This RFC proposes adding a new boolean field, `user.is_privileged`. It will explicitly flag when a user has elevated or administrative rights such as ability to grant permissions, perform `sudo`, or manage IAM roles—so analysts can more easily filter, alert on, and correlate privileged‐user activity without custom parsing.
 
@@ -22,7 +22,7 @@ This RFC proposes adding a new boolean field, `user.is_privileged`. It will expl
 
 Treating privileged status as a first-class field (vs. a tag) lets Kibana’s Entity Store resolve the current boolean value without extra parsing.
 
-Analysts will often want to perform more focused monitoring on privileged users, having it as a field in ECS will simplify this querying, e.g 
+Analysts will often want to perform more focused monitoring on privileged users, having it as a field in ECS will simplify this querying, e.g
 
 ```kql
 event.category:authentication and user.is_privileged:true
