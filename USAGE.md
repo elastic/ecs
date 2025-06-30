@@ -61,8 +61,6 @@ The generated Elasticsearch template would be output at
 
 If this sounds interesting, read on to learn all about each of these settings.
 
-See [usage-example/](usage-example/) for a complete example with source files.
-
 ## Terminology
 
 | Term | Definition |
@@ -314,12 +312,6 @@ Reviewing the above example, the generator using subset will output artifacts co
 * All `agent.*` fields, `dll.*`, and `ecs.*` fields
 
 It's also possible to combine `--include` and `--subset` together! Do note that your subset YAML filter file will need to list any custom fields being passed with `--include`. Otherwise, `--subset` will filter those fields out.
-
-Example with `--include` and `--subset` file:
-
-```
-python scripts/generator.py --subset ./usage-example/fields/subset.yml --include ./usage-example/fields/custom/acme.yml
-```
 
 #### Ref
 
