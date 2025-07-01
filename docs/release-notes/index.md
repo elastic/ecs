@@ -1,7 +1,7 @@
 ---
 navigation_title: "ECS"
 mapped_pages:
-  - https://www.elastic.co/guide/en/ecs/current/releasenotes.html
+  - https://www.elastic.co/guide/en/ecs/current/ecs-release-notes.html
 ---
 
 # ECS release notes [ecs-release-notes]
