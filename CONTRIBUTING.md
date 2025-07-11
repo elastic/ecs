@@ -98,7 +98,6 @@ We follow the [Github forking model](https://help.github.com/articles/fork-a-rep
 
 ### Commits and Merging
 
-* When submitting a PR for review, please perform and interactive rebase to clean up the commit history. A logical commit history is easier for reviewers to follow.
 * Use meaningful and helpful commit messages on your changes and an explanation of _why_ you made those changes.
 * When merging, maintainers will squash your commits into a single commit.
 
@@ -109,6 +108,7 @@ Please follow these guidelines when submitting PRs:
 * Include an explanation of your changes in the PR description.
 * Links to relevant issues, external resources, or related PRs are helpful and useful.
 * Update any tests or add new tests where appropriate.
+* Include a changelog entry summarizing your changes with a link to the PR.
 
 ### Issues
 
