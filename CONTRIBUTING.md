@@ -75,6 +75,7 @@ You need these tools to contribute to the ECS repo:
 * If necessary, make sure tests pass.
   - Run `make test`
   - Add tests for your changes, if necessary
+* Run `make check` to verify that all generated files are up-to-date.
 * Commit your changes locally.
   - Run `git commit -a -m "your message"`
 * Push your changes to your own github.com fork.
@@ -83,6 +84,8 @@ You need these tools to contribute to the ECS repo:
 * Request feedback about your changes.
   - Create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) against the ECS repo.
     - (Look for the `Compare & pull request` button on your branch in github.com.)
+  - Include an explanation of your changes in the PR description.
+  - Add links to relevant issues, external resources, or related PRs.
   - Add an entry to [CHANGELOG.next.md](CHANGELOG.next.md).
   - Wait for reviews on your PR.
   - Incorporate review comments and push updates if needed.
