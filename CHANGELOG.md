@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file based on the
 
 ## [9.1.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.1.0)
 
+### Schema Changes
+
 #### Bugfixes
 
 * Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
@@ -13,6 +15,8 @@ All notable changes to this project will be documented in this file based on the
 #### Added
 
 * Add `gen_ai` fields to schema as beta. #2475
+
+### Tooling and Artifact Changes
 
 #### Bugfixes
 
