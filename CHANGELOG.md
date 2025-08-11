@@ -3,6 +3,27 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.1.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.1.0)
+
+#### Bugfixes
+
+* Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
+* Add `thumbprint_sha256` to `code_signature` schema. #2452
+
+#### Added
+
+* Add `gen_ai` fields to schema as beta. #2475
+
+#### Bugfixes
+
+* Fix otel urls for fieldsets with underscores. #2486
+
+#### Improvements
+
+* Allow Unicode characters in generated ECS yml files. #2478
+* Update semconv version used in file generation to v1.34.0 #2483
+
+
 ## [9.0.0](https://github.com/elastic/ecs/compare/v8.17.0...v9.0.0)
 
 ### Schema Changes
