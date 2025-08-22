@@ -7,7 +7,7 @@ mapped_pages:
 
 # ECS reference [ecs-reference]
 
-This is the documentation of ECS version 9.1.0-dev.
+This is the documentation of ECS version 9.2.0-dev.
 
 
 ## What is ECS? [_what_is_ecs]
