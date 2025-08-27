@@ -115,11 +115,14 @@ e.g.:
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
+* https://opentelemetry.io/blog/2024/otel-generative-ai/
+* https://www.elastic.co/docs/reference/ecs/ecs-gen_ai#_gen_ai_field_details
+
 ### RFC Pull Requests
 
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
-* Stage 0: https://github.com/elastic/ecs/pull/NNN
+* Stage 0: https://github.com/elastic/ecs/pull/2519
 
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
