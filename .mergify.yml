@@ -1,0 +1,27 @@
+commands_restrictions:
+  backport:
+    conditions:
+      - or:
+        - sender-permission>=write
+        - sender=github-actions[bot]
+defaults:
+  actions:
+    backport:
+      title: "[{{ destination_branch }}] (backport #{{ number }}) {{ title }}"
+      assignees:
+        - "{{ author }}"
+      labels:
+        - "backport"
+
+pull_request_rules:
+  - name: forwardport docs changes to main
+    conditions:
+      - merged
+      - label=docs
+      - files~=^docs/
+      - base~=^\d+\.
+    actions:
+      backport:
+        branches:
+          - main
+        title: "[{{ destination_branch }}] (forwardport #{{ number }}) {{ title }}"
