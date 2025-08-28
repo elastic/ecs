@@ -47,6 +47,7 @@ Before diving into the details, here's a complete example that:
 
 ```bash
 python scripts/generator.py --ref v1.6.0 \
+  --semconv-version $(cat otel-semconv-version) \
   --subset            ../my-project/fields/subset.yml \
   --include           ../my-project/fields/custom/ \
   --out               ../my-project/ \
