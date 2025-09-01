@@ -1,0 +1,174 @@
+---
+- name: asset
+  title: Asset information
+  group: 2
+  short: Fields for describing an asset
+  beta: |
+    These fields are in beta and are subject to change.
+  description: >
+    Fields to describe an organization asset such as a host, user, or
+    an infrastructure. These fields can be nested under other objects that
+    identifies an asset such as host, user, network, and cloud schemas.
+  reusable:
+    top_level: false
+    expected:
+      - host
+      - user
+      - network
+      - cloud
+  type: group
+  fields:
+    - name: category
+      level: extended
+      type: keyword
+      example: hardware
+      description: A further classification of the asset type beyond event.category.
+        Example for host assets {hardware, virtual, container, node}."
+    - name: type
+      level: extended
+      type: keyword
+      example: workstation
+      description: "A sub-classification of assets. Possible values for host assets:
+        workstation, S3,Compute. Possible values for host assets: (NULL/ TBD)"
+    - name: id
+      level: extended
+      type: keyword
+      example: 2950
+      description: A unique ID generated from the inventory data source
+    - name: name
+      level: extended
+      type: keyword
+      example: Sourin Paul Macbook Pro
+      description: A common name for the asset
+    - name: vendor
+      level: extended
+      type: keyword
+      example: Apple
+      description: Used primarily for 'Host' entities, the vendor name or brand
+        associated with a host
+    - name: product
+      level: extended
+      type: keyword
+      example: MacBook Pro
+      description: Used primarily for 'Host' entities, the product name associated
+        with a host
+    - name: model
+      level: extended
+      type: keyword
+      example: TBD
+      description: Used primarily for 'Host' entities, the model name or number
+        associated with a host
+    - name: version
+      level: extended
+      type: keyword
+      example: TBD
+      description: Used primarily for 'Host' entities, the version or year associated
+        with a host
+    - name: owner
+      level: extended
+      type: keyword
+      example: sourin.paul@elastic.co
+      description: The primary user entity who owns the 'Host' asset
+    - name: priority
+      level: extended
+      type: keyword
+      example: Priority 1
+      description: A priority classification for the asset obtained from outside this
+        system, such as from external CMDB or Directory service.
+    - name: criticality
+      level: extended
+      type: keyword
+      example: Critical
+      description: A business criticality classification assigned to the asset.
+    - name: business_unit
+      level: extended
+      type: keyword
+      example: Analyst Experience
+      description: Business Unit associated with the asset (user or host).
+    - name: cost_center
+      level: extended
+      type: keyword
+      example: Security - Protections
+      description: Cost Center associated with the asset (user or host).
+    - name: cost_center_hierarchy
+      level: extended
+      type: keyword
+      example: Engineering
+      description: Additional cost center information associated with the asset (user
+        or host).
+    - name: status
+      level: extended
+      type: keyword
+      example: ACTIVE
+      description: Current status of the asset in the inventory data source.
+    - name: last_status_change_date
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.000
+      description: The most recent date/time when the status was updated.
+    - name: create_date
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.001
+      description: For users, it's the hire date. For other assets, it's the
+        in-service date.
+    - name: end_date
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.002
+      description: For users, it's the termination date. For other assets, it's the
+        out-of-service date.
+    - name: first_seen
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.003
+      description: The earliest date/time at which this asset was observed.
+    - name: last_seen
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.004
+      description: The most recent date/time this asset was observed.  It would remain
+        empty until the asset was observed.
+    - name: last_updated
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.005
+      description: The most recent date/time this asset was updated in the inventory
+        data source
+    - name: serial_number
+      level: extended
+      type: keyword
+      example: C02FG1G1MD6T
+      description: Serial number of the asset
+    - name: tags
+      level: extended
+      type: keyword
+      example: watch, mdmaccess, SMBIOS, AWStags
+      description: Tags assigned to the asset
+      normalize:
+        - array
+    - name: assigned_users
+      level: extended
+      type: keyword
+      example: user1@email.com, user2@email.com
+      description: List of users assigned to the asset
+    - name: assigned_users_are_admin
+      level: extended
+      type: boolean
+      example: true
+      description: Flag to identify if the assigned users have admin privileges
+    - name: is_managed
+      level: extended
+      type: boolean
+      example: true
+      description: Flag to identify if the organization manages the asset
+    - name: last_enrolled_date
+      level: extended
+      type: date
+      example: June 5, 2023 @ 18:25:57.005
+      description: The most recent date/time the asset checked in with MDM
+    - name: data_classification
+      level: extended
+      type: keyword
+      example: restricted
+      description: Data classification tier for the asset
