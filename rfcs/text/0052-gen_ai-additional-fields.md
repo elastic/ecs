@@ -161,6 +161,8 @@ e.g.:
 
 * https://opentelemetry.io/blog/2024/otel-generative-ai/
 * https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/
+* https://github.com/open-telemetry/semantic-conventions/commits/main/docs/gen-ai/gen-ai-events.md
+* https://github.com/open-telemetry/semantic-conventions/pull/2702
 * https://www.elastic.co/docs/reference/ecs/ecs-gen_ai#_gen_ai_field_details
 
 ### RFC Pull Requests
