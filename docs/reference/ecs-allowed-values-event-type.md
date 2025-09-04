@@ -76,6 +76,11 @@ The deletion event type is used for the subset of events within a category that 
 The denied event type is used for the subset of events within a category that indicate that something was denied. Common examples include `event.category:network AND event.type:denied` (to indicate a network firewall event for which the firewall disposition was to deny the connection) and `event.category:intrusion_detection AND event.type:denied` (to indicate a network intrusion prevention system event for which the IPS disposition was to deny the connection to complete). You can further distinguish denied operations using the ECS `event.action` field, populating with values of your choosing, such as "blocked", "dropped", or "quarantined".
 
 
+## device [ecs-event-type-device]
+
+The device event type is used for the subset of events within a category that are related to device objects. Common example: `event.category:host AND event.type:change AND event.type:device`. You can further distinguish device operations using the ECS `event.action` field.
+
+
 ## end [ecs-event-type-end]
 
 The end event type is used for the subset of events within a category that indicate something has ended. A common example is `event.category:process AND event.type:end`.
