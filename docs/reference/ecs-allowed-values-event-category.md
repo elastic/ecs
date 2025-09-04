@@ -77,17 +77,6 @@ The database category denotes events and metrics relating to a data storage and 
 access, change, info, error
 
 
-## device [ecs-event-category-device]
-
-Events in the device category have to do with peripheral devices - physical or virtual devices such as hard drives, HID and USB devices.
-
-Use events and metrics in this category to visualize and analyze device-related activity and status on hosts.
-
-**Expected event types for category driver:**
-
-allowed, denied, info, start
-
-
 ## driver [ecs-event-category-driver]
 
 Events in the driver category have to do with operating system device drivers and similar software entities such as Windows drivers, kernel extensions, kernel modules, etc.
