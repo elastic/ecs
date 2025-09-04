@@ -60,6 +60,50 @@ Stage 1: Describe at a high-level how these field changes will be used in practi
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
 
+Example usage:
+
+```json
+{
+    "gen_ai": {
+        "system": {
+            "message": {
+                "content": "You are a logistics assistant that helps Acme Corp employees answer logistics-related questions.",
+                "role": "system",
+            }
+        },
+        "user": {
+            "message": {
+                "content": "How big of a drone do I need to carry a 5lb package?",
+                "role": "user",
+            }
+        },
+        "assistant": {
+            "message": {
+                "content": "To carry a 5lb package, you would need a drone with sufficient payload capacity. Drones designed for heavy lifting often fall in the industrial or commercial category. Consider drones with a payload capacity of at least 6-7lbs to ensure safe transport and account for additional factors like battery and stability.",
+                "role": "assistant",
+                "tool_calls": [
+                    {
+                        "function": "getDroneSpecifications",
+                        "arguments": {"payloadWeight": 5},
+                        "name": "getDroneSpecifications",
+                        "id": "toolCall1",
+                        "type": "function_call",
+                    },
+                    {
+                        "function": "retrieveAvailableDronesDocument",
+                        "arguments": {"documentType": "availableDrones", "payloadRequirement": 5},
+                        "name": "retrieveAvailableDronesDocument",
+                        "id": "toolCall2",
+                        "type": "function_call",
+                    }
+                ],
+            }
+        },
+    }
+}
+```
+
+
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
@@ -116,6 +160,7 @@ e.g.:
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 * https://opentelemetry.io/blog/2024/otel-generative-ai/
+* https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/
 * https://www.elastic.co/docs/reference/ecs/ecs-gen_ai#_gen_ai_field_details
 
 ### RFC Pull Requests
