@@ -38,7 +38,7 @@ This approach would allow ECS to accommodate new types of entities without requi
 | entity.raw.* | object | Original, unmodified fields from the source system stored in a flattened format that maintains basic searchability. While `entity.attributes` should be used for normalized fields requiring advanced queries, this field preserves all source metadata with basic search capabilities. Supports existence queries, exact value matches, and simple aggregations. |
 | entity.metrics.* | object | Field set for any fields containing numeric entity metrics. These use dymanic field data type mapping. Any fields under entity.metrics.* will automatically get the appropriate numeric mapping without needing explicit definition.
 
-When representing entities that have existing ECS entiy field sets (e.g., hosts, users, services, containers), the relevant ECS field set should continue to be used to capture a copy of the detailed metadata about that entity. For example:
+When representing entities that have existing ECS entity field sets (e.g., hosts, users, services, containers), the relevant ECS field set should continue to be used to capture a copy of the detailed metadata about that entity. For example:
 
 - Host entities should also utilize the `host.*` field set to capture detailed host information
 - User entities should also leverage the `user.*` field set for user-specific attributes
