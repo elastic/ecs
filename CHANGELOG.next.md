@@ -20,6 +20,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `gen_ai` fields to schema as beta. #2475
+* Add `device` value to `event.category` #2524
 
 #### Improvements
 
