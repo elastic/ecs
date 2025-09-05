@@ -29,9 +29,9 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 Field | Type | Description
 -- | -- | --
 device.vendor.name | keyword | Vendor name of the device. Example: "SanDisk"
-device.vendor.id | keyword | VendorID of the device. Example: "0x1234". See [1]
+device.vendor.id | keyword | VendorID of the device. Example: "0x1234". See [1][2]
 device.product.name | keyword | Product name of the device. Example: "Extreme V2 SSD"
-device.product.id | keyword | ProductID Example: "0xABCD".  See [1]
+device.product.id | keyword | ProductID Example: "0xABCD".  See [1][2]
 device.type | keyword | Device type classification. Example: "Storage Device", "HID", "Audio". Ideally one of the USB defined class codes. See [3]
 
 <!--
