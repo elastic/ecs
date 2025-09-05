@@ -28,11 +28,11 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 
 Field | Type | Description
 -- | -- | --
-device.vendor_name | keyword | Vendor name of the device. Example: "SanDisk"
-device.vendor_id | keyword | VendorID of the device. Example: "0x1234"
-device.product_name | keyword | Product name of the device. Example: "Extreme V2 SSD"
-device.product_id | keyword | ProductID of the device. Example: "0xABCD"
-device.device_type | keyword | Device type classification. Example: "Storage Device", "HID", "Audio". Ideally one of the USB defined class codes.
+device.vendor.name | keyword | Vendor name of the device. Example: "SanDisk"
+device.vendor.id | keyword | VendorID of the device. Example: "0x1234". See [1]
+device.product.name | keyword | Product name of the device. Example: "Extreme V2 SSD"
+device.product.id | keyword | ProductID Example: "0xABCD".  See [1]
+device.type | keyword | Device type classification. Example: "Storage Device", "HID", "Audio". Ideally one of the USB defined class codes. See [3]
 
 <!--
 Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
@@ -105,14 +105,16 @@ e.g.:
 * @JaneDoe | grammar, spelling, prose
 * @Mariana
 -->
-
+* @ricardo-estc | author
 
 ## References
 
 <!-- Insert any links appropriate to this RFC in this section. -->
 
-* https://www.usb.org/defined-class-codes
-* https://elastic.github.io/ecs/current/ecs-device.html
+* [1] https://learn.microsoft.com/en-us/windows-hardware/drivers/install/standard-usb-identifiers
+* [2] https://www.usb.org/sites/default/files/vendor_ids072325_1.pdf
+* [3] https://www.usb.org/defined-class-codes
+* [4] https://elastic.github.io/ecs/current/ecs-device.html
 
 ### RFC Pull Requests
 
