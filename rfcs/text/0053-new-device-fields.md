@@ -111,7 +111,7 @@ e.g.:
 <!-- Insert any links appropriate to this RFC in this section. -->
 
 * [1] https://learn.microsoft.com/en-us/windows-hardware/drivers/install/standard-usb-identifiers
-* [2] https://www.usb.org/sites/default/files/vendor_ids072325_1.pdf
+* [2] https://www.ftdichip.com/Support/Documents/TechnicalNotes/TN_100_USB_VID-PID_Guidelines.pdf
 * [3] https://www.usb.org/defined-class-codes
 * [4] https://elastic.github.io/ecs/current/ecs-device.html
 
