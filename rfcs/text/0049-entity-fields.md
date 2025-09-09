@@ -52,7 +52,7 @@ This approach ensures backward compatibility, maintains existing ECS patterns, a
 ### ECS Producers
 
 For ECS producers, such as Beats, Elastic Agent integrations, ingest pipelines, and other methods for shipping data to Elastic, the `entity.*` fields are expected to be nested as follows:
-- If the entity type is one of host, user, service, cloud, orchestrator), then the entity fields should be nested under the respecitve root field set, for example `host.entity.*` , `user.entity.*`, etc.
+- If the entity type is one of host, user, service, cloud, orchestrator, then the entity fields should be nested under the respecitve root field set, for example `host.entity.*` , `user.entity.*`, etc.
 - If the entity type is not one of the above, then that `entity.*` fields should be nested under a new root-level object, called `generic`, as `generic.entity.*`
 
 Special note for use with entity fields that use `target` fields.
