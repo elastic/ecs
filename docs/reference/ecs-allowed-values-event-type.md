@@ -25,6 +25,7 @@ This field is an array. This will allow proper categorization of some events tha
 * [creation](#ecs-event-type-creation)
 * [deletion](#ecs-event-type-deletion)
 * [denied](#ecs-event-type-denied)
+* [device](#ecs-event-type-device)
 * [end](#ecs-event-type-end)
 * [error](#ecs-event-type-error)
 * [group](#ecs-event-type-group)
