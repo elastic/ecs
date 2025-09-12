@@ -1,0 +1,104 @@
+- name: vulnerability
+  title: Vulnerability
+  group: 2
+  short: These fields contain information about vulnerabilities.
+  description: >
+    These fields contain information about vulnerabilities identified in assets.
+    They help in tracking, mitigating, and documenting vulnerabilities.
+
+  
+  fields:
+    - name: vendor.id
+      level: extended
+      type: keyword
+      description: >
+        A vulnerability doesn't necessarily have a CVE associated with it. It makes sense to separate vulnerability ID (like CVEs) to the vendor/detection IDs.
+
+    - name: title
+      level: extended
+      type: keyword
+      description: >
+        Title/Name/Short Description for vulnerability, to be used in flyout and dashboards.
+
+    - name: mitigation
+      level: extended
+      type: text
+      description: >
+        Explains how to fix or mitigate the problem, could be used to store resolution from the scanner vendor or document mitigation in place.
+
+    - name: published
+      level: extended
+      type: date
+      description: >
+        The “published” field indicates the date when information about a specific vulnerability was publicly disclosed or made available. It represents the moment when details about the vulnerability were shared with the security community, vendors, and the public. This field helps security professionals track the timeline of vulnerability awareness, in ISO 8601 format - YYYY-MM-DD.
+
+    - name: patch
+      type: group
+      description: >
+        Information about patches available for the vulnerability.
+      fields:
+        - name: exists
+          level: extended
+          type: boolean
+          description: >
+            Indicates whether a security fix or update (commonly known as a patch) is available to address the identified vulnerability.
+
+        - name: name
+          level: extended
+          type: text
+          description: >
+            Name of the patch.
+
+        - name: code
+          level: extended
+          type: keyword
+          description: >
+            Associated patch code, for example, ESA-2020-13.
+
+    - name: evidence
+      level: extended
+      type: text
+      description: >
+        A demonstration of the validity of a vulnerability claim, e.g., app.any.run replaying the exploitation of the vulnerability.
+
+    - name: status
+      level: extended
+      type: keyword
+      description: >
+        The status field helps security teams track vulnerabilities, prioritize actions, and communicate their progress effectively. Examples: open/ignored/patched/mitigated/false_positive/risk_accepted/reopened.
+
+    - name: tags
+      level: extended
+      type: keyword
+      description: >
+        This is different from cloud provider assigned resource tags, this is specifically for vulnerability. Vulnerability tags serve as a way to add custom metadata to vulnerabilities, enhancing their context and aiding in search and automation.
+
+    - name: first_found
+      level: extended
+      type: date
+      description: >
+        First time a vulnerability was found on the asset, in ISO 8601 format: 2016-05-23T08:05:34.853Z.
+
+    - name: last_found
+      level: extended
+      type: date
+      description: >
+        Last time a vulnerability was found on the asset, in ISO 8601 format: 2016-05-23T08:05:34.853Z.
+
+    - name: last_scanned
+      level: extended
+      type: date
+      description: >
+        Last time a scan was performed on the asset. It's important as some companies are scanning on a quarterly basis. If last_found and last_scanned are close, it means it's still an active vulnerability, in ISO 8601 format: 2016-05-23T08:05:34.853Z.
+
+    - name: age
+      level: extended
+      type: long
+      description: >
+        Number of days since the vulnerability is active. It should be dynamically calculated (runtime fields, ingest, ...). It could either be the difference between the last_found date and the published date (preferred). It could also be the difference between the first_found and last_found dates.
+
+    - name: uid
+      level: extended
+      type: keyword
+      description: >
+        It's extremely important to be able to deduplicate different scans. It's often that we have different scanners showing the same vulnerability on the same asset.
