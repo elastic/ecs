@@ -1789,6 +1789,46 @@ device.model.name:
     stability: development
   short: The human readable marketing name of the device model.
   type: keyword
+device.product.id:
+  beta: This field is beta and subject to change.
+  dashed_name: device-product-id
+  description: 'A unique identifier assigned by the vendor to distinguish different
+    product models. This is typically a hexadecimal value that, combined with the
+    vendor ID, creates a globally unique device identifier.
+
+    The product ID is assigned by the device manufacturer and should remain consistent
+    across all instances of the same product model. For hardware devices, this often
+    corresponds to the Product ID (PID) in device descriptors.
+
+    See https://learn.microsoft.com/en-us/windows-hardware/drivers/install/standard-usb-identifiers
+    for more details on product identification standards.'
+  example: 43981
+  flat_name: device.product.id
+  ignore_above: 1024
+  level: extended
+  name: product.id
+  normalize: []
+  short: ProductID of the device
+  type: keyword
+device.product.name:
+  beta: This field is beta and subject to change.
+  dashed_name: device-product-name
+  description: 'The human-readable marketing or commercial name of the device as designated
+    by the manufacturer. This name is typically found in product documentation, marketing
+    materials, or device packaging.
+
+    Unlike the product.id which is a technical identifier, this field contains the
+    consumer-facing product name that would be recognizable to end users. The name
+    should be exactly as provided by the manufacturer and may include model numbers,
+    series designations, or other identifying information.'
+  example: Extreme V2 SSD
+  flat_name: device.product.name
+  ignore_above: 1024
+  level: extended
+  name: product.name
+  normalize: []
+  short: Product name of the device
+  type: keyword
 device.serial_number:
   beta: This field is beta and subject to change.
   dashed_name: device-serial-number
@@ -1801,6 +1841,68 @@ device.serial_number:
   name: serial_number
   normalize: []
   short: Serial Number of the device
+  type: keyword
+device.type:
+  beta: This field is beta and subject to change.
+  dashed_name: device-type
+  description: 'A classification of the device based on its primary function or device
+    class. This field categorizes devices into functional groups to enable policy
+    enforcement and monitoring based on device capabilities.
+
+    The classification should follow standard device class definitions where possible,
+    such as "Storage Device", "Human Interface Device", "Audio", "Video", "Network",
+    "Communication", etc. This allows for consistent categorization across different
+    device types and manufacturers.
+
+    See https://www.usb.org/defined-class-codes for standard device class definitions.'
+  example: Storage Device
+  flat_name: device.type
+  ignore_above: 1024
+  level: extended
+  name: type
+  normalize: []
+  short: Device type classification
+  type: keyword
+device.vendor.id:
+  beta: This field is beta and subject to change.
+  dashed_name: device-vendor-id
+  description: 'A unique identifier assigned to device manufacturers by standards
+    organizations. This is typically a hexadecimal value that uniquely identifies
+    the vendor/manufacturer of the device.
+
+    The vendor ID is assigned by standards bodies and remains consistent across all
+    products from the same manufacturer. For hardware devices, this often corresponds
+    to the Vendor ID (VID) in device descriptors. This identifier enables tracking
+    and policy enforcement at the manufacturer level.
+
+    See https://learn.microsoft.com/en-us/windows-hardware/drivers/install/standard-usb-identifiers
+    for more information on vendor identification standards.'
+  example: 4660
+  flat_name: device.vendor.id
+  ignore_above: 1024
+  level: extended
+  name: vendor.id
+  normalize: []
+  short: VendorID of the device
+  type: keyword
+device.vendor.name:
+  beta: This field is beta and subject to change.
+  dashed_name: device-vendor-name
+  description: 'The name of the organization or company that manufactured or produced
+    the device. This should be the official registered business name or commonly recognized
+    brand name of the manufacturer.
+
+    The vendor name provides human-readable identification of the device manufacturer
+    and should be consistent with the vendor.id field. This field is useful for reporting,
+    device inventory management, and applying vendor-specific policies or security
+    rules.'
+  example: SanDisk
+  flat_name: device.vendor.name
+  ignore_above: 1024
+  level: extended
+  name: vendor.name
+  normalize: []
+  short: Vendor name of the device
   type: keyword
 dll.code_signature.digest_algorithm:
   dashed_name: dll-code-signature-digest-algorithm
