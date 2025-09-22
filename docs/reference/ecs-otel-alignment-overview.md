@@ -6,7 +6,7 @@ mapped_pages:
 
 # OTel Alignment Overview [ecs-otel-alignment-overview]
 
-The following table summarizes the alignment status by namespaces between ECS in version `9.1.0-dev` and OpenTelemetry semantic conventions in version `1.34.0`.
+The following table summarizes the alignment status by namespaces between ECS in version `9.2.0-dev` and OpenTelemetry semantic conventions in version `1.34.0`.
 
 |     |     |
 | --- | --- |
@@ -38,7 +38,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | General Database | · | [14](https://opentelemetry.io/docs/specs/semconv/attributes-registry/db) | · | · | · | · | · | · |  |
 | Deployment | · | [4](https://opentelemetry.io/docs/specs/semconv/attributes-registry/deployment) | · | · | · | · | · | · |  |
 | Destination | [12](/reference/ecs-destination.md) | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/destination) | 2 | · | · | · | · | · | · |
-| Device | [5](/reference/ecs-device.md) | [4](https://opentelemetry.io/docs/specs/semconv/attributes-registry/device) | 4 | · | · | · | · | · | · |
+| Device | [10](/reference/ecs-device.md) | [4](https://opentelemetry.io/docs/specs/semconv/attributes-registry/device) | 4 | · | · | · | · | · | · |
 | Disk | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/disk) | · | · | · | · | · | · |  |
 | DLL | [4](/reference/ecs-dll.md) | · | · | · | · | · | · | · | · |
 | DNS | [18](/reference/ecs-dns.md) | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/dns) | 1 | · | · | · | · | · | · |
