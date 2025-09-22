@@ -1,9 +1,14 @@
 # 0051: Add user.is_privileged boolean field
 
-- Stage: **0 (strawperson)**
-- Date: **2025-07-28**
+- Stage: **X (abandoned)**
+- Date: **2025-08-11**
 
 This RFC proposes adding a new boolean field, `user.is_privileged`. It will explicitly flag when a user has elevated or administrative rights such as ability to grant permissions, perform `sudo`, or manage IAM roles—so analysts can more easily filter, alert on, and correlate privileged‐user activity without custom parsing.
+
+## Stage X
+
+This RFC is not being worked on actively, and it has been marked as abandoned. If an individual wishes to advance it in the future, open a new pull request against this proposal.
+
 
 ## Fields
 

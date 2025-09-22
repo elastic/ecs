@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `device` value to `event.type` #2524
+
 #### Improvements
 
 #### Deprecated

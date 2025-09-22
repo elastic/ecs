@@ -1,10 +1,10 @@
 ---
-navigation_title: "ECS"
+navigation_title: Elastic Common Schema (ECS)
 mapped_pages:
   - https://www.elastic.co/guide/en/ecs/current/releasenotes.html
 ---
 
-# ECS release notes [ecs-release-notes]
+# Elastic Common Schema (ECS) release notes
 
 Review the changes, fixes, and more in each version of ECS.
 
