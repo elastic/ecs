@@ -6,33 +6,14 @@
 
 Thanks, you're awesome :-) -->
 
-## Unreleased
+## 9.2.0 (Feature Freeze)
 
 ### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
 
 #### Added
 
 * Add `device` value to `event.type` #2524
-
-#### Improvements
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
+* Add new `device` fields #2530
 
 <!-- All empty sections:
 
