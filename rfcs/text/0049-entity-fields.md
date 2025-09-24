@@ -57,11 +57,11 @@ If the entity type includes a provision for `target.*` fields, such as `user.tar
 
 ## User Benefits
 
-This approach will enable security analysts to view all the entities discovered inside of their environment, whether from logs or other data sources. The entity field set will then begin powering all parts of our security solution experience like alerts, where we can now represent more entities beyond just users and hosts.
+This approach will enable analysts to view all entities discovered inside of their environment, whether from logs or other data sources. 
 
-Essentially, this field set gives us a standard way to represent any entity's metadata, regardless of its type or source, and provides users with the same ability to standardize that information across their environments.
+Essentially, this field set provides a standard way to represent any entity's metadata, regardless of its type or source, and provides analysts with the same ability to standardize that information across their environments.
 
-The entity field set enables users to normalize entity data in such a way where key attributes can be queried in a standardized way regardless of the type and source of the entity metadata. Elastic solutions normalize all entity data using this entity.* field set.
+The entity field set enables users to normalize entity data in such a way where key attributes can be queried in a standardized way regardless of the type and source of the entity metadata.
 
 
 ## Source data
@@ -76,7 +76,7 @@ TO DO
 
 ### Entity Type Governance
 
-The `entity.type` field needs a controlled vocabulary to maintain consistency and interoperability. However, an overly restrictive list might limit the field set's utility for emerging technologies and use cases.
+The `entity.type` field will use an allowed value list as part of a controlled vocabulary to maintain consistency and interoperability. Allowed values include: `host`, `user`, `service`.  
 
 **Potential solution:** Establish a governance process for `entity.type` values, including an initial set of well-defined types and a mechanism for proposing and reviewing new types. Document a clear taxonomy with examples to guide users in selecting appropriate types.
 
