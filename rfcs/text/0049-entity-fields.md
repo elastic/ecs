@@ -2,7 +2,7 @@
 
 - Stage: **1 (draft)**
 - Date: 2025-04-23
-- Updated: 2025-08-15
+- Updated: 2025-09-24
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
@@ -29,11 +29,11 @@ This approach would allow ECS to accommodate new types of entities without requi
 | entity.name | keyword, text | The name of the entity. The keyword field enables exact matches for filtering and aggregations, while the text field enables full-text search. For entities with dedicated field sets (e.g., `host`), this field should mirrors the corresponding *.name value. |
 | entity.display_name | keyword, text | An optional field used when a pretty name is desired for entity-centric operations. This field should not be used for correlation with `*.name` fields for entities with dedicated field sets (e.g., `host`).  |
 | entity.reference | keyword | A URI, URL, or other direct reference to access or locate the entity in its source system. This could be an API endpoint, web console URL, or other addressable location. Format may vary by entity type and source system. |
-| entity.attributes | object | A set of static or semi-static attributes of the entity. Usually boolean or keyword field data types. Use this field set when you need to track static or semi-static characterstics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types.|
-| entity.lifecycle | object | A set of temporal characteristics of the entity. Usually date field data type. Use this field set when you need to track temporal characterstics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types. |
+| entity.attributes | object | A set of static or semi-static attributes of the entity. Usually boolean or keyword field data types. Use this field set when you need to track static or semi-static characteristics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types.|
+| entity.lifecycle | object | A set of temporal characteristics of the entity. Usually date field data type. Use this field set when you need to track temporal characteristics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types. |
 | entity.behavior | object | A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period. Usually boolean field data type. Use this field set when you need to capture and track ephemeral characteristics of an entity for advanced searching, correlation of normalized values across different providers/sources and entity types.|
 | entity.raw | object | Original, unmodified fields from the source system. Usually flattened field data type. While `entity.attributes` should be used for normalized fields requiring advanced queries, this field preserves all source metadata with basic search capabilities.|
-| entity.metrics.* | object | Field set for any fields containing numeric entity metrics. These use dymanic field data type mapping. Any fields under entity.metrics.* will automatically get the appropriate numeric mapping without needing explicit definition.
+| entity.metrics | object | Field set for any fields containing numeric entity metrics. These use dynamic field data type mapping.
 
 When representing entities that have existing ECS entity field sets (e.g., hosts, users, services, containers), the relevant ECS field set should continue to be used to capture a copy of the detailed metadata about that entity. For example:
 
@@ -49,7 +49,7 @@ This approach ensures backward compatibility, maintains existing ECS patterns, a
 ### ECS Producers
 
 For ECS producers, such as Beats, Elastic Agent integrations, ingest pipelines, and other methods for shipping data to Elastic, the `entity.*` fields are expected to be nested as follows:
-- If the entity type is one of host, user, service, cloud, orchestrator, then the entity fields should be nested under the respecitve root field set, for example `host.entity.*` , `user.entity.*`, etc.
+- If the entity type is one of host, user, service, cloud, orchestrator, then the entity fields should be nested under the respective root field set, for example `host.entity.*` , `user.entity.*`, etc.
 - If the entity type is not one of the above, then that `entity.*` fields should be nested under a new root-level object.
 
 Special note for use with entity fields that use `target` fields.
