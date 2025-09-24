@@ -21,8 +21,7 @@ This approach would allow ECS to accommodate new types of entities without requi
 
 | Field | Type | Description |
 |-------|------|-------------|
-| entity.schema_version | keyword | Denotes the version of the entity schema,as published in Elastic Security documentation, to which this entity information conforms. Usually conforms to the Elastic Stack version.
-| entity.last_seen_timestamp | date | Indicates the date/time when this entity was last "seen," usually based upon the last event/log that is initiated by this entity. Note: this field may contain the same timestamp as is included in custom field `entity.lifecycle.Last_activity`.
+| entity.last_seen_timestamp | date | Indicates the date/time when this entity was last "seen," usually based upon the last event/log that is initiated by this entity.
 | entity.id | keyword | A unique identifier for the entity. When multiple identifiers exist, this should be the most stable and commonly used identifier that: 1) persists across the entity's lifecycle, 2) ensures uniqueness within its scope, 3) is commonly used for queries and correlation, and 4) is readily available in most observations (logs/events). For entities with dedicated field sets (e.g., host, user), this value should match the corresponding *.id field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved in entity.raw. |
 | entity.source | keyword | The module or integration that provided this entity data (similar to event.module). |
 | entity.type | keyword | A standardized high-level classification of the entity. This provides a normalized way to group similar entities across different providers or systems. Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`, `user`, `application`, `session`, etc. |
