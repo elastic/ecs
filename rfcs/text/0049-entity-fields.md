@@ -1,7 +1,7 @@
 # 0049: Entity Field Set
 
 - Stage: **2 (Candidate)**
-- Date: 2025-09-24
+- Date: 2025-09-25
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
@@ -95,4 +95,4 @@ TO DO
 - Stage 0: <https://github.com/elastic/ecs/pull/2434>
 - Stage 1: <https://github.com/elastic/ecs/pull/2461>
 - Stage 1 Update: <https://github.com/elastic/ecs/pull/2513>
-- Stage 2:
+- Stage 2: <https://github.com/elastic/ecs/pull/2537>
