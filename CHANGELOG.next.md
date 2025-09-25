@@ -17,6 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `device` value to `event.type` #2524
+* Added `entity` fieldset as beta #2537
 
 #### Improvements
 
