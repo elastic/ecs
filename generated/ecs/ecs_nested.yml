@@ -1489,9 +1489,9 @@ cloud:
   group: 2
   name: cloud
   nestings:
-  - cloud.entity
   - cloud.origin
   - cloud.target
+  - cloud.target.entity
   prefix: cloud.
   reusable:
     expected:
@@ -1507,9 +1507,9 @@ cloud:
         of an outgoing request or event.
     top_level: true
   reused_here:
-  - full: cloud.entity
+  - full: cloud.target.entity
     schema_name: entity
-    short: Entity information for the cloud entity.
+    short: Entity information for the target cloud entity.
   - full: cloud.origin
     schema_name: cloud
     short: Provides the cloud information of the origin entity in case of an incoming
@@ -18542,9 +18542,9 @@ service:
   group: 2
   name: service
   nestings:
-  - service.entity
   - service.origin
   - service.target
+  - service.target.entity
   prefix: service.
   reusable:
     expected:
@@ -18564,9 +18564,9 @@ service:
         or event.
     top_level: true
   reused_here:
-  - full: service.entity
+  - full: service.target.entity
     schema_name: entity
-    short: Entity information for the service.
+    short: Entity information for the target service.
   - beta: Reusing the `service` fields in this location is currently considered beta.
     full: service.origin
     schema_name: service
@@ -27103,10 +27103,10 @@ user:
   nestings:
   - user.changes
   - user.effective
-  - user.entity
   - user.group
   - user.risk
   - user.target
+  - user.target.entity
   prefix: user.
   reusable:
     expected:
@@ -27157,9 +27157,9 @@ user:
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
-  - full: user.entity
+  - full: user.target.entity
     schema_name: entity
-    short: Entity information for the user.
+    short: Entity information for the targeted user.
   - full: user.risk
     schema_name: risk
     short: Fields for describing risk score and level.
