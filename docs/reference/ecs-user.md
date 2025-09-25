@@ -50,7 +50,7 @@ Note also that the `user` fields may be used directly at the root of the events.
 | --- | --- | --- |
 | `user.changes.*` | [user](/reference/ecs-user.md) | Captures changes made to a user. |
 | `user.effective.*` | [user](/reference/ecs-user.md) | User whose privileges were assumed. |
-| `user.entity.*` | [entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |
+| `user.entity.*` | [entity](/reference/ecs-entity.md) | Entity information for the user. |
 | `user.group.*` | [group](/reference/ecs-group.md) | User's group relevant to the event. |
 | `user.risk.*` | [risk](/reference/ecs-risk.md) | Fields for describing risk score and level. |
 | `user.target.*` | [user](/reference/ecs-user.md) | Targeted user of action taken. |

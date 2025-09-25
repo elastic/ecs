@@ -1764,7 +1764,7 @@ cloud:
   reused_here:
   - full: cloud.entity
     schema_name: entity
-    short: Fields to describe various types of entities across IT environments.
+    short: Entity information for the cloud entity.
   - full: cloud.origin
     schema_name: cloud
     short: Provides the cloud information of the origin entity in case of an incoming
@@ -19076,7 +19076,7 @@ service:
   reused_here:
   - full: service.entity
     schema_name: entity
-    short: Fields to describe various types of entities across IT environments.
+    short: Entity information for the service.
   - beta: Reusing the `service` fields in this location is currently considered beta.
     full: service.origin
     schema_name: service
@@ -27594,6 +27594,86 @@ user:
       original_fieldset: user
       short: Short name or login of the user.
       type: keyword
+    user.target.risk.calculated_level:
+      dashed_name: user-target-risk-calculated-level
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      flat_name: user.target.risk.calculated_level
+      ignore_above: 1024
+      level: extended
+      name: calculated_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: keyword
+    user.target.risk.calculated_score:
+      dashed_name: user-target-risk-calculated-score
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      flat_name: user.target.risk.calculated_score
+      level: extended
+      name: calculated_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score calculated by an internal system as part
+        of entity analytics and entity risk scoring.
+      type: float
+    user.target.risk.calculated_score_norm:
+      dashed_name: user-target-risk-calculated-score-norm
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      flat_name: user.target.risk.calculated_score_norm
+      level: extended
+      name: calculated_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an internal system.
+      type: float
+    user.target.risk.static_level:
+      dashed_name: user-target-risk-static-level
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      flat_name: user.target.risk.static_level
+      ignore_above: 1024
+      level: extended
+      name: static_level
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification level obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: keyword
+    user.target.risk.static_score:
+      dashed_name: user-target-risk-static-score
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      flat_name: user.target.risk.static_score
+      level: extended
+      name: static_score
+      normalize: []
+      original_fieldset: risk
+      short: A risk classification score obtained from outside the system, such as
+        from some external Threat Intelligence Platform.
+      type: float
+    user.target.risk.static_score_norm:
+      dashed_name: user-target-risk-static-score-norm
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      flat_name: user.target.risk.static_score_norm
+      level: extended
+      name: static_score_norm
+      normalize: []
+      original_fieldset: risk
+      short: A normalized risk score calculated by an external system.
+      type: float
     user.target.roles:
       dashed_name: user-target-roles
       description: Array of user roles at the time of the event.
@@ -27664,12 +27744,12 @@ user:
         as the Kube API.
     top_level: true
   reused_here:
-  - full: user.entity
-    schema_name: entity
-    short: Fields to describe various types of entities across IT environments.
   - full: user.group
     schema_name: group
     short: User's group relevant to the event.
+  - full: user.entity
+    schema_name: entity
+    short: Entity information for the user.
   - full: user.risk
     schema_name: risk
     short: Fields for describing risk score and level.
