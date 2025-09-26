@@ -1,7 +1,7 @@
 # 0049: Entity Field Set
 
-- Stage: **1 (draft)**
-- Date: 2025-04-23
+- Stage: **2 (Candidate)**
+- Date: 2025-09-25
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
@@ -42,7 +42,20 @@ This approach ensures backward compatibility, maintains existing ECS patterns, a
 
 The entity field set enables us to normalize entity data in such a way where we can easily query key attributes in a standardized way regardless of the type and source of the entity. This will be how we'll normalize all entity data in the upcoming inventory experience that we're planning for the security solution.
 
-This approach will enable security analysts to view all the entities discovered inside of their environment, whether from logs or other data sources. The entity field set will then begin powering all parts of our security solution experience like alerts, where we can now represent more entities beyond just users and hosts.
+For ECS producers, such as Beats, Elastic Agent integrations, ingest pipelines, and other methods for shipping data to Elastic, the `entity.*` fields are expected to be nested as follows:
+- If the entity type is one of host, user, service, cloud, orchestrator, then the entity fields should be nested under the respective root field set, for example `host.entity.*` , `user.entity.*`, etc.
+- If the entity type is not one of the above, then that `entity.*` fields should be nested under a new root-level object.
+
+Special note for use with entity fields that use `target` fields.
+If the entity type includes a provision for `target.*` fields, such as `user.target.*`, then the `entity.*` fields should be nested under the `*.target.*` field set, for example, `user.target.entity.*`.
+
+## User Benefits
+
+This approach will enable analysts to view all entities discovered inside of their environment, whether from logs or other data sources.
+
+Essentially, this field set provides a standard way to represent any entity's metadata, regardless of its type or source, and provides analysts with the same ability to standardize that information across their environments.
+
+The entity field set enables users to normalize entity data in such a way where key attributes can be queried in a standardized way regardless of the type and source of the entity metadata.
 
 Essentially, this field set gives us a standard way to represent any entity's metadata, regardless of its type or source, and provides customers with the same ability to standardize that information across their environments.
 
@@ -58,7 +71,7 @@ TO DO
 
 ### Entity Type Governance
 
-The `entity.type` field needs a controlled vocabulary to maintain consistency and interoperability. However, an overly restrictive list might limit the field set's utility for emerging technologies and use cases.
+The `entity.type` field will use an allowed value list as part of a controlled vocabulary to maintain consistency and interoperability. Allowed values include: `host`, `user`, `service`.
 
 **Potential solution:** Establish a governance process for `entity.type` values, including an initial set of well-defined types and a mechanism for proposing and reviewing new types. Document a clear taxonomy with examples to guide users in selecting appropriate types.
 
@@ -77,3 +90,5 @@ TO DO
 
 - Stage 0: <https://github.com/elastic/ecs/pull/2434>
 - Stage 1: <https://github.com/elastic/ecs/pull/2461>
+- Stage 1 Update: <https://github.com/elastic/ecs/pull/2513>
+- Stage 2: <https://github.com/elastic/ecs/pull/2537>

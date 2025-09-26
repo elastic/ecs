@@ -14,6 +14,7 @@ Thanks, you're awesome :-) -->
 
 * Add `device` value to `event.type` #2524
 * Add new `device` fields #2530
+* Added `entity` fieldset as beta #2537
 
 <!-- All empty sections:
 
