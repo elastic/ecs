@@ -20,6 +20,16 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [ecs-next-fixes]
 % *
 
+
+## 9.2.0 [ecs-9-2-0-release-notes]
+
+### Features and enhancements [ecs-9-2-0-features-enhancements]
+
+* Add `device` value to `event.type` [#2524](https://github.com/elastic/ecs/pull/2524)
+* Add new `device` fields [#2530](https://github.com/elastic/ecs/pull/2530)
+* Added `entity` fieldset as beta [#2537](https://github.com/elastic/ecs/pull/2537)
+
+
 ## 9.0.0 [ecs-9-0-0-release-notes]
 
 ### Features and enhancements [ecs-9-0-0-features-enhancements]
