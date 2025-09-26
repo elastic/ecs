@@ -3,6 +3,17 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.2.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.2.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `device` value to `event.type` #2524
+* Add new `device` fields #2530
+* Added `entity` fieldset as beta #2537
+
+
 ## [9.1.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.1.0)
 
 ### Schema Changes

@@ -6,15 +6,31 @@
 
 Thanks, you're awesome :-) -->
 
-## 9.2.0 (Feature Freeze)
+## Unreleased
 
 ### Schema Changes
 
+#### Breaking changes
+
+#### Bugfixes
+
 #### Added
 
-* Add `device` value to `event.type` #2524
-* Add new `device` fields #2530
-* Added `entity` fieldset as beta #2537
+#### Improvements
+
+#### Deprecated
+
+### Tooling and Artifact Changes
+
+#### Breaking changes
+
+#### Bugfixes
+
+#### Added
+
+#### Improvements
+
+#### Deprecated
 
 <!-- All empty sections:
 
