@@ -1,8 +1,7 @@
 # 0049: Entity Field Set
 
-- Stage: **1 (draft)**
-- Date: 2025-04-23
-- Updated: 2025-09-24
+- Stage: **2 (Candidate)**
+- Date: 2025-09-25
 
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
@@ -57,7 +56,7 @@ If the entity type includes a provision for `target.*` fields, such as `user.tar
 
 ## User Benefits
 
-This approach will enable analysts to view all entities discovered inside of their environment, whether from logs or other data sources. 
+This approach will enable analysts to view all entities discovered inside of their environment, whether from logs or other data sources.
 
 Essentially, this field set provides a standard way to represent any entity's metadata, regardless of its type or source, and provides analysts with the same ability to standardize that information across their environments.
 
@@ -76,7 +75,7 @@ TO DO
 
 ### Entity Type Governance
 
-The `entity.type` field will use an allowed value list as part of a controlled vocabulary to maintain consistency and interoperability. Allowed values include: `host`, `user`, `service`.  
+The `entity.type` field will use an allowed value list as part of a controlled vocabulary to maintain consistency and interoperability. Allowed values include: `host`, `user`, `service`.
 
 **Potential solution:** Establish a governance process for `entity.type` values, including an initial set of well-defined types and a mechanism for proposing and reviewing new types. Document a clear taxonomy with examples to guide users in selecting appropriate types.
 
@@ -95,4 +94,5 @@ TO DO
 
 - Stage 0: <https://github.com/elastic/ecs/pull/2434>
 - Stage 1: <https://github.com/elastic/ecs/pull/2461>
-- Stage 1 Update: 
+- Stage 1 Update: <https://github.com/elastic/ecs/pull/2513>
+- Stage 2: <https://github.com/elastic/ecs/pull/2537>
