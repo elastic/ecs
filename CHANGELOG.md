@@ -3,7 +3,7 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [9.2.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.2.0)
+## [9.2.0](https://github.com/elastic/ecs/compare/v9.1.0...v9.2.0)
 
 ### Schema Changes
 
