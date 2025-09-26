@@ -111,9 +111,48 @@ def sort_fields(fieldset):
     fields_list = list(fieldset['fields'].values())
     for field in fields_list:
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
-        # Ensure name is available at top level for fields that have it in field_details
-        if 'name' not in field and 'field_details' in field and 'name' in field['field_details']:
-            field['name'] = field['field_details']['name']
+
+        # For fields with nested field_details structure, flatten the properties
+        if 'field_details' in field:
+            field_details = field['field_details']
+            # Copy essential properties from field_details to top level for template compatibility
+            field['name'] = field_details.get('name', field.get('name', ''))
+            field['level'] = field_details.get('level', field.get('level'))
+            field['type'] = field_details.get('type', field.get('type'))
+            field['description'] = field_details.get('description', field.get('description'))
+            field['beta'] = field_details.get('beta', field.get('beta'))
+            field['short'] = field_details.get('short', field.get('short'))
+
+            # Only include example if it has a real value (not None or empty)
+            example = field_details.get('example')
+            if example is not None and example != '' and str(example).lower() != 'none':
+                field['example'] = example
+            # Don't set example at all if it's None/empty - let template handle conditional logic
+
+            # Construct flat_name and dashed_name from the fieldset and field name
+            fieldset_name = fieldset.get('field_details', {}).get('name', fieldset.get('name', ''))
+            field_name = field_details.get('name', '')
+            if fieldset_name and field_name:
+                field['flat_name'] = f"{fieldset_name}.{field_name}"
+                field['dashed_name'] = f"{fieldset_name}-{field_name}"
+
+            # Handle multi_fields if present - ensure proper structure
+            if 'multi_fields' in field_details and field_details['multi_fields']:
+                multi_fields = field_details['multi_fields']
+                # Process multi_fields to ensure proper field names
+                processed_multi_fields = []
+                for mf in multi_fields:
+                    if isinstance(mf, dict) and 'name' in mf:
+                        # Construct full field name for multi-field
+                        if fieldset_name and field_name:
+                            mf_copy = dict(mf)
+                            mf_copy['flat_name'] = f"{fieldset_name}.{field_name}.{mf['name']}"
+                            processed_multi_fields.append(mf_copy)
+                        else:
+                            processed_multi_fields.append(mf)
+                if processed_multi_fields:
+                    field['multi_fields'] = processed_multi_fields
+
     return sorted(fields_list, key=lambda field: field['name'])
 
 
