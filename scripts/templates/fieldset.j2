@@ -77,7 +77,7 @@ applies_to:
 {% endfor %}
 
 {# field reuse section -#}
-{% if 'reusable' in fieldset -%}
+{% if 'reusable' in fieldset or (fieldset['name'] == 'entity' and sorted_reuse_fields) -%}
 
 ## Field reuse [_field_reuse]
 
@@ -87,7 +87,12 @@ The `{{ fieldset['name'] }}` fields are expected to be nested at:
 * `{{ entry }}`
 {% endfor %}
 
-{% if 'top_level' in fieldset['reusable'] and fieldset['reusable']['top_level'] -%}
+{% if fieldset['name'] == 'entity' -%}
+{% set reusable = fieldset.get('schema_details', {}).get('reusable', {}) -%}
+{% else -%}
+{% set reusable = fieldset.get('reusable', {}) -%}
+{% endif -%}
+{% if reusable.get('top_level') -%}
 
 Note also that the `{{ fieldset['name'] }}` fields may be used directly at the root of the events.
 
