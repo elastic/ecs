@@ -48,6 +48,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | ELF Header | [38](/reference/ecs-elf.md) | · | · | · | · | · | · | · | · |
 | Email | [19](/reference/ecs-email.md) | · | · | · | · | · | · | · | · |
 | End User | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/enduser) | · | · | · | · | · | · |  |
+| Entity | [13](/reference/ecs-entity.md) | · | · | · | · | · | · | · | · |
 | Error | [5](/reference/ecs-error.md) | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/error) | 1 | 2 | · | · | · | · | · |
 | Event | [26](/reference/ecs-event.md) | · | · | · | · | · | · | · | · |
 | Exception | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception) | · | · | · | · | · | · |  |

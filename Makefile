@@ -40,6 +40,15 @@ check_license_headers:
 .PHONY: clean
 clean:
 	rm -rf build generated/elasticsearch/composable/component experimental/generated/elasticsearch/composable/component
+	# Clean generated documentation files
+	@echo "Removing generated documentation files..."
+	@rm -f docs/reference/index.md docs/reference/ecs-field-reference.md docs/reference/ecs-otel-alignment-details.md docs/reference/ecs-otel-alignment-overview.md
+	@for schema in $$(ls schemas/*.yml 2>/dev/null | sed 's/schemas\///' | sed 's/\.yml$$//'); do \
+		if [ -f "docs/reference/ecs-$$schema.md" ]; then \
+			echo "Removing docs/reference/ecs-$$schema.md"; \
+			rm -f "docs/reference/ecs-$$schema.md"; \
+		fi; \
+	done
 
 # Build and serve the docs
 .PHONY: docs
@@ -107,7 +116,7 @@ generate: generator
 # Run the new generator
 .PHONY: generator
 generator: ve
-	$(PYTHON) scripts/generator.py --strict --include "${INCLUDE}" --subset "${SUBSETS_DIR}" --semconv-version "${SEMCONV_VERSION}" --force-docs
+	$(PYTHON) scripts/generator.py --strict $(if $(INCLUDE),--include "$(INCLUDE)") --subset "${SUBSETS_DIR}" --semconv-version "${SEMCONV_VERSION}" --force-docs
 
 # Check Makefile format.
 .PHONY: makelint
