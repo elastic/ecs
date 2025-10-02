@@ -85,7 +85,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Package | [13](/reference/ecs-package.md) | · | · | · | · | · | · | · | · |
 | PE Header | [23](/reference/ecs-pe.md) | · | · | · | · | · | · | · | · |
 | Peer | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/peer) | · | · | · | · | · | · |  |
-| Process | [40](/reference/ecs-process.md) | [34](https://opentelemetry.io/docs/specs/semconv/attributes-registry/process) | 15 | 2 | · | · | 1 | · | · |
+| Process | [34](/reference/ecs-process.md) | [34](https://opentelemetry.io/docs/specs/semconv/attributes-registry/process) | 15 | 2 | · | · | 1 | · | · |
 | Profile Frame | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/profile) | · | · | · | · | · | · |  |
 | Registry | [7](/reference/ecs-registry.md) | · | · | · | · | · | · | · | · |
 | Related | [4](/reference/ecs-related.md) | · | · | · | · | · | · | · | 4 |
