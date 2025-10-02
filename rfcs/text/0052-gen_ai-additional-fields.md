@@ -36,7 +36,7 @@ gen_ai.input.messages | (Looking for feedback) flattened | The chat history prov
 gen_ai.output.messages | (Looking for feedback) flattened | Messages returned by the model where each message represents a specific model response (choice, candidate).
 gen_ai.tool.definitions | (Looking for feedback) nested | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
 gen_ai.tool.call.arguments | (Looking for feedback) nested | (Part of OTel execute_tool span) Parameters passed to the tool call.
-gen_ai.tool.call.result | (Looking for feedback) nested | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
+gen_ai.tool.call.result | (Looking for feedback) flattened | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
 
 Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
 
