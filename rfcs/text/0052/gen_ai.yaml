@@ -14,7 +14,7 @@
       otel:
         - relation: match
     - name: input.messages
-      type: flattened
+      type: nested
       description: The chat history provided to the model as an input.
       example: >
         {
@@ -54,7 +54,7 @@
       otel:
         - relation: match
     - name: output.messages
-      type: flattened
+      type: nested
       description: Messages returned by the model where each message represents a specific model response (choice, candidate).
       example: >
         {
@@ -105,7 +105,7 @@
       otel:
         - relation: match
     - name: tool.call.arguments
-      type: nested
+      type: flattened
       description: Parameters passed to the tool call.
       example: >
         {
