@@ -31,12 +31,12 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 
 Field | Type | Description /Usage
 -- | -- | --
-gen_ai.system_instructions | (Looking for feedback) flattened | The system message or instructions provided to the GenAI model separately from the chat history.
-gen_ai.input.messages | (Looking for feedback) flattened | The chat history provided to the model as an input.
-gen_ai.output.messages | (Looking for feedback) flattened | Messages returned by the model where each message represents a specific model response (choice, candidate).
-gen_ai.tool.definitions | (Looking for feedback) nested | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
-gen_ai.tool.call.arguments | (Looking for feedback) nested | (Part of OTel execute_tool span) Parameters passed to the tool call.
-gen_ai.tool.call.result | (Looking for feedback) nested | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
+gen_ai.system_instructions | flattened | The system message or instructions provided to the GenAI model separately from the chat history.
+gen_ai.input.messages | nested | The chat history provided to the model as an input.
+gen_ai.output.messages | nested | Messages returned by the model where each message represents a specific model response (choice, candidate).
+gen_ai.tool.definitions | nested | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
+gen_ai.tool.call.arguments | flattened | (Part of OTel execute_tool span) Parameters passed to the tool call.
+gen_ai.tool.call.result | flattened | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
 
 Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
 
@@ -62,96 +62,72 @@ Example usage:
 {
     "gen_ai": {
         "system_instructions": {
-        [
-            {
-                "type": "text",
-                "content": "You are a assistant for frequent travelers."
-            },
-            {
-                "type": "text",
-                "content": "Your mission is to assist travelers with their queries about locations around the world."
-            }
+            [
+                {
+                    "type": "text",
+                    "content": "You are a assistant for frequent travelers."
+                },
+                {
+                    "type": "text",
+                    "content": "Your mission is to assist travelers with their queries about locations around the world."
+                }
             ]
         },
         "input": {
             "messages": {
                 [
-                {
-                    "role": "user",
-                    "parts": [
                     {
-                        "type": "text",
-                        "content": "Weather in Paris?"
-                    }
-                    ]
-                },
-                {
-                    "role": "assistant",
-                    "parts": [
-                    {
-                        "type": "tool_call",
-                        "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
-                        "name": "get_weather",
-                        "arguments": {
-                        "location": "Paris"
+                        "role": "user",
+                        "parts": [
+                        {
+                            "type": "text",
+                            "content": "Weather in Paris?"
                         }
-                    }
-                    ]
-                },
-                {
-                    "role": "tool",
-                    "parts": [
+                        ]
+                    },
                     {
-                        "type": "tool_call_response",
-                        "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
-                        "result": "rainy, 57°F"
+                        "role": "assistant",
+                        "parts": [
+                        {
+                            "type": "tool_call",
+                            "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
+                            "name": "get_weather",
+                            "arguments": {
+                            "location": "Paris"
+                            }
+                        }
+                        ]
+                    },
+                    {
+                        "role": "tool",
+                        "parts": [
+                        {
+                            "type": "tool_call_response",
+                            "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+                            "result": "rainy, 57°F"
+                        }
+                        ]
                     }
-                    ]
-                }
                 ]
             }
         },
         "output" :{
             "messages": {
                 [
-                {
-                    "role": "assistant",
-                    "parts": [
                     {
-                        "type": "text",
-                        "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+                        "role": "assistant",
+                        "parts": [
+                        {
+                            "type": "text",
+                            "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+                        }
+                        ],
+                        "finish_reason": "stop"
                     }
-                    ],
-                    "finish_reason": "stop"
-                }
-                ]            
-        },
-
-        // Below needs to be updated, but keeping in this commit for illustration purposes.
-        "assistant": {
-            "message": {
-                "content": "To carry a 5lb package, you would need a drone with sufficient payload capacity. Drones designed for heavy lifting often fall in the industrial or commercial category. Consider drones with a payload capacity of at least 6-7lbs to ensure safe transport and account for additional factors like battery and stability.",
-                "role": "assistant",
-                "tool_calls": [
-                    {
-                        "function": "getDroneSpecifications",
-                        "arguments": {"payloadWeight": 5},
-                        "name": "getDroneSpecifications",
-                        "id": "toolCall1",
-                        "type": "function_call",
-                    },
-                    {
-                        "function": "retrieveAvailableDronesDocument",
-                        "arguments": {"documentType": "availableDrones", "payloadRequirement": 5},
-                        "name": "retrieveAvailableDronesDocument",
-                        "id": "toolCall2",
-                        "type": "function_call",
-                    }
-                ],
-            }
-        },
+                ]
+            },
+        }
     }
-}
 }
 ```
 
@@ -226,8 +202,4 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2519
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/2525
