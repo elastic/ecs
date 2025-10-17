@@ -1510,7 +1510,8 @@ container.runtime:
   name: runtime
   normalize: []
   otel:
-  - relation: match
+  - attribute: container.runtime.name
+    relation: equivalent
     stability: development
   short: Runtime managing this container.
   type: keyword
@@ -2814,6 +2815,10 @@ dns.answers:
   name: answers
   normalize:
   - array
+  otel:
+  - attribute: dns.answers
+    relation: related
+    stability: development
   short: Array of DNS answers.
   type: object
 dns.answers.class:
@@ -6789,7 +6794,8 @@ gen_ai.system:
   name: system
   normalize: []
   otel:
-  - relation: match
+  - attribute: gen_ai.provider.name
+    relation: equivalent
     stability: development
   short: The Generative AI product as identified by the client or server instrumentation.
   type: keyword
@@ -6956,7 +6962,7 @@ host.cpu.usage:
   name: cpu.usage
   normalize: []
   otel:
-  - metric: cpu.utilization
+  - metric: system.cpu.utilization
     relation: metric
     stability: development
   scaling_factor: 1000
@@ -7496,7 +7502,7 @@ host.network.egress.packets:
   name: network.egress.packets
   normalize: []
   otel:
-  - metric: system.network.packets
+  - metric: system.network.packet.count
     relation: metric
     stability: development
   short: The number of packets sent on all network interfaces.
@@ -7524,7 +7530,7 @@ host.network.ingress.packets:
   name: network.ingress.packets
   normalize: []
   otel:
-  - metric: system.network.packets
+  - metric: system.network.packet.count
     relation: metric
     stability: development
   short: The number of packets received on all network interfaces.
