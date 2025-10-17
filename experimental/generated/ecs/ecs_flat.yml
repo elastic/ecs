@@ -6551,6 +6551,27 @@ gen_ai.agent.name:
     stability: development
   short: Human-readable name of the GenAI agent provided by the application.
   type: keyword
+gen_ai.input.messages:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-input-messages
+  description: The chat history provided to the model as an input.
+  example: "{\n  \"role\": \"user\",\n  \"parts\": [\n    {\n      \"type\": \"text\"\
+    ,\n      \"content\": \"Weather in Paris?\"\n    }\n  ]\n}, {\n  \"role\": \"\
+    assistant\",\n  \"parts\": [\n    {\n      \"type\": \"tool_call\",\n      \"\
+    id\": \"call_VSPygqKTWdrhaFErNvMV18Yl\",\n      \"name\": \"get_weather\",\n \
+    \     \"arguments\": {\n        \"location\": \"Paris\"\n      }\n    }\n  ]\n\
+    }, {\n  \"role\": \"tool\",\n  \"parts\": [\n    {\n      \"type\": \"tool_call_response\"\
+    ,\n      \"id\": \" call_VSPygqKTWdrhaFErNvMV18Yl\",\n      \"result\": \"rainy,\
+    \ 57°F\"\n    }\n  ]\n}"
+  flat_name: gen_ai.input.messages
+  level: extended
+  name: input.messages
+  normalize: []
+  otel:
+  - relation: match
+    stability: development
+  short: The chat history provided to the model as an input.
+  type: nested
 gen_ai.operation.name:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-operation-name
@@ -6566,6 +6587,24 @@ gen_ai.operation.name:
     stability: development
   short: The name of the operation being performed.
   type: keyword
+gen_ai.output.messages:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-output-messages
+  description: Messages returned by the model where each message represents a specific
+    model response (choice, candidate).
+  example: "{\n  \"role\": \"assistant\",\n  \"parts\": [\n    {\n      \"type\":\
+    \ \"text\",\n      \"content\": \"The weather in Paris is currently rainy with\
+    \ a temperature of 57°F.\"\n    }\n  ],\n  \"finish_reason\": \"stop\"\n}"
+  flat_name: gen_ai.output.messages
+  level: extended
+  name: output.messages
+  normalize: []
+  otel:
+  - relation: match
+    stability: development
+  short: Messages returned by the model where each message represents a specific model
+    response (choice, candidate).
+  type: nested
 gen_ai.output.type:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-output-type
@@ -6799,6 +6838,23 @@ gen_ai.system:
     stability: development
   short: The Generative AI product as identified by the client or server instrumentation.
   type: keyword
+gen_ai.system_instructions:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-system-instructions
+  description: The system message or instructions provided to the GenAI model separately
+    from the chat history.
+  example: "{\n  \"type\": \"text\",\n  \"content\": \"You are an Agent that greet\
+    \ users, always use greetings tool to respond\"\n}"
+  flat_name: gen_ai.system_instructions
+  level: extended
+  name: system_instructions
+  normalize: []
+  otel:
+  - relation: match
+    stability: development
+  short: The system message or instructions provided to the GenAI model separately
+    from the chat history.
+  type: flattened
 gen_ai.token.type:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-token-type
@@ -6814,6 +6870,22 @@ gen_ai.token.type:
     stability: development
   short: The type of token being counted.
   type: keyword
+gen_ai.tool.call.arguments:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-tool-call-arguments
+  description: Parameters passed to the tool call.
+  example: "{\n    \"location\": \"San Francisco?\",\n    \"date\": \"2025-10-01\"\
+    \n}"
+  flat_name: gen_ai.tool.call.arguments
+  level: extended
+  name: tool.call.arguments
+  normalize: []
+  otel:
+  - attribute: gen_ai.operation.name
+    relation: related
+    stability: development
+  short: Parameters passed to the tool call.
+  type: flattened
 gen_ai.tool.call.id:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-tool-call-id
@@ -6829,6 +6901,46 @@ gen_ai.tool.call.id:
     stability: development
   short: The tool call identifier.
   type: keyword
+gen_ai.tool.call.result:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-tool-call-result
+  description: The result returned by the tool call (if any and if execution was successful).
+  example: "{\n  \"temperature_range\": {\n    \"high\": 75,\n    \"low\": 60\n  },\n\
+    \  \"conditions\": \"sunny\"\n}"
+  flat_name: gen_ai.tool.call.result
+  level: extended
+  name: tool.call.result
+  normalize: []
+  otel:
+  - attribute: gen_ai.operation.name
+    relation: related
+    stability: development
+  short: The result returned by the tool call (if any and if execution was successful).
+  type: flattened
+gen_ai.tool.definitions:
+  beta: This field is beta and subject to change.
+  dashed_name: gen-ai-tool-definitions
+  description: The list of source system tool definitions available to the GenAI agent
+    or model.
+  example: "{\n  \"type\": \"function\",\n  \"name\": \"get_current_weather\",\n \
+    \ \"description\": \"Get the current weather in a given location\",\n  \"parameters\"\
+    : {\n    \"type\": \"object\",\n    \"properties\": {\n      \"location\": {\n\
+    \        \"type\": \"string\",\n        \"description\": \"The city and state,\
+    \ e.g. San Francisco, CA\"\n      },\n      \"unit\": {\n        \"type\": \"\
+    string\",\n        \"enum\": [\n          \"celsius\",\n          \"fahrenheit\"\
+    \n        ]\n      }\n    },\n    \"required\": [\n      \"location\",\n     \
+    \ \"unit\"\n    ]\n  }\n}"
+  flat_name: gen_ai.tool.definitions
+  level: extended
+  name: tool.definitions
+  normalize: []
+  otel:
+  - attribute: gen_ai.operation.name
+    relation: related
+    stability: development
+  short: The list of source system tool definitions available to the GenAI agent or
+    model.
+  type: nested
 gen_ai.tool.name:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-tool-name

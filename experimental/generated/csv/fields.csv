@@ -463,7 +463,47 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.3.0-dev+exp,false,gen_ai,gen_ai.agent.description,keyword,extended,,Helps with math problems; Generates fiction stories,Free-form description of the GenAI agent provided by the application.
 9.3.0-dev+exp,true,gen_ai,gen_ai.agent.id,keyword,extended,,asst_5j66UpCpwteGg4YSxUnt7lPY,The unique identifier of the GenAI agent.
 9.3.0-dev+exp,true,gen_ai,gen_ai.agent.name,keyword,extended,,Math Tutor; Fiction Writer,Human-readable name of the GenAI agent provided by the application.
+9.3.0-dev+exp,true,gen_ai,gen_ai.input.messages,nested,extended,,"{
+  ""role"": ""user"",
+  ""parts"": [
+    {
+      ""type"": ""text"",
+      ""content"": ""Weather in Paris?""
+    }
+  ]
+}, {
+  ""role"": ""assistant"",
+  ""parts"": [
+    {
+      ""type"": ""tool_call"",
+      ""id"": ""call_VSPygqKTWdrhaFErNvMV18Yl"",
+      ""name"": ""get_weather"",
+      ""arguments"": {
+        ""location"": ""Paris""
+      }
+    }
+  ]
+}, {
+  ""role"": ""tool"",
+  ""parts"": [
+    {
+      ""type"": ""tool_call_response"",
+      ""id"": "" call_VSPygqKTWdrhaFErNvMV18Yl"",
+      ""result"": ""rainy, 57°F""
+    }
+  ]
+}",The chat history provided to the model as an input.
 9.3.0-dev+exp,true,gen_ai,gen_ai.operation.name,keyword,extended,,chat; text_completion; embeddings,The name of the operation being performed.
+9.3.0-dev+exp,true,gen_ai,gen_ai.output.messages,nested,extended,,"{
+  ""role"": ""assistant"",
+  ""parts"": [
+    {
+      ""type"": ""text"",
+      ""content"": ""The weather in Paris is currently rainy with a temperature of 57°F.""
+    }
+  ],
+  ""finish_reason"": ""stop""
+}","Messages returned by the model where each message represents a specific model response (choice, candidate)."
 9.3.0-dev+exp,true,gen_ai,gen_ai.output.type,keyword,extended,,text; json; image,Represents the content type requested by the client.
 9.3.0-dev+exp,true,gen_ai,gen_ai.request.choice.count,integer,extended,,3,The target number of candidate completions to return.
 9.3.0-dev+exp,true,gen_ai,gen_ai.request.encoding_formats,nested,extended,,"[""float"", ""binary""]","The encoding formats requested in an embeddings operation, if specified."
@@ -480,8 +520,48 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.3.0-dev+exp,true,gen_ai,gen_ai.response.id,keyword,extended,,chatcmpl-123,The unique identifier for the completion.
 9.3.0-dev+exp,true,gen_ai,gen_ai.response.model,keyword,extended,,gpt-4-0613,The name of the model that generated the response.
 9.3.0-dev+exp,true,gen_ai,gen_ai.system,keyword,extended,,openai,The Generative AI product as identified by the client or server instrumentation.
+9.3.0-dev+exp,true,gen_ai,gen_ai.system_instructions,flattened,extended,,"{
+  ""type"": ""text"",
+  ""content"": ""You are an Agent that greet users, always use greetings tool to respond""
+}",The system message or instructions provided to the GenAI model separately from the chat history.
 9.3.0-dev+exp,true,gen_ai,gen_ai.token.type,keyword,extended,,input; output,The type of token being counted.
+9.3.0-dev+exp,true,gen_ai,gen_ai.tool.call.arguments,flattened,extended,,"{
+    ""location"": ""San Francisco?"",
+    ""date"": ""2025-10-01""
+}",Parameters passed to the tool call.
 9.3.0-dev+exp,true,gen_ai,gen_ai.tool.call.id,keyword,extended,,call_mszuSIzqtI65i1wAUOE8w5H4,The tool call identifier.
+9.3.0-dev+exp,true,gen_ai,gen_ai.tool.call.result,flattened,extended,,"{
+  ""temperature_range"": {
+    ""high"": 75,
+    ""low"": 60
+  },
+  ""conditions"": ""sunny""
+}",The result returned by the tool call (if any and if execution was successful).
+9.3.0-dev+exp,true,gen_ai,gen_ai.tool.definitions,nested,extended,,"{
+  ""type"": ""function"",
+  ""name"": ""get_current_weather"",
+  ""description"": ""Get the current weather in a given location"",
+  ""parameters"": {
+    ""type"": ""object"",
+    ""properties"": {
+      ""location"": {
+        ""type"": ""string"",
+        ""description"": ""The city and state, e.g. San Francisco, CA""
+      },
+      ""unit"": {
+        ""type"": ""string"",
+        ""enum"": [
+          ""celsius"",
+          ""fahrenheit""
+        ]
+      }
+    },
+    ""required"": [
+      ""location"",
+      ""unit""
+    ]
+  }
+}",The list of source system tool definitions available to the GenAI agent or model.
 9.3.0-dev+exp,true,gen_ai,gen_ai.tool.name,keyword,extended,,Flights,Name of the tool utilized by the agent.
 9.3.0-dev+exp,true,gen_ai,gen_ai.tool.type,keyword,extended,,function; extension; datastore,Type of the tool utilized by the agent
 9.3.0-dev+exp,true,gen_ai,gen_ai.usage.input_tokens,integer,extended,,100,The number of tokens used in the GenAI input (prompt).
