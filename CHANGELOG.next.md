@@ -19,6 +19,13 @@ Thanks, you're awesome :-) -->
 * Add `device` value to `event.type` #2524
 * Added `entity` fieldset as beta #2537
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+* Added `*.domain` fields to ECS `email`. #2392
+
 #### Improvements
 
 #### Deprecated
