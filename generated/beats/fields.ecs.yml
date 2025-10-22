@@ -637,124 +637,6 @@
       description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
       default_field: false
-    - name: target.entity.attributes
-      level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
-      default_field: false
-    - name: target.entity.behavior
-      level: extended
-      type: object
-      description: A set of ephemeral characteristics of the entity, derived from
-        observed behaviors during a specific time period. Usually boolean field data
-        type. Use this field set when you need to capture and track ephemeral characteristics
-        of an entity for advanced searching, correlation of normalized values across
-        different providers/sources and entity types.
-      default_field: false
-    - name: target.entity.display_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: An optional field used when a pretty name is desired for entity-centric
-        operations. This field should not be used for correlation with `*.name` fields
-        for entities with dedicated field sets (e.g., `host`).
-      default_field: false
-    - name: target.entity.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: 'A unique identifier for the entity. When multiple identifiers
-        exist, this should be the most stable and commonly used identifier that: 1)
-        persists across the entity''s lifecycle, 2) ensures uniqueness within its
-        scope, 3) is commonly used for queries and correlation, and 4) is readily
-        available in most observations (logs/events). For entities with dedicated
-        field sets (e.g., host, user), this value should match the corresponding *.id
-        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
-        in the raw field.'
-      default_field: false
-    - name: target.entity.last_seen_timestamp
-      level: extended
-      type: date
-      description: Indicates the date/time when this entity was last "seen," usually
-        based upon the last event/log that is initiated by this entity.
-      default_field: false
-    - name: target.entity.lifecycle
-      level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
-      default_field: false
-    - name: target.entity.metrics
-      level: extended
-      type: object
-      description: Field set for any fields containing numeric entity metrics. These
-        use dynamic field data type mapping.
-      default_field: false
-    - name: target.entity.name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: The name of the entity. The keyword field enables exact matches
-        for filtering and aggregations, while the text field enables full-text search.
-        For entities with dedicated field sets (e.g., `host`), this field should mirrors
-        the corresponding *.name value.
-      default_field: false
-    - name: target.entity.raw
-      level: extended
-      type: object
-      description: Original, unmodified fields from the source system. Usually flattened
-        field data type. While the attributes field should be used for normalized
-        fields requiring advanced queries, this field preserves all source metadata
-        with basic search capabilities.
-      default_field: false
-    - name: target.entity.reference
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: A URI, URL, or other direct reference to access or locate the entity
-        in its source system. This could be an API endpoint, web console URL, or other
-        addressable location. Format may vary by entity type and source system.
-      default_field: false
-    - name: target.entity.source
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: The module or integration that provided this entity data (similar
-        to event.module).
-      default_field: false
-    - name: target.entity.sub_type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'The specific type designation for the entity as defined by its
-        provider or system. This field provides more granular classification than
-        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
-        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
-        , `node` , `cloud_instance` would all map to entity type `host`.'
-      example: aws_s3_bucket
-      default_field: false
-    - name: target.entity.type
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: 'A standardized high-level classification of the entity. This provides
-        a normalized way to group similar entities across different providers or systems.
-        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
-        `user`, `application`, `session`, etc.'
-      example: host
-      default_field: false
     - name: target.instance.id
       level: extended
       type: keyword
@@ -818,6 +700,124 @@
 
         Examples: app engine, app service, cloud run, fargate, lambda.'
       example: lambda
+      default_field: false
+    - name: target.target.entity.attributes
+      level: extended
+      type: object
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      default_field: false
+    - name: target.target.entity.behavior
+      level: extended
+      type: object
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.target.entity.display_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      default_field: false
+    - name: target.target.entity.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      default_field: false
+    - name: target.target.entity.last_seen_timestamp
+      level: extended
+      type: date
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      default_field: false
+    - name: target.target.entity.lifecycle
+      level: extended
+      type: object
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.target.entity.metrics
+      level: extended
+      type: object
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      default_field: false
+    - name: target.target.entity.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      default_field: false
+    - name: target.target.entity.raw
+      level: extended
+      type: object
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      default_field: false
+    - name: target.target.entity.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.target.entity.source
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      default_field: false
+    - name: target.target.entity.sub_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      default_field: false
+    - name: target.target.entity.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, etc.'
+      example: host
       default_field: false
   - name: container
     title: Container
@@ -9492,6 +9492,124 @@
       ignore_above: 1024
       description: Current state of the service.
       default_field: false
+    - name: target.target.entity.attributes
+      level: extended
+      type: object
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      default_field: false
+    - name: target.target.entity.behavior
+      level: extended
+      type: object
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.target.entity.display_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      default_field: false
+    - name: target.target.entity.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      default_field: false
+    - name: target.target.entity.last_seen_timestamp
+      level: extended
+      type: date
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      default_field: false
+    - name: target.target.entity.lifecycle
+      level: extended
+      type: object
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.target.entity.metrics
+      level: extended
+      type: object
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      default_field: false
+    - name: target.target.entity.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      default_field: false
+    - name: target.target.entity.raw
+      level: extended
+      type: object
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      default_field: false
+    - name: target.target.entity.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.target.entity.source
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      default_field: false
+    - name: target.target.entity.sub_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      default_field: false
+    - name: target.target.entity.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, etc.'
+      example: host
+      default_field: false
     - name: target.type
       level: core
       type: keyword
@@ -14218,124 +14336,6 @@
       type: keyword
       ignore_above: 1024
       description: User email address.
-      default_field: false
-    - name: target.entity.attributes
-      level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
-      default_field: false
-    - name: target.entity.behavior
-      level: extended
-      type: object
-      description: A set of ephemeral characteristics of the entity, derived from
-        observed behaviors during a specific time period. Usually boolean field data
-        type. Use this field set when you need to capture and track ephemeral characteristics
-        of an entity for advanced searching, correlation of normalized values across
-        different providers/sources and entity types.
-      default_field: false
-    - name: target.entity.display_name
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: An optional field used when a pretty name is desired for entity-centric
-        operations. This field should not be used for correlation with `*.name` fields
-        for entities with dedicated field sets (e.g., `host`).
-      default_field: false
-    - name: target.entity.id
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: 'A unique identifier for the entity. When multiple identifiers
-        exist, this should be the most stable and commonly used identifier that: 1)
-        persists across the entity''s lifecycle, 2) ensures uniqueness within its
-        scope, 3) is commonly used for queries and correlation, and 4) is readily
-        available in most observations (logs/events). For entities with dedicated
-        field sets (e.g., host, user), this value should match the corresponding *.id
-        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
-        in the raw field.'
-      default_field: false
-    - name: target.entity.last_seen_timestamp
-      level: extended
-      type: date
-      description: Indicates the date/time when this entity was last "seen," usually
-        based upon the last event/log that is initiated by this entity.
-      default_field: false
-    - name: target.entity.lifecycle
-      level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
-      default_field: false
-    - name: target.entity.metrics
-      level: extended
-      type: object
-      description: Field set for any fields containing numeric entity metrics. These
-        use dynamic field data type mapping.
-      default_field: false
-    - name: target.entity.name
-      level: core
-      type: keyword
-      ignore_above: 1024
-      multi_fields:
-      - name: text
-        type: match_only_text
-      description: The name of the entity. The keyword field enables exact matches
-        for filtering and aggregations, while the text field enables full-text search.
-        For entities with dedicated field sets (e.g., `host`), this field should mirrors
-        the corresponding *.name value.
-      default_field: false
-    - name: target.entity.raw
-      level: extended
-      type: object
-      description: Original, unmodified fields from the source system. Usually flattened
-        field data type. While the attributes field should be used for normalized
-        fields requiring advanced queries, this field preserves all source metadata
-        with basic search capabilities.
-      default_field: false
-    - name: target.entity.reference
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: A URI, URL, or other direct reference to access or locate the entity
-        in its source system. This could be an API endpoint, web console URL, or other
-        addressable location. Format may vary by entity type and source system.
-      default_field: false
-    - name: target.entity.source
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: The module or integration that provided this entity data (similar
-        to event.module).
-      default_field: false
-    - name: target.entity.sub_type
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: 'The specific type designation for the entity as defined by its
-        provider or system. This field provides more granular classification than
-        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
-        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
-        , `node` , `cloud_instance` would all map to entity type `host`.'
-      example: aws_s3_bucket
-      default_field: false
-    - name: target.entity.type
-      level: core
-      type: keyword
-      ignore_above: 1024
-      description: 'A standardized high-level classification of the entity. This provides
-        a normalized way to group similar entities across different providers or systems.
-        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
-        `user`, `application`, `session`, etc.'
-      example: host
       default_field: false
     - name: target.full_name
       level: extended

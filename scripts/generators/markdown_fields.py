@@ -53,16 +53,9 @@ def render_fieldset_reuse_text(fieldset):
 
     :param fieldset: The fieldset to evaluate
     """
-    # Special handling for entity fieldset which has reusable in schema_details
-    if fieldset.get('field_details', {}).get('name') == 'entity':
-        reusable = fieldset.get('schema_details', {}).get('reusable')
-    else:
-        # For all other fieldsets, use the original location
-        reusable = fieldset.get('reusable')
-
-    if not reusable:
+    if not fieldset.get('reusable'):
         return None
-    reusable_fields = reusable['expected']
+    reusable_fields = fieldset['reusable']['expected']
     sorted_fields = sorted(reusable_fields, key=lambda k: k['full'])
     return map(lambda f: f['full'], sorted_fields)
 
@@ -111,48 +104,6 @@ def sort_fields(fieldset):
     fields_list = list(fieldset['fields'].values())
     for field in fields_list:
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
-
-        # For fields with nested field_details structure, flatten the properties
-        if 'field_details' in field:
-            field_details = field['field_details']
-            # Copy essential properties from field_details to top level for template compatibility
-            field['name'] = field_details.get('name', field.get('name', ''))
-            field['level'] = field_details.get('level', field.get('level'))
-            field['type'] = field_details.get('type', field.get('type'))
-            field['description'] = field_details.get('description', field.get('description'))
-            field['beta'] = field_details.get('beta', field.get('beta'))
-            field['short'] = field_details.get('short', field.get('short'))
-
-            # Only include example if it has a real value (not None or empty)
-            example = field_details.get('example')
-            if example is not None and example != '' and str(example).lower() != 'none':
-                field['example'] = example
-            # Don't set example at all if it's None/empty - let template handle conditional logic
-
-            # Construct flat_name and dashed_name from the fieldset and field name
-            fieldset_name = fieldset.get('field_details', {}).get('name', fieldset.get('name', ''))
-            field_name = field_details.get('name', '')
-            if fieldset_name and field_name:
-                field['flat_name'] = f"{fieldset_name}.{field_name}"
-                field['dashed_name'] = f"{fieldset_name}-{field_name}"
-
-            # Handle multi_fields if present - ensure proper structure
-            if 'multi_fields' in field_details and field_details['multi_fields']:
-                multi_fields = field_details['multi_fields']
-                # Process multi_fields to ensure proper field names
-                processed_multi_fields = []
-                for mf in multi_fields:
-                    if isinstance(mf, dict) and 'name' in mf:
-                        # Construct full field name for multi-field
-                        if fieldset_name and field_name:
-                            mf_copy = dict(mf)
-                            mf_copy['flat_name'] = f"{fieldset_name}.{field_name}.{mf['name']}"
-                            processed_multi_fields.append(mf_copy)
-                        else:
-                            processed_multi_fields.append(mf)
-                if processed_multi_fields:
-                    field['multi_fields'] = processed_multi_fields
-
     return sorted(fields_list, key=lambda field: field['name'])
 
 
@@ -227,24 +178,10 @@ def page_index(ecs_generated_version):
 @templated('fieldset.j2')
 def page_fieldset(fieldset, nested, ecs_generated_version):
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
-    if sorted_reuse_fields is not None:
-        sorted_reuse_fields = list(sorted_reuse_fields)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
     sorted_fields = sort_fields(fieldset)
-
-    # Normalize fieldset structure for template compatibility
-    normalized_fieldset = dict(fieldset)
-    field_details = fieldset.get('field_details', {})
-    schema_details = fieldset.get('schema_details', {})
-
-    # Ensure top-level attributes are available
-    normalized_fieldset['name'] = field_details.get('name', fieldset.get('name', ''))
-    normalized_fieldset['title'] = schema_details.get('title', fieldset.get('title', ''))
-    normalized_fieldset['description'] = field_details.get('description', fieldset.get('description', ''))
-    normalized_fieldset['short'] = field_details.get('short', fieldset.get('short', ''))
-
-    usage_doc = check_for_usage_doc(normalized_fieldset['name'])
-    return dict(fieldset=normalized_fieldset,
+    usage_doc = check_for_usage_doc(fieldset.get('name'))
+    return dict(fieldset=fieldset,
                 sorted_reuse_fields=sorted_reuse_fields,
                 render_nestings_reuse_section=render_nestings_reuse_fields,
                 sorted_fields=sorted_fields,
@@ -276,8 +213,6 @@ def page_field_details(nested, docs_only_nested):
 def generate_field_details_page(fieldset):
     # render field reuse text section
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
-    if sorted_reuse_fields is not None:
-        sorted_reuse_fields = list(sorted_reuse_fields)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
     sorted_fields = sort_fields(fieldset)
     usage_doc = check_for_usage_doc(fieldset.get('name'))
