@@ -52,8 +52,9 @@ def order_reuses(fields):
             destination_schema_name = reuse_entry['full'].split('.')[0]
             if destination_schema_name == schema_name:
                 # Accumulate self-nestings for phase 2.
-                self_nestings.setdefault(destination_schema_name, [])
-                self_nestings[destination_schema_name].extend([reuse_entry])
+                self_nestings.setdefault(reuse_order, {})
+                self_nestings[reuse_order].setdefault(destination_schema_name, [])
+                self_nestings[reuse_order][destination_schema_name].extend([reuse_entry])
             else:
                 # Group foreign reuses by 'order' attribute.
                 foreign_reuses.setdefault(reuse_order, {})
@@ -63,61 +64,63 @@ def order_reuses(fields):
 
 
 def perform_reuse(fields):
-    """Performs field reuse in two phases"""
+    """Performs field reuse respecting order for both foreign reuses and self-nestings"""
     foreign_reuses, self_nestings = order_reuses(fields)
 
-    # Phase 1: foreign reuse
-    # These are done respecting the reusable.order attribute.
-    # This lets us force the order for chained reuses (e.g. group => user, then user => many places)
-    for order in sorted(foreign_reuses.keys()):
-        for schema_name, reuse_entries in foreign_reuses[order].items():
-            schema = fields[schema_name]
-            for reuse_entry in reuse_entries:
-                # print(order, "{} => {}".format(schema_name, reuse_entry['full']))
-                nest_as = reuse_entry['as']
-                destination_schema_name = reuse_entry['full'].split('.')[0]
-                destination_schema = fields[destination_schema_name]
-                ensure_valid_reuse(schema, destination_schema)
+    # Process foreign reuses and self-nestings together, respecting order
+    all_orders = sorted(set(list(foreign_reuses.keys()) + list(self_nestings.keys())))
 
-                new_field_details = copy.deepcopy(schema['field_details'])
-                new_field_details['name'] = nest_as
-                new_field_details['original_fieldset'] = schema_name
-                new_field_details['intermediate'] = True
+    for order in all_orders:
+        # Phase 1: foreign reuse for this order
+        if order in foreign_reuses:
+            for schema_name, reuse_entries in foreign_reuses[order].items():
+                schema = fields[schema_name]
+                for reuse_entry in reuse_entries:
+                    # print(order, "FOREIGN: {} => {}".format(schema_name, reuse_entry['full']))
+                    nest_as = reuse_entry['as']
+                    destination_schema_name = reuse_entry['full'].split('.')[0]
+                    destination_schema = fields[destination_schema_name]
+                    ensure_valid_reuse(schema, destination_schema)
+
+                    new_field_details = copy.deepcopy(schema['field_details'])
+                    new_field_details['name'] = nest_as
+                    new_field_details['original_fieldset'] = schema_name
+                    new_field_details['intermediate'] = True
+                    reused_fields = copy.deepcopy(schema['fields'])
+                    set_original_fieldset(reused_fields, schema_name)
+                    destination_fields = field_group_at_path(reuse_entry['at'], fields)
+                    destination_fields[nest_as] = {
+                        'field_details': new_field_details,
+                        'fields': reused_fields,
+                    }
+                    append_reused_here(schema, reuse_entry, destination_schema)
+
+        # Phase 2: self-nesting for this order
+        if order in self_nestings:
+            for schema_name, reuse_entries in self_nestings[order].items():
+                schema = fields[schema_name]
+                ensure_valid_reuse(schema)
+                # Since we're about self-nest more fields within these, make a pristine copy first
                 reused_fields = copy.deepcopy(schema['fields'])
                 set_original_fieldset(reused_fields, schema_name)
-                destination_fields = field_group_at_path(reuse_entry['at'], fields)
-                destination_fields[nest_as] = {
-                    'field_details': new_field_details,
-                    'fields': reused_fields,
-                }
-                append_reused_here(schema, reuse_entry, destination_schema)
-
-    # Phase 2: self-nesting
-    for schema_name, reuse_entries in self_nestings.items():
-        schema = fields[schema_name]
-        ensure_valid_reuse(schema)
-        # Since we're about self-nest more fields within these, make a pristine copy first
-        reused_fields = copy.deepcopy(schema['fields'])
-        set_original_fieldset(reused_fields, schema_name)
-        for reuse_entry in reuse_entries:
-            # print("x {} => {}".format(schema_name, reuse_entry['full']))
-            nest_as = reuse_entry['as']
-            new_field_details = copy.deepcopy(schema['field_details'])
-            new_field_details['name'] = nest_as
-            new_field_details['original_fieldset'] = schema_name
-            new_field_details['intermediate'] = True
-            # to handle multi-level self-nesting
-            if reuse_entry['at'] != schema_name:
-                destination_fields = field_group_at_path(reuse_entry['at'], fields)
-            else:
-                destination_fields = schema['fields']
-            destination_fields[nest_as] = {
-                'field_details': new_field_details,
-                # Make a new copy of the pristine copy
-                'fields': copy.deepcopy(reused_fields),
-            }
-            append_reused_here(schema, reuse_entry, fields[schema_name])
-
+                for reuse_entry in reuse_entries:
+                    # print(order, "SELF-NESTING: {} => {}".format(schema_name, reuse_entry['full']))
+                    nest_as = reuse_entry['as']
+                    new_field_details = copy.deepcopy(schema['field_details'])
+                    new_field_details['name'] = nest_as
+                    new_field_details['original_fieldset'] = schema_name
+                    new_field_details['intermediate'] = True
+                    # to handle multi-level self-nesting
+                    if reuse_entry['at'] != schema_name:
+                        destination_fields = field_group_at_path(reuse_entry['at'], fields)
+                    else:
+                        destination_fields = schema['fields']
+                    destination_fields[nest_as] = {
+                        'field_details': new_field_details,
+                        # Make a new copy of the pristine copy
+                        'fields': copy.deepcopy(reused_fields),
+                    }
+                    append_reused_here(schema, reuse_entry, fields[schema_name])
 
 def ensure_valid_reuse(reused_schema, destination_schema=None):
     """
