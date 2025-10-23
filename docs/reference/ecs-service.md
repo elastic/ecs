@@ -46,7 +46,6 @@ Note also that the `service` fields may be used directly at the root of the even
 | `service.entity.*` | [entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |
 | `service.origin.*` | [service](/reference/ecs-service.md) | _Reusing the `service` fields in this location is currently considered beta._ Describes the origin service in case of an incoming request or event. |
 | `service.target.*` | [service](/reference/ecs-service.md) | _Reusing the `service` fields in this location is currently considered beta._ Describes the target service in case of an outgoing request or event. |
-| `service.target.entity.*` | [entity](/reference/ecs-entity.md) | Entity information for the target service. |
 
 ### Service field usage [_service_field_usage]
 

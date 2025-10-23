@@ -54,7 +54,6 @@ Note also that the `user` fields may be used directly at the root of the events.
 | `user.group.*` | [group](/reference/ecs-group.md) | User's group relevant to the event. |
 | `user.risk.*` | [risk](/reference/ecs-risk.md) | Fields for describing risk score and level. |
 | `user.target.*` | [user](/reference/ecs-user.md) | Targeted user of action taken. |
-| `user.target.entity.*` | [entity](/reference/ecs-entity.md) | Entity information for the targeted user. |
 
 ### User field usage [_user_field_usage]
 

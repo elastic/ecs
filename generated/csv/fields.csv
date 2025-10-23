@@ -95,21 +95,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.3.0-dev,true,cloud,cloud.target.provider,keyword,extended,,aws,Name of the cloud provider.
 9.3.0-dev,true,cloud,cloud.target.region,keyword,extended,,us-east-1,"Region in which this host, resource, or service is located."
 9.3.0-dev,true,cloud,cloud.target.service.name,keyword,extended,,lambda,The cloud service name.
-9.3.0-dev,true,cloud,cloud.target.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
-9.3.0-dev,true,cloud,cloud.target.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
-9.3.0-dev,true,cloud,cloud.target.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
-9.3.0-dev,true,cloud,cloud.target.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
-9.3.0-dev,true,cloud,cloud.target.target.entity.id,keyword,core,,,Unique identifier for the entity.
-9.3.0-dev,true,cloud,cloud.target.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.3.0-dev,true,cloud,cloud.target.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
-9.3.0-dev,true,cloud,cloud.target.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
-9.3.0-dev,true,cloud,cloud.target.target.entity.name,keyword,core,,,The name of the entity.
-9.3.0-dev,true,cloud,cloud.target.target.entity.name.text,match_only_text,core,,,The name of the entity.
-9.3.0-dev,true,cloud,cloud.target.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
-9.3.0-dev,true,cloud,cloud.target.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
-9.3.0-dev,true,cloud,cloud.target.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
-9.3.0-dev,true,cloud,cloud.target.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
-9.3.0-dev,true,cloud,cloud.target.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
 9.3.0-dev,true,container,container.cpu.usage,scaled_float,extended,,,"Percent CPU used, between 0 and 1."
 9.3.0-dev,true,container,container.disk.read.bytes,long,extended,,,The number of bytes read by all disks.
 9.3.0-dev,true,container,container.disk.write.bytes,long,extended,,,The number of bytes written on all disks.
@@ -638,6 +623,21 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.3.0-dev,true,orchestrator,orchestrator.cluster.name,keyword,extended,,,Name of the cluster.
 9.3.0-dev,true,orchestrator,orchestrator.cluster.url,keyword,extended,,,URL of the API used to manage the cluster.
 9.3.0-dev,true,orchestrator,orchestrator.cluster.version,keyword,extended,,,The version of the cluster.
+9.3.0-dev,true,orchestrator,orchestrator.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.3.0-dev,true,orchestrator,orchestrator.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
+9.3.0-dev,true,orchestrator,orchestrator.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
+9.3.0-dev,true,orchestrator,orchestrator.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
+9.3.0-dev,true,orchestrator,orchestrator.entity.id,keyword,core,,,Unique identifier for the entity.
+9.3.0-dev,true,orchestrator,orchestrator.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
+9.3.0-dev,true,orchestrator,orchestrator.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.3.0-dev,true,orchestrator,orchestrator.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
+9.3.0-dev,true,orchestrator,orchestrator.entity.name,keyword,core,,,The name of the entity.
+9.3.0-dev,true,orchestrator,orchestrator.entity.name.text,match_only_text,core,,,The name of the entity.
+9.3.0-dev,true,orchestrator,orchestrator.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
+9.3.0-dev,true,orchestrator,orchestrator.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.3.0-dev,true,orchestrator,orchestrator.entity.source,keyword,core,,,Source module or integration that provided the entity data.
+9.3.0-dev,true,orchestrator,orchestrator.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
+9.3.0-dev,true,orchestrator,orchestrator.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
 9.3.0-dev,true,orchestrator,orchestrator.namespace,keyword,extended,,kube-system,Namespace in which the action is taking place.
 9.3.0-dev,true,orchestrator,orchestrator.organization,keyword,extended,,elastic,Organization affected by the event (for multi-tenant orchestrator setups).
 9.3.0-dev,true,orchestrator,orchestrator.resource.annotation,keyword,extended,array,"['key1:value1', 'key2:value2', 'key3:value3']",The list of annotations added to the resource.
@@ -1197,21 +1197,6 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.3.0-dev,true,service,service.target.node.role,keyword,extended,,background_tasks,Deprecated role (singular) of the service node.
 9.3.0-dev,true,service,service.target.node.roles,keyword,extended,array,"[""ui"", ""background_tasks""]",Roles of the service node.
 9.3.0-dev,true,service,service.target.state,keyword,core,,,Current state of the service.
-9.3.0-dev,true,service,service.target.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
-9.3.0-dev,true,service,service.target.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
-9.3.0-dev,true,service,service.target.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
-9.3.0-dev,true,service,service.target.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
-9.3.0-dev,true,service,service.target.target.entity.id,keyword,core,,,Unique identifier for the entity.
-9.3.0-dev,true,service,service.target.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.3.0-dev,true,service,service.target.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
-9.3.0-dev,true,service,service.target.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
-9.3.0-dev,true,service,service.target.target.entity.name,keyword,core,,,The name of the entity.
-9.3.0-dev,true,service,service.target.target.entity.name.text,match_only_text,core,,,The name of the entity.
-9.3.0-dev,true,service,service.target.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
-9.3.0-dev,true,service,service.target.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
-9.3.0-dev,true,service,service.target.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
-9.3.0-dev,true,service,service.target.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
-9.3.0-dev,true,service,service.target.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
 9.3.0-dev,true,service,service.target.type,keyword,core,,elasticsearch,The type of the service.
 9.3.0-dev,true,service,service.target.version,keyword,core,,3.2.4,Version of the service.
 9.3.0-dev,true,service,service.type,keyword,core,,elasticsearch,The type of the service.
