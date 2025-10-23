@@ -40,6 +40,4 @@ The `entity` fields are expected to be nested at:
 * `user.entity`
 * `user.target.entity`
 
-Note also that the `entity` fields may be used directly at the root of the events.
-
-
+Note also that the `entity` fields are not expected to be used directly at the root of the events.
