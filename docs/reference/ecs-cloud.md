@@ -41,6 +41,7 @@ Note also that the `cloud` fields may be used directly at the root of the events
 
 | Location | Field Set | Description |
 | --- | --- | --- |
+| `cloud.entity.*` | [entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |
 | `cloud.origin.*` | [cloud](/reference/ecs-cloud.md) | Provides the cloud information of the origin entity in case of an incoming request or event. |
 | `cloud.target.*` | [cloud](/reference/ecs-cloud.md) | Provides the cloud information of the target entity in case of an outgoing request or event. |
 | `cloud.target.entity.*` | [entity](/reference/ecs-entity.md) | Entity information for the target cloud entity. |
