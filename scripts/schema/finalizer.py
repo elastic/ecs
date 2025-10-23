@@ -21,7 +21,8 @@ import re
 from schema import visitor
 
 # This script takes the fleshed out deeply nested fields dictionary as emitted by
-# cleaner.py, and performs field reuse in two phases.
+# cleaner.py, and performs field reuse in two phases, repeated for each reuse order, from highest
+# priority to lowest.
 #
 # Phase 1 performs field reuse across field sets. E.g. `group` fields should also be under `user`.
 # This type of reuse is then carried around if the receiving field set is also reused.
@@ -76,7 +77,6 @@ def perform_reuse(fields):
             for schema_name, reuse_entries in foreign_reuses[order].items():
                 schema = fields[schema_name]
                 for reuse_entry in reuse_entries:
-                    # print(order, "FOREIGN: {} => {}".format(schema_name, reuse_entry['full']))
                     nest_as = reuse_entry['as']
                     destination_schema_name = reuse_entry['full'].split('.')[0]
                     destination_schema = fields[destination_schema_name]
@@ -104,7 +104,6 @@ def perform_reuse(fields):
                 reused_fields = copy.deepcopy(schema['fields'])
                 set_original_fieldset(reused_fields, schema_name)
                 for reuse_entry in reuse_entries:
-                    # print(order, "SELF-NESTING: {} => {}".format(schema_name, reuse_entry['full']))
                     nest_as = reuse_entry['as']
                     new_field_details = copy.deepcopy(schema['field_details'])
                     new_field_details['name'] = nest_as
