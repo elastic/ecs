@@ -122,6 +122,7 @@ def perform_reuse(fields):
                     }
                     append_reused_here(schema, reuse_entry, fields[schema_name])
 
+
 def ensure_valid_reuse(reused_schema, destination_schema=None):
     """
     Raise if either the reused schema or destination schema have root=true.
