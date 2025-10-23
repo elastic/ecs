@@ -818,6 +818,259 @@ cloud:
         stability: development
       short: Availability zone in which this host, resource, or service is located.
       type: keyword
+    cloud.entity.attributes:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-attributes
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      flat_name: cloud.entity.attributes
+      level: extended
+      name: attributes
+      normalize: []
+      original_fieldset: entity
+      short: A set of static or semi-static attributes of the entity.
+      type: object
+    cloud.entity.behavior:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-behavior
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: cloud.entity.behavior
+      level: extended
+      name: behavior
+      normalize: []
+      original_fieldset: entity
+      short: A set of ephemeral characteristics of the entity, derived from observed
+        behaviors during a specific time period.
+      type: object
+    cloud.entity.display_name:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-display-name
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      flat_name: cloud.entity.display_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: cloud.entity.display_name.text
+        name: text
+        type: match_only_text
+      name: display_name
+      normalize: []
+      original_fieldset: entity
+      short: An optional field used when a pretty name is desired for entity-centric
+        operations.
+      type: keyword
+    cloud.entity.id:
+      dashed_name: cloud-entity-id
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      flat_name: cloud.entity.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: entity
+      short: Unique identifier for the entity.
+      type: keyword
+    cloud.entity.last_seen_timestamp:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-last-seen-timestamp
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      flat_name: cloud.entity.last_seen_timestamp
+      level: extended
+      name: last_seen_timestamp
+      normalize: []
+      original_fieldset: entity
+      short: Indicates the date/time when this entity was last "seen."
+      type: date
+    cloud.entity.lifecycle:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-lifecycle
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: cloud.entity.lifecycle
+      level: extended
+      name: lifecycle
+      normalize: []
+      original_fieldset: entity
+      short: A set of temporal characteristics of the entity.
+      type: object
+    cloud.entity.metrics:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-metrics
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      flat_name: cloud.entity.metrics
+      level: extended
+      name: metrics
+      normalize: []
+      original_fieldset: entity
+      short: Field set for any fields containing numeric entity metrics.
+      type: object
+    cloud.entity.name:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-name
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      flat_name: cloud.entity.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: cloud.entity.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: entity
+      short: The name of the entity.
+      type: keyword
+    cloud.entity.raw:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-raw
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      flat_name: cloud.entity.raw
+      level: extended
+      name: raw
+      normalize: []
+      original_fieldset: entity
+      short: Original, unmodified fields from the source system.
+      type: object
+    cloud.entity.reference:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-reference
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      flat_name: cloud.entity.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      normalize: []
+      original_fieldset: entity
+      short: A URI, URL, or other direct reference to access or locate the entity.
+      type: keyword
+    cloud.entity.source:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-source
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      flat_name: cloud.entity.source
+      ignore_above: 1024
+      level: core
+      name: source
+      normalize: []
+      original_fieldset: entity
+      short: Source module or integration that provided the entity data.
+      type: keyword
+    cloud.entity.sub_type:
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-sub-type
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      flat_name: cloud.entity.sub_type
+      ignore_above: 1024
+      level: extended
+      name: sub_type
+      normalize: []
+      original_fieldset: entity
+      short: The specific type designation for the entity as defined by its provider
+        or system.
+      type: keyword
+    cloud.entity.type:
+      allowed_values:
+      - description: Represents a storage container or bucket, typically used for
+          object storage. Common examples include AWS S3 buckets, Google Cloud Storage
+          buckets, Azure Blob containers, and other cloud storage services. Buckets
+          are used to organize and store files, objects, or data in cloud environments.
+        name: bucket
+      - description: Represents a database system or database instance. This includes
+          relational databases (MySQL, PostgreSQL, Oracle), NoSQL databases (MongoDB,
+          Cassandra, DynamoDB), time-series databases, and other data storage systems.
+          The entity may represent the entire database system or a specific database
+          instance.
+        name: database
+      - description: Represents a containerized application or process. This includes
+          Docker containers, Kubernetes pods, and other containerization technologies.
+          Containers encapsulate applications and their dependencies, providing isolation
+          and portability across different environments.
+        name: container
+      - description: Represents a serverless function or Function-as-a-Service (FaaS)
+          component. This includes AWS Lambda functions, Azure Functions, Google Cloud
+          Functions, and other serverless computing resources. Functions are typically
+          event-driven and execute code without managing the underlying infrastructure.
+        name: function
+      - description: Represents a message queue or messaging system. This includes
+          message brokers, event queues, and other messaging infrastructure components
+          such as Amazon SQS, RabbitMQ, Apache Kafka, and Azure Service Bus. Queues
+          facilitate asynchronous communication between applications and services.
+        name: queue
+      - description: Represents a computing host or machine. This includes physical
+          servers, virtual machines, cloud instances, and other computing resources
+          that can run applications or services. Hosts provide the fundamental computing
+          infrastructure for other entity types.
+        name: host
+      - description: Represents a user account or identity. This includes human users,
+          service accounts, system accounts, and other identity entities that can
+          interact with systems, applications, or services. Users may have various
+          roles, permissions, and attributes associated with their identity.
+        name: user
+      - description: Represents a software application or service. This includes web
+          applications, mobile applications, desktop applications, and other software
+          components that provide functionality to users or other systems. Applications
+          may run on various infrastructure components and can span multiple hosts
+          or containers.
+        name: application
+      - description: Represents a service or microservice component. This includes
+          web services, APIs, background services, and other service-oriented architecture
+          components. Services provide specific functionality and may communicate
+          with other services to fulfill business requirements.
+        name: service
+      - description: Represents a user session or connection session. This includes
+          user login sessions, database connections, network sessions, and other temporary
+          interactive or persistent connections between users, applications, or systems.
+        name: session
+      beta: This field is beta and subject to change.
+      dashed_name: cloud-entity-type
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, etc.'
+      example: host
+      flat_name: cloud.entity.type
+      ignore_above: 1024
+      level: core
+      name: type
+      normalize:
+      - array
+      original_fieldset: entity
+      short: Standardized high-level classification of the entity.
+      type: keyword
     cloud.instance.id:
       dashed_name: cloud-instance-id
       description: Instance ID of the host machine.
@@ -18213,6 +18466,259 @@ service:
       normalize: []
       short: Address of this service.
       type: keyword
+    service.entity.attributes:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-attributes
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      flat_name: service.entity.attributes
+      level: extended
+      name: attributes
+      normalize: []
+      original_fieldset: entity
+      short: A set of static or semi-static attributes of the entity.
+      type: object
+    service.entity.behavior:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-behavior
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: service.entity.behavior
+      level: extended
+      name: behavior
+      normalize: []
+      original_fieldset: entity
+      short: A set of ephemeral characteristics of the entity, derived from observed
+        behaviors during a specific time period.
+      type: object
+    service.entity.display_name:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-display-name
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      flat_name: service.entity.display_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: service.entity.display_name.text
+        name: text
+        type: match_only_text
+      name: display_name
+      normalize: []
+      original_fieldset: entity
+      short: An optional field used when a pretty name is desired for entity-centric
+        operations.
+      type: keyword
+    service.entity.id:
+      dashed_name: service-entity-id
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      flat_name: service.entity.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: entity
+      short: Unique identifier for the entity.
+      type: keyword
+    service.entity.last_seen_timestamp:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-last-seen-timestamp
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      flat_name: service.entity.last_seen_timestamp
+      level: extended
+      name: last_seen_timestamp
+      normalize: []
+      original_fieldset: entity
+      short: Indicates the date/time when this entity was last "seen."
+      type: date
+    service.entity.lifecycle:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-lifecycle
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: service.entity.lifecycle
+      level: extended
+      name: lifecycle
+      normalize: []
+      original_fieldset: entity
+      short: A set of temporal characteristics of the entity.
+      type: object
+    service.entity.metrics:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-metrics
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      flat_name: service.entity.metrics
+      level: extended
+      name: metrics
+      normalize: []
+      original_fieldset: entity
+      short: Field set for any fields containing numeric entity metrics.
+      type: object
+    service.entity.name:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-name
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      flat_name: service.entity.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: service.entity.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: entity
+      short: The name of the entity.
+      type: keyword
+    service.entity.raw:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-raw
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      flat_name: service.entity.raw
+      level: extended
+      name: raw
+      normalize: []
+      original_fieldset: entity
+      short: Original, unmodified fields from the source system.
+      type: object
+    service.entity.reference:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-reference
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      flat_name: service.entity.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      normalize: []
+      original_fieldset: entity
+      short: A URI, URL, or other direct reference to access or locate the entity.
+      type: keyword
+    service.entity.source:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-source
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      flat_name: service.entity.source
+      ignore_above: 1024
+      level: core
+      name: source
+      normalize: []
+      original_fieldset: entity
+      short: Source module or integration that provided the entity data.
+      type: keyword
+    service.entity.sub_type:
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-sub-type
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      flat_name: service.entity.sub_type
+      ignore_above: 1024
+      level: extended
+      name: sub_type
+      normalize: []
+      original_fieldset: entity
+      short: The specific type designation for the entity as defined by its provider
+        or system.
+      type: keyword
+    service.entity.type:
+      allowed_values:
+      - description: Represents a storage container or bucket, typically used for
+          object storage. Common examples include AWS S3 buckets, Google Cloud Storage
+          buckets, Azure Blob containers, and other cloud storage services. Buckets
+          are used to organize and store files, objects, or data in cloud environments.
+        name: bucket
+      - description: Represents a database system or database instance. This includes
+          relational databases (MySQL, PostgreSQL, Oracle), NoSQL databases (MongoDB,
+          Cassandra, DynamoDB), time-series databases, and other data storage systems.
+          The entity may represent the entire database system or a specific database
+          instance.
+        name: database
+      - description: Represents a containerized application or process. This includes
+          Docker containers, Kubernetes pods, and other containerization technologies.
+          Containers encapsulate applications and their dependencies, providing isolation
+          and portability across different environments.
+        name: container
+      - description: Represents a serverless function or Function-as-a-Service (FaaS)
+          component. This includes AWS Lambda functions, Azure Functions, Google Cloud
+          Functions, and other serverless computing resources. Functions are typically
+          event-driven and execute code without managing the underlying infrastructure.
+        name: function
+      - description: Represents a message queue or messaging system. This includes
+          message brokers, event queues, and other messaging infrastructure components
+          such as Amazon SQS, RabbitMQ, Apache Kafka, and Azure Service Bus. Queues
+          facilitate asynchronous communication between applications and services.
+        name: queue
+      - description: Represents a computing host or machine. This includes physical
+          servers, virtual machines, cloud instances, and other computing resources
+          that can run applications or services. Hosts provide the fundamental computing
+          infrastructure for other entity types.
+        name: host
+      - description: Represents a user account or identity. This includes human users,
+          service accounts, system accounts, and other identity entities that can
+          interact with systems, applications, or services. Users may have various
+          roles, permissions, and attributes associated with their identity.
+        name: user
+      - description: Represents a software application or service. This includes web
+          applications, mobile applications, desktop applications, and other software
+          components that provide functionality to users or other systems. Applications
+          may run on various infrastructure components and can span multiple hosts
+          or containers.
+        name: application
+      - description: Represents a service or microservice component. This includes
+          web services, APIs, background services, and other service-oriented architecture
+          components. Services provide specific functionality and may communicate
+          with other services to fulfill business requirements.
+        name: service
+      - description: Represents a user session or connection session. This includes
+          user login sessions, database connections, network sessions, and other temporary
+          interactive or persistent connections between users, applications, or systems.
+        name: session
+      beta: This field is beta and subject to change.
+      dashed_name: service-entity-type
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, etc.'
+      example: host
+      flat_name: service.entity.type
+      ignore_above: 1024
+      level: core
+      name: type
+      normalize:
+      - array
+      original_fieldset: entity
+      short: Standardized high-level classification of the entity.
+      type: keyword
     service.environment:
       beta: This field is beta and subject to change.
       dashed_name: service-environment
@@ -27042,6 +27548,259 @@ user:
       - relation: match
         stability: development
       short: User email address.
+      type: keyword
+    user.entity.attributes:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-attributes
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      flat_name: user.entity.attributes
+      level: extended
+      name: attributes
+      normalize: []
+      original_fieldset: entity
+      short: A set of static or semi-static attributes of the entity.
+      type: object
+    user.entity.behavior:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-behavior
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: user.entity.behavior
+      level: extended
+      name: behavior
+      normalize: []
+      original_fieldset: entity
+      short: A set of ephemeral characteristics of the entity, derived from observed
+        behaviors during a specific time period.
+      type: object
+    user.entity.display_name:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-display-name
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      flat_name: user.entity.display_name
+      ignore_above: 1024
+      level: extended
+      multi_fields:
+      - flat_name: user.entity.display_name.text
+        name: text
+        type: match_only_text
+      name: display_name
+      normalize: []
+      original_fieldset: entity
+      short: An optional field used when a pretty name is desired for entity-centric
+        operations.
+      type: keyword
+    user.entity.id:
+      dashed_name: user-entity-id
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      flat_name: user.entity.id
+      ignore_above: 1024
+      level: core
+      name: id
+      normalize: []
+      original_fieldset: entity
+      short: Unique identifier for the entity.
+      type: keyword
+    user.entity.last_seen_timestamp:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-last-seen-timestamp
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      flat_name: user.entity.last_seen_timestamp
+      level: extended
+      name: last_seen_timestamp
+      normalize: []
+      original_fieldset: entity
+      short: Indicates the date/time when this entity was last "seen."
+      type: date
+    user.entity.lifecycle:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-lifecycle
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      flat_name: user.entity.lifecycle
+      level: extended
+      name: lifecycle
+      normalize: []
+      original_fieldset: entity
+      short: A set of temporal characteristics of the entity.
+      type: object
+    user.entity.metrics:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-metrics
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      flat_name: user.entity.metrics
+      level: extended
+      name: metrics
+      normalize: []
+      original_fieldset: entity
+      short: Field set for any fields containing numeric entity metrics.
+      type: object
+    user.entity.name:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-name
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      flat_name: user.entity.name
+      ignore_above: 1024
+      level: core
+      multi_fields:
+      - flat_name: user.entity.name.text
+        name: text
+        type: match_only_text
+      name: name
+      normalize: []
+      original_fieldset: entity
+      short: The name of the entity.
+      type: keyword
+    user.entity.raw:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-raw
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      flat_name: user.entity.raw
+      level: extended
+      name: raw
+      normalize: []
+      original_fieldset: entity
+      short: Original, unmodified fields from the source system.
+      type: object
+    user.entity.reference:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-reference
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      flat_name: user.entity.reference
+      ignore_above: 1024
+      level: extended
+      name: reference
+      normalize: []
+      original_fieldset: entity
+      short: A URI, URL, or other direct reference to access or locate the entity.
+      type: keyword
+    user.entity.source:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-source
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      flat_name: user.entity.source
+      ignore_above: 1024
+      level: core
+      name: source
+      normalize: []
+      original_fieldset: entity
+      short: Source module or integration that provided the entity data.
+      type: keyword
+    user.entity.sub_type:
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-sub-type
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      flat_name: user.entity.sub_type
+      ignore_above: 1024
+      level: extended
+      name: sub_type
+      normalize: []
+      original_fieldset: entity
+      short: The specific type designation for the entity as defined by its provider
+        or system.
+      type: keyword
+    user.entity.type:
+      allowed_values:
+      - description: Represents a storage container or bucket, typically used for
+          object storage. Common examples include AWS S3 buckets, Google Cloud Storage
+          buckets, Azure Blob containers, and other cloud storage services. Buckets
+          are used to organize and store files, objects, or data in cloud environments.
+        name: bucket
+      - description: Represents a database system or database instance. This includes
+          relational databases (MySQL, PostgreSQL, Oracle), NoSQL databases (MongoDB,
+          Cassandra, DynamoDB), time-series databases, and other data storage systems.
+          The entity may represent the entire database system or a specific database
+          instance.
+        name: database
+      - description: Represents a containerized application or process. This includes
+          Docker containers, Kubernetes pods, and other containerization technologies.
+          Containers encapsulate applications and their dependencies, providing isolation
+          and portability across different environments.
+        name: container
+      - description: Represents a serverless function or Function-as-a-Service (FaaS)
+          component. This includes AWS Lambda functions, Azure Functions, Google Cloud
+          Functions, and other serverless computing resources. Functions are typically
+          event-driven and execute code without managing the underlying infrastructure.
+        name: function
+      - description: Represents a message queue or messaging system. This includes
+          message brokers, event queues, and other messaging infrastructure components
+          such as Amazon SQS, RabbitMQ, Apache Kafka, and Azure Service Bus. Queues
+          facilitate asynchronous communication between applications and services.
+        name: queue
+      - description: Represents a computing host or machine. This includes physical
+          servers, virtual machines, cloud instances, and other computing resources
+          that can run applications or services. Hosts provide the fundamental computing
+          infrastructure for other entity types.
+        name: host
+      - description: Represents a user account or identity. This includes human users,
+          service accounts, system accounts, and other identity entities that can
+          interact with systems, applications, or services. Users may have various
+          roles, permissions, and attributes associated with their identity.
+        name: user
+      - description: Represents a software application or service. This includes web
+          applications, mobile applications, desktop applications, and other software
+          components that provide functionality to users or other systems. Applications
+          may run on various infrastructure components and can span multiple hosts
+          or containers.
+        name: application
+      - description: Represents a service or microservice component. This includes
+          web services, APIs, background services, and other service-oriented architecture
+          components. Services provide specific functionality and may communicate
+          with other services to fulfill business requirements.
+        name: service
+      - description: Represents a user session or connection session. This includes
+          user login sessions, database connections, network sessions, and other temporary
+          interactive or persistent connections between users, applications, or systems.
+        name: session
+      beta: This field is beta and subject to change.
+      dashed_name: user-entity-type
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, etc.'
+      example: host
+      flat_name: user.entity.type
+      ignore_above: 1024
+      level: core
+      name: type
+      normalize:
+      - array
+      original_fieldset: entity
+      short: Standardized high-level classification of the entity.
       type: keyword
     user.full_name:
       dashed_name: user-full-name
