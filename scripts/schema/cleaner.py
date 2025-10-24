@@ -142,8 +142,7 @@ def normalize_reuse_notation(schema: FieldEntry) -> None:
                                  f"Got {reuse_entry}.")
         else:  # Make it explicit
             explicit_entry = {'at': reuse_entry, 'as': schema_name}
-        if 'full' not in explicit_entry:
-            explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
+        explicit_entry['full'] = explicit_entry['at'] + '.' + explicit_entry['as']
         reuse_entries.append(explicit_entry)
     schema['schema_details']['reusable']['expected'] = reuse_entries
 
