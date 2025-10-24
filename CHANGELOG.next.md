@@ -10,6 +10,10 @@ Thanks, you're awesome :-) -->
 
 ### Schema Changes
 
+#### Breaking changes
+
+#### Bugfixes
+
 #### Added
 
 #### Improvements
