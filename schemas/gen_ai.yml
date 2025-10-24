@@ -236,3 +236,136 @@
       beta: This field is beta and subject to change.
       otel:
         - relation: match
+    - name: system_instructions
+      type: flattened
+      description: The system message or instructions provided to the GenAI model separately from the chat history.
+      example: >
+        {
+          "type": "text",
+          "content": "You are an Agent that greet users, always use greetings tool to respond"
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: match
+    - name: input.messages
+      type: nested
+      description: The chat history provided to the model as an input.
+      example: >
+        {
+          "role": "user",
+          "parts": [
+            {
+              "type": "text",
+              "content": "Weather in Paris?"
+            }
+          ]
+        },
+        {
+          "role": "assistant",
+          "parts": [
+            {
+              "type": "tool_call",
+              "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
+              "name": "get_weather",
+              "arguments": {
+                "location": "Paris"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "parts": [
+            {
+              "type": "tool_call_response",
+              "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+              "result": "rainy, 57°F"
+            }
+          ]
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: match
+    - name: output.messages
+      type: nested
+      description: Messages returned by the model where each message represents a specific model response (choice, candidate).
+      example: >
+        {
+          "role": "assistant",
+          "parts": [
+            {
+              "type": "text",
+              "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+            }
+          ],
+          "finish_reason": "stop"
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: match
+    - name: tool.definitions
+      type: nested
+      description: The list of source system tool definitions available to the GenAI agent or model.
+      example: >
+        {
+          "type": "function",
+          "name": "get_current_weather",
+          "description": "Get the current weather in a given location",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "string",
+                "description": "The city and state, e.g. San Francisco, CA"
+              },
+              "unit": {
+                "type": "string",
+                "enum": [
+                  "celsius",
+                  "fahrenheit"
+                ]
+              }
+            },
+            "required": [
+              "location",
+              "unit"
+            ]
+          }
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: related
+          attribute: gen_ai.operation.name
+    - name: tool.call.arguments
+      type: flattened
+      description: Parameters passed to the tool call.
+      example: >
+        {
+            "location": "San Francisco?",
+            "date": "2025-10-01"
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: related
+          attribute: gen_ai.operation.name
+    - name: tool.call.result
+      type: flattened
+      description: The result returned by the tool call (if any and if execution was successful).
+      example: >
+        {
+          "temperature_range": {
+            "high": 75,
+            "low": 60
+          },
+          "conditions": "sunny"
+        }
+      level: extended
+      beta: This field is beta and subject to change.
+      otel:
+        - relation: related
+          attribute: gen_ai.operation.name

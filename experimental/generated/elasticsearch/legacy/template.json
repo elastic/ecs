@@ -2191,6 +2191,13 @@
               }
             }
           },
+          "input": {
+            "properties": {
+              "messages": {
+                "type": "nested"
+              }
+            }
+          },
           "operation": {
             "properties": {
               "name": {
@@ -2201,6 +2208,9 @@
           },
           "output": {
             "properties": {
+              "messages": {
+                "type": "nested"
+              },
               "type": {
                 "ignore_above": 1024,
                 "type": "keyword"
@@ -2268,6 +2278,9 @@
             "ignore_above": 1024,
             "type": "keyword"
           },
+          "system_instructions": {
+            "type": "flattened"
+          },
           "token": {
             "properties": {
               "type": {
@@ -2280,11 +2293,20 @@
             "properties": {
               "call": {
                 "properties": {
+                  "arguments": {
+                    "type": "flattened"
+                  },
                   "id": {
                     "ignore_above": 1024,
                     "type": "keyword"
+                  },
+                  "result": {
+                    "type": "flattened"
                   }
                 }
+              },
+              "definitions": {
+                "type": "nested"
               },
               "name": {
                 "ignore_above": 1024,

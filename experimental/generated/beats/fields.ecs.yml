@@ -3915,12 +3915,35 @@
       description: Human-readable name of the GenAI agent provided by the application.
       example: Math Tutor; Fiction Writer
       default_field: false
+    - name: input.messages
+      level: extended
+      type: nested
+      description: The chat history provided to the model as an input.
+      example: "{\n  \"role\": \"user\",\n  \"parts\": [\n    {\n      \"type\": \"\
+        text\",\n      \"content\": \"Weather in Paris?\"\n    }\n  ]\n}, {\n  \"\
+        role\": \"assistant\",\n  \"parts\": [\n    {\n      \"type\": \"tool_call\"\
+        ,\n      \"id\": \"call_VSPygqKTWdrhaFErNvMV18Yl\",\n      \"name\": \"get_weather\"\
+        ,\n      \"arguments\": {\n        \"location\": \"Paris\"\n      }\n    }\n\
+        \  ]\n}, {\n  \"role\": \"tool\",\n  \"parts\": [\n    {\n      \"type\":\
+        \ \"tool_call_response\",\n      \"id\": \" call_VSPygqKTWdrhaFErNvMV18Yl\"\
+        ,\n      \"result\": \"rainy, 57°F\"\n    }\n  ]\n}"
+      default_field: false
     - name: operation.name
       level: extended
       type: keyword
       ignore_above: 1024
       description: The name of the operation being performed.
       example: chat; text_completion; embeddings
+      default_field: false
+    - name: output.messages
+      level: extended
+      type: nested
+      description: Messages returned by the model where each message represents a
+        specific model response (choice, candidate).
+      example: "{\n  \"role\": \"assistant\",\n  \"parts\": [\n    {\n      \"type\"\
+        : \"text\",\n      \"content\": \"The weather in Paris is currently rainy\
+        \ with a temperature of 57°F.\"\n    }\n  ],\n  \"finish_reason\": \"stop\"\
+        \n}"
       default_field: false
     - name: output.type
       level: extended
@@ -4026,6 +4049,14 @@
         instrumentation.
       example: openai
       default_field: false
+    - name: system_instructions
+      level: extended
+      type: flattened
+      description: The system message or instructions provided to the GenAI model
+        separately from the chat history.
+      example: "{\n  \"type\": \"text\",\n  \"content\": \"You are an Agent that greet\
+        \ users, always use greetings tool to respond\"\n}"
+      default_field: false
     - name: token.type
       level: extended
       type: keyword
@@ -4033,12 +4064,41 @@
       description: The type of token being counted.
       example: input; output
       default_field: false
+    - name: tool.call.arguments
+      level: extended
+      type: flattened
+      description: Parameters passed to the tool call.
+      example: "{\n    \"location\": \"San Francisco?\",\n    \"date\": \"2025-10-01\"\
+        \n}"
+      default_field: false
     - name: tool.call.id
       level: extended
       type: keyword
       ignore_above: 1024
       description: The tool call identifier.
       example: call_mszuSIzqtI65i1wAUOE8w5H4
+      default_field: false
+    - name: tool.call.result
+      level: extended
+      type: flattened
+      description: The result returned by the tool call (if any and if execution was
+        successful).
+      example: "{\n  \"temperature_range\": {\n    \"high\": 75,\n    \"low\": 60\n\
+        \  },\n  \"conditions\": \"sunny\"\n}"
+      default_field: false
+    - name: tool.definitions
+      level: extended
+      type: nested
+      description: The list of source system tool definitions available to the GenAI
+        agent or model.
+      example: "{\n  \"type\": \"function\",\n  \"name\": \"get_current_weather\"\
+        ,\n  \"description\": \"Get the current weather in a given location\",\n \
+        \ \"parameters\": {\n    \"type\": \"object\",\n    \"properties\": {\n  \
+        \    \"location\": {\n        \"type\": \"string\",\n        \"description\"\
+        : \"The city and state, e.g. San Francisco, CA\"\n      },\n      \"unit\"\
+        : {\n        \"type\": \"string\",\n        \"enum\": [\n          \"celsius\"\
+        ,\n          \"fahrenheit\"\n        ]\n      }\n    },\n    \"required\"\
+        : [\n      \"location\",\n      \"unit\"\n    ]\n  }\n}"
       default_field: false
     - name: tool.name
       level: extended
