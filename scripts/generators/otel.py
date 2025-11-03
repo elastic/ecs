@@ -8,7 +8,7 @@ from typing import (
 import yaml
 from schema import visitor
 from generators import ecs_helpers
-from _types import (
+from ecs_types import (
     OTelModelFile,
     OTelMapping,
     OTelAttribute,

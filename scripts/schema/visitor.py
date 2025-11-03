@@ -22,7 +22,7 @@ from typing import (
     Optional,
 )
 
-from _types import (
+from ecs_types import (
     Field,
     FieldDetails,
     FieldEntry,

@@ -25,7 +25,7 @@ from typing import (
 
 from os.path import join
 from generator import ecs_helpers
-from _types import (
+from ecs_types import (
     Field,
 )
 
