@@ -27,7 +27,7 @@ from typing import (
 from os.path import join
 
 from generators import ecs_helpers
-from _types import (
+from ecs_types import (
     Field,
     FieldNestedEntry,
 )

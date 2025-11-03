@@ -25,7 +25,7 @@ from typing import (
 
 from generators import ecs_helpers
 from schema import visitor
-from _types import (
+from ecs_types import (
     Field,
     FieldDetails,
     FieldEntry,

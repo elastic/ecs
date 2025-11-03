@@ -30,7 +30,7 @@ from schema import (
     cleaner,
     loader,
 )
-from _types import (
+from ecs_types import (
     FieldEntry
 )
 

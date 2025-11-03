@@ -33,7 +33,7 @@ import warnings
 
 from collections import OrderedDict
 from copy import deepcopy
-from _types import (
+from ecs_types import (
     Field,
     FieldEntry,
     FieldNestedEntry,
