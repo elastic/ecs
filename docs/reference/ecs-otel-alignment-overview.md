@@ -6,7 +6,7 @@ mapped_pages:
 
 # OTel Alignment Overview [ecs-otel-alignment-overview]
 
-The following table summarizes the alignment status by namespaces between ECS in version `9.3.0-dev` and OpenTelemetry semantic conventions in version `1.37.0`.
+The following table summarizes the alignment status by namespaces between ECS in version `9.3.0-dev` and OpenTelemetry semantic conventions in version `1.38.0`.
 
 |     |     |
 | --- | --- |
@@ -14,7 +14,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Namespace | ECS | OTel | ![relation](https://img.shields.io/badge/match-93c93e?style=flat "match") | ![relation](https://img.shields.io/badge/equivalent-1ba9f5?style=flat "equivalent") | ![relation](https://img.shields.io/badge/related-efc20d?style=flat "related") | ![relation](https://img.shields.io/badge/conflict-910000?style=flat "conflict") | ![relation](https://img.shields.io/badge/metric-cb00cb?style=flat "metric") | ![relation](https://img.shields.io/badge/OTLP-ffdcb2?style=flat "OTLP") | ![relation](https://img.shields.io/badge/n%2Fa-f2f4fb?style=flat "na") |
 | Agent | [6](/reference/ecs-agent.md) | · | · | · | · | · | · | · | · |
 | Android | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/android) | · | · | · | · | · | · |  |
-| Application | · | [9](https://opentelemetry.io/docs/specs/semconv/attributes-registry/app) | · | · | · | · | · | · |  |
+| Application | · | [11](https://opentelemetry.io/docs/specs/semconv/attributes-registry/app) | · | · | · | · | · | · |  |
 | Artifact | · | [7](https://opentelemetry.io/docs/specs/semconv/attributes-registry/artifact) | · | · | · | · | · | · |  |
 | Autonomous System | [2](/reference/ecs-as.md) | · | · | · | · | · | · | · | · |
 | ASP.NET Core | · | [23](https://opentelemetry.io/docs/specs/semconv/attributes-registry/aspnetcore) | · | · | · | · | · | · |  |
@@ -54,8 +54,8 @@ The following table summarizes the alignment status by namespaces between ECS in
 | FaaS | [7](/reference/ecs-faas.md) | [16](https://opentelemetry.io/docs/specs/semconv/attributes-registry/faas) | 3 | 2 | · | · | · | · | · |
 | Feature Flag | · | [8](https://opentelemetry.io/docs/specs/semconv/attributes-registry/feature-flag) | · | · | · | · | · | · |  |
 | File | [24](/reference/ecs-file.md) | [18](https://opentelemetry.io/docs/specs/semconv/attributes-registry/file) | 11 | 7 | · | · | · | · | · |
-| GCP Client | · | [14](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gcp) | · | · | · | · | · | · |  |
-| Gen AI | [26](/reference/ecs-gen_ai.md) | [32](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai) | 25 | 1 | · | · | · | · | · |
+| GCP Client | · | [23](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gcp) | · | · | · | · | · | · |  |
+| Gen AI | [26](/reference/ecs-gen_ai.md) | [40](https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai) | 25 | 1 | · | · | · | · | · |
 | Geo | [11](/reference/ecs-geo.md) | [7](https://opentelemetry.io/docs/specs/semconv/attributes-registry/geo) | 1 | 4 | 2 | · | · | · | · |
 | Go | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/go) | · | · | · | · | · | · |  |
 | GraphQL | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/graphql) | · | · | · | · | · | · |  |
@@ -68,17 +68,20 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Interface | [3](/reference/ecs-interface.md) | · | · | · | · | · | · | · | · |
 | iOS | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/ios) | · | · | · | · | · | · |  |
 | Java Virtual Machine (JVM) | · | [8](https://opentelemetry.io/docs/specs/semconv/attributes-registry/jvm) | · | · | · | · | · | · |  |
-| Kubernetes | · | [60](https://opentelemetry.io/docs/specs/semconv/attributes-registry/k8s) | · | · | · | · | · | · |  |
+| Kubernetes | · | [62](https://opentelemetry.io/docs/specs/semconv/attributes-registry/k8s) | · | · | · | · | · | · |  |
 | Linux Memory | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/linux) | · | · | · | · | · | · |  |
 | Log | [18](/reference/ecs-log.md) | [7](https://opentelemetry.io/docs/specs/semconv/attributes-registry/log) | 1 | · | · | · | · | 1 | · |
 | Mach-O Header | [16](/reference/ecs-macho.md) | · | · | · | · | · | · | · | · |
 | Mainframe LPAR attributes | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/mainframe) | · | · | · | · | · | · |  |
 | General Messaging | · | [37](https://opentelemetry.io/docs/specs/semconv/attributes-registry/messaging) | · | · | · | · | · | · |  |
 | Network | [12](/reference/ecs-network.md) | [17](https://opentelemetry.io/docs/specs/semconv/attributes-registry/network) | 2 | 1 | · | · | · | · | · |
+| NFS | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/nfs) | · | · | · | · | · | · |  |
 | Node.js | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/nodejs) | · | · | · | · | · | · |  |
 | Observer | [13](/reference/ecs-observer.md) | · | · | · | · | · | · | · | · |
 | Open Container Initiative (OCI) | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/oci) | · | · | · | · | · | · |  |
+| ONC RPC (Sun RPC) attributes | · | [4](https://opentelemetry.io/docs/specs/semconv/attributes-registry/onc-rpc) | · | · | · | · | · | · |  |
 | OpenAI | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/openai) | · | · | · | · | · | · |  |
+| Openshift | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/openshift) | · | · | · | · | · | · |  |
 | OpenTracing | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/opentracing) | · | · | · | · | · | · |  |
 | Orchestrator | [15](/reference/ecs-orchestrator.md) | · | · | · | · | · | · | · | · |
 | Organization | [2](/reference/ecs-organization.md) | · | · | · | · | · | · | · | · |
@@ -87,6 +90,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Package | [13](/reference/ecs-package.md) | · | · | · | · | · | · | · | · |
 | PE Header | [23](/reference/ecs-pe.md) | · | · | · | · | · | · | · | · |
 | Peer | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/peer) | · | · | · | · | · | · |  |
+| Pprof specific attributes for the Profiling signal | · | [6](https://opentelemetry.io/docs/specs/semconv/attributes-registry/pprof) | · | · | · | · | · | · |  |
 | Process | [34](/reference/ecs-process.md) | [34](https://opentelemetry.io/docs/specs/semconv/attributes-registry/process) | 15 | 2 | · | · | 1 | · | · |
 | Profile Frame | · | [1](https://opentelemetry.io/docs/specs/semconv/attributes-registry/profile) | · | · | · | · | · | · |  |
 | Registry | [7](/reference/ecs-registry.md) | · | · | · | · | · | · | · | · |
@@ -100,7 +104,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | Session | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/session) | · | · | · | · | · | · |  |
 | SignalR | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/signalr) | · | · | · | · | · | · |  |
 | Source | [12](/reference/ecs-source.md) | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/source) | 2 | · | · | · | · | · | · |
-| Deprecated System | · | [11](https://opentelemetry.io/docs/specs/semconv/attributes-registry/system) | · | · | · | · | · | · |  |
+| General System | · | [9](https://opentelemetry.io/docs/specs/semconv/attributes-registry/system) | · | · | · | · | · | · |  |
 | Telemetry | · | [5](https://opentelemetry.io/docs/specs/semconv/attributes-registry/telemetry) | · | · | · | · | · | · |  |
 | Test | · | [4](https://opentelemetry.io/docs/specs/semconv/attributes-registry/test) | · | · | · | · | · | · |  |
 | Thread | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/thread) | · | · | · | · | · | · |  |
