@@ -38,5 +38,14 @@ The `entity` fields are expected to be nested at:
 * `orchestrator.entity`
 * `service.entity`
 * `user.entity`
+* `entity.target`
 
-Note also that the `entity` fields are not expected to be used directly at the root of the events.
+
+Note also that the `entity` fields may be used directly at the root of the events.
+
+
+### Field sets that can be nested under User [ecs-entity-nestings]
+
+| Location | Field Set | Description |
+| --- | --- | --- |
+| `entity.target.*` | [entity](/reference/ecs-entity.md) | Targeted entity of action taken. |
