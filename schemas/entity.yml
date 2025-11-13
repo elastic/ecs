@@ -11,9 +11,16 @@
     that don't have dedicated field sets in ECS. An entity represents a discrete,
     identifiable component that can be described by a set of attributes and
     maintains its identity over time.
+  footnote: >
+    The entity fields may be self-nested under entity.target.* to describe
+    the target entity in the context of an action or event. The fieldset
+    entity.target.* must not be confused with the root entity fieldset that
+    is used to describe the primary entity under observation. The fieldset
+    entity.target.* may only be used to describe the targeted entity of an
+    action taken.
   root: false
   reusable:
-    top_level: false
+    top_level: true
     order: 2
     expected:
       - user
@@ -21,6 +28,9 @@
       - host
       - service
       - orchestrator
+      - at: entity
+        as: target
+        short_override: Targeted entity of action taken.
 
   fields:
     - name: name
@@ -62,7 +72,8 @@
       short: Standardized high-level classification of the entity.
       description: >
         A standardized high-level classification of the entity. This provides a normalized way
-        to group similar entities across different providers or systems. Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`, `user`, `application`, `session`, etc.
+        to group similar entities across different providers or systems. Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`, `user`, `application`, `session`, `cloud`, `orchestrator`, etc.
+        If an entity is nested under a top-level namespace like `host` or `cloud`, or similar, its type array should include the matching value — for example, `host` or `cloud`.
       normalize:
         - array
       allowed_values:
@@ -96,6 +107,12 @@
         - name: session
           description: >
             Represents a user session or connection session. This includes user login sessions, database connections, network sessions, and other temporary interactive or persistent connections between users, applications, or systems.
+        - name: cloud
+          description: >
+            Represents a cloud or infrastructure. This includes cloud providers and their services (such as AWS EC2), and is used to identify or correlate resources, entities, and activities across accounts or multi-cloud environments.
+        - name: orchestrator
+          description: >
+            Represents an orchestration system or orchestrator component. This includes container orchestrators like Kubernetes, Docker Swarm, and other systems responsible for automating the deployment, management, scaling, and networking of containers or workloads.
       example: host
       beta: This field is beta and subject to change.
 
