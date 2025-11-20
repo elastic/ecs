@@ -22,7 +22,7 @@ Before you start a conversion, be sure that you understand the basics below.
 
 Make sure you understand the distinction between Core and Extended fields, as explained in the [Guidelines and Best Practices](/reference/ecs-guidelines.md).
 
-Core and Extended fields are documented in the [*ECS Field Reference*](/reference/ecs-field-reference.md) or, for a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/master/generated/csv/fields.csv).
+Core and Extended fields are documented in the [*ECS Field Reference*](/reference/ecs-field-reference.md) or, for a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/main/generated/csv/fields.csv).
 
 
 ### An approach to mapping an existing implementation [ecs-conv]

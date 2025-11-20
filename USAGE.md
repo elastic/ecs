@@ -155,7 +155,7 @@ $ python scripts/generator.py --include ../myproject/ecs/custom-fields/[some]*[r
 $ python scripts/generator.py --include ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml
 ```
 
-The `--include` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
+The `--include` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/main/schemas#fields-supported-in-schemasyml) as the ECS schema files. This is useful for maintaining custom field definitions that are _outside_ of the ECS schema, but allows for merging the custom fields with the official ECS fields for your deployment.
 
 For example, if we defined the following schema definition in a file named `myproject/ecs/custom-fields/widget.yml`:
 
@@ -235,7 +235,7 @@ $ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/[some]*[r
 $ python scripts/generator.py --exclude ../myproject/ecs/custom-fields/myfile1.yml ../myproject/ecs/custom-fields/myfile2.yml
 ```
 
-The `--exclude` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/master/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
+The `--exclude` flag expects one or more directories or subsets of schema YAML files using the same [file format](https://github.com/elastic/ecs/tree/main/schemas#fields-supported-in-schemasyml) as the ECS schema files. You can also use a subset, provided that relevant `name` and `fields` fields are preserved.
 
 ```
 ---
