@@ -19,14 +19,14 @@ As ECS and OTel Semantic Conventions converge into a single standard, this modul
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        generator.py                              │
-│                      (Main Entry Point)                          │
+│                        generator.py                             │
+│                      (Main Entry Point)                         │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    OTelGenerator.__init__()                      │
-│                                                                  │
+│                    OTelGenerator.__init__()                     │
+│                                                                 │
 │  1. Clone/load OTel semconv repo from GitHub                    │
 │  2. Parse all YAML model files                                  │
 │  3. Extract attributes and metrics                              │
@@ -35,21 +35,21 @@ As ECS and OTel Semantic Conventions converge into a single standard, this modul
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              OTelGenerator.validate_otel_mapping()               │
-│                                                                  │
+│              OTelGenerator.validate_otel_mapping()              │
+│                                                                 │
 │  Pass 1: Validate mapping structure                             │
 │    - Check relation types are valid                             │
 │    - Verify required/forbidden properties                       │
 │    - Confirm referenced attributes/metrics exist                │
-│                                                                  │
+│                                                                 │
 │  Pass 2: Enrich with stability information                      │
 │    - Add stability levels from OTel definitions                 │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│           OTelGenerator.get_mapping_summaries()                  │
-│                                                                  │
+│           OTelGenerator.get_mapping_summaries()                 │
+│                                                                 │
 │  Generate statistics for each namespace:                        │
 │    - Count fields by relation type                              │
 │    - Calculate coverage percentages                             │

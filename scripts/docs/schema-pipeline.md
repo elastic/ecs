@@ -335,8 +335,8 @@ Step 2: user (with group!) → destination.user
 │   ├─ id          │       │   ├─ name                      │
 │   └─ name        │       │   ├─ email                     │
 └──────────────────┘       │   └─ group ← (transitive!)     │
-                           │       ├─ id                     │
-                           │       └─ name                   │
+                           │       ├─ id                    │
+                           │       └─ name                  │
                            └────────────────────────────────┘
 
 Result: destination.user.group.id exists because transitivity!
@@ -1298,28 +1298,6 @@ def filter(fields, config):
     return filtered_fields
 ```
 
-## Performance Considerations
-
-### Large Schemas
-
-The pipeline handles ~850 ECS fields efficiently:
-- Loader: < 1 second
-- Cleaner: < 1 second
-- Finalizer: < 2 seconds (reuse is complex)
-- Filters: < 1 second
-
-### Memory Usage
-
-- Deeply nested structure: ~10-20 MB for full ECS
-- Deep copies during reuse: Memory scales with reuse count
-- Intermediate files: ~2-3 MB total
-
-### Optimization Tips
-
-1. **Avoid repeated pipeline runs**: Cache processed fields
-2. **Use subsets for development**: Faster iteration with fewer fields
-3. **Profile with cProfile**: Find bottlenecks in custom code
-
 ## Testing
 
 ### Unit Tests
@@ -1667,50 +1645,9 @@ python -c "import yaml; yaml.safe_load(open('subsets/test.yml'))"
 # If error, fix YAML syntax first
 ```
 
-### Debug Mode
-
-Enable verbose output:
-```python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
-# Pipeline will print detailed progress
-```
-
 ### Strict Mode Issues
 
 If `--strict` fails with warnings:
 - Review the warning messages
 - Fix schema YAMLs to meet requirements
 - Or run without `--strict` (warnings only)
-
-## Architecture Decisions
-
-### Why Deeply Nested?
-
-Pros:
-- Natural representation of hierarchical data
-- Easy to traverse recursively
-- Visitor pattern works cleanly
-
-Cons:
-- More complex than flat structure
-- Requires careful deep copying
-
-Alternative considered: Flat structure with references
-- Rejected: Harder to represent parent-child relationships
-
-### Why Two-Phase Reuse?
-
-Separating foreign reuse (transitive) from self-nesting (non-transitive) allows:
-- User fields to include group fields everywhere user is reused
-- Process parent to exist without copying to all reused process locations
-
-### Why Separate Filters?
-
-Subset (include) and exclude (remove) serve different use cases:
-- Subset: Build targeted deployments
-- Exclude: Test deprecation impact
-
-Both can be used together for maximum flexibility.
-

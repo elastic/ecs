@@ -15,6 +15,70 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Schema Cleaner Module.
+
+This module performs validation, normalization, and enrichment of schema
+definitions after loading. It ensures schemas are well-formed and fills in
+sensible defaults to simplify downstream processing.
+
+The cleaner operates on the deeply nested structure produced by loader.py and
+makes in-place modifications. It's the second stage of the schema processing
+pipeline:
+
+    loader.py → cleaner.py → finalizer.py → intermediate_files.py
+
+Responsibilities:
+    1. **Validation**: Check mandatory attributes are present
+    2. **Normalization**: Strip whitespace, standardize values
+    3. **Defaults**: Fill in sensible defaults for optional attributes
+    4. **Enrichment**: Pre-calculate helpful derived fields
+    5. **Shorthand Expansion**: Convert shorthand notation to full form
+    6. **Quality Checks**: Validate descriptions, examples, patterns
+
+What the Cleaner Does:
+    - Validates mandatory attributes (name, title, description, type, level)
+    - Strips leading/trailing whitespace from string values
+    - Sets defaults for missing optional attributes:
+        * group=2 (standard priority)
+        * root=false (not a root fieldset)
+        * type='group' (for fieldsets)
+        * ignore_above=1024 (for keyword fields)
+        * norms=false (for text fields)
+    - Calculates schema prefix for field names
+    - Expands reuse location shorthand notation
+    - Validates field levels (core/extended/custom)
+    - Checks description lengths
+    - Validates regex patterns
+    - Validates example values against patterns/expected_values
+
+What the Cleaner Does NOT Do:
+    - Perform field reuse (handled by finalizer.py)
+    - Calculate final field names (handled by finalizer.py)
+    - Generate output artifacts (handled by generators)
+    - Modify schema structure (only enriches existing structure)
+
+Strict Mode:
+    When run with --strict flag, warnings become exceptions. This enforces:
+    - Short descriptions under 120 characters
+    - Valid example values
+    - Proper regex patterns
+    - No YAML interpretation issues
+
+Key Concepts:
+    - **Mandatory Attributes**: Must be present or cleaner raises ValueError
+    - **Defaults**: Optional attributes get sensible defaults if missing
+    - **Intermediate Fields**: Auto-created parents (type=object, intermediate=true)
+    - **Reuse Notation**: Shorthand 'destination' expands to {'at': 'destination', 'as': 'user'}
+
+Example:
+    >>> from schema import loader, cleaner
+    >>> fields = loader.load_schemas()
+    >>> cleaner.clean(fields, strict=False)
+    # Fields now have defaults filled in and are validated
+
+See also: scripts/docs/schema-pipeline.md for complete pipeline documentation
+"""
+
 import re
 from typing import (
     Dict,
@@ -32,25 +96,44 @@ from ecs_types import (
     MultiField,
 )
 
-# This script performs a few cleanup functions in place, within the deeply nested
-# 'fields' structure passed to `clean(fields)`.
-#
-# What happens here:
-#
-# - check that mandatory attributes are present, without which we can't do much.
-# - cleans things up, like stripping spaces, sorting arrays
-# - makes lots of defaults explicit
-# - pre-calculate a few additional helpful fields
-# - converts shorthands into full representation (e.g. reuse locations)
-#
-# This script only deals with field sets themselves and the fields defined
-# inside them. It doesn't perform field reuse, and therefore doesn't
-# deal with final field names either.
-
 strict_mode: Optional[bool]  # work-around from https://github.com/python/mypy/issues/5732
 
 
 def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
+    """Clean, validate, and enrich schema definitions in place.
+
+    This is the main entry point for the cleaner module. It uses the visitor
+    pattern to traverse all fieldsets and fields, applying validation,
+    normalization, and defaults to each.
+
+    Args:
+        fields: Deeply nested field dictionary from loader.py
+        strict: If True, warnings become exceptions (enforces stricter validation)
+
+    Side Effects:
+        Modifies fields dictionary in place:
+        - Adds default values for optional attributes
+        - Strips whitespace from strings
+        - Expands shorthand notation
+        - Calculates derived fields
+
+    Raises:
+        ValueError: If mandatory attributes are missing or invalid
+
+    Processing Order:
+        1. Visit each fieldset, call schema_cleanup()
+        2. Visit each field, call field_cleanup()
+        3. Both use depth-first traversal (parents before children)
+
+    Example:
+        >>> fields = loader.load_schemas()
+        >>> clean(fields, strict=False)  # Warnings for issues
+        >>> clean(fields, strict=True)   # Exceptions for issues
+
+    Note:
+        Sets global strict_mode variable that controls warning behavior.
+        This is a workaround for passing state to visitor callbacks.
+    """
     global strict_mode
     strict_mode = strict
     visitor.visit_fields(fields, fieldset_func=schema_cleanup, field_func=field_cleanup)
@@ -60,6 +143,38 @@ def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
 
 
 def schema_cleanup(schema: FieldEntry) -> None:
+    """Clean, validate, and enrich a single fieldset definition.
+
+    Performs all cleanup operations for a fieldset (schema-level node):
+    - Validates mandatory attributes
+    - Strips whitespace
+    - Fills in defaults
+    - Calculates prefix
+    - Expands reuse notation
+    - Validates constraints
+
+    Args:
+        schema: Fieldset entry with 'schema_details', 'field_details', 'fields'
+
+    Side Effects:
+        Modifies schema dictionary in place
+
+    Raises:
+        ValueError: If mandatory attributes missing or invalid
+
+    Defaults Applied:
+        - group: 2 (standard priority)
+        - root: False (not a root fieldset)
+        - type: 'group' (fieldset type)
+        - short: Copy of description
+        - reusable.order: 2 (default reuse priority)
+
+    Calculated Fields:
+        - prefix: '' if root=true, else 'name.' (e.g., 'http.')
+
+    Note:
+        Called by visitor for each fieldset during traversal.
+    """
     # Sanity check first
     schema_mandatory_attributes(schema)
     # trailing space cleanup
@@ -87,7 +202,35 @@ SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
 def schema_mandatory_attributes(schema: FieldEntry) -> None:
-    """Ensures for the presence of the mandatory schema attributes and raises if any are missing"""
+    """Validate that all mandatory fieldset attributes are present.
+
+    Checks for required attributes at both field_details and schema_details level.
+    For reusable fieldsets, also validates reusable-specific attributes.
+
+    Args:
+        schema: Fieldset entry to validate
+
+    Raises:
+        ValueError: If any mandatory attributes are missing
+
+    Mandatory Attributes:
+        All fieldsets:
+        - name: Fieldset identifier
+        - title: Display title
+        - description: Fieldset description
+
+        Reusable fieldsets (if reusable key present):
+        - expected: Array of reuse locations
+        - top_level: Whether fieldset can appear at root
+
+    Example:
+        >>> schema = {
+        ...     'field_details': {'name': 'http', 'description': '...'},
+        ...     'schema_details': {}
+        ... }
+        >>> schema_mandatory_attributes(schema)
+        ValueError: Schema http is missing the following mandatory attributes: title
+    """
     current_schema_attributes: List[str] = sorted(list(schema['field_details'].keys()) +
                                                   list(schema['schema_details'].keys()))
     missing_attributes: List[str] = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)
@@ -105,7 +248,27 @@ def schema_mandatory_attributes(schema: FieldEntry) -> None:
 
 
 def schema_assertions_and_warnings(schema: FieldEntry) -> None:
-    """Additional checks on a fleshed out schema"""
+    """Perform additional validation checks on enriched fieldset.
+
+    Called after defaults are filled in and normalization is complete.
+    Validates quality constraints like description length and format.
+
+    Args:
+        schema: Fieldset entry to validate
+
+    Side Effects:
+        May print warnings or raise exceptions depending on strict_mode
+
+    Checks Performed:
+        - Short description is single line and under 120 characters
+        - Beta description (if present) is single line
+        - Reuse short_override descriptions (if present) are single line
+
+    Note:
+        Behavior depends on global strict_mode variable:
+        - strict=False: Prints warnings
+        - strict=True: Raises exceptions
+    """
     single_line_short_description(schema, strict=strict_mode)
     if 'beta' in schema['field_details']:
         single_line_beta_description(schema, strict=strict_mode)
@@ -114,19 +277,59 @@ def schema_assertions_and_warnings(schema: FieldEntry) -> None:
 
 
 def normalize_reuse_notation(schema: FieldEntry) -> None:
-    """
-    Replace single word reuse shorthands from the schema YAMLs with the explicit {at: , as:} notation.
+    """Expand shorthand reuse notation to explicit {at:, as:} dictionary format.
 
-    When marking "user" as reusable under "destination" with the shorthand entry
-    `- destination`, this is expanded to the complete entry
-    `- { "at": "destination", "as": "user" }`.
-    The field set is thus nested at `destination.user.*`, with fields such as `destination.user.name`.
+    Schema YAMLs allow two formats for specifying where a fieldset should be reused:
 
-    The dictionary notation enables nesting a field set as a different name.
-    An example is nesting "process" fields to capture parent process details
-    at `process.parent.*`.
-    The dictionary notation `- { "at": "process", "as": "parent" }` will yield
-    fields such as `process.parent.pid`.
+    1. Shorthand string: 'destination'
+       Expands to: {'at': 'destination', 'as': 'user'}
+       Results in: destination.user.* fields
+
+    2. Explicit dict: {'at': 'process', 'as': 'parent'}
+       Already explicit, just validated
+       Results in: process.parent.* fields
+
+    This function normalizes both formats to the explicit dictionary form and
+    calculates the 'full' path for convenience.
+
+    Args:
+        schema: Fieldset entry (only processed if reusable)
+
+    Side Effects:
+        Modifies schema['schema_details']['reusable']['expected'] in place,
+        converting all entries to explicit dictionary format with 'full' key
+
+    Raises:
+        ValueError: If dictionary notation is incomplete (missing 'at' or 'as')
+
+    Reuse Examples:
+        Shorthand:
+        ```yaml
+        reusable:
+          expected:
+            - destination  # Shorthand
+        ```
+        Becomes:
+        {'at': 'destination', 'as': 'user', 'full': 'destination.user'}
+
+        Explicit:
+        ```yaml
+        reusable:
+          expected:
+            - at: process
+              as: parent
+        ```
+        Becomes:
+        {'at': 'process', 'as': 'parent', 'full': 'process.parent'}
+
+    Use Cases:
+        - 'user' reused at 'destination', 'source', 'client', 'server'
+        - 'process' reused as 'process.parent' (self-nesting)
+        - 'geo' reused under 'client.geo', 'server.geo' (not top-level)
+
+    Note:
+        The 'full' path is used by downstream stages to quickly identify
+        where fields will appear after reuse is performed.
     """
     if 'reusable' not in schema['schema_details']:
         return
@@ -151,6 +354,37 @@ def normalize_reuse_notation(schema: FieldEntry) -> None:
 
 
 def field_cleanup(field: FieldDetails) -> None:
+    """Clean, validate, and enrich a single field definition.
+
+    Performs all cleanup operations for a field:
+    - Validates mandatory attributes
+    - Strips whitespace (unless intermediate field)
+    - Fills in defaults
+    - Validates constraints
+
+    Args:
+        field: Field entry with 'field_details' and optionally 'fields'
+
+    Side Effects:
+        Modifies field dictionary in place
+
+    Raises:
+        ValueError: If mandatory attributes missing or invalid
+
+    Processing Steps:
+        1. Validate mandatory attributes present
+        2. Skip further processing if intermediate field
+        3. Clean string values (strip whitespace)
+        4. Clean allowed_values if present
+        5. Apply datatype-specific defaults
+        6. Validate constraints (examples, patterns, etc.)
+
+    Note:
+        Intermediate fields are skipped because they're auto-generated
+        structural fields, not real data fields.
+
+        Called by visitor for each field during traversal.
+    """
     field_mandatory_attributes(field)
     if ecs_helpers.is_intermediate(field):
         return
@@ -163,6 +397,33 @@ def field_cleanup(field: FieldDetails) -> None:
 
 
 def field_defaults(field: FieldDetails) -> None:
+    """Apply default values for optional field attributes.
+
+    Sets sensible defaults based on field type, reducing boilerplate in
+    schema YAML files. Also processes multi-fields.
+
+    Args:
+        field: Field entry to enrich with defaults
+
+    Side Effects:
+        Modifies field dictionary in place
+
+    Defaults Applied:
+        General:
+        - short: Copy of description (if not specified)
+        - normalize: [] (empty array if not specified)
+
+        Type-specific (see field_or_multi_field_datatype_defaults):
+        - keyword: ignore_above=1024
+        - text: norms=false
+        - fields with index=false: doc_values=false
+
+        Multi-fields:
+        - name: type name if not specified (e.g., 'text', 'keyword')
+
+    Note:
+        Multi-fields get their own defaults applied recursively.
+    """
     field['field_details'].setdefault('short', field['field_details']['description'])
     field['field_details'].setdefault('normalize', [])
     field_or_multi_field_datatype_defaults(field['field_details'])
@@ -174,7 +435,32 @@ def field_defaults(field: FieldDetails) -> None:
 
 
 def field_or_multi_field_datatype_defaults(field_details: Union[Field, MultiField]) -> None:
-    """Sets datatype-related defaults on a canonical field or multi-field entries."""
+    """Apply datatype-specific defaults to field or multi-field.
+
+    Different Elasticsearch field types have different sensible defaults.
+    This function applies appropriate defaults based on the 'type' attribute.
+
+    Args:
+        field_details: Field or multi-field definition dict
+
+    Side Effects:
+        Modifies field_details dictionary in place
+
+    Defaults by Type:
+        - keyword: ignore_above=1024 (truncate very long values)
+        - text: norms=false (save space, usually not needed for search)
+        - wildcard: Remove 'index' param (not applicable)
+        - index=false: doc_values=false, remove ignore_above
+
+    Rationale:
+        - ignore_above prevents errors from very long strings
+        - norms=false is common for log data (saves significant space)
+        - doc_values=false with index=false is an optimization
+        - wildcard fields don't support some parameters
+
+    Note:
+        Works for both regular fields and multi-fields (same logic applies).
+    """
     if field_details['type'] == 'keyword':
         field_details.setdefault('ignore_above', 1024)
     if field_details['type'] == 'text':
@@ -192,7 +478,43 @@ ACCEPTABLE_FIELD_LEVELS = ['core', 'extended', 'custom']
 
 
 def field_mandatory_attributes(field: FieldDetails) -> None:
-    """Ensures for the presence of the mandatory field attributes and raises if any are missing"""
+    """Validate that all mandatory field attributes are present.
+
+    Checks for required attributes with special handling for type-specific
+    requirements (alias, scaled_float).
+
+    Args:
+        field: Field entry to validate
+
+    Raises:
+        ValueError: If any mandatory attributes are missing
+
+    Mandatory Attributes:
+        All fields:
+        - name: Field identifier
+        - description: Field description
+        - type: Elasticsearch field type
+        - level: Field level (core/extended/custom)
+
+        Type-specific:
+        - alias fields: Also require 'path' (target field)
+        - scaled_float fields: Also require 'scaling_factor'
+
+    Note:
+        Intermediate fields (auto-created parents) are skipped as they
+        don't need full validation.
+
+    Example:
+        >>> field = {
+        ...     'field_details': {
+        ...         'name': 'method',
+        ...         'description': '...'
+        ...         # Missing 'type' and 'level'
+        ...     }
+        ... }
+        >>> field_mandatory_attributes(field)
+        ValueError: Field is missing the following mandatory attributes: type, level
+    """
     if ecs_helpers.is_intermediate(field):
         return
     current_field_attributes: List[str] = sorted(field['field_details'].keys())
@@ -212,7 +534,33 @@ def field_mandatory_attributes(field: FieldDetails) -> None:
 
 
 def field_assertions_and_warnings(field: FieldDetails) -> None:
-    """Additional checks on a fleshed out field"""
+    """Perform additional validation checks on enriched field.
+
+    Called after defaults are filled in and normalization is complete.
+    Validates quality constraints and semantic correctness.
+
+    Args:
+        field: Field entry to validate
+
+    Side Effects:
+        May print warnings or raise exceptions depending on strict_mode
+
+    Checks Performed:
+        - Short description is single line and under 120 characters
+        - Beta description (if present) is single line
+        - Pattern (if present) is valid regex
+        - Example value matches pattern/expected_values
+        - Level is one of: core, extended, custom
+
+    Raises:
+        ValueError: Always for invalid level (regardless of strict mode)
+
+    Note:
+        Behavior depends on global strict_mode variable:
+        - strict=False: Prints warnings for most issues
+        - strict=True: Raises exceptions for all issues
+        - Invalid level always raises (can't continue with invalid level)
+    """
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
@@ -227,13 +575,30 @@ def field_assertions_and_warnings(field: FieldDetails) -> None:
                 ACCEPTABLE_FIELD_LEVELS)
             raise ValueError(msg)
 
-# Common
+# Common Validation Helpers
 
 
 SHORT_LIMIT = 120
 
 
 def single_line_short_check(short_to_check: str, short_name: str) -> Union[str, None]:
+    """Check if a short description meets formatting requirements.
+
+    Validates that a short description is:
+    - Single line (no newline characters)
+    - Under 120 characters long
+
+    Args:
+        short_to_check: Short description string to validate
+        short_name: Name of field/fieldset (for error messages)
+
+    Returns:
+        Error message string if validation fails, None if valid
+
+    Note:
+        Does not raise or warn directly; returns error message for caller
+        to handle based on strict mode.
+    """
     short_length: int = len(short_to_check)
     if "\n" in short_to_check or short_length > SHORT_LIMIT:
         msg: str = "Short descriptions must be single line, and under {} characters (current length: {}).\n".format(
@@ -246,7 +611,22 @@ def single_line_short_check(short_to_check: str, short_name: str) -> Union[str, 
 
 
 def strict_warning_handler(message, strict):
-    """Handles warnings based on --strict mode"""
+    """Handle validation messages based on strict mode.
+
+    Args:
+        message: Validation error/warning message
+        strict: Whether to treat as error (True) or warning (False)
+
+    Raises:
+        ValueError: If strict=True
+
+    Side Effects:
+        Prints warning if strict=False
+
+    Note:
+        This centralized handler allows consistent behavior across all
+        validation checks.
+    """
     if strict:
         raise ValueError(message)
     else:
@@ -254,6 +634,18 @@ def strict_warning_handler(message, strict):
 
 
 def single_line_short_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
+    """Validate that short description is single line and under limit.
+
+    Args:
+        schema_or_field: Field or fieldset entry to validate
+        strict: Whether to raise exception (True) or print warning (False)
+
+    Raises:
+        ValueError: If validation fails and strict=True
+
+    Side Effects:
+        Prints warning if validation fails and strict=False
+    """
     error: Union[str, None] = single_line_short_check(
         schema_or_field['field_details']['short'], schema_or_field['field_details']['name'])
     if error:
@@ -261,6 +653,24 @@ def single_line_short_description(schema_or_field: FieldEntry, strict: Optional[
 
 
 def single_line_short_override_description(schema_or_field: FieldEntry, strict: Optional[bool] = True):
+    """Validate that reuse short_override descriptions are single line.
+
+    When a fieldset is reused, it can have custom short descriptions for
+    each reuse location. This validates all such overrides.
+
+    Args:
+        schema_or_field: Fieldset entry with reusable expected locations
+        strict: Whether to raise exception (True) or print warning (False)
+
+    Raises:
+        ValueError: If validation fails and strict=True
+
+    Side Effects:
+        Prints warning if validation fails and strict=False
+
+    Note:
+        Only validates short_override if present; it's optional.
+    """
     for field in schema_or_field['schema_details']['reusable']['expected']:
         if not 'short_override' in field:
             continue
@@ -270,9 +680,40 @@ def single_line_short_override_description(schema_or_field: FieldEntry, strict: 
 
 
 def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] = True) -> None:
-    """
-    Checks if value of the example field is of type list or dict.
-    Fails or warns (depending on strict mode) if so.
+    """Validate example value meets field constraints.
+
+    Performs several validation checks on the example value:
+    1. Not a YAML-interpreted object/array (should be quoted string)
+    2. Matches pattern regex (if pattern specified)
+    3. In expected_values list (if expected_values specified)
+
+    Args:
+        field: Field entry with field_details
+        strict: Whether to raise exception (True) or print warning (False)
+
+    Raises:
+        ValueError: If validation fails and strict=True
+
+    Side Effects:
+        Prints warning if validation fails and strict=False
+
+    Example Value Formats:
+        - Simple: "GET"
+        - Array: '["GET", "POST"]' (must be quoted to avoid YAML parsing)
+        - With pattern: Must match the regex in 'pattern' attribute
+
+    Special Handling:
+        - Array fields (normalize contains 'array'): Parses and validates each value
+        - Missing example: Skipped (example is optional)
+
+    Common Issues:
+        - Unquoted array: [GET, POST] becomes Python list → Error
+          Fix: Quote it: "[GET, POST]"
+        - Pattern mismatch: Example doesn't match validation regex
+        - Invalid enum: Example not in expected_values list
+
+    Note:
+        This prevents documentation from containing invalid or misleading examples.
     """
     example_value: str = field['field_details'].get('example', '')
     pattern: str = field['field_details'].get('pattern', '')
@@ -309,6 +750,21 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
 
 
 def single_line_beta_description(schema_or_field: FieldEntry, strict: Optional[bool] = True) -> None:
+    """Validate that beta description is single line.
+
+    Beta fields/fieldsets have a 'beta' attribute explaining why they're
+    in beta. This must be a single line for consistency.
+
+    Args:
+        schema_or_field: Field or fieldset entry with beta attribute
+        strict: Whether to raise exception (True) or print warning (False)
+
+    Raises:
+        ValueError: If validation fails and strict=True
+
+    Side Effects:
+        Prints warning if validation fails and strict=False
+    """
     if "\n" in schema_or_field['field_details']['beta']:
         msg: str = "Beta descriptions must be single line.\n"
         msg += f"Offending field or field set: {schema_or_field['field_details']['name']}"
@@ -316,8 +772,24 @@ def single_line_beta_description(schema_or_field: FieldEntry, strict: Optional[b
 
 
 def validate_pattern_regex(field, strict=True):
-    """
-    Validates if field['pattern'] contains a valid regular expression.
+    """Validate that pattern attribute is a valid regular expression.
+
+    Some fields have a 'pattern' attribute specifying a validation regex.
+    This ensures the pattern itself is syntactically valid.
+
+    Args:
+        field: Field definition dict with 'pattern' attribute
+        strict: Whether to raise exception (True) or print warning (False)
+
+    Raises:
+        ValueError: If validation fails and strict=True
+
+    Side Effects:
+        Prints warning if validation fails and strict=False
+
+    Note:
+        Uses Python's re.compile() to test validity.
+        Invalid patterns would cause runtime errors if not caught here.
     """
     try:
         re.compile(field['pattern'])

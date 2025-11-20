@@ -22,30 +22,29 @@ The CSV format is intentionally simple and widely compatible, making ECS field d
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     generator.py (main)                          │
-│                                                                  │
+│                     generator.py (main)                         │
+│                                                                 │
 │  Load → Clean → Finalize → Generate Intermediate Files          │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│            intermediate_files.generate()                         │
-│                                                                  │
+│            intermediate_files.generate()                        │
+│                                                                 │
 │  Returns: (nested, flat)                                        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼ flat dictionary
 ┌─────────────────────────────────────────────────────────────────┐
-│              csv_generator.generate()                            │
-│                                                                  │
+│              csv_generator.generate()                           │
 │  1. base_first() - Sort fields (base fields first)              │
 │  2. save_csv() - Write CSV with header + field rows             │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Output: fields.csv                            │
-│                                                                  │
+│                    Output: fields.csv                           │
+│                                                                 │
 │  ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization   │
 │  8.11.0,true,base,@timestamp,date,core,,2016-05-23...           │
 │  8.11.0,true,http,http.request.method,keyword,extended,...      │
@@ -167,34 +166,6 @@ generate(flat, '8.11.0', 'generated')
 # Creates generated/csv/fields.csv
 ```
 
-### Loading CSV in Python
-
-```python
-import csv
-
-with open('generated/csv/fields.csv', 'r') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        print(f"{row['Field']}: {row['Type']} ({row['Level']})")
-```
-
-### Loading CSV in Spreadsheet
-
-**Excel**:
-1. Open Excel
-2. File → Open → Select fields.csv
-3. Use "Text to Columns" if needed (comma-delimited)
-
-**Google Sheets**:
-1. File → Import
-2. Upload fields.csv
-3. Choose "Comma" as separator
-
-**LibreOffice Calc**:
-1. Open fields.csv
-2. Text Import dialog appears
-3. Select "Comma" separator
-
 ### Analyzing Field Data
 
 **Count fields by type**:
@@ -237,118 +208,6 @@ with open('generated/csv/fields.csv') as f:
 
 for fieldset in sorted(by_fieldset):
     print(f"{fieldset}: {len(by_fieldset[fieldset])} fields")
-```
-
-## Use Cases
-
-### 1. Field Auditing
-
-Identify fields missing examples or descriptions:
-
-```python
-import csv
-
-with open('generated/csv/fields.csv') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        if not row['Example']:
-            print(f"Missing example: {row['Field']}")
-```
-
-### 2. Version Comparison
-
-Compare field changes between versions:
-
-```bash
-# Generate CSV for two versions
-make SEMCONV_VERSION=v1.24.0
-cp generated/csv/fields.csv fields_v8.10.csv
-
-# Update and regenerate
-make clean
-make SEMCONV_VERSION=v1.25.0
-cp generated/csv/fields.csv fields_v8.11.csv
-
-# Compare
-diff -u fields_v8.10.csv fields_v8.11.csv > field_changes.diff
-```
-
-### 3. Custom Validation
-
-Build custom validation tools:
-
-```python
-import csv
-
-def validate_fields(csv_file):
-    errors = []
-    with open(csv_file) as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            # Check for required fields
-            if row['Level'] == 'core' and not row['Example']:
-                errors.append(f"Core field missing example: {row['Field']}")
-            
-            # Check normalization consistency
-            if 'array' in row['Normalization']:
-                if not row['Field'].endswith('s'):
-                    errors.append(f"Array field should be plural: {row['Field']}")
-    
-    return errors
-```
-
-### 4. Documentation Generation
-
-Generate custom field reference:
-
-```python
-import csv
-
-def generate_markdown(csv_file, fieldset):
-    with open(csv_file) as f:
-        reader = csv.DictReader(f)
-        fields = [row for row in reader if row['Field_Set'] == fieldset]
-    
-    print(f"# {fieldset.title()} Fields\n")
-    print("| Field | Type | Level | Description |")
-    print("|-------|------|-------|-------------|")
-    for field in fields:
-        print(f"| {field['Field']} | {field['Type']} | {field['Level']} | {field['Description']} |")
-
-generate_markdown('generated/csv/fields.csv', 'http')
-```
-
-### 5. Database Import
-
-Load into SQL database for querying:
-
-```sql
--- PostgreSQL example
-CREATE TABLE ecs_fields (
-    ecs_version TEXT,
-    indexed BOOLEAN,
-    field_set TEXT,
-    field TEXT,
-    type TEXT,
-    level TEXT,
-    normalization TEXT,
-    example TEXT,
-    description TEXT
-);
-
-COPY ecs_fields FROM '/path/to/fields.csv' CSV HEADER;
-
--- Query examples
-SELECT field_set, COUNT(*) as field_count
-FROM ecs_fields
-WHERE level = 'core'
-GROUP BY field_set
-ORDER BY field_count DESC;
-
-SELECT field, type, description
-FROM ecs_fields
-WHERE field_set = 'http'
-AND indexed = true;
 ```
 
 ## Making Changes
@@ -553,33 +412,6 @@ except csv.Error as e:
     print(f"CSV error: {e}")
 ```
 
-## Performance Considerations
-
-### Generation Time
-
-Typical generation times:
-- Small schema (100 fields): < 100ms
-- Standard ECS (850 fields): ~200ms  
-- Large schema (2000 fields): ~500ms
-
-**Bottlenecks**:
-1. Field sorting (negligible for <10k fields)
-2. CSV writing (I/O bound)
-3. String operations (normalization join)
-
-### File Size
-
-Approximate CSV sizes:
-- ~850 ECS fields: 150-200 KB
-- With multi-fields: 200-250 KB
-- Gzip compressed: 30-40 KB
-
-### Memory Usage
-
-- Entire file built in memory before writing
-- ~1 MB RAM for standard ECS
-- ~10 MB RAM for 10k fields
-
 ## Related Files
 
 - `scripts/generator.py` - Main entry point
@@ -587,49 +419,6 @@ Approximate CSV sizes:
 - `scripts/generators/ecs_helpers.py` - Utility functions
 - `schemas/*.yml` - Source ECS schemas
 - `generated/csv/fields.csv` - Output file
-
-## Testing
-
-Currently no automated tests for CSV generator.
-
-### Manual Testing
-
-```bash
-# Generate CSV
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Verify file exists
-ls -lh generated/csv/fields.csv
-
-# Check line count (should be ~850 + header + multi-fields)
-wc -l generated/csv/fields.csv
-
-# Validate CSV syntax
-python -c "import csv; list(csv.DictReader(open('generated/csv/fields.csv')))"
-
-# Check for duplicates
-cut -d',' -f4 generated/csv/fields.csv | sort | uniq -d
-```
-
-### Future Test Coverage
-
-Recommended tests:
-
-1. **Unit tests** for functions:
-   - `base_first()` sorting logic
-   - Field set extraction
-   - Multi-field handling
-
-2. **Integration tests**:
-   - Generate from sample schema
-   - Verify row count
-   - Check column names
-   - Validate CSV syntax
-
-3. **Regression tests**:
-   - Compare with known-good output
-   - Field count consistency
 
 ## References
 

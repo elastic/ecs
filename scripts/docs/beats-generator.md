@@ -21,34 +21,34 @@ The challenge: Beats can't load all ~850 ECS fields by default due to memory and
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     generator.py (main)                          │
-│                                                                  │
+│                     generator.py (main)                         │
+│                                                                 │
 │  Load → Clean → Finalize → Generate Intermediate Files          │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│            intermediate_files.generate()                         │
-│                                                                  │
+│            intermediate_files.generate()                        │
+│                                                                 │
 │  Returns: (nested, flat)                                        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼ nested structure
 ┌─────────────────────────────────────────────────────────────────┐
-│                 beats.generate()                                 │
-│                                                                  │
+│                 beats.generate()                                │
+│                                                                 │
 │  1. Filter non-root fieldsets                                   │
 │  2. Process 'base' fieldset (fields at root)                    │
 │  3. Process other fieldsets (as groups or root)                 │
 │  4. Load default_fields allowlist                               │
 │  5. Set default_field flags recursively                         │
-│  6. Wrap in 'ecs' top-level group                              │
+│  6. Wrap in 'ecs' top-level group                               │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Output: fields.ecs.yml                        │
-│                                                                  │
+│                    Output: fields.ecs.yml                       │
+│                                                                 │
 │  - key: ecs                                                     │
 │    title: ECS                                                   │
 │    fields:                                                      │
@@ -532,33 +532,6 @@ def set_default_field(fields, df_allowlist, df=False, path=''):
         # ... rest of function
 ```
 
-## Performance Considerations
-
-### Generation Time
-
-Typical generation times:
-- Small schema (10 fieldsets): < 100ms
-- Standard ECS (45 fieldsets): ~300ms
-- Large schema (100 fieldsets): ~1s
-
-**Bottlenecks**:
-1. default_field recursion (visits every field/multi-field)
-2. Field sorting (negligible)
-3. YAML serialization
-
-### File Size
-
-Approximate sizes:
-- Generated YAML: 150-200 KB
-- With all descriptions: 200-250 KB
-- Gzip compressed: 25-35 KB
-
-### Memory Usage
-
-- Entire structure built in memory
-- ~2-3 MB RAM for standard ECS
-- Peak during YAML serialization
-
 ## Integration with Beats
 
 ### In Beat Modules
@@ -604,59 +577,6 @@ If a Beat defines custom fields with same names as ECS:
 - `scripts/generators/beats_default_fields_allowlist.yml` - Default field allowlist
 - `schemas/*.yml` - Source ECS schemas
 - `generated/beats/fields.ecs.yml` - Output file
-
-## Testing
-
-Currently no automated tests for Beats generator.
-
-### Manual Testing
-
-```bash
-# Generate
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Verify file exists
-ls -lh generated/beats/fields.ecs.yml
-
-# Validate YAML syntax
-python -c "import yaml; docs=yaml.safe_load(open('generated/beats/fields.ecs.yml')); print(f'Valid YAML: {len(docs)} documents')"
-
-# Count fields
-python -c "
-import yaml
-with open('generated/beats/fields.ecs.yml') as f:
-    data = yaml.safe_load(f)
-    
-def count_fields(fields):
-    count = len(fields)
-    for f in fields:
-        if 'fields' in f:
-            count += count_fields(f['fields'])
-    return count
-
-print(f'Total fields: {count_fields(data[0][\"fields\"])}')
-"
-```
-
-### Future Test Coverage
-
-Recommended tests:
-
-1. **Unit tests** for functions:
-   - `fieldset_field_array()` name conversion
-   - `set_default_field()` inheritance logic
-   - Property filtering
-
-2. **Integration tests**:
-   - Generate from sample schema
-   - Verify YAML structure
-   - Check default_field counts
-
-3. **Validation tests**:
-   - Load in actual Beat
-   - Verify field mappings work
-   - Test with sample data
 
 ## References
 

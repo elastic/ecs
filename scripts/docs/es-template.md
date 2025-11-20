@@ -22,15 +22,15 @@ The generated templates can be directly installed into Elasticsearch using the `
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     generator.py (main)                          │
-│                                                                  │
+│                     generator.py (main)                         │
+│                                                                 │
 │  Load → Clean → Finalize → Generate Intermediate Files          │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              es_template.generate() / generate_legacy()          │
-│                                                                  │
+│              es_template.generate() / generate_legacy()         │
+│                                                                 │
 │  Input: nested or flat fieldsets + version + settings           │
 └────────────────────────────┬────────────────────────────────────┘
                              │
@@ -50,16 +50,16 @@ The generated templates can be directly installed into Elasticsearch using the `
           │
           ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Elasticsearch JSON Templates                    │
-│                                                                  │
+│                  Elasticsearch JSON Templates                   │
+│                                                                 │
 │  Composable:                                                    │
-│  - generated/elasticsearch/composable/component/base.json        │
-│  - generated/elasticsearch/composable/component/agent.json       │
-│  - generated/elasticsearch/composable/component/*.json           │
-│  - generated/elasticsearch/composable/template.json              │
-│                                                                  │
+│  - generated/elasticsearch/composable/component/base.json       │
+│  - generated/elasticsearch/composable/component/agent.json      │
+│  - generated/elasticsearch/composable/component/*.json          │
+│  - generated/elasticsearch/composable/template.json             │
+│                                                                 │
 │  Legacy:                                                        │
-│  - generated/elasticsearch/legacy/template.json                  │
+│  - generated/elasticsearch/legacy/template.json                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -607,43 +607,6 @@ def print_fields(props, prefix=''):
 print_fields(template['template']['mappings']['properties'])
 ```
 
-## Performance Considerations
-
-### Template Size
-
-**Composable templates**: Each component typically 5-50 KB
-**Legacy template**: Single file ~500 KB for all ECS fields
-
-**Implications**:
-- Composable: Faster updates (only changed components)
-- Legacy: Simpler but slower to update
-
-### Field Limit Impact
-
-More fields = more memory per index:
-- Each field consumes memory for field data structures
-- Each doc adds values to field caches
-- Consider selective field inclusion for large deployments
-
-**Strategies**:
-1. Use only needed fieldsets (composable templates make this easy)
-2. Disable unused fields: `"enabled": false`
-3. Use flattened type for dynamic objects
-
-### Installation Time
-
-**Component templates**: 
-- ~50ms per component
-- 45 components = ~2.25 seconds total
-
-**Legacy template**:
-- ~100-200ms for single large template
-
-**Best practices**:
-- Install during maintenance windows
-- Test in non-production first
-- Use automation (Ansible, Terraform)
-
 ## Related Files
 
 - `scripts/generator.py` - Main entry point
@@ -653,40 +616,6 @@ More fields = more memory per index:
 - `schemas/*.yml` - Source ECS schemas
 - `generated/elasticsearch/composable/` - Composable template output
 - `generated/elasticsearch/legacy/` - Legacy template output
-
-## Testing
-
-Currently no automated tests exist for the ES template generator.
-
-### Manual Testing Checklist
-
-- [ ] Generate templates successfully
-- [ ] Validate JSON syntax
-- [ ] Install composable template in test cluster
-- [ ] Install legacy template in test cluster
-- [ ] Index sample document
-- [ ] Verify correct mapping types applied
-- [ ] Test multi-fields work correctly
-- [ ] Check custom parameters present
-- [ ] Verify metadata included
-
-### Future Test Coverage
-
-Recommended tests:
-
-1. **Unit tests** for conversion functions:
-   - `entry_for()` with each field type
-   - `dict_add_nested()` edge cases
-   - Custom parameter handling
-
-2. **Integration tests**:
-   - Generate from sample schema
-   - Validate against Elasticsearch JSON schema
-   - Test installation in real cluster
-
-3. **Regression tests**:
-   - Compare output against known-good baseline
-   - Detect unexpected changes
 
 ## References
 

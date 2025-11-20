@@ -17,7 +17,7 @@
 
 """OpenTelemetry Semantic Conventions Integration Module.
 
-This module handles the integration between ECS (Elastic Common Schema) and 
+This module handles the integration between ECS (Elastic Common Schema) and
 OpenTelemetry Semantic Conventions. It provides functionality to:
 - Load OTel semantic conventions from GitHub
 - Validate ECS field mappings against OTel attributes and metrics
@@ -64,20 +64,20 @@ def get_model_files(
     semconv_version: str,
 ) -> List[OTelModelFile]:
     """Load OpenTelemetry Semantic Conventions model files from a GitHub repository.
-    
+
     This function clones or uses a cached version of the OTel semantic conventions
     repository and extracts all model files (YAML) from the 'model' directory.
-    
+
     Args:
         git_repo: URL of the git repository containing semantic conventions
         semconv_version: Git tag or branch name to checkout (e.g., 'v1.24.0')
-    
+
     Returns:
         List of OTel model files, each containing groups of attributes/metrics
-    
+
     Raises:
         KeyError: If the 'model' directory doesn't exist in the repository
-    
+
     Example:
         >>> files = get_model_files(OTEL_SEMCONV_GIT, 'v1.24.0')
         >>> len(files)  # Number of YAML files found
@@ -95,18 +95,18 @@ def get_attributes(
     model_files: List[OTelModelFile]
 ) -> Dict[str, OTelAttribute]:
     """Extract all non-deprecated OTel attributes from model files.
-    
+
     Iterates through all model files and extracts attributes from attribute_groups,
     filtering out deprecated entries. Prefixes are applied to attribute IDs when
     specified in the group definition.
-    
+
     Args:
         model_files: List of OTel model files loaded from the repository
-    
+
     Returns:
         Dictionary mapping attribute IDs (e.g., 'http.request.method') to their
         full attribute definitions including stability, type, and metadata
-    
+
     Note:
         - Only processes groups with type='attribute_group'
         - Skips deprecated groups and attributes
@@ -131,17 +131,17 @@ def get_metrics(
     model_files: List[OTelModelFile]
 ) -> Dict[str, OTelAttribute]:
     """Extract all non-deprecated OTel metrics from model files.
-    
+
     Iterates through all model files and extracts metric definitions,
     filtering out deprecated entries.
-    
+
     Args:
         model_files: List of OTel model files loaded from the repository
-    
+
     Returns:
         Dictionary mapping metric names (e.g., 'http.server.request.duration')
         to their full metric group definitions including stability and metadata
-    
+
     Note:
         - Only processes groups with type='metric'
         - Skips deprecated metrics
@@ -161,17 +161,17 @@ def collectOTelModelFiles(
     level=0
 ) -> List[OTelModelFile]:
     """Recursively collect all YAML model files from a git tree.
-    
+
     Traverses the directory tree structure and parses all YAML files found,
     returning them as OTel model file objects.
-    
+
     Args:
         tree: Git tree object representing a directory
         level: Current recursion depth (used for tracking)
-    
+
     Returns:
         List of parsed OTel model files from all YAML files in the tree
-    
+
     Note:
         - Recursively processes subdirectories
         - Only processes files with .yml or .yaml extensions
@@ -193,23 +193,23 @@ def get_tree_by_url(
     git_ref: str,
 ) -> git.objects.tree.Tree:
     """Clone or update a git repository and return the tree for a specific reference.
-    
+
     This function manages a local cache of the OTel semantic conventions repository.
     If the repository is already cloned and contains the requested ref, it reuses
     the cached version. Otherwise, it clones fresh from the remote.
-    
+
     Args:
         url: Git repository URL to clone from
         git_ref: Git reference (tag or branch) to checkout (e.g., 'v1.24.0')
-    
+
     Returns:
         Git tree object representing the repository contents at the specified ref
-    
+
     Note:
         - Caches the repository in LOCAL_TARGET_DIR_OTEL_SEMCONV (./build/otel-semconv/)
         - If cached repo doesn't have the requested ref, re-clones from remote
         - Prints status message when downloading from remote
-    
+
     Example:
         >>> tree = get_tree_by_url(OTEL_SEMCONV_GIT, 'v1.24.0')
         Loading OpenTelemetry Semantic Conventions version "v1.24.0"
@@ -238,22 +238,22 @@ def get_otel_attribute_name(
     otel: OTelMapping
 ) -> str:
     """Extract the OTel attribute name from a mapping.
-    
+
     Determines the appropriate OTel attribute name based on the mapping relation type:
     - 'match': Use the ECS field's flat_name (names are identical)
     - Other relations: Use the explicitly specified 'attribute' property
-    
+
     Args:
         field: ECS field definition containing flat_name
         otel: OTel mapping configuration with relation type
-    
+
     Returns:
         The OTel attribute name to use for lookups
-    
+
     Raises:
         KeyError: If mapping is for a metric (not attribute) or if the relation
                  type doesn't support attribute name extraction
-    
+
     Example:
         >>> field = {'flat_name': 'http.request.method'}
         >>> otel = {'relation': 'match'}
@@ -273,13 +273,13 @@ def get_otel_attribute_name(
 
 def must_have(ecs_field_name, otel, relation_type, property):
     """Validate that a required property exists in an OTel mapping.
-    
+
     Args:
         ecs_field_name: Name of the ECS field being validated
         otel: OTel mapping configuration dictionary
         relation_type: The relation type requiring this property
         property: Name of the required property
-    
+
     Raises:
         ValueError: If the required property is missing
     """
@@ -290,13 +290,13 @@ def must_have(ecs_field_name, otel, relation_type, property):
 
 def must_not_have(ecs_field_name, otel, relation_type, property):
     """Validate that a forbidden property does not exist in an OTel mapping.
-    
+
     Args:
         ecs_field_name: Name of the ECS field being validated
         otel: OTel mapping configuration dictionary
         relation_type: The relation type forbidding this property
         property: Name of the forbidden property
-    
+
     Raises:
         ValueError: If the forbidden property is present
     """
@@ -307,22 +307,22 @@ def must_not_have(ecs_field_name, otel, relation_type, property):
 
 class OTelGenerator:
     """Main class for OTel Semantic Conventions integration with ECS.
-    
+
     This class handles the complete workflow of:
     1. Loading OTel semantic conventions from GitHub
     2. Validating ECS field mappings against OTel definitions
     3. Generating alignment summaries for documentation
-    
+
     The generator is initialized with a specific OTel semantic conventions version
     and maintains in-memory caches of all attributes and metrics for validation.
-    
+
     Attributes:
         attributes: Dictionary of all OTel attributes (keyed by attribute ID)
         otel_attribute_names: List of all attribute IDs for quick lookup
         metrics: Dictionary of all OTel metrics (keyed by metric name)
         otel_metric_names: List of all metric names for quick lookup
         semconv_version: Version of OTel semantic conventions being used
-    
+
     Example:
         >>> generator = OTelGenerator('v1.24.0')
         >>> generator.validate_otel_mapping(ecs_fields)
@@ -331,14 +331,14 @@ class OTelGenerator:
 
     def __init__(self, semconv_version: str):
         """Initialize the OTel generator with a specific semantic conventions version.
-        
+
         Loads all model files from the OTel semantic conventions repository and
         extracts attributes and metrics for validation and reference.
-        
+
         Args:
             semconv_version: Git tag or branch of semantic conventions to use
                            (e.g., 'v1.24.0')
-        
+
         Note:
             This operation may take time on first run as it clones the repository.
             Subsequent runs with the same version use a cached clone.
@@ -355,15 +355,15 @@ class OTelGenerator:
 
     def __set_stability(self, details):
         """Set stability level on OTel mappings from their corresponding OTel definitions.
-        
+
         Called by the visitor pattern during field traversal. Enriches each mapping
         with the stability level (experimental, stable, deprecated) from the OTel
         semantic conventions.
-        
+
         Args:
             details: Field details dictionary containing 'field_details' with
                     optional 'otel' mappings
-        
+
         Note:
             - For metrics: Uses the metric group's stability
             - For attributes: Uses the attribute's stability
@@ -380,11 +380,11 @@ class OTelGenerator:
 
     def __check_metric_name(self, field_name, metric_name):
         """Validate that a referenced metric exists in OTel semantic conventions.
-        
+
         Args:
             field_name: Name of the ECS field being validated
             metric_name: OTel metric name to verify
-        
+
         Raises:
             ValueError: If the metric doesn't exist in the loaded conventions
         """
@@ -394,11 +394,11 @@ class OTelGenerator:
 
     def __check_attribute_name(self, field_details, otel):
         """Validate that a referenced attribute exists in OTel semantic conventions.
-        
+
         Args:
             field_details: ECS field definition
             otel: OTel mapping configuration
-        
+
         Raises:
             ValueError: If the attribute doesn't exist in the loaded conventions
         """
@@ -409,20 +409,20 @@ class OTelGenerator:
 
     def __check_mapping(self, details):
         """Validate an ECS field's OTel mapping configuration.
-        
+
         Performs comprehensive validation of OTel mappings including:
         - Required and forbidden properties for each relation type
         - Existence of referenced attributes/metrics
         - Proper structure and consistency
-        
+
         Called by the visitor pattern during field traversal.
-        
+
         Args:
             details: Field details dictionary containing 'field_details'
-        
+
         Raises:
             ValueError: If mapping configuration is invalid
-        
+
         Note:
             Relation types and their requirements:
             - 'match': Names are identical, no extra properties
@@ -482,23 +482,23 @@ class OTelGenerator:
         field_entries: Dict[str, FieldEntry]
     ) -> None:
         """Validate all OTel mappings in ECS field definitions.
-        
+
         This is the main validation entry point. It performs two passes over
         all fields:
         1. Validate mapping structure and referenced attributes/metrics exist
         2. Enrich mappings with stability information from OTel definitions
-        
+
         Args:
             field_entries: Dictionary of all ECS field entries to validate
-        
+
         Raises:
             ValueError: If any mapping is invalid or references non-existent
                        OTel attributes/metrics
-        
+
         Note:
             Uses the visitor pattern to traverse nested field structures.
             Prints warnings for unmapped fields that match OTel attribute names.
-        
+
         Example:
             >>> generator = OTelGenerator('v1.24.0')
             >>> fields = loader.load_schemas()
@@ -512,14 +512,14 @@ class OTelGenerator:
         fieldsets: List[FieldNestedEntry],
     ) -> List[OTelMappingSummary]:
         """Generate alignment summaries between ECS fieldsets and OTel namespaces.
-        
+
         Creates summary statistics for each ECS fieldset and each OTel namespace,
         showing the degree of alignment between the two standards. This is used
         for generating documentation.
-        
+
         Args:
             fieldsets: List of ECS fieldsets (nested field groups)
-        
+
         Returns:
             List of summary objects containing:
             - namespace: The fieldset/namespace name
@@ -534,12 +534,12 @@ class OTelGenerator:
             - nr_metric_fields: Fields mapped to metrics
             - nr_otlp_fields: Fields mapped to OTLP protocol fields
             - nr_not_applicable_fields: Fields marked as not applicable
-        
+
         Note:
             - Summaries are sorted alphabetically by namespace
             - Includes summaries for OTel namespaces that have no ECS equivalent
             - Used by markdown_fields.py to generate documentation
-        
+
         Example:
             >>> summaries = generator.get_mapping_summaries(nested_fieldsets)
             >>> for s in summaries:

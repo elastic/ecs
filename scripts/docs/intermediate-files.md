@@ -23,8 +23,8 @@ These intermediate files provide:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     Schema Processing                            │
-│                                                                  │
+│                     Schema Processing                           │
+│                                                                 │
 │  1. loader.py       - Load YAML schemas from files              │
 │  2. cleaner.py      - Normalize and validate                    │
 │  3. finalizer.py    - Apply transformations                     │
@@ -34,12 +34,12 @@ These intermediate files provide:
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              intermediate_files.generate()                       │
-│                    [THIS MODULE]                                 │
-│                                                                  │
+│              intermediate_files.generate()                      │
+│                    [THIS MODULE]                                │
+│                                                                 │
 │  Input: Dict[str, FieldEntry] (processed schemas)               │
-│                                                                  │
-│  ┌───────────────────────┐  ┌───────────────────────┐          │
+│                                                                 │
+│  ┌───────────────────────┐  ┌───────────────────────┐           │
 │  │ generate_flat_fields()│  │generate_nested_fields()│          │
 │  │                       │  │                        │          │
 │  │ • Filter non-root     │  │ • Keep all fieldsets   │          │
@@ -53,8 +53,8 @@ These intermediate files provide:
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Artifact Generators                           │
-│                                                                  │
+│                    Artifact Generators                          │
+│                                                                 │
 │  • CSV Generator         - Uses ecs_flat.yml                    │
 │  • Elasticsearch         - Uses ecs_nested.yml                  │
 │  • Beats Generator       - Uses ecs_nested.yml                  │
@@ -538,49 +538,6 @@ with open('generated/ecs/ecs_flat.yml') as f:
         print(f"{field_type}: {count}")
 ```
 
-## Performance Considerations
-
-### Memory Usage
-
-The visitor pattern used for field traversal is memory-efficient:
-- Processes fields one at a time
-- Deep copies only when needed
-- Accumulates results incrementally
-
-For very large schemas (1000+ fields):
-- Memory usage: ~50-100MB during generation
-- Most memory used by YAML serialization
-
-### Execution Time
-
-Typical generation times:
-- Small schema (10 fieldsets): <100ms
-- Standard ECS (~45 fieldsets): ~500ms
-- Large schema (100+ fieldsets): ~2-3s
-
-Bottlenecks:
-1. Deep copying field definitions
-2. Visitor traversal
-3. YAML serialization (yaml.dump)
-
-### Optimization Strategies
-
-If generation becomes too slow:
-
-1. **Profile to find bottlenecks**:
-   ```python
-   import cProfile
-   cProfile.run('generate(fields, out_dir, default_dirs)')
-   ```
-
-2. **Optimize deep copies**:
-   - Only copy fields that will be modified
-   - Use shallow copies where possible
-
-3. **Parallel processing** (advanced):
-   - Process fieldsets in parallel for nested format
-   - Requires careful handling of shared state
-
 ## Related Files
 
 - `scripts/generator.py` - Main entry point, calls this generator
@@ -595,46 +552,6 @@ If generation becomes too slow:
 - `schemas/*.yml` - Source schema definitions
 - `generated/ecs/ecs_flat.yml` - Flat output
 - `generated/ecs/ecs_nested.yml` - Nested output
-
-## Testing
-
-Currently no automated tests exist for the intermediate file generator.
-
-### Manual Testing
-
-```bash
-# Generate with current code
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Verify output files exist
-ls -lh generated/ecs/ecs_flat.yml
-ls -lh generated/ecs/ecs_nested.yml
-
-# Validate YAML syntax
-python -c "import yaml; yaml.safe_load(open('generated/ecs/ecs_flat.yml'))"
-
-# Check field counts
-python -c "import yaml; print(len(yaml.safe_load(open('generated/ecs/ecs_flat.yml'))))"
-```
-
-### Future Test Coverage
-
-Recommended tests to add:
-
-1. **Unit tests** for helper functions:
-   - `remove_internal_attributes()`
-   - `remove_non_root_reusables()`
-   - `accumulate_field()`
-
-2. **Integration tests** for generation:
-   - Generate from minimal schema
-   - Verify field counts
-   - Check attribute presence/absence
-
-3. **Regression tests**:
-   - Compare output against known-good baseline
-   - Detect unexpected changes
 
 ## References
 

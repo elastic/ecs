@@ -76,20 +76,20 @@ from ecs_types import (
 
 def dict_copy_keys_ordered(dct: Field, copied_keys: List[str]) -> Field:
     """Copy specified keys from dictionary in a specific order.
-    
+
     Creates an OrderedDict containing only the specified keys in the order given.
     Useful for ensuring consistent field ordering in output files.
-    
+
     Args:
         dct: Source dictionary
         copied_keys: List of keys to copy, in desired order
-    
+
     Returns:
         OrderedDict with specified keys in given order
-    
+
     Note:
         Keys not present in source dictionary are silently skipped.
-    
+
     Example:
         >>> field = {'name': 'x', 'type': 'keyword', 'description': '...'}
         >>> dict_copy_keys_ordered(field, ['name', 'type', 'level'])
@@ -105,21 +105,21 @@ def dict_copy_keys_ordered(dct: Field, copied_keys: List[str]) -> Field:
 
 def dict_copy_existing_keys(source: Field, destination: Field, keys: List[str]) -> None:
     """Copy specified keys from source to destination dictionary if they exist.
-    
+
     Copies only keys that are present in the source dictionary, modifying
     the destination dictionary in place. Commonly used to selectively copy
     field properties based on field type.
-    
+
     Args:
         source: Dictionary to copy from
         destination: Dictionary to copy to (modified in place)
         keys: List of keys to attempt to copy
-    
+
     Note:
         - Destination is modified in place
         - Keys not in source are silently skipped
         - Existing keys in destination are overwritten
-    
+
     Example:
         >>> source = {'type': 'keyword', 'ignore_above': 1024, 'index': True}
         >>> dest = {'type': 'keyword'}
@@ -135,23 +135,23 @@ def dict_copy_existing_keys(source: Field, destination: Field, keys: List[str]) 
 
 def dict_sorted_by_keys(dct: FieldNestedEntry, sort_keys: List[str]) -> List[FieldNestedEntry]:
     """Sort dictionary values by multiple sort criteria.
-    
+
     Sorts the values of a dictionary by one or more keys within those values,
     returning a list of sorted values. Commonly used to sort fieldsets by
     group and name for consistent output ordering.
-    
+
     Args:
         dct: Dictionary of nested entries (e.g., fieldsets)
         sort_keys: Key(s) to sort by (string or list of strings)
-    
+
     Returns:
         List of dictionary values sorted by specified criteria
-    
+
     Behavior:
         - If sort_keys is a string, converts to single-element list
         - Sorts by first key, then second key (if provided), etc.
         - Uses Python's natural sorting (numbers < strings)
-    
+
     Example:
         >>> fieldsets = {
         ...     'http': {'name': 'http', 'group': 2, 'title': 'HTTP'},
@@ -187,24 +187,24 @@ def ordered_dict_insert(
     after_key: Optional[str] = None
 ) -> None:
     """Insert a key-value pair at a specific position in an ordered dictionary.
-    
+
     Inserts a new key-value pair before or after a specified key, maintaining
     the dictionary's order. If neither before_key nor after_key is found, the
     new pair is appended to the end.
-    
+
     Args:
         dct: OrderedDict to modify (modified in place)
         new_key: Key to insert
         new_value: Value to associate with new_key
         before_key: Insert before this key (takes precedence over after_key)
         after_key: Insert after this key (used if before_key not specified)
-    
+
     Note:
         - Modifies dictionary in place
         - If both before_key and after_key specified, before_key takes precedence
         - If neither key is found, new pair appended to end
         - If key already exists, it will be duplicated (use with caution)
-    
+
     Example:
         >>> from collections import OrderedDict
         >>> d = OrderedDict([('a', 1), ('c', 3)])
@@ -231,30 +231,30 @@ def ordered_dict_insert(
 
 def safe_merge_dicts(a: Dict[Any, Any], b: Dict[Any, Any]) -> Dict[Any, Any]:
     """Safely merge two dictionaries, raising error on duplicate keys.
-    
+
     Merges dictionary b into a deep copy of dictionary a. Raises ValueError
     if any keys conflict, preventing accidental data loss or overwrites.
-    
+
     Args:
         a: First dictionary (will be deep copied)
         b: Second dictionary to merge in
-    
+
     Returns:
         New dictionary with all keys from both dictionaries
-    
+
     Raises:
         ValueError: If any key exists in both dictionaries
-    
+
     Note:
         Dictionary a is deep copied, so original is not modified.
         This ensures merge operation has no side effects.
-    
+
     Example:
         >>> a = {'x': 1, 'y': 2}
         >>> b = {'z': 3}
         >>> safe_merge_dicts(a, b)
         {'x': 1, 'y': 2, 'z': 3}
-        
+
         >>> c = {'y': 99}  # Duplicate key
         >>> safe_merge_dicts(a, c)
         ValueError: Duplicate key found when merging dictionaries: y
@@ -270,33 +270,33 @@ def safe_merge_dicts(a: Dict[Any, Any], b: Dict[Any, Any]) -> Dict[Any, Any]:
 
 def fields_subset(subset, fields):
     """Extract a subset of fields based on subset specification.
-    
+
     Recursively filters fields based on a subset specification, retaining
     only the fieldsets and fields specified in the subset definition.
     Used to generate partial ECS schemas (e.g., for specific use cases).
-    
+
     Args:
         subset: Dictionary specifying which fieldsets/fields to include
         fields: Complete fields dictionary to filter
-    
+
     Returns:
         Filtered fields dictionary containing only specified fields
-    
+
     Raises:
         ValueError: If unsupported options found in subset specification
-    
+
     Subset specification format:
         {
             'fieldset_name': {
                 'fields': '*' | {'field1': {...}, 'field2': {...}}
             }
         }
-    
+
     Behavior:
         - Missing 'fields' key = include all fields in fieldset
-        - 'fields': '*' = include all fields in fieldset  
+        - 'fields': '*' = include all fields in fieldset
         - 'fields': {...} = recursively apply subset to nested fields
-    
+
     Example:
         >>> subset = {
         ...     'http': {'fields': '*'},  # All HTTP fields
@@ -326,18 +326,18 @@ def fields_subset(subset, fields):
 
 def yaml_ordereddict(dumper, data):
     """YAML representer for OrderedDict that preserves key order.
-    
+
     Custom YAML dumper function that serializes OrderedDict while maintaining
     the order of keys. Registered with PyYAML to automatically handle OrderedDict
     instances during yaml.dump().
-    
+
     Args:
         dumper: YAML dumper instance
         data: OrderedDict to represent
-    
+
     Returns:
         YAML MappingNode with keys in original order
-    
+
     Note:
         Primarily for Python 2 compatibility. Python 3.7+ dicts maintain
         insertion order by default, making this less critical.
@@ -359,18 +359,18 @@ yaml.add_representer(OrderedDict, yaml_ordereddict)
 
 def dict_clean_string_values(dict: Dict[Any, Any]) -> None:
     """Remove leading/trailing whitespace from all string values in dictionary.
-    
+
     Cleans up string values by stripping whitespace, useful for normalizing
     field definitions loaded from YAML where formatting might vary.
-    
+
     Args:
         dict: Dictionary to clean (modified in place)
-    
+
     Note:
         - Only string values are modified
         - Non-string values (numbers, bools, nested dicts) are left unchanged
         - Modifies dictionary in place
-    
+
     Example:
         >>> data = {'name': '  field  ', 'type': 'keyword', 'level': '  core  '}
         >>> dict_clean_string_values(data)
@@ -391,15 +391,15 @@ YAML_EXT = {'yml', 'yaml'}
 
 def is_yaml(path: str) -> bool:
     """Check if a file path has a YAML extension.
-    
+
     Determines if a file path ends with .yml or .yaml extension.
-    
+
     Args:
         path: File path to check
-    
+
     Returns:
         True if path has YAML extension, False otherwise
-    
+
     Example:
         >>> is_yaml('schemas/http.yml')
         True
@@ -413,16 +413,16 @@ def is_yaml(path: str) -> bool:
 
 def safe_list(o: Union[str, List[str]]) -> List[str]:
     """Convert string or list to list, splitting on comma if needed.
-    
+
     Normalizes input to a list format, useful for handling flexible
     function arguments that can be either strings or lists.
-    
+
     Args:
         o: String (comma-separated) or list of strings
-    
+
     Returns:
         List of strings
-    
+
     Example:
         >>> safe_list(['a', 'b', 'c'])
         ['a', 'b', 'c']
@@ -439,26 +439,26 @@ def safe_list(o: Union[str, List[str]]) -> List[str]:
 
 def glob_yaml_files(paths: List[str]) -> List[str]:
     """Find all YAML files matching given paths, wildcards, or directories.
-    
+
     Flexible file finder that handles:
     - Direct file paths (schemas/http.yml)
     - Wildcards (schemas/*.yml)
     - Directories (schemas/ -> all YAML files in dir)
     - Comma-separated strings ('path1,path2')
-    
+
     Args:
         paths: String or list of paths/wildcards/directories
-    
+
     Returns:
         Sorted list of matching YAML file paths
-    
+
     Example:
         >>> glob_yaml_files(['schemas/http.yml', 'schemas/user.yml'])
         ['schemas/http.yml', 'schemas/user.yml']
-        
+
         >>> glob_yaml_files(['schemas/'])
         ['schemas/agent.yml', 'schemas/base.yml', ...]
-        
+
         >>> glob_yaml_files('schemas/*.yml')
         ['schemas/agent.yml', 'schemas/base.yml', ...]
     """
@@ -474,16 +474,16 @@ def glob_yaml_files(paths: List[str]) -> List[str]:
 
 def get_tree_by_ref(ref: str) -> git.objects.tree.Tree:
     """Get git tree object for a specific reference (branch, tag, commit).
-    
+
     Retrieves the file tree from the current repository at a specific git
     reference, allowing generators to load schemas from any point in history.
-    
+
     Args:
         ref: Git reference (branch name, tag, commit SHA)
-    
+
     Returns:
         Git tree object representing repository contents at that reference
-    
+
     Example:
         >>> tree = get_tree_by_ref('v8.10.0')
         >>> tree['schemas']['http.yml']  # Access file from that version
@@ -495,17 +495,17 @@ def get_tree_by_ref(ref: str) -> git.objects.tree.Tree:
 
 def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool:
     """Check if a path exists in a git tree object.
-    
+
     Tests whether a file or directory exists in a git tree without raising
     an exception.
-    
+
     Args:
         tree: Git tree object to check
         file_path: Path relative to tree root
-    
+
     Returns:
         True if path exists in tree, False otherwise
-    
+
     Example:
         >>> tree = get_tree_by_ref('main')
         >>> path_exists_in_git_tree(tree, 'schemas/http.yml')
@@ -522,13 +522,13 @@ def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool
 
 def usage_doc_files() -> List[str]:
     """Get list of usage documentation files for fieldsets.
-    
+
     Scans the docs/reference directory for usage documentation files
     following the pattern ecs-{fieldset}-usage.md.
-    
+
     Returns:
         List of usage doc filenames (e.g., ['ecs-http-usage.md'])
-    
+
     Note:
         Returns empty list if docs/reference directory doesn't exist.
         Used by markdown generator to link to usage docs when available.
@@ -542,13 +542,13 @@ def usage_doc_files() -> List[str]:
 
 def ecs_files() -> List[str]:
     """Get list of ECS schema files to load.
-    
+
     Returns sorted list of all YAML files in the schemas directory.
     This is the primary source of ECS field definitions.
-    
+
     Returns:
         Sorted list of schema file paths
-    
+
     Example:
         >>> ecs_files()
         ['schemas/agent.yml', 'schemas/base.yml', 'schemas/http.yml', ...]
@@ -559,19 +559,19 @@ def ecs_files() -> List[str]:
 
 def make_dirs(path: str) -> None:
     """Create directory and all parent directories if they don't exist.
-    
+
     Safe wrapper around os.makedirs that handles existing directories
     gracefully and provides clear error messages on failure.
-    
+
     Args:
         path: Directory path to create
-    
+
     Raises:
         OSError: If directory creation fails (with descriptive message)
-    
+
     Note:
         Uses exist_ok=True, so won't fail if directory already exists.
-    
+
     Example:
         >>> make_dirs('generated/elasticsearch/composable/component')
         # Creates all missing parent directories
@@ -589,20 +589,20 @@ def yaml_dump(
     preamble: Optional[str] = None
 ) -> None:
     """Write data to a YAML file with optional preamble text.
-    
+
     Serializes dictionary to YAML format with human-friendly formatting.
     Optionally prepends text (e.g., copyright header, comments).
-    
+
     Args:
         filename: Path to output file
         data: Dictionary to serialize
         preamble: Optional text to write before YAML content
-    
+
     Note:
         - Uses default_flow_style=False for readable multi-line format
         - Supports Unicode characters
         - Overwrites existing file
-    
+
     Example:
         >>> yaml_dump('output.yml', {'name': 'test'}, '# Auto-generated\\n')
         # Creates file with comment header followed by YAML
@@ -615,19 +615,19 @@ def yaml_dump(
 
 def yaml_load(filename: str) -> Set[str]:
     """Load and parse a YAML file.
-    
+
     Reads a YAML file and parses it into Python data structures using
     safe_load (prevents arbitrary code execution).
-    
+
     Args:
         filename: Path to YAML file
-    
+
     Returns:
         Parsed YAML content (typically dict or list)
-    
+
     Note:
         Uses yaml.safe_load for security (no arbitrary code execution).
-    
+
     Example:
         >>> data = yaml_load('schemas/http.yml')
         >>> data['name']
@@ -641,17 +641,17 @@ def yaml_load(filename: str) -> Set[str]:
 
 def list_subtract(original: List[Any], subtracted: List[Any]) -> List[Any]:
     """Remove all elements of one list from another.
-    
+
     Returns a new list containing elements from original that are not
     in subtracted. Useful for filtering lists.
-    
+
     Args:
         original: List to subtract from
         subtracted: Elements to remove
-    
+
     Returns:
         New list with subtracted elements removed
-    
+
     Example:
         >>> list_subtract([1, 2, 3, 4, 5], [2, 4])
         [1, 3, 5]
@@ -663,18 +663,18 @@ def list_subtract(original: List[Any], subtracted: List[Any]) -> List[Any]:
 
 def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
     """Extract values for a specific key from a list of dictionaries.
-    
+
     Builds a list of values by extracting the same key from each dictionary
     in the input list. Useful for converting list of objects to list of
     specific attribute values.
-    
+
     Args:
         lst: List of dictionaries
         key_name: Key to extract from each dictionary
-    
+
     Returns:
         List of values for the specified key
-    
+
     Example:
         >>> fields = [
         ...     {'name': 'http', 'group': 2},
@@ -694,23 +694,23 @@ def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
 
 def is_intermediate(field: FieldEntry) -> bool:
     """Check if a field is an intermediate structural field (not a real data field).
-    
+
     Intermediate fields exist only to provide hierarchical structure in schemas.
     They don't represent actual data fields and should be excluded from most
     output formats.
-    
+
     Args:
         field: Field entry to check
-    
+
     Returns:
         True if field is intermediate, False otherwise
-    
+
     Example:
         >>> field = {'field_details': {'intermediate': True, 'name': 'request'}}
         >>> is_intermediate(field)
         True
         # 'http.request' is just structure, not a field
-        
+
         >>> field = {'field_details': {'name': 'method', 'type': 'keyword'}}
         >>> is_intermediate(field)
         False
@@ -721,17 +721,17 @@ def is_intermediate(field: FieldEntry) -> bool:
 
 def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
     """Filter out fieldsets that should not appear at the root level.
-    
+
     Returns a copy of ecs_nested excluding fieldsets with reusable.top_level=false.
     These fieldsets are meant to be used only in specific reuse locations, not
     at the event root.
-    
+
     Args:
         ecs_nested: Dictionary of nested fieldsets
-    
+
     Returns:
         Filtered dictionary excluding non-root fieldsets
-    
+
     Example:
         >>> nested = {
         ...     'http': {'reusable': {'top_level': True}},
@@ -758,23 +758,23 @@ def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> 
 
 def strict_warning(msg: str) -> None:
     """Issue a warning that would be an error in strict mode.
-    
+
     Generates a warning for issues that are tolerated in normal mode but would
     cause an exception when the generator is run with --strict flag. This allows
     schema developers to gradually fix issues without blocking the build.
-    
+
     Args:
         msg: Custom warning message describing the issue
-    
+
     Note:
         - Uses stacklevel=3 to show warning at caller's call site
         - Automatically adds boilerplate about strict mode
         - Warning will be converted to exception with --strict flag
-    
+
     Example:
         >>> strict_warning("Field 'user.name' is missing description")
         UserWarning: Field 'user.name' is missing description
-        
+
         This will cause an exception when running in strict mode.
         Warning check:
         ...

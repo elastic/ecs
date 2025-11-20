@@ -75,32 +75,32 @@ def generate(
     default_dirs: bool
 ) -> Tuple[Dict[str, FieldNestedEntry], Dict[str, Field]]:
     """Generate all intermediate file representations from processed schemas.
-    
+
     This is the main entry point for intermediate file generation. It orchestrates
     the creation of both flat and nested representations and saves them to YAML
     files. These files serve as the normalized interface for all downstream
     generators.
-    
+
     Args:
         fields: Processed field entries from schema loader/cleaner/finalizer
         out_dir: Output directory path (typically 'generated/ecs')
         default_dirs: If True, also save raw ecs.yml for debugging
-    
+
     Returns:
         Tuple of (nested, flat) dictionaries:
         - nested: Fieldsets organized hierarchically with metadata
         - flat: All fields in single-level dictionary by dotted name
-    
+
     Generates files:
         - {out_dir}/ecs_flat.yml: Flat field representation
         - {out_dir}/ecs_nested.yml: Nested fieldset representation
         - {out_dir}/ecs.yml: Raw fields (only if default_dirs=True)
-    
+
     Note:
         Creates output directory if it doesn't exist.
         The returned dictionaries are also used directly by some generators
         without reading back from the YAML files.
-    
+
     Example:
         >>> from schema import loader, cleaner, finalizer
         >>> fields = loader.load_schemas()
@@ -127,16 +127,16 @@ def generate(
 
 def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
     """Generate flat field representation mapping dotted names to field definitions.
-    
+
     Creates a single-level dictionary where every field (including nested ones)
     is represented by its full dotted name as the key. This format is useful for:
     - Quick field lookups by name
     - CSV generation
     - Simple iteration over all fields
-    
+
     Args:
         fields: Processed field entries from schema pipeline
-    
+
     Returns:
         Dictionary mapping field flat_names to field definitions:
         {
@@ -149,18 +149,18 @@ def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
             },
             ...
         }
-    
+
     Processing steps:
         1. Filter out non-root reusable fieldsets (top_level=false)
         2. Use visitor pattern to traverse all fields
         3. Accumulate fields in flat dictionary
         4. Remove internal-only attributes
-    
+
     Note:
         - Excludes intermediate fields (used only for nesting)
         - Excludes fieldsets marked with top_level=false
         - Each field appears only once by its canonical flat_name
-    
+
     Example:
         >>> flat = generate_flat_fields(fields)
         >>> flat['http.request.method']['type']
@@ -176,26 +176,26 @@ def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
 
 def accumulate_field(details: FieldEntry, memo: Field) -> None:
     """Visitor callback that accumulates field definitions in a flat dictionary.
-    
+
     This function is called by the visitor pattern for each field encountered
     during traversal. It extracts the field definition, cleans it, and adds
     it to the memo dictionary using the flat_name as the key.
-    
+
     Args:
         details: Field entry containing field_details and possibly schema_details
         memo: Dictionary being accumulated with field definitions (modified in place)
-    
+
     Behavior:
         - Skips schema-level entries (fieldset definitions)
         - Skips intermediate fields (used only for structure, not actual fields)
         - Deep copies field details to avoid mutation
         - Removes internal attributes not needed in output
         - Adds field to memo dictionary by flat_name
-    
+
     Note:
         This is a callback function used with visitor.visit_fields_with_memo().
         It modifies the memo dictionary in place rather than returning a value.
-    
+
     Example:
         >>> memo = {}
         >>> field_entry = {
@@ -224,19 +224,19 @@ def accumulate_field(details: FieldEntry, memo: Field) -> None:
 
 def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNestedEntry]:
     """Generate nested fieldset representation with hierarchical structure.
-    
+
     Creates a dictionary where each fieldset is a top-level entry containing:
     - Fieldset metadata (name, title, description, group, etc.)
     - Schema details (reusability, nesting information)
     - Nested 'fields' dictionary with all fields in that fieldset
-    
+
     This format preserves the logical grouping of fields by fieldset and
     includes metadata about how fieldsets relate to each other (reuse,
     nesting, etc.). Used by most generators including markdown docs.
-    
+
     Args:
         fields: Processed field entries from schema pipeline
-    
+
     Returns:
         Dictionary mapping fieldset names to fieldset definitions:
         {
@@ -254,20 +254,20 @@ def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNest
             },
             ...
         }
-    
+
     Processing steps:
         1. For each fieldset, merge field_details and schema_details
         2. Remove internal attributes (node_name, dashed_name, etc.)
         3. Use visitor to accumulate all fields in the fieldset
         4. Store fields in nested 'fields' dictionary
         5. Clean up conditional attributes (root=false removed)
-    
+
     Note:
         - Includes ALL fieldsets, even those with top_level=false
         - Consumers of this format should check top_level flag themselves
         - Each fieldset's fields are in a flat dict (not hierarchical)
         - The "nesting" refers to grouping by fieldset, not field hierarchy
-    
+
     Example:
         >>> nested = generate_nested_fields(fields)
         >>> nested['http']['title']
@@ -309,22 +309,22 @@ def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNest
 
 def remove_internal_attributes(field_details: Field) -> None:
     """Remove internal-only attributes from field definitions before output.
-    
+
     Certain attributes are used during schema processing but aren't relevant
     in the final intermediate file outputs. This function removes them to
     keep the output files clean and focused on user-facing information.
-    
+
     Args:
         field_details: Field definition dictionary (modified in place)
-    
+
     Attributes removed:
         - node_name: Internal identifier used during tree traversal
         - intermediate: Flag for structural fields (not actual data fields)
-    
+
     Note:
         Modifies the field_details dictionary in place.
         Uses pop() with None default to safely handle missing keys.
-    
+
     Example:
         >>> field = {
         ...     'name': 'method',
@@ -345,32 +345,32 @@ def remove_internal_attributes(field_details: Field) -> None:
 
 def remove_non_root_reusables(fields_nested: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
     """Filter out fieldsets marked as non-root reusable (top_level=false).
-    
+
     Some fieldsets are designed only to be reused in specific locations (via
     the reuse mechanism) and should never appear at the root level of events.
     For example, 'geo' might only be valid under 'client.geo', 'server.geo',
     etc., but not as standalone 'geo.*' fields at the event root.
-    
+
     This filtering is ONLY applied to the flat representation, where having
     non-root fields at the top level would be confusing and incorrect. The
     nested representation keeps all fieldsets so consumers have complete
     information about each fieldset definition.
-    
+
     Args:
         fields_nested: Complete dictionary of field entries
-    
+
     Returns:
         Filtered dictionary containing only:
         - Fieldsets without 'reusable' metadata (always included)
         - Fieldsets with reusable.top_level=true
-        
+
         Excludes:
         - Fieldsets with reusable.top_level=false
-    
+
     Note:
         This implements an allow-list approach: fieldsets are included by
         default unless explicitly marked as non-root.
-    
+
     Example:
         >>> fields = {
         ...     'http': {'schema_details': {}},  # No reusable - included

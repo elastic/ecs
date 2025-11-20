@@ -74,7 +74,7 @@ The `scripts/` directory contains several key components:
 
 | Module | Purpose | Documentation |
 |--------|---------|---------------|
-| `generator.py` | Main entry point, orchestrates all generators | *(coming soon)* |
+| `generator.py` | **Main entry point** - orchestrates complete pipeline | Comprehensive docstrings in file |
 | `generators/otel.py` | OTel integration and validation | [otel-integration.md](otel-integration.md) |
 | `generators/markdown_fields.py` | Markdown documentation generation | [markdown-generator.md](markdown-generator.md) |
 | `generators/intermediate_files.py` | Intermediate format generation | [intermediate-files.md](intermediate-files.md) |
@@ -85,14 +85,17 @@ The `scripts/` directory contains several key components:
 
 ### Schema Processing
 
+The schema processing pipeline transforms YAML schema definitions through multiple stages. See [schema-pipeline.md](schema-pipeline.md) for complete pipeline documentation.
+
 | Module | Purpose | Documentation |
 |--------|---------|---------------|
-| `schema/loader.py` | Load and parse YAML schemas | *(coming soon)* |
-| `schema/cleaner.py` | Normalize and validate schemas | *(coming soon)* |
-| `schema/finalizer.py` | Apply final transformations | *(coming soon)* |
-| `schema/visitor.py` | Traverse field hierarchies | *(coming soon)* |
-| `schema/subset_filter.py` | Filter for subsets | *(coming soon)* |
-| `schema/exclude_filter.py` | Exclude specified fields | *(coming soon)* |
+| **Pipeline Overview** | Complete schema processing flow | **[schema-pipeline.md](schema-pipeline.md)** |
+| `schema/loader.py` | Load and parse YAML schemas → nested structure | [schema-pipeline.md#1-loaderpy---schema-loading](schema-pipeline.md#1-loaderpy---schema-loading) |
+| `schema/cleaner.py` | Validate, normalize, apply defaults | [schema-pipeline.md#2-cleanerpy---validation--normalization](schema-pipeline.md#2-cleanerpy---validation--normalization) |
+| `schema/finalizer.py` | Perform field reuse, calculate names | [schema-pipeline.md#3-finalizerpy---field-reuse--name-calculation](schema-pipeline.md#3-finalizerpy---field-reuse--name-calculation) |
+| `schema/visitor.py` | Traverse field hierarchies (visitor pattern) | [schema-pipeline.md#visitorpy---field-traversal](schema-pipeline.md#visitorpy---field-traversal) |
+| `schema/subset_filter.py` | Filter to include only specified fields | [schema-pipeline.md#4-subset_filterpy---subset-filtering-optional](schema-pipeline.md#4-subset_filterpy---subset-filtering-optional) |
+| `schema/exclude_filter.py` | Explicitly remove specified fields | [schema-pipeline.md#5-exclude_filterpy---exclude-filtering-optional](schema-pipeline.md#5-exclude_filterpy---exclude-filtering-optional) |
 
 ### Types
 
@@ -105,11 +108,36 @@ The `scripts/` directory contains several key components:
 
 If you're new to the ECS generator codebase:
 
-1. **Start with high-level flow**: Read `generator.py` to understand the overall pipeline
-2. **Pick a component**: Choose a generator that interests you
-3. **Read its documentation**: Start with the module-specific guide
-4. **Explore the code**: Read the source with the guide as reference
-5. **Run it**: Try generating artifacts to see it in action
+1. **Start with the main orchestrator**: Read `generator.py` docstrings to understand the pipeline
+2. **Understand schema processing**: Read [schema-pipeline.md](schema-pipeline.md)
+3. **Pick a generator**: Choose a specific generator that interests you
+4. **Read its documentation**: Start with the module-specific guide
+5. **Explore the code**: Read the source with the guide as reference
+6. **Run it**: Try generating artifacts to see it in action
+
+### Quick Command Reference
+
+```bash
+# Standard generation (from local schemas)
+python scripts/generator.py --semconv-version v1.24.0
+
+# From specific git version
+python scripts/generator.py --ref v8.10.0 --semconv-version v1.24.0
+
+# With custom schemas
+python scripts/generator.py --include custom/schemas/ --semconv-version v1.24.0
+
+# Generate subset only
+python scripts/generator.py --subset schemas/subsets/minimal.yml --semconv-version v1.24.0
+
+# Strict validation mode
+python scripts/generator.py --strict --semconv-version v1.24.0
+
+# Intermediate files only (fast iteration)
+python scripts/generator.py --intermediate-only --semconv-version v1.24.0
+```
+
+See `generator.py` docstrings for complete argument documentation.
 
 ## Contributing Documentation
 

@@ -21,36 +21,36 @@ The output is human-friendly markdown that integrates with Elastic's documentati
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     generator.py (main)                          │
-│                                                                  │
-│  1. Load schemas                                                 │
+│                     generator.py (main)                         │
+│                                                                 │
+│  1. Load schemas                                                │
 │  2. Clean and finalize                                          │
-│  3. Generate intermediate files                                  │
+│  3. Generate intermediate files                                 │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│           markdown_fields.generate() - Entry Point               │
-│                                                                  │
+│           markdown_fields.generate() - Entry Point              │
+│                                                                 │
 │  Input: Nested fieldsets + OTel generator + version info        │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Page Generation Functions                       │
-│                                                                  │
+│                  Page Generation Functions                      │
+│                                                                 │
 │  ├─ page_index()                    → index.md                  │
 │  ├─ page_field_reference()          → ecs-field-reference.md    │
 │  ├─ page_otel_alignment_overview()  → ecs-otel-alignment-*.md   │
 │  ├─ page_otel_alignment_details()   → ecs-otel-alignment-*.md   │
 │  └─ page_fieldset() [for each]      → ecs-{name}.md             │
-│                                                                  │
+│                                                                 │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│              Jinja2 Template Rendering                           │
-│                                                                  │
+│              Jinja2 Template Rendering                          │
+│                                                                 │
 │  Templates (scripts/templates/):                                │
 │  - index.j2                                                     │
 │  - fieldset.j2                                                  │
@@ -63,14 +63,14 @@ The output is human-friendly markdown that integrates with Elastic's documentati
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Markdown Files Output                         │
-│                                                                  │
+│                    Markdown Files Output                        │
+│                                                                 │
 │  Written to: docs/reference/                                    │
 │  - index.md                                                     │
 │  - ecs-field-reference.md                                       │
 │  - ecs-otel-alignment-overview.md                               │
 │  - ecs-otel-alignment-details.md                                │
-│  - ecs-http.md, ecs-user.md, ecs-process.md, ...              │
+│  - ecs-http.md, ecs-user.md, ecs-process.md, ...                │
 │    (one per fieldset)                                           │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -503,21 +503,6 @@ For large schemas (100+ fieldsets):
 - `scripts/templates/*.j2` - Jinja2 templates
 - `docs/fields/usage/*.md` - Usage documentation (manually written)
 - `docs/reference/*.md` - Generated markdown output
-
-## Testing
-
-Currently there are no automated tests for the markdown generator. Manual testing is required:
-
-1. **Generate docs**: Run full generation process
-2. **Visual inspection**: Review generated markdown files
-3. **Build docs site**: Verify rendering in documentation site
-4. **Link checking**: Ensure cross-references work
-5. **Diff comparison**: Compare with previous version
-
-**Future improvement**: Add unit tests for:
-- Helper functions (sort_fields, render_fieldset_reuse_text, etc.)
-- Template rendering with known inputs
-- Edge cases (empty fieldsets, missing data)
 
 ## References
 
