@@ -36,6 +36,14 @@ ECS host.* fields should be populated with details about the host on which the e
 | $$$field-host-type$$$ [host.type](#field-host-type) | Type of host.<br><br>For Cloud providers this can be the machine type like `t2.medium`. If vm, this could be the container, for example, or other information meaningful in your environment.<br><br>type: keyword<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![match](https://img.shields.io/badge/match-93c93e?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [host.type](https://opentelemetry.io/docs/specs/semconv/attributes-registry/host/#host-type) | core |
 | $$$field-host-uptime$$$ [host.uptime](#field-host-uptime) | Seconds the host has been up.<br><br>type: long<br><br>example: `1325`<br><br>![OTel Badge](https://img.shields.io/badge/OpenTelemetry-4a5ca6?style=flat&logo=opentelemetry) [![metric](https://img.shields.io/badge/metric-cb00cb?style=flat)](/reference/ecs-opentelemetry.md#ecs-opentelemetry-relation) [system.uptime](https://github.com/search?q=repo%3Aopen-telemetry%2Fsemantic-conventions+%22%3C%21--\+semconv+metric.system.uptime+--%3E%22&type=code) | extended |
 
+## Field reuse [_field_reuse]
+
+The `host` fields are expected to be nested at:
+
+* `host.target`
+
+Note also that the `host` fields may be used directly at the root of the events.
+
 
 ### Field sets that can be nested under Host [ecs-host-nestings]
 
@@ -45,3 +53,4 @@ ECS host.* fields should be populated with details about the host on which the e
 | `host.geo.*` | [geo](/reference/ecs-geo.md) | Fields describing a location. |
 | `host.os.*` | [os](/reference/ecs-os.md) | OS fields contain information about the operating system. |
 | `host.risk.*` | [risk](/reference/ecs-risk.md) | Fields for describing risk score and level. |
+| `host.target.*` | [host](/reference/ecs-host.md) | Targeted host of action taken. |
