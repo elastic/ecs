@@ -4743,6 +4743,464 @@
         of 0 to 100.
       example: 83.0
       default_field: false
+    - name: target.architecture
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Operating system architecture.
+      example: x86_64
+      default_field: false
+    - name: target.boot.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Linux boot uuid taken from /proc/sys/kernel/random/boot_id. Note
+        the boot_id value from /proc may or may not be the same in containers as on
+        the host. Some container runtimes will bind mount a new boot_id value onto
+        the proc file in each container.
+      example: 88a1f0ed-5ae5-41ee-af6b-41921c311872
+      default_field: false
+    - name: target.cpu.usage
+      level: extended
+      type: scaled_float
+      description: 'Percent CPU used which is normalized by the number of CPU cores
+        and it ranges from 0 to 1.
+
+        Scaling factor: 1000.
+
+        For example: For a two core host, this value should be the average of the
+        two cores, between 0 and 1.'
+      scaling_factor: 1000
+      default_field: false
+    - name: target.disk.read.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) read successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
+    - name: target.disk.write.bytes
+      level: extended
+      type: long
+      description: The total number of bytes (gauge) written successfully (aggregated
+        from all disks) since the last metric collection.
+      default_field: false
+    - name: target.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the domain of which the host is a member.
+
+        For example, on Windows this could be the host''s Active Directory domain
+        or NetBIOS domain name. For Linux this could be the domain of the host''s
+        LDAP provider.'
+      example: CONTOSO
+      default_field: false
+    - name: target.entity.attributes
+      level: extended
+      type: object
+      description: A set of static or semi-static attributes of the entity. Usually
+        boolean or keyword field data types. Use this field set when you need to track
+        static or semi-static characteristics of an entity for advanced searching
+        and correlation of normalized values across different providers/sources and
+        entity types.
+      default_field: false
+    - name: target.entity.behavior
+      level: extended
+      type: object
+      description: A set of ephemeral characteristics of the entity, derived from
+        observed behaviors during a specific time period. Usually boolean field data
+        type. Use this field set when you need to capture and track ephemeral characteristics
+        of an entity for advanced searching, correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.entity.display_name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: An optional field used when a pretty name is desired for entity-centric
+        operations. This field should not be used for correlation with `*.name` fields
+        for entities with dedicated field sets (e.g., `host`).
+      default_field: false
+    - name: target.entity.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A unique identifier for the entity. When multiple identifiers
+        exist, this should be the most stable and commonly used identifier that: 1)
+        persists across the entity''s lifecycle, 2) ensures uniqueness within its
+        scope, 3) is commonly used for queries and correlation, and 4) is readily
+        available in most observations (logs/events). For entities with dedicated
+        field sets (e.g., host, user), this value should match the corresponding *.id
+        field. Alternative identifiers (e.g., ARNs values in AWS, URLs) can be preserved
+        in the raw field.'
+      default_field: false
+    - name: target.entity.last_seen_timestamp
+      level: extended
+      type: date
+      description: Indicates the date/time when this entity was last "seen," usually
+        based upon the last event/log that is initiated by this entity.
+      default_field: false
+    - name: target.entity.lifecycle
+      level: extended
+      type: object
+      description: A set of temporal characteristics of the entity. Usually date field
+        data type. Use this field set when you need to track temporal characteristics
+        of an entity for advanced searching and correlation of normalized values across
+        different providers/sources and entity types.
+      default_field: false
+    - name: target.entity.metrics
+      level: extended
+      type: object
+      description: Field set for any fields containing numeric entity metrics. These
+        use dynamic field data type mapping.
+      default_field: false
+    - name: target.entity.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: The name of the entity. The keyword field enables exact matches
+        for filtering and aggregations, while the text field enables full-text search.
+        For entities with dedicated field sets (e.g., `host`), this field should mirrors
+        the corresponding *.name value.
+      default_field: false
+    - name: target.entity.raw
+      level: extended
+      type: object
+      description: Original, unmodified fields from the source system. Usually flattened
+        field data type. While the attributes field should be used for normalized
+        fields requiring advanced queries, this field preserves all source metadata
+        with basic search capabilities.
+      default_field: false
+    - name: target.entity.reference
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A URI, URL, or other direct reference to access or locate the entity
+        in its source system. This could be an API endpoint, web console URL, or other
+        addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.entity.source
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The module or integration that provided this entity data (similar
+        to event.module).
+      default_field: false
+    - name: target.entity.sub_type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The specific type designation for the entity as defined by its
+        provider or system. This field provides more granular classification than
+        the type field. Examples: `aws_s3_bucket`, `gcp_cloud_storage_bucket`, `azure_blob_container`
+        would all map to entity type `bucket`.  `hardware` , `virtual` , `container`
+        , `node` , `cloud_instance` would all map to entity type `host`.'
+      example: aws_s3_bucket
+      default_field: false
+    - name: target.entity.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'A standardized high-level classification of the entity. This provides
+        a normalized way to group similar entities across different providers or systems.
+        Example values: `bucket`, `database`, `container`, `function`, `queue`, `host`,
+        `user`, `application`, `session`, `cloud`, `orchestrator`, etc. If an entity
+        is nested under a top-level namespace like `host` or `cloud`, or similar,
+        its type array should include the matching value — for example, `host` or
+        `cloud`.'
+      example: host
+      default_field: false
+    - name: target.geo.city_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: City name.
+      example: Montreal
+      default_field: false
+    - name: target.geo.continent_code
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Two-letter code representing continent's name.
+      example: NA
+      default_field: false
+    - name: target.geo.continent_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Name of the continent.
+      example: North America
+      default_field: false
+    - name: target.geo.country_iso_code
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Country ISO code.
+      example: CA
+      default_field: false
+    - name: target.geo.country_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Country name.
+      example: Canada
+      default_field: false
+    - name: target.geo.location
+      level: core
+      type: geo_point
+      description: Longitude and latitude.
+      example: '{ "lon": -73.614830, "lat": 45.505918 }'
+      default_field: false
+    - name: target.geo.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'User-defined description of a location, at the level of granularity
+        they care about.
+
+        Could be the name of their data centers, the floor number, if this describes
+        a local physical entity, city names.
+
+        Not typically used in automated geolocation.'
+      example: boston-dc
+      default_field: false
+    - name: target.geo.postal_code
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Postal code associated with the location.
+
+        Values appropriate for this field may also be known as a postcode or ZIP code
+        and will vary widely from country to country.'
+      example: 94040
+      default_field: false
+    - name: target.geo.region_iso_code
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Region ISO code.
+      example: CA-QC
+      default_field: false
+    - name: target.geo.region_name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: Region name.
+      example: Quebec
+      default_field: false
+    - name: target.geo.timezone
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: The time zone of the location, such as IANA time zone name.
+      example: America/Argentina/Buenos_Aires
+      default_field: false
+    - name: target.hostname
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Hostname of the host.
+
+        It normally contains what the `hostname` command returns on the host machine.'
+      default_field: false
+    - name: target.id
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Unique host id.
+
+        As hostname is not always unique, use values that are meaningful in your environment.
+
+        Example: The current usage of `beat.name`.'
+      default_field: false
+    - name: target.ip
+      level: core
+      type: ip
+      description: Host ip addresses.
+      default_field: false
+    - name: target.mac
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Host MAC addresses.
+
+        The notation format from RFC 7042 is suggested: Each octet (that is, 8-bit
+        byte) is represented by two [uppercase] hexadecimal digits giving the value
+        of the octet as an unsigned integer. Successive octets are separated by a
+        hyphen.'
+      example: '["00-00-5E-00-53-23", "00-00-5E-00-53-24"]'
+      pattern: ^[A-F0-9]{2}(-[A-F0-9]{2}){5,}$
+      default_field: false
+    - name: target.name
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Name of the host.
+
+        It can contain what hostname returns on Unix systems, the fully qualified
+        domain name (FQDN), or a name specified by the user. The recommended value
+        is the lowercase FQDN of the host.'
+      default_field: false
+    - name: target.network.egress.bytes
+      level: extended
+      type: long
+      description: The number of bytes (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: target.network.egress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) sent out on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: target.network.ingress.bytes
+      level: extended
+      type: long
+      description: The number of bytes received (gauge) on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: target.network.ingress.packets
+      level: extended
+      type: long
+      description: The number of packets (gauge) received on all network interfaces
+        by the host since the last metric collection.
+      default_field: false
+    - name: target.os.family
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: OS family (such as redhat, debian, freebsd, windows).
+      example: debian
+      default_field: false
+    - name: target.os.full
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Operating system name, including the version or code name.
+      example: Mac OS Mojave
+      default_field: false
+    - name: target.os.kernel
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Operating system kernel version as a raw string.
+      example: 4.4.0-112-generic
+      default_field: false
+    - name: target.os.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      multi_fields:
+      - name: text
+        type: match_only_text
+      description: Operating system name, without the version.
+      example: Mac OS X
+      default_field: false
+    - name: target.os.platform
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Operating system platform (such centos, ubuntu, windows).
+      example: darwin
+      default_field: false
+    - name: target.os.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'Use the `os.type` field to categorize the operating system into
+        one of the broad commercial families.
+
+        If the OS you''re dealing with is not listed as an expected value, the field
+        should not be populated. Please let us know by opening an issue with ECS,
+        to propose its addition.'
+      example: macos
+      default_field: false
+    - name: target.os.version
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Operating system version as a raw string.
+      example: 10.14.1
+      default_field: false
+    - name: target.pid_ns_ino
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: This is the inode number of the namespace in the namespace file
+        system (nsfs). Unsigned int inum in include/linux/ns_common.h.
+      example: 256383
+      default_field: false
+    - name: target.risk.calculated_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: High
+      default_field: false
+    - name: target.risk.calculated_score
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring.
+      example: 880.73
+      default_field: false
+    - name: target.risk.calculated_score_norm
+      level: extended
+      type: float
+      description: A risk classification score calculated by an internal system as
+        part of entity analytics and entity risk scoring, and normalized to a range
+        of 0 to 100.
+      example: 88.73
+      default_field: false
+    - name: target.risk.static_level
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: A risk classification level obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: High
+      default_field: false
+    - name: target.risk.static_score
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform.
+      example: 830.0
+      default_field: false
+    - name: target.risk.static_score_norm
+      level: extended
+      type: float
+      description: A risk classification score obtained from outside the system, such
+        as from some external Threat Intelligence Platform, and normalized to a range
+        of 0 to 100.
+      example: 83.0
+      default_field: false
+    - name: target.type
+      level: core
+      type: keyword
+      ignore_above: 1024
+      description: 'Type of host.
+
+        For Cloud providers this can be the machine type like `t2.medium`. If vm,
+        this could be the container, for example, or other information meaningful
+        in your environment.'
+      default_field: false
+    - name: target.uptime
+      level: extended
+      type: long
+      description: Seconds the host has been up.
+      example: 1325
+      default_field: false
     - name: type
       level: core
       type: keyword
