@@ -10,7 +10,7 @@ applies_to:
 
 # ECS field reference [ecs-field-reference]
 
-This is the documentation of ECS version 9.1.0-dev.
+This is the documentation of ECS version 9.3.0-dev.
 
 ECS defines multiple groups of related fields. They are called "field sets". The [Base](/reference/ecs-base.md) field set is the only one whose fields are defined at the root of the event.
 
@@ -38,6 +38,7 @@ For a single page representation of all fields, please see the [generated CSV of
 | [ECS](/reference/ecs-ecs.md) | Meta-information specific to ECS. |
 | [ELF Header](/reference/ecs-elf.md) | These fields contain Linux Executable Linkable Format (ELF) metadata. |
 | [Email](/reference/ecs-email.md) | Describes an email transaction. |
+| [Entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |
 | [Error](/reference/ecs-error.md) | Fields about errors of any kind. |
 | [Event](/reference/ecs-event.md) | Fields breaking down the event details. |
 | [FaaS](/reference/ecs-faas.md) | Fields describing functions as a service. |

@@ -14,12 +14,7 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Add `thumbprint_sha256` to `code_signature` schema. #2452
-* Add `origin_referrer_url` and `origin_url` fields, which indicate the origin information to the file, process and dll schemas #2441
-
 #### Added
-
-* Add `gen_ai` fields to schema as beta. #2475
 
 #### Improvements
 
@@ -30,8 +25,6 @@ Thanks, you're awesome :-) -->
 #### Breaking changes
 
 #### Bugfixes
-
-* Fix otel urls for fieldsets with underscores. #2486
 
 #### Added
 
