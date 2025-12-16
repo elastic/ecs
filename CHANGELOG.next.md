@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Added details for implementation of url.query to avoid ambiguity #2488
+
 #### Deprecated
 
 <!-- All empty sections:
