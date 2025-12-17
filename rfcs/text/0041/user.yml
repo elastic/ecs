@@ -1,0 +1,170 @@
+---
+- name: user.profile.id
+  level: extended
+  type: keyword
+  example: 1234
+  description: User ID from the identity datasource.
+- name: user.profile.type
+  level: extended
+  type: keyword
+  example: Employee
+  description: Type of user account.
+- name: user.profile.status
+  level: extended
+  type: keyword
+  example: On board
+  description: Status of the user account.
+- name: user.profile.first_name
+  level: extended
+  type: keyword
+  example: First
+  description: First Name of the User.
+- name: user.profile.last_name
+  level: extended
+  type: keyword
+  example: Last
+  description: Last Name of the user.
+- name: user.profile.other_identities
+  level: extended
+  type: keyword
+  multi_fields:
+    - type: text
+  example: first.last@elk.elastic.co
+  description: Array of additional user identities (usually email addresses).
+- name: user.profile.manager
+  level: extended
+  type: keyword
+  example: John Doe
+  description: Assigned Manager for the user account.
+- name: user.profile.employee_type
+  level: extended
+  type: keyword
+  example: Regular
+  description: Further classification type for the user account.
+- name: user.profile.job_family
+  level: extended
+  type: keyword
+  example: 65-Sales
+  description: Job family associated with the user account.
+- name: user.profile.job_family_group
+  level: extended
+  type: keyword
+  example: GTM
+  description: Job family group associated with the user account.
+- name: user.profile.management_level
+  level: extended
+  type: keyword
+  example: Individual Contributor
+  description: If the user account is identified as a Manager or Individual contributor.
+- name: user.profile.job_title
+  level: extended
+  type: keyword
+  example: Field Sales
+  description: Job title assigned to the user account.
+- name: user.profile.department
+  level: extended
+  type: keyword
+  example: x256
+  description: Department name associated with the user account.
+- name: user.profile.organization
+  level: extended
+  type: keyword
+  example: Elasticsearch Inc.
+  description: Organization name associated with the account.
+- name: user.profile.location
+  level: extended
+  type: keyword
+  example: US - Washington - Distributed
+  description: Assigned location for the user account.
+- name: user.profile.mobile_phone
+  level: extended
+  type: keyword
+  example: 222-222-2222
+  description: Mobile phone for the user account
+- name: user.profile.primary_phone
+  level: extended
+  type: keyword
+  example: 222-222-2222
+  description: Primary phone for the user account
+- name: user.profile.second_email
+  level: extended
+  type: keyword
+  example: first.l@elastic.co
+  description: Additional email addresses associated with the user account.
+- name: user.profile.supervisory_org_id
+  level: extended
+  type: keyword
+  example: SUP-ORG-75
+  description: Primary organization ID for the user account.
+- name: user.profile.supervisory_org
+  level: extended
+  type: keyword
+  example: Field Sales
+  description: Primary organization name for the user account.
+- name: user.profile.assigned_mdm_id
+  level: extended
+  type: keyword
+  example: 2950
+  description: The primary host identifier (usually `asset.id` value) assigned to
+    the user. This field acts as a correlation identifier for the host event
+    document.
+- name: user.account.create_date
+  level: extended
+  type: date
+  example: June 5, 2023 @ 18:25:57.000
+  description: Date account was created.
+- name: user.account.activated_date
+  level: extended
+  type: date
+  example: June 5, 2023 @ 18:25:57.000
+  description: Date account was activated.
+- name: user.account.change_date
+  level: extended
+  type: date
+  example: June 5, 2023 @ 18:25:57.000
+  description: Date user account record was last updated at source
+- name: user.account.status.recovery
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account is in recovery
+- name: user.account.status.locked_out
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account is currently locked out
+- name: user.account.status.suspended
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account has been suspended
+- name: user.account.is_admin
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account is an Admin account
+- name: user.account.is_delegated_admin
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account has Delegated Admin rights
+- name: user.account.is_privileged
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account is a Privileged account
+- name: user.account.status.password_expired
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if the account password has expired.
+- name: user.account.status.deprovisioned
+  level: extended
+  type: boolean
+  example: true/ false
+  description: A flag indicating if an account has been deprovisioned
+- name: user.account.password_change_date
+  level: extended
+  type: date
+  example: June 5, 2023 @ 18:25:57.000
+  description: Last date/time when account password was updated
