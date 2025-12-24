@@ -1,7 +1,7 @@
 # 0039: TSDB Dimensions
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **1 (Draft)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2023-04-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -177,16 +177,18 @@ Changes to cloud mapping
         short_override: Provides the cloud information of the target entity in case of an outgoing request or event.
   type: group
   fields:
-    - name: project.id
+    - name: account.id
       level: extended
       type: keyword
+      example: 666777888999
+      short: The cloud account or organization id.
       dimension: true
-      example: my-project
-      short: The cloud project id.
       description: >
-        The cloud project identifier.
-        Examples: Google Cloud Project id, Azure Project id.
+        The cloud account or organization id used to identify different
+        entities in a multi-tenant environment.
 
+        Examples: AWS account id, Google Cloud ORG Id, or other unique
+        identifier.
 
     - name: instance.id
       level: extended
@@ -205,6 +207,22 @@ Changes to cloud mapping
       description: >
         Name of the cloud provider. Example values are aws, azure, gcp, or
         digitalocean.
+
+    - name: region
+      level: extended
+      type: keyword
+      example: us-east-1
+      dimension: true
+      description: >
+        Region in which this host, resource, or service is located.
+    
+    - name: availability_zone
+      level: extended
+      example: us-east-1c
+      type: keyword
+      dimension: true
+      description: >
+        Availability zone in which this host, resource, or service is located.
 ```
 
 Changes to container mapping
@@ -259,7 +277,11 @@ The source of this data comes from monitoring a host like a Linux machine, lapto
 <!--
 Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
 -->
-
+* Bare metal
+* VMs
+* AWS EC2 instances
+* GCP compute engines
+* Azure compute VMs
 <!--
 Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
 -->
@@ -284,7 +306,7 @@ No concerns are known as of now. Presence of the `dimension:true` does not impac
 <!--
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
-
+No concerns are known as of now. Presence of the `dimension:true` does not impact functionality when TSDB mode is disabled (`index.mode` : null or `index.mode` : `standard`). When TSDB mode is enabled (`index.mode`: `time_series`), there exist no known impacts.
 <!--
 Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
 -->
@@ -326,7 +348,7 @@ e.g.:
 <!-- An RFC should link to the PRs for each of it stage advancements. -->
 
 * Stage 0: https://github.com/elastic/ecs/pull/2172
-
+* Stage 1: https://github.com/elastic/ecs/pull/2217
 <!--
 * Stage 1: https://github.com/elastic/ecs/pull/NNN
 ...
