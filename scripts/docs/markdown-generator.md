@@ -141,9 +141,9 @@ To add a new documentation page:
    ```jinja2
    {# my_new_page.j2 #}
    # {{ title }}
-   
+
    Version: {{ version }}
-   
+
    {% for item in items %}
    ## {{ item.name }}
    {{ item.description }}
@@ -155,11 +155,11 @@ To add a new documentation page:
    @templated('my_new_page.j2')
    def page_my_new_page(items, version):
        """Generate my new documentation page.
-       
+
        Args:
            items: List of items to document
            version: Version string
-       
+
        Returns:
            Rendered markdown content
        """
@@ -174,7 +174,7 @@ To add a new documentation page:
    ```python
    def generate(nested, docs_only_nested, ecs_version, semconv_version, otel_generator, out_dir):
        # ... existing code ...
-       
+
        save_markdown(
            path.join(out_dir, 'my-new-page.md'),
            page_my_new_page(some_items, ecs_version)
@@ -189,7 +189,7 @@ To add a new documentation page:
    {% macro field_row(field) -%}
    | {{ field.name }} | {{ field.type }} | {{ field.description }} |
    {%- endmacro %}
-   
+
    {# In your template #}
    {% from 'macros.j2' import field_row %}
    {% for field in fields %}
@@ -381,7 +381,7 @@ def sort_fields(fieldset):
     fields_list = list(fieldset['fields'].values())
     for field in fields_list:
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
-    
+
     # Change sorting key
     return sorted(fields_list, key=lambda f: (f.get('level'), f['name']))
     # Now sorts by level first, then name
@@ -407,7 +407,7 @@ The event fieldset includes special categorization fields...
 
 **Cause**: Template file doesn't exist or path is wrong
 
-**Solution**: 
+**Solution**:
 - Verify template exists in `scripts/templates/`
 - Check template name spelling
 - Ensure `TEMPLATE_DIR` path is correct
@@ -466,33 +466,6 @@ except jinja2.TemplateError as e:
     print(f"Template error: {e}")
     print(f"Line: {e.lineno}")
 ```
-
-### Performance Considerations
-
-For large schemas (100+ fieldsets):
-
-1. **Avoid redundant processing**:
-   ```python
-   # BAD - Sorts multiple times
-   for fieldset in fieldsets:
-       sorted_fields = sorted(fieldset['fields'].values(), ...)
-   
-   # GOOD - Sort once, reuse
-   for fieldset in fieldsets:
-       if not hasattr(fieldset, '_sorted_fields'):
-           fieldset['_sorted_fields'] = sorted(fieldset['fields'].values(), ...)
-       sorted_fields = fieldset['_sorted_fields']
-   ```
-
-2. **Use generators for large datasets**:
-   ```python
-   # Instead of building large lists
-   results = [generate_page(fs) for fs in fieldsets]
-   
-   # Use generator
-   results = (generate_page(fs) for fs in fieldsets)
-   ''.join(results)  # Consume as needed
-   ```
 
 ## Related Files
 

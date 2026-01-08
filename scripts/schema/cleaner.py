@@ -17,66 +17,18 @@
 
 """Schema Cleaner Module.
 
-This module performs validation, normalization, and enrichment of schema
-definitions after loading. It ensures schemas are well-formed and fills in
-sensible defaults to simplify downstream processing.
+Validates, normalizes, and enriches schema definitions after loading.
+Second stage of pipeline: loader.py → cleaner.py → finalizer.py
 
-The cleaner operates on the deeply nested structure produced by loader.py and
-makes in-place modifications. It's the second stage of the schema processing
-pipeline:
+Key operations:
+- Validates mandatory attributes (name, title, description, type, level)
+- Sets defaults (group=2, root=false, ignore_above=1024 for keywords, etc.)
+- Expands reuse shorthand notation
+- Validates descriptions, examples, and patterns
 
-    loader.py → cleaner.py → finalizer.py → intermediate_files.py
+In strict mode (--strict), warnings become exceptions.
 
-Responsibilities:
-    1. **Validation**: Check mandatory attributes are present
-    2. **Normalization**: Strip whitespace, standardize values
-    3. **Defaults**: Fill in sensible defaults for optional attributes
-    4. **Enrichment**: Pre-calculate helpful derived fields
-    5. **Shorthand Expansion**: Convert shorthand notation to full form
-    6. **Quality Checks**: Validate descriptions, examples, patterns
-
-What the Cleaner Does:
-    - Validates mandatory attributes (name, title, description, type, level)
-    - Strips leading/trailing whitespace from string values
-    - Sets defaults for missing optional attributes:
-        * group=2 (standard priority)
-        * root=false (not a root fieldset)
-        * type='group' (for fieldsets)
-        * ignore_above=1024 (for keyword fields)
-        * norms=false (for text fields)
-    - Calculates schema prefix for field names
-    - Expands reuse location shorthand notation
-    - Validates field levels (core/extended/custom)
-    - Checks description lengths
-    - Validates regex patterns
-    - Validates example values against patterns/expected_values
-
-What the Cleaner Does NOT Do:
-    - Perform field reuse (handled by finalizer.py)
-    - Calculate final field names (handled by finalizer.py)
-    - Generate output artifacts (handled by generators)
-    - Modify schema structure (only enriches existing structure)
-
-Strict Mode:
-    When run with --strict flag, warnings become exceptions. This enforces:
-    - Short descriptions under 120 characters
-    - Valid example values
-    - Proper regex patterns
-    - No YAML interpretation issues
-
-Key Concepts:
-    - **Mandatory Attributes**: Must be present or cleaner raises ValueError
-    - **Defaults**: Optional attributes get sensible defaults if missing
-    - **Intermediate Fields**: Auto-created parents (type=object, intermediate=true)
-    - **Reuse Notation**: Shorthand 'destination' expands to {'at': 'destination', 'as': 'user'}
-
-Example:
-    >>> from schema import loader, cleaner
-    >>> fields = loader.load_schemas()
-    >>> cleaner.clean(fields, strict=False)
-    # Fields now have defaults filled in and are validated
-
-See also: scripts/docs/schema-pipeline.md for complete pipeline documentation
+See scripts/docs/schema-pipeline.md for complete documentation.
 """
 
 import re
@@ -102,37 +54,12 @@ strict_mode: Optional[bool]  # work-around from https://github.com/python/mypy/i
 def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
     """Clean, validate, and enrich schema definitions in place.
 
-    This is the main entry point for the cleaner module. It uses the visitor
-    pattern to traverse all fieldsets and fields, applying validation,
-    normalization, and defaults to each.
-
     Args:
         fields: Deeply nested field dictionary from loader.py
-        strict: If True, warnings become exceptions (enforces stricter validation)
-
-    Side Effects:
-        Modifies fields dictionary in place:
-        - Adds default values for optional attributes
-        - Strips whitespace from strings
-        - Expands shorthand notation
-        - Calculates derived fields
+        strict: If True, warnings become exceptions
 
     Raises:
         ValueError: If mandatory attributes are missing or invalid
-
-    Processing Order:
-        1. Visit each fieldset, call schema_cleanup()
-        2. Visit each field, call field_cleanup()
-        3. Both use depth-first traversal (parents before children)
-
-    Example:
-        >>> fields = loader.load_schemas()
-        >>> clean(fields, strict=False)  # Warnings for issues
-        >>> clean(fields, strict=True)   # Exceptions for issues
-
-    Note:
-        Sets global strict_mode variable that controls warning behavior.
-        This is a workaround for passing state to visitor callbacks.
     """
     global strict_mode
     strict_mode = strict
@@ -143,38 +70,7 @@ def clean(fields: Dict[str, Field], strict: Optional[bool] = False) -> None:
 
 
 def schema_cleanup(schema: FieldEntry) -> None:
-    """Clean, validate, and enrich a single fieldset definition.
-
-    Performs all cleanup operations for a fieldset (schema-level node):
-    - Validates mandatory attributes
-    - Strips whitespace
-    - Fills in defaults
-    - Calculates prefix
-    - Expands reuse notation
-    - Validates constraints
-
-    Args:
-        schema: Fieldset entry with 'schema_details', 'field_details', 'fields'
-
-    Side Effects:
-        Modifies schema dictionary in place
-
-    Raises:
-        ValueError: If mandatory attributes missing or invalid
-
-    Defaults Applied:
-        - group: 2 (standard priority)
-        - root: False (not a root fieldset)
-        - type: 'group' (fieldset type)
-        - short: Copy of description
-        - reusable.order: 2 (default reuse priority)
-
-    Calculated Fields:
-        - prefix: '' if root=true, else 'name.' (e.g., 'http.')
-
-    Note:
-        Called by visitor for each fieldset during traversal.
-    """
+    """Clean and enrich a fieldset: validate, set defaults, expand reuse notation."""
     # Sanity check first
     schema_mandatory_attributes(schema)
     # trailing space cleanup
@@ -202,35 +98,7 @@ SCHEMA_MANDATORY_ATTRIBUTES = ['name', 'title', 'description']
 
 
 def schema_mandatory_attributes(schema: FieldEntry) -> None:
-    """Validate that all mandatory fieldset attributes are present.
-
-    Checks for required attributes at both field_details and schema_details level.
-    For reusable fieldsets, also validates reusable-specific attributes.
-
-    Args:
-        schema: Fieldset entry to validate
-
-    Raises:
-        ValueError: If any mandatory attributes are missing
-
-    Mandatory Attributes:
-        All fieldsets:
-        - name: Fieldset identifier
-        - title: Display title
-        - description: Fieldset description
-
-        Reusable fieldsets (if reusable key present):
-        - expected: Array of reuse locations
-        - top_level: Whether fieldset can appear at root
-
-    Example:
-        >>> schema = {
-        ...     'field_details': {'name': 'http', 'description': '...'},
-        ...     'schema_details': {}
-        ... }
-        >>> schema_mandatory_attributes(schema)
-        ValueError: Schema http is missing the following mandatory attributes: title
-    """
+    """Validate mandatory attributes (name, title, description) are present."""
     current_schema_attributes: List[str] = sorted(list(schema['field_details'].keys()) +
                                                   list(schema['schema_details'].keys()))
     missing_attributes: List[str] = ecs_helpers.list_subtract(SCHEMA_MANDATORY_ATTRIBUTES, current_schema_attributes)

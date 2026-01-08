@@ -330,7 +330,7 @@ import yaml
 # Load flat format
 with open('generated/ecs/ecs_flat.yml') as f:
     flat = yaml.safe_load(f)
-    
+
 # Iterate all fields
 for field_name, field_def in flat.items():
     print(f"{field_name}: {field_def['type']}")
@@ -398,10 +398,10 @@ To change which fields appear in the flat format:
 def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
     """Generate flat field representation."""
     filtered: Dict[str, FieldEntry] = remove_non_root_reusables(fields)
-    
+
     # Add additional filtering
     filtered = remove_deprecated_fields(filtered)  # NEW
-    
+
     flattened: Dict[str, Field] = {}
     visitor.visit_fields_with_memo(filtered, accumulate_field, flattened)
     return flattened
@@ -415,17 +415,17 @@ To change fieldset-level attributes:
 def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNestedEntry]:
     """Generate nested fieldset representation."""
     nested: Dict[str, FieldNestedEntry] = {}
-    
+
     for (name, details) in fields.items():
         fieldset_details = {
             **copy.deepcopy(details['field_details']),
             **copy.deepcopy(details['schema_details'])
         }
-        
+
         # Add custom processing
         if 'beta' in fieldset_details:
             fieldset_details['stability'] = 'beta'  # NEW
-        
+
         # ... rest of processing ...
 ```
 
@@ -486,57 +486,9 @@ def remove_internal_attributes(field_details: Field) -> None:
 
 ### Debugging Tips
 
-#### View raw processed schemas
-
-Enable debugging output:
-```python
-# In generator.py or your script
-nested, flat = generate(fields, out_dir, default_dirs=True)
-# This creates ecs.yml with raw processed schemas
-```
-
-#### Compare before/after
-
-```bash
-# Generate with current code
-python scripts/generator.py --semconv-version v1.24.0 --out /tmp/test1
-
-# Make changes
-
-# Generate again
-python scripts/generator.py --semconv-version v1.24.0 --out /tmp/test2
-
-# Compare
-diff /tmp/test1/ecs/ecs_flat.yml /tmp/test2/ecs/ecs_flat.yml
-```
-
-#### Field counts
-
-```python
-import yaml
-
-with open('generated/ecs/ecs_flat.yml') as f:
-    flat = yaml.safe_load(f)
-    print(f"Total fields: {len(flat)}")
-    
-with open('generated/ecs/ecs_nested.yml') as f:
-    nested = yaml.safe_load(f)
-    total_fields = sum(len(fs['fields']) for fs in nested.values())
-    print(f"Total fields (from nested): {total_fields}")
-    print(f"Total fieldsets: {len(nested)}")
-```
-
-#### Field type distribution
-
-```python
-from collections import Counter
-
-with open('generated/ecs/ecs_flat.yml') as f:
-    flat = yaml.safe_load(f)
-    types = Counter(f['type'] for f in flat.values())
-    for field_type, count in types.most_common():
-        print(f"{field_type}: {count}")
-```
+- Use `default_dirs=True` to generate `ecs.yml` with raw processed schemas
+- Compare outputs: `diff ecs_flat_old.yml ecs_flat_new.yml`
+- Count fields with `len(yaml.safe_load(open('ecs_flat.yml')))`
 
 ## Related Files
 

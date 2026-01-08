@@ -123,7 +123,7 @@ Beats name (in http group): request.method
       type: date
       default_field: true
       description: Date/time when the event originated
-      
+
     - name: agent
       type: group
       default_field: true
@@ -150,7 +150,7 @@ Field sets become groups in Beats:
       type: keyword
       default_field: true  # But some fields within are
       description: HTTP request method
-      
+
     - name: request.bytes
       type: long
       default_field: false  # Others are not
@@ -321,12 +321,12 @@ def count_default_fields(fields, count={'default': 0, 'non_default': 0}):
             count['default'] += 1
         else:
             count['non_default'] += 1
-        
+
         if 'fields' in field:
             count_default_fields(field['fields'], count)
         if 'multi_fields' in field:
             count_default_fields(field['multi_fields'], count)
-    
+
     return count
 
 counts = count_default_fields(beats_def[0]['fields'])
@@ -393,10 +393,10 @@ def fieldset_field_array(...):
         contextual_name = nested_field_name
     else:
         contextual_name = '.'.join(nested_field_name.split('.')[1:])
-    
+
     # Custom logic example: keep full names
     contextual_name = nested_field_name
-    
+
     # Or: different prefix handling
     if fieldset_prefix:
         contextual_name = nested_field_name.replace(fieldset_prefix + '.', '')
@@ -470,67 +470,6 @@ yamllint generated/beats/fields.ecs.yml
 - Unescaped special characters in descriptions
 - Incorrect indentation
 - Missing required properties
-
-### Debugging Tips
-
-#### View generated structure
-
-```python
-import yaml
-
-with open('generated/beats/fields.ecs.yml') as f:
-    beats = yaml.safe_load(f)
-
-# Inspect top-level
-print(beats[0].keys())  # ['key', 'title', 'description', 'fields']
-
-# Count groups
-groups = [f for f in beats[0]['fields'] if f.get('type') == 'group']
-print(f"Groups: {len(groups)}")
-
-# List all top-level field names
-for field in beats[0]['fields'][:10]:
-    print(f"  {field['name']}: {field.get('type', 'no-type')}")
-```
-
-#### Compare with previous version
-
-```bash
-# Generate current version
-make SEMCONV_VERSION=v1.24.0
-cp generated/beats/fields.ecs.yml fields_new.yml
-
-# Check out previous version
-git checkout HEAD~1
-
-# Generate old version
-make clean
-make SEMCONV_VERSION=v1.24.0
-cp generated/beats/fields.ecs.yml fields_old.yml
-
-# Compare
-diff -u fields_old.yml fields_new.yml | less
-```
-
-#### Trace default_field assignment
-
-Add debugging to `set_default_field()`:
-
-```python
-def set_default_field(fields, df_allowlist, df=False, path=''):
-    for fld in fields:
-        fld_path = fld['name']
-        if path != '' and not fld.get('root', False):
-            fld_path = path + '.' + fld_path
-        
-        expected = fld_path in df_allowlist
-        
-        # Debug output
-        if fld_path.startswith('http'):  # Focus on http fields
-            print(f"{fld_path}: in_allowlist={expected}, parent_df={df}")
-        
-        # ... rest of function
-```
 
 ## Integration with Beats
 

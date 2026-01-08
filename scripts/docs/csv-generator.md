@@ -253,10 +253,10 @@ To change sort order:
 def base_first(ecs_flat: Dict[str, Field]) -> List[Field]:
     # Custom sorting logic
     fields_list = list(ecs_flat.values())
-    
+
     # Sort by level, then name
     return sorted(fields_list, key=lambda f: (f['level'], f['flat_name']))
-    
+
     # Or by fieldset, then name
     return sorted(fields_list, key=lambda f: (f['flat_name'].split('.')[0], f['flat_name']))
 ```
@@ -282,10 +282,10 @@ To exclude certain fields:
 ```python
 def generate(ecs_flat: Dict[str, Field], version: str, out_dir: str) -> None:
     ecs_helpers.make_dirs(join(out_dir, 'csv'))
-    
+
     # Filter out custom fields
     filtered = {k: v for k, v in ecs_flat.items() if v['level'] != 'custom'}
-    
+
     sorted_fields = base_first(filtered)
     save_csv(join(out_dir, 'csv/fields.csv'), sorted_fields, version)
 ```
@@ -351,65 +351,6 @@ if 'multi_fields' in field:
 ```python
 field = flat['some.field']
 print(field.get('normalize', []))  # Should be a list
-```
-
-### Debugging Tips
-
-#### Verify field count
-
-```python
-import csv
-
-with open('generated/csv/fields.csv') as f:
-    reader = csv.DictReader(f)
-    rows = list(reader)
-    print(f"Total rows: {len(rows)}")
-    
-# Compare with flat format
-from generators.intermediate_files import generate as gen_intermediate
-nested, flat = gen_intermediate(fields, 'generated/ecs', True)
-print(f"Flat fields: {len(flat)}")
-
-# Count multi-fields
-multi_field_count = sum(
-    len(f.get('multi_fields', [])) for f in flat.values()
-)
-print(f"Multi-fields: {multi_field_count}")
-print(f"Expected total: {len(flat) + multi_field_count}")
-```
-
-#### Check field sets
-
-```python
-import csv
-from collections import Counter
-
-with open('generated/csv/fields.csv') as f:
-    reader = csv.DictReader(f)
-    fieldsets = Counter(row['Field_Set'] for row in reader)
-    
-print("Fields per fieldset:")
-for fieldset, count in sorted(fieldsets.items()):
-    print(f"  {fieldset}: {count}")
-```
-
-#### Validate CSV syntax
-
-```python
-import csv
-
-try:
-    with open('generated/csv/fields.csv') as f:
-        reader = csv.DictReader(f)
-        for i, row in enumerate(reader, 1):
-            # Check required columns
-            required = ['Field', 'Type', 'Level']
-            for col in required:
-                if not row[col]:
-                    print(f"Row {i}: Missing {col}")
-    print("CSV validation passed")
-except csv.Error as e:
-    print(f"CSV error: {e}")
 ```
 
 ## Related Files

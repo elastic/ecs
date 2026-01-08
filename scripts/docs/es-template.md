@@ -360,13 +360,13 @@ def entry_for(field: Field) -> Dict:
     field_entry: Dict = {'type': field['type']}
     try:
         # ... existing type handling ...
-        
+
         elif field['type'] == 'new_type':
             ecs_helpers.dict_copy_existing_keys(
-                field, field_entry, 
+                field, field_entry,
                 ['param1', 'param2']  # Type-specific parameters
             )
-        
+
         # ... rest of function ...
 ```
 
@@ -543,69 +543,9 @@ with open('template.json') as f:
 
 ### Debugging Tips
 
-#### Validate generated templates
-
-```bash
-# Check JSON syntax
-jq . generated/elasticsearch/composable/template.json
-
-# Count fields in component
-jq '.template.mappings.properties | .. | .type? | select(. != null)' \
-  generated/elasticsearch/composable/component/http.json | wc -l
-```
-
-#### Compare templates
-
-```bash
-# Compare two versions
-diff -u \
-  old_version/elasticsearch/composable/template.json \
-  new_version/elasticsearch/composable/template.json
-```
-
-#### Test template installation
-
-```bash
-# Start test Elasticsearch
-docker run -p 9200:9200 -e "discovery.type=single-node" \
-  docker.elastic.co/elasticsearch/elasticsearch:8.11.0
-
-# Install template
-curl -X PUT "localhost:9200/_index_template/ecs_test" \
-  -H 'Content-Type: application/json' \
-  -d @generated/elasticsearch/composable/template.json
-
-# Verify installation
-curl "localhost:9200/_index_template/ecs_test"
-
-# Test with sample document
-curl -X POST "localhost:9200/try-ecs-test/_doc" \
-  -H 'Content-Type: application/json' -d '{
-  "agent": {"name": "test"},
-  "http": {"request": {"method": "GET"}}
-}'
-
-# Check mapping applied
-curl "localhost:9200/try-ecs-test/_mapping"
-```
-
-#### Inspect field mappings
-
-```python
-import json
-
-with open('generated/elasticsearch/composable/component/http.json') as f:
-    template = json.load(f)
-    
-def print_fields(props, prefix=''):
-    for name, field in props.items():
-        if 'type' in field:
-            print(f"{prefix}{name}: {field['type']}")
-        if 'properties' in field:
-            print_fields(field['properties'], prefix + name + '.')
-
-print_fields(template['template']['mappings']['properties'])
-```
+- **Validate JSON**: `jq . generated/elasticsearch/composable/template.json`
+- **Compare versions**: `diff -u old/template.json new/template.json`
+- **Test installation**: Use a local Elasticsearch instance with `docker run -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:8.11.0`
 
 ## Related Files
 

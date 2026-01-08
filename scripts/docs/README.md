@@ -58,8 +58,6 @@ Each major generator module has its own detailed guide:
   - Contextual naming and field groups
   - Integration with Beat modules
 
-*(More module guides will be added here as documentation is expanded)*
-
 ### Quick Reference
 
 For high-level usage information, see:

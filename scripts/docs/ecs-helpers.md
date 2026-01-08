@@ -9,7 +9,7 @@ The ECS Helpers module (`generators/ecs_helpers.py`) provides a comprehensive co
 This module serves as the shared utility layer for the entire ECS build system, providing:
 
 1. **Dictionary Operations** - Copying, sorting, merging, ordering
-2. **File Operations** - YAML I/O, file discovery, directory management  
+2. **File Operations** - YAML I/O, file discovery, directory management
 3. **Git Operations** - Repository introspection, version loading
 4. **List Operations** - Filtering, extraction, transformation
 5. **Field Utilities** - Type checking, filtering by reusability
@@ -88,7 +88,7 @@ sorted_fs = dict_sorted_by_keys(fieldsets, ['group', 'name'])
 ```python
 def ordered_dict_insert(
     dct: Field,
-    new_key: str, 
+    new_key: str,
     new_value: Union[str, bool],
     before_key: Optional[str] = None,
     after_key: Optional[str] = None
@@ -424,10 +424,10 @@ from generators import ecs_helpers
 
 def build_mapping(field):
     mapping = {'type': field['type']}
-    
+
     if field['type'] == 'keyword':
         ecs_helpers.dict_copy_existing_keys(
-            field, mapping, 
+            field, mapping,
             ['ignore_above', 'normalizer']
         )
     elif field['type'] == 'text':
@@ -435,7 +435,7 @@ def build_mapping(field):
             field, mapping,
             ['norms', 'analyzer']
         )
-    
+
     return mapping
 ```
 
@@ -449,7 +449,7 @@ def save_output(content, out_dir):
     # Ensure directory exists
     full_dir = join(out_dir, 'elasticsearch', 'composable', 'component')
     ecs_helpers.make_dirs(full_dir)
-    
+
     # Now safe to write files
     with open(join(full_dir, 'template.json'), 'w') as f:
         f.write(content)
@@ -481,107 +481,10 @@ filtered_fields = ecs_helpers.fields_subset(subset, all_fields)
 
 ## Design Principles
 
-### 1. Single Responsibility
-
-Each function does one thing well:
-- `dict_sorted_by_keys()` - only sorts
-- `make_dirs()` - only creates directories
-- `is_yaml()` - only checks extensions
-
-### 2. No Side Effects (Except I/O)
-
-Most functions don't modify their inputs:
-```python
-# Returns new dict, doesn't modify 'a' or 'b'
-merged = safe_merge_dicts(a, b)
-
-# Exception: Functions explicitly modifying in place
-dict_copy_existing_keys(source, dest, keys)  # Modifies dest
-```
-
-### 3. Type Safety
-
-All functions have type hints for clarity:
-```python
-def dict_sorted_by_keys(
-    dct: FieldNestedEntry, 
-    sort_keys: List[str]
-) -> List[FieldNestedEntry]:
-    ...
-```
-
-### 4. Consistent Error Handling
-
-- Use exceptions for errors (ValueError, OSError)
-- Return None/empty for "not found" cases
-- Print informative error messages
-
-### 5. Composability
-
-Functions work together:
-```python
-# Chain operations
-files = ecs_helpers.glob_yaml_files(['schemas/'])
-for file in sorted(files):
-    data = ecs_helpers.yaml_load(file)
-    ecs_helpers.dict_clean_string_values(data)
-    process(data)
-```
-
-## Testing Strategies
-
-### Unit Testing Helpers
-
-```python
-import pytest
-from generators import ecs_helpers
-
-def test_list_subtract():
-    result = ecs_helpers.list_subtract([1, 2, 3, 4], [2, 4])
-    assert result == [1, 3]
-
-def test_safe_merge_dicts():
-    a = {'x': 1}
-    b = {'y': 2}
-    result = ecs_helpers.safe_merge_dicts(a, b)
-    assert result == {'x': 1, 'y': 2}
-    
-    # Test duplicate detection
-    c = {'x': 99}
-    with pytest.raises(ValueError, match='Duplicate key'):
-        ecs_helpers.safe_merge_dicts(a, c)
-
-def test_is_yaml():
-    assert ecs_helpers.is_yaml('file.yml')
-    assert ecs_helpers.is_yaml('file.yaml')
-    assert not ecs_helpers.is_yaml('file.json')
-```
-
-### Integration Testing
-
-```python
-import tempfile
-import os
-from generators import ecs_helpers
-
-def test_yaml_round_trip():
-    data = {'name': 'test', 'fields': ['a', 'b']}
-    
-    with tempfile.NamedTemporaryFile(mode='w', suffix='.yml', delete=False) as f:
-        filename = f.name
-    
-    try:
-        # Write
-        ecs_helpers.yaml_dump(filename, data)
-        
-        # Read
-        loaded = ecs_helpers.yaml_load(filename)
-        
-        # Verify
-        assert loaded == data
-    finally:
-        os.unlink(filename)
-```
+- **Single Responsibility**: Each function does one thing well
+- **No Side Effects**: Most functions don't modify inputs (except those explicitly documented to do so like `dict_copy_existing_keys`)
+- **Type Safety**: All functions have type hints
+- **Composability**: Functions chain together for complex operations
 
 ## Troubleshooting
 
@@ -641,50 +544,6 @@ print(f"Files found: {glob.glob(path)}")
 # In yaml_load:
 with open(filename, encoding='utf-8') as f:
     return yaml.safe_load(f.read())
-```
-
-## Performance Tips
-
-### For Large Field Sets
-
-```python
-# Bad: Creates new list each iteration
-for fieldset in fields:
-    sorted_fields = dict_sorted_by_keys(fieldset['fields'], 'name')
-    process(sorted_fields)
-
-# Good: Sort once if order doesn't change
-sorted_fieldsets = dict_sorted_by_keys(fields, ['group', 'name'])
-for fieldset in sorted_fieldsets:
-    process(fieldset)
-```
-
-### For File Operations
-
-```python
-# Bad: Loading same file multiple times
-for operation in operations:
-    data = yaml_load('config.yml')
-    operation(data)
-
-# Good: Load once
-config = yaml_load('config.yml')
-for operation in operations:
-    operation(config)
-```
-
-### For Merging Many Dicts
-
-```python
-# Bad: Nested safe_merge_dicts (deep copying repeatedly)
-result = safe_merge_dicts(a, b)
-result = safe_merge_dicts(result, c)
-result = safe_merge_dicts(result, d)
-
-# Better: Merge all at once if possible
-from functools import reduce
-dicts = [a, b, c, d]
-result = reduce(safe_merge_dicts, dicts)
 ```
 
 ## Related Files

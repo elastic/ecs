@@ -17,61 +17,16 @@
 
 """Schema Loader Module.
 
-This module is the entry point for the ECS schema processing pipeline. It loads
-schema definitions from YAML files (either from filesystem or git) and transforms
-them into a deeply nested structure that can be processed by downstream stages.
+Entry point for ECS schema processing pipeline. Loads YAML schemas from filesystem
+or git refs and transforms them into a deeply nested structure.
 
-Loading Sources:
-    1. **ECS Core Schemas**: From schemas/*.yml directory
-    2. **Experimental Schemas**: From experimental/schemas/ (optional)
-    3. **Custom Schemas**: User-provided schema files (optional)
-    4. **Git References**: Load schemas from specific git tags/branches
+Key operations:
+- Load from schemas/*.yml, experimental/schemas/, or custom paths
+- Transform dotted field names (e.g., 'http.request.method') into nested dicts
+- Create intermediate parent fields automatically
+- Merge multiple schema sources safely
 
-The loading process:
-    - Reads raw YAML schema files (arrays of fieldset definitions)
-    - Transforms flat dotted field names into nested structures
-    - Merges multiple schema sources together safely
-    - Creates intermediate parent fields automatically (e.g., 'http.request')
-    - Preserves minimal structure for downstream processing
-
-Output Structure:
-    The deeply nested structure returned looks like:
-
-    {
-        'schema_name': {
-            'schema_details': {    # Fieldset-level metadata
-                'reusable': {...},
-                'root': bool,
-                'group': int,
-                'title': str
-            },
-            'field_details': {     # Field properties for the fieldset itself
-                'name': str,
-                'description': str,
-                'type': 'group'
-            },
-            'fields': {            # Nested fields within this fieldset
-                'field_name': {
-                    'field_details': {...},
-                    'fields': {...}  # Recursive nesting
-                }
-            }
-        }
-    }
-
-Key Concepts:
-    - **Deeply Nested**: Dotted names like 'http.request.method' become nested dicts
-    - **Intermediate Fields**: Auto-created parent fields (e.g., 'http.request')
-    - **Schema Merging**: Custom schemas can extend or override ECS schemas
-    - **Minimal Defaults**: Only sets bare minimum; cleaner.py fills in rest
-
-This module does NOT:
-    - Validate field definitions (handled by cleaner.py)
-    - Perform field reuse (handled by finalizer.py)
-    - Calculate final field names (handled by finalizer.py)
-    - Apply defaults beyond structure (handled by cleaner.py)
-
-See also: scripts/docs/schema-pipeline.md for complete pipeline documentation
+See scripts/docs/schema-pipeline.md for complete documentation.
 """
 
 import copy
@@ -315,56 +270,9 @@ def nest_schema(raw: List[FieldNestedEntry], file_name: str) -> Dict[str, FieldN
 def deep_nesting_representation(fields: Dict[str, FieldNestedEntry]) -> Dict[str, FieldEntry]:
     """Transform flat schema definitions into deeply nested field structures.
 
-    Takes schemas with flat field arrays and converts them into the deeply nested
-    structure used by the rest of the pipeline. This involves:
-    - Separating schema-level metadata from field-level metadata
-    - Converting dotted field names into nested dictionaries
-    - Creating intermediate parent fields automatically
-
-    Args:
-        fields: Dictionary of raw schema definitions with flat field arrays
-
-    Returns:
-        Dictionary mapping schema names to deeply nested structures with:
-        - schema_details: Fieldset-level metadata (root, group, reusable, title)
-        - field_details: Field properties for the fieldset itself
-        - fields: Recursively nested field definitions
-
-    Structure Transformation:
-        Input (flat):
-        {
-            'http': {
-                'name': 'http',
-                'title': 'HTTP',
-                'fields': [
-                    {'name': 'request.method', 'type': 'keyword'},
-                    {'name': 'response.status_code', 'type': 'long'}
-                ]
-            }
-        }
-
-        Output (deeply nested):
-        {
-            'http': {
-                'schema_details': {'title': 'HTTP', ...},
-                'field_details': {'name': 'http', ...},
-                'fields': {
-                    'request': {
-                        'field_details': {'intermediate': True, ...},
-                        'fields': {
-                            'method': {
-                                'field_details': {'type': 'keyword', ...}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    Note:
-        - Schema-level keys (root, group, reusable, title) go to schema_details
-        - Everything else becomes field_details
-        - Intermediate fields are auto-created for nesting paths
+    Converts dotted field names (e.g., 'request.method') into nested dicts,
+    separating schema_details from field_details and creating intermediate
+    parent fields automatically.
     """
     deeply_nested: Dict[str, FieldEntry] = {}
     for (name, flat_schema) in fields.items():
@@ -394,55 +302,8 @@ def deep_nesting_representation(fields: Dict[str, FieldNestedEntry]) -> Dict[str
 def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
     """Convert flat array of fields with dotted names into nested structure.
 
-    Takes a flat array of field definitions (where 'name' can contain dots like
-    'request.method') and builds a nested dictionary structure. Automatically
-    creates intermediate parent fields as needed.
-
-    Args:
-        field_array: List of field definitions with potentially dotted names
-
-    Returns:
-        Dictionary with 'fields' key containing nested field structure
-
-    Field Nesting Logic:
-        1. Split dotted names: 'request.method' -> ['request', 'method']
-        2. Create intermediate fields for parents: 'request' becomes type='object'
-        3. Mark intermediate fields so they can be identified later
-        4. Preserve explicitly defined object/nested fields (not intermediate)
-        5. Place leaf field at deepest nesting level
-
-    Example:
-        Input:
-        [
-            {'name': 'method', 'type': 'keyword'},
-            {'name': 'request.method', 'type': 'keyword'},
-            {'name': 'request.bytes', 'type': 'long'}
-        ]
-
-        Output:
-        {
-            'fields': {
-                'method': {
-                    'field_details': {'name': 'method', 'type': 'keyword'}
-                },
-                'request': {
-                    'field_details': {
-                        'name': 'request',
-                        'type': 'object',
-                        'intermediate': True  # Auto-created
-                    },
-                    'fields': {
-                        'method': {...},
-                        'bytes': {...}
-                    }
-                }
-            }
-        }
-
-    Note:
-        - Intermediate fields get type='object' and intermediate=True
-        - Explicitly defined object/nested fields keep intermediate=False
-        - node_name is set for all fields (used internally for tracking)
+    Splits dotted names (e.g., 'request.method') and creates intermediate
+    parent fields (type='object', intermediate=True) automatically.
     """
     schema_root: Dict[str, Dict[str, FieldEntry]] = {'fields': {}}
     for field in field_array:
