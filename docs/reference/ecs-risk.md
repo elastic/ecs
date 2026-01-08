@@ -30,6 +30,7 @@ These fields are in beta and are subject to change.
 
 The `risk` fields are expected to be nested at:
 
+* `entity.risk`
 * `host.risk`
 * `user.risk`
 
