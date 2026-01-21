@@ -36,6 +36,13 @@ Thanks, you're awesome :-) -->
 * Added `entity.target` for self-nesting. #2567
 * Added the target field to be nested under host #2571
 
+* Added `volume.*` as beta field set. #2269
+* Advanced `process.env_vars` to GA. #2315
+* Advanced `process.io` and `process.tty` fields to GA. #2317
+* Added `threat.indicator.id`. #2324
+* Added `process.group` to generated schemas. #2335
+* Added `*.domain` fields to ECS `email`. #2392
+
 #### Improvements
 
 * Added details for implementation of url.query to avoid ambiguity #2488
