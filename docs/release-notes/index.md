@@ -20,6 +20,16 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [ecs-next-fixes]
 % *
 
+## 9.3.0 [ecs-9-3-0-release-notes]
+
+### Features and enhancements [ecs-9-3-0-features-enhancements]
+
+* Added details for implementation of url.query to avoid ambiguity [#2488](https://github.com/elastic/ecs/pull/2488)
+* Added `cloud` and `orchestrator` as allowed values for `entity.type`. [#2567](https://github.com/elastic/ecs/pull/2567)
+* Allow entity fields at root level. [#2567](https://github.com/elastic/ecs/pull/2567)
+* Added `entity.target` for self-nesting. [#2567](https://github.com/elastic/ecs/pull/2567)
+* Added the target field to be nested under host [#2571](https://github.com/elastic/ecs/pull/2571)
+
 ## 9.2.0 [ecs-9-2-0-release-notes]
 
 ### Features and enhancements [ecs-9-2-0-features-enhancements]
