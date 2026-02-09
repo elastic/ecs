@@ -15,6 +15,22 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""ECS Generator - Main Entry Point.
+
+Orchestrates the ECS artifact generation pipeline:
+1. Load and validate YAML schemas (with optional git ref, custom schemas)
+2. Perform field reuse and apply subset/exclude filters
+3. Generate intermediate files (ecs_flat.yml, ecs_nested.yml)
+4. Generate artifacts: CSV, Elasticsearch templates, Beats configs, Markdown docs
+
+Usage:
+    python scripts/generator.py --semconv-version v1.24.0
+    python scripts/generator.py --ref v8.10.0 --semconv-version v1.24.0
+    python scripts/generator.py --subset subsets/minimal.yml --semconv-version v1.24.0
+
+See scripts/docs/schema-pipeline.md for complete documentation.
+"""
+
 import argparse
 import os
 from typing import (
@@ -40,6 +56,14 @@ from ecs_types import (
 
 
 def main() -> None:
+    """Main entry point for ECS artifact generation.
+
+    Runs the complete pipeline: load schemas → clean → finalize (reuse) → filter →
+    validate OTel → generate intermediate files → generate all artifacts.
+
+    Raises:
+        KeyError: If --semconv-version not provided
+    """
     args = argument_parser()
 
     if not args.semconv_version:
@@ -98,6 +122,7 @@ def main() -> None:
 
 
 def argument_parser() -> argparse.Namespace:
+    """Parse command-line arguments. Run with --help for all options."""
     parser = argparse.ArgumentParser()
     parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
                                                        Note that "--include experimental/schemas" will also respect this git ref.')
@@ -130,6 +155,7 @@ def argument_parser() -> argparse.Namespace:
 
 
 def read_version(ref: Optional[str] = None) -> str:
+    """Read ECS version from local 'version' file or from a git ref."""
     if ref:
         print('Loading schemas from git ref ' + ref)
         tree = ecs_helpers.get_tree_by_ref(ref)

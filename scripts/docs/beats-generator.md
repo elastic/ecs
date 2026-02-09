@@ -1,0 +1,526 @@
+# Beats Field Definition Generator
+
+## Overview
+
+The Beats Generator (`generators/beats.py`) creates field definitions for Elastic Beats in YAML format. Beats (Filebeat, Metricbeat, Packetbeat, Winlogbeat, etc.) are lightweight data shippers that need field definitions to validate data structure, configure field behavior, and provide user documentation.
+
+### Purpose
+
+Beats are Elastic's lightweight data collection agents that ship data to Elasticsearch or Logstash. They need field definitions to:
+
+1. **Validate Data** - Ensure collected data matches expected structure
+2. **Configure Behavior** - Control indexing, doc_values, multi-fields
+3. **Document Fields** - Provide field reference to users
+4. **Manage Defaults** - Determine which fields are enabled by default
+
+The challenge: Beats can't load all ~850 ECS fields by default due to memory and performance constraints. The generator uses an allowlist to mark essential fields as `default_field: true`, while keeping others available but not loaded by default.
+
+## Architecture
+
+### High-Level Flow
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     generator.py (main)                         │
+│                                                                 │
+│  Load → Clean → Finalize → Generate Intermediate Files          │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│            intermediate_files.generate()                        │
+│                                                                 │
+│  Returns: (nested, flat)                                        │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼ nested structure
+┌─────────────────────────────────────────────────────────────────┐
+│                 beats.generate()                                │
+│                                                                 │
+│  1. Filter non-root fieldsets                                   │
+│  2. Process 'base' fieldset (fields at root)                    │
+│  3. Process other fieldsets (as groups or root)                 │
+│  4. Load default_fields allowlist                               │
+│  5. Set default_field flags recursively                         │
+│  6. Wrap in 'ecs' top-level group                               │
+└────────────────────────────┬────────────────────────────────────┘
+                             │
+                             ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    Output: fields.ecs.yml                       │
+│                                                                 │
+│  - key: ecs                                                     │
+│    title: ECS                                                   │
+│    fields:                                                      │
+│      - name: '@timestamp'                                       │
+│        type: date                                               │
+│        default_field: true                                      │
+│      - name: agent                                              │
+│        type: group                                              │
+│        default_field: true                                      │
+│        fields:                                                  │
+│          - name: id                                             │
+│            type: keyword                                        │
+│            default_field: true                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Key Components
+
+#### 1. generate()
+
+**Entry Point**: `generate(ecs_nested, ecs_version, out_dir)`
+
+Orchestrates the entire generation process:
+- Filters fieldsets (removes top_level=false)
+- Processes base fieldset first
+- Processes other fieldsets as groups or root fields
+- Applies default_field settings
+- Writes YAML output
+
+#### 2. fieldset_field_array()
+
+**Purpose**: Convert ECS fields to Beats format
+
+**Transformations**:
+- Filter to Beats-relevant properties
+- Convert field names to contextual (relative) names
+- Process multi-fields
+- Sort fields alphabetically
+
+**Example**:
+```
+ECS field name: http.request.method
+Beats name (in http group): request.method
+```
+
+#### 3. set_default_field()
+
+**Purpose**: Mark fields that should be loaded by default
+
+**Logic**:
+- Reads allowlist from `beats_default_fields_allowlist.yml`
+- Recursively applies default_field flags
+- Groups inherit and propagate settings
+- Multi-fields inherit from parent field
+
+#### 4. write_beats_yaml()
+
+**Purpose**: Save formatted YAML with warning header
+
+## Beats YAML Structure
+
+### Top-Level Structure
+
+```yaml
+# WARNING! Do not edit this file directly...
+
+- key: ecs
+  title: ECS
+  description: ECS Fields.
+  fields:
+    - name: '@timestamp'
+      type: date
+      default_field: true
+      description: Date/time when the event originated
+
+    - name: agent
+      type: group
+      default_field: true
+      description: Agent fields
+      fields:
+        - name: id
+          type: keyword
+          default_field: true
+          description: Unique agent identifier
+```
+
+### Field Groups
+
+Field sets become groups in Beats:
+
+```yaml
+- name: http
+  type: group
+  default_field: false  # Group not default
+  title: HTTP
+  description: Fields related to HTTP activity
+  fields:
+    - name: request.method
+      type: keyword
+      default_field: true  # But some fields within are
+      description: HTTP request method
+
+    - name: request.bytes
+      type: long
+      default_field: false  # Others are not
+      description: Request size in bytes
+```
+
+### Contextual Naming
+
+Beats uses relative field names within groups:
+
+| ECS Full Name | Beats Group | Beats Field Name |
+|---------------|-------------|------------------|
+| @timestamp | (root) | @timestamp |
+| agent.id | agent | id |
+| http.request.method | http | request.method |
+| user.email | user | email |
+
+### Multi-Fields
+
+Multi-fields follow the same structure:
+
+```yaml
+- name: message
+  type: match_only_text
+  default_field: true
+  description: Log message
+  multi_fields:
+    - name: text
+      type: match_only_text
+      default_field: true
+```
+
+### Root vs Group Fields
+
+**Root Fields** (root=true in schema):
+- Appear directly in top-level fields array
+- No group wrapper
+- Example: base fieldset fields
+
+**Group Fields** (root=false or not specified):
+- Wrapped in group with metadata
+- Nested under group's fields array
+- Example: http, user, process fieldsets
+
+## Default Fields Concept
+
+### The Challenge
+
+Beats face a trade-off:
+- **More fields** = More memory/CPU usage
+- **Fewer fields** = Less data captured
+
+All ~850 ECS fields would consume too many resources for many use cases.
+
+### The Solution: default_field
+
+Fields marked `default_field: true` are:
+- Loaded by Beat on startup
+- Available for immediate use
+- Included in index mappings
+
+Fields marked `default_field: false`:
+- Not loaded by default
+- Can be enabled in Beat configuration
+- Won't appear in index unless explicitly enabled
+
+### Allowlist File
+
+`beats_default_fields_allowlist.yml` contains ~400 essential fields:
+
+```yaml
+!!set
+# Core timestamp
+'@timestamp': null
+
+# Essential agent fields
+agent.id: null
+agent.name: null
+agent.type: null
+agent.version: null
+
+# Common network fields
+client.ip: null
+client.port: null
+server.ip: null
+server.port: null
+
+# Essential event categorization
+event.kind: null
+event.category: null
+event.type: null
+event.outcome: null
+
+# Common message/log fields
+message: null
+log.level: null
+...
+```
+
+### Inheritance Rules
+
+**Groups**:
+- Top-level groups: `default_field: true`
+- Nested groups: Inherit from parent
+
+**Fields**:
+- In allowlist: `default_field: true`
+- Parent is default: Children are default
+- Otherwise: `default_field: false`
+
+**Multi-fields**:
+- Always inherit from parent field
+
+## Usage Examples
+
+### Running the Generator
+
+Typically invoked through the main generator:
+
+```bash
+# From repository root
+make clean
+make SEMCONV_VERSION=v1.24.0
+
+# Beats file created at:
+# generated/beats/fields.ecs.yml
+```
+
+### Programmatic Usage
+
+```python
+from generators.beats import generate
+from generators.intermediate_files import generate as gen_intermediate
+
+# Generate intermediate files
+nested, flat = gen_intermediate(fields, 'generated/ecs', True)
+
+# Generate Beats fields
+generate(nested, '8.11.0', 'generated')
+# Creates generated/beats/fields.ecs.yml
+```
+
+### Loading in Beat Module
+
+```yaml
+# In a Beat module (e.g., Filebeat module)
+# Reference the generated file:
+
+---
+- name: http
+  type: group
+  description: HTTP fields from ECS
+  fields:
+    !include ../../../generated/beats/fields.ecs.yml
+```
+
+### Checking default_field Settings
+
+```python
+import yaml
+
+with open('generated/beats/fields.ecs.yml') as f:
+    beats_def = yaml.safe_load(f)
+
+def count_default_fields(fields, count={'default': 0, 'non_default': 0}):
+    for field in fields:
+        if field.get('default_field', False):
+            count['default'] += 1
+        else:
+            count['non_default'] += 1
+
+        if 'fields' in field:
+            count_default_fields(field['fields'], count)
+        if 'multi_fields' in field:
+            count_default_fields(field['multi_fields'], count)
+
+    return count
+
+counts = count_default_fields(beats_def[0]['fields'])
+print(f"Default fields: {counts['default']}")
+print(f"Non-default fields: {counts['non_default']}")
+```
+
+## Making Changes
+
+### Adding Fields to Allowlist
+
+To make a field load by default in Beats:
+
+1. **Edit allowlist**:
+```yaml
+# beats_default_fields_allowlist.yml
+# Add new field
+new.field.name: null
+```
+
+2. **Regenerate**:
+```bash
+make clean
+make SEMCONV_VERSION=v1.24.0
+```
+
+3. **Verify**:
+```bash
+grep "name: field.name" generated/beats/fields.ecs.yml -A 1
+# Should show: default_field: true
+```
+
+### Removing Fields from Allowlist
+
+To stop a field from loading by default:
+
+1. Remove from `beats_default_fields_allowlist.yml`
+2. Regenerate as above
+3. Verify field now has `default_field: false`
+
+### Adding New Field Properties
+
+To include additional properties in Beats output:
+
+```python
+def fieldset_field_array(...):
+    allowed_keys: List[str] = [
+        'name',
+        'level',
+        # ... existing keys ...
+        'new_property',  # Add here
+    ]
+    # ... rest of function
+```
+
+### Changing Contextual Naming Logic
+
+To modify how field names are made relative:
+
+```python
+def fieldset_field_array(...):
+    # Current logic
+    if '' == fieldset_prefix:
+        contextual_name = nested_field_name
+    else:
+        contextual_name = '.'.join(nested_field_name.split('.')[1:])
+
+    # Custom logic example: keep full names
+    contextual_name = nested_field_name
+
+    # Or: different prefix handling
+    if fieldset_prefix:
+        contextual_name = nested_field_name.replace(fieldset_prefix + '.', '')
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### Fields missing default_field property
+
+**Symptom**: Some fields don't have `default_field` set
+
+**Check**:
+```bash
+# Count fields without default_field
+grep -c "name:" generated/beats/fields.ecs.yml
+grep -c "default_field:" generated/beats/fields.ecs.yml
+# Should be equal (or close, accounting for structure)
+```
+
+**Solution**: Ensure `set_default_field()` is being called after field processing
+
+#### Allowlist changes not applying
+
+**Symptom**: Modified allowlist but field still has old default_field value
+
+**Solution**:
+```bash
+# Clean build directory
+make clean
+
+# Regenerate from scratch
+make SEMCONV_VERSION=v1.24.0
+
+# Verify allowlist was loaded
+grep "your.field.name" scripts/generators/beats_default_fields_allowlist.yml
+grep "your.field.name" -A 1 generated/beats/fields.ecs.yml
+```
+
+#### Contextual names incorrect
+
+**Symptom**: Field names still show full ECS path instead of relative
+
+**Debug**:
+```python
+# In fieldset_field_array()
+print(f"Field: {nested_field_name}")
+print(f"Prefix: {fieldset_prefix}")
+print(f"Contextual: {contextual_name}")
+```
+
+**Check**:
+- Is fieldset_prefix being passed correctly?
+- Is the split('.')[1:] logic working for your case?
+
+#### YAML syntax errors
+
+**Symptom**: Beats can't load the generated YAML
+
+**Validate**:
+```bash
+# Check YAML syntax
+python -c "import yaml; yaml.safe_load(open('generated/beats/fields.ecs.yml'))"
+
+# Or use yamllint if available
+yamllint generated/beats/fields.ecs.yml
+```
+
+**Common issues**:
+- Unescaped special characters in descriptions
+- Incorrect indentation
+- Missing required properties
+
+## Integration with Beats
+
+### In Beat Modules
+
+Beats modules include field definitions:
+
+```yaml
+# module/http/access/_meta/fields.yml
+- name: http
+  type: group
+  description: Fields related to HTTP
+  fields:
+    !include ../../../../../../generated/beats/fields.ecs.yml
+```
+
+### Loading Custom Fields
+
+Users can enable non-default fields:
+
+```yaml
+# filebeat.yml
+filebeat.modules:
+  - module: httpmodule
+    access:
+      enabled: true
+      var.additional_fields:
+        - http.request.body.bytes
+        - http.request.referrer
+```
+
+### Field Conflicts
+
+If a Beat defines custom fields with same names as ECS:
+- ECS fields take precedence
+- Merge is automatic
+- Custom fields should use different names or namespaces
+
+## Related Files
+
+- `scripts/generator.py` - Main entry point
+- `scripts/generators/intermediate_files.py` - Produces nested structure
+- `scripts/generators/ecs_helpers.py` - Utility functions
+- `scripts/generators/beats_default_fields_allowlist.yml` - Default field allowlist
+- `schemas/*.yml` - Source ECS schemas
+- `generated/beats/fields.ecs.yml` - Output file
+
+## References
+
+- [Beats Documentation](https://www.elastic.co/guide/en/beats/libbeat/current/index.html)
+- [Beats Developer Guide](https://www.elastic.co/guide/en/beats/devguide/current/index.html)
+- [Beats Fields YAML Format](https://www.elastic.co/guide/en/beats/devguide/current/fields-yml.html)
+- [ECS Beats Integration](https://www.elastic.co/guide/en/ecs/current/ecs-beats.html)
+

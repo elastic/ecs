@@ -345,5 +345,5 @@ Like the other fields in the [related](/reference/ecs-related.md) field set, `re
 
 ## Mapping examples [ecs-user-usage-mappings]
 
-For examples of mapping events from various sources, you can look at [RFC 0007 in section Source Data](https://github.com/elastic/ecs/blob/master/rfcs/text/0007-multiple-users.md#source-data).
+For examples of mapping events from various sources, you can look at [RFC 0007 in section Source Data](https://github.com/elastic/ecs/blob/main/rfcs/text/0007-multiple-users.md#source-data).
 
