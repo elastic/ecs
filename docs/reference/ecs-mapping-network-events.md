@@ -109,7 +109,7 @@ It’s important to note that while the values for the `source` and `destination
 | --- | --- | --- |
 | 192.168.86.222 | 192.168.86.1 | DNS query request 1 |
 | 192.168.86.1 | 192.168.86.222 | DNS answer response 1 |
-| 192.168.86.42 | 192.168.86.1 | DNS answer request 2 |
+| 192.168.86.42 | 192.168.86.1 | DNS query request 2 |
 | 192.168.86.1 | 192.168.86.42 | DNS answer request 2 |
 
 | client.ip | server.ip | event |
