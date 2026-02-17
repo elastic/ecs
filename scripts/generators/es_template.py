@@ -291,7 +291,7 @@ def default_template_settings(ecs_version: str) -> Dict:
                     "codec": "best_compression",
                     "mapping": {
                         "total_fields": {
-                            "limit": 2000
+                            "limit": 2500
                         }
                     }
                 }
