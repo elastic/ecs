@@ -63,7 +63,11 @@
       type: keyword
       short: Source module or integration that provided the entity data.
       description: >
-        The module or integration that provided this entity data (similar to event.module).
+        The module or integration that supplied the data for this entity (similar to event.module).
+        Because an entity can be built from more than one source (e.g., multiple logs or integrations),
+        this field is an array: use one entry per source.
+      normalize:
+        - array
       beta: This field is beta and subject to change.
 
     - name: type
