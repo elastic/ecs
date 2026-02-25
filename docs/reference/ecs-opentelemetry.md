@@ -12,7 +12,7 @@ While both schemes complement each other in large areas and thus offer mutual ad
 
 ## Relation between ECS and Semantic Conventions [ecs-opentelemetry-relation]
 
-The [ECS schema files](https://github.com/elastic/ecs/tree/main/schemas) contain an explicit mapping between ECS fields and corresponding OTel semnatic convention attributes. This can be used to generate tooling for compatibility between ECS and semantic conventions (e.g. alias fields in Elasticsearch). The relation between individual ECS fields and corresponding OTel semantic conventions attributes follows one of the following categories:
+The [ECS schema files](https://github.com/elastic/ecs/tree/main/schemas) contain an explicit mapping between ECS fields and corresponding OTel semantic convention attributes. This can be used to generate tooling for compatibility between ECS and semantic conventions (e.g. alias fields in Elasticsearch). The relation between individual ECS fields and corresponding OTel semantic conventions attributes follows one of the following categories:
 
 | Category | Description |
 | --- | --- |
