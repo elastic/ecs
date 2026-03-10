@@ -778,16 +778,36 @@ cloud.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+cloud.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: cloud-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: cloud.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 cloud.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: cloud-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: cloud.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -1111,16 +1131,36 @@ cloud.origin.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+cloud.origin.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: cloud-origin-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: cloud.origin.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 cloud.origin.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: cloud-origin-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: cloud.origin.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -1590,16 +1630,36 @@ cloud.target.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+cloud.target.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: cloud-target-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: cloud.target.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 cloud.target.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: cloud-target-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: cloud.target.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -4006,16 +4066,115 @@ entity.reference:
   normalize: []
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
+entity.risk.calculated_level:
+  dashed_name: entity-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: entity.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+entity.risk.calculated_score:
+  dashed_name: entity-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: entity.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+entity.risk.calculated_score_norm:
+  dashed_name: entity-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: entity.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+entity.risk.static_level:
+  dashed_name: entity-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: entity.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+entity.risk.static_score:
+  dashed_name: entity-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: entity.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+entity.risk.static_score_norm:
+  dashed_name: entity-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: entity.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 entity.source:
   beta: This field is beta and subject to change.
   dashed_name: entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   short: Source module or integration that provided the entity data.
   type: keyword
 entity.sub_type:
@@ -4185,16 +4344,116 @@ entity.target.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+entity.target.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: entity-target-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: entity.target.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
+entity.target.risk.calculated_level:
+  dashed_name: entity-target-risk-calculated-level
+  description: A risk classification level calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: High
+  flat_name: entity.target.risk.calculated_level
+  ignore_above: 1024
+  level: extended
+  name: calculated_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: keyword
+entity.target.risk.calculated_score:
+  dashed_name: entity-target-risk-calculated-score
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring.
+  example: 880.73
+  flat_name: entity.target.risk.calculated_score
+  level: extended
+  name: calculated_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score calculated by an internal system as part of entity
+    analytics and entity risk scoring.
+  type: float
+entity.target.risk.calculated_score_norm:
+  dashed_name: entity-target-risk-calculated-score-norm
+  description: A risk classification score calculated by an internal system as part
+    of entity analytics and entity risk scoring, and normalized to a range of 0 to
+    100.
+  example: 88.73
+  flat_name: entity.target.risk.calculated_score_norm
+  level: extended
+  name: calculated_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an internal system.
+  type: float
+entity.target.risk.static_level:
+  dashed_name: entity-target-risk-static-level
+  description: A risk classification level obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: High
+  flat_name: entity.target.risk.static_level
+  ignore_above: 1024
+  level: extended
+  name: static_level
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification level obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: keyword
+entity.target.risk.static_score:
+  dashed_name: entity-target-risk-static-score
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform.
+  example: 830.0
+  flat_name: entity.target.risk.static_score
+  level: extended
+  name: static_score
+  normalize: []
+  original_fieldset: risk
+  short: A risk classification score obtained from outside the system, such as from
+    some external Threat Intelligence Platform.
+  type: float
+entity.target.risk.static_score_norm:
+  dashed_name: entity-target-risk-static-score-norm
+  description: A risk classification score obtained from outside the system, such
+    as from some external Threat Intelligence Platform, and normalized to a range
+    of 0 to 100.
+  example: 83.0
+  flat_name: entity.target.risk.static_score_norm
+  level: extended
+  name: static_score_norm
+  normalize: []
+  original_fieldset: risk
+  short: A normalized risk score calculated by an external system.
+  type: float
 entity.target.source:
   beta: This field is beta and subject to change.
   dashed_name: entity-target-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: entity.target.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -7890,16 +8149,36 @@ host.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+host.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: host-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: host.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 host.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: host-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: host.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -8704,16 +8983,36 @@ host.target.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+host.target.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: host-target-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: host.target.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 host.target.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: host-target-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: host.target.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -10778,16 +11077,36 @@ orchestrator.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+orchestrator.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: orchestrator-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: orchestrator.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 orchestrator.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: orchestrator-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: orchestrator.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -17258,16 +17577,36 @@ service.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+service.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: service-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: service.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 service.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: service-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: service.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -17678,16 +18017,36 @@ service.origin.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+service.origin.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: service-origin-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: service.origin.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 service.origin.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: service-origin-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: service.origin.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -18147,16 +18506,36 @@ service.target.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+service.target.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: service-target-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: service.target.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 service.target.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: service-target-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: service.target.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -26110,16 +26489,36 @@ user.changes.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+user.changes.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: user-changes-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: user.changes.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 user.changes.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: user-changes-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: user.changes.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -26593,16 +26992,36 @@ user.effective.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+user.effective.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: user-effective-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: user.effective.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 user.effective.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: user-effective-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: user.effective.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -27053,16 +27472,36 @@ user.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+user.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: user-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: user.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 user.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: user-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: user.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword
@@ -27534,16 +27973,36 @@ user.target.entity.reference:
   original_fieldset: entity
   short: A URI, URL, or other direct reference to access or locate the entity.
   type: keyword
+user.target.entity.relationship:
+  beta: This field is beta and subject to change.
+  dashed_name: user-target-entity-relationship
+  description: 'The structure and content of this field set may differ depending on
+    the entity type. Use this field set when you need to track relationship characteristics
+    of an entity for advanced searching and correlation of normalized values across
+    different providers/sources and entity types.
+
+    For example, `entity.relationship.owns` can describe that a user owns a device
+    (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns:
+    "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).'
+  flat_name: user.target.entity.relationship
+  level: extended
+  name: relationship
+  normalize: []
+  original_fieldset: entity
+  short: A set of relationship attributes that can vary between entity types.
+  type: object
 user.target.entity.source:
   beta: This field is beta and subject to change.
   dashed_name: user-target-entity-source
-  description: The module or integration that provided this entity data (similar to
-    event.module).
+  description: 'The module or integration that supplied the data for this entity (similar
+    to event.module). Because an entity can be built from more than one source (e.g.,
+    multiple logs or integrations), this field is an array: use one entry per source.'
   flat_name: user.target.entity.source
   ignore_above: 1024
   level: core
   name: source
-  normalize: []
+  normalize:
+  - array
   original_fieldset: entity
   short: Source module or integration that provided the entity data.
   type: keyword

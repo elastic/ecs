@@ -63,7 +63,11 @@
       type: keyword
       short: Source module or integration that provided the entity data.
       description: >
-        The module or integration that provided this entity data (similar to event.module).
+        The module or integration that supplied the data for this entity (similar to event.module).
+        Because an entity can be built from more than one source (e.g., multiple logs or integrations),
+        this field is an array: use one entry per source.
+      normalize:
+        - array
       beta: This field is beta and subject to change.
 
     - name: type
@@ -161,6 +165,16 @@
       short: A set of static or semi-static attributes of the entity.
       description: >
         A set of static or semi-static attributes of the entity. Usually boolean or keyword field data types. Use this field set when you need to track static or semi-static characteristics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types.
+      beta: This field is beta and subject to change.
+
+    - name: relationship
+      level: extended
+      type: object
+      short: A set of relationship attributes that can vary between entity types.
+      description: >
+        The structure and content of this field set may differ depending on the entity type. Use this field set when you need to track relationship characteristics of an entity for advanced searching and correlation of normalized values across different providers/sources and entity types.
+
+        For example, `entity.relationship.owns` can describe that a user owns a device (host): a user John Doe owning a MacBook Pro may be captured as `entity.relationship.owns: "macbook-pro-xxxx"` (the value should be the entity.id of the owned entity).
       beta: This field is beta and subject to change.
 
     - name: lifecycle
