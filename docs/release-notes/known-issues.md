@@ -1,5 +1,8 @@
 ---
 navigation_title: "Known issues"
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # ECS known issues [ecs-known-issues]
