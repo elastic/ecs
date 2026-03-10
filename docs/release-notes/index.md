@@ -2,6 +2,9 @@
 navigation_title: Elastic Common Schema (ECS)
 mapped_pages:
   - https://www.elastic.co/guide/en/ecs/current/releasenotes.html
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # Elastic Common Schema (ECS) release notes

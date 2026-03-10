@@ -1,6 +1,9 @@
 ---
 mapped_pages:
   - https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # Guidelines and best practices [ecs-guidelines]
