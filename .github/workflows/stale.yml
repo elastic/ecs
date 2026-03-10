@@ -1,4 +1,4 @@
-name: Mark stale pull requests
+name: Manage stale pull requests
 
 on:
   schedule:
@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: "Check PRs"
-      uses: actions/stale@5f858e3efba33a5ca4407a664cc011ad407f2008 # v10
+      uses: actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f # v10.2.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-pr-message: |
@@ -29,10 +29,18 @@ jobs:
           be extremely helpful if you could take a look at it as well and confirm its
           relevance. A simple comment with a nice emoji will be enough `:+1`.
 
+          If there is no activity on this PR within the **next 2 weeks**, it will be
+          automatically closed.
+
+          Thank you for your contribution!
+        close-pr-message: |
+          This PR has been automatically closed due to inactivity. If you'd like to
+          continue working on this, feel free to re-open the PR or create a new one.
+
           Thank you for your contribution!
         stale-pr-label: 'stale'
         ascending: true
         days-before-pr-stale: 60
         days-before-issue-stale: -1
-        days-before-close: -1
+        days-before-close: 15
         operations-per-run: 120
