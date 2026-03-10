@@ -15,6 +15,55 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Field Visitor Module.
+
+This module provides utilities for traversing deeply nested field structures using
+the Visitor pattern. It enables performing operations on all fields/fieldsets in a
+schema tree without needing to write recursive traversal code repeatedly.
+
+The Visitor Pattern:
+    The visitor pattern separates algorithms (visitor functions) from the data
+    structure they operate on. This allows:
+    - Multiple operations without modifying the field structure
+    - Consistent traversal order across different operations
+    - Clean separation of concerns
+    - Reusable traversal logic
+
+Common Use Cases:
+    - Validation: Check all fields meet requirements (cleaner.py)
+    - Transformation: Modify field properties (finalizer.py)
+    - Accumulation: Collect fields into flat structures (intermediate_files.py)
+    - Enrichment: Add calculated properties to fields (finalizer.py)
+    - Analysis: Generate statistics about schema structure
+
+Visitor Functions:
+    1. visit_fields(): Call different functions for fieldsets vs fields
+    2. visit_fields_with_path(): Track nesting path during traversal
+    3. visit_fields_with_memo(): Pass accumulator through traversal
+
+Structure Assumptions:
+    All visitor functions expect the deeply nested structure created by loader.py:
+    - Fieldsets have 'schema_details', 'field_details', and 'fields' keys
+    - Regular fields have 'field_details' and optionally 'fields' keys
+    - Intermediate fields have 'field_details' with intermediate=True
+
+Example Usage:
+    >>> # Count all fields
+    >>> count = {'total': 0}
+    >>> def counter(details, memo):
+    ...     memo['total'] += 1
+    >>> visit_fields_with_memo(fields, counter, count)
+    >>> print(count['total'])
+
+    >>> # Validate all fields
+    >>> def validator(details):
+    ...     if 'type' not in details['field_details']:
+    ...         raise ValueError('Missing type')
+    >>> visit_fields(fields, field_func=validator)
+
+See also: scripts/docs/schema-pipeline.md for pipeline documentation
+"""
+
 from typing import (
     Callable,
     Dict,
@@ -34,18 +83,49 @@ def visit_fields(
     fieldset_func: Optional[Callable[[FieldEntry], None]] = None,
     field_func: Optional[Callable[[FieldDetails], None]] = None
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs provided
-    functions on each fieldset or field encountered (both optional).
+    """Recursively visit all fieldsets and fields, calling appropriate functions.
 
-    The argument 'fields' should be at the named field grouping level:
-    {'name': {'schema_details': {}, 'field_details': {}, 'fields': {}}
+    Traverses the deeply nested field structure and invokes different callback
+    functions for fieldsets (which have schema_details) vs regular fields.
+    This allows different processing logic for different node types.
 
-    The 'fieldset_func(details)' provided will be called for each field set,
-    with the dictionary containing their details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
+    Args:
+        fields: Deeply nested field dictionary to traverse
+        fieldset_func: Optional function to call for each fieldset.
+                      Receives dict with 'schema_details', 'field_details', 'fields'
+        field_func: Optional function to call for each field.
+                   Receives dict with 'field_details' and optionally 'fields'
 
-    The 'field_func(details)' provided will be called for each field, with the dictionary
-    containing the field's details ({'field_details': {}, 'fields': {}).
+    Traversal Order:
+        - Depth-first traversal (process parent before children)
+        - Processes current node first, then recursively processes children
+        - For each node: call appropriate function, then recurse into 'fields'
+
+    Node Identification:
+        - Fieldset: Has 'schema_details' key (top-level schemas only)
+        - Field: Has 'field_details' key but no 'schema_details'
+
+    Example:
+        >>> def validate_fieldset(details):
+        ...     if 'title' not in details['schema_details']:
+        ...         raise ValueError('Missing title')
+        >>>
+        >>> def validate_field(details):
+        ...     if 'type' not in details['field_details']:
+        ...         raise ValueError('Missing type')
+        >>>
+        >>> visit_fields(fields,
+        ...             fieldset_func=validate_fieldset,
+        ...             field_func=validate_field)
+
+    Use Cases:
+        - cleaner.py: Validates and normalizes fieldsets and fields separately
+        - finalizer.py: Sets original_fieldset on reused fields
+        - Any operation needing different logic for fieldsets vs fields
+
+    Note:
+        Both callback functions are optional. You can provide just one if you
+        only need to process fieldsets or fields.
     """
     for (_, details) in fields.items():
         if fieldset_func and 'schema_details' in details:
@@ -63,13 +143,48 @@ def visit_fields_with_path(
     func: Callable[[FieldDetails], None],
     path: Optional[List[str]] = []
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs the provided
-    function on all fields and field sets.
+    """Recursively visit all fields, passing the nesting path to the callback.
 
-    The 'func' provided will be called for each field,
-    with the dictionary containing their details ({'field_details': {}, 'fields': {})
-    as well as the path array leading to the location of the field in question.
+    Traverses the deeply nested structure and calls the provided function for
+    each field and fieldset, passing both the details and the path array showing
+    where in the hierarchy the field is located.
+
+    Args:
+        fields: Deeply nested field dictionary to traverse
+        func: Callback function receiving (details, path)
+              - details: Dict with 'field_details' and optionally 'fields'
+              - path: List of field names from root to current location
+        path: Current path (used internally during recursion, start with [])
+
+    Path Building:
+        - Root fieldsets (root=true): Don't add to path
+        - Other fieldsets/fields: Add their name to path
+        - Path represents dotted field name: ['http', 'request'] = 'http.request'
+
+    Traversal Order:
+        - Depth-first traversal
+        - Process current node first, then recurse into children
+
+    Example:
+        >>> def show_path(details, path):
+        ...     field_name = details['field_details'].get('name', 'unknown')
+        ...     dotted_path = '.'.join(path + [field_name])
+        ...     print(f"Field: {dotted_path}")
+        >>>
+        >>> visit_fields_with_path(fields, show_path)
+        Field: http
+        Field: http.request
+        Field: http.request.method
+        Field: http.request.bytes
+
+    Use Cases:
+        - finalizer.py: Calculate flat_name using path
+        - Any operation needing to know field's full path
+        - Building dotted field names during transformation
+
+    Note:
+        Root fieldsets don't add to the path because their fields appear at
+        the root level of events (e.g., '@timestamp', not 'base.@timestamp').
     """
     for (name, details) in fields.items():
         if 'field_details' in details:
@@ -87,13 +202,52 @@ def visit_fields_with_memo(
     func: Callable[[FieldEntry, Field], None],
     memo: Optional[Dict[str, Field]] = None
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs the provided
-    function on all fields and field sets.
+    """Recursively visit all fields, passing an accumulator (memo) to the callback.
 
-    The 'func' provided will be called for each field,
-    with the dictionary containing their details ({'field_details': {}, 'fields': {})
-    as well as the 'memo' you pass in.
+    Traverses the deeply nested structure and calls the provided function for
+    each field and fieldset, passing both the details and a memo object that
+    can be used to accumulate results or state during traversal.
+
+    Args:
+        fields: Deeply nested field dictionary to traverse
+        func: Callback function receiving (details, memo)
+              - details: Dict with 'field_details' and optionally 'fields'
+              - memo: Accumulator object passed through all calls
+        memo: Accumulator object (can be dict, list, or any mutable object)
+
+    Memo Pattern:
+        The memo object is passed to every callback and can be modified in place
+        to accumulate results. Common memo types:
+        - Dict: Accumulate fields by name
+        - List: Collect fields meeting criteria
+        - Counter dict: Track statistics
+
+    Traversal Order:
+        - Depth-first traversal
+        - Process current node first, then recurse into children
+        - Same memo object passed to all callbacks
+
+    Example:
+        >>> # Accumulate all keyword fields
+        >>> keyword_fields = {}
+        >>> def collect_keywords(details, memo):
+        ...     field = details['field_details']
+        ...     if field.get('type') == 'keyword':
+        ...         memo[field['flat_name']] = field
+        >>>
+        >>> visit_fields_with_memo(fields, collect_keywords, keyword_fields)
+        >>> len(keyword_fields)
+        450  # Number of keyword fields found
+
+    Use Cases:
+        - intermediate_files.py: Accumulate fields into flat dictionary
+        - Collecting fields for analysis or statistics
+        - Building indexes or lookup tables during traversal
+        - Any operation needing to build results while traversing
+
+    Note:
+        The memo is mutable and shared across all callbacks. Be careful not
+        to accidentally mutate it in unexpected ways.
     """
     for (name, details) in fields.items():
         if 'field_details' in details:

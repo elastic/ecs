@@ -16,7 +16,7 @@ ECS defines multiple groups of related fields. They are called "field sets". The
 
 All other field sets are defined as objects in Elasticsearch, under which all fields are defined.
 
-For a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/master/generated/csv/fields.csv).
+For a single page representation of all fields, please see the [generated CSV of fields](https://github.com/elastic/ecs/blob/main/generated/csv/fields.csv).
 
 
 ## Field sets [ecs-fieldsets]
