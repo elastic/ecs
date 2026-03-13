@@ -30,6 +30,8 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
+
 #### Deprecated
 
 <!-- All empty sections:
