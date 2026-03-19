@@ -17,45 +17,10 @@
 
 """Beats Field Definition Generator.
 
-This module generates field definitions for Elastic Beats in YAML format. Beats
-(Filebeat, Metricbeat, Packetbeat, etc.) are lightweight data shippers that need
-field definitions to:
-- Validate collected data structure
-- Configure field behavior (indexing, doc_values, etc.)
-- Provide field documentation to users
-- Determine which fields are included by default
-
-The generator transforms ECS schemas into the Beats-specific YAML structure,
-handling:
-- Field hierarchies and grouping
-- Multi-field configurations
-- Default field selection (fields enabled by default)
-- Contextual naming (relative to parent group)
-- Type-specific parameters
-
-Output Structure:
-    The generated YAML follows Beats field definition format:
-    - Top-level 'ecs' group containing all fields
-    - Nested field groups for each fieldset
-    - Fields with Beats-specific properties
-    - default_field flags for selective field loading
-
-Default Fields:
-    Beats can't load all ~850 ECS fields by default (performance/memory concerns).
-    The generator uses an allowlist (beats_default_fields_allowlist.yml) to mark
-    which fields should be enabled by default. Users can enable additional fields
-    as needed.
-
-Output:
-    generated/beats/fields.ecs.yml - Beats field definitions
-
-Use Cases:
-    - Integration into Beats module configurations
-    - Field validation in data collection pipelines
-    - Documentation generation for Beats users
-    - Custom Beat development
-
-See also: scripts/docs/beats-generator.md for detailed documentation
+Generates field definitions for Elastic Beats (generated/beats/fields.ecs.yml).
+Uses an allowlist (beats_default_fields_allowlist.yml) to mark which of the ~850
+ECS fields should be default_field=true (loaded by default for performance reasons).
+Fields use contextual (relative) names within their group rather than full dotted paths.
 """
 
 from os.path import join
@@ -78,39 +43,11 @@ def generate(
     ecs_version: str,
     out_dir: str
 ) -> None:
-    """Generate Beats field definitions from ECS schemas.
+    """Generate Beats field definitions from ECS nested schemas.
 
-    Main entry point for Beats field generation. Creates a Beats-compatible YAML
-    file with all ECS fields, properly structured with field groups and default_field
-    settings.
-
-    Args:
-        ecs_nested: Nested fieldset structure from intermediate_files.generate()
-        ecs_version: ECS version string (e.g., '8.11.0')
-        out_dir: Output directory (typically 'generated')
-
-    Generates:
-        generated/beats/fields.ecs.yml - Beats field definitions
-
-    Process:
-        1. Filter out non-root reusable fieldsets (top_level=false)
-        2. Process 'base' fieldset first (adds fields directly to root)
-        3. Process other fieldsets in sorted order:
-           - If root=true: Add fields directly to root
-           - Otherwise: Create field group for fieldset
-        4. Load default_fields allowlist
-        5. Apply default_field flags based on allowlist
-        6. Write formatted YAML with warning header
-
-    Field Structure:
-        - Base fields appear at root level
-        - Other fieldsets appear as groups with nested fields
-        - Each field has Beats-specific properties only
-        - default_field flags control which fields load by default
-
-    Example:
-        >>> generate(nested, '8.11.0', 'generated')
-        # Creates generated/beats/fields.ecs.yml
+    Process: filter non-root reusables → process base fieldset → process other
+    fieldsets (root=true fields added directly, others wrapped in groups) → apply
+    default_field allowlist → write YAML.
     """
     # base first
     ecs_nested = ecs_helpers.remove_top_level_reusable_false(ecs_nested)
@@ -149,38 +86,9 @@ def generate(
 def set_default_field(fields, df_allowlist, df=False, path=''):
     """Recursively set default_field flags based on allowlist.
 
-    Beats can't load all ECS fields by default due to performance/memory constraints.
-    This function marks fields that should be loaded by default using an allowlist,
-    and propagates the setting through field hierarchies and multi-fields.
-
-    Args:
-        fields: List of field definitions to process
-        df_allowlist: Set of field paths that should be default fields
-        df: Parent's default_field value (inherited by children)
-        path: Current field path for building full field names
-
-    Behavior:
-        - Checks if field path is in allowlist
-        - Groups are default if top-level (path equals name)
-        - Children inherit parent's default_field setting
-        - Recursively processes group fields and multi-fields
-        - Inserts default_field key before 'fields' key for readability
-
-    Default Field Logic:
-        1. Field is in allowlist → default_field: true
-        2. Top-level group → default_field: true
-        3. Parent is default → children are default
-        4. Otherwise → default_field: false
-
-    Note:
-        Modifies fields list in place by adding/updating default_field property.
-        The allowlist is loaded from beats_default_fields_allowlist.yml.
-
-    Example:
-        >>> fields = [{'name': 'method', 'type': 'keyword'}]
-        >>> allowlist = {'http.request.method'}
-        >>> set_default_field(fields, allowlist, path='http.request')
-        # fields[0] now has default_field: true
+    Default field logic: field in allowlist → true; top-level group → true;
+    parent is default → children inherit true; otherwise → false.
+    Modifies fields in place; recursively processes group fields and multi-fields.
     """
     for fld in fields:
         fld_df = fld.get('default_field', df)
@@ -201,46 +109,15 @@ def fieldset_field_array(
     source_fields: Dict[str, Field],
     fieldset_prefix: str
 ) -> List[OrderedDict]:
-    """Convert ECS fields to Beats field array format.
+    """Convert ECS fields to Beats field array format (sorted, contextual names).
 
-    Transforms ECS field definitions into Beats-compatible field structures by:
-    - Filtering to Beats-relevant properties only
-    - Converting field names to contextual names (relative to parent)
-    - Processing multi-fields appropriately
-    - Sorting fields alphabetically
+    Strips to Beats-relevant properties and converts flat_names to relative names
+    within the group (e.g., 'http.request.method' → 'request.method' in http group).
 
-    Args:
-        source_fields: Dictionary of ECS field definitions (keyed by flat_name)
-        fieldset_prefix: Prefix of parent fieldset (empty string for base)
-
-    Returns:
-        Sorted list of Beats field definitions
-
-    Field Properties Included:
-        Main fields: name, level, required, type, object_type, ignore_above,
-                    multi_fields, format, input/output_format, output_precision,
-                    description, example, enabled, index, doc_values, path,
-                    scaling_factor, pattern
-
-        Multi-fields: name, type, norms, default_field, normalizer, ignore_above
-
-    Contextual Naming:
-        Beats uses relative field names within groups:
-        - ECS: 'http.request.method'
-        - Beats (in http group): 'request.method'
-        - Beats (in base): '@timestamp'
-
-    Example:
-        >>> fields = {
-        ...     'http.request.method': {
-        ...         'name': 'method',
-        ...         'flat_name': 'http.request.method',
-        ...         'type': 'keyword',
-        ...         'description': 'HTTP method'
-        ...     }
-        ... }
-        >>> fieldset_field_array(fields, 'http')
-        [OrderedDict([('name', 'request.method'), ('type', 'keyword'), ...])]
+    Main field properties kept: name, level, required, type, object_type,
+    ignore_above, multi_fields, format, input/output_format, output_precision,
+    description, example, enabled, index, doc_values, path, scaling_factor, pattern.
+    Multi-field properties kept: name, type, norms, default_field, normalizer, ignore_above.
     """
     allowed_keys: List[str] = [
         'name',
@@ -303,27 +180,9 @@ def write_beats_yaml(
     ecs_version: str,
     out_dir: str
 ) -> None:
-    """Write Beats field definitions to YAML file.
+    """Write Beats field definitions to YAML with a DO-NOT-EDIT header.
 
-    Creates the final Beats YAML file with a warning header indicating it's
-    auto-generated and should not be edited directly.
-
-    Args:
-        beats_file: Complete Beats field structure with all fields and metadata
-        ecs_version: ECS version string for the header
-        out_dir: Output directory
-
-    Generates:
-        generated/beats/fields.ecs.yml
-
-    File Structure:
-        - Warning header (DO NOT EDIT)
-        - Single YAML document wrapped in array
-        - Top-level 'ecs' key with title, description, fields
-
-    Note:
-        The file is wrapped in an array ([beats_file]) because Beats expects
-        a YAML array of field definition documents.
+    Wraps the beats_file in an array because Beats expects a YAML array of documents.
     """
     ecs_helpers.make_dirs(join(out_dir, 'beats'))
     warning: str = file_header().format(version=ecs_version)
@@ -334,18 +193,7 @@ def write_beats_yaml(
 
 
 def file_header() -> str:
-    """Generate warning header for generated Beats YAML file.
-
-    Returns header text warning users not to edit the file directly, as it's
-    auto-generated from ECS schemas.
-
-    Returns:
-        Formatted header string with placeholder for version
-
-    Usage:
-        >>> header = file_header().format(version='8.11.0')
-        # Inserts version into the warning message
-    """
+    """Return DO-NOT-EDIT header string with {version} placeholder."""
     return """
 # WARNING! Do not edit this file directly, it was generated by the ECS project,
 # based on ECS version {version}.

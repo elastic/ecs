@@ -19,8 +19,6 @@
 
 Shared utilities for dictionary operations, file I/O, git access, list manipulation,
 and field introspection. Used across all ECS generator scripts.
-
-See scripts/docs/ecs-helpers.md for detailed documentation.
 """
 
 import glob
@@ -121,45 +119,7 @@ def safe_merge_dicts(a: Dict[Any, Any], b: Dict[Any, Any]) -> Dict[Any, Any]:
 
 
 def fields_subset(subset, fields):
-    """Extract a subset of fields based on subset specification.
-
-    Recursively filters fields based on a subset specification, retaining
-    only the fieldsets and fields specified in the subset definition.
-    Used to generate partial ECS schemas (e.g., for specific use cases).
-
-    Args:
-        subset: Dictionary specifying which fieldsets/fields to include
-        fields: Complete fields dictionary to filter
-
-    Returns:
-        Filtered fields dictionary containing only specified fields
-
-    Raises:
-        ValueError: If unsupported options found in subset specification
-
-    Subset specification format:
-        {
-            'fieldset_name': {
-                'fields': '*' | {'field1': {...}, 'field2': {...}}
-            }
-        }
-
-    Behavior:
-        - Missing 'fields' key = include all fields in fieldset
-        - 'fields': '*' = include all fields in fieldset
-        - 'fields': {...} = recursively apply subset to nested fields
-
-    Example:
-        >>> subset = {
-        ...     'http': {'fields': '*'},  # All HTTP fields
-        ...     'user': {'fields': {      # Only specific user fields
-        ...         'name': {},
-        ...         'email': {}
-        ...     }}
-        ... }
-        >>> filtered = fields_subset(subset, all_fields)
-        # Returns only http.* and user.name, user.email
-    """
+    """Recursively filter fields to only those specified in subset. 'fields': '*' includes all."""
     retained_fields = {}
     allowed_options = ['fields']
     for key, val in subset.items():
@@ -177,23 +137,7 @@ def fields_subset(subset, fields):
 
 
 def yaml_ordereddict(dumper, data):
-    """YAML representer for OrderedDict that preserves key order.
-
-    Custom YAML dumper function that serializes OrderedDict while maintaining
-    the order of keys. Registered with PyYAML to automatically handle OrderedDict
-    instances during yaml.dump().
-
-    Args:
-        dumper: YAML dumper instance
-        data: OrderedDict to represent
-
-    Returns:
-        YAML MappingNode with keys in original order
-
-    Note:
-        Primarily for Python 2 compatibility. Python 3.7+ dicts maintain
-        insertion order by default, making this less critical.
-    """
+    """YAML representer for OrderedDict that preserves key order."""
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.
     # Almost sure it's unndecessary with Python 3.
@@ -210,25 +154,7 @@ yaml.add_representer(OrderedDict, yaml_ordereddict)
 
 
 def dict_clean_string_values(dict: Dict[Any, Any]) -> None:
-    """Remove leading/trailing whitespace from all string values in dictionary.
-
-    Cleans up string values by stripping whitespace, useful for normalizing
-    field definitions loaded from YAML where formatting might vary.
-
-    Args:
-        dict: Dictionary to clean (modified in place)
-
-    Note:
-        - Only string values are modified
-        - Non-string values (numbers, bools, nested dicts) are left unchanged
-        - Modifies dictionary in place
-
-    Example:
-        >>> data = {'name': '  field  ', 'type': 'keyword', 'level': '  core  '}
-        >>> dict_clean_string_values(data)
-        >>> data
-        {'name': 'field', 'type': 'keyword', 'level': 'core'}
-    """
+    """Strip leading/trailing whitespace from all string values in dict (in place)."""
     for key in dict:
         value = dict[key]
         if isinstance(value, str):
@@ -255,30 +181,7 @@ def safe_list(o: Union[str, List[str]]) -> List[str]:
 
 
 def glob_yaml_files(paths: List[str]) -> List[str]:
-    """Find all YAML files matching given paths, wildcards, or directories.
-
-    Flexible file finder that handles:
-    - Direct file paths (schemas/http.yml)
-    - Wildcards (schemas/*.yml)
-    - Directories (schemas/ -> all YAML files in dir)
-    - Comma-separated strings ('path1,path2')
-
-    Args:
-        paths: String or list of paths/wildcards/directories
-
-    Returns:
-        Sorted list of matching YAML file paths
-
-    Example:
-        >>> glob_yaml_files(['schemas/http.yml', 'schemas/user.yml'])
-        ['schemas/http.yml', 'schemas/user.yml']
-
-        >>> glob_yaml_files(['schemas/'])
-        ['schemas/agent.yml', 'schemas/base.yml', ...]
-
-        >>> glob_yaml_files('schemas/*.yml')
-        ['schemas/agent.yml', 'schemas/base.yml', ...]
-    """
+    """Find all YAML files matching given paths, wildcards, or directories. Returns sorted list."""
     all_files: List[str] = []
     for path in safe_list(paths):
         if is_yaml(path):
@@ -290,46 +193,14 @@ def glob_yaml_files(paths: List[str]) -> List[str]:
 
 
 def get_tree_by_ref(ref: str) -> git.objects.tree.Tree:
-    """Get git tree object for a specific reference (branch, tag, commit).
-
-    Retrieves the file tree from the current repository at a specific git
-    reference, allowing generators to load schemas from any point in history.
-
-    Args:
-        ref: Git reference (branch name, tag, commit SHA)
-
-    Returns:
-        Git tree object representing repository contents at that reference
-
-    Example:
-        >>> tree = get_tree_by_ref('v8.10.0')
-        >>> tree['schemas']['http.yml']  # Access file from that version
-    """
+    """Get git tree object for a specific branch, tag, or commit SHA."""
     repo: git.repo.base.Repo = git.Repo(os.getcwd())
     commit: git.objects.commit.Commit = repo.commit(ref)
     return commit.tree
 
 
 def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool:
-    """Check if a path exists in a git tree object.
-
-    Tests whether a file or directory exists in a git tree without raising
-    an exception.
-
-    Args:
-        tree: Git tree object to check
-        file_path: Path relative to tree root
-
-    Returns:
-        True if path exists in tree, False otherwise
-
-    Example:
-        >>> tree = get_tree_by_ref('main')
-        >>> path_exists_in_git_tree(tree, 'schemas/http.yml')
-        True
-        >>> path_exists_in_git_tree(tree, 'nonexistent.yml')
-        False
-    """
+    """Return True if file_path exists in the given git tree object."""
     try:
         _ = tree[file_path]
     except KeyError:
@@ -338,18 +209,7 @@ def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool
 
 
 def usage_doc_files() -> List[str]:
-    """Get list of usage documentation files for fieldsets.
-
-    Scans the docs/reference directory for usage documentation files
-    following the pattern ecs-{fieldset}-usage.md.
-
-    Returns:
-        List of usage doc filenames (e.g., ['ecs-http-usage.md'])
-
-    Note:
-        Returns empty list if docs/reference directory doesn't exist.
-        Used by markdown generator to link to usage docs when available.
-    """
+    """Return filenames matching ecs-*-usage.md in docs/reference, or [] if dir doesn't exist."""
     usage_docs_dir: str = os.path.join(os.path.dirname(__file__), '../../docs/reference')
     usage_docs_path: pathlib.PosixPath = pathlib.Path(usage_docs_dir)
     if usage_docs_path.is_dir():
@@ -358,18 +218,7 @@ def usage_doc_files() -> List[str]:
 
 
 def ecs_files() -> List[str]:
-    """Get list of ECS schema files to load.
-
-    Returns sorted list of all YAML files in the schemas directory.
-    This is the primary source of ECS field definitions.
-
-    Returns:
-        Sorted list of schema file paths
-
-    Example:
-        >>> ecs_files()
-        ['schemas/agent.yml', 'schemas/base.yml', 'schemas/http.yml', ...]
-    """
+    """Return sorted list of all YAML files in the schemas/ directory."""
     schema_glob: str = os.path.join(os.path.dirname(__file__), '../../schemas/*.yml')
     return sorted(glob.glob(schema_glob))
 
@@ -392,25 +241,7 @@ def yaml_dump(
     data: Dict[str, FieldNestedEntry],
     preamble: Optional[str] = None
 ) -> None:
-    """Write data to a YAML file with optional preamble text.
-
-    Serializes dictionary to YAML format with human-friendly formatting.
-    Optionally prepends text (e.g., copyright header, comments).
-
-    Args:
-        filename: Path to output file
-        data: Dictionary to serialize
-        preamble: Optional text to write before YAML content
-
-    Note:
-        - Uses default_flow_style=False for readable multi-line format
-        - Supports Unicode characters
-        - Overwrites existing file
-
-    Example:
-        >>> yaml_dump('output.yml', {'name': 'test'}, '# Auto-generated\\n')
-        # Creates file with comment header followed by YAML
-    """
+    """Write data to a YAML file, optionally prepending preamble text."""
     with open(filename, 'w') as outfile:
         if preamble:
             outfile.write(preamble)
@@ -418,25 +249,7 @@ def yaml_dump(
 
 
 def yaml_load(filename: str) -> Set[str]:
-    """Load and parse a YAML file.
-
-    Reads a YAML file and parses it into Python data structures using
-    safe_load (prevents arbitrary code execution).
-
-    Args:
-        filename: Path to YAML file
-
-    Returns:
-        Parsed YAML content (typically dict or list)
-
-    Note:
-        Uses yaml.safe_load for security (no arbitrary code execution).
-
-    Example:
-        >>> data = yaml_load('schemas/http.yml')
-        >>> data['name']
-        'http'
-    """
+    """Load and parse a YAML file using safe_load."""
     with open(filename) as f:
         return yaml.safe_load(f.read())
 
@@ -449,27 +262,7 @@ def list_subtract(original: List[Any], subtracted: List[Any]) -> List[Any]:
 
 
 def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
-    """Extract values for a specific key from a list of dictionaries.
-
-    Builds a list of values by extracting the same key from each dictionary
-    in the input list. Useful for converting list of objects to list of
-    specific attribute values.
-
-    Args:
-        lst: List of dictionaries
-        key_name: Key to extract from each dictionary
-
-    Returns:
-        List of values for the specified key
-
-    Example:
-        >>> fields = [
-        ...     {'name': 'http', 'group': 2},
-        ...     {'name': 'user', 'group': 1}
-        ... ]
-        >>> list_extract_keys(fields, 'name')
-        ['http', 'user']
-    """
+    """Extract the value of key_name from each dict in lst."""
     acc = []
     for d in lst:
         acc.append(d[key_name])
@@ -480,57 +273,12 @@ def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
 
 
 def is_intermediate(field: FieldEntry) -> bool:
-    """Check if a field is an intermediate structural field (not a real data field).
-
-    Intermediate fields exist only to provide hierarchical structure in schemas.
-    They don't represent actual data fields and should be excluded from most
-    output formats.
-
-    Args:
-        field: Field entry to check
-
-    Returns:
-        True if field is intermediate, False otherwise
-
-    Example:
-        >>> field = {'field_details': {'intermediate': True, 'name': 'request'}}
-        >>> is_intermediate(field)
-        True
-        # 'http.request' is just structure, not a field
-
-        >>> field = {'field_details': {'name': 'method', 'type': 'keyword'}}
-        >>> is_intermediate(field)
-        False
-        # 'http.request.method' is an actual field
-    """
+    """Return True if field is a structural placeholder (not an actual data field)."""
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
 
 
 def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
-    """Filter out fieldsets that should not appear at the root level.
-
-    Returns a copy of ecs_nested excluding fieldsets with reusable.top_level=false.
-    These fieldsets are meant to be used only in specific reuse locations, not
-    at the event root.
-
-    Args:
-        ecs_nested: Dictionary of nested fieldsets
-
-    Returns:
-        Filtered dictionary excluding non-root fieldsets
-
-    Example:
-        >>> nested = {
-        ...     'http': {'reusable': {'top_level': True}},
-        ...     'geo': {'reusable': {'top_level': False}},  # Only for reuse
-        ...     'user': {}  # No reusable setting = included
-        ... }
-        >>> filtered = remove_top_level_reusable_false(nested)
-        >>> 'geo' in filtered
-        False
-        >>> 'http' in filtered and 'user' in filtered
-        True
-    """
+    """Return ecs_nested excluding fieldsets with reusable.top_level=false."""
     components: Dict[str, FieldNestedEntry] = {}
     for (fieldset_name, fieldset) in ecs_nested.items():
         if fieldset.get('reusable', None):
@@ -544,27 +292,6 @@ def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> 
 
 
 def strict_warning(msg: str) -> None:
-    """Issue a warning that would be an error in strict mode.
-
-    Generates a warning for issues that are tolerated in normal mode but would
-    cause an exception when the generator is run with --strict flag. This allows
-    schema developers to gradually fix issues without blocking the build.
-
-    Args:
-        msg: Custom warning message describing the issue
-
-    Note:
-        - Uses stacklevel=3 to show warning at caller's call site
-        - Automatically adds boilerplate about strict mode
-        - Warning will be converted to exception with --strict flag
-
-    Example:
-        >>> strict_warning("Field 'user.name' is missing description")
-        UserWarning: Field 'user.name' is missing description
-
-        This will cause an exception when running in strict mode.
-        Warning check:
-        ...
-    """
+    """Issue a UserWarning that becomes a ValueError when running with --strict."""
     warn_message: str = f"{msg}\n\nThis will cause an exception when running in strict mode.\nWarning check:"
     warnings.warn(warn_message, stacklevel=3)
