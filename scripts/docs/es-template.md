@@ -249,17 +249,7 @@ curl -X PUT "localhost:9200/_template/ecs" \
 
 ## Usage Examples
 
-### Running the Generator
-
-Typically invoked through the main generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Generates both composable and legacy templates
-```
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -521,41 +511,10 @@ illegal_argument_exception: mapper [field] cannot be changed from type [keyword]
 
 3. Use index aliases to transparently switch
 
-#### JSON formatting issues
-
-**Symptom**: Template JSON won't load
-
-**Check**:
-- Valid JSON syntax (no trailing commas)
-- Proper escaping of special characters
-- Matching brackets and braces
-
-**Debug**:
-```python
-import json
-with open('template.json') as f:
-    try:
-        template = json.load(f)
-        print("Valid JSON")
-    except json.JSONDecodeError as e:
-        print(f"Invalid JSON: {e}")
-```
-
 ### Debugging Tips
 
-- **Validate JSON**: `jq . generated/elasticsearch/composable/template.json`
 - **Compare versions**: `diff -u old/template.json new/template.json`
 - **Test installation**: Use a local Elasticsearch instance with `docker run -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:8.11.0`
-
-## Related Files
-
-- `scripts/generator.py` - Main entry point
-- `scripts/generators/intermediate_files.py` - Produces nested/flat structures
-- `scripts/generators/ecs_helpers.py` - Utility functions
-- `scripts/ecs_types/schema_fields.py` - Type definitions
-- `schemas/*.yml` - Source ECS schemas
-- `generated/elasticsearch/composable/` - Composable template output
-- `generated/elasticsearch/legacy/` - Legacy template output
 
 ## References
 

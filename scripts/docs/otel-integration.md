@@ -222,20 +222,7 @@ The validator enforces strict rules for each relation type:
 
 ## Usage Examples
 
-### Running the Generator
-
-The OTel generator is invoked as part of the main ECS generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-```
-
-This triggers `scripts/generator.py`, which:
-1. Creates an `OTelGenerator` instance
-2. Validates all mappings
-3. Generates documentation with summaries
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -359,14 +346,6 @@ otel:
     attribute: otel.attribute.name  # Add this
 ```
 
-#### "Clone is too slow / Network timeout"
-
-**Cause**: First-time clone of semantic-conventions repo can be large
-
-**Solutions**:
-- Be patient on first run (repo is cached after)
-- Check network connectivity
-- Manually clone: `git clone https://github.com/open-telemetry/semantic-conventions.git ./build/otel-semconv/`
 
 #### "WARNING: Field 'X' exists in OTel but is not mapped"
 
@@ -375,16 +354,6 @@ otel:
 **Action**: Consider if this should be mapped:
 - If yes: Add appropriate OTel mapping to schema
 - If no: Add `otel: [{relation: na}]` to suppress warning
-
-## Related Files
-
-- `scripts/generator.py` - Main entry point, orchestrates generation
-- `scripts/generators/markdown_fields.py` - Uses summaries for docs
-- `scripts/ecs_types/otel_types.py` - Type definitions
-- `scripts/schema/visitor.py` - Field traversal mechanism
-- `templates/otel_alignment_*.j2` - Jinja2 templates for docs
-- `schemas/*.yml` - ECS field definitions with OTel mappings
-- `otel-semconv-version` - File containing target OTel version
 
 ## References
 

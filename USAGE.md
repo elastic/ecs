@@ -199,6 +199,38 @@ python scripts/generator.py --semconv-version v1.38.0 --exclude deprecated-field
 python scripts/generator.py --semconv-version v1.38.0 --strict
 ```
 
+Strict mode requires the following conditions, else the script exits on an exception:
+
+* Short descriptions must be less than or equal to 120 characters.
+* Example values containing arrays or objects must be quoted to avoid unexpected YAML interpretation when the schema files or artifacts are relied on downstream.
+* If a regex `pattern` is defined, the example values will be checked against it.
+* If `expected_values` is defined, the example value(s) will be checked against the list.
+
+Example error when running with `--strict`:
+```
+$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.38.0 --strict
+Loading schemas from git ref v1.4.0
+Running generator. ECS version 1.4.0
+...
+ValueError: Short descriptions must be single line, and under 120 characters (current length: 134).
+Offending field or field set: number
+Short description:
+  Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+```
+
+Without `--strict`, the same issue produces a warning and the script continues:
+```
+$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.38.0
+Loading schemas from git ref v1.4.0
+Running generator. ECS version 1.4.0
+~/dev/ecs/scripts/generators/ecs_helpers.py:176: UserWarning: Short descriptions must be single line, and under 120 characters (current length: 134).
+Offending field or field set: number
+Short description:
+  Unique number allocated to the autonomous system. The autonomous system number (ASN) uniquely identifies each network on the Internet.
+
+This will cause an exception when running in strict mode.
+```
+
 **`--template-settings`** / **`--mapping-settings`** - Custom Elasticsearch template settings
 ```bash
 python scripts/generator.py \
@@ -206,6 +238,53 @@ python scripts/generator.py \
   --template-settings ../myproject/template.json \
   --mapping-settings ../myproject/mappings.json
 ```
+
+This is an example `template.json` to be passed with `--template-settings-legacy`:
+
+```json
+{
+  "index_patterns": ["mylog-*"],
+  "order": 1,
+  "settings": {
+    "index": {
+      "mapping": {
+        "total_fields": {
+          "limit": 10000
+        }
+      },
+      "refresh_interval": "1s"
+    }
+  },
+  "template": {
+    "mappings": {}
+  }
+}
+```
+
+This is an example `mapping.json` to be passed with `--mapping-settings`:
+
+```json
+{
+  "_meta": {
+    "version": "1.5.0"
+  },
+    "date_detection": false,
+    "dynamic_templates": [
+      {
+        "strings_as_keyword": {
+          "mapping": {
+            "ignore_above": 1024,
+            "type": "keyword"
+          },
+          "match_mapping_type": "string"
+        }
+      }
+    ],
+    "properties": {}
+}
+```
+
+The `mappings` object in `template.json` and the `properties` object in `mapping.json` are left empty — they will be filled in automatically by the script.
 
 **`--intermediate-only`** - Generate only intermediate files (for debugging)
 

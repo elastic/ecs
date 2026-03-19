@@ -266,18 +266,7 @@ log.level: null
 
 ## Usage Examples
 
-### Running the Generator
-
-Typically invoked through the main generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Beats file created at:
-# generated/beats/fields.ecs.yml
-```
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -453,24 +442,6 @@ print(f"Contextual: {contextual_name}")
 - Is fieldset_prefix being passed correctly?
 - Is the split('.')[1:] logic working for your case?
 
-#### YAML syntax errors
-
-**Symptom**: Beats can't load the generated YAML
-
-**Validate**:
-```bash
-# Check YAML syntax
-python -c "import yaml; yaml.safe_load(open('generated/beats/fields.ecs.yml'))"
-
-# Or use yamllint if available
-yamllint generated/beats/fields.ecs.yml
-```
-
-**Common issues**:
-- Unescaped special characters in descriptions
-- Incorrect indentation
-- Missing required properties
-
 ## Integration with Beats
 
 ### In Beat Modules
@@ -507,15 +478,6 @@ If a Beat defines custom fields with same names as ECS:
 - ECS fields take precedence
 - Merge is automatic
 - Custom fields should use different names or namespaces
-
-## Related Files
-
-- `scripts/generator.py` - Main entry point
-- `scripts/generators/intermediate_files.py` - Produces nested structure
-- `scripts/generators/ecs_helpers.py` - Utility functions
-- `scripts/generators/beats_default_fields_allowlist.yml` - Default field allowlist
-- `schemas/*.yml` - Source ECS schemas
-- `generated/beats/fields.ecs.yml` - Output file
 
 ## References
 

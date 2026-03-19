@@ -277,18 +277,7 @@ Attributes removed from final output:
 
 ## Usage Examples
 
-### Running the Generator
-
-Typically invoked through the main generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Or directly with Python
-python scripts/generator.py --semconv-version v1.24.0
-```
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -473,43 +462,17 @@ def remove_internal_attributes(field_details: Field) -> None:
     field_details.pop('unwanted_attr', None)  # Add this
 ```
 
-#### File size concerns
-
-**Symptom**: Intermediate YAML files are very large
-
-**Context**: This is normal - ecs_flat.yml with ~850 fields is ~150KB
-
-**Optimization options**:
-1. Use YAML references for common values (complex)
-2. Compress files for distribution (gzip)
-3. Consider JSON format (more compact)
-
 ### Debugging Tips
 
 - Use `default_dirs=True` to generate `ecs.yml` with raw processed schemas
 - Compare outputs: `diff ecs_flat_old.yml ecs_flat_new.yml`
 - Count fields with `len(yaml.safe_load(open('ecs_flat.yml')))`
 
-## Related Files
-
-- `scripts/generator.py` - Main entry point, calls this generator
-- `scripts/schema/loader.py` - Loads raw schemas
-- `scripts/schema/cleaner.py` - Validates and normalizes
-- `scripts/schema/finalizer.py` - Applies transformations
-- `scripts/schema/visitor.py` - Field traversal utilities
-- `scripts/generators/csv_generator.py` - Consumes flat format
-- `scripts/generators/es_template.py` - Consumes nested format
-- `scripts/generators/markdown_fields.py` - Consumes nested format
-- `scripts/generators/beats.py` - Consumes nested format
-- `schemas/*.yml` - Source schema definitions
-- `generated/ecs/ecs_flat.yml` - Flat output
-- `generated/ecs/ecs_nested.yml` - Nested output
-
 ## References
 
 - [ECS Schema Structure](../../USAGE.md)
 - [Visitor Pattern Documentation](../schema/visitor.py)
 - [ECS Type Definitions](../ecs_types/schema_fields.py)
-- [CSV Generator](csv-generator.md) *(coming soon)*
-- [Elasticsearch Template Generator](es-template.md) *(coming soon)*
+- [CSV Generator](csv-generator.md)
+- [Elasticsearch Template Generator](es-template.md)
 

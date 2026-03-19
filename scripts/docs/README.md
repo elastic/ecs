@@ -40,12 +40,6 @@ Each major generator module has its own detailed guide:
   - Template customization and settings
   - Installation and troubleshooting
 
-- **[ecs-helpers.md](ecs-helpers.md)** - Utility functions library
-  - Dictionary operations (sorting, merging, copying)
-  - File operations (YAML I/O, globbing, directories)
-  - Git operations (tree access, version loading)
-  - Common patterns and best practices
-
 - **[csv-generator.md](csv-generator.md)** - CSV field reference generation
   - Spreadsheet-compatible field export
   - Column structure and multi-field handling
@@ -79,7 +73,7 @@ The `scripts/` directory contains several key components:
 | `generators/es_template.py` | Elasticsearch template generation | [es-template.md](es-template.md) |
 | `generators/csv_generator.py` | CSV field reference export | [csv-generator.md](csv-generator.md) |
 | `generators/beats.py` | Beats field definition generation | [beats-generator.md](beats-generator.md) |
-| `generators/ecs_helpers.py` | Shared utility functions | [ecs-helpers.md](ecs-helpers.md) |
+| `generators/ecs_helpers.py` | Shared utility functions | See docstrings in file |
 
 ### Schema Processing
 

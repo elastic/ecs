@@ -139,18 +139,7 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 
 ## Usage Examples
 
-### Running the Generator
-
-Typically invoked through the main generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# CSV file created at:
-# generated/csv/fields.csv
-```
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -294,38 +283,6 @@ def generate(ecs_flat: Dict[str, Field], version: str, out_dir: str) -> None:
 
 ### Common Issues
 
-#### CSV not opening correctly in Excel
-
-**Symptom**: Fields appear in wrong columns or all in one column
-
-**Solutions**:
-1. Use "Text to Columns" feature:
-   - Select data → Data tab → Text to Columns
-   - Choose "Delimited" → Next
-   - Select "Comma" → Finish
-
-2. Change Excel import settings:
-   - File → Options → Advanced → Edit Custom Lists
-   - Set default delimiter to comma
-
-3. Save as Excel format after import:
-   - File → Save As → Excel Workbook (.xlsx)
-
-#### Unicode/special character issues
-
-**Symptom**: Strange characters in descriptions or examples
-
-**Solutions**:
-1. Ensure UTF-8 encoding when opening:
-   - In Excel: Data → Get Data → From File → From Text/CSV
-   - Select UTF-8 encoding
-
-2. Or fix in code:
-```python
-with open(file, 'w', encoding='utf-8') as csvfile:
-    # ... write CSV
-```
-
 #### Missing multi-fields
 
 **Symptom**: Multi-fields not appearing in CSV
@@ -352,14 +309,6 @@ if 'multi_fields' in field:
 field = flat['some.field']
 print(field.get('normalize', []))  # Should be a list
 ```
-
-## Related Files
-
-- `scripts/generator.py` - Main entry point
-- `scripts/generators/intermediate_files.py` - Produces flat format
-- `scripts/generators/ecs_helpers.py` - Utility functions
-- `schemas/*.yml` - Source ECS schemas
-- `generated/csv/fields.csv` - Output file
 
 ## References
 

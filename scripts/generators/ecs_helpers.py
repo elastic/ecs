@@ -242,47 +242,12 @@ YAML_EXT = {'yml', 'yaml'}
 
 
 def is_yaml(path: str) -> bool:
-    """Check if a file path has a YAML extension.
-
-    Determines if a file path ends with .yml or .yaml extension.
-
-    Args:
-        path: File path to check
-
-    Returns:
-        True if path has YAML extension, False otherwise
-
-    Example:
-        >>> is_yaml('schemas/http.yml')
-        True
-        >>> is_yaml('output.json')
-        False
-        >>> is_yaml('file.test.yaml')
-        True
-    """
+    """Check if a file path has a YAML extension (.yml or .yaml)."""
     return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
 
 
 def safe_list(o: Union[str, List[str]]) -> List[str]:
-    """Convert string or list to list, splitting on comma if needed.
-
-    Normalizes input to a list format, useful for handling flexible
-    function arguments that can be either strings or lists.
-
-    Args:
-        o: String (comma-separated) or list of strings
-
-    Returns:
-        List of strings
-
-    Example:
-        >>> safe_list(['a', 'b', 'c'])
-        ['a', 'b', 'c']
-        >>> safe_list('a,b,c')
-        ['a', 'b', 'c']
-        >>> safe_list('single')
-        ['single']
-    """
+    """Convert a comma-separated string or list to a list."""
     if isinstance(o, list):
         return o
     else:
@@ -412,21 +377,8 @@ def ecs_files() -> List[str]:
 def make_dirs(path: str) -> None:
     """Create directory and all parent directories if they don't exist.
 
-    Safe wrapper around os.makedirs that handles existing directories
-    gracefully and provides clear error messages on failure.
-
-    Args:
-        path: Directory path to create
-
     Raises:
         OSError: If directory creation fails (with descriptive message)
-
-    Note:
-        Uses exist_ok=True, so won't fail if directory already exists.
-
-    Example:
-        >>> make_dirs('generated/elasticsearch/composable/component')
-        # Creates all missing parent directories
     """
     try:
         os.makedirs(path, exist_ok=True)
@@ -492,24 +444,7 @@ def yaml_load(filename: str) -> Set[str]:
 
 
 def list_subtract(original: List[Any], subtracted: List[Any]) -> List[Any]:
-    """Remove all elements of one list from another.
-
-    Returns a new list containing elements from original that are not
-    in subtracted. Useful for filtering lists.
-
-    Args:
-        original: List to subtract from
-        subtracted: Elements to remove
-
-    Returns:
-        New list with subtracted elements removed
-
-    Example:
-        >>> list_subtract([1, 2, 3, 4, 5], [2, 4])
-        [1, 3, 5]
-        >>> list_subtract(['a', 'b', 'c'], ['b'])
-        ['a', 'c']
-    """
+    """Return original with all elements of subtracted removed."""
     return [item for item in original if item not in subtracted]
 
 

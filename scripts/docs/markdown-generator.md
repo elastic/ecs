@@ -282,18 +282,7 @@ To add a new documentation page:
 
 ## Usage Examples
 
-### Running the Generator
-
-Typically invoked through the main generator:
-
-```bash
-# From repository root
-make clean
-make SEMCONV_VERSION=v1.24.0
-
-# Or directly with Python
-python scripts/generator.py --semconv-version v1.24.0
-```
+See [README.md](README.md) for generator invocation commands.
 
 ### Programmatic Usage
 
@@ -448,34 +437,6 @@ def page_something(...):
         new_var=new_value  # Add missing variable
     )
 ```
-
-#### Jinja2 syntax errors
-
-**Cause**: Invalid template syntax
-
-**Common mistakes**:
-- Unclosed blocks: `{% if x %}` without `{% endif %}`
-- Wrong syntax: `{{ if x }}` instead of `{% if x %}`
-- Missing filters: `{{ var|missing_filter }}`
-
-**Debugging**:
-```python
-try:
-    output = render_template('my_template.j2', **context)
-except jinja2.TemplateError as e:
-    print(f"Template error: {e}")
-    print(f"Line: {e.lineno}")
-```
-
-## Related Files
-
-- `scripts/generator.py` - Main entry point, calls this generator
-- `scripts/generators/intermediate_files.py` - Produces nested structures
-- `scripts/generators/otel.py` - Provides OTel summaries
-- `scripts/generators/ecs_helpers.py` - Utility functions
-- `scripts/templates/*.j2` - Jinja2 templates
-- `docs/fields/usage/*.md` - Usage documentation (manually written)
-- `docs/reference/*.md` - Generated markdown output
 
 ## References
 
