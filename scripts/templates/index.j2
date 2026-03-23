@@ -41,5 +41,5 @@ ECS is a permissive schema. If your events have additional data that cannot be m
 
 ECS improvements are released following [Semantic Versioning](https://semver.org/). Major ECS releases are planned to be aligned with major Elastic Stack releases.
 
-Any feedback on the general structure, missing fields, or existing fields is appreciated. For contributions please read the [Contribution Guidelines](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md).
+Any feedback on the general structure, missing fields, or existing fields is appreciated. For contributions please read the [Contribution Guidelines](https://github.com/elastic/ecs/blob/main/CONTRIBUTING.md).
 

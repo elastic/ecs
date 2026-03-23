@@ -15,6 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Markdown Documentation Generator.
+
+Generates markdown docs using Jinja2 templates from scripts/templates/:
+- index.md, ecs-field-reference.md, ecs-{fieldset}.md per fieldset
+- ecs-otel-alignment-details.md and ecs-otel-alignment-overview.md
+"""
+
 from functools import wraps
 import os.path as path
 import os
@@ -26,6 +33,7 @@ from copy import deepcopy
 
 
 def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, otel_generator, out_dir):
+    """Generate all markdown docs: index, field reference, per-fieldset pages, and OTel alignment pages."""
 
     ecs_helpers.make_dirs(out_dir)
 
@@ -48,11 +56,7 @@ def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, o
 
 
 def render_fieldset_reuse_text(fieldset):
-    """Renders the expected nesting locations
-       if the the `reusable` object is present.
-
-    :param fieldset: The fieldset to evaluate
-    """
+    """Return sorted list of full reuse paths for reusable fieldsets, or None if not reusable."""
     if not fieldset.get('reusable'):
         return None
     reusable_fields = fieldset['reusable']['expected']
@@ -61,10 +65,7 @@ def render_fieldset_reuse_text(fieldset):
 
 
 def render_nestings_reuse_section(fieldset):
-    """Renders the reuse section entries.
-
-    :param fieldset: The target fieldset
-    """
+    """Return sorted list of reused_here entries with flat_nesting (path.*), or None."""
     if not fieldset.get('reused_here'):
         return None
     rows = []
@@ -81,26 +82,14 @@ def render_nestings_reuse_section(fieldset):
 
 
 def extract_allowed_values_key_names(field):
-    """Extracts the `name` keys from the field's
-       allowed_values if present in the field
-       object.
-
-    :param field: The target field
-    """
+    """Return list of allowed value names for a field, or [] if none."""
     if not field.get('allowed_values'):
         return []
     return ecs_helpers.list_extract_keys(field['allowed_values'], 'name')
 
 
 def sort_fields(fieldset):
-    """Prepares a fieldset's fields for being
-    passed into the j2 template for rendering. This
-    includes sorting them into a list of objects and
-    adding a field for the names of any allowed values
-    for the field, if present.
-
-    :param fieldset: The target fieldset
-    """
+    """Return fieldset fields as a list sorted by name, with allowed_value_names added to each field."""
     fields_list = list(fieldset['fields'].values())
     for field in fields_list:
         field['allowed_value_names'] = extract_allowed_values_key_names(field)
@@ -108,19 +97,12 @@ def sort_fields(fieldset):
 
 
 def check_for_usage_doc(fieldset_name, usage_file_list=ecs_helpers.usage_doc_files()):
-    """Checks if a usage doc exists for the specified
-       fieldset.
-
-    :param fieldset_name: The name of the target fieldset
-    """
+    """Return True if ecs-{fieldset_name}-usage.md exists in the usage docs directory."""
     return f"ecs-{fieldset_name}-usage.md" in usage_file_list
 
 
 def templated(template_name):
-    """Decorator function to simplify rendering a template.
-
-    :param template_name: the name of the template to be rendered
-    """
+    """Decorator that renders the function's dict return value through the named Jinja2 template."""
     def decorator(func):
         @wraps(func)
         def decorated_function(*args, **kwargs):
@@ -135,18 +117,13 @@ def templated(template_name):
 
 
 def render_template(template_name, **context):
-    """Renders a template from the template folder with the given
-    context.
-
-    :param template_name: the name of the template to be rendered
-    :param context: the variables that should be available in the
-                    context of the template.
-    """
+    """Render a Jinja2 template from scripts/templates/ with the given context."""
     template = template_env.get_template(template_name)
     return template.render(**context)
 
 
 def save_markdown(f, text):
+    """Write markdown text to file, creating parent directories as needed."""
     os.makedirs(path.dirname(f), exist_ok=True)
     with open(f, "w") as outfile:
         outfile.write(text)
@@ -169,6 +146,7 @@ template_env = jinja2.Environment(loader=template_loader,
 
 @templated('index.j2')
 def page_index(ecs_generated_version):
+    """Render index.md."""
     return dict(ecs_generated_version=ecs_generated_version)
 
 
@@ -177,6 +155,7 @@ def page_index(ecs_generated_version):
 
 @templated('fieldset.j2')
 def page_fieldset(fieldset, nested, ecs_generated_version):
+    """Render ecs-{fieldset.name}.md with fields, reuse, and nesting sections."""
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
     sorted_fields = sort_fields(fieldset)
@@ -192,6 +171,7 @@ def page_fieldset(fieldset, nested, ecs_generated_version):
 
 @templated('ecs_field_reference.j2')
 def page_field_reference(ecs_generated_version, es, fieldsets):
+    """Render ecs-field-reference.md with all fieldsets."""
     return dict(ecs_generated_version=ecs_generated_version,
                 es=es,
                 fieldsets=fieldsets)
@@ -201,6 +181,7 @@ def page_field_reference(ecs_generated_version, es, fieldsets):
 
 
 def page_field_details(nested, docs_only_nested):
+    """Return concatenated field_details.j2 output for all fieldsets. Merges docs_only_nested in place."""
     if docs_only_nested:
         for fieldset_name, fieldset in docs_only_nested.items():
             nested[fieldset_name]['fields'].update(fieldset['fields'])
@@ -211,6 +192,7 @@ def page_field_details(nested, docs_only_nested):
 
 @templated('field_details.j2')
 def generate_field_details_page(fieldset):
+    """Render field_details.j2 for one fieldset."""
     # render field reuse text section
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
@@ -227,6 +209,7 @@ def generate_field_details_page(fieldset):
 
 @templated('otel_alignment_details.j2')
 def page_otel_alignment_details(nested, ecs_generated_version, semconv_version):
+    """Render ecs-otel-alignment-details.md for fieldsets with at least one otel mapping."""
     fieldsets = [deepcopy(fieldset) for fieldset in ecs_helpers.dict_sorted_by_keys(
         nested, ['group', 'name']) if is_eligable_for_otel_mapping(fieldset)]
     for fieldset in fieldsets:
@@ -239,6 +222,7 @@ def page_otel_alignment_details(nested, ecs_generated_version, semconv_version):
 
 
 def is_eligable_for_otel_mapping(fieldset):
+    """Return True if any field in fieldset has an 'otel' mapping."""
     for field in fieldset['fields'].values():
         if 'otel' in field:
             return True
@@ -249,6 +233,7 @@ def is_eligable_for_otel_mapping(fieldset):
 
 @templated('otel_alignment_overview.j2')
 def page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, semconv_version):
+    """Render ecs-otel-alignment-overview.md with mapping summaries from otel_generator."""
     fieldsets = ecs_helpers.dict_sorted_by_keys(nested, ['group', 'name'])
     summaries = otel_generator.get_mapping_summaries(fieldsets)
     return dict(summaries=summaries,
@@ -260,6 +245,7 @@ def page_otel_alignment_overview(otel_generator, nested, ecs_generated_version, 
 
 @templated('field_values.j2')
 def page_field_values(nested, template_name='field_values_template.j2'):
+    """Render allowed-values docs for event.kind, event.category, event.type, event.outcome."""
     category_fields = ['event.kind', 'event.category', 'event.type', 'event.outcome']
     nested_fields = []
     for cat_field in category_fields:

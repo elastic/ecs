@@ -15,34 +15,41 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Schema Finalizer Module.
+
+Third stage of the pipeline: loader.py → cleaner.py → finalizer.py → intermediate_files.py
+
+Performs field reuse (composition) and calculates final field names.
+
+Two-phase reuse:
+- Phase 1 (foreign): Copy fieldset into a different fieldset. Transitive — if 'group' is in
+  'user', then 'destination.user' also gets 'destination.user.group.*'.
+- Phase 2 (self-nesting): Copy fieldset into itself (e.g., process → process.parent).
+  NOT transitive — 'source.process.parent' does not exist even though process.parent does.
+
+The 'order' attribute controls sequence: order=1 runs before order=2 (default). Within each
+order, Phase 1 runs before Phase 2.
+
+After reuse: calculates flat_name, dashed_name, and multi-field flat_names for all fields.
+"""
+
 import copy
 import re
 
 from schema import visitor
 
-# This script takes the fleshed out deeply nested fields dictionary as emitted by
-# cleaner.py, and performs field reuse in two phases, repeated for each reuse order, from highest
-# priority to lowest.
-#
-# Phase 1 performs field reuse across field sets. E.g. `group` fields should also be under `user`.
-# This type of reuse is then carried around if the receiving field set is also reused.
-# In other words, user.group.* will be in other places where user is nested:
-# source.user.* will contain source.user.group.*
-
-# Phase 2 performs field reuse where field sets are reused within themselves, with a different name.
-# Examples are nesting `process` within itself, as `process.parent.*`,
-# or nesting `user` within itself at `user.target.*`.
-# This second kind of nesting is not carried around everywhere else the receiving field set is reused.
-# So `user.target.*` is *not* carried over to `source.user.target*` when we reuse `user` under `source`.
-
 
 def finalize(fields):
-    """Intended entrypoint of the finalizer."""
+    """Perform reuse and calculate final field names (flat_name, dashed_name)."""
     perform_reuse(fields)
     calculate_final_values(fields)
 
 
 def order_reuses(fields):
+    """Return (foreign_reuses, self_nestings) each as {order: {schema_name: [reuse_entries]}}.
+
+    Foreign reuses go to a different fieldset; self_nestings stay within the same fieldset.
+    """
     foreign_reuses = {}
     self_nestings = {}
     for schema_name, schema in fields.items():
@@ -65,7 +72,7 @@ def order_reuses(fields):
 
 
 def perform_reuse(fields):
-    """Performs field reuse respecting order for both foreign reuses and self-nestings"""
+    """Execute all field reuse, processing each order level with Phase 1 (foreign) then Phase 2 (self-nesting)."""
     foreign_reuses, self_nestings = order_reuses(fields)
 
     # Process foreign reuses and self-nestings together, respecting order
@@ -123,11 +130,7 @@ def perform_reuse(fields):
 
 
 def ensure_valid_reuse(reused_schema, destination_schema=None):
-    """
-    Raise if either the reused schema or destination schema have root=true.
-
-    Second param is optional, if testing for a self-nesting (where source=destination).
-    """
+    """Raise ValueError if either schema has root=true (root fieldsets cannot participate in reuse)."""
     if reused_schema['schema_details']['root']:
         msg = "Schema {} has attribute root=true and therefore cannot be reused.".format(
             reused_schema['field_details']['name'])
@@ -139,7 +142,7 @@ def ensure_valid_reuse(reused_schema, destination_schema=None):
 
 
 def append_reused_here(reused_schema, reuse_entry, destination_schema):
-    """Captures two ways of denoting what field sets are reused under a given field set"""
+    """Record reuse metadata on destination_schema: appends to 'nestings' (legacy) and 'reused_here'."""
     # Legacy, too limited
     destination_schema['schema_details'].setdefault('nestings', [])
     destination_schema['schema_details']['nestings'] = sorted(
@@ -163,7 +166,7 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
 
 
 def set_original_fieldset(fields, original_fieldset):
-    """Recursively set the 'original_fieldset' attribute for all fields in a group of fields"""
+    """Recursively stamp all fields with original_fieldset (uses setdefault, preserves nested values)."""
     def func(details):
         # Don't override if already set (e.g. 'group' for user.group.* fields)
         details['field_details'].setdefault('original_fieldset', original_fieldset)
@@ -171,7 +174,10 @@ def set_original_fieldset(fields, original_fieldset):
 
 
 def field_group_at_path(dotted_path, fields):
-    """Returns the ['fields'] hash at the dotted_path."""
+    """Return the 'fields' dict at the given dotted path. Creates it for object/group/nested types.
+
+    Raises ValueError if path is missing or passes through a non-nestable field type.
+    """
     path = dotted_path.split('.')
     nesting = fields
     for next_field in path:
@@ -190,17 +196,12 @@ def field_group_at_path(dotted_path, fields):
 
 
 def calculate_final_values(fields):
-    """
-    This function navigates all fields recursively.
-
-    It populates a few more values for the fields, especially path-based values
-    like flat_name.
-    """
+    """Calculate flat_name, dashed_name, multi-field names, and OTel mappings for all fields."""
     visitor.visit_fields_with_path(fields, field_finalizer)
 
 
 def field_finalizer(details, path):
-    """This is the function called by the visitor to perform the work of calculate_final_values"""
+    """Visitor callback: compute flat_name, dashed_name, multi-field flat_names, and resolve otel_reuse."""
     name_array = path + [details['field_details']['node_name']]
     flat_name = '.'.join(name_array)
 

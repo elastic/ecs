@@ -11,7 +11,7 @@ applies_to:
 
 # Elastic Common Schema (ECS) reference
 
-This is the documentation of ECS version 9.3.0-dev.
+This is the documentation of ECS version 9.4.0-dev.
 
 
 ## What is ECS? [_what_is_ecs]
@@ -41,5 +41,5 @@ ECS is a permissive schema. If your events have additional data that cannot be m
 
 ECS improvements are released following [Semantic Versioning](https://semver.org/). Major ECS releases are planned to be aligned with major Elastic Stack releases.
 
-Any feedback on the general structure, missing fields, or existing fields is appreciated. For contributions please read the [Contribution Guidelines](https://github.com/elastic/ecs/blob/master/CONTRIBUTING.md).
+Any feedback on the general structure, missing fields, or existing fields is appreciated. For contributions please read the [Contribution Guidelines](https://github.com/elastic/ecs/blob/main/CONTRIBUTING.md).
 

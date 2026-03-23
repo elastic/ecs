@@ -15,6 +15,14 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Field Visitor Module.
+
+Three depth-first traversal helpers for the deeply nested field structure from loader.py:
+- visit_fields(): dispatch to fieldset_func or field_func based on node type
+- visit_fields_with_path(): pass accumulated path array to callback
+- visit_fields_with_memo(): pass shared accumulator to callback
+"""
+
 from typing import (
     Callable,
     Dict,
@@ -34,19 +42,7 @@ def visit_fields(
     fieldset_func: Optional[Callable[[FieldEntry], None]] = None,
     field_func: Optional[Callable[[FieldDetails], None]] = None
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs provided
-    functions on each fieldset or field encountered (both optional).
-
-    The argument 'fields' should be at the named field grouping level:
-    {'name': {'schema_details': {}, 'field_details': {}, 'fields': {}}
-
-    The 'fieldset_func(details)' provided will be called for each field set,
-    with the dictionary containing their details ({'schema_details': {}, 'field_details': {}, 'fields': {}).
-
-    The 'field_func(details)' provided will be called for each field, with the dictionary
-    containing the field's details ({'field_details': {}, 'fields': {}).
-    """
+    """Depth-first traversal calling fieldset_func for nodes with schema_details, field_func for others."""
     for (_, details) in fields.items():
         if fieldset_func and 'schema_details' in details:
             fieldset_func(details)
@@ -63,13 +59,9 @@ def visit_fields_with_path(
     func: Callable[[FieldDetails], None],
     path: Optional[List[str]] = []
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs the provided
-    function on all fields and field sets.
+    """Depth-first traversal passing accumulated path to func(details, path).
 
-    The 'func' provided will be called for each field,
-    with the dictionary containing their details ({'field_details': {}, 'fields': {})
-    as well as the path array leading to the location of the field in question.
+    Root fieldsets (root=true) don't add their name to the path.
     """
     for (name, details) in fields.items():
         if 'field_details' in details:
@@ -87,14 +79,7 @@ def visit_fields_with_memo(
     func: Callable[[FieldEntry, Field], None],
     memo: Optional[Dict[str, Field]] = None
 ) -> None:
-    """
-    This function navigates the deeply nested tree structure and runs the provided
-    function on all fields and field sets.
-
-    The 'func' provided will be called for each field,
-    with the dictionary containing their details ({'field_details': {}, 'fields': {})
-    as well as the 'memo' you pass in.
-    """
+    """Depth-first traversal passing a shared accumulator to func(details, memo)."""
     for (name, details) in fields.items():
         if 'field_details' in details:
             func(details, memo)
