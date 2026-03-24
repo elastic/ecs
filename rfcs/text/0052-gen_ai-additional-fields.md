@@ -1,7 +1,7 @@
 # 0052: Additional fields for Generative AI
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
+- Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
 <!--
@@ -32,9 +32,9 @@ Stage 1: Describe at a high level how this change affects fields. Include new or
 Field | Type | Description /Usage
 -- | -- | --
 gen_ai.system_instructions | flattened | The system message or instructions provided to the GenAI model separately from the chat history.
-gen_ai.input.messages | nested | The chat history provided to the model as an input.
-gen_ai.output.messages | nested | Messages returned by the model where each message represents a specific model response (choice, candidate).
-gen_ai.tool.definitions | nested | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
+gen_ai.input.messages | flattened | The chat history provided to the model as an input.
+gen_ai.output.messages | flattened | Messages returned by the model where each message represents a specific model response (choice, candidate).
+gen_ai.tool.definitions | flattened | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
 gen_ai.tool.call.arguments | flattened | (Part of OTel execute_tool span) Parameters passed to the tool call.
 gen_ai.tool.call.result | flattened | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
 
@@ -156,22 +156,57 @@ The goal here is to research and understand the impact of these changes on users
 Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
 -->
 
-In OTel, many field types are set to `any` and are typically .json objects. [Example](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)
-In ECS, should we use something like [flattened](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/flattened) type, if allowed?
+In OTel, many field types are set to `any` and are typically JSON objects. [Example](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)
 
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
+In ECS, should we use something like [flattened](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/flattened) type.
 
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+**Resolution:** All six fields in this RFC use `flattened`. The decision was driven by three constraints:
+
+1. OTel Collector ES exporter
+
+> Nested fields are not supported under passthrough namespaces like attributes.* are in the OTel ES schema.
+So defining gen_ai.input.messages, gen_ai.output.messages and gen_ai.tool.definitions as nested would not be compatible with OTel ingest.
+> Complex attributes types are currently always mapped to flattened in the OTel Collector ES exporter.
+> -- @AlexanderWert
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3479329267).
+
+2. Serverless limitation for nested fields on indices
+
+> "The default setting for limiting nested fields on indices (index.mapping.nested_fields.limit) is 50. If customers try to create a new index with a higher limit, they will receive the following error: Settings [index.mapping.nested_fields.limit,index.mapping.nested_objects.limit] are not available when running in serverless mode. It's a serverless limitation that can't be overridden without Elastic support involved."
+> -- @Mikaayenson
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3415953216)
+
+3. ES|QL queryability
+
+At the time this RFC was drafted, neither `nested` nor `flattened` were supported in ES|QL. As of March 2026, the picture has changed significantly:
+
+- **`flattened`:** Active development under way. [elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245) enables ES|QL to load `flattened` fields as JSON strings, queryable via `JSON_EXTRACT`. [elasticsearch#144451](https://github.com/elastic/elasticsearch/pull/144451) "Allow specific keys within a flattened field to be mapped as typed sub-fields (keyword, ip, etc.) via a new "properties" mapping attribute."
+   
+`flattened` is therefore the only path to ES|QL queryability in the foreseeable future.
+
+Tradeoffs:
+
+> "With flattened, it would not be possible to query for something like 'system role has a text like helpful bot', [...] the association between the `role` field and the `parts.content` field is lost."
+> — @flash1293
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3380468096)
+
+
+> "We will likely lean on `_source` to access nested dicts in an order preserving fashion."
+> — @joe-desimone
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3470660966)
+
+This trade-off is accepted given the OTel compatibility requirement. As of March 2026, ES|QL `flattened` support is actively in development ([elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245)), to be passed into the new JSON_EXTRACT function, making `flattened` the only viable path to ES|QL queryability in the foreseeable future.
 
 ## People
 
 The following are the people that consulted on the contents of this RFC.
 
 * @susan-shu-c | author
+* @Mikaayenson, @joe-desimone | Security subject matter experts
 
 <!--
 Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
@@ -203,3 +238,4 @@ e.g.:
 
 * Stage 0: https://github.com/elastic/ecs/pull/2519
 * Stage 1: https://github.com/elastic/ecs/pull/2525
+* Stage 2: https://github.com/elastic/ecs/pull/2532
