@@ -7370,7 +7370,7 @@ gen_ai.input.messages:
   - relation: match
     stability: development
   short: The chat history provided to the model as an input.
-  type: nested
+  type: flattened
 gen_ai.operation.name:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-operation-name
@@ -7403,7 +7403,7 @@ gen_ai.output.messages:
     stability: development
   short: Messages returned by the model where each message represents a specific model
     response (choice, candidate).
-  type: nested
+  type: flattened
 gen_ai.output.type:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-output-type
@@ -7680,8 +7680,7 @@ gen_ai.tool.call.arguments:
   name: tool.call.arguments
   normalize: []
   otel:
-  - attribute: gen_ai.operation.name
-    relation: related
+  - relation: match
     stability: development
   short: Parameters passed to the tool call.
   type: flattened
@@ -7711,8 +7710,7 @@ gen_ai.tool.call.result:
   name: tool.call.result
   normalize: []
   otel:
-  - attribute: gen_ai.operation.name
-    relation: related
+  - relation: match
     stability: development
   short: The result returned by the tool call (if any and if execution was successful).
   type: flattened
@@ -7734,12 +7732,11 @@ gen_ai.tool.definitions:
   name: tool.definitions
   normalize: []
   otel:
-  - attribute: gen_ai.operation.name
-    relation: related
+  - relation: match
     stability: development
   short: The list of source system tool definitions available to the GenAI agent or
     model.
-  type: nested
+  type: flattened
 gen_ai.tool.name:
   beta: This field is beta and subject to change.
   dashed_name: gen-ai-tool-name
