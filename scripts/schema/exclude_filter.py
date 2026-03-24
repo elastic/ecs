@@ -15,24 +15,28 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Schema Exclude Filter Module.
+
+Removes specified fields from the schema (inverse of subset filtering). Used primarily
+for deprecation testing — exclude fields to assess impact before actually removing them.
+Parent fields are auto-removed when emptied, except 'base'. Runs after subset filtering.
+"""
+
 from typing import (
     Dict,
     List,
 )
 
 from schema import loader
-from _types import (
+from ecs_types import (
     Field,
     FieldEntry,
     FieldNestedEntry,
 )
 
-# This script should be run downstream of the subset filters - it takes
-# all ECS and custom fields already loaded by the latter and explicitly
-# removes a subset, for example, to simulate impact of future removals
-
 
 def exclude(fields: Dict[str, FieldEntry], exclude_file_globs: List[str]) -> Dict[str, FieldEntry]:
+    """Load exclude definitions and remove matching fields from schema."""
     excludes: List[FieldNestedEntry] = load_exclude_definitions(exclude_file_globs)
 
     if excludes:
@@ -42,6 +46,7 @@ def exclude(fields: Dict[str, FieldEntry], exclude_file_globs: List[str]) -> Dic
 
 
 def long_path(path_as_list: List[str]) -> str:
+    """Join path components with dots."""
     return '.'.join([e for e in path_as_list])
 
 
@@ -51,7 +56,7 @@ def pop_field(
     path: List[str],
     removed: List[str]
 ) -> str:
-    """pops a field from yaml derived dict using path derived from ordered list of nodes"""
+    """Remove field at node_path, auto-removing empty parents (except 'base'). Returns flat_name removed."""
     if node_path[0] in fields:
         if len(node_path) == 1:
             flat_name: str = long_path(path)
@@ -81,7 +86,7 @@ def exclude_trace_path(
     path: List[str],
     removed: List[str]
 ) -> None:
-    """traverses paths to one or more nodes in a yaml derived dict"""
+    """Remove each field in item list. Raises ValueError if item has nested 'fields' (not supported)."""
     for list_item in item:
         node_path: List[str] = path.copy()
         # cater for name.with.dots
@@ -98,7 +103,7 @@ def exclude_trace_path(
 
 
 def exclude_fields(fields: Dict[str, FieldEntry], excludes: List[FieldNestedEntry]) -> Dict[str, FieldEntry]:
-    """Traverses fields and eliminates any field which matches the excludes"""
+    """Apply all exclude definitions, removing each specified field and cleaning up empty parents."""
     if excludes:
         for ex_list in excludes:
             for item in ex_list:
@@ -107,6 +112,7 @@ def exclude_fields(fields: Dict[str, FieldEntry], excludes: List[FieldNestedEntr
 
 
 def load_exclude_definitions(file_globs: List[str]) -> List[FieldNestedEntry]:
+    """Load exclude YAML files. Returns [] if empty. Raises ValueError if none found."""
     if not file_globs:
         return []
     excludes: List[FieldNestedEntry] = loader.load_definitions(file_globs)

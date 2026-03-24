@@ -15,6 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Intermediate File Generator.
+
+Produces two normalized representations of processed ECS schemas:
+- Flat (ecs_flat.yml): {dotted_field_name: field_def}, excludes top_level=false fieldsets
+- Nested (ecs_nested.yml): {fieldset_name: {metadata, fields: {...}}}, includes all fieldsets
+
+These are the stable interfaces consumed by all downstream generators.
+"""
+
 import copy
 from os.path import join
 from typing import (
@@ -24,7 +33,7 @@ from typing import (
 
 from schema import visitor
 from generators import ecs_helpers
-from _types import (
+from ecs_types import (
     Field,
     FieldEntry,
     FieldNestedEntry,
@@ -36,6 +45,11 @@ def generate(
     out_dir: str,
     default_dirs: bool
 ) -> Tuple[Dict[str, FieldNestedEntry], Dict[str, Field]]:
+    """Generate flat and nested intermediate YAML files from processed schemas.
+
+    Returns (nested, flat) dicts. Also saves ecs_flat.yml, ecs_nested.yml,
+    and (if default_dirs=True) ecs.yml for debugging.
+    """
     ecs_helpers.make_dirs(join(out_dir))
 
     # Should only be used for debugging ECS development
@@ -50,7 +64,7 @@ def generate(
 
 
 def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
-    """Generate ecs_flat.yml"""
+    """Return {flat_name: field_def} for all non-intermediate, non-reusable-only fields."""
     filtered: Dict[str, FieldEntry] = remove_non_root_reusables(fields)
     flattened: Dict[str, Field] = {}
     visitor.visit_fields_with_memo(filtered, accumulate_field, flattened)
@@ -58,7 +72,7 @@ def generate_flat_fields(fields: Dict[str, FieldEntry]) -> Dict[str, Field]:
 
 
 def accumulate_field(details: FieldEntry, memo: Field) -> None:
-    """Visitor function that accumulates all field details in the memo dict"""
+    """Visitor callback: add field to memo dict by flat_name, skipping schema-level and intermediate entries."""
     if 'schema_details' in details or ecs_helpers.is_intermediate(details):
         return
     field_details: Field = copy.deepcopy(details['field_details'])
@@ -69,7 +83,11 @@ def accumulate_field(details: FieldEntry, memo: Field) -> None:
 
 
 def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNestedEntry]:
-    """Generate ecs_nested.yml"""
+    """Return {fieldset_name: {metadata, fields: {flat_name: field_def}}} for ALL fieldsets.
+
+    Unlike generate_flat_fields(), this includes top_level=false fieldsets.
+    Each fieldset's 'fields' dict is flat (keyed by flat_name), not hierarchical.
+    """
     nested: Dict[str, FieldNestedEntry] = {}
     # Flatten each field set, but keep all resulting fields nested under their
     # parent/host field set.
@@ -101,23 +119,13 @@ def generate_nested_fields(fields: Dict[str, FieldEntry]) -> Dict[str, FieldNest
 
 
 def remove_internal_attributes(field_details: Field) -> None:
-    """Remove attributes only relevant to the deeply nested structure, but not to ecs_flat/nested.yml."""
+    """Remove node_name and intermediate attributes from field definitions before output."""
     field_details.pop('node_name', None)
     field_details.pop('intermediate', None)
 
 
 def remove_non_root_reusables(fields_nested: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
-    """
-    Remove field sets that have top_level=false from the root of the field definitions.
-
-    This attribute means they're only meant to be in the "reusable/expected" locations
-    and not at the root of user's events.
-
-    This is only relevant for the 'flat' field representation. The nested one
-    still needs to keep all field sets at the root of the YAML file, as it
-    the official information about each field set. It's the responsibility of
-    users consuming ecs_nested.yml to skip the field sets with top_level=false.
-    """
+    """Filter out fieldsets with reusable.top_level=false (only applied to flat representation)."""
     fields: Dict[str, FieldEntry] = {}
     for (name, field) in fields_nested.items():
         if 'reusable' not in field['schema_details'] or field['schema_details']['reusable']['top_level']:

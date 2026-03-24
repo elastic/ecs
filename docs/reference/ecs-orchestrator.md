@@ -32,3 +32,8 @@ Fields that describe the resources which container orchestrators manage or act u
 | $$$field-orchestrator-type$$$ [orchestrator.type](#field-orchestrator-type) | Orchestrator cluster type (e.g. kubernetes, nomad or cloudfoundry).<br><br>type: keyword<br><br>example: `kubernetes` | extended |
 
 
+### Field sets that can be nested under Orchestrator [ecs-orchestrator-nestings]
+
+| Location | Field Set | Description |
+| --- | --- | --- |
+| `orchestrator.entity.*` | [entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |

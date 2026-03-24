@@ -3,6 +3,32 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.3.0](https://github.com/elastic/ecs/compare/v9.2.0...v9.3.0)
+
+### Schema Changes
+
+#### Added
+
+* Added `cloud` and `orchestrator` as allowed values for `entity.type`. #2567
+* Allow entity fields at root level. #2567
+* Added `entity.target` for self-nesting. #2567
+* Added the target field to be nested under host #2571
+
+#### Improvements
+
+* Added details for implementation of url.query to avoid ambiguity #2488
+
+## [9.2.0](https://github.com/elastic/ecs/compare/v9.1.0...v9.2.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `device` value to `event.type` #2524
+* Add new `device` fields #2530
+* Added `entity` fieldset as beta #2537
+
+
 ## [9.1.0](https://github.com/elastic/ecs/compare/v9.0.0...v9.1.0)
 
 ### Schema Changes

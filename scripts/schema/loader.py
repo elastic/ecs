@@ -15,6 +15,20 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Schema Loader Module.
+
+Entry point for ECS schema processing pipeline. Loads YAML schemas from filesystem
+or git refs and transforms them into a deeply nested structure.
+
+Key operations:
+- Load from schemas/*.yml, experimental/schemas/, or custom paths
+- Transform dotted field names (e.g., 'http.request.method') into nested dicts
+- Create intermediate parent fields automatically
+- Merge multiple schema sources safely
+
+See scripts/docs/schema-pipeline.md for complete documentation.
+"""
+
 import copy
 import git
 import glob
@@ -27,49 +41,13 @@ from typing import (
 import yaml
 
 from generators import ecs_helpers
-from _types import (
+from ecs_types import (
     Field,
     FieldEntry,
     FieldNestedEntry,
     MultiField,
     SchemaDetails,
 )
-
-# Loads main ECS schemas and optional additional schemas.
-# They are deeply nested, then merged together.
-# This script doesn't fill in defaults other than the bare minimum for a predictable
-# deeply nested structure. It doesn't concern itself with what "should be allowed"
-# in being a good ECS citizen. It just loads things and merges them together.
-
-# The deeply nested structured returned by this script looks like this.
-#
-# [schema name]: {
-#   'schema_details': {
-#       'reusable': ...
-#   },
-#   'field_details': {
-#       'type': ...
-#   },
-#   'fields': {
-#       [field name]: {
-#           'field_details': { ... }
-#           'fields': {
-#
-#               (dotted key names replaced by deep nesting)
-#               [field name]: {
-#                   'field_details': { ... }
-#                   'fields': {
-#                   }
-#               }
-#           }
-#       }
-#   }
-
-# Schemas at the top level always have all 3 keys populated.
-# Leaf fields only have 'field_details' populated.
-# Any intermediate field with other fields nested within them have 'fields' populated.
-# Note that intermediate fields rarely have 'field_details' populated, but it's supported.
-#   Examples of this are 'dns.answers', 'observer.egress'.
 
 
 EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
@@ -79,7 +57,11 @@ def load_schemas(
     ref: Optional[str] = None,
     included_files: Optional[List[str]] = []
 ) -> Dict[str, FieldEntry]:
-    """Loads ECS and custom schemas. They are returned deeply nested and merged."""
+    """Load ECS schemas (from filesystem or git ref) plus any custom included_files.
+
+    Experimental schemas are loaded from git if ref is specified. Custom schemas
+    are always loaded from filesystem. All sources are merged, with custom taking precedence.
+    """
     # ECS fields (from git ref or not)
     schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
         ref) if ref else load_schema_files(ecs_helpers.ecs_files())
@@ -103,6 +85,7 @@ def load_schemas(
 
 
 def load_schema_files(files: List[str]) -> Dict[str, FieldNestedEntry]:
+    """Load and merge multiple schema YAML files. Raises ValueError on duplicate names."""
     fields_nested: Dict[str, FieldNestedEntry] = {}
     for f in files:
         new_fields: Dict[str, FieldNestedEntry] = read_schema_file(f)
@@ -114,6 +97,7 @@ def load_schemas_from_git(
     ref: str,
     target_dir: Optional[str] = 'schemas'
 ) -> Dict[str, FieldNestedEntry]:
+    """Load YAML schemas directly from git objects at the given ref. Raises KeyError if target_dir is absent."""
     tree: git.objects.tree.Tree = ecs_helpers.get_tree_by_ref(ref)
     fields_nested: Dict[str, FieldNestedEntry] = {}
 
@@ -129,7 +113,7 @@ def load_schemas_from_git(
 
 
 def read_schema_file(file_name: str) -> Dict[str, FieldNestedEntry]:
-    """Read a raw schema yml file into a dict."""
+    """Read and parse a YAML schema file from filesystem."""
     with open(file_name) as f:
         raw: List[FieldNestedEntry] = yaml.safe_load(f.read())
     return nest_schema(raw, file_name)
@@ -139,7 +123,7 @@ def read_schema_blob(
     blob: git.objects.blob.Blob,
     ref: str
 ) -> Dict[str, FieldNestedEntry]:
-    """Read a raw schema yml git blob into a dict."""
+    """Read and parse a YAML schema from a git blob object."""
     content: str = blob.data_stream.read().decode('utf-8')
     raw: List[FieldNestedEntry] = yaml.safe_load(content)
     file_name: str = "{} (git ref {})".format(blob.name, ref)
@@ -147,12 +131,7 @@ def read_schema_blob(
 
 
 def nest_schema(raw: List[FieldNestedEntry], file_name: str) -> Dict[str, FieldNestedEntry]:
-    """
-    Raw schema files are an array of schema details: [{'name': 'base', ...}]
-
-    This function loops over the array (usually 1 schema per file) and turns it into
-    a dict with the schema name as the key: { 'base': { 'name': 'base', ...}}
-    """
+    """Convert schema YAML array to dict keyed by 'name'. Raises ValueError if name is missing."""
     fields: Dict[str, FieldNestedEntry] = {}
     for schema in raw:
         if 'name' not in schema:
@@ -162,6 +141,12 @@ def nest_schema(raw: List[FieldNestedEntry], file_name: str) -> Dict[str, FieldN
 
 
 def deep_nesting_representation(fields: Dict[str, FieldNestedEntry]) -> Dict[str, FieldEntry]:
+    """Transform flat schema definitions into deeply nested field structures.
+
+    Converts dotted field names (e.g., 'request.method') into nested dicts,
+    separating schema_details from field_details and creating intermediate
+    parent fields automatically.
+    """
     deeply_nested: Dict[str, FieldEntry] = {}
     for (name, flat_schema) in fields.items():
 
@@ -188,6 +173,11 @@ def deep_nesting_representation(fields: Dict[str, FieldNestedEntry]) -> Dict[str
 
 
 def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
+    """Convert flat array of fields with dotted names into nested structure.
+
+    Splits dotted names (e.g., 'request.method') and creates intermediate
+    parent fields (type='object', intermediate=True) automatically.
+    """
     schema_root: Dict[str, Dict[str, FieldEntry]] = {'fields': {}}
     for field in field_array:
         nested_levels: List[str] = field['name'].split('.')
@@ -226,6 +216,7 @@ def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
 
 
 def array_of_maps_to_map(array_vals: List[MultiField]) -> Dict[str, MultiField]:
+    """Convert list of multi-field dicts to {name: dict}. Last entry wins on duplicates."""
     ret_map: Dict[str, MultiField] = {}
     for map_val in array_vals:
         name: str = map_val['name']
@@ -235,6 +226,7 @@ def array_of_maps_to_map(array_vals: List[MultiField]) -> Dict[str, MultiField]:
 
 
 def map_of_maps_to_array(map_vals: Dict[str, MultiField]) -> List[MultiField]:
+    """Convert {name: dict} to sorted list of multi-field dicts."""
     ret_list: List[MultiField] = []
     for key in map_vals:
         ret_list.append(map_vals[key])
@@ -242,13 +234,15 @@ def map_of_maps_to_array(map_vals: Dict[str, MultiField]) -> List[MultiField]:
 
 
 def dedup_and_merge_lists(list_a: List[MultiField], list_b: List[MultiField]) -> List[MultiField]:
+    """Merge two multi-field lists; list_b takes precedence on duplicate names."""
     list_a_map: Dict[str, MultiField] = array_of_maps_to_map(list_a)
     list_a_map.update(array_of_maps_to_map(list_b))
     return map_of_maps_to_array(list_a_map)
 
 
 def merge_fields(a: Dict[str, FieldEntry], b: Dict[str, FieldEntry]) -> Dict[str, FieldEntry]:
-    """Merge ECS field sets with custom field sets."""
+    """Recursively merge field dicts; b takes precedence. normalize/multi_fields are concatenated;
+    reusable.expected is concatenated; nested fields are merged recursively."""
     a = copy.deepcopy(a)
     b = copy.deepcopy(b)
     for key in b:
@@ -293,17 +287,18 @@ def merge_fields(a: Dict[str, FieldEntry], b: Dict[str, FieldEntry]) -> Dict[str
 
 
 def load_yaml_file(file_name):
+    """Load and parse a YAML file."""
     with open(file_name) as f:
         return yaml.safe_load(f.read())
 
 
-# You know, for silent tests
 def warn(message: str) -> None:
+    """Print a warning message. Exists as a function to enable mocking in tests."""
     print(message)
 
 
 def eval_globs(globs):
-    """Accepts an array of glob patterns or file names, returns the array of actual files"""
+    """Expand glob patterns to file paths. Directories ending with '/' become 'dir/*'. Warns on no matches."""
     all_files = []
     for g in globs:
         if g.endswith('/'):
@@ -317,6 +312,7 @@ def eval_globs(globs):
 
 
 def load_definitions(file_globs):
+    """Load YAML definition files matching file_globs (used by subset_filter and exclude_filter)."""
     sets = []
     for f in ecs_helpers.glob_yaml_files(file_globs):
         raw = load_yaml_file(f)

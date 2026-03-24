@@ -16,9 +16,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `device` value to `event.type` #2524
-* Added `entity` fieldset as beta #2537
-
 #### Improvements
 
 #### Deprecated
@@ -32,6 +29,8 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
+
+* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
 
 #### Deprecated
 

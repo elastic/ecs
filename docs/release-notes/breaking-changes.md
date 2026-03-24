@@ -1,5 +1,8 @@
 ---
 navigation_title: "Breaking changes"
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # ECS breaking changes [ecs-breaking-changes]

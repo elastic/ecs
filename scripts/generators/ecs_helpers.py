@@ -15,6 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""ECS Generator Helper Utilities.
+
+Shared utilities for dictionary operations, file I/O, git access, list manipulation,
+and field introspection. Used across all ECS generator scripts.
+"""
+
 import glob
 import os
 import yaml
@@ -33,7 +39,7 @@ import warnings
 
 from collections import OrderedDict
 from copy import deepcopy
-from _types import (
+from ecs_types import (
     Field,
     FieldEntry,
     FieldNestedEntry,
@@ -43,6 +49,7 @@ from _types import (
 
 
 def dict_copy_keys_ordered(dct: Field, copied_keys: List[str]) -> Field:
+    """Copy specified keys in order. Keys not in source are skipped."""
     ordered_dict = OrderedDict()
     for key in copied_keys:
         if key in dct:
@@ -51,12 +58,14 @@ def dict_copy_keys_ordered(dct: Field, copied_keys: List[str]) -> Field:
 
 
 def dict_copy_existing_keys(source: Field, destination: Field, keys: List[str]) -> None:
+    """Copy keys from source to destination if they exist in source."""
     for key in keys:
         if key in source:
             destination[key] = source[key]
 
 
 def dict_sorted_by_keys(dct: FieldNestedEntry, sort_keys: List[str]) -> List[FieldNestedEntry]:
+    """Sort dictionary values by one or more keys, returning sorted list."""
     if not isinstance(sort_keys, list):
         sort_keys = [sort_keys]
 
@@ -80,6 +89,7 @@ def ordered_dict_insert(
     before_key: Optional[str] = None,
     after_key: Optional[str] = None
 ) -> None:
+    """Insert key-value pair before or after specified key in ordered dict."""
     output = OrderedDict()
     inserted: bool = False
     for key, value in dct.items():
@@ -98,7 +108,7 @@ def ordered_dict_insert(
 
 
 def safe_merge_dicts(a: Dict[Any, Any], b: Dict[Any, Any]) -> Dict[Any, Any]:
-    """Merges two dictionaries into one. If duplicate keys are detected a ValueError is raised."""
+    """Merge two dicts, raising ValueError on duplicate keys."""
     c = deepcopy(a)
     for key in b:
         if key not in c:
@@ -109,6 +119,7 @@ def safe_merge_dicts(a: Dict[Any, Any], b: Dict[Any, Any]) -> Dict[Any, Any]:
 
 
 def fields_subset(subset, fields):
+    """Recursively filter fields to only those specified in subset. 'fields': '*' includes all."""
     retained_fields = {}
     allowed_options = ['fields']
     for key, val in subset.items():
@@ -126,6 +137,7 @@ def fields_subset(subset, fields):
 
 
 def yaml_ordereddict(dumper, data):
+    """YAML representer for OrderedDict that preserves key order."""
     # YAML representation of an OrderedDict will be like a dictionary, but
     # respecting the order of the dictionary.
     # Almost sure it's unndecessary with Python 3.
@@ -137,11 +149,12 @@ def yaml_ordereddict(dumper, data):
     return yaml.nodes.MappingNode(u'tag:yaml.org,2002:map', value)
 
 
+# Register the representer globally
 yaml.add_representer(OrderedDict, yaml_ordereddict)
 
 
 def dict_clean_string_values(dict: Dict[Any, Any]) -> None:
-    """Remove superfluous spacing in all field values of a dict"""
+    """Strip leading/trailing whitespace from all string values in dict (in place)."""
     for key in dict:
         value = dict[key]
         if isinstance(value, str):
@@ -155,12 +168,12 @@ YAML_EXT = {'yml', 'yaml'}
 
 
 def is_yaml(path: str) -> bool:
-    """Returns True if path matches an element of the yaml extensions set"""
+    """Check if a file path has a YAML extension (.yml or .yaml)."""
     return set(path.split('.')[1:]).intersection(YAML_EXT) != set()
 
 
 def safe_list(o: Union[str, List[str]]) -> List[str]:
-    """converts o to a list if it isn't already a list"""
+    """Convert a comma-separated string or list to a list."""
     if isinstance(o, list):
         return o
     else:
@@ -168,7 +181,7 @@ def safe_list(o: Union[str, List[str]]) -> List[str]:
 
 
 def glob_yaml_files(paths: List[str]) -> List[str]:
-    """Accepts string, or list representing a path, wildcard or folder. Returns list of matched yaml files"""
+    """Find all YAML files matching given paths, wildcards, or directories. Returns sorted list."""
     all_files: List[str] = []
     for path in safe_list(paths):
         if is_yaml(path):
@@ -180,12 +193,14 @@ def glob_yaml_files(paths: List[str]) -> List[str]:
 
 
 def get_tree_by_ref(ref: str) -> git.objects.tree.Tree:
+    """Get git tree object for a specific branch, tag, or commit SHA."""
     repo: git.repo.base.Repo = git.Repo(os.getcwd())
     commit: git.objects.commit.Commit = repo.commit(ref)
     return commit.tree
 
 
 def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool:
+    """Return True if file_path exists in the given git tree object."""
     try:
         _ = tree[file_path]
     except KeyError:
@@ -194,6 +209,7 @@ def path_exists_in_git_tree(tree: git.objects.tree.Tree, file_path: str) -> bool
 
 
 def usage_doc_files() -> List[str]:
+    """Return filenames matching ecs-*-usage.md in docs/reference, or [] if dir doesn't exist."""
     usage_docs_dir: str = os.path.join(os.path.dirname(__file__), '../../docs/reference')
     usage_docs_path: pathlib.PosixPath = pathlib.Path(usage_docs_dir)
     if usage_docs_path.is_dir():
@@ -202,12 +218,17 @@ def usage_doc_files() -> List[str]:
 
 
 def ecs_files() -> List[str]:
-    """Return the schema file list to load"""
+    """Return sorted list of all YAML files in the schemas/ directory."""
     schema_glob: str = os.path.join(os.path.dirname(__file__), '../../schemas/*.yml')
     return sorted(glob.glob(schema_glob))
 
 
 def make_dirs(path: str) -> None:
+    """Create directory and all parent directories if they don't exist.
+
+    Raises:
+        OSError: If directory creation fails (with descriptive message)
+    """
     try:
         os.makedirs(path, exist_ok=True)
     except OSError as e:
@@ -220,6 +241,7 @@ def yaml_dump(
     data: Dict[str, FieldNestedEntry],
     preamble: Optional[str] = None
 ) -> None:
+    """Write data to a YAML file, optionally prepending preamble text."""
     with open(filename, 'w') as outfile:
         if preamble:
             outfile.write(preamble)
@@ -227,6 +249,7 @@ def yaml_dump(
 
 
 def yaml_load(filename: str) -> Set[str]:
+    """Load and parse a YAML file using safe_load."""
     with open(filename) as f:
         return yaml.safe_load(f.read())
 
@@ -234,12 +257,12 @@ def yaml_load(filename: str) -> Set[str]:
 
 
 def list_subtract(original: List[Any], subtracted: List[Any]) -> List[Any]:
-    """Subtract two lists. original = subtracted"""
+    """Return original with all elements of subtracted removed."""
     return [item for item in original if item not in subtracted]
 
 
 def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
-    """Returns an array of values for 'key_name', from a list of dictionaries"""
+    """Extract the value of key_name from each dict in lst."""
     acc = []
     for d in lst:
         acc.append(d[key_name])
@@ -250,12 +273,12 @@ def list_extract_keys(lst: List[Field], key_name: str) -> List[str]:
 
 
 def is_intermediate(field: FieldEntry) -> bool:
-    """Encapsulates the check to see if a field is an intermediate field or a "real" field."""
+    """Return True if field is a structural placeholder (not an actual data field)."""
     return ('intermediate' in field['field_details'] and field['field_details']['intermediate'])
 
 
 def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> Dict[str, FieldNestedEntry]:
-    """Returns same structure as ecs_nested, but skips all field sets with reusable.top_level: False"""
+    """Return ecs_nested excluding fieldsets with reusable.top_level=false."""
     components: Dict[str, FieldNestedEntry] = {}
     for (fieldset_name, fieldset) in ecs_nested.items():
         if fieldset.get('reusable', None):
@@ -269,11 +292,6 @@ def remove_top_level_reusable_false(ecs_nested: Dict[str, FieldNestedEntry]) -> 
 
 
 def strict_warning(msg: str) -> None:
-    """Call warnings.warn(msg) for operations that would throw an Exception
-       if operating in `--strict` mode. Allows a custom message to be passed.
-
-    :param msg: custom text which will be displayed with wrapped boilerplate
-                for strict warning messages.
-    """
+    """Issue a UserWarning that becomes a ValueError when running with --strict."""
     warn_message: str = f"{msg}\n\nThis will cause an exception when running in strict mode.\nWarning check:"
     warnings.warn(warn_message, stacklevel=3)

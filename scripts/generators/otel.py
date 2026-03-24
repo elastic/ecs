@@ -1,3 +1,26 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+"""OpenTelemetry Semantic Conventions Integration Module.
+
+Loads OTel semconv from GitHub, validates ECS field otel mappings, and generates
+alignment summaries for documentation. See scripts/docs/otel-integration.md.
+"""
+
 import git
 import os
 import shutil
@@ -8,7 +31,7 @@ from typing import (
 import yaml
 from schema import visitor
 from generators import ecs_helpers
-from _types import (
+from ecs_types import (
     OTelModelFile,
     OTelMapping,
     OTelAttribute,
@@ -27,7 +50,7 @@ def get_model_files(
     git_repo: str,
     semconv_version: str,
 ) -> List[OTelModelFile]:
-    """Loads OpenTelemetry Semantic Conventions model from GitHub"""
+    """Load OTel semconv model YAML files from the git repo at the given version. Raises KeyError if 'model' dir absent."""
     target_dir = "model"
     tree: git.objects.tree.Tree = get_tree_by_url(git_repo, semconv_version)
     if ecs_helpers.path_exists_in_git_tree(tree, target_dir):
@@ -39,7 +62,7 @@ def get_model_files(
 def get_attributes(
     model_files: List[OTelModelFile]
 ) -> Dict[str, OTelAttribute]:
-    """Retrieves (non-deprecated) OTel attributes from the model files"""
+    """Extract non-deprecated attributes from attribute_group model files, applying group prefixes."""
 
     attributes: Dict[str, OTelAttribute] = {}
     for model_file in model_files:
@@ -58,7 +81,7 @@ def get_attributes(
 def get_metrics(
     model_files: List[OTelModelFile]
 ) -> Dict[str, OTelAttribute]:
-    """Retrieves (non-deprecated) OTel metrics from the model files"""
+    """Extract non-deprecated metrics (type='metric') from model files, keyed by metric_name."""
 
     metrics: Dict[str, OTelGroup] = {}
     for model_file in model_files:
@@ -72,6 +95,7 @@ def collectOTelModelFiles(
     tree: git.objects.tree.Tree,
     level=0
 ) -> List[OTelModelFile]:
+    """Recursively parse all .yml/.yaml files in a git tree into OTelModelFile objects."""
     otel_model_files: List[OTelModelFile] = []
     for entry in tree:
         if entry.type == "tree":
@@ -87,6 +111,7 @@ def get_tree_by_url(
     url: str,
     git_ref: str,
 ) -> git.objects.tree.Tree:
+    """Return git tree for url at git_ref, using cached clone in LOCAL_TARGET_DIR_OTEL_SEMCONV."""
     repo: git.repo.base.Repo
     clone_from_remote = False
     if os.path.exists(LOCAL_TARGET_DIR_OTEL_SEMCONV):
@@ -110,6 +135,7 @@ def get_otel_attribute_name(
     field: Field,
     otel: OTelMapping
 ) -> str:
+    """Return OTel attribute name: field's flat_name for 'match', else otel['attribute']."""
     if otel['relation'] == 'match':
         return field['flat_name']
     elif 'attribute' in otel:
@@ -122,20 +148,44 @@ def get_otel_attribute_name(
 
 
 def must_have(ecs_field_name, otel, relation_type, property):
+    """Validate that a required property exists in an OTel mapping.
+
+    Args:
+        ecs_field_name: Name of the ECS field being validated
+        otel: OTel mapping configuration dictionary
+        relation_type: The relation type requiring this property
+        property: Name of the required property
+
+    Raises:
+        ValueError: If the required property is missing
+    """
     if property not in otel:
         raise ValueError(
             f"On field '{ecs_field_name}': An OTel mapping with relation type '{relation_type}' must specify the property '{property}'!")
 
 
 def must_not_have(ecs_field_name, otel, relation_type, property):
+    """Validate that a forbidden property does not exist in an OTel mapping.
+
+    Args:
+        ecs_field_name: Name of the ECS field being validated
+        otel: OTel mapping configuration dictionary
+        relation_type: The relation type forbidding this property
+        property: Name of the forbidden property
+
+    Raises:
+        ValueError: If the forbidden property is present
+    """
     if property in otel:
         raise ValueError(
             f"On field '{ecs_field_name}': An OTel mapping with relation type '{relation_type}' must not have the property '{property}'!")
 
 
 class OTelGenerator:
+    """Loads OTel semconv, validates ECS otel mappings, and generates alignment summaries."""
 
     def __init__(self, semconv_version: str):
+        """Load OTel semconv model files and extract attributes and metrics for the given version."""
         model_files = get_model_files(OTEL_SEMCONV_GIT, semconv_version)
 
         self.attributes: Dict[str, OTelAttribute] = get_attributes(model_files)
@@ -147,6 +197,7 @@ class OTelGenerator:
         self.semconv_version = semconv_version
 
     def __set_stability(self, details):
+        """Visitor callback: enrich each otel mapping with stability from OTel definitions."""
         field_details = details['field_details']
         if 'flat_name' in field_details and 'otel' in field_details:
             for otel in field_details['otel']:
@@ -156,17 +207,36 @@ class OTelGenerator:
                     otel['stability'] = self.attributes[get_otel_attribute_name(field_details, otel)]['stability']
 
     def __check_metric_name(self, field_name, metric_name):
+        """Validate that a referenced metric exists in OTel semantic conventions.
+
+        Args:
+            field_name: Name of the ECS field being validated
+            metric_name: OTel metric name to verify
+
+        Raises:
+            ValueError: If the metric doesn't exist in the loaded conventions
+        """
         if not metric_name in self.otel_metric_names:
             raise ValueError(
                 f"On field '{field_name}': Metric '{metric_name}' does not exist in Semantic Conventions version {self.semconv_version}!")
 
     def __check_attribute_name(self, field_details, otel):
+        """Validate that a referenced attribute exists in OTel semantic conventions.
+
+        Args:
+            field_details: ECS field definition
+            otel: OTel mapping configuration
+
+        Raises:
+            ValueError: If the attribute doesn't exist in the loaded conventions
+        """
         otel_attr_name = get_otel_attribute_name(field_details, otel)
         if not otel_attr_name in self.otel_attribute_names:
             raise ValueError(
                 f"On field '{field_details['flat_name']}': Attribute '{otel_attr_name}' does not exist in Semantic Conventions version {self.semconv_version}!")
 
     def __check_mapping(self, details):
+        """Visitor callback: validate otel mapping structure and verify referenced attributes/metrics exist."""
         field_details = details['field_details']
         if 'flat_name' in field_details and (not 'intermediate' in field_details or not field_details['intermediate']):
             ecs_field_name = field_details['flat_name']
@@ -215,6 +285,7 @@ class OTelGenerator:
         self,
         field_entries: Dict[str, FieldEntry]
     ) -> None:
+        """Validate all otel mappings then enrich them with stability info."""
         visitor.visit_fields(field_entries, None, self.__check_mapping)
         visitor.visit_fields(field_entries, None, self.__set_stability)
 
@@ -222,6 +293,7 @@ class OTelGenerator:
         self,
         fieldsets: List[FieldNestedEntry],
     ) -> List[OTelMappingSummary]:
+        """Return alignment summary stats per ECS fieldset and OTel namespace, sorted alphabetically."""
         summaries: List[OTelMappingSummary] = []
 
         otel_namespaces = set([attr.split('.')[0] for attr in self.attributes.keys()])

@@ -27,6 +27,8 @@ This field is an array. This allows proper categorization of entities that may f
 * [service](#ecs-entity-type-service)
 * [session](#ecs-entity-type-session)
 * [user](#ecs-entity-type-user)
+* [cloud](#ecs-entity-type-cloud)
+* [orchestrator](#ecs-entity-type-orchestrator)
 
 
 ## application [ecs-entity-type-application]
@@ -78,3 +80,10 @@ Represents a user session or connection session. This includes user login sessio
 
 Represents a user account or identity. This includes human users, service accounts, system accounts, and other identity entities that can interact with systems, applications, or services. Users may have various roles, permissions, and attributes associated with their identity.
 
+
+## cloud [ecs-entity-type-cloud]
+Represents a cloud or infrastructure. This includes cloud providers and their services (such as AWS EC2), and is used to identify or correlate resources, entities, and activities across accounts or multi-cloud environments.
+
+
+## orchestrator [ecs-entity-type-orchestrator]
+Represents an orchestration system or orchestrator component. This includes container orchestrators like Kubernetes, Docker Swarm, and other systems responsible for automating the deployment, management, scaling, and networking of containers or workloads.

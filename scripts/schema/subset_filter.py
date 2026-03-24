@@ -15,6 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""Schema Subset Filter Module.
+
+Filters the ECS schema to only the fieldsets/fields specified in subset YAML files.
+Supports fields='*' (all), fields={...} (specific), docs_only=true (docs but not artifacts),
+and multiple subset files (merged as union). See USAGE.md for subset file format.
+"""
+
 import copy
 import os
 from typing import (
@@ -30,12 +37,9 @@ from schema import (
     cleaner,
     loader,
 )
-from _types import (
+from ecs_types import (
     FieldEntry
 )
-
-# This script takes all ECS and custom fields already loaded, and lets users
-# filter out the ones they don't need.
 
 
 def filter(
@@ -43,6 +47,7 @@ def filter(
     subset_file_globs: List[str],
     out_dir: str
 ) -> Tuple[Dict[str, FieldEntry], Dict[str, FieldEntry]]:
+    """Return (filtered_fields, docs_only_fields). Writes per-subset intermediate files to out_dir."""
     subsets: List[Dict[str, Any]] = load_subset_definitions(subset_file_globs)
     for subset in subsets:
         subfields: Dict[str, FieldEntry] = extract_matching_fields(fields, subset['fields'])
@@ -126,7 +131,7 @@ def remove_docs_only_entries(paths: List[str], fields: Dict[str, FieldEntry]) ->
 
 
 def combine_all_subsets(subsets: Dict[str, Any]) -> Dict[str, Any]:
-    """Merges N subsets into one. Strips top level 'name' and 'fields' keys as well as non-ECS field options since we can't know how to merge those."""
+    """Merge subset definitions into one union. Non-ECS options are stripped before merging."""
     merged_subset = {}
     for subset in subsets:
         strip_non_ecs_options(subset['fields'])
@@ -135,6 +140,7 @@ def combine_all_subsets(subsets: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def load_subset_definitions(file_globs: List[str]) -> List[Dict[str, Any]]:
+    """Load subset YAML files. Returns [] if file_globs is empty. Raises ValueError if none found."""
     if not file_globs:
         return []
     subsets: List[Dict[str, Any]] = loader.load_definitions(file_globs)
@@ -178,7 +184,12 @@ def extract_matching_fields(
     fields: Dict[str, FieldEntry],
     subset_definitions: Dict[str, Any]
 ) -> Dict[str, FieldEntry]:
-    """Removes fields that are not in the subset definition. Returns a copy without modifying the input fields dict."""
+    """Return fields filtered to only those in subset_definitions, applied recursively.
+
+    Fields with fields='*' include all nested fields. Field options (enabled, index) are
+    applied to field_details. Intermediate fields with options are promoted to real fields.
+    Raises ValueError if 'fields' presence/absence in subset doesn't match schema.
+    """
     retained_fields: Dict[str, FieldEntry] = {x: fields[x].copy() for x in subset_definitions}
     for key, val in subset_definitions.items():
         retained_fields[key]['field_details'] = fields[key]['field_details'].copy()
