@@ -170,6 +170,22 @@ Supported keys to describe fields
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
 - beta (optional): Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines.
+- otel (optional): List of OTel Semantic Conventions mappings for this field. Each entry requires a `relation`
+  key describing the relationship between this ECS field and an OTel attribute or metric. Additional properties
+  are required or forbidden depending on the relation type. See the
+  [OTel Mappings](../CONTRIBUTING.md#otel-mappings) section of CONTRIBUTING.md for the full relation type
+  reference and validation rules.
+
+  ```YAML
+  otel:
+    - relation: match
+  ```
+
+  ```YAML
+  otel:
+    - relation: equivalent
+      attribute: url.full
+  ```
 
 Supported keys to describe expected values for a field
 

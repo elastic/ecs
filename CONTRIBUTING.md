@@ -20,7 +20,11 @@ ECS is an open source project and we love to receive contributions from our comm
   - [Backports](#backports)
     - [Tooling](#tooling)
 - [Documentation](#documentation)
+  - [Generated Documentation Files](#generated-documentation-files)
+  - [Jinja Templates](#jinja-templates)
 - [Schema Files](#schema-files)
+  - [OTel Mappings](#otel-mappings)
+  - [Subset Files](#subset-files)
 - [Additional Resources](#additional-resources)
 
 
@@ -57,6 +61,8 @@ You need these tools to contribute to the ECS repo:
 
 * [Git](https://git-scm.com/)
 * [Python 3.8+](https://www.python.org/)
+* Python dependencies: run `pip install -r scripts/requirements.txt` after cloning.
+  Using a virtualenv is recommended. Running `make ve` will create one automatically.
 
 ### Submitting Changes
 
@@ -167,76 +173,86 @@ New PR(s) will be opened against the targeted branch(es).
 
 ## Documentation
 
-ECS documentation is written in [asciidoc](http://asciidoc.org/) format in the `docs/` directory.
+ECS documentation is written in [Markdown](https://www.markdownguide.org/) format in the `docs/` directory.
 
-To build the docs and open them in your browser:
+To build and preview the docs locally in your browser:
 
 ```bash
 make docs
 ```
 
+This downloads the Elastic [`docs-builder`](https://github.com/elastic/docs-builder) tool automatically (cached in `build/docs/`) and starts a local documentation server.
+
 ### Generated Documentation Files
 
-The following files are generated based on the current schema using [Jinja](https://jinja.palletsprojects.com/) templates:
+The following files are generated from the current schema by [scripts/generators/markdown_fields.py](scripts/generators/markdown_fields.py) using [Jinja2](https://jinja.palletsprojects.com/) templates located in [scripts/templates/](scripts/templates/):
 
-| File | Template |
-| ------------------ | -------- |
-| [fields.asciidoc](docs/fields.asciidoc) | [fields_template.j2](scripts/templates/fields_template.j2) |
-| [fields-values.asciidoc](docs/field-values.asciidoc) | [field_values_template.j2](scripts/templates/field_values_template.j2) |
-| [field-details.asciidoc](docs/field-details.asciidoc) | [field_details.j2](scripts/templates/field_details.j2) |
+| Output file | Template |
+| --- | --- |
+| [docs/reference/index.md](docs/reference/index.md) | [index.j2](scripts/templates/index.j2) |
+| [docs/reference/ecs-field-reference.md](docs/reference/ecs-field-reference.md) | [ecs_field_reference.j2](scripts/templates/ecs_field_reference.j2) |
+| `docs/reference/ecs-{name}.md` (one per fieldset) | [fieldset.j2](scripts/templates/fieldset.j2) |
+| [docs/reference/ecs-otel-alignment-overview.md](docs/reference/ecs-otel-alignment-overview.md) | [otel_alignment_overview.j2](scripts/templates/otel_alignment_overview.j2) |
+| [docs/reference/ecs-otel-alignment-details.md](docs/reference/ecs-otel-alignment-details.md) | [otel_alignment_details.j2](scripts/templates/otel_alignment_details.j2) |
 
-Running `make` will update these files using the [scripts/generators/asciidoc_fields.py](scripts/generators/asciidoc_fields.py) generator. These doc files should *not* be modified directly. Any changes as a result of a schema update and subsequent run of `make` *should* be committed.
+Running `make` regenerates all of these files. They should **not** be modified directly. Any changes produced by a schema update and subsequent `make` run **should** be committed.
 
 ### Jinja Templates
 
-Jinja templates allow for formatting or styling changes to templates without needing to modify the generator script directly. Some details about the Jinja template engine and our implementation are covered below as a primer; the full syntax and semantics of Jinja is covered in the [project's documentation](https://jinja.palletsprojects.com/en/2.11.x/templates/).
+The templates in `scripts/templates/` use [Jinja2](https://jinja.palletsprojects.com/) syntax. Formatting or structural changes to the generated docs can be made by editing the relevant `.j2` file without touching the Python generator.
 
-#### Delimiters
+Key syntax elements:
 
 * Statements: `{% ... %}`
 * Expressions: `{{ ... }}`
-* Comments: `{{# ... #}}`
+* Comments: `{# ... #}`
+* Whitespace stripping: add `-` to the start or end of a block tag (e.g. `{%- ... -%}`)
 
-#### Whitespace Control
+Each page-generation function in `markdown_fields.py` is decorated with `@templated('template_name.j2')` and returns a dict that becomes the template's rendering context.
 
-Whitespace can be stripped by adding the minus sign (`-`) to the start or end of a block. Adding `-` to the start or end of a block will remove the whitespace before or after that block.
-
-```
-{% for i in numbers -%}
-    {{i}}
-{%- endfor %}
-```
-
-All elements would be rendered without any separating whitespace. If `numbers` is list of numbers from `0` to `9`, the output would be `0123456789`.
-
-#### Variables
-
-Templates variables are passed to the template by the application. Typically these will either be used in an expression or within a control structure statement (e.g. a `for` loop). In the below example, `users` is passed into the template and is iterated over with a `for` loop.
-
-```python
-<ul>
-{% for user in users %}
-<li>{{ user }}</li>
-{% endfor %}
-</ul>
-```
-
-#### Implementation
-
-The `@templated('template_file_name')` decorator is used to inject the additional functionality that renders and returns the template's content to the generator. Decorated functions should return a dict used to generate the template. When the decorated function returns, the dictionary is passed to the template renderer.
-
-```python
-@templated('fields_template.j2')
-def page_field_index(intermediate_nested, ecs_version):
-    fieldsets = ecs_helpers.dict_sorted_by_keys(intermediate_nested, ['group', 'name'])
-    return dict(ecs_version=ecs_version, fieldsets=fieldsets)
-```
+For a full guide to the template system—including how to add new page types, modify field display order, and troubleshoot rendering issues—see [scripts/docs/markdown-generator.md](scripts/docs/markdown-generator.md).
 
 ## Schema Files
 
 The [schemas](schemas) directory contains the files which define the Elastic Common Schema data model. The file structure is documented in [schemas/README.md](schemas). Field additions and modifications will be made to the `schemas/*.yml` files.
 
 Users consuming ECS to generate something for other use cases should use the `generated/ecs/*.yml` files. More detail can be found [here](generated/README.md).
+
+### OTel Mappings
+
+Because ECS is being aligned with OpenTelemetry Semantic Conventions, each ECS field should declare its relationship to OTel via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is validated during generation and used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
+
+A field's `otel:` entry is a list of mappings, each with a `relation` type:
+
+| Relation | Meaning |
+| --- | --- |
+| `match` | Identical name and semantics in OTel |
+| `equivalent` | Semantically equivalent but different name; requires `attribute` |
+| `related` | Related concept, not identical; requires `attribute` |
+| `conflict` | Conflicting definition; requires `attribute`; `note` is recommended |
+| `metric` | Maps to an OTel metric (not an attribute); requires `metric` |
+| `otlp` | Maps to an OTLP protocol field; requires `otlp_field` and `stability` |
+| `na` | Not applicable to OTel |
+
+Example:
+
+```yaml
+- name: method
+  otel:
+    - relation: match
+```
+
+```yaml
+- name: original
+  otel:
+    - relation: related
+      attribute: url.full
+      note: Similar but may differ in encoding
+```
+
+Fields without an `otel:` block will produce a warning during generation if an OTel attribute with a matching name exists. Add `otel: [{relation: na}]` to suppress the warning for fields that intentionally have no OTel mapping.
+
+For the full reference—including all relation types, validation rules, and how to update the OTel semconv version—see [scripts/docs/otel-integration.md](scripts/docs/otel-integration.md).
 
 ### Subset Files
 
@@ -246,7 +262,10 @@ artifacts.
 
 ## Additional Resources
 
-* [ECS Guidelines and Best Practices](https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html)
-* [ECS Documentation](https://www.elastic.co/guide/en/ecs/current/index.html)
-* [ECS on Elastic Discuss Forums](https://discuss.elastic.co/tag/ecs-elastic-common-schema)
-* [#stack-ecs on the Elasticstack Community Slack](https://elasticstack.slack.com)
+* [ECS Guidelines and Best Practices](https://www.elastic.co/guide/en/ecs/current/ecs-guidelines.html) — field naming and design conventions
+* [ECS Documentation](https://www.elastic.co/guide/en/ecs/current/index.html) — official published reference
+* [ECS on Elastic Discuss Forums](https://discuss.elastic.co/tag/ecs-elastic-common-schema) — community questions and discussion
+* [#stack-ecs on the Elasticstack Community Slack](https://elasticstack.slack.com) — real-time community chat
+* [Tooling Usage Guide](USAGE.md) — how to run the generator, subset generation, custom fields, and all generator options
+* [Developer Documentation Index](scripts/docs/README.md) — in-depth guides for the schema pipeline, each generator module, and how to extend them
+* [OTel Integration Guide](scripts/docs/otel-integration.md) — OTel mapping reference, validation rules, and updating the semconv version
