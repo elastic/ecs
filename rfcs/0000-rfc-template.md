@@ -25,6 +25,15 @@ Stage X: Provide a brief explanation of why the proposal is being marked as aban
 
 <!--
 Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
+
+If any proposed field uses `type: object` or `type: flattened` without defining
+child fields, explain:
+- Why explicit leaf field definitions are not appropriate
+- The expected shape and value types of data that will appear under this field
+- How cross-integration type conflicts will be prevented
+
+See the "Guidance on `object` and `flattened` field types" section in
+schemas/README.md for details on when these types are acceptable.
 -->
 
 <!--
