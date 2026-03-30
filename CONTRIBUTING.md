@@ -220,7 +220,7 @@ Users consuming ECS to generate something for other use cases should use the `ge
 
 ### OTel Mappings
 
-Because ECS is being aligned with OpenTelemetry Semantic Conventions, each ECS field should declare its relationship to OTel via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is validated during generation and used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
+Because ECS is being aligned with OpenTelemetry Semantic Conventions, ECS fields that overlap with or relate to OTel Semantic Conventions should declare that relationship via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is validated during generation and used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
 
 A field's `otel:` entry is a list of mappings, each with a `relation` type:
 
@@ -237,17 +237,17 @@ A field's `otel:` entry is a list of mappings, each with a `relation` type:
 Example:
 
 ```yaml
-- name: method
+- name: request.method
   otel:
     - relation: match
 ```
 
 ```yaml
-- name: original
+- name: version
   otel:
     - relation: related
-      attribute: url.full
-      note: Similar but may differ in encoding
+      attribute: network.protocol.version
+      note: In OTel, network.protocol.version specifies the HTTP version only when network.protocol.name is "http".
 ```
 
 Fields without an `otel:` block will produce a warning during generation if an OTel attribute with a matching name exists. Add `otel: [{relation: na}]` to suppress the warning for fields that intentionally have no OTel mapping.

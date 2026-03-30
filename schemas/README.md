@@ -184,7 +184,7 @@ Supported keys to describe fields
   ```YAML
   otel:
     - relation: equivalent
-      attribute: url.full
+      attribute: exception.message
   ```
 
 Supported keys to describe expected values for a field
