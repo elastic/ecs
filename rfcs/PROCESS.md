@@ -1,14 +1,20 @@
-# Proposing material changes to ECS
+# Proposing changes to ECS
 
-Changes to ECS are proposed as Requests for Comments (RFC) in [rfcs/](./) and iterated on through a series of [stages](https://elastic.github.io/ecs/stages.html). To advance to a specific stage, an RFC must meet the documented requirements for that stage. After being accepted into a given stage, there are stage-specific expectations and goals to be met. The overall goal of this process is to thoroughly evaluate and verify the assumptions being made about a change before formally committing it to the schema.
+Changes to ECS are proposed as Requests for Comments (RFCs) in [rfcs/](./). A contributor opens a single **Proposal** pull request that is reviewed holistically by the ECS committee. The goal is to thoroughly evaluate and verify the assumptions being made about a change before committing it to the schema.
 
-Each RFC is represented as a markdown document following a prescribed template that gets committed to the repo. Each stage of the RFC is represented as a pull request against that document.
+Each RFC is a markdown document following the [template](./0000-rfc-template.md). If the RFC proposes new or changed fields, it should also include a corresponding folder (named after the RFC number) in [rfcs/text/](./text/) containing the proposed schema changes as standalone YAML files or extended example mappings and larger source documents.
 
-If proposing new fields or changing existing fields, the RFC should also have a corresponding folder (named after the RFC number) in [rfcs/text/](./text/). The folder should contain the proposed schema changes as standalone YAML files or extended example mappings and larger source documents.
+## How a Proposal works
 
-Generally speaking, the ECS team will help steward the process, but the work of researching and iterating on aspects of an RFC will be owned by that RFC's contributor. If an RFC is being contributed by a community member, then someone at Elastic will need to act as a sponsor of the change to act as a long term owner after completion of the process. The ECS team can help community users with identifying an internal sponsor. If it's not obvious who such a sponsor might be, then the ECS committee will assign a sponsor.
+1. A contributor copies the [RFC template](./0000-rfc-template.md), fills in all sections, and opens a pull request.
+2. The contributor specifies a **target maturity** of **alpha** or **beta** for the proposed fields. See [Field stability](../docs/reference/ecs-principles-design.md#_field_stability) for definitions.
+3. The ECS committee reviews the proposal in a single pass, evaluating the key questions below.
+4. On approval the committee merges the PR, and the ECS team assigns a unique RFC number.
+5. The proposed fields are added to the schema at the accepted maturity level (by the contributor or the ECS team).
 
-## Key questions we seek to answer through RFC process
+GA promotion is handled separately through the field lifecycle process and does not require a new RFC. If a proposal is no longer being pursued, the PR is simply closed.
+
+## Key questions
 
 * Is this change appropriate for ECS?
 * Does this change provide enough utility for its intended use cases?
@@ -16,38 +22,33 @@ Generally speaking, the ECS team will help steward the process, but the work of 
 * Is ownership for the ongoing maintenance of this change clearly defined and accepted?
 * Is the scope of impact of this change to ingestion, existing applications, and the ECS project itself understood?
 * Are the technical details of the change defined clearly enough to implement in the schema?
-* Are we confident these changes can be stable upon release without requiring revisions or breaking changes?
-* Have our assumptions about the shape and utility of these changes been verified by real-world, production-ready usage?
+* Are we confident these changes can be stable at the proposed maturity level?
 
-## Goals with this contributing process
-
-* Allow contributors to quickly iterate and receive feedback on their fields in a transparent way without the high bar set for general availability in the schema
-* Clarify the level of stability to expect from a change in ECS while still allowing early adopters to try it out and provide feedback
-* Offer assurance that once an RFC reaches stage 3, we're able to guarantee backward compatibility
-
-## Responsibilities in this process
+## Responsibilities
 
 Member(s) of the **ECS committee**:
-* evaluates whether the changes are appropriate in terms of the goals of the ECS project
-* provides recommendations on which common fields would be best suited for reuse versus adding new fields
-* determines whether each RFC is accepted into the next target stage by merging the RFC PR
+* evaluate whether the changes are appropriate in terms of the goals of the ECS project
+* provide recommendations on which common fields would be best suited for reuse versus adding new fields
+* determine the accepted maturity level (alpha or beta) and merge the Proposal PR
 
 The **ECS team**:
-* provides procedural guidance for moving an RFC through stages
-* curates the overall RFC process, including closing stalled or abandoned RFCs
-* reports on the status of open RFCs
-* acts on behalf of the committee for some but not all PRs
-* helps community users identify a sponsor at Elastic
+* provide procedural guidance for contributors
+* curate the RFC process, including closing stalled or abandoned RFCs
+* report on the status of open RFCs
+* act on behalf of the committee for some but not all PRs
+* help community users identify a sponsor at Elastic
 
 The **contributor**:
-* takes responsibility for doing all necessary legwork to move their RFC forward including but not limited to responding to feedback, identifying and bringing in subject matter experts, and researching the scope of impact
-* demonstrates how the fields in the RFC are expected to be used: from the data source, all the way to its consumption
-* commits to iterating on the RFCs through to stage 3 if necessary
-* creates and iterate on RFC PRs
-* implements all necessary changes to their RFC PRs
+* take responsibility for the legwork required to move their RFC forward, including responding to feedback, identifying and bringing in subject matter experts, and researching the scope of impact
+* demonstrate how the proposed fields are expected to be used, from data source through to consumption
+* create and iterate on the Proposal PR
 
 The **sponsor** at Elastic:
-* can be the same person as the contributor if they're someone at Elastic that can take ownership of this change through membership on the ECS committee
-* is involved at least from stage 1 onward if a different person than the contributor
-* signs off on each stage if a different person than the contributor
-* takes or coordinates ownership of the addition in terms of support and maintenance after the RFC process is completed
+* can be the same person as the contributor if they are an Elastic employee who can take ownership through committee membership
+* sign off on the proposal if a different person than the contributor
+* take or coordinate ownership of the addition in terms of support and maintenance after the RFC process is completed
+
+## Planned work
+
+* **Automated schema implementation**: on merge of a Proposal PR, automatically apply the proposed field definitions to the schema.
+* **Automated field promotion**: automatically promote fields from beta to GA once an adoption threshold is met.
