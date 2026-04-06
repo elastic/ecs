@@ -10,9 +10,9 @@ Each RFC is a markdown document following the [template](./0000-rfc-template.md)
 2. The contributor specifies a **target maturity** of **alpha** or **beta** for the proposed fields. See [Field stability](../docs/reference/ecs-principles-design.md#_field_stability) for definitions.
 3. The ECS committee reviews the proposal in a single pass, evaluating the key questions below.
 4. On approval the committee merges the PR, and the ECS team assigns a unique RFC number.
-5. The proposed fields are added to the schema at the accepted maturity level (by the contributor or the ECS team).
+5. The proposed fields are added to the schema at the accepted maturity level (by the contributor or the ECS team). This step will be automated in the future so that field definitions are applied to the schema on merge of the Proposal PR.
 
-GA promotion is handled separately through the field lifecycle process and does not require a new RFC. If a proposal is no longer being pursued, the PR is simply closed.
+GA promotion is handled separately through the field lifecycle process and does not require a new RFC. In the future, fields will be automatically promoted from beta to GA once an adoption threshold is met. If a proposal is no longer being pursued, the PR is simply closed.
 
 ## Key questions
 
@@ -47,8 +47,3 @@ The **sponsor** at Elastic:
 * can be the same person as the contributor if they are an Elastic employee who can take ownership through committee membership
 * sign off on the proposal if a different person than the contributor
 * take or coordinate ownership of the addition in terms of support and maintenance after the RFC process is completed
-
-## Planned work
-
-* **Automated schema implementation**: on merge of a Proposal PR, automatically apply the proposed field definitions to the schema.
-* **Automated field promotion**: automatically promote fields from beta to GA once an adoption threshold is met.
