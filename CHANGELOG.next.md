@@ -30,7 +30,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #XXXX
+* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
 * Increase composable template `total_fields.limit` from 2000 to 2500. #2584
 
 #### Deprecated
