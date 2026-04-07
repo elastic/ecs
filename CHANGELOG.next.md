@@ -36,7 +36,7 @@ Thanks, you're awesome :-) -->
 
 ### Tooling and Artifact Changes
 
-### Added
+#### Added
 
 * Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
 * Document field stability definitions (alpha, beta, GA) in design principles. #2599
