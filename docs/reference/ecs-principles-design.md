@@ -37,6 +37,24 @@ Examples:
 * Several potential IP addresses in a single event (`source.ip`, `destination.ip`, `host.ip`).
 
 
+## Field stability [_field_stability]
+
+Every ECS field carries a maturity level that tells consumers what to expect:
+
+**Alpha.** An alpha field is newly introduced and under active development. Its schema — including field name, type, expected values, and semantics — may change or the field may be removed entirely in any future release without prior notice. Alpha fields are intended for early feedback and exploratory use only. Consumers should not depend on alpha fields for production workloads, alerting rules, or long-lived dashboards. No backwards-compatibility guarantees are provided.
+
+**Beta.** A beta field has reached a reasonable level of stability and is expected to become part of the stable schema, but has not yet received a final commitment. The field name and type are unlikely to change, though adjustments to allowed values, descriptions, or minor semantic refinements may still occur. Beta fields are suitable for broader adoption, including dashboards, detection rules, and integrations, with the understanding that minor migration effort may occasionally be required. Breaking changes to beta fields are not expected but may still occur.
+
+**GA (stable).** The default. GA fields are backwards-compatible; breaking changes are not made outside of major versions.
+
+### Criteria for each level [_field_stability_criteria]
+
+These criteria give schema authors and reviewers a shared rubric for assigning maturity:
+
+* **Alpha when:** field definitions are reasonably complete but may still evolve; usage patterns are not yet well understood; field definitions have not yet been completely validated against real-world data; open questions remain.
+* **Beta when:** field definitions are complete; usage patterns are well understood across multiple scenarios; field definitions have been validated against real-world data; impact of changes to ingestion and consumption is understood; open questions are minimal.
+
+
 ## Reuse [_reuse]
 
 Introducing extra fields may seem necessary when adding or expanding a concept. But, try to use an existing field or reuse an existing field set to avoid duplicating fields. Leveraging consistent fields across event sources helps build more straightforward queries and visualizations.

@@ -605,6 +605,89 @@ class TestSchemaCleaner(unittest.TestCase):
         except Exception:
             self.fail("cleaner.single_line_short_override_description() raised Exception unexpectedly.")
 
+    def test_multiline_alpha_description_raises(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'alpha': "multiple\nlines"}}
+        with self.assertRaisesRegex(ValueError, 'single line'):
+            cleaner.single_line_alpha_description(schema)
+
+    def test_multiline_alpha_description_warns_strict_disabled(self):
+        schema = {'field_details': {
+            'name': 'fake_schema',
+            'alpha': "multiple\nlines"}}
+        try:
+            with self.assertWarnsRegex(UserWarning, 'single line'):
+                cleaner.single_line_alpha_description(schema, strict=False)
+        except Exception:
+            self.fail("cleaner.single_line_alpha_description() raised Exception unexpectedly.")
+
+    def test_alpha_only_on_schema_passes(self):
+        cleaner.strict_mode = True
+        schema = {
+            'schema_details': {'title': 'Test'},
+            'field_details': {
+                'name': 'test_schema',
+                'description': 'A test schema',
+                'short': 'A test schema',
+                'alpha': 'This fieldset is alpha.',
+            }
+        }
+        try:
+            cleaner.schema_assertions_and_warnings(schema)
+        except ValueError:
+            self.fail("schema_assertions_and_warnings() raised ValueError for alpha-only schema.")
+
+    def test_alpha_only_on_field_passes(self):
+        cleaner.strict_mode = True
+        field = {
+            'field_details': {
+                'name': 'test_field',
+                'type': 'keyword',
+                'level': 'core',
+                'description': 'A test field',
+                'short': 'A test field',
+                'alpha': 'This field is alpha.',
+                'normalize': [],
+            }
+        }
+        try:
+            cleaner.field_assertions_and_warnings(field)
+        except ValueError:
+            self.fail("field_assertions_and_warnings() raised ValueError for alpha-only field.")
+
+    def test_alpha_and_beta_mutual_exclusion_on_schema(self):
+        cleaner.strict_mode = True
+        schema = {
+            'schema_details': {'title': 'Test'},
+            'field_details': {
+                'name': 'test_schema',
+                'description': 'A test schema',
+                'short': 'A test schema',
+                'alpha': 'This is alpha.',
+                'beta': 'This is beta.',
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'cannot have both alpha and beta'):
+            cleaner.schema_assertions_and_warnings(schema)
+
+    def test_alpha_and_beta_mutual_exclusion_on_field(self):
+        cleaner.strict_mode = True
+        field = {
+            'field_details': {
+                'name': 'test_field',
+                'type': 'keyword',
+                'level': 'core',
+                'description': 'A test field',
+                'short': 'A test field',
+                'alpha': 'This is alpha.',
+                'beta': 'This is beta.',
+                'normalize': [],
+            }
+        }
+        with self.assertRaisesRegex(ValueError, 'cannot have both alpha and beta'):
+            cleaner.field_assertions_and_warnings(field)
+
     def test_clean(self):
         """A high level sanity test"""
         fields = self.schema_process()
