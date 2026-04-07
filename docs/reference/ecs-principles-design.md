@@ -51,7 +51,7 @@ Every ECS field carries a maturity level that tells consumers what to expect:
 
 These criteria give schema authors and reviewers a shared rubric for assigning maturity:
 
-* **Alpha when:** field definitions are reasonably complete but may still evolve; usage patterns are not yet well understood; field definitions have not yet been validated against real-world data; open questions remain.
+* **Alpha when:** field definitions are reasonably complete but may still evolve; usage patterns are not yet well understood; field definitions have not yet been completely validated against real-world data; open questions remain.
 * **Beta when:** field definitions are complete; usage patterns are well understood across multiple scenarios; field definitions have been validated against real-world data; impact of changes to ingestion and consumption is understood; open questions are minimal.
 
 
