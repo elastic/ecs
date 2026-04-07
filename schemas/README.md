@@ -176,7 +176,7 @@ Supported keys to describe fields
 - expected_values (optional): An array of expected values for the field. Schema consumers can validate integrations and mapped data against the listed values. These values are the recommended convention, but users may also use other values.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
-- alpha (optional): Adds an alpha marker for the field. The text provided in this attribute is used as content of the alpha marker in the documentation. Alpha notices should not have newlines. A field cannot have both `alpha` and `beta`.
+- alpha (optional): Adds an alpha marker for the field. The text provided in this attribute is used as content of the alpha marker in the documentation. Note that when a whole field set is marked as alpha, it is not necessary nor recommended to mark all fields in the field set as alpha. Alpha notices should not have newlines. A field cannot have both `alpha` and `beta`.
 - beta (optional): Adds a beta marker for the field. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines. A field cannot have both `alpha` and `beta`.
 
 Supported keys to describe expected values for a field
