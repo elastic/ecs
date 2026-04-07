@@ -159,6 +159,9 @@ def append_reused_here(reused_schema, reuse_entry, destination_schema):
     # If it exists, bring through the normalization
     if 'normalize' in reuse_entry:
         reused_here_entry['normalize'] = reuse_entry['normalize']
+    # Check for alpha attribute
+    if 'alpha' in reuse_entry:
+        reused_here_entry['alpha'] = reuse_entry['alpha']
     # Check for beta attribute
     if 'beta' in reuse_entry:
         reused_here_entry['beta'] = reuse_entry['beta']

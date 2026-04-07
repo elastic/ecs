@@ -116,10 +116,16 @@ def schema_mandatory_attributes(schema: FieldEntry) -> None:
 
 
 def schema_assertions_and_warnings(schema: FieldEntry) -> None:
-    """Validate short/beta/short_override descriptions after defaults are applied."""
+    """Validate short/alpha/beta/short_override descriptions after defaults are applied."""
     single_line_short_description(schema, strict=strict_mode)
+    if 'alpha' in schema['field_details']:
+        single_line_alpha_description(schema, strict=strict_mode)
     if 'beta' in schema['field_details']:
         single_line_beta_description(schema, strict=strict_mode)
+    if 'alpha' in schema['field_details'] and 'beta' in schema['field_details']:
+        msg = "Field set '{}' cannot have both alpha and beta markers.".format(
+            schema['field_details']['name'])
+        raise ValueError(msg)
     if 'reusable' in schema['schema_details']:
         single_line_short_override_description(schema, strict=strict_mode)
 
@@ -221,15 +227,21 @@ def field_mandatory_attributes(field: FieldDetails) -> None:
 
 
 def field_assertions_and_warnings(field: FieldDetails) -> None:
-    """Validate short desc length, beta desc, pattern regex, example value, and level.
+    """Validate short desc length, alpha/beta desc, pattern regex, example value, and level.
 
     Invalid level always raises ValueError. Other checks warn or raise based on strict_mode.
     """
     if not ecs_helpers.is_intermediate(field):
         # check short description length if in strict mode
         single_line_short_description(field, strict=strict_mode)
+        if 'alpha' in field['field_details']:
+            single_line_alpha_description(field, strict=strict_mode)
         if 'beta' in field['field_details']:
             single_line_beta_description(field, strict=strict_mode)
+        if 'alpha' in field['field_details'] and 'beta' in field['field_details']:
+            msg = "Field '{}' cannot have both alpha and beta markers.".format(
+                field['field_details']['name'])
+            raise ValueError(msg)
         if 'pattern' in field['field_details']:
             validate_pattern_regex(field['field_details'], strict=strict_mode)
         check_example_value(field, strict=strict_mode)
@@ -321,6 +333,14 @@ def check_example_value(field: Union[List, FieldEntry], strict: Optional[bool] =
                 msg = "Example value `{}` for field `{}` is not one of the values defined in `expected_value`: {}.".format(
                     example_value, name, example_values)
                 strict_warning_handler(msg, strict)
+
+
+def single_line_alpha_description(schema_or_field: FieldEntry, strict: Optional[bool] = True) -> None:
+    """Validate that alpha description is single line."""
+    if "\n" in schema_or_field['field_details']['alpha']:
+        msg: str = "Alpha descriptions must be single line.\n"
+        msg += f"Offending field or field set: {schema_or_field['field_details']['name']}"
+        strict_warning_handler(msg, strict)
 
 
 def single_line_beta_description(schema_or_field: FieldEntry, strict: Optional[bool] = True) -> None:

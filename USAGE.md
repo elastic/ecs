@@ -173,11 +173,11 @@ python scripts/generator.py \
 **Combines with other options**:
 
 ```bash
-# Generate from ECS v9.0.0 + experimental + custom fields
+# Generate from ECS v9.0.0 + custom fields
 python scripts/generator.py \
   --semconv-version v1.38.0 \
   --ref v9.0.0 \
-  --include experimental/schemas ../myproject/fields/custom
+  --include ../myproject/fields/custom
 ```
 
 Loads schemas from git history (tags, branches, commits). Requires git.
