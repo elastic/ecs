@@ -74,6 +74,7 @@ def render_nestings_reuse_section(fieldset):
             'flat_nesting': "{}.*".format(reused_here_entry['full']),
             'name': reused_here_entry['schema_name'],
             'short': reused_here_entry['short'],
+            'alpha': reused_here_entry.get('alpha', ''),
             'beta': reused_here_entry.get('beta', ''),
             'normalize': reused_here_entry.get('normalize')
         })

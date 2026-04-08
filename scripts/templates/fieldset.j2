@@ -13,6 +13,14 @@ applies_to:
 
 {{ fieldset['description'] | replace("\n", "\n\n") }}
 
+{# Fieldset label alpha header -#}
+{% if fieldset['alpha'] -%}
+
+::::{caution}
+{{ fieldset['alpha'] }}
+::::
+
+{% endif -%}
 {# Fieldset label beta header -#}
 {% if fieldset['beta'] -%}
 
@@ -33,8 +41,10 @@ applies_to:
 {% if 'original_fieldset' not in field -%}
 {% set row -%}
 | $$$field-{{ field['dashed_name'] }}$$$ [{{ field['flat_name'] }}](#field-{{ field['dashed_name'] }}) |
-{% if field['beta'] -%}
+{% if field['alpha'] -%}
 {# referencing non-existant field below keeps leading space -#}
+{{ field['foo'] }} _{{ field['alpha'] }}_ {{ field['description']|replace("\n", "<br><br>") }}
+{%- elif field['beta'] -%}
 {{ field['foo'] }} _{{ field['beta'] }}_ {{ field['description']|replace("\n", "<br><br>") }}
 {%- else -%}
 {{ field['foo'] }} {{ field['description']|replace("\n", "<br><br>") }}
@@ -107,7 +117,9 @@ Note also that the `{{ fieldset['name'] }}` fields are not expected to be used d
 {% for entry in render_nestings_reuse_section -%}
 {% set row %}
 | `{{ entry['flat_nesting'] }}` | [{{ entry['name'] }}](/reference/ecs-{{ entry['name'] }}.md) |
-{% if entry['beta'] -%}
+{% if entry['alpha'] -%}
+{{ entry['foo'] }} _{{ entry['alpha'] }}_ {{ entry['short'] }}
+{%- elif entry['beta'] -%}
 {{ entry['foo'] }} _{{ entry['beta'] }}_ {{ entry['short'] }}
 {%- else %}
 {{ entry['foo'] }} {{ entry['short'] }}

@@ -9,7 +9,7 @@ applies_to:
 
 # OTel Alignment Overview [ecs-otel-alignment-overview]
 
-The following table summarizes the alignment status by namespaces between ECS in version `9.4.0-dev` and OpenTelemetry semantic conventions in version `1.38.0`.
+The following table summarizes the alignment status by namespaces between ECS in version `9.5.0-dev` and OpenTelemetry semantic conventions in version `1.38.0`.
 
 |     |     |
 | --- | --- |
