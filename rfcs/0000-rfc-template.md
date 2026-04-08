@@ -1,5 +1,5 @@
 # 0000: Name of RFC
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging this RFC. -->
+<!-- Use the next available RFC number. Check existing folders in rfcs/text/ to find it. Any duplicates will be corrected at merge. -->
 
 - Stage: **Proposal** <!-- Do not change. -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. -->
@@ -15,18 +15,18 @@ Remove these guidance comments as you fill out each section.
 Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->
 
-## Fields
-
-<!--
-If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This is where proposed schema changes as standalone YAML files or extended example mappings and larger source documents should go.
-
-Describe how this change affects fields. Include new or updated yml field definitions for all fields in this proposal. The list should be exhaustive and comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all fields and to provide a basis for adding the field definitions to the schema at the target maturity level. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
 ## Usage
 
 <!--
 Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
+-->
+
+## Fields
+
+<!--
+If the changes include field additions or modifications, please create a folder under rfcs/text/ named with the next available RFC number (check existing folders to find it; any duplicates will be corrected at merge). This is where proposed schema changes as standalone YAML files or extended example mappings and larger source documents should go.
+
+Describe how this change affects fields. Include new or updated yml field definitions for all fields in this proposal. For each proposed field, include at minimum: name, type, description, and example value(s). The list should be exhaustive and comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all fields and to provide a basis for adding the field definitions to the schema at the target maturity level. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 -->
 
 ## Source data
@@ -60,12 +60,11 @@ The following are the people that consulted on the contents of this RFC.
 * TBD | author
 
 <!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible.
+Who will be or has been consulted on the contents of this RFC? Identify authorship and optionally the nature of involvement of others. Link to GitHub aliases where possible.
 
 e.g.:
 
 * @Yasmina | author
-* @Monique | sponsor
 * @EunJung | subject matter expert
 * @JaneDoe | grammar, spelling, prose
 * @Mariana
