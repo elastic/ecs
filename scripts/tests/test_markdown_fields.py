@@ -222,6 +222,19 @@ class TestGeneratorsMarkdownFields(unittest.TestCase):
         self.assertEqual('Fields describing files', foo_nesting_fields[1]['short'])
         self.assertEqual(['array'], foo_nesting_fields[1]['normalize'])
 
+    def test_rendering_fieldset_nesting_with_alpha(self):
+        fieldset = self.dummy_fieldset()
+        fieldset['reused_here'].append({
+            'full': 'foo.bar',
+            'schema_name': 'bar',
+            'short': 'Bar fields',
+            'alpha': 'This reuse is alpha.',
+        })
+        foo_nesting_fields = markdown_fields.render_nestings_reuse_section(fieldset)
+        alpha_entry = [e for e in foo_nesting_fields if e['name'] == 'bar'][0]
+        self.assertEqual(alpha_entry['alpha'], 'This reuse is alpha.')
+        self.assertEqual(alpha_entry['beta'], '')
+
     def test_check_for_usage_doc_true(self):
         usage_files = ["ecs-foo-usage.md"]
         foo_name = self.foo_fieldset.get('name')
