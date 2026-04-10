@@ -9,7 +9,7 @@ Each RFC is a markdown document following the [template](./0000-rfc-template.md)
 1. A contributor copies the [RFC template](./0000-rfc-template.md), fills in all sections, and opens a pull request.
 2. The contributor specifies a **target maturity** of **alpha** or **beta** for the proposed fields. See [Field stability](../docs/reference/ecs-principles-design.md#_field_stability) for definitions.
 3. The ECS team reviews the proposal in a single pass, evaluating the key questions below.
-4. On approval the ECS team merges the PR and assigns a unique RFC number.
+4. On approval the ECS team merges the PR and confirms the RFC number.
 5. The proposed fields are added to the schema at the accepted maturity level (by the contributor or the ECS team). This step will be automated in the future so that field definitions are applied to the schema on merge of the Proposal PR.
 
 GA promotion is handled separately through the field lifecycle process and does not require a new RFC. In the future, fields will be automatically promoted from beta to GA once an adoption threshold is met. If a proposal is no longer being pursued, the PR is simply closed.

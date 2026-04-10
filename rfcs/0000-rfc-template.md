@@ -3,7 +3,7 @@
 
 - Stage: **Proposal** <!-- Do not change. -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. -->
-- Target maturity: **alpha | beta** <!-- Select one. See https://github.com/elastic/ecs/blob/main/docs/reference/ecs-principles-design.md#_field_stability -->
+- Target maturity: **alpha | beta | mixture** <!-- Select one. See https://github.com/elastic/ecs/blob/main/docs/reference/ecs-principles-design.md#_field_stability -->
 
 <!--
 Remove these guidance comments as you fill out each section.
