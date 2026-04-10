@@ -54,35 +54,24 @@ def _remove_empty_sections(text: str) -> str:
     sections.append((current_heading or "", current_body))
 
     result: list[str] = []
-    # Track whether the parent ### had any kept #### children so we
-    # can suppress empty ### groups too.
     pending_h3: str | None = None
-    h3_has_content = False
 
     for heading, body in sections:
         if heading.startswith("## ") and not heading.startswith("### "):
-            # Flush pending ### if it had content
-            if pending_h3 and h3_has_content:
-                result.append(pending_h3)
             pending_h3 = None
-            h3_has_content = False
             result.append(heading)
             result.extend(body)
         elif heading.startswith("### "):
-            if pending_h3 and h3_has_content:
-                result.append(pending_h3)
             pending_h3 = heading
-            h3_has_content = False
         elif heading.startswith("#### "):
             if _has_bullet_entries(body):
-                h3_has_content = True
+                if pending_h3:
+                    result.append(pending_h3)
+                    pending_h3 = None
                 result.append(heading)
                 result.extend(body)
         elif not heading:
             result.extend(body)
-
-    if pending_h3 and h3_has_content:
-        result.append(pending_h3)
 
     return "\n".join(result)
 
