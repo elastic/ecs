@@ -30,36 +30,20 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
+* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
 
 #### Deprecated
 
-<!-- All empty sections:
-
-## Unreleased
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
+## 9.4.0 (Feature Freeze)
 
 ### Tooling and Artifact Changes
 
-#### Breaking changes
-
-#### Bugfixes
-
 #### Added
+
+* Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
+* Document field stability definitions (alpha, beta, GA) in design principles. #2599
 
 #### Improvements
 
-#### Deprecated
-
--->
+* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
+* Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. #2599

@@ -1,0 +1,37 @@
+name: "ECS Release: Feature Freeze"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g. 9.4.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ecs-release-${{ inputs.version }}-ff
+  cancel-in-progress: false
+
+jobs:
+  feature-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run feature freeze
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONPATH: .github/scripts
+        run: python .github/scripts/ecs_release/run_ff.py "${{ inputs.version }}"

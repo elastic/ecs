@@ -447,12 +447,12 @@ user:
 **Input:**
 - YAML schema files (`schemas/*.yml`)
 - Optional: git ref for specific version
-- Optional: custom/experimental schemas
+- Optional: custom schemas
 
 **Processing:**
 1. Load schemas from filesystem or git
 2. Nest dotted field names into hierarchical structure
-3. Merge multiple sources (ECS + experimental + custom)
+3. Merge multiple sources (ECS + custom)
 4. Create intermediate fields for parents
 
 **Output:** Deeply nested field dictionary with minimal defaults
