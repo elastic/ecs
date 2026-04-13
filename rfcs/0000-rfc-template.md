@@ -28,14 +28,12 @@ If the changes include field additions or modifications, please create a folder 
 
 Describe how this change affects fields. Include new or updated yml field definitions for all fields in this proposal. For each proposed field, include at minimum: name, type, description, maturity level and example value(s). The list should be exhaustive and comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all fields and to provide a basis for adding the field definitions to the schema at the target maturity level. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
 
-If any proposed field uses `type: object` or `type: flattened` without defining
-child fields, explain:
+If any proposed field uses `type: object` or `type: flattened` without defining child fields, explain:
 - Why explicit leaf field definitions are not appropriate
 - The expected shape and value types of data that will appear under this field
 - How cross-integration type conflicts will be prevented
 
-See the "Guidance on `object` and `flattened` field types" section in
-schemas/README.md for details on when these types are acceptable.
+See the "Guidance on `object` and `flattened` field types" section in schemas/README.md for details on when these types are acceptable.
 -->
 
 ## Source data
