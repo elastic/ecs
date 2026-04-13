@@ -17,7 +17,7 @@ Check out [Proposing Changes](./PROCESS.md) for high level information about the
 2. Fill in all sections of the template, including the target maturity (alpha or beta) for the proposed fields.
 3. Open a PR to commit your RFC to [rfcs/](./).
 4. The ECS committee reviews the proposal and provides feedback.
-5. On approval the committee merges the PR, and the ECS team assigns a unique RFC number.
+5. On approval the ECS team verifies a unique RFC number and merges the PR
 
 If the RFC includes field additions or modifications, create a folder named after the RFC number under [rfcs/text/](./text/). This is where proposed schema changes as standalone YAML files, extended example mappings, and larger source documents should go.
 
