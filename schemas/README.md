@@ -201,9 +201,9 @@ An `object` type field with no defined children creates a namespace where any pr
 
 A `flattened` type field indexes all leaf values as keywords regardless of their actual type. This avoids the mapping explosion that `object` causes when the key names are arbitrary (e.g., HTTP headers), but it sacrifices typed querying and aggregation.
 
-Use of `object` with no defined children is acceptable only when the field represents **opaque, source-specific data** with a **homogeneous and well-defined shape** — for example, string keys with string values only (like `labels` and `container.labels`). Use of `flattened` is acceptable when the key names are arbitrary and unbounded, making `object` impractical due to mapping explosion.
+Use of `object` with no defined children is acceptable only when the field represents **opaque, source-specific data** with a **homogeneous and well-defined shape** — for example, string keys with string values only (like `labels` and `container.labels`). Use of `flattened` is acceptable when the key names are arbitrary and unbounded, making `object` impractical due to mapping explosion (e.g., raw event payloads like `entity.raw`).
 
-Neither type is appropriate when the subfields carry semantic meaning (e.g., `mfa_enabled`, `managed`, `granted_permissions`). In those cases, the subfields **must** be defined as explicit leaf fields in the schema with specified types and descriptions. Defining a container and deferring leaf definitions to individual integrations defeats the purpose of a common schema.
+Neither type is appropriate when the subfields carry semantic meaning that consumers would need to query or aggregate on independently. In those cases, the subfields **must** be defined as explicit leaf fields in the schema with specified types and descriptions. Defining a container and deferring leaf definitions to individual integrations defeats the purpose of a common schema.
 
 Supported keys to describe expected values for a field
 
