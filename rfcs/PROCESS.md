@@ -12,7 +12,7 @@ Each RFC is a markdown document following the [template](./0000-rfc-template.md)
 4. On approval the ECS team merges the PR and confirms the RFC number.
 5. The proposed fields are added to the schema at the accepted maturity level (by the contributor or the ECS team). This step will be automated in the future so that field definitions are applied to the schema on merge of the Proposal PR.
 
-GA promotion is handled separately through the field lifecycle process and does not require a new RFC. In the future, fields will be automatically promoted from beta to GA once an adoption threshold is met. If a proposal is no longer being pursued, the PR is simply closed.
+Field promotion is handled separately and does not require a new RFC. Fields at **alpha** maturity will be periodically reviewed; based on adoption and feedback, the ECS team will decide whether to promote them to beta or remove them. Fields at **beta** maturity will be automatically promoted to GA once an adoption threshold is met. The details of both promotion paths are still being finalized. If a proposal is no longer being pursued, the PR is simply closed.
 
 ## Key questions
 
