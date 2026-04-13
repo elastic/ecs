@@ -34,18 +34,18 @@ _Indicative only; specific integrations may justify exceptions. **all** under Ap
 
 Source systems often provide relationships as **arrays of objects** (e.g. supervised users with `email`, `id`, `name`). ECS entity indices and ESQL usage favor **flat** mappings: nested object lists are difficult to query under current ESQL nested support.
 
-**Convention:** Each `entity.relationships.*` value is an **object** whose properties are optional **keyword arrays**. Producers populate as many identifier slots as they have (e.g. `host_id`, `user_id`, `email`, `hostname`, `username`, `entity_id`). This is intentionally a **bag of identifiers**: it does not preserve which email pairs with which id in a single structure. Correlation and pairing are expected to be resolved by entity-building logic or downstream normalization (similar in spirit to populating `related.user`, `related.host`, etc. with parallel arrays).
+**Convention:** Each `entity.relationships.*` value is an **object** whose properties are optional **keyword arrays**. Keys use **dotted ECS-style paths** (e.g. `entity.id`, `host.id`, `user.id`) so they align with field naming elsewhere; in JSON, dotted keys must be quoted strings. Producers populate as many identifier slots as they have (e.g. `host.id`, `user.id`, `user.email`, `host.name`, `user.name`, `entity.id`). This is intentionally a **bag of identifiers**: it does not preserve which email pairs with which id in a single structure. Correlation and pairing are expected to be resolved by entity-building logic or downstream normalization (similar in spirit to populating `related.user`, `related.host`, etc. with parallel arrays).
 
 Example:
 
 ```json
 {
-  "entity_id": ["abc123"],
-  "host_id": ["host-uuid-123", "host-uuid-456"],
-  "user_id": ["00u123"],
-  "email": ["supervisor@corp.example"],
-  "hostname": [],
-  "username": ["jsmith"]
+  "entity.id": ["abc123"],
+  "host.id": ["host-uuid-123", "host-uuid-456"],
+  "user.id": ["00u123"],
+  "user.email": ["supervisor@corp.example"],
+  "host.name": [],
+  "user.name": ["jsmith"]
 }
 ```
 
@@ -77,12 +77,12 @@ Example:
       },
       "relationships": {
         "owns": {
-          "host_id": ["workstation-123"],
-          "hostname": ["macbook-pro-01"]
+          "host.id": ["workstation-123"],
+          "host.name": ["macbook-pro-01"]
         },
         "supervises": {
-          "email": ["erik@corp.example"],
-          "user_id": ["00u1234567890"]
+          "user.email": ["erik@corp.example"],
+          "user.id": ["00u1234567890"]
         }
       }
     }
