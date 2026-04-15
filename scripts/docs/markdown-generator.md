@@ -252,6 +252,7 @@ To add a new documentation page:
                 'full': 'client.geo',
                 'schema_name': 'geo',
                 'short': 'geo',
+                'alpha': '',
                 'beta': '',
                 'normalize': []
             }

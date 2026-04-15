@@ -265,6 +265,41 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
         self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
+    def test_alpha_on_reuse_entry_flows_to_reused_here(self):
+        fields = {
+            'user': {
+                'schema_details': {
+                    'root': False,
+                    'reusable': {
+                        'top_level': True,
+                        'order': 2,
+                        'expected': [
+                            {'full': 'user.target', 'at': 'user', 'as': 'target',
+                                'alpha': 'Reusing user at user.target is alpha.'},
+                        ]
+                    }
+                },
+                'field_details': {
+                    'name': 'user',
+                    'node_name': 'user',
+                    'type': 'group',
+                    'short': 'short desc',
+                },
+                'fields': {
+                    'name': {
+                        'field_details': {
+                            'name': 'name',
+                            'node_name': 'name',
+                        }
+                    },
+                }
+            }
+        }
+        finalizer.perform_reuse(fields)
+        reused_here = fields['user']['schema_details']['reused_here']
+        alpha_entry = [r for r in reused_here if r['full'] == 'user.target'][0]
+        self.assertEqual(alpha_entry['alpha'], 'Reusing user at user.target is alpha.')
+
     def test_root_schema_cannot_be_reused_nor_have_field_set_reused_in_it(self):
         reused_schema = {
             'schema_details': {'reusable': {'expected': ['foo']}},
