@@ -2,7 +2,9 @@
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Date: **2025-09-17** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+
+> **Status (process transition, April 2026):** The proposed fields have not yet been merged into the ECS schema. Implementation is in progress in [#2532](https://github.com/elastic/ecs/pull/2532). The multi-stage RFC process has been retired in favor of the single-stage Proposal process.
 
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.

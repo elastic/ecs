@@ -4,6 +4,8 @@
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2022-07-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
+> **Status (process transition, April 2026):** The proposed fields were never merged into the ECS schema. The multi-stage RFC process has been retired in favor of the single-stage Proposal process. This RFC is considered inactive. If there is continued interest in these fields, a new proposal can be submitted under the current process.
+
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.

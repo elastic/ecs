@@ -3,6 +3,8 @@
 - Stage: **2 (Candidate)**
 - Date: 2025-09-25
 
+> **Status (process transition, April 2026):** The fields proposed in this RFC have been merged into the ECS schema. `entity.id` is **GA**; the remaining entity fields are **beta**. This RFC was not formally advanced through the remaining stages before the multi-stage RFC process was retired in favor of the single-stage Proposal process. No further action is needed on this RFC. Beta fields will be evaluated for GA promotion under the field lifecycle process.
+
 An entity represents a discrete, identifiable component within an IT environment that can be described by a set of attributes and maintains its identity over time. Entities can be physical (like hosts or devices), logical (like containers or processes), or abstract (like applications or services).
 
 Currently, ECS provides specific field sets for certain categories of entities (e.g., host, user, cloud, orchestrator) to capture their metadata. However, as IT infrastructure continues to evolve, we encounter an increasing number of entity types that don't cleanly fit into existing field sets – for example, storage services like S3, database instances like DynamoDB, or various other cloud services and IT related infrastructure components (both digital and physical).
