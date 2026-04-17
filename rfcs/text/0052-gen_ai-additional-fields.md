@@ -4,7 +4,13 @@
 - Date: **TBD** <!-- The ECS team sets this date at merge time. -->
 - Target maturity: **beta** <!-- Select one. See https://github.com/elastic/ecs/blob/main/docs/reference/ecs-principles-design.md#_field_stability -->
 
-Following up on [RFC 0050](https://github.com/elastic/ecs/pull/2475) which introduced an initial batch of `gen_ai` fields, this RFC (0052) adds more fields due to user feedback. The fields are backported from [OTel](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/).
+## Summary
+
+Following up on [RFC 0050](https://github.com/elastic/ecs/pull/2475), which introduced an initial batch of `gen_ai` fields, this RFC adds six additional fields based on user feedback and OTel Semantic Conventions v1.40.0+. The fields cover the following GenAI interactions: system instructions, input and output messages, tool definitions available to an agent or model, and tool call arguments and results. All six fields carry the same names as their OTel counterparts and are defined as `flattened` to align with how the OTel Collector Elasticsearch exporter handles complex attribute types[1].
+
+## Usage
+
+These fields enable security monitoring and threat detection for GenAI applications. Practitioners can use `gen_ai.input.messages` and `gen_ai.output.messages` to audit full conversation context for prompt injection, data exfiltration, or policy violations. `gen_ai.system_instructions` captures the system prompt, which is a common target for injection attacks. The `gen_ai.tool.*` fields allow monitoring of agentic tool use — for example, detecting whether a model was manipulated into calling a privileged tool with attacker-controlled arguments.[2]
 
 ## Fields
 
@@ -19,11 +25,13 @@ gen_ai.tool.call.result | flattened | (Part of OTel execute_tool span) The resul
 
 Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
 
-## Usage
+All six fields use `type: flattened` without defined child fields. Explicit leaf-field definitions are not appropriate here because the OTel specification defines these as `any`-typed attributes whose exact structure varies by model vendor — defining explicit children would create upstream dependencies on vendor-specific schemas. Cross-integration type conflicts are prevented by the upstream OTel specification that all producers are expected to follow; the expected data shapes are illustrated in the YAML examples in `rfcs/text/0052/gen_ai.yaml`. See the Concerns section for the full justification for `flattened` over `nested`.
 
 ## Source data
 
-Example usage:
+### OTel GenAI span (OpenAI)
+
+An ECS event produced from an OpenAI Chat Completions API call instrumented via the [OTel GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/). This example includes a tool call exchange where the model requests weather data.
 
 ```json
 {
@@ -100,6 +108,8 @@ Example usage:
 
 ## Scope of impact
 
+These are new additive fields; no breaking changes to existing ingest pipelines. The OTel Collector Elasticsearch exporter already maps complex `any`-typed attributes to `flattened`, so OTel-based ingest is compatible without modification. Custom integrations collecting GenAI telemetry may need to add field mappings for the new fields.
+
 ## Concerns
 
 In OTel, many field types are set to `any` and are typically JSON objects. [Example](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)
@@ -155,6 +165,13 @@ The following are the people that consulted on the contents of this RFC.
 * @Mikaayenson, @joe-desimone | Security subject matter experts
 
 ## References
+
+### In-line references for this RFC
+
+[1] https://github.com/elastic/ecs/pull/2532#issuecomment-4121325575
+[2] GH issue can be provided upon request
+
+### General
 
 * https://opentelemetry.io/blog/2024/otel-generative-ai/
 * https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/
