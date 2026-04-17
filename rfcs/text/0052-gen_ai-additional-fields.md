@@ -54,48 +54,48 @@ An ECS event produced from an OpenAI Chat Completions API call instrumented via 
                     {
                         "role": "user",
                         "parts": [
-                        {
-                            "type": "text",
-                            "content": "Weather in Paris?"
-                        }
+                            {
+                                "type": "text",
+                                "content": "Weather in Paris?"
+                            }
                         ]
                     },
                     {
                         "role": "assistant",
                         "parts": [
-                        {
-                            "type": "tool_call",
-                            "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
-                            "name": "get_weather",
-                            "arguments": {
-                            "location": "Paris"
+                            {
+                                "type": "tool_call",
+                                "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
+                                "name": "get_weather",
+                                "arguments": {
+                                    "location": "Paris"
+                                }
                             }
-                        }
                         ]
                     },
                     {
                         "role": "tool",
                         "parts": [
-                        {
-                            "type": "tool_call_response",
-                            "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
-                            "result": "rainy, 57°F"
-                        }
+                            {
+                                "type": "tool_call_response",
+                                "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+                                "result": "rainy, 57°F"
+                            }
                         ]
                     }
                 ]
             }
         },
-        "output" :{
+        "output": {
             "messages": {
                 [
                     {
                         "role": "assistant",
                         "parts": [
-                        {
-                            "type": "text",
-                            "content": "The weather in Paris is currently rainy with a temperature of 57°F."
-                        }
+                            {
+                                "type": "text",
+                                "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+                            }
                         ],
                         "finish_reason": "stop"
                     }
