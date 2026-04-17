@@ -138,8 +138,9 @@ See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3415953216)
 
 At the time this RFC was drafted, neither `nested` nor `flattened` were supported in ES|QL. As of March 2026, the picture has changed significantly:
 
-- **`flattened`:** Active development under way. [elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245) enables ES|QL to load `flattened` fields as JSON strings, queryable via `JSON_EXTRACT`. [elasticsearch#144451](https://github.com/elastic/elasticsearch/pull/144451) "Allow specific keys within a flattened field to be mapped as typed sub-fields (keyword, ip, etc.) via a new "properties" mapping attribute."
-   
+- **`flattened`:** [elasticsearch#144451](https://github.com/elastic/elasticsearch/pull/144451) was merged: "Allow specific keys within a flattened field to be mapped as typed sub-fields (keyword, ip, etc.) via a new "properties" mapping attribute." [elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245), which would have enabled ES|QL to load `flattened` fields as JSON strings queryable via `JSON_EXTRACT`, was closed April 8, 2026 in favor of an alternate approach. The active replacement is [elasticsearch#145044](https://github.com/elastic/elasticsearch/pull/145044) ("ESQL: Add Support for Flattened Sub-Fields in ESQL"), currently a draft targeting v9.5.0.
+- **`nested`:** No movement on tracker issue: [ES|QL: support nested fields elasticsearch#107434](https://github.com/elastic/elasticsearch/issues/107434)
+
 `flattened` is therefore the only path to ES|QL queryability in the foreseeable future.
 
 Tradeoffs:
@@ -155,7 +156,7 @@ See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3380468096)
 
 See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3470660966)
 
-This trade-off is accepted given the OTel compatibility requirement. As of March 2026, ES|QL `flattened` support is actively in development ([elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245)), to be passed into the new JSON_EXTRACT function, making `flattened` the only viable path to ES|QL queryability in the foreseeable future.
+This trade-off is accepted given the OTel compatibility requirement. ES|QL `flattened` support is in development ([elasticsearch#145044](https://github.com/elastic/elasticsearch/pull/145044)), making `flattened` the only viable path to ES|QL queryability in the foreseeable future.
 
 ## People
 
