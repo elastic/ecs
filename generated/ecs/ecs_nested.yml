@@ -8741,22 +8741,21 @@ gen_ai:
         stability: development
       short: The name of the model that generated the response.
       type: keyword
-    gen_ai.system:
+    gen_ai.provider.name:
       beta: This field is beta and subject to change.
-      dashed_name: gen-ai-system
-      description: The Generative AI product as identified by the client or server
+      dashed_name: gen-ai-provider-name
+      description: The Generative AI provider as identified by the client or server
         instrumentation.
       example: openai
-      flat_name: gen_ai.system
+      flat_name: gen_ai.provider.name
       ignore_above: 1024
       level: extended
-      name: system
+      name: provider.name
       normalize: []
       otel:
-      - attribute: gen_ai.provider.name
-        relation: equivalent
+      - relation: match
         stability: development
-      short: The Generative AI product as identified by the client or server instrumentation.
+      short: The Generative AI provider as identified by the client or server instrumentation.
       type: keyword
     gen_ai.system_instructions:
       beta: This field is beta and subject to change.

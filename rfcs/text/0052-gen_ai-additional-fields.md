@@ -23,6 +23,12 @@ gen_ai.tool.definitions | flattened | (Part of invoke_agent span) The list of so
 gen_ai.tool.call.arguments | flattened | (Part of OTel execute_tool span) Parameters passed to the tool call.
 gen_ai.tool.call.result | flattened | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
 
+This RFC also renames the existing `gen_ai.system` field introduced in RFC 0050 to `gen_ai.provider.name`, following its deprecation and replacement in OTel semconv ([ref](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/#gen-ai-system)). The OTel mapping relation is updated from `equivalent` to `match`. The field type, level, and allowed values are unchanged.
+
+Field | Type | Change
+-- | -- | --
+~~gen_ai.system~~ → gen_ai.provider.name | keyword | Renamed to align with OTel `gen_ai.provider.name`; description updated from "product" to "provider"
+
 Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
 
 All six fields use `type: flattened` without defined child fields. Explicit leaf-field definitions are not appropriate here because the OTel specification defines these as `any`-typed attributes whose exact structure varies by model vendor — defining explicit children would create upstream dependencies on vendor-specific schemas. Cross-integration type conflicts are prevented by the upstream OTel specification that all producers are expected to follow; the expected data shapes are illustrated in the YAML examples in `rfcs/text/0052/gen_ai.yaml`. See the Concerns section for the full justification for `flattened` over `nested`.
