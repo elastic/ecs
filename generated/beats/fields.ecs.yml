@@ -4169,6 +4169,14 @@
       description: Represents the content type requested by the client.
       example: text; json; image
       default_field: false
+    - name: provider.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The Generative AI provider as identified by the client or server
+        instrumentation.
+      example: openai
+      default_field: false
     - name: request.choice.count
       level: extended
       type: integer
@@ -4257,14 +4265,6 @@
       ignore_above: 1024
       description: The name of the model that generated the response.
       example: gpt-4-0613
-      default_field: false
-    - name: system
-      level: extended
-      type: keyword
-      ignore_above: 1024
-      description: The Generative AI product as identified by the client or server
-        instrumentation.
-      example: openai
       default_field: false
     - name: system_instructions
       level: extended
