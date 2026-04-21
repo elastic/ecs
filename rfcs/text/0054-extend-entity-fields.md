@@ -1,12 +1,17 @@
-# 0054: Extend entity fields with additional attributes, lifecycle, relationships, and risk reuse
+# 0054: Extend entity fields with additional attributes, lifecycle, and relationships
 <!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
 - Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **TBD** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
-This RFC proposes a focused extension to the ECS `entity.*` schema by adding a small set of concrete `entity.attributes.*`, `entity.lifecycle.*`, and `entity.relationships.*` leaves. A separate, related change to enable `entity.risk.*` reuse is summarized under [Related work: entity-level risk](#related-work-entity-level-risk).
+This RFC proposes a focused extension to the ECS `entity.*` schema by adding a small set of concrete `entity.attributes.*`, `entity.lifecycle.*`, and `entity.relationships.*`.
 
-The goal is to make normalized entity data more useful for security, asset, and graph-oriented use cases without introducing a broad or underspecified object model. This proposal follows the direction established in [RFC 0049](https://github.com/elastic/ecs/blob/main/rfcs/text/0049-entity-fields.md) and incorporates review feedback from [elastic/ecs#2598](https://github.com/elastic/ecs/pull/2598).
+
+The goal is to make normalized entity data more useful for security, asset, and graph-oriented use cases without introducing a broad or underspecified object model. This proposal follows the direction established in [RFC 0049](https://github.com/elastic/ecs/blob/main/rfcs/text/0049-entity-fields.md) and incorporates review feedback from [elastic/ecs#2598](https://github.com/elastic/ecs/pull/2598), including [strict, binding definitions for relationship identifier keys](https://github.com/elastic/ecs/pull/2598/changes#r3074241315) (not example-only).
+
+## Proposed schema (YAML)
+
+Per [rfcs/PROCESS.md](https://github.com/elastic/ecs/blob/main/rfcs/PROCESS.md), concrete field definitions for this RFC live in [`0054/entity.yml`](0054/entity.yml). That file is a draft for review; when accepted, its contents merge into [`schemas/entity.yml`](https://github.com/elastic/ecs/blob/main/schemas/entity.yml) (replacing or extending the existing `entity.attributes`, `entity.lifecycle`, and `entity` root entries as needed).
 
 ## Fields
 
@@ -23,10 +28,10 @@ Where a field is multi-valued in ECS, the type is written as **`keyword (list)`*
 | entity.attributes.managed | boolean | Host, Service | Indicates whether the entity is managed by an external administration or control system. |
 | entity.attributes.oauth_consent_restriction | keyword | Service | Restriction applied to OAuth consent for this entity (e.g. `admin_only`, `verified_only`, `unrestricted`). **Values:** integration-defined keywords unless standardized later. |
 | entity.lifecycle.last_activity | date | User, Host, Service | Timestamp of the most recent action performed by or attributed to this entity (active use). Distinct from **`entity.last_seen_timestamp`**, which records when the entity was last observed in data; `last_activity` implies the entity was active, not only seen. |
-| entity.relationships.owns | object | all | Identifiers of assets or identities this entity owns. Structure is a **flat bag of keyword arrays** (see [Relationship identifier structure](#relationship-identifier-structure)), not an array of nested objects, so storage and querying remain compatible with ESQL limitations on nested mappings. |
-| entity.relationships.depends_on | object | all | Identifiers of entities this entity **requires for operation**—for example: a service depending on a database or upstream API, an application depending on an identity provider, or a workload depending on a host or cluster. Use the same flat identifier object shape as `owns`. |
-| entity.relationships.supervises | object | all | Identifiers of entities this entity supervises, manages, or is responsible for (e.g. manager–reporting-line or org hierarchy). Same flat identifier object shape. |
-| entity.relationships.administered_by | object | all | Identifiers of identities that administer this entity (incoming relationship: “who administers this entity”). Renamed from `administrators` so naming is directionally consistent with outgoing verbs on `owns`, `depends_on`, and `supervises`. Same flat identifier object shape. |
+| entity.relationships.owns | object | all | Identifiers of assets or identities this entity owns. Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). Same rules apply to every `entity.relationships.*` in this table. |
+| entity.relationships.depends_on | object | all | Identifiers of entities this entity **requires for operation**—for example: a service depending on a database or upstream API, an application depending on an identity provider, or a workload depending on a host or cluster. Same object shape and **allowed keys** as `owns`. |
+| entity.relationships.supervises | object | all | Identifiers of entities this entity supervises, manages, or is responsible for (e.g. manager–reporting-line or org hierarchy). Same object shape and **allowed keys** as `owns`. |
+| entity.relationships.administered_by | object | all | Identifiers of identities that administer this entity (incoming relationship: “who administers this entity”). Same object shape and **allowed keys** as `owns`. |
 
 _Indicative only; specific integrations may justify exceptions. **all** under Applied Entity Type means User, Host, or Service whenever the relationship applies to that normalized entity._
 
@@ -34,9 +39,29 @@ _Indicative only; specific integrations may justify exceptions. **all** under Ap
 
 Source systems often provide relationships as **arrays of objects** (e.g. supervised users with `email`, `id`, `name`). ECS entity indices and ESQL usage favor **flat** mappings: nested object lists are difficult to query under current ESQL nested support.
 
-**Convention:** Each `entity.relationships.*` value is an **object** whose properties are optional **keyword arrays**. Keys use **dotted ECS-style paths** (e.g. `entity.id`, `host.id`, `user.id`) so they align with field naming elsewhere; in JSON, dotted keys must be quoted strings. Producers populate as many identifier slots as they have (e.g. `host.id`, `user.id`, `user.email`, `host.name`, `user.name`, `entity.id`). This is intentionally a **bag of identifiers**: it does not preserve which email pairs with which id in a single structure. Correlation and pairing are expected to be resolved by entity-building logic or downstream normalization (similar in spirit to populating `related.user`, `related.host`, etc. with parallel arrays).
+Each relationship object holds parallel identifier arrays keyed only by the allowed property names; it does not preserve which `user.email` value pairs with which `user.id` in a single structure. Correlation and pairing are expected to be resolved by entity-building logic or downstream normalization (similar in spirit to populating `related.user`, `related.host`, etc. with parallel arrays).
 
-Example:
+### Allowed keys on `entity.relationships.*` objects
+
+Values in each array must follow the same conventions as the corresponding ECS field (e.g. `user.email` values are email-shaped strings; `host.id` values follow host id semantics from ECS).
+
+| Property key (JSON) | ECS type | `normalize: [array]` | Semantics |
+| ------------------- | -------- | --------------------- | ----------- |
+| `entity.id` | keyword | yes | Identifiers of referenced entities, using the same meaning as root `entity.id` (stable id for correlation within scope). |
+| `host.id` | keyword | yes | Referenced host ids. |
+| `host.name` | keyword | yes | Referenced host names. |
+| `user.id` | keyword | yes | Referenced user ids. |
+| `user.name` | keyword | yes | Referenced user short names or logins. |
+| `user.email` | keyword | yes | Referenced user email addresses. |
+| `service.id` | keyword | yes | Referenced service ids. |
+| `service.name` | keyword | yes | Referenced service names. |
+
+**Rules:**
+
+* Only the keys in this table may appear on `entity.relationships.*` objects in ECS-compliant events (no ad-hoc or integration-specific property names).
+* Omit a key entirely if unused; do not invent alternate spellings (e.g. `host_id` instead of `host.id`).
+
+Example (only allowed keys; omit keys when there are no values):
 
 ```json
 {
@@ -44,12 +69,10 @@ Example:
   "host.id": ["host-uuid-123", "host-uuid-456"],
   "user.id": ["00u123"],
   "user.email": ["supervisor@corp.example"],
-  "host.name": [],
+  "host.name": ["hostname123"],
   "user.name": ["jsmith"]
 }
 ```
-
-Integrations may emit richer structures in raw pipelines; **normalization into this flat object** is recommended before or at entity-store ingest. A documented `type:identifier` string convention (e.g. `host:workstation-123`) is **not** required by this RFC; prefer explicit keyed arrays as above to avoid divergent string formats per integration.
 
 ## Field Re-use
 
@@ -57,7 +80,7 @@ Per [RFC 0049](https://github.com/elastic/ecs/blob/main/rfcs/text/0049-entity-fi
 
 ## Usage
 
-These fields are intended to improve normalized entity representation for security, asset inventory, and graph-oriented workflows. The `entity.attributes.*` leaves capture non-temporal properties that analysts may want to filter or correlate across providers. The `entity.relationships.*` leaves support graph enrichment, dependency mapping, ownership modeling, and organizational context using **concrete relationship leaves** and a **flat, ESQL-friendly identifier object** per relationship type.
+These fields are intended to improve normalized entity representation for security, asset inventory, and graph-oriented workflows. The `entity.attributes.*` leaves capture non-temporal properties that analysts may want to filter or correlate across providers. The `entity.relationships.*` support graph enrichment, ownership modeling, and organizational context using **concrete relationships**.
 
 Example:
 
@@ -90,16 +113,6 @@ Example:
 }
 ```
 
-## Related work: entity-level risk
-
-Reusing the existing ECS `risk.*` field set under **`entity.risk.*`** (when the score describes the normalized entity rather than only `host.risk.*` / `user.risk.*`) is related but **may be tracked in a separate issue or PR** for easier review.
-
-**Guidance (from maintainer discussion on #2598):**
-
-- The entity store does not compute risk by itself; **entity maintainers** (e.g. the risk engine) enrich existing entities.
-- To stay entity-type agnostic, prefer **`entity.risk.*`** for normalized entity documents produced by the entity store / maintainers when the score applies to that normalized entity.
-- **Do not mirror** the same logical score into both `entity.risk.*` and `host.risk.*` / `user.risk.*` / `service.risk.*` for the same normalized entity in a way that duplicates meaning; choose one placement consistent with whether the document is the generic entity view or a type-specific host/user/service document.
-
 ## Source data
 
 Potential sources of data include:
@@ -111,13 +124,8 @@ Potential sources of data include:
 
 ## Scope of impact
 
-At a high level, this proposal should be additive. Producers that already emit `host.entity.*`, `user.entity.*`, `service.entity.*`, or root `entity.*` would be able to populate these leaves directly. Consumers such as entity stores, graph enrichment systems, and investigation workflows would gain a more concrete and queryable schema for ownership, dependencies, supervision, administration, access posture, and (via related work) entity-level risk.
+At a high level, this proposal should be additive. Producers that already emit `host.entity.*`, `user.entity.*`, `service.entity.*`, or root `entity.*` would be able to populate these leaves directly. Consumers such as entity stores, graph enrichment systems, and investigation workflows would gain a more concrete and queryable schema for ownership, dependencies, supervision, administration, and access posture.
 
-## Concerns
-
-* Should ECS later define **`allowed_values`** for `storage_class`, `oauth_consent_restriction`, or relationship object keys to reduce drift across integrations?
-* If **`permissions`** is extended in a future RFC, should sibling fields such as `inherited_permissions` or `effective_permissions` be introduced for disambiguation?
-* Should code generation or field subsets **omit** certain `*.entity.attributes.*` paths per entity type using the **Applied Entity Type** column in the fields table above?
 
 ## People
 
