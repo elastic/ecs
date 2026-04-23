@@ -31,7 +31,7 @@ Copy and fill in for every triage. Replace bracketed placeholders.
 
 ### Completeness checklist
 - [ ] PR description (all sections)
-- [ ] CHANGELOG.next.md (correct section, `#NNNN`)
+- [ ] CHANGELOG.next.md (only if `schemas/` or `scripts/` changed; correct section, `#NNNN`)
 - [ ] `make` + committed generated outputs (if schema change)
 - [ ] OTel `otel:` on new/changed semconv-related fields
 - [ ] Tests / `make check` (per CONTRIBUTING)

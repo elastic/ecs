@@ -48,7 +48,7 @@ Assign labels:
 Evaluate against the checklist in [ecs-pr-completeness rule](../../rules/ecs-pr-completeness.mdc):
 
 - PR description: all 7 template sections answered (not empty/placeholder).
-- `CHANGELOG.next.md` entry present, in the correct section (Schema Changes vs Tooling and Artifact Changes), includes `#NNNN`.
+- `CHANGELOG.next.md` entry: **only expected when `schemas/` or `scripts/` files change** (i.e. schema changes or tooling changes). RFC-only PRs (`rfcs/` only), pure documentation PRs, and CI-only PRs do not require a changelog entry. When required, verify it is in the correct section (Schema Changes vs Tooling and Artifact Changes) and includes `#NNNN`.
 - If schema change: `generated/` and `docs/reference/` artifacts present in the diff (evidence that `make` was run and outputs committed).
 - If new/changed fields relate to OTel semconv: `otel:` metadata present on those fields.
 - No hand-edits to files that should only be generator output (`docs/reference/ecs-*.md`, `generated/`).
