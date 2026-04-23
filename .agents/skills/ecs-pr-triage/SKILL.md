@@ -1,22 +1,21 @@
 ---
 name: ecs-pr-triage
 description: >-
-  Auto-triggered on every new ECS pull request via GitHub Actions. Analyzes the
-  PR diff and metadata already available in context, classifies the change
-  (schema / tooling / docs / mixed), routes it to the correct contribution path
-  (direct PR vs RFC Proposal vs needs-discussion), checks PR completeness, and
-  produces a structured Triage Report.
+  Triages an ECS pull request. Analyzes the PR diff and metadata, classifies the
+  change (schema / tooling / docs / mixed), routes it to the correct contribution
+  path (direct PR vs RFC Proposal vs needs-discussion), checks PR completeness,
+  and produces a structured Triage Report.
 ---
 
-# ECS PR triage (autonomous agent)
+# ECS PR triage
 
-This skill runs **automatically** on each incoming PR — there is no user prompt. The GitHub Actions workflow provides the PR diff, changed file list, PR description, and metadata as context. The agent analyzes that context, makes a routing decision, and delivers a triage report.
+This skill triages an ECS pull request. It can be invoked manually, by CI, or by any other automation. The agent needs access to the PR diff, changed file list, PR description, and metadata — either already present in context or fetched via tools (e.g. `gh`). It analyzes that context, makes a routing decision, and delivers a triage report.
 
 ## Execution steps
 
 ### 1. Inventory the PR context
 
-From the PR context already available to you, extract:
+From the PR context available to you (or fetched via `gh pr view`, `gh pr diff`, etc.), extract:
 
 - **PR number, title, author.**
 - **Changed file paths** — bucket every path into one of these categories:
