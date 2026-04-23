@@ -1,0 +1,59 @@
+name: "Forward Port Trigger"
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  forward-port:
+    if: >-
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'needs_forward_port') &&
+      github.event.pull_request.base.ref != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Derive forward-port targets
+        id: targets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONPATH: scripts
+        run: |
+          BASE="${{ github.event.pull_request.base.ref }}"
+          TARGETS=$(python3 -c "
+          from release_automation.helpers import forward_port_targets
+          targets = forward_port_targets('$BASE', '${{ github.repository }}', include_main=False)
+          print(' '.join(targets))
+          ")
+
+          echo "Forward-port targets for $BASE: $TARGETS"
+          echo "targets=$TARGETS" >> "$GITHUB_OUTPUT"
+
+      - name: Post backport command for forward-port
+        if: steps.targets.outputs.targets != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          TARGETS="${{ steps.targets.outputs.targets }}"
+
+          COMMENT="/backport $TARGETS"
+          echo "Posting: $COMMENT"
+
+          gh pr comment "$PR_NUM" --repo "${{ github.repository }}" --body "$COMMENT"
+
+      - name: No targets
+        if: steps.targets.outputs.targets == ''
+        run: echo "No forward-port target branches found — nothing to do."

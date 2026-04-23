@@ -1,0 +1,33 @@
+name: "Port Label Cleanup"
+
+on:
+  pull_request:
+    types: [opened, labeled, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  cleanup-source-labels:
+    if: >-
+      contains(github.event.pull_request.title, '(backport #') ||
+      contains(github.event.pull_request.title, '(forwardport #') ||
+      contains(github.event.pull_request.labels.*.name, 'backport') ||
+      contains(github.event.pull_request.labels.*.name, 'forward_port')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Cleanup source PR needs_* labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONPATH: scripts
+        run: python scripts/release_automation/run_port_label_cleanup.py "${{ github.event.pull_request.number }}"
