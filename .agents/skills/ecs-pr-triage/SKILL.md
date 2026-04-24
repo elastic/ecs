@@ -25,6 +25,7 @@ From the PR context available to you (or fetched via `gh pr view`, `gh pr diff`,
   - `docs/` — hand-authored docs vs generated reference (`docs/reference/ecs-*.md`)
   - `rfcs/` — RFC markdown and supporting YAML
   - `.github/` — CI workflows, templates, issue config
+  - `release/` — release-process artifacts: `version` file, `CHANGELOG.md` rotation, release-note shuffling in `docs/`
   - Root config — `Makefile`, `version`, `CHANGELOG.next.md`, etc.
 - **PR description body** — check which of the 7 template sections from `.github/PULL_REQUEST_TEMPLATE.md` are filled vs empty/placeholder.
 - **Diff content** — scan for signals: new field set files, field removals, `type:` changes, new `reusable` entries, `allowed_values` additions, `alpha`/`beta` changes, etc.
@@ -33,6 +34,7 @@ From the PR context available to you (or fetched via `gh pr view`, `gh pr diff`,
 
 Walk the decision tree in [classification-rules.md](classification-rules.md) **in priority order**:
 
+0. **Check for release process PR first** — if the PR exclusively touches release mechanics (version bumps, changelog rotation, moving/updating release notes in `docs/`, `CHANGELOG.md` consolidation) it is always **Direct PR**. Release PRs never require an RFC or discussion regardless of how many files change.
 1. **Check §1 (RFC triggers)** — any match means classification is **Needs RFC**.
    Triggers: new `schemas/*.yml` file, breaking changes (field removal, type change, semantic redefinition), new reuse topology, novel use case, ECS-wide scope, >10 new leaf fields.
 2. **Check §3 (ambiguous)** — any match (without §1) means classification is **Needs Discussion**.
@@ -48,7 +50,7 @@ Assign labels:
 Evaluate against the checklist in [ecs-pr-completeness rule](../../rules/ecs-pr-completeness.mdc):
 
 - PR description: all 7 template sections answered (not empty/placeholder).
-- `CHANGELOG.next.md` entry: **only expected when `schemas/` or `scripts/` files change** (i.e. schema changes or tooling changes). RFC-only PRs (`rfcs/` only), pure documentation PRs, and CI-only PRs do not require a changelog entry. When required, verify it is in the correct section (Schema Changes vs Tooling and Artifact Changes) and includes `#NNNN`.
+- `CHANGELOG.next.md` entry: **only expected when `schemas/` or `scripts/` files change** (i.e. schema changes or tooling changes). RFC-only PRs (`rfcs/` only), pure documentation PRs, CI-only PRs, and **release process PRs** do not require a changelog entry. When required, verify it is in the correct section (Schema Changes vs Tooling and Artifact Changes) and includes `#NNNN`.
 - If schema change: `generated/` and `docs/reference/` artifacts present in the diff (evidence that `make` was run and outputs committed).
 - If new/changed fields relate to OTel semconv: `otel:` metadata present on those fields.
 - No hand-edits to files that should only be generator output (`docs/reference/ecs-*.md`, `generated/`).

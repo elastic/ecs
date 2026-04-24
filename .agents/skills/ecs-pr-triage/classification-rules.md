@@ -24,6 +24,7 @@ All should be low controversy and incremental:
 | Tooling only | `scripts/`, generator templates, tests, Makefile |
 | Non-generated docs | `docs/` that are not generator output (verify path); README, CONTRIBUTING cross-links |
 | Changelog / version housekeeping | `CHANGELOG.next.md`, release-note scaffolding (if consistent with repo practice) |
+| Release process | Version bumps (`version` file), moving/updating release notes, updating `docs/` release notes, `CHANGELOG` rotation — standard release mechanics |
 | CI / automation | `.github/workflows/` (non-breaking) |
 
 **Caveat:** If a “small” addition introduces **new** semantics (new tool protocol, new entity type), escalate to **Needs RFC** or **Needs Discussion**.
