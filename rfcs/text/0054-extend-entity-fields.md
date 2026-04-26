@@ -43,7 +43,7 @@ Each relationship object holds parallel identifier arrays keyed only by the allo
 
 ### Allowed keys on `entity.relationships.*` objects
 
-Values in each array must follow the same conventions as the corresponding ECS field (e.g. `user.email` values are email-shaped strings; `host.id` values follow host id semantics from ECS).
+Values in each array must follow the same conventions as the corresponding ECS field (e.g. `user.email` values are email-shaped strings; `user.domain` values follow ECS directory or AD/LDAP domain name semantics; `host.id` values follow host id semantics from ECS).
 
 | Property key (JSON) | ECS type | `normalize: [array]` | Semantics |
 | ------------------- | -------- | --------------------- | ----------- |
@@ -53,6 +53,7 @@ Values in each array must follow the same conventions as the corresponding ECS f
 | `user.id` | keyword | yes | Referenced user ids. |
 | `user.name` | keyword | yes | Referenced user short names or logins. |
 | `user.email` | keyword | yes | Referenced user email addresses. |
+| `user.domain` | keyword | yes | Referenced user directory or AD/LDAP domain names (same semantics as ECS `user.domain`). |
 | `service.id` | keyword | yes | Referenced service ids. |
 | `service.name` | keyword | yes | Referenced service names. |
 
@@ -69,6 +70,7 @@ Example (only allowed keys; omit keys when there are no values):
   "host.id": ["host-uuid-123", "host-uuid-456"],
   "user.id": ["00u123"],
   "user.email": ["supervisor@corp.example"],
+  "user.domain": ["corp.example"],
   "host.name": ["hostname123"],
   "user.name": ["jsmith"]
 }
