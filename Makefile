@@ -155,3 +155,8 @@ build/ve/bin/activate: scripts/requirements.txt scripts/requirements-dev.txt
 .PHONY: yamllint
 yamllint: ve
 	build/ve/bin/yamllint -d '{extends: default, rules: {line-length: disable}}' schemas/*.yml
+
+# Build the ECS MCP server.
+.PHONY: ecs-mcp
+ecs-mcp:
+	go -C go-ecs build -o ../build github.com/elastic/ecs/go-ecs/cmd/ecs-mcp
