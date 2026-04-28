@@ -22,7 +22,7 @@ Authoritative process: [rfcs/PROCESS.md](../../../rfcs/PROCESS.md). Template: [r
 2. Contributor opens a **PR** that adds the RFC markdown under `rfcs/` (name like `0000-<dash-separated-name>.md` until numbered).
 3. Specify **Target maturity:** `alpha`, `beta`, or `mixture` (see [Field stability](../../../docs/reference/ecs-principles-design.md#_field_stability)).
 4. The PR author assigns the **next available RFC number** (scan `rfcs/text/` for the highest existing number). ECS team reviews holistically and merges on approval.
-5. The RFC PR **must include** the schema changes (`schemas/*.yml`, generated artifacts, docs) at the agreed maturity level — proposal and implementation land together in a single PR.
+5. If applicable, the RFC PR **should include** the schema changes (`schemas/*.yml`, generated artifacts, docs) at the agreed maturity level — proposal and implementation land together in a single PR.
 
 ## Template walkthrough
 
