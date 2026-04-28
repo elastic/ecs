@@ -514,7 +514,7 @@ illegal_argument_exception: mapper [field] cannot be changed from type [keyword]
 ### Debugging Tips
 
 - **Compare versions**: `diff -u old/template.json new/template.json`
-- **Test installation**: Use a local Elasticsearch instance with `docker run -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:8.11.0`
+- **Test installation**: Use a local Elasticsearch instance with `docker run -p 9200:9200 docker.elastic.co/elasticsearch/elasticsearch:8.19.14`
 
 ## References
 
