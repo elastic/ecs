@@ -76,7 +76,7 @@ Promotion after merge is **out of band** from the RFC (team process per PROCESS.
 
 ## Implementation in the RFC PR
 
-The RFC PR itself must include the schema implementation: `schemas/*.yml` changes, `make`-generated artifacts, and a **CHANGELOG.next.md** entry. There is no separate "handoff" — proposal and schema land together.
+The RFC PR itself should include the schema implementation: `schemas/*.yml` changes, `make`-generated artifacts, and a **CHANGELOG.next.md** entry. There is no separate "handoff" — proposal and schema land together.
 
 ## Related
 
