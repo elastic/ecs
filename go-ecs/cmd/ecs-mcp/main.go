@@ -204,7 +204,12 @@ func Main() error {
 	ecsmcp.AddPrompts(mcpSrv)
 
 	if listen != "" {
-		var handler http.Handler = mcp.NewStreamableHTTPHandler(func(r *http.Request) *mcp.Server { return mcpSrv }, nil)
+		var handler http.Handler = mcp.NewStreamableHTTPHandler(
+			func(r *http.Request) *mcp.Server { return mcpSrv },
+			&mcp.StreamableHTTPOptions{
+				Stateless: true,
+			},
+		)
 		handler = handlers.CombinedLoggingHandler(os.Stderr, handler)
 
 		httpSrv := &http.Server{
