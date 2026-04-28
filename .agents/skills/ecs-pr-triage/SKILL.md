@@ -9,7 +9,7 @@ description: >-
 
 # ECS PR triage
 
-This skill triages an ECS pull request. It can be invoked manually, by CI, or by any other automation. The agent needs access to the PR diff, changed file list, PR description, and metadata — either already present in context or fetched via tools (e.g. `gh`). It analyzes that context, makes a routing decision, and delivers a triage report.
+This skill triages an ECS pull request. The agent needs access to the PR diff, changed file list, PR description, and metadata — either already present in context or fetched via tools (e.g. `gh`). It analyzes that context, makes a routing decision, and delivers a triage report.
 
 ## Execution steps
 
@@ -52,7 +52,7 @@ Evaluate against the checklist in [ecs-pr-completeness rule](../../rules/ecs-pr-
 - PR description: all 7 template sections answered (not empty/placeholder).
 - `CHANGELOG.next.md` entry: **only expected when `schemas/` or `scripts/` files change** (i.e. schema changes or tooling changes). RFC-only PRs (`rfcs/` only), pure documentation PRs, CI-only PRs, and **release process PRs** do not require a changelog entry. When required, verify it is in the correct section (Schema Changes vs Tooling and Artifact Changes) and includes `#NNNN`.
 - If schema change: `generated/` and `docs/reference/` artifacts present in the diff (evidence that `make` was run and outputs committed).
-- If new/changed fields relate to OTel semconv: `otel:` metadata present on those fields.
+- If new/changed fields relate to OTel semconv: `otel:` metadata is encouraged but not required.
 - No hand-edits to files that should only be generator output (`docs/reference/ecs-*.md`, `generated/`).
 
 Mark each item as **met** or **missing**.
@@ -76,7 +76,7 @@ Fill [report-template.md](report-template.md) completely. Rules:
 - **Source of truth for fields:** `schemas/*.yml`. Hand-edits to `generated/` or `docs/reference/ecs-*.md` without a corresponding schema change are errors — flag them.
 - **Build pipeline:** `make` regenerates all artifacts; `make test` runs unit tests; `make check` runs generate + test + diff (CI parity).
 - **RFC process:** single Proposal stage per `rfcs/PROCESS.md`; template at `rfcs/0000-rfc-template.md`.
-- **OTel donation:** new semconv-related fields need `otel:` metadata per `CONTRIBUTING.md`.
+- **OTel mapping:** `otel:` metadata on fields is optional; encouraged when a clear semconv counterpart exists but not a merge gate.
 
 ## Related assets
 

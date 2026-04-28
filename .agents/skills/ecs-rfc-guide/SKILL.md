@@ -3,7 +3,7 @@ name: ecs-rfc-guide
 description: >-
   Guides contributors through the Elastic Common Schema (ECS) RFC (Proposal)
   process: template sections, target maturity (alpha/beta), rfcs/text artifacts,
-  and OTel alignment. Use when a change needs an RFC, when drafting or
+  and optional OTel mapping. Use when a change needs an RFC, when drafting or
   reviewing RFC PRs, or when the user asks how to propose new ECS field sets or
   substantial schema changes.
 ---
@@ -21,8 +21,8 @@ Authoritative process: [rfcs/PROCESS.md](../../../rfcs/PROCESS.md). Template: [r
 1. Single **Proposal** stage — template must keep `Stage: **Proposal**`.
 2. Contributor opens a **PR** that adds the RFC markdown under `rfcs/` (name like `0000-<dash-separated-name>.md` until numbered).
 3. Specify **Target maturity:** `alpha`, `beta`, or `mixture` (see [Field stability](../../../docs/reference/ecs-principles-design.md#_field_stability)).
-4. ECS team reviews holistically; on approval they assign the **RFC number** and merge.
-5. Schema landings at agreed maturity may follow in the same or follow-up PRs (per team practice).
+4. The PR author assigns the **next available RFC number** (scan `rfcs/text/` for the highest existing number). ECS team reviews holistically and merges on approval.
+5. The RFC PR **must include** the schema changes (`schemas/*.yml`, generated artifacts, docs) at the agreed maturity level — proposal and implementation land together in a single PR.
 
 ## Template walkthrough
 
@@ -47,11 +47,13 @@ When the RFC adds or changes fields:
 - Use the **next free** folder number (scan `rfcs/text/`; duplicates get fixed at merge per template notes).
 - Align filenames with affected field sets (e.g. `faas.yml`, `gen_ai.yaml`) for reviewer navigation.
 
-## OTel alignment (donation period)
+## OTel alignment (optional)
 
-- Prefer names/types compatible with [OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions).
-- Call out **match**, **equivalent**, **related**, **conflict** explicitly; plan parallel semconv PR if needed (does not need to merge before ECS RFC PR).
-- When implementing later in `schemas/*.yml`, each field needs valid `otel:` metadata per [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+ECS does not actively donate fields to OpenTelemetry Semantic Conventions at this time. However, ECS tracks relationships between its fields and OTel semconv via `otel:` metadata tags in `schemas/*.yml`.
+
+- When a new or changed field has a clear OTel semconv counterpart, adding an `otel:` block (with `relation: match | equivalent | related | conflict | na`) is encouraged but **not required**.
+- The `otel:` metadata is used to generate alignment documentation — it is not a gate for merging.
+- If unsure whether an OTel mapping applies, omit it; it can be added later.
 
 ## Maturity choice (alpha vs beta)
 
@@ -72,9 +74,9 @@ Promotion after merge is **out of band** from the RFC (team process per PROCESS.
 - **GenAI security fields:** [rfcs/text/0050-gen_ai-security-fields.md](../../../rfcs/text/0050-gen_ai-security-fields.md).
 - Use these for **structure** (fields, usage, source data, concerns), not for **stage** metadata.
 
-## Handoff to implementation
+## Implementation in the RFC PR
 
-After approval, contributors implement in `schemas/*.yml`, run **`make`**, add **CHANGELOG.next.md**, and open or update a normal schema PR if the RFC did not already include merged YAML.
+The RFC PR itself must include the schema implementation: `schemas/*.yml` changes, `make`-generated artifacts, and a **CHANGELOG.next.md** entry. There is no separate "handoff" — proposal and schema land together.
 
 ## Related
 
