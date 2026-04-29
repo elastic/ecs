@@ -11,7 +11,7 @@ Use after inspecting the diff (files touched, approximate size, semantics). See 
 | New reuse topology | New `reusable.expected` entries that introduce nesting in new places (e.g. new `{at, as}` role) |
 | Novel / unaddressed use case | Domain or signal type not clearly covered by existing field sets; “we need a place for X” without an obvious existing home |
 | ECS-wide scope | Changes to core taxonomy (`event.*` categorization), compliance story, or conventions affecting most integrations |
-| Large batch | Rough heuristic: **> ~10** new leaf fields in one PR (especially across concepts) — treat as substantial unless clearly trivial changes |
+| Large batch | Rough heuristic: **> ~5** new leaf fields in one PR (especially across concepts) — treat as substantial unless clearly trivial changes |
 
 ## 2. Direct PR OK (typically **Direct PR**)
 
@@ -35,7 +35,7 @@ Use when not clearly 1 or 2:
 
 | Situation | Why ambiguous |
 |-----------|-----------------|
-| **3–10** new fields in one field set | May be one coherent extension or may need design review |
+| **3–5** new fields in one field set | May be one coherent extension or may need design review |
 | New `allowed_values` on `event.category`, `event.type`, `event.kind`, etc. | Affects categorization and many consumers |
 | Maturity changes | Field set or field `alpha`/`beta` ↔ GA promotions |
 | `object` / `flattened` without children | Requires justification per [schemas/README.md](../../../schemas/README.md) |

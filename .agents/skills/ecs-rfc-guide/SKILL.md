@@ -72,7 +72,6 @@ Promotion after merge is **out of band** from the RFC (team process per PROCESS.
 
 - **FaaS + service reuse:** [rfcs/text/0027-faas-fields.md](../../../rfcs/text/0027-faas-fields.md) + folder `rfcs/text/0027/`.
 - **GenAI security fields:** [rfcs/text/0050-gen_ai-security-fields.md](../../../rfcs/text/0050-gen_ai-security-fields.md).
-- Use these for **structure** (fields, usage, source data, concerns), not for **stage** metadata.
 
 ## Implementation in the RFC PR
 
