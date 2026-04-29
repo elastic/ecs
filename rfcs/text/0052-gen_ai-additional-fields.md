@@ -10,7 +10,7 @@ Following up on [RFC 0050](https://github.com/elastic/ecs/pull/2475), which intr
 
 ## Usage
 
-These fields enable security monitoring and threat detection for GenAI applications. Practitioners can use `gen_ai.input.messages` and `gen_ai.output.messages` to audit full conversation context for prompt injection, data exfiltration, or policy violations. `gen_ai.system_instructions` captures the system prompt, which is a common target for injection attacks. The `gen_ai.tool.*` fields allow monitoring of agentic tool use — for example, detecting whether a model was manipulated into calling a privileged tool with attacker-controlled arguments.[2]
+These fields enable security monitoring and threat detection for GenAI applications. Practitioners can use `gen_ai.input.messages` and `gen_ai.output.messages` to audit full conversation context for prompt injection, data exfiltration, or policy violations. `gen_ai.system_instructions` captures the system prompt, which is a common target for injection attacks. The `gen_ai.tool.*` fields allow monitoring of agentic tool use — for example, detecting whether a model was manipulated into calling a privileged tool with attacker-controlled arguments.
 
 ## Fields
 
@@ -176,7 +176,6 @@ The following are the people that consulted on the contents of this RFC.
 ### In-line references for this RFC
 
 [1] https://github.com/elastic/ecs/pull/2532#issuecomment-4121325575
-[2] GH issue can be provided upon request
 
 ### General
 
