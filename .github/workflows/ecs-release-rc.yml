@@ -1,4 +1,4 @@
-name: "ECS Release: Feature Freeze"
+name: "ECS Release: RC Cut"
 
 on:
   workflow_dispatch:
@@ -7,17 +7,22 @@ on:
         description: "Version to release (e.g. 9.4.0)"
         required: true
         type: string
+      rc_number:
+        description: "RC number (default: 1)"
+        required: false
+        default: "1"
+        type: string
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: ecs-release-${{ inputs.version }}-ff
+  group: ecs-release-${{ inputs.version }}-rc
   cancel-in-progress: false
 
 jobs:
-  feature-freeze:
+  rc-cut:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,9 +34,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run feature freeze
+      - name: Run RC cut
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PYTHONPATH: scripts
-        run: python scripts/release_automation/run_ff.py "${{ inputs.version }}"
+        run: python scripts/release_automation/run_rc.py "${{ inputs.version }}" "${{ inputs.rc_number }}"

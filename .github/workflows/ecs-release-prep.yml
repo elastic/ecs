@@ -1,4 +1,4 @@
-name: "ECS Release: Feature Freeze"
+name: "ECS Release: Preparation"
 
 on:
   workflow_dispatch:
@@ -13,11 +13,11 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ecs-release-${{ inputs.version }}-ff
+  group: ecs-release-${{ inputs.version }}-prep
   cancel-in-progress: false
 
 jobs:
-  feature-freeze:
+  release-prep:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -29,9 +29,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run feature freeze
+      - name: Run release preparation
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PYTHONPATH: scripts
-        run: python scripts/release_automation/run_ff.py "${{ inputs.version }}"
+        run: python scripts/release_automation/run_prep.py "${{ inputs.version }}"

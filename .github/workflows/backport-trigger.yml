@@ -1,0 +1,85 @@
+name: "Backport Trigger"
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  backport:
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'needs_backport')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            version
+            .backportrc.json
+
+      - name: Derive target branches
+        id: targets
+        run: |
+          BASE="${{ github.event.pull_request.base.ref }}"
+          PR_NUM="${{ github.event.pull_request.number }}"
+
+          echo "PR #$PR_NUM merged into $BASE with needs_backport label"
+
+          if [ "$BASE" = "main" ]; then
+            VERSION=$(cat version)
+            MAJOR=$(echo "$VERSION" | cut -d. -f1)
+            MINOR=$(echo "$VERSION" | cut -d. -f2)
+            FLOOR_MINOR=$(( MINOR > 0 ? MINOR - 1 : 0 ))
+            FLOOR="${MAJOR}.${FLOOR_MINOR}"
+          else
+            FLOOR="$BASE"
+          fi
+
+          echo "Floor version: $FLOOR"
+          FLOOR_MAJOR=$(echo "$FLOOR" | cut -d. -f1)
+          FLOOR_MINOR=$(echo "$FLOOR" | cut -d. -f2)
+
+          TARGETS=$(python3 -c "
+          import json, re
+
+          with open('.backportrc.json') as f:
+              data = json.load(f)
+
+          floor_major = int('$FLOOR_MAJOR')
+          floor_minor = int('$FLOOR_MINOR')
+          targets = []
+
+          for b in data['branches']:
+              name = b if isinstance(b, str) else b.get('name', '')
+              m = re.match(r'^(\d+)\.(\d+)$', name)
+              if not m:
+                  continue
+              bmajor, bminor = int(m.group(1)), int(m.group(2))
+              if (bmajor, bminor) >= (floor_major, floor_minor):
+                  if name != '$BASE':
+                      targets.append(name)
+
+          print(' '.join(targets))
+          ")
+
+          echo "Target branches: $TARGETS"
+          echo "targets=$TARGETS" >> "$GITHUB_OUTPUT"
+
+      - name: Post backport command
+        if: steps.targets.outputs.targets != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM="${{ github.event.pull_request.number }}"
+          TARGETS="${{ steps.targets.outputs.targets }}"
+
+          COMMENT="/backport $TARGETS"
+          echo "Posting: $COMMENT"
+
+          gh pr comment "$PR_NUM" --repo "${{ github.repository }}" --body "$COMMENT"
+
+      - name: No targets
+        if: steps.targets.outputs.targets == ''
+        run: echo "No backport target branches found — nothing to do."

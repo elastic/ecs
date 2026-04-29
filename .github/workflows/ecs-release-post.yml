@@ -1,4 +1,4 @@
-name: "ECS Release: Feature Freeze"
+name: "ECS Release: Post-release"
 
 on:
   workflow_dispatch:
@@ -9,29 +9,28 @@ on:
         type: string
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 concurrency:
-  group: ecs-release-${{ inputs.version }}-ff
+  group: ecs-release-${{ inputs.version }}-post
   cancel-in-progress: false
 
 jobs:
-  feature-freeze:
+  post-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Run feature freeze
+      - name: Run post-release checks
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PYTHONPATH: scripts
-        run: python scripts/release_automation/run_ff.py "${{ inputs.version }}"
+        run: python scripts/release_automation/run_post.py "${{ inputs.version }}"
