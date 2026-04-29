@@ -49,7 +49,7 @@ When the RFC adds or changes fields:
 
 ## OTel alignment (optional)
 
-ECS does not actively donate fields to OpenTelemetry Semantic Conventions at this time. However, ECS tracks relationships between its fields and OTel semconv via `otel:` metadata tags in `schemas/*.yml`.
+ECS tracks relationships between its fields and OTel semconv via `otel:` metadata tags in `schemas/*.yml`.
 
 - When a new or changed field has a clear OTel semconv counterpart, adding an `otel:` block (with `relation: match | equivalent | related | conflict | na`) is encouraged but **not required**.
 - The `otel:` metadata is used to generate alignment documentation — it is not a gate for merging.
