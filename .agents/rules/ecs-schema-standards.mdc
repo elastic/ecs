@@ -1,0 +1,35 @@
+---
+description: ECS schema YAML — field set and field attributes, OTel, strict mode
+globs: schemas/**/*.yml
+alwaysApply: false
+---
+
+# ECS `schemas/*.yml` standards
+
+## Field set (top-level item)
+
+Required: `name`, `title`, `description`, `type: group`, `fields`.  
+Optional: `short`, `root` (only `base` uses `true`), `group` (sorting), `reusable`, `short_override`, `alpha` / `beta` (mutually exclusive at field set and per-field).
+
+## Each field
+
+Required: `name`, `level` (`core` | `extended`), `type`, `description`.  
+Optional: `short` (single line; if description has multiple paragraphs, `short` is required), `example`, `required` (rare; only `@timestamp`, `ecs.version` today), `multi_fields`, `index`, `format`, `pattern`, `expected_values`, `allowed_values`, `normalize`, `alpha` / `beta`, `otel`, `path` (for `type: alias`).
+
+## `object` / `flattened`
+
+- `object` without child fields: only for opaque, homogeneous shapes (e.g. string-key/string-value like `labels`). Otherwise define explicit leaf fields.
+- `flattened`: arbitrary/unbounded keys (e.g. headers); weaker typing. If subfields are semantically queryable, model them explicitly.
+
+## OTel (`otel:`)
+
+List of mappings; each needs `relation`: `match`, `equivalent`, `related`, `conflict`, `metric`, `otlp`, `na`. Follow required keys per relation in [CONTRIBUTING.md](CONTRIBUTING.md). Intentionally unmapped fields that collide by name with OTel may need `relation: na` to silence generator warnings.
+
+## CI strict mode (`make` / `generator.py --strict`)
+
+- `short` ≤ 120 characters, single line.
+- Composite `example` values (arrays/objects) must be quoted YAML strings.
+- If `pattern` is set, `example` must match.
+- If `expected_values` is set, `example` must be consistent with allowed values.
+
+After edits: run `make` and commit `generated/` and generated `docs/reference/` as required by the repo.

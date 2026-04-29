@@ -1,0 +1,33 @@
+---
+description: ECS PR review — template, changelog, generated artifacts, CLA
+alwaysApply: false
+---
+
+# ECS PR completeness (review checklist)
+
+Use when reviewing or preparing a PR. Cross-check [.github/PULL_REQUEST_TEMPLATE.md](.github/PULL_REQUEST_TEMPLATE.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Description & process
+
+- [ ] All PR template sections answered (what, fields affected, why, docs, built ECS, tests, notes).
+- [ ] Links to issues / related PRs where applicable.
+- [ ] **Routing**: If change is substantial (new fieldset, breaking, novel use case), contributor followed [rfcs/PROCESS.md](rfcs/PROCESS.md) — not only a direct schema PR.
+
+## Changelog
+
+- [ ] Entry in [CHANGELOG.next.md](CHANGELOG.next.md) under **Schema Changes** or **Tooling and Artifact Changes**, correct subsection, ordered by PR id, with `#NNNN` link.
+
+## Schema / generator
+
+- [ ] Schema edits only under `schemas/` (and RFC `rfcs/text/` when in RFC flow) — not hand-editing `generated/` or generated field reference markdown.
+- [ ] `make` run; regenerated outputs committed if changed.
+- [ ] `make test` and `make check` pass locally (CI runs `make check` and yamllint).
+
+## Field quality
+
+- [ ] New/changed fields: descriptions, examples, `level`, types; `short` where needed; `otel:` where OTel-related.
+- [ ] No avoidable `object`/`flattened` without justification (see [schemas/README.md](schemas/README.md)).
+
+## Legal
+
+- [ ] Contributor has signed the Elastic CLA when required.
