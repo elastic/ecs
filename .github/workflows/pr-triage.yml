@@ -1,7 +1,10 @@
 name: PR Triage
 
 on:
-  pull_request:
+  # pull_request_target runs in the base-repo context so secrets are available
+  # even for fork PRs. We only checkout the base branch (for skills/rules);
+  # the agent reads the PR diff via `gh` — no fork code is checked out.
+  pull_request_target:
     types: [opened, reopened, synchronize]
   workflow_dispatch:
     inputs:
@@ -48,9 +51,10 @@ jobs:
             echo "number=${PR_FROM_EVENT}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Checkout
+      - name: Checkout base branch (skills and rules only)
         uses: actions/checkout@v6
         with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
           fetch-depth: 1
           persist-credentials: false
 
