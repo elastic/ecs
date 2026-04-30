@@ -118,7 +118,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          RUNTIME="$GITHUB_WORKSPACE/pr-triage-runtime"
           PROMPT_FILE="$RUNTIME/prompt.md"
           REPORT_FILE="$RUNTIME/pr-triage-report.md"
           TRANSCRIPT_FILE="$RUNTIME/agent-transcript.md"
@@ -229,13 +229,13 @@ jobs:
           LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
         run: |
           set -euo pipefail
-          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          RUNTIME="$GITHUB_WORKSPACE/pr-triage-runtime"
           python3 - <<'PY'
           import os
           import re
           from pathlib import Path
 
-          root = Path(os.environ["GITHUB_WORKSPACE"]) / ".pr-triage-runtime"
+          root = Path(os.environ["GITHUB_WORKSPACE"]) / "pr-triage-runtime"
           files = [root / "pr-triage-report.md", root / "agent-transcript.md"]
           env_keys = ["LITELLM_API_KEY"]
           patterns = [
@@ -262,7 +262,7 @@ jobs:
       - name: Ensure output directory exists
         if: always()
         run: |
-          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          RUNTIME="$GITHUB_WORKSPACE/pr-triage-runtime"
           mkdir -p "$RUNTIME"
           if [ ! -s "$RUNTIME/pr-triage-report.md" ]; then
             echo "## PR Triage Report" > "$RUNTIME/pr-triage-report.md"
@@ -275,7 +275,7 @@ jobs:
         if: always()
         with:
           name: pr-triage-output
-          path: ${{ github.workspace }}/.pr-triage-runtime/
+          path: ${{ github.workspace }}/pr-triage-runtime/
           if-no-files-found: warn
           retention-days: 7
 
