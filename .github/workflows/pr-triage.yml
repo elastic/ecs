@@ -249,12 +249,24 @@ jobs:
               path.write_text(text, encoding="utf-8")
           PY
 
+      - name: Ensure output directory exists
+        if: always()
+        run: |
+          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          mkdir -p "$RUNTIME"
+          if [ ! -s "$RUNTIME/pr-triage-report.md" ]; then
+            echo "## PR Triage Report" > "$RUNTIME/pr-triage-report.md"
+            echo "" >> "$RUNTIME/pr-triage-report.md"
+            echo "Triage agent did not produce a report for this run." >> "$RUNTIME/pr-triage-report.md"
+          fi
+
       - name: Upload triage output
         uses: actions/upload-artifact@v7
         if: always()
         with:
           name: pr-triage-output
           path: ${{ github.workspace }}/.pr-triage-runtime/
+          if-no-files-found: warn
           retention-days: 7
 
   # ---------------------------------------------------------------------------
@@ -271,7 +283,9 @@ jobs:
 
     steps:
       - name: Download triage output
+        id: download
         uses: actions/download-artifact@v8
+        continue-on-error: true
         with:
           name: pr-triage-output
           path: /tmp/pr-triage-output
