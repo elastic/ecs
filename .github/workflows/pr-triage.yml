@@ -275,7 +275,6 @@ jobs:
   publish:
     name: "Publish triage comment"
     needs: triage
-    if: always() && needs.triage.result == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -283,9 +282,7 @@ jobs:
 
     steps:
       - name: Download triage output
-        id: download
         uses: actions/download-artifact@v8
-        continue-on-error: true
         with:
           name: pr-triage-output
           path: /tmp/pr-triage-output
