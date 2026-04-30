@@ -25,6 +25,13 @@
                 }
               }
             },
+            "input": {
+              "properties": {
+                "messages": {
+                  "type": "flattened"
+                }
+              }
+            },
             "operation": {
               "properties": {
                 "name": {
@@ -35,7 +42,18 @@
             },
             "output": {
               "properties": {
+                "messages": {
+                  "type": "flattened"
+                },
                 "type": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "provider": {
+              "properties": {
+                "name": {
                   "ignore_above": 1024,
                   "type": "keyword"
                 }
@@ -98,9 +116,8 @@
                 }
               }
             },
-            "system": {
-              "ignore_above": 1024,
-              "type": "keyword"
+            "system_instructions": {
+              "type": "flattened"
             },
             "token": {
               "properties": {
@@ -114,11 +131,20 @@
               "properties": {
                 "call": {
                   "properties": {
+                    "arguments": {
+                      "type": "flattened"
+                    },
                     "id": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "result": {
+                      "type": "flattened"
                     }
                   }
+                },
+                "definitions": {
+                  "type": "flattened"
                 },
                 "name": {
                   "ignore_above": 1024,

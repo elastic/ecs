@@ -1,220 +1,184 @@
 # 0052: Additional fields for Generative AI
-<!-- Leave this ID at 0000. The ECS team will assign a unique, contiguous RFC number upon merging the initial stage of this RFC. -->
 
-- Stage: **0 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
-- Date: **2025-09-17** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
+- Stage: **Proposal** <!-- Do not change. -->
+- Date: **TBD** <!-- The ECS team sets this date at merge time. -->
+- Target maturity: **beta** <!-- Select one. See https://github.com/elastic/ecs/blob/main/docs/reference/ecs-principles-design.md#_field_stability -->
 
-> **Status (process transition, April 2026):** The proposed fields have not yet been merged into the ECS schema. Implementation is in progress in [#2532](https://github.com/elastic/ecs/pull/2532). The multi-stage RFC process has been retired in favor of the single-stage Proposal process.
+## Summary
 
-<!--
-As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
-Feel free to remove these comments as you go along.
--->
-
-<!--
-Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
--->
-
-Following up on [RFC 0050](https://github.com/elastic/ecs/pull/2475) which introduced an initial batch of `gen_ai` fields, this RFC (0052) adds more fields due to user feedback. The fields are backported from [OTel](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/).
-
-<!--
-Stage 1: If the changes include field additions or modifications, please create a folder titled as the RFC number under rfcs/text/. This will be where proposed schema changes as standalone YAML files or extended example mappings and larger source documents will go as the RFC is iterated upon.
--->
-
-<!--
-Stage X: Provide a brief explanation of why the proposal is being marked as abandoned. This is useful context for anyone revisiting this proposal or considering similar changes later on.
--->
-
-## Fields
-
-<!--
-Stage 1: Describe at a high level how this change affects fields. Include new or updated yml field definitions for all of the essential fields in this draft. While not exhaustive, the fields documented here should be comprehensive enough to deeply evaluate the technical considerations of this change. The goal here is to validate the technical details for all essential fields and to provide a basis for adding experimental field definitions to the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
-
-Field | Type | Description /Usage
--- | -- | --
-gen_ai.system_instructions | (Looking for feedback) flattened | The system message or instructions provided to the GenAI model separately from the chat history.
-gen_ai.input.messages | (Looking for feedback) flattened | The chat history provided to the model as an input.
-gen_ai.output.messages | (Looking for feedback) flattened | Messages returned by the model where each message represents a specific model response (choice, candidate).
-gen_ai.tool.definitions | (Looking for feedback) nested | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
-gen_ai.tool.call.arguments | (Looking for feedback) nested | (Part of OTel execute_tool span) Parameters passed to the tool call.
-gen_ai.tool.call.result | (Looking for feedback) nested | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
-
-Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
-
-<!--
-Stage 2: Add or update all remaining field definitions. The list should now be exhaustive. The goal here is to validate the technical details of all remaining fields and to provide a basis for releasing these field definitions as beta in the schema. Use GitHub code blocks with yml syntax formatting, and add them to the corresponding RFC folder.
--->
+Following up on [RFC 0050](https://github.com/elastic/ecs/pull/2475), which introduced an initial batch of `gen_ai` fields, this RFC adds six additional fields based on user feedback and OTel Semantic Conventions v1.40.0+. The fields cover the following GenAI interactions: system instructions, input and output messages, tool definitions available to an agent or model, and tool call arguments and results. All six fields carry the same names as their OTel counterparts and are defined as `flattened` to align with how the OTel Collector Elasticsearch exporter handles complex attribute types[1].
 
 ## Usage
 
-<!--
-Stage 1: Describe at a high-level how these field changes will be used in practice. Real world examples are encouraged. The goal here is to understand how people would leverage these fields to gain insights or solve problems. ~1-3 paragraphs.
--->
+These fields enable security monitoring and threat detection for GenAI applications. Practitioners can use `gen_ai.input.messages` and `gen_ai.output.messages` to audit full conversation context for prompt injection, data exfiltration, or policy violations. `gen_ai.system_instructions` captures the system prompt, which is a common target for injection attacks. The `gen_ai.tool.*` fields allow monitoring of agentic tool use — for example, detecting whether a model was manipulated into calling a privileged tool with attacker-controlled arguments.[2]
+
+## Fields
+
+Field | Type | Description /Usage
+-- | -- | --
+gen_ai.system_instructions | flattened | The system message or instructions provided to the GenAI model separately from the chat history.
+gen_ai.input.messages | flattened | The chat history provided to the model as an input.
+gen_ai.output.messages | flattened | Messages returned by the model where each message represents a specific model response (choice, candidate).
+gen_ai.tool.definitions | flattened | (Part of invoke_agent span) The list of source system tool definitions available to the GenAI agent or model.
+gen_ai.tool.call.arguments | flattened | (Part of OTel execute_tool span) Parameters passed to the tool call.
+gen_ai.tool.call.result | flattened | (Part of OTel execute_tool span) The result returned by the tool call (if any and if execution was successful).
+
+This RFC also renames the existing `gen_ai.system` field introduced in RFC 0050 to `gen_ai.provider.name`, following its deprecation and replacement in OTel semconv ([ref](https://opentelemetry.io/docs/specs/semconv/registry/attributes/gen-ai/#gen-ai-system)). The OTel mapping relation is updated from `equivalent` to `match`. The field type, level, and allowed values are unchanged.
+
+Field | Type | Change
+-- | -- | --
+~~gen_ai.system~~ → gen_ai.provider.name | keyword | Renamed to align with OTel `gen_ai.provider.name`; description updated from "product" to "provider"
+
+Changes based on OTel https://github.com/open-telemetry/semantic-conventions/pull/2179/files
+
+All six fields use `type: flattened` without defined child fields. Explicit leaf-field definitions are not appropriate here because the OTel specification defines these as `any`-typed attributes whose exact structure varies by model vendor — defining explicit children would create upstream dependencies on vendor-specific schemas. Cross-integration type conflicts are prevented by the upstream OTel specification that all producers are expected to follow; the expected data shapes are illustrated in the YAML examples in `rfcs/text/0052/gen_ai.yaml`. See the Concerns section for the full justification for `flattened` over `nested`.
 
 ## Source data
 
-<!--
-Stage 1: Provide a high-level description of example sources of data. This does not yet need to be a concrete example of a source document, but instead can simply describe a potential source (e.g. nginx access log). This will ultimately be fleshed out to include literal source examples in a future stage. The goal here is to identify practical sources for these fields in the real world. ~1-3 sentences or unordered list.
--->
+### OTel GenAI span (OpenAI)
 
-Example usage:
+An ECS event produced from an OpenAI Chat Completions API call instrumented via the [OTel GenAI semantic conventions](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/). This example includes a tool call exchange where the model requests weather data.
 
 ```json
 {
     "gen_ai": {
         "system_instructions": {
-        [
-            {
-                "type": "text",
-                "content": "You are a assistant for frequent travelers."
-            },
-            {
-                "type": "text",
-                "content": "Your mission is to assist travelers with their queries about locations around the world."
-            }
+            [
+                {
+                    "type": "text",
+                    "content": "You are a assistant for frequent travelers."
+                },
+                {
+                    "type": "text",
+                    "content": "Your mission is to assist travelers with their queries about locations around the world."
+                }
             ]
         },
         "input": {
             "messages": {
                 [
-                {
-                    "role": "user",
-                    "parts": [
                     {
-                        "type": "text",
-                        "content": "Weather in Paris?"
-                    }
-                    ]
-                },
-                {
-                    "role": "assistant",
-                    "parts": [
+                        "role": "user",
+                        "parts": [
+                            {
+                                "type": "text",
+                                "content": "Weather in Paris?"
+                            }
+                        ]
+                    },
                     {
-                        "type": "tool_call",
-                        "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
-                        "name": "get_weather",
-                        "arguments": {
-                        "location": "Paris"
-                        }
-                    }
-                    ]
-                },
-                {
-                    "role": "tool",
-                    "parts": [
+                        "role": "assistant",
+                        "parts": [
+                            {
+                                "type": "tool_call",
+                                "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
+                                "name": "get_weather",
+                                "arguments": {
+                                    "location": "Paris"
+                                }
+                            }
+                        ]
+                    },
                     {
-                        "type": "tool_call_response",
-                        "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
-                        "result": "rainy, 57°F"
+                        "role": "tool",
+                        "parts": [
+                            {
+                                "type": "tool_call_response",
+                                "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+                                "result": "rainy, 57°F"
+                            }
+                        ]
                     }
-                    ]
-                }
                 ]
             }
         },
-        "output" :{
+        "output": {
             "messages": {
                 [
-                {
-                    "role": "assistant",
-                    "parts": [
                     {
-                        "type": "text",
-                        "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+                        "role": "assistant",
+                        "parts": [
+                            {
+                                "type": "text",
+                                "content": "The weather in Paris is currently rainy with a temperature of 57°F."
+                            }
+                        ],
+                        "finish_reason": "stop"
                     }
-                    ],
-                    "finish_reason": "stop"
-                }
-                ]            
-        },
-
-        // Below needs to be updated, but keeping in this commit for illustration purposes.
-        "assistant": {
-            "message": {
-                "content": "To carry a 5lb package, you would need a drone with sufficient payload capacity. Drones designed for heavy lifting often fall in the industrial or commercial category. Consider drones with a payload capacity of at least 6-7lbs to ensure safe transport and account for additional factors like battery and stability.",
-                "role": "assistant",
-                "tool_calls": [
-                    {
-                        "function": "getDroneSpecifications",
-                        "arguments": {"payloadWeight": 5},
-                        "name": "getDroneSpecifications",
-                        "id": "toolCall1",
-                        "type": "function_call",
-                    },
-                    {
-                        "function": "retrieveAvailableDronesDocument",
-                        "arguments": {"documentType": "availableDrones", "payloadRequirement": 5},
-                        "name": "retrieveAvailableDronesDocument",
-                        "id": "toolCall2",
-                        "type": "function_call",
-                    }
-                ],
-            }
-        },
+                ]
+            },
+        }
     }
-}
 }
 ```
 
-
-<!--
-Stage 2: Included a real world example source document. Ideally this example comes from the source(s) identified in stage 1. If not, it should replace them. The goal here is to validate the utility of these field changes in the context of a real world example. Format with the source name as a ### header and the example document in a GitHub code block with json formatting, or if on the larger side, add them to the corresponding RFC folder.
--->
-
-<!--
-Stage 3: Add more real world example source documents so we have at least 2 total, but ideally 3. Format as described in stage 2.
--->
-
 ## Scope of impact
 
-<!--
-Stage 2: Identifies scope of impact of changes. Are breaking changes required? Should deprecation strategies be adopted? Will significant refactoring be involved? Break the impact down into:
- * Ingestion mechanisms (e.g. beats/logstash)
- * Usage mechanisms (e.g. Kibana applications, detections)
- * ECS project (e.g. docs, tooling)
-The goal here is to research and understand the impact of these changes on users in the community and development teams across Elastic. 2-5 sentences each.
--->
+These are new additive fields; no breaking changes to existing ingest pipelines. The OTel Collector Elasticsearch exporter already maps complex `any`-typed attributes to `flattened`, so OTel-based ingest is compatible without modification. Custom integrations collecting GenAI telemetry may need to add field mappings for the new fields.
 
 ## Concerns
 
-<!--
-Stage 1: Identify potential concerns, implementation challenges, or complexity. Spend some time on this. Play devil's advocate. Try to identify the sort of non-obvious challenges that tend to surface later. The goal here is to surface risks early, allow everyone the time to work through them, and ultimately document resolution for posterity's sake.
--->
+In OTel, many field types are set to `any` and are typically JSON objects. [Example](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)
 
-In OTel, many field types are set to `any` and are typically .json objects. [Example](https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/)
-In ECS, should we use something like [flattened](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/flattened) type, if allowed?
+In ECS, should we use something like [flattened](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/flattened) type.
 
-<!--
-Stage 2: Document new concerns or resolutions to previously listed concerns. It's not critical that all concerns have resolutions at this point, but it would be helpful if resolutions were taking shape for the most significant concerns.
--->
+**Resolution:** All six fields in this RFC use `flattened`. The decision was driven by three constraints:
 
-<!--
-Stage 3: Document resolutions for all existing concerns. Any new concerns should be documented along with their resolution. The goal here is to eliminate risk of churn and instability by ensuring all concerns have been addressed.
--->
+1. OTel Collector ES exporter
+
+> Nested fields are not supported under passthrough namespaces like attributes.* are in the OTel ES schema.
+So defining gen_ai.input.messages, gen_ai.output.messages and gen_ai.tool.definitions as nested would not be compatible with OTel ingest.
+> Complex attributes types are currently always mapped to flattened in the OTel Collector ES exporter.
+> -- @AlexanderWert
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3479329267).
+
+2. Serverless limitation for nested fields on indices
+
+> "The default setting for limiting nested fields on indices (index.mapping.nested_fields.limit) is 50. If customers try to create a new index with a higher limit, they will receive the following error: Settings [index.mapping.nested_fields.limit,index.mapping.nested_objects.limit] are not available when running in serverless mode. It's a serverless limitation that can't be overridden without Elastic support involved."
+> -- @Mikaayenson
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3415953216)
+
+3. ES|QL queryability
+
+At the time this RFC was drafted, neither `nested` nor `flattened` were supported in ES|QL. As of March 2026, the picture has changed significantly:
+
+- **`flattened`:** [elasticsearch#144451](https://github.com/elastic/elasticsearch/pull/144451) was merged: "Allow specific keys within a flattened field to be mapped as typed sub-fields (keyword, ip, etc.) via a new "properties" mapping attribute." [elasticsearch#144245](https://github.com/elastic/elasticsearch/pull/144245), which would have enabled ES|QL to load `flattened` fields as JSON strings queryable via `JSON_EXTRACT`, was closed April 8, 2026 in favor of an alternate approach. The active replacement is [elasticsearch#145044](https://github.com/elastic/elasticsearch/pull/145044) ("ESQL: Add Support for Flattened Sub-Fields in ESQL"), currently a draft targeting v9.5.0.
+- **`nested`:** No movement on tracker issue: [ES|QL: support nested fields elasticsearch#107434](https://github.com/elastic/elasticsearch/issues/107434)
+
+`flattened` is therefore the only path to ES|QL queryability in the foreseeable future.
+
+Tradeoffs:
+
+> "With flattened, it would not be possible to query for something like 'system role has a text like helpful bot', [...] the association between the `role` field and the `parts.content` field is lost."
+> — @flash1293
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3380468096)
+
+
+> "We will likely lean on `_source` to access nested dicts in an order preserving fashion."
+> — @joe-desimone
+
+See [comment](https://github.com/elastic/ecs/pull/2532#issuecomment-3470660966)
+
+This trade-off is accepted given the OTel compatibility requirement. ES|QL `flattened` support is in development ([elasticsearch#145044](https://github.com/elastic/elasticsearch/pull/145044)), making `flattened` the only viable path to ES|QL queryability in the foreseeable future.
 
 ## People
 
 The following are the people that consulted on the contents of this RFC.
 
 * @susan-shu-c | author
-
-<!--
-Who will be or has been consulted on the contents of this RFC? Identify authorship and sponsorship, and optionally identify the nature of involvement of others. Link to GitHub aliases where possible. This list will likely change or grow stage after stage.
-
-e.g.:
-
-* @Yasmina | author
-* @Monique | sponsor
-* @EunJung | subject matter expert
-* @JaneDoe | grammar, spelling, prose
-* @Mariana
--->
-
+* @Mikaayenson, @joe-desimone | Security subject matter experts
 
 ## References
 
-<!-- Insert any links appropriate to this RFC in this section. -->
+### In-line references for this RFC
+
+[1] https://github.com/elastic/ecs/pull/2532#issuecomment-4121325575
+[2] GH issue can be provided upon request
+
+### General
 
 * https://opentelemetry.io/blog/2024/otel-generative-ai/
 * https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-events/
@@ -225,11 +189,6 @@ e.g.:
 
 ### RFC Pull Requests
 
-<!-- An RFC should link to the PRs for each of it stage advancements. -->
-
 * Stage 0: https://github.com/elastic/ecs/pull/2519
-
-<!--
-* Stage 1: https://github.com/elastic/ecs/pull/NNN
-...
--->
+* Stage 1: https://github.com/elastic/ecs/pull/2525
+* Stage 2: https://github.com/elastic/ecs/pull/2532
