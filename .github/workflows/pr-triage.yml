@@ -1,0 +1,310 @@
+name: PR Triage
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to triage"
+        required: true
+        type: string
+      model:
+        description: "AI model override (provider/model format). Leave empty to use LITELLM_MODEL secret."
+        required: false
+        default: "llm-gateway/claude-opus-4-6"
+        type: string
+
+# Cancel in-progress when a new run starts for the same PR (e.g. new push).
+concurrency:
+  group: pr-triage-${{ github.event.pull_request.number || inputs.pr_number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Phase A: Triage — OpenCode + LiteLLM with read-only GitHub access.
+  # ---------------------------------------------------------------------------
+  triage:
+    name: "Triage PR"
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pr_number: ${{ steps.pr.outputs.number }}
+
+    steps:
+      - name: Resolve PR number
+        id: pr
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_FROM_EVENT: ${{ github.event.pull_request.number }}
+          INPUT_PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "number=${INPUT_PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          else
+            echo "number=${PR_FROM_EVENT}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@1.4.6
+
+      - name: Resolve model
+        id: model
+        env:
+          INPUT_MODEL: ${{ inputs.model }}
+          LITELLM_MODEL: ${{ secrets.LITELLM_MODEL }}
+          DEFAULT_MODEL: ${{ vars.LITELLM_MODEL_DEFAULT || 'llm-gateway/claude-opus-4-6' }}
+        run: |
+          if [ -n "${INPUT_MODEL:-}" ]; then
+            echo "model=${INPUT_MODEL}" >> "$GITHUB_OUTPUT"
+          else
+            echo "model=${LITELLM_MODEL:-${DEFAULT_MODEL}}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure OpenCode for LiteLLM
+        env:
+          LITELLM_BASE_URL: ${{ secrets.LITELLM_BASE_URL }}
+          LITELLM_MODEL: ${{ steps.model.outputs.model }}
+        run: |
+          set -euo pipefail
+          LITELLM_BASE_URL="${LITELLM_BASE_URL:-https://elastic.litellm-prod.ai}"
+          cat > "$GITHUB_WORKSPACE/opencode.json" <<OCEOF
+          {
+            "\$schema": "https://opencode.ai/config.json",
+            "snapshot": false,
+            "provider": {
+              "litellm": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "LiteLLM",
+                "options": {
+                  "baseURL": "${LITELLM_BASE_URL}",
+                  "apiKey": "{env:LITELLM_API_KEY}"
+                },
+                "models": {
+                  "${LITELLM_MODEL}": {
+                    "name": "${LITELLM_MODEL}"
+                  }
+                }
+              }
+            }
+          }
+          OCEOF
+
+      - name: Build prompt and run triage
+        env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+          MODEL: litellm/${{ steps.model.outputs.model }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          PROMPT_FILE="$RUNTIME/prompt.md"
+          REPORT_FILE="$RUNTIME/pr-triage-report.md"
+          TRANSCRIPT_FILE="$RUNTIME/agent-transcript.md"
+          export HOME="$RUNTIME/home"
+          mkdir -p "$RUNTIME" "$HOME"
+
+          {
+            cat <<EOF
+          # ECS PR Triage (GitHub Actions)
+
+          You are an automated triage agent for the Elastic Common Schema (ECS) repository.
+
+          ## Repository and PR
+
+          - **Repository:** \`${REPO}\`
+          - **PR number:** \`${PR_NUMBER}\`
+
+          ## Tools
+
+          Use \`gh\` with the environment token to read the PR:
+
+          - \`gh pr view ${PR_NUMBER} --repo ${REPO}\`
+          - \`gh pr view ${PR_NUMBER} --repo ${REPO} --json title,author,body,files,additions,deletions,baseRefName,headRefName\`
+          - \`gh pr diff ${PR_NUMBER} --repo ${REPO}\`
+
+          ## What to do
+
+          1. Inventory PR context (title, author, body, files, diff) per the ecs-pr-triage skill.
+          2. Classify per **classification-rules** (priority order). Assign change type and scope.
+          3. Check completeness per **ecs-pr-completeness** and related rules.
+          4. Produce the triage report using the **report-template** structure (filled markdown, not the placeholder template text).
+          5. If classification is **Needs RFC**, reference **ecs-rfc-guide** and point to \`rfcs/PROCESS.md\` and \`rfcs/0000-rfc-template.md\`.
+
+          ## Output (required)
+
+          Write the final **PR Triage Report** as GitHub-flavored markdown to this exact path:
+
+          \`${REPORT_FILE}\`
+
+          The file must contain only the report (start with \`## PR Triage Report\`). If you cannot create the file, output **only** the report markdown to stdout with no preamble.
+
+          ---
+
+          ## Inline assets — ecs-pr-triage
+
+          ### SKILL.md
+
+          EOF
+            cat .agents/skills/ecs-pr-triage/SKILL.md
+            echo ""
+            echo "### classification-rules.md"
+            echo ""
+            cat .agents/skills/ecs-pr-triage/classification-rules.md
+            echo ""
+            echo "### report-template.md"
+            echo ""
+            cat .agents/skills/ecs-pr-triage/report-template.md
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Inline assets — ecs-rfc-guide"
+            echo ""
+            cat .agents/skills/ecs-rfc-guide/SKILL.md
+            echo ""
+            echo "---"
+            echo ""
+            echo "## Inline assets — Cursor rules (.mdc)"
+            echo ""
+            echo "### ecs-contribution-routing.mdc"
+            echo ""
+            cat .agents/rules/ecs-contribution-routing.mdc
+            echo ""
+            echo "### ecs-schema-standards.mdc"
+            echo ""
+            cat .agents/rules/ecs-schema-standards.mdc
+            echo ""
+            echo "### ecs-pr-completeness.mdc"
+            echo ""
+            cat .agents/rules/ecs-pr-completeness.mdc
+          } > "$PROMPT_FILE"
+
+          echo "=== ECS PR Triage (OpenCode) ==="
+          echo "PR: ${REPO}#${PR_NUMBER}"
+          echo "Model: ${MODEL}"
+          echo ""
+
+          if opencode run "$(cat "$PROMPT_FILE")" --model "$MODEL" 2>&1 | tee "$TRANSCRIPT_FILE"; then
+            echo "[OpenCode completed successfully]"
+          else
+            echo "[OpenCode exited with non-zero status — continuing to collect output]"
+          fi
+
+          if [ ! -s "$REPORT_FILE" ]; then
+            echo "::warning::Report file missing or empty — using transcript as fallback body"
+            {
+              echo "## PR Triage Report"
+              echo ""
+              echo "**PR:** #${PR_NUMBER}"
+              echo "**Note:** Automated triage did not write \`pr-triage-report.md\`. Raw agent output follows."
+              echo ""
+              sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' "$TRANSCRIPT_FILE"
+            } > "$REPORT_FILE"
+          fi
+
+      - name: Redact agent output
+        continue-on-error: true
+        env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+        run: |
+          set -euo pipefail
+          RUNTIME="$GITHUB_WORKSPACE/.pr-triage-runtime"
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          root = Path(os.environ["GITHUB_WORKSPACE"]) / ".pr-triage-runtime"
+          files = [root / "pr-triage-report.md", root / "agent-transcript.md"]
+          env_keys = ["LITELLM_API_KEY"]
+          patterns = [
+              (r'(?i)(authorization\s*:\s*bearer)\s+[^\s]{12,}', r'\1 [REDACTED]'),
+              (r'(?i)(api[_-]?key|token|secret)\s*[:=]\s*[\'"]?[a-z0-9._\-/+=]{12,}[\'"]?', r'\1=[REDACTED]'),
+              (r'\bghp_[A-Za-z0-9]{20,}\b', '[REDACTED_GITHUB_TOKEN]'),
+              (r'\bgithub_pat_[A-Za-z0-9_]{20,}\b', '[REDACTED_GITHUB_PAT]'),
+              (r'\bsk-[A-Za-z0-9]{16,}\b', '[REDACTED_SK_TOKEN]'),
+          ]
+
+          for path in files:
+              if not path.is_file():
+                  continue
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              for env_var in env_keys:
+                  key = os.getenv(env_var)
+                  if key:
+                      text = text.replace(key, f"[REDACTED_{env_var}]")
+              for pattern, replacement in patterns:
+                  text = re.sub(pattern, replacement, text)
+              path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Upload triage output
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pr-triage-output
+          path: ${{ github.workspace }}/.pr-triage-runtime/
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # Phase B: Publish — PR comment only, no AI credentials.
+  # ---------------------------------------------------------------------------
+  publish:
+    name: "Publish triage comment"
+    needs: triage
+    if: always() && needs.triage.result == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Download triage output
+        uses: actions/download-artifact@v8
+        with:
+          name: pr-triage-output
+          path: /tmp/pr-triage-output
+
+      - name: Post triage comment on PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ needs.triage.outputs.pr_number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          REPORT_FILE="/tmp/pr-triage-output/pr-triage-report.md"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          if [ ! -f "$REPORT_FILE" ] || [ ! -s "$REPORT_FILE" ]; then
+            gh pr comment "$PR_NUMBER" --repo "$REPO" --body "## ECS PR Triage
+
+          Triage did not produce a report. See [workflow run](${RUN_URL}) for details.
+
+          ---
+          *Posted by [PR Triage workflow](${RUN_URL})*"
+            exit 0
+          fi
+
+          {
+            echo "## ECS PR Triage (automated)"
+            echo ""
+            cat "$REPORT_FILE"
+            echo ""
+            echo "---"
+            echo "*Posted by [PR Triage workflow](${RUN_URL})*"
+          } > /tmp/pr-triage-comment.md
+
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file /tmp/pr-triage-comment.md
+          echo "::notice::Posted PR triage comment on #${PR_NUMBER}"
