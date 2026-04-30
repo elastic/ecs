@@ -72,11 +72,17 @@ jobs:
 
       - name: Configure OpenCode for LiteLLM
         env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
           LITELLM_BASE_URL: ${{ secrets.LITELLM_BASE_URL }}
           LITELLM_MODEL: ${{ steps.model.outputs.model }}
         run: |
           set -euo pipefail
           LITELLM_BASE_URL="${LITELLM_BASE_URL:-https://elastic.litellm-prod.ai}"
+          if [ -z "${LITELLM_API_KEY:-}" ]; then
+            echo "::error::LITELLM_API_KEY secret is not set. Add it at Settings → Secrets → Actions."
+            exit 1
+          fi
+          echo "::add-mask::${LITELLM_API_KEY}"
           cat > "$GITHUB_WORKSPACE/opencode.json" <<OCEOF
           {
             "\$schema": "https://opencode.ai/config.json",
@@ -87,7 +93,7 @@ jobs:
                 "name": "LiteLLM",
                 "options": {
                   "baseURL": "${LITELLM_BASE_URL}",
-                  "apiKey": "{env:LITELLM_API_KEY}"
+                  "apiKey": "${LITELLM_API_KEY}"
                 },
                 "models": {
                   "${LITELLM_MODEL}": {
