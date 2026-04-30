@@ -5,7 +5,7 @@ on:
   # even for fork PRs. We only checkout the base branch (for skills/rules);
   # the agent reads the PR diff via `gh` — no fork code is checked out.
   pull_request_target:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
     inputs:
       pr_number:
@@ -29,6 +29,9 @@ jobs:
   # ---------------------------------------------------------------------------
   triage:
     name: "Triage PR"
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
