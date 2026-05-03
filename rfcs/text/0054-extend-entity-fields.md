@@ -30,14 +30,16 @@ Where a field is multi-valued in ECS, the type is written as **`keyword (list)`*
 | entity.lifecycle.last_activity | date | User, Host, Service | Timestamp of the most recent action performed by or attributed to this entity (active use). Distinct from **`entity.last_seen_timestamp`**, which records when the entity was last observed in data; `last_activity` implies the entity was active, not only seen. |
 | entity.relationships.owns | object | all | Identifiers of assets or identities this entity owns. Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). |
 | entity.relationships.depends_on | object | all | Identifiers of entities this entity **requires for operation**—for example: a service depending on a database or upstream API, an application depending on an identity provider, or a workload depending on a host or cluster. Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). |
-| entity.relationships.supervises | object | all | Identifiers of entities this entity supervises, manages, or is responsible for (e.g. manager–reporting-line or org hierarchy). Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). |
-| entity.relationships.administers | object | all | Identifiers of entities that this entity administers (for example managed hosts, delegated accounts, or administered resources). Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). |
+| entity.relationships.supervises | object | all | **Organizational / people management:** identities this entity supervises in a reporting or org-chart sense (manager ↔ report, skip-level visibility), not technical administration of systems or tenants. Use **`administers`** for delegated or technical admin over hosts, services, directories, or cloud scope. Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). Most sources populate this when the subject entity is a **User** and the targets are other people (often referenced via `user.*` keys); other entity types are not excluded by schema but are uncommon for this relationship. |
+| entity.relationships.administers | object | all | **Technical or delegated administration:** hosts, services, accounts, directories, or other resources this entity **administers** in an IAM or ops sense (for example Entra ID / Microsoft 365 admin roles, GCP organization or project admins, endpoint policy admins)—distinct from **manager ↔ employee** relationships captured under **`supervises`**. Value **must** be an object whose keys are those defined in [Allowed keys on `entity.relationships.*` objects](#allowed-keys-on-entityrelationships-objects). |
 
 _Indicative only; specific integrations may justify exceptions. **all** under Applied Entity Type means User, Host, or Service whenever the relationship applies to that normalized entity._
 
 ### Relationship identifier structure
 
 Source systems often provide relationships as **arrays of objects** (e.g. supervised users with `email`, `id`, `name`). ECS entity indices and ESQL usage favor **flat** mappings: nested object lists are difficult to query under current ESQL nested support.
+
+For **`supervises`** vs **`administers`**, see the [Fields](#fields) table: **`supervises`** is org / reporting-line context between people; **`administers`** is technical or delegated administration over resources (hosts, services, directories, cloud scope)—aligned with product semantics called out in [PR discussion](https://github.com/elastic/ecs/pull/2598#discussion_r3148855473).
 
 Each relationship object holds parallel identifier arrays keyed only by the allowed property names; it does not preserve which `user.email` value pairs with which `user.id` in a single structure. Correlation and pairing are expected to be resolved by entity-building logic or downstream normalization (similar in spirit to populating `related.user`, `related.host`, etc. with parallel arrays).
 
@@ -108,6 +110,10 @@ Example:
         "supervises": {
           "user.email": ["erik@corp.example"],
           "user.id": ["00u1234567890"]
+        },
+        "administers": {
+          "service.name": ["exchange-online"],
+          "host.id": ["lap-contoso-01"]
         }
       }
     }
