@@ -8,7 +8,7 @@ ECS is an open source project and we love to receive contributions from our comm
 ## Table of Contents
 
 - [How to contribute](#how-to-contribute)
-- - [Special guidance during OTel donation of ECS](#special-guidance-during-otel-donation-of-ecs)
+  - [Relationship with OpenTelemetry](#relationship-with-opentelemetry)
   - [Dev Tools](#dev-tools)
   - [Submitting Changes](#submitting-changes)
 - [Git and Github Guidelines](#git-and-github-guidelines)
@@ -30,30 +30,13 @@ ECS is an open source project and we love to receive contributions from our comm
 
 ## How to contribute
 
-### ECS donation to OpenTelemetry
-
-In April 2023, Elastic and OpenTelemetry made an [important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/): Elastic intends to align the Elastic Common Schema (ECS) with
-OpenTelemetry (OTel) Semantic Conventions, aiming to create a unified, community-maintained standard under OpenTelemetry.
-
-During the contribution process, several guidelines have been added to allow contributions to ECS, ensuring they are aligned with OpenTelemetry.
-
-#### How to contribute during ECS donation to OpenTelemetry
-
-While ECS is being contributed to OpenTelemetry, schema changes are still possible—but they should align with how the changes could eventually be integrated into OpenTelemetry.
-
 For significant changes—like new top-level fieldsets, use cases, or anything potentially controversial—follow the [ECS RFC process](rfcs/PROCESS.md).
 
 Minor changes (e.g., bug fixes or small field additions) can go directly through pull requests to the ECS repository.
 
-When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions. Contributors should seek guidance from ECS maintainers or the Semantic Conventions community if in doubt.
+### Relationship with OpenTelemetry
 
-Any changes proposed for ECS should also be submitted to the [OpenTelemetry Semantic Conventions repository](https://github.com/open-telemetry/semantic-conventions)—either before or in parallel; however, your Otel PR does not need to be merged first.
-
-#### ECS releases during the donation to OpenTelemetry
-
-ECS will be released at the discretion of the ECS team as schema changes are approved. Releases will not necessarily align with every Elastic Stack release.
-
-While ECS updates will coincide with Elastic Stack releases, not every stack version will trigger an ECS release.
+ECS shares common ground with [OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions). When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions. Contributors should seek guidance from ECS maintainers or the Semantic Conventions community if in doubt.
 
 ### Dev Tools
 
@@ -220,7 +203,7 @@ Users consuming ECS to generate something for other use cases should use the `ge
 
 ### OTel Mappings
 
-Because ECS is being aligned with OpenTelemetry Semantic Conventions, ECS fields that overlap with or relate to OTel Semantic Conventions should declare that relationship via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is validated during generation and used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
+ECS fields that overlap with or relate to OTel Semantic Conventions can declare that relationship via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
 
 A field's `otel:` entry is a list of mappings, each with a `relation` type:
 

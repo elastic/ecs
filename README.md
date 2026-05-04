@@ -9,13 +9,9 @@ ingesting data into Elasticsearch. A common schema helps you correlate
 data from sources like logs and metrics or IT operations
 analytics and security analytics.
 
-## ECS Donation to OpenTelemetry
-In April 2023, OpenTelemetry and Elastic made an
-[important joint announcement](https://opentelemetry.io/blog/2023/ecs-otel-semconv-convergence/).
-In this announcement, we shared our intention to achieve convergence of ECS and OTel
-Semantic Conventions into a single standard maintained by OpenTelemetry.
+## ECS and OpenTelemetry
 
-Special guidance is provided during the donation period. Please review the [contribution guide](CONTRIBUTING.md).
+ECS shares common ground with [OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions). See the [contribution guide](CONTRIBUTING.md) for details.
 
 ## Documentation
 
