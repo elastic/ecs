@@ -102,9 +102,6 @@ def _sort_entries_in_section(text: str) -> str:
     return "\n".join(result)
 
 
-# ── Public API ──────────────────────────────────────────────────────
-
-
 def _cut_changelog(version: str, title: str, repo_root: str = ".") -> str:
     """Shared implementation for changelog cutting.
 
@@ -130,22 +127,6 @@ def _cut_changelog(version: str, title: str, repo_root: str = ".") -> str:
     return content[start:] if start != -1 else ""
 
 
-def cut_feature_freeze(version: str, repo_root: str = ".") -> str:
-    """Cut changelog for a feature freeze (minor release).
-
-    Titles the section ``## {version} (Feature Freeze)``.
-    """
-    return _cut_changelog(version, f"{version} (Feature Freeze)", repo_root)
-
-
-def cut_release(version: str, repo_root: str = ".") -> str:
-    """Cut changelog for a direct release (patch release, no FF).
-
-    Titles the section ``## {version}``.
-    """
-    return _cut_changelog(version, version, repo_root)
-
-
 def _find_version_section(text: str, version: str) -> tuple[int, int]:
     """Return (start, end) char offsets of the ``## {version} …`` section.
 
@@ -161,6 +142,25 @@ def _find_version_section(text: str, version: str) -> tuple[int, int]:
     next_h2 = re.search(r"\n## ", rest)
     end = m.end() + next_h2.start() if next_h2 else len(text)
     return start, end
+
+
+# ── Public API ──────────────────────────────────────────────────────
+
+
+def cut_feature_freeze(version: str, repo_root: str = ".") -> str:
+    """Cut changelog for a feature freeze (minor release).
+
+    Titles the section ``## {version} (Feature Freeze)``.
+    """
+    return _cut_changelog(version, f"{version} (Feature Freeze)", repo_root)
+
+
+def cut_release(version: str, repo_root: str = ".") -> str:
+    """Cut changelog for a direct release (patch release, no FF).
+
+    Titles the section ``## {version}``.
+    """
+    return _cut_changelog(version, version, repo_root)
 
 
 def get_section_text(version: str, repo_root: str = ".") -> str:
