@@ -1,0 +1,26 @@
+---
+description: ECS contribution routing — direct PR vs RFC
+alwaysApply: true
+---
+
+# ECS contribution routing
+
+## Two paths
+
+- **Direct PR** — Minor, non-controversial work: bugfixes, small additive changes to existing fieldsets that follow established patterns, tooling, tests, CI, hand-authored docs (not generated reference), `CHANGELOG.next.md`.
+- **RFC (Proposal)** — Substantial or risky work per [rfcs/README.md](rfcs/README.md): breaking changes for the next major, **new top-level fieldsets** (`schemas/<new>.yml`), **new fields for an unaddressed use case**, or changes that **alter ECS scope**.
+
+## Authoritative docs
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) — workflow, `make` / `make test` / `make check`, changelogs, OTel `otel:` blocks.
+- [rfcs/PROCESS.md](rfcs/PROCESS.md) — single **Proposal** stage, target maturity (alpha/beta), committee questions.
+- [rfcs/0000-rfc-template.md](rfcs/0000-rfc-template.md) — required sections; remove template comments when done.
+- [schemas/README.md](schemas/README.md) — field and field set YAML rules.
+
+## OTel alignment
+
+Schema changes should consider eventual OTel alignment: naming, types, overlaps. New/changed fields that relate to semconv need correct `otel:` metadata (see CONTRIBUTING).
+
+## Triage default
+
+When in doubt between direct PR and RFC, **prefer RFC** or flag **needs maintainer discussion** rather than under-scoping review.
