@@ -209,7 +209,7 @@ Users consuming ECS to generate something for other use cases should use the `ge
 
 ### OTel Mappings
 
-ECS fields that overlap with or relate to OTel Semantic Conventions can declare that relationship via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
+ECS fields that overlap with or relate to OTel Semantic Conventions should declare that relationship via an `otel:` block in the relevant `schemas/*.yml` file. This metadata is used to produce the [OTel alignment documentation](docs/reference/ecs-otel-alignment-overview.md).
 
 A field's `otel:` entry is a list of mappings, each with a `relation` type:
 
