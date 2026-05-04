@@ -15,6 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
+"""CSV Field Reference Generator.
+
+Generates generated/csv/fields.csv with one row per field (plus a row per multi-field).
+Columns: ECS_Version, Indexed, Field_Set, Field, Type, Level, Normalization, Example, Description.
+Base fields (no dots in name) are sorted first; all others alphabetically.
+"""
+
 import _csv
 import csv
 import sys
@@ -31,12 +38,14 @@ from ecs_types import (
 
 
 def generate(ecs_flat: Dict[str, Field], version: str, out_dir: str) -> None:
+    """Generate generated/csv/fields.csv from the flat field dictionary."""
     ecs_helpers.make_dirs(join(out_dir, 'csv'))
     sorted_fields = base_first(ecs_flat)
     save_csv(join(out_dir, 'csv/fields.csv'), sorted_fields, version)
 
 
 def base_first(ecs_flat: Dict[str, Field]) -> List[Field]:
+    """Sort fields: base fields (no dots) first, then all others alphabetically."""
     base_list: List[Field] = []
     sorted_list: List[Field] = []
     for field_name in sorted(ecs_flat):
@@ -48,6 +57,11 @@ def base_first(ecs_flat: Dict[str, Field]) -> List[Field]:
 
 
 def save_csv(file: str, sorted_fields: List[Field], version: str) -> None:
+    """Write sorted fields to CSV. Multi-fields get their own rows with empty normalization.
+
+    Field_Set is 'base' for fields with no dots, otherwise the first path segment.
+    Indexed is 'true'/'false' (lowercase). Normalization is comma-separated or empty.
+    """
     open_mode: str = "wb"
     if sys.version_info >= (3, 0):
         open_mode: str = "w"

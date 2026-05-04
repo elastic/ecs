@@ -25,3 +25,16 @@ pull_request_rules:
         branches:
           - main
         title: "[{{ destination_branch }}] (forwardport #{{ number }}) {{ title }}"
+
+  - name: forward-port changes to main
+    conditions:
+      - merged
+      - label=needs_forward_port
+      - base~=^\d+\.
+    actions:
+      backport:
+        branches:
+          - main
+        labels:
+          - forward_port
+        title: "[{{ destination_branch }}] (forwardport #{{ number }}) {{ title }}"

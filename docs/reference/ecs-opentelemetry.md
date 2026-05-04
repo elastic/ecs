@@ -1,6 +1,9 @@
 ---
 mapped_pages:
   - https://www.elastic.co/guide/en/ecs/master/ecs-opentelemetry.html
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # ECS & OpenTelemetry [ecs-opentelemetry]

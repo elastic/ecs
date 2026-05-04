@@ -1,5 +1,8 @@
 ---
 navigation_title: "Deprecations"
+applies_to:
+  stack: all
+  serverless: all
 ---
 
 # ECS deprecations [ecs-deprecations]

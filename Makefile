@@ -6,7 +6,6 @@ FIND             := find . -type f -not -path './build/*' -not -path './.git/*'
 OPEN_DOCS        ?= "--open"
 PYTHON           := build/ve/bin/python
 SUBSETS_DIR      := schemas/subsets/
-EXP_SUBSETS_DIR  := experimental/schemas/subsets/
 VERSION          := $(shell cat version)
 SEMCONV_VERSION  := $(shell cat otel-semconv-version)
 
@@ -14,14 +13,14 @@ SEMCONV_VERSION  := $(shell cat otel-semconv-version)
 # Targets (sorted alphabetically)
 #
 
-# Default build generates main and experimental artifacts
+# Default build generates all artifacts
 .PHONY: all
-all: generate experimental
+all: generate
 
 # Check verifies that all of the committed files that are generated are
 # up-to-date.
 .PHONY: check
-check: generate experimental test fmt misspell_warn makelint
+check: generate test fmt misspell_warn makelint
 	# Check if diff is empty.
 	git diff | cat
 	git update-index --refresh
@@ -39,7 +38,7 @@ check_license_headers:
 # Clean deletes all temporary and generated content.
 .PHONY: clean
 clean:
-	rm -rf build generated/elasticsearch/composable/component experimental/generated/elasticsearch/composable/component
+	rm -rf build generated/elasticsearch/composable/component
 	# Clean generated documentation files
 	@echo "Removing generated documentation files..."
 	@rm -f docs/reference/index.md docs/reference/ecs-field-reference.md docs/reference/ecs-otel-alignment-details.md docs/reference/ecs-otel-alignment-overview.md
@@ -98,11 +97,6 @@ docs:
 		$(PWD)/build/docs/docs-builder serve; \
 	fi
 
-# Alias to generate experimental artifacts
-.PHONY: experimental
-experimental: ve
-	$(PYTHON) scripts/generator.py --include experimental/schemas --subset "${SUBSETS_DIR}" "${EXP_SUBSETS_DIR}" --semconv-version "${SEMCONV_VERSION}" --out experimental
-
 # Format code and files in the repo.
 .PHONY: fmt
 fmt: ve
@@ -134,7 +128,7 @@ misspell:
 		chmod +x ./build/misspell/install-misspell.sh ; \
 		./build/misspell/install-misspell.sh -b ./build/misspell/bin >> /dev/null 2>&1 ; \
 	fi
-	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/* experimental/schemas/*
+	./build/misspell/bin/misspell -error README.md CONTRIBUTING.md schemas/* docs/*
 
 # Warn re misspell removal
 .PHONY: misspell_warn

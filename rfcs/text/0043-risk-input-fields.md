@@ -3,6 +3,8 @@
 - Stage: **0 (strawperson)**
 - Date: **2023-09-22** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
+> **Status (process transition, April 2026):** The proposed fields were never merged into the ECS schema. The multi-stage RFC process has been retired in favor of the single-stage Proposal process. This RFC is considered inactive. If there is continued interest in these fields, a new proposal can be submitted under the current process.
+
 ### Summary
 This RFC aims to add a few general fields that, when defined on a document, will allow that document containing them to be consumed by Kibana's Risk Engine for the purposes of entity analytics.
 

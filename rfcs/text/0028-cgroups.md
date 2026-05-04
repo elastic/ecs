@@ -4,6 +4,8 @@
 - Stage: **1 (strawperson)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-11-05** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
+> **Status (process transition, April 2026):** The experimental `cgroup.*` fields proposed in this RFC have been removed from the repository. Analysis found zero adoption: no integration imports these fields, Metricbeat handles cgroup v1/v2 differences internally via its own `system.process.cgroup.*` namespace (~80+ fields), and the ECS-level abstraction for container resource metrics already exists as `container.cpu.usage` and `container.memory.usage` (GA). The multi-stage RFC process has been retired in favor of the single-stage Proposal process. If there is renewed interest in ECS-level cgroup fields, a new proposal can be submitted under the current process.
+
 <!--
 As you work on your RFC, use the "Stage N" comments to guide you in what you should focus on, for the stage you're targeting.
 Feel free to remove these comments as you go along.

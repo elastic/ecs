@@ -3,6 +3,8 @@
 Stage: 0
 Date: 2022-12-16
 
+> **Status (process transition, April 2026):** The proposed fields were never merged into the ECS schema. The multi-stage RFC process has been retired in favor of the single-stage Proposal process. This RFC is considered inactive. If there is continued interest in these fields, a new proposal can be submitted under the current process.
+
 This RFC will provide normalization for fields related to authentication fields to assure that they are retained primarily in ECS core and in any extended fieldset when needed. These fields are important to normalize into ECS fields in order to maximize effectiveness of cross log utilization. 
 
 ## Fields

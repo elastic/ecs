@@ -4,6 +4,8 @@
 - Stage: **2 (candidate)** <!-- Update to reflect target stage -->
 - Date: **2021-07-28** <!-- Update to reflect date of most recent stage advancement -->
 
+> **Status (process transition, April 2026):** The fields proposed in this RFC have been merged into the ECS schema as **beta**. This RFC was not formally advanced through the remaining stages before the multi-stage RFC process was retired in favor of the single-stage Proposal process. No further action is needed on this RFC. Beta fields will be evaluated for GA promotion under the field lifecycle process.
+
 <!--
 Stage 0: Provide a high level summary of the premise of these changes. Briefly describe the nature, purpose, and impact of the changes. ~2-5 sentences.
 -->

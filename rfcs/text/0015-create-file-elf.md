@@ -3,6 +3,8 @@
 - Stage: **2 (candidate)**
 - Date: **2021-05-04**
 
+> **Status (process transition, April 2026):** The fields proposed in this RFC have been merged into the ECS schema as **GA**. This RFC was not formally advanced through the remaining stages before the multi-stage RFC process was retired in favor of the single-stage Proposal process. No further action is needed on this RFC.
+
 Create the Executable Linkable Format (ELF) sub-field, of the `file` top-level fieldset. This document metadata can be used for malware research, as well as coding and other application development efforts.
 
 ## Fields

@@ -4,6 +4,8 @@
 - Stage: **2 (candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date: **2021-04-19** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
+> **Status (process transition, April 2026):** The fields proposed in this RFC have been merged into the ECS schema as **beta**. This RFC was not formally advanced through the remaining stages before the multi-stage RFC process was retired in favor of the single-stage Proposal process. No further action is needed on this RFC. Beta fields will be evaluated for GA promotion under the field lifecycle process.
+
 When introducing the new indexing strategy for Elastic Agent which uses data streams, we found that adding a few [constant_keyword](https://www.elastic.co/guide/en/elasticsearch/reference/master/keyword.html#constant-keyword-field-type) fields corresponding to the central components in the new indexing strategy would be advantageous.
 
 

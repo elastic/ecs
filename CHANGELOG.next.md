@@ -6,56 +6,6 @@
 
 Thanks, you're awesome :-) -->
 
-## 9.3.0 (Feature Freeze)
-
-### Schema Changes
-
-#### Added
-
-* Added `cloud` and `orchestrator` as allowed values for `entity.type`. #2567
-* Allow entity fields at root level. #2567
-* Added `entity.target` for self-nesting. #2567
-* Added the target field to be nested under host #2571
-
-#### Improvements
-
-* Added details for implementation of url.query to avoid ambiguity #2488
-
-## Unreleased
-
-### Schema Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-* Added `cloud` and `orchestrator` as allowed values for `entity.type`. #2567
-* Allow entity fields at root level. #2567
-* Added `entity.target` for self-nesting. #2567
-* Added the target field to be nested under host #2571
-
-#### Improvements
-
-* Added details for implementation of url.query to avoid ambiguity #2488
-
-#### Deprecated
-
-### Tooling and Artifact Changes
-
-#### Breaking changes
-
-#### Bugfixes
-
-#### Added
-
-#### Improvements
-
-#### Deprecated
-
-<!-- All empty sections:
-
 ## Unreleased
 
 ### Schema Changes
@@ -80,6 +30,20 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
+
 #### Deprecated
 
--->
+## 9.4.0 (Feature Freeze)
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
+* Document field stability definitions (alpha, beta, GA) in design principles. #2599
+
+#### Improvements
+
+* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
+* Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. #2599

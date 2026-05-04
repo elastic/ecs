@@ -34,8 +34,12 @@ Optional field set attributes:
   See "Field set reuse" for details.
 - short_override: Used to override the top-level fieldset's short description when nesting.
   See "Field set reuse" for details.
+- alpha: Adds an alpha marker for the entire fieldset. The text provided in this attribute is used as content of the alpha marker in the documentation.
+  Alpha notices should not have newlines. A field set cannot have both `alpha` and `beta`.
+  See [Field stability](/reference/ecs-principles-design.md#_field_stability) for definitions.
 - beta: Adds a beta marker for the entire fieldset. The text provided in this attribute is used as content of the beta marker in the documentation.
-  Beta notices should not have newlines.
+  Beta notices should not have newlines. A field set cannot have both `alpha` and `beta`.
+  See [Field stability](/reference/ecs-principles-design.md#_field_stability) for definitions.
 
 ### Field set reuse
 
@@ -112,8 +116,8 @@ The above defines all process fields in both places:
 }
 ```
 
-The `beta` marker can optionally be used along with `at` and `as` to include a beta marker in the field reuses section, marking specific reuse locations as beta.
-Beta notices should not have newlines.
+The `alpha` or `beta` marker can optionally be used along with `at` and `as` to include a maturity marker in the field reuses section, marking specific reuse locations as alpha or beta.
+These notices should not have newlines. A reuse entry cannot have both `alpha` and `beta`.
 
 ```YAML
   reusable:
@@ -121,6 +125,9 @@ Beta notices should not have newlines.
     expected:
     - at: user
       as: target
+      alpha: Reusing these fields in this location is currently considered alpha.
+    - at: user
+      as: effective
       beta: Reusing these fields in this location is currently considered beta.
 ```
 
@@ -169,7 +176,34 @@ Supported keys to describe fields
 - expected_values (optional): An array of expected values for the field. Schema consumers can validate integrations and mapped data against the listed values. These values are the recommended convention, but users may also use other values.
 - normalize: Normalization steps that should be applied at ingestion time. Supported values:
   - array: the content of the field should be an array (even when there's only one value).
-- beta (optional): Adds a beta marker for the field to the description. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines.
+- alpha (optional): Adds an alpha marker for the field. The text provided in this attribute is used as content of the alpha marker in the documentation. Note that when a whole field set is marked as alpha, it is not necessary nor recommended to mark all fields in the field set as alpha. Alpha notices should not have newlines. A field cannot have both `alpha` and `beta`.
+- beta (optional): Adds a beta marker for the field. The text provided in this attribute is used as content of the beta marker in the documentation. Note that when a whole field set is marked as beta, it is not necessary nor recommended to mark all fields in the field set as beta. Beta notices should not have newlines. A field cannot have both `alpha` and `beta`.
+- otel (optional): List of OTel Semantic Conventions mappings for this field. Each entry requires a `relation`
+  key describing the relationship between this ECS field and an OTel attribute or metric. Additional properties
+  are required or forbidden depending on the relation type. See the
+  [OTel Mappings](../CONTRIBUTING.md#otel-mappings) section of CONTRIBUTING.md for the full relation type
+  reference and validation rules.
+
+  ```YAML
+  otel:
+    - relation: match
+  ```
+
+  ```YAML
+  otel:
+    - relation: equivalent
+      attribute: exception.message
+  ```
+
+#### Guidance on `object` and `flattened` field types
+
+An `object` type field with no defined children creates a namespace where any producer can define arbitrary subfields with any type. This bypasses ECS's type coordination guarantees — conflicts between producers cannot be detected or prevented by ECS.
+
+A `flattened` type field indexes all leaf values as keywords regardless of their actual type. This avoids the mapping explosion that `object` causes when the key names are arbitrary (e.g., HTTP headers), but it sacrifices typed querying and aggregation.
+
+Use of `object` with no defined children is acceptable only when the field represents **opaque, source-specific data** with a **homogeneous and well-defined shape** — for example, string keys with string values only (like `labels` and `container.labels`). Use of `flattened` is acceptable when the key names are arbitrary and unbounded, making `object` impractical due to mapping explosion (e.g., raw event payloads like `entity.raw`).
+
+Neither type is appropriate when the subfields carry semantic meaning that consumers would need to query or aggregate on independently. In those cases, the subfields **must** be defined as explicit leaf fields in the schema with specified types and descriptions. Defining a container and deferring leaf definitions to individual integrations defeats the purpose of a common schema.
 
 Supported keys to describe expected values for a field
 
@@ -185,8 +219,8 @@ Supported keys to describe expected values for a field
 ```
 
 - allowed\_values: list of dictionaries with the 'name' and 'description' of the expected values.
-  Optionally, entries in this list can specify 'expected\_event\_types'. The `beta` field is also
-  allowed here and will add a beta marker to the allowed value in the ECS categorization docs.
+  Optionally, entries in this list can specify 'expected\_event\_types'. The `alpha` or `beta` field is also
+  allowed here and will add a maturity marker to the allowed value in the ECS categorization docs.
 - expected\_event\_types: list of expected "event.type" values to use in association
   with that category.
 

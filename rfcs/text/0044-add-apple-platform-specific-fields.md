@@ -4,6 +4,7 @@
 - Stage: **2 (Candidate)** <!-- Update to reflect target stage. See https://elastic.github.io/ecs/stages.html -->
 - Date:  **2024-09-11** <!-- The ECS team sets this date at merge time. This is the date of the latest stage advancement. -->
 
+> **Status (process transition, April 2026):** The fields proposed in this RFC have been merged into the ECS schema. Some fields are **GA** (`code_signature.team_id`, `code_signature.signing_id`, `hash.sha384`) and others remain **beta** (`process.responsible`, `process.endpoint_security_client`, `process.platform_binary`, `macho.*`, `code_signature.flags`, `hash.cdhash`, `device.serial_number`). This RFC was not formally advanced through the remaining stages before the multi-stage RFC process was retired in favor of the single-stage Proposal process. No further action is needed on this RFC. Beta fields will be evaluated for GA promotion under the field lifecycle process.
 
 ### Summary
 This RFC proposes the addition of Apple platform-specific fields to the ECS schema. This enhancement will enable security software vendors to more accurately map out data, particularly for Apple platforms.

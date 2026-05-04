@@ -2,6 +2,8 @@
 - Stage: **0 (strawperson)**
 - Date: **2021/11/24**
 
+> **Status (process transition, April 2026):** The proposed fields were never merged into the ECS schema. The multi-stage RFC process has been retired in favor of the single-stage Proposal process. This RFC is considered inactive. If there is continued interest in these fields, a new proposal can be submitted under the current process.
+
 Most fields only hold single values but this is only partially documented and not formally enforced by elasticsearch mappings.
 Elasticsearch is proposing some [changes to field mappings to allow arrays to be rejected](https://github.com/elastic/elasticsearch/issues/80825).
 If ECS uses the new `allow_multiple_values:false` setting on single valued fields this would:
