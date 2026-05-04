@@ -34,6 +34,12 @@ For significant changes—like new top-level fieldsets, use cases, or anything p
 
 Minor changes (e.g., bug fixes or small field additions) can go directly through pull requests to the ECS repository.
 
+### ECS Releases
+
+ECS will be released at the discretion of the ECS team as schema changes are approved. Releases will not necessarily align with every Elastic Stack release.
+
+While ECS updates will coincide with Elastic Stack releases, not every stack version will trigger an ECS release.
+
 ### Relationship with OpenTelemetry
 
 ECS shares common ground with [OpenTelemetry Semantic Conventions](https://github.com/open-telemetry/semantic-conventions). When writing RFCs or designing fields, keep compatibility with OTel in mind. Pay close attention to naming, data types, and potential overlaps or conflicts with existing or proposed semantic conventions. Contributors should seek guidance from ECS maintainers or the Semantic Conventions community if in doubt.
