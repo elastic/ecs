@@ -1,4 +1,4 @@
-name: "ECS Release: Feature Freeze"
+name: "ECS Release: Release Day"
 
 on:
   workflow_dispatch:
@@ -13,25 +13,24 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ecs-release-${{ inputs.version }}-ff
+  group: ecs-release-${{ inputs.version }}-day
   cancel-in-progress: false
 
 jobs:
-  feature-freeze:
+  release-day:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
 
-      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Run feature freeze
+      - name: Run release day
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           PYTHONPATH: scripts
-        run: python scripts/release_automation/run_ff.py "${{ inputs.version }}"
+        run: python scripts/release_automation/run_day.py "${{ inputs.version }}"

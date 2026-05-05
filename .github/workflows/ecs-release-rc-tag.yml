@@ -1,0 +1,47 @@
+name: "ECS Release: RC Tag"
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  rc-tag:
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'release/') &&
+      contains(github.event.pull_request.head.ref, '/set-rc') &&
+      github.event.pull_request.base.ref != 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Extract version and rc_number from branch name
+        id: parse
+        run: |
+          # Branch format: release/{version}/set-rc{rc_number}
+          BRANCH="${{ github.event.pull_request.head.ref }}"
+          VERSION=$(echo "$BRANCH" | cut -d'/' -f2)
+          RC_NUMBER=$(echo "$BRANCH" | sed 's/.*\/set-rc//')
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "rc_number=$RC_NUMBER" >> "$GITHUB_OUTPUT"
+          echo "Parsed version=$VERSION rc_number=$RC_NUMBER"
+
+      - name: Create RC tag and publish pre-release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PYTHONPATH: scripts
+        run: |
+          python scripts/release_automation/run_rc_tag.py \
+            "${{ steps.parse.outputs.version }}" \
+            "${{ steps.parse.outputs.rc_number }}"
