@@ -32,8 +32,8 @@ from release_automation.helpers import (
     write_summary,
 )
 from release_automation.changelog import (
-	cut_release,
-	cut_feature_freeze,
+    cut_release,
+    cut_feature_freeze,
 )
 
 

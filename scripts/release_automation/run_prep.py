@@ -39,9 +39,9 @@ from release_automation.helpers import (
     write_summary,
 )
 from release_automation.changelog import (
-	extract_section,
-	finalize_changelog,
-	get_section_text,
+    extract_section,
+    finalize_changelog,
+    get_section_text,
 )
 from release_automation.release_notes import update_all
 
