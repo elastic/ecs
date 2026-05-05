@@ -31,17 +31,3 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 #### Deprecated
-
-## 9.4.0 (Feature Freeze)
-
-### Tooling and Artifact Changes
-
-#### Added
-
-* Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
-* Document field stability definitions (alpha, beta, GA) in design principles. #2599
-
-#### Improvements
-
-* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
-* Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. #2599
