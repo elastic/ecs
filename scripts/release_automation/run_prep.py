@@ -45,6 +45,7 @@ from release_automation.changelog import (
 )
 from release_automation.release_notes import update_all
 
+
 def main() -> None:
     version = parse_version(sys.argv, usage="run_prep.py <version>")
     repo = require_repo()
