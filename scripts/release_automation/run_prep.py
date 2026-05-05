@@ -38,7 +38,12 @@ from release_automation.helpers import (
     setup_branch,
     write_summary,
 )
-
+from release_automation.changelog import (
+	extract_section,
+	finalize_changelog,
+	get_section_text,
+)
+from release_automation.release_notes import update_all
 
 def main() -> None:
     version = parse_version(sys.argv, usage="run_prep.py <version>")
@@ -79,7 +84,6 @@ def main() -> None:
     else:
         setup_branch(pr_branch_cl, f"origin/{release_branch}")
 
-        from release_automation.changelog import finalize_changelog
         finalize_changelog(version, prev_version, repo_url, repo_root=".")
 
         commit_and_push(pr_branch_cl, f"Finalize changelog for {version}")
@@ -138,9 +142,6 @@ def main() -> None:
     else:
         setup_branch(pr_branch_rn, f"origin/{release_branch}")
 
-        from release_automation.changelog import extract_section
-        from release_automation.release_notes import update_all
-
         entries = extract_section(version, ".")
         print("Extracted entries:", json.dumps(entries, indent=2))
         update_all(version, entries, repo_url, ".")
@@ -170,7 +171,6 @@ def main() -> None:
         print(f"Release {tag} already exists — skipping.")
         draft_url = f"{repo_url}/releases/tag/{tag}"
     else:
-        from release_automation.changelog import get_section_text
         git("checkout", f"origin/{release_branch}", "--", "CHANGELOG.next.md")
         body_text = get_section_text(version) or Path("CHANGELOG.next.md").read_text()[:3000]
         gh(
