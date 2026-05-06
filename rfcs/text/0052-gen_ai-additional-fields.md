@@ -84,7 +84,7 @@ An ECS event produced from an OpenAI Chat Completions API call instrumented via 
                         "parts": [
                             {
                                 "type": "tool_call_response",
-                                "id": " call_VSPygqKTWdrhaFErNvMV18Yl",
+                                "id": "call_VSPygqKTWdrhaFErNvMV18Yl",
                                 "result": "rainy, 57°F"
                             }
                         ]
