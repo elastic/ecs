@@ -1,0 +1,439 @@
+name: PR Quality Review
+
+on:
+  # pull_request_target runs in the base-repo context so secrets are available for
+  # fork PRs. We checkout the base revision (skills, rules, schema inventory base);
+  # the PR diff is read via `gh`.
+  pull_request_target:
+    types: [opened, synchronize, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to review"
+        required: true
+        type: string
+      model:
+        description: "AI model override (provider/model format). Leave empty for LITELLM_MODEL secret."
+        required: false
+        default: "llm-gateway/claude-opus-4-6"
+        type: string
+
+concurrency:
+  group: pr-review-${{ github.event.pull_request.number || inputs.pr_number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Phase A — OpenCode + LiteLLM + base schema inventory; read-only GH access.
+  # ---------------------------------------------------------------------------
+  review:
+    name: "Review PR (quality)"
+    if: >-
+      github.event_name == 'workflow_dispatch'
+      || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pr_number: ${{ steps.pr.outputs.number }}
+
+    steps:
+      - name: Resolve PR number
+        id: pr
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_FROM_EVENT: ${{ github.event.pull_request.number }}
+          INPUT_PR_NUMBER: ${{ inputs.pr_number }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "number=${INPUT_PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          else
+            echo "number=${PR_FROM_EVENT}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout base revision (skills, rules, schemas for inventory)
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Generate base schema inventory
+        run: |
+          set -euo pipefail
+          python3 -m pip install --user -q PyYAML==6.0.3
+          INV="${GITHUB_WORKSPACE}/pr-review-runtime/schema-inventory.tsv"
+          mkdir -p "$(dirname "$INV")"
+          python3 - <<'PY'
+          import csv
+          import re
+          import pathlib
+          import yaml
+          import os
+
+          schemas_dir = pathlib.Path("schemas")
+          out_path = pathlib.Path(os.environ["GITHUB_WORKSPACE"]) / "pr-review-runtime" / "schema-inventory.tsv"
+          rows = []
+
+          def one_line(desc):
+              if desc is None:
+                  return ""
+              if not isinstance(desc, str):
+                  desc = str(desc)
+              desc = desc.replace("\n", " ").replace("\r", " ")
+              desc = re.sub(r"\s+", " ", desc).strip()
+              return desc[:220]
+
+          def walk(prefix: str, fieldset: str, src: pathlib.Path, entry: dict):
+              name = entry.get("name")
+              if name is None:
+                  return []
+              flat = name if prefix == "" else f"{prefix}.{name}"
+              out = []
+              t = entry.get("type") or ""
+              lvl = entry.get("level") or ""
+              dsc = entry.get("description") or ""
+              out.append({
+                  "flat_name": flat,
+                  "type": t,
+                  "level": lvl,
+                  "fieldset": fieldset,
+                  "source_file": str(src.relative_to(schemas_dir.parent)),
+                  "description_snippet": one_line(dsc),
+              })
+              for sub in entry.get("fields") or []:
+                  out.extend(walk(flat, fieldset, src, sub))
+              return out
+
+          for fp in sorted(schemas_dir.glob("*.yml")):
+              with fp.open(encoding="utf-8") as f:
+                  raw = yaml.safe_load(f.read())
+              if not raw:
+                  continue
+              fs_obj = raw[0]
+              fs_name = fs_obj.get("name", fp.stem)
+              root = bool(fs_obj.get("root", False))
+              base_prefix = "" if root else fs_name
+              for fld in fs_obj.get("fields") or []:
+                  rows.extend(walk(base_prefix, fs_name, fp, fld))
+
+          out_path.parent.mkdir(parents=True, exist_ok=True)
+          with out_path.open("w", encoding="utf-8", newline="") as fh:
+              w = csv.writer(fh, delimiter="\t")
+              w.writerow(
+                  ["flat_name", "type", "level", "fieldset", "source_file", "description_snippet"]
+              )
+              for r in rows:
+                  w.writerow(
+                      [
+                          r["flat_name"],
+                          r["type"],
+                          r["level"],
+                          r["fieldset"],
+                          r["source_file"],
+                          r["description_snippet"],
+                      ]
+                  )
+          print(f"Wrote {len(rows)} inventory rows -> {out_path}")
+          PY
+
+      - name: Install OpenCode CLI
+        run: npm install -g opencode-ai@1.4.6
+
+      - name: Resolve model
+        id: model
+        env:
+          INPUT_MODEL: ${{ inputs.model }}
+          LITELLM_MODEL: ${{ secrets.LITELLM_MODEL }}
+          DEFAULT_MODEL: ${{ vars.LITELLM_MODEL_DEFAULT || 'llm-gateway/claude-opus-4-6' }}
+        run: |
+          if [ -n "${INPUT_MODEL:-}" ]; then
+            echo "model=${INPUT_MODEL}" >> "$GITHUB_OUTPUT"
+          else
+            echo "model=${LITELLM_MODEL:-${DEFAULT_MODEL}}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure OpenCode for LiteLLM
+        env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+          LITELLM_BASE_URL: ${{ secrets.LITELLM_BASE_URL }}
+          LITELLM_MODEL: ${{ steps.model.outputs.model }}
+        run: |
+          set -euo pipefail
+          LITELLM_BASE_URL="${LITELLM_BASE_URL:-https://elastic.litellm-prod.ai}"
+          if [ -z "${LITELLM_API_KEY:-}" ]; then
+            echo "::error::LITELLM_API_KEY secret is not set. Add it at Settings → Secrets → Actions."
+            exit 1
+          fi
+          echo "::add-mask::${LITELLM_API_KEY}"
+          cat > "$GITHUB_WORKSPACE/opencode.json" <<OCEOF
+          {
+            "\$schema": "https://opencode.ai/config.json",
+            "snapshot": false,
+            "provider": {
+              "litellm": {
+                "npm": "@ai-sdk/openai-compatible",
+                "name": "LiteLLM",
+                "options": {
+                  "baseURL": "${LITELLM_BASE_URL}",
+                  "apiKey": "${LITELLM_API_KEY}"
+                },
+                "models": {
+                  "${LITELLM_MODEL}": {
+                    "name": "${LITELLM_MODEL}"
+                  }
+                }
+              }
+            }
+          }
+          OCEOF
+
+      - name: Build prompt and run quality review
+        env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+          MODEL: litellm/${{ steps.model.outputs.model }}
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          RUNTIME="$GITHUB_WORKSPACE/pr-review-runtime"
+          PROMPT_FILE="$RUNTIME/prompt.md"
+          REPORT_FILE="$RUNTIME/pr-review-report.md"
+          TRANSCRIPT_FILE="$RUNTIME/agent-transcript.md"
+          INV_FILE="$RUNTIME/schema-inventory.tsv"
+          DIFF_FILE="$RUNTIME/pr-diff.patch"
+          export HOME="$RUNTIME/home"
+          mkdir -p "$RUNTIME" "$HOME"
+
+          gh pr diff "$PR_NUMBER" --repo "$REPO" --patch > "$DIFF_FILE"
+
+          INV_HEAD_LINES=3500
+          INV_DISPLAY="$INV_FILE"
+          if [ "$(wc -l < "$INV_FILE")" -gt "$INV_HEAD_LINES" ]; then
+            INV_PARTIAL="$RUNTIME/schema-inventory-partial.tsv"
+            {
+              echo "# NOTE: truncated to last ${INV_HEAD_LINES} rows of $(wc -l < "$INV_FILE") total (tab-separated)."
+              tail -n "$INV_HEAD_LINES" "$INV_FILE"
+            } > "$INV_PARTIAL"
+            INV_DISPLAY="$INV_PARTIAL"
+          fi
+
+          PR_JSON=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json title,files,baseRefName,headRefName 2>/dev/null || echo "{}")
+
+          {
+            cat <<EOF
+          # ECS PR Quality Review (GitHub Actions)
+
+          You are an automated **quality review** agent for Elastic Common Schema (ECS). You do **not** route RFCs vs direct PR (see ecs-pr-triage for that): you audit **field quality** and contributor hygiene.
+
+          ## Repository and PR
+
+          - **Repository:** \`${REPO}\`
+          - **PR number:** \`${PR_NUMBER}\`
+
+          ### PR snapshot (JSON)
+
+          \`\`\`json
+          ${PR_JSON}
+          \`\`\`
+
+          ## Attached context
+
+          ### Base-branch schema inventory (TSV excerpt)
+
+          **Path on runner:** Path below is inlined for your analysis. Compare new/changed field paths from the diff against column \`flat_name\`. Columns: \`flat_name\`, \`type\`, \`level\`, \`fieldset\`, \`source_file\`, \`description_snippet\`.
+
+          File (partial if very large):
+
+          \`\`\`tsv
+          EOF
+            cat "$INV_DISPLAY"
+            echo '```'
+            echo ""
+            echo "### PR unified diff (`gh pr diff`)"
+            echo ""
+            echo "\`\`\`diff"
+            if [ "$(wc -c < "$DIFF_FILE")" -gt 120000 ]; then
+              echo "# NOTE: diff truncated — first ~120KiB shown; use gh offline reasoning on visible hunks only."
+              head -c 120000 "$DIFF_FILE"
+              echo ""
+              echo "... [truncated] ..."
+            else
+              cat "$DIFF_FILE"
+            fi
+            echo '```'
+            echo ""
+            cat <<'EOF'
+
+          ## Tools
+
+          If you need refreshed metadata, read from the runner with `gh` (token in env):
+
+          - `gh pr view <PR> --repo <repo> --json title,author,body,files,...`
+          - `gh pr diff <PR> --repo <repo>`
+
+          ## What to do
+
+          Follow the **ecs-pr-review** SKILL: inventory scope, parse schema YAML hunks, apply **quality-rules.md** rules (map every finding to a Rule ID and High/Medium/Low), dedupe overlaps, produce the report exactly per **report-template.md**.
+
+          ## Output (required)
+
+          Write the final **ECS PR Quality Review** as GitHub-flavored markdown to:
+
+          `\`${REPORT_FILE}\``
+
+          The file MUST:
+          - Begin with `# ECS PR Quality Review (automated)` (H1 as the title line).
+          - On the next line or immediately after title, include **Overall:** **`High: N | Medium: M | Low: L`** inferred across findings.
+          - Include `### Summary details` with **2–4 bullets** capturing top themes before the collapsible severity sections.
+          - Use `<details><summary>High Severity (…)</summary>` (and similarly Medium, Low), each filled or explicitly stating zero findings.
+
+          If you cannot create the file, output **only** the report markdown to stdout with no preamble.
+          EOF
+
+          echo ""
+          echo "---"
+          echo ""
+          echo "## Inline asset — ecs-pr-review SKILL.md"
+          echo ""
+          cat .agents/skills/ecs-pr-review/SKILL.md
+          echo ""
+          echo "### quality-rules.md"
+          echo ""
+          cat .agents/skills/ecs-pr-review/quality-rules.md
+          echo ""
+          echo "### report-template.md"
+          echo ""
+          cat .agents/skills/ecs-pr-review/report-template.md
+          } > "$PROMPT_FILE"
+
+          echo "=== ECS PR Quality Review (OpenCode) ==="
+          echo "PR: ${REPO}#${PR_NUMBER}"
+          echo "Model: ${MODEL}"
+          echo ""
+
+          if opencode run "$(cat "$PROMPT_FILE")" --model "$MODEL" 2>&1 | tee "$TRANSCRIPT_FILE"; then
+            echo "[OpenCode completed successfully]"
+          else
+            echo "[OpenCode exited with non-zero status — continuing to collect output]"
+          fi
+
+          if [ ! -s "$REPORT_FILE" ]; then
+            echo "::warning::Report file missing or empty — using transcript fallback body"
+            {
+              echo "# ECS PR Quality Review (automated)"
+              echo ""
+              echo "**PR:** #${PR_NUMBER}"
+              echo "**Note:** Review agent did not write \`pr-review-report.md\`. Raw agent output follows."
+              echo ""
+              sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' "$TRANSCRIPT_FILE"
+            } > "$REPORT_FILE"
+          fi
+
+      - name: Redact agent output
+        continue-on-error: true
+        env:
+          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
+        run: |
+          set -euo pipefail
+          RUNTIME="$GITHUB_WORKSPACE/pr-review-runtime"
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          root_path = Path(os.environ["GITHUB_WORKSPACE"]) / "pr-review-runtime"
+          files = [root_path / "pr-review-report.md", root_path / "agent-transcript.md"]
+          env_keys = ["LITELLM_API_KEY"]
+          patterns = [
+              (r'(?i)(authorization\s*:\s*bearer)\s+[^\s]{12,}', r'\1 [REDACTED]'),
+              (r'(?i)(api[_-]?key|token|secret)\s*[:=]\s*[\'"]?[a-z0-9._\-/+=]{12,}[\'"]?', r'\1=[REDACTED]'),
+              (r'\bghp_[A-Za-z0-9]{20,}\b', '[REDACTED_GITHUB_TOKEN]'),
+              (r'\bgithub_pat_[A-Za-z0-9_]{20,}\b', '[REDACTED_GITHUB_PAT]'),
+              (r'\bsk-[A-Za-z0-9]{16,}\b', '[REDACTED_SK_TOKEN]'),
+          ]
+
+          for path in files:
+              if not path.is_file():
+                  continue
+              text = path.read_text(encoding="utf-8", errors="ignore")
+              for env_var in env_keys:
+                  key = os.getenv(env_var)
+                  if key:
+                      text = text.replace(key, f"[REDACTED_{env_var}]")
+              for pattern, replacement in patterns:
+                  text = re.sub(pattern, replacement, text)
+              path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Ensure output directory exists
+        if: always()
+        run: |
+          RUNTIME="$GITHUB_WORKSPACE/pr-review-runtime"
+          mkdir -p "$RUNTIME"
+          if [ ! -s "$RUNTIME/pr-review-report.md" ]; then
+            echo "# ECS PR Quality Review (automated)" > "$RUNTIME/pr-review-report.md"
+            echo "" >> "$RUNTIME/pr-review-report.md"
+            echo "Quality review agent did not produce a report for this run." >> "$RUNTIME/pr-review-report.md"
+          fi
+
+      - name: Upload review output
+        uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pr-review-output
+          path: ${{ github.workspace }}/pr-review-runtime/
+          if-no-files-found: warn
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # Phase B — PR comment only, no AI credentials.
+  # ---------------------------------------------------------------------------
+  publish:
+    name: "Publish review comment"
+    needs: review
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Download review output
+        uses: actions/download-artifact@v8
+        with:
+          name: pr-review-output
+          path: /tmp/pr-review-output
+
+      - name: Post quality review comment on PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ needs.review.outputs.pr_number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          REPORT_FILE="/tmp/pr-review-output/pr-review-report.md"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          if [ ! -f "$REPORT_FILE" ] || [ ! -s "$REPORT_FILE" ]; then
+            gh pr comment "$PR_NUMBER" --repo "$REPO" --body "## ECS PR Quality Review
+
+          Automated review did not produce a report. See [workflow run](${RUN_URL}) for logs.
+
+          ---
+          *Posted by [PR Quality Review workflow](${RUN_URL})*"
+            exit 0
+          fi
+
+          {
+            cat "$REPORT_FILE"
+            echo ""
+            echo "---"
+            echo "*Posted by [PR Quality Review workflow](${RUN_URL})*"
+          } > /tmp/pr-review-comment.md
+
+          gh pr comment "$PR_NUMBER" --repo "$REPO" --body-file /tmp/pr-review-comment.md
+          echo "::notice::Posted PR quality review comment on #${PR_NUMBER}"
