@@ -31,6 +31,10 @@ from release_automation.helpers import (
     setup_branch,
     write_summary,
 )
+from release_automation.changelog import (
+    cut_release,
+    cut_feature_freeze,
+)
 
 
 def main() -> None:
@@ -110,10 +114,8 @@ def main() -> None:
         setup_branch(pr_branch_cl, f"origin/{release_branch}")
 
         if is_patch:
-            from release_automation.changelog import cut_release
             cut_release(version, repo_root=".")
         else:
-            from release_automation.changelog import cut_feature_freeze
             cut_feature_freeze(version, repo_root=".")
 
         cl_commit_msg = f"{version} changelog" if is_patch else f"{version} Feature Freeze changelog"
