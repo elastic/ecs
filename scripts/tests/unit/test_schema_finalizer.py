@@ -350,9 +350,9 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertIn('host', fields['destination']['fields'])
         self.assertIn('name', fields['destination']['fields']['host']['fields'])
         self.assertIn('hash', fields['destination']['fields']['host']['fields'],
-                       "Order-1 reuse (hash) must propagate through order-2 reuse (host → destination)")
+                      "Order-1 reuse (hash) must propagate through order-2 reuse (host → destination)")
         self.assertIn('sha256', fields['destination']['fields']['host']['fields']['hash']['fields'],
-                       "Leaf fields from order-1 reuse must be present in chained destination")
+                      "Leaf fields from order-1 reuse must be present in chained destination")
 
     def test_alpha_on_reuse_entry_flows_to_reused_here(self):
         fields = {
