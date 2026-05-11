@@ -460,14 +460,46 @@
       ignore_above: 1024
       description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
-    - name: entity.attributes
+    - name: entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: entity.behavior
       level: extended
@@ -508,13 +540,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: entity.lifecycle
+    - name: entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: entity.metrics
       level: extended
@@ -549,6 +582,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: entity.source
       level: core
@@ -625,14 +882,46 @@
       description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
       default_field: false
-    - name: origin.entity.attributes
+    - name: origin.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: origin.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: origin.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: origin.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: origin.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: origin.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: origin.entity.behavior
       level: extended
@@ -673,13 +962,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: origin.entity.lifecycle
+    - name: origin.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: origin.entity.metrics
       level: extended
@@ -714,6 +1004,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: origin.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: origin.entity.source
       level: core
@@ -879,14 +1393,46 @@
       description: Availability zone in which this host, resource, or service is located.
       example: us-east-1c
       default_field: false
-    - name: target.entity.attributes
+    - name: target.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: target.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: target.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: target.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: target.entity.behavior
       level: extended
@@ -927,13 +1473,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: target.entity.lifecycle
+    - name: target.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: target.entity.metrics
       level: extended
@@ -968,6 +1515,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: target.entity.source
       level: core
@@ -2397,14 +3168,46 @@
     type: group
     default_field: true
     fields:
-    - name: attributes
+    - name: attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: behavior
       level: extended
@@ -2445,13 +3248,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: lifecycle
+    - name: lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: metrics
       level: extended
@@ -2487,6 +3291,230 @@
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
       default_field: false
+    - name: relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
     - name: source
       level: core
       type: keyword
@@ -2505,14 +3533,46 @@
         , `node` , `cloud_instance` would all map to entity type `host`.'
       example: aws_s3_bucket
       default_field: false
-    - name: target.attributes
+    - name: target.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: target.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: target.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: target.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: target.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: target.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: target.behavior
       level: extended
@@ -2553,13 +3613,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: target.lifecycle
+    - name: target.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: target.metrics
       level: extended
@@ -2594,6 +3655,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: target.source
       level: core
@@ -4430,14 +5715,46 @@
         LDAP provider.'
       example: CONTOSO
       default_field: false
-    - name: entity.attributes
+    - name: entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: entity.behavior
       level: extended
@@ -4478,13 +5795,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: entity.lifecycle
+    - name: entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: entity.metrics
       level: extended
@@ -4519,6 +5837,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: entity.source
       level: core
@@ -4855,14 +6397,46 @@
         LDAP provider.'
       example: CONTOSO
       default_field: false
-    - name: target.entity.attributes
+    - name: target.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: target.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: target.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: target.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: target.entity.behavior
       level: extended
@@ -4903,13 +6477,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: target.entity.lifecycle
+    - name: target.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: target.entity.metrics
       level: extended
@@ -4944,6 +6519,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: target.entity.source
       level: core
@@ -6066,14 +7865,46 @@
       ignore_above: 1024
       description: The version of the cluster.
       default_field: false
-    - name: entity.attributes
+    - name: entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: entity.behavior
       level: extended
@@ -6114,13 +7945,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: entity.lifecycle
+    - name: entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: entity.metrics
       level: extended
@@ -6155,6 +7987,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: entity.source
       level: core
@@ -10017,14 +12073,46 @@
         path (sockets).'
       example: 172.26.0.2:5432
       default_field: false
-    - name: entity.attributes
+    - name: entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: entity.behavior
       level: extended
@@ -10065,13 +12153,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: entity.lifecycle
+    - name: entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: entity.metrics
       level: extended
@@ -10106,6 +12195,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: entity.source
       level: core
@@ -10250,14 +12563,46 @@
         path (sockets).'
       example: 172.26.0.2:5432
       default_field: false
-    - name: origin.entity.attributes
+    - name: origin.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: origin.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: origin.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: origin.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: origin.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: origin.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: origin.entity.behavior
       level: extended
@@ -10298,13 +12643,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: origin.entity.lifecycle
+    - name: origin.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: origin.entity.metrics
       level: extended
@@ -10339,6 +12685,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: origin.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: origin.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: origin.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: origin.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: origin.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: origin.entity.source
       level: core
@@ -10520,14 +13090,46 @@
         path (sockets).'
       example: 172.26.0.2:5432
       default_field: false
-    - name: target.entity.attributes
+    - name: target.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: target.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: target.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: target.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: target.entity.behavior
       level: extended
@@ -10568,13 +13170,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: target.entity.lifecycle
+    - name: target.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: target.entity.metrics
       level: extended
@@ -10609,6 +13212,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: target.entity.source
       level: core
@@ -15207,14 +18034,46 @@
       ignore_above: 1024
       description: User email address.
       default_field: false
-    - name: changes.entity.attributes
+    - name: changes.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: changes.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: changes.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: changes.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: changes.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: changes.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: changes.entity.behavior
       level: extended
@@ -15255,13 +18114,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: changes.entity.lifecycle
+    - name: changes.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: changes.entity.metrics
       level: extended
@@ -15296,6 +18156,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: changes.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: changes.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: changes.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: changes.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: changes.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: changes.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: changes.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: changes.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: changes.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: changes.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: changes.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: changes.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: changes.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: changes.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: changes.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: changes.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: changes.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: changes.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: changes.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: changes.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: changes.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: changes.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: changes.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: changes.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: changes.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: changes.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: changes.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: changes.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: changes.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: changes.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: changes.entity.source
       level: core
@@ -15459,14 +18543,46 @@
       ignore_above: 1024
       description: User email address.
       default_field: false
-    - name: effective.entity.attributes
+    - name: effective.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: effective.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: effective.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: effective.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: effective.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: effective.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: effective.entity.behavior
       level: extended
@@ -15507,13 +18623,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: effective.entity.lifecycle
+    - name: effective.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: effective.entity.metrics
       level: extended
@@ -15548,6 +18665,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: effective.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: effective.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: effective.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: effective.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: effective.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: effective.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: effective.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: effective.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: effective.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: effective.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: effective.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: effective.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: effective.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: effective.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: effective.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: effective.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: effective.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: effective.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: effective.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: effective.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: effective.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: effective.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: effective.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: effective.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: effective.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: effective.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: effective.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: effective.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: effective.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: effective.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: effective.entity.source
       level: core
@@ -15695,14 +19036,46 @@
       type: keyword
       ignore_above: 1024
       description: User email address.
-    - name: entity.attributes
+    - name: entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: entity.behavior
       level: extended
@@ -15743,13 +19116,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: entity.lifecycle
+    - name: entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: entity.metrics
       level: extended
@@ -15784,6 +19158,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: entity.source
       level: core
@@ -15935,14 +19533,46 @@
       ignore_above: 1024
       description: User email address.
       default_field: false
-    - name: target.entity.attributes
+    - name: target.entity.attributes.known_redirects
       level: extended
-      type: object
-      description: A set of static or semi-static attributes of the entity. Usually
-        boolean or keyword field data types. Use this field set when you need to track
-        static or semi-static characteristics of an entity for advanced searching
-        and correlation of normalized values across different providers/sources and
-        entity types.
+      type: keyword
+      ignore_above: 1024
+      description: Known redirect URIs or URLs associated with this entity. Typically
+        applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.managed
+      level: extended
+      type: boolean
+      description: Indicates whether the entity is managed by an external administration
+        or control system. Typically applicable to Host and Service entities.
+      default_field: false
+    - name: target.entity.attributes.mfa_enabled
+      level: extended
+      type: boolean
+      description: Indicates whether multi-factor authentication is enabled for this
+        entity. Typically applicable to User entities.
+      default_field: false
+    - name: target.entity.attributes.oauth_consent_restriction
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Restriction applied to OAuth consent for this entity (e.g. `admin_only`,
+        `verified_only`, `unrestricted`). Typically applicable to Service entities.
+      default_field: false
+    - name: target.entity.attributes.permissions
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Action-level permissions associated with this entity (not roles
+        or groups). Typically applicable to User, Host, and Service entities.
+      default_field: false
+    - name: target.entity.attributes.storage_class
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The storage tier or class assigned to an object storage resource
+        (e.g. S3/GCS/Azure object tiers). Common examples include `STANDARD`, `STANDARD_IA`,
+        `GLACIER`, `COLDLINE`. Typically applicable to Service entities.
       default_field: false
     - name: target.entity.behavior
       level: extended
@@ -15983,13 +19613,14 @@
       description: Indicates the date/time when this entity was last "seen," usually
         based upon the last event/log that is initiated by this entity.
       default_field: false
-    - name: target.entity.lifecycle
+    - name: target.entity.lifecycle.last_activity
       level: extended
-      type: object
-      description: A set of temporal characteristics of the entity. Usually date field
-        data type. Use this field set when you need to track temporal characteristics
-        of an entity for advanced searching and correlation of normalized values across
-        different providers/sources and entity types.
+      type: date
+      description: Timestamp of the most recent action performed by or attributed
+        to this entity (active use). Distinct from `entity.last_seen_timestamp`, which
+        records when the entity was last observed in data; `last_activity` implies
+        the entity was active, not only seen. Typically applicable to User, Host,
+        and Service entities.
       default_field: false
     - name: target.entity.metrics
       level: extended
@@ -16024,6 +19655,230 @@
       description: A URI, URL, or other direct reference to access or locate the entity
         in its source system. This could be an API endpoint, web console URL, or other
         addressable location. Format may vary by entity type and source system.
+      default_field: false
+    - name: target.entity.relationships.administers.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.administers.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.administers.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.administers.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.administers.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.administers.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.administers.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.administers.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.administers.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.depends_on.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.depends_on.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.owns.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.owns.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.owns.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.owns.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.owns.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.owns.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.owns.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.owns.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.owns.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
+      default_field: false
+    - name: target.entity.relationships.supervises.entity.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+      default_field: false
+    - name: target.entity.relationships.supervises.host.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.host.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced host names.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.service.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced service names.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.domain
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+      default_field: false
+    - name: target.entity.relationships.supervises.user.email
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user email addresses.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.id
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user ids.
+      default_field: false
+    - name: target.entity.relationships.supervises.user.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: Referenced user short names or logins.
       default_field: false
     - name: target.entity.source
       level: core
