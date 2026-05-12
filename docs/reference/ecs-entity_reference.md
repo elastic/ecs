@@ -7,7 +7,7 @@ applies_to:
 
 # Entity Reference fields [ecs-entity_reference]
 
-A reusable set of identifier fields used to reference other entities in relationship contexts. Each field holds a keyword array of identifiers following the same conventions as the corresponding ECS root field. Only the fields defined in this field set may appear; ad-hoc or integration-specific property names are not allowed.
+A reusable set of identifier fields used to reference other entities in relationship contexts. Each field holds a keyword array of identifiers following the same conventions as the corresponding ECS root field. Only the fields defined in this field set might appear, ad-hoc or integration-specific property names are not allowed.
 
 ::::{warning}
 This field set is alpha and subject to change.
