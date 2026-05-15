@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/buildkite/pipeline-schema/main/schema.json
+
+steps:
+  - label: ":python: Run tests (make check yamllint)"
+    key: tests
+    command: ".buildkite/scripts/run-tests.sh"
+    agents:
+      image: "docker.elastic.co/ci-agent-images/pipelib:0.27.0@sha256:d1713778d27e0b6208f59ba8761f04ef033af4c4237cb2614a09d38584c5ff88"
+      cpu: "2"
+      memory: "2G"
