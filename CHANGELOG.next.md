@@ -16,8 +16,6 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `entity.attributes.*`, `entity.lifecycle.last_activity`, and `entity.relationships.*` fields from RFC 0054. Introduce reusable `entity_reference` field set for shared relationship identifier keys. #2598
-
 #### Improvements
 
 #### Deprecated
@@ -31,8 +29,6 @@ Thanks, you're awesome :-) -->
 #### Added
 
 #### Improvements
-
-* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
 
 #### Deprecated
 

@@ -31,6 +31,7 @@ To check for security updates, go to [Security announcements for the Elastic sta
 * Document field stability definitions (alpha, beta, GA) in design principles. [#2599](https://github.com/elastic/ecs/pull/2599)
 * Increase composable template `total_fields.limit` from 2000 to 2500. [#2584](https://github.com/elastic/ecs/pull/2584)
 * Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. [#2599](https://github.com/elastic/ecs/pull/2599)
+* Add `entity.attributes.*`, `entity.lifecycle.last_activity`, and `entity.relationships.*` fields from RFC 0054. Introduce reusable `entity_reference` field set for shared relationship identifier keys. [#2648](https://github.com/elastic/ecs/pull/2648)
 
 ## 9.3.0 [ecs-9-3-0-release-notes]
 

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file based on the
 
 ## [9.4.0](https://github.com/elastic/ecs/compare/v9.3.0...v9.4.0)
 
+### Schema Changes
+
+#### Added
+
+* Add `entity.attributes.*`, `entity.lifecycle.last_activity`, and `entity.relationships.*` fields from RFC 0054. Introduce reusable `entity_reference` field set for shared relationship identifier keys. #2598
+
 ### Tooling and Artifact Changes
 
 #### Added
