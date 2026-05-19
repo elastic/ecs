@@ -88,11 +88,6 @@ def main() -> None:
     # statements like this after any step of interest.
     # ecs_helpers.yaml_dump('ecs.yml', fields)
 
-    # Detect usage of experimental changes to tweak artifact version label
-    if args.include and loader.EXPERIMENTAL_SCHEMA_DIR in args.include:
-        ecs_generated_version += "+exp"
-        print('Experimental ECS version ' + ecs_generated_version)
-
     fields: dict[str, FieldEntry] = loader.load_schemas(ref=args.ref, included_files=args.include)
     cleaner.clean(fields, strict=args.strict)
     finalizer.finalize(fields)
@@ -124,8 +119,8 @@ def main() -> None:
 def argument_parser() -> argparse.Namespace:
     """Parse command-line arguments. Run with --help for all options."""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--ref', action='store', help='Loads fields definitions from `./schemas` subdirectory from specified git reference. \
-                                                       Note that "--include experimental/schemas" will also respect this git ref.')
+    parser.add_argument('--ref', action='store',
+                        help='Loads fields definitions from `./schemas` subdirectory from specified git reference.')
     parser.add_argument('--include', nargs='+',
                         help='include user specified directory of custom field definitions')
     parser.add_argument('--exclude', nargs='+',

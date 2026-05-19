@@ -216,8 +216,8 @@ class TestSchemaLoader(unittest.TestCase):
             "Raw schema fields should have expected fieldsets for v1.0.0")
 
     def test_load_schemas_from_git_missing_target_directory(self):
-        with self.assertRaisesRegex(KeyError, "not present in git ref 'v1.5.0'"):
-            loader.load_schemas_from_git('v1.5.0', target_dir='experimental')
+        with self.assertRaisesRegex(KeyError, "not present in git ref"):
+            loader.load_schemas_from_git('v1.5.0', target_dir='nonexistent_dir')
 
     # nesting stuff
 

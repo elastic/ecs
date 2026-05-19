@@ -21,7 +21,7 @@ Entry point for ECS schema processing pipeline. Loads YAML schemas from filesyst
 or git refs and transforms them into a deeply nested structure.
 
 Key operations:
-- Load from schemas/*.yml, experimental/schemas/, or custom paths
+- Load from schemas/*.yml or custom paths
 - Transform dotted field names (e.g., 'http.request.method') into nested dicts
 - Create intermediate parent fields automatically
 - Merge multiple schema sources safely
@@ -50,17 +50,14 @@ from ecs_types import (
 )
 
 
-EXPERIMENTAL_SCHEMA_DIR = 'experimental/schemas'
-
-
 def load_schemas(
     ref: Optional[str] = None,
     included_files: Optional[List[str]] = []
 ) -> Dict[str, FieldEntry]:
     """Load ECS schemas (from filesystem or git ref) plus any custom included_files.
 
-    Experimental schemas are loaded from git if ref is specified. Custom schemas
-    are always loaded from filesystem. All sources are merged, with custom taking precedence.
+    Custom schemas are always loaded from filesystem. All sources are merged,
+    with custom taking precedence.
     """
     # ECS fields (from git ref or not)
     schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
@@ -70,14 +67,6 @@ def load_schemas(
     # Custom additional files
     if included_files and len(included_files) > 0:
         print('Loading user defined schemas: {0}'.format(included_files))
-        # If --ref provided and --include loading experimental schemas
-        if ref and EXPERIMENTAL_SCHEMA_DIR in included_files:
-            exp_schema_files_raw: Dict[str, FieldNestedEntry] = load_schemas_from_git(
-                ref, target_dir=EXPERIMENTAL_SCHEMA_DIR)
-            exp_fields: Dict[str, FieldEntry] = deep_nesting_representation(exp_schema_files_raw)
-            fields = merge_fields(fields, exp_fields)
-            included_files.remove(EXPERIMENTAL_SCHEMA_DIR)
-        # Remaining additional custom files (never from git ref)
         custom_files: List[str] = ecs_helpers.glob_yaml_files(included_files)
         custom_fields: Dict[str, FieldEntry] = deep_nesting_representation(load_schema_files(custom_files))
         fields = merge_fields(fields, custom_fields)
