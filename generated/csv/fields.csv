@@ -50,18 +50,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,cloud,cloud.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 9.4.0,true,cloud,cloud.account.name,keyword,extended,,elastic-dev,The cloud account name.
 9.4.0,true,cloud,cloud.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
-9.4.0,true,cloud,cloud.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,cloud,cloud.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,cloud,cloud.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,cloud,cloud.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,cloud,cloud.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,cloud,cloud.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,cloud,cloud.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,cloud,cloud.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,cloud,cloud.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,cloud,cloud.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,cloud,cloud.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,cloud,cloud.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,cloud,cloud.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,cloud,cloud.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,cloud,cloud.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,cloud,cloud.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,cloud,cloud.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,cloud,cloud.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,cloud,cloud.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -71,18 +112,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,cloud,cloud.origin.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 9.4.0,true,cloud,cloud.origin.account.name,keyword,extended,,elastic-dev,The cloud account name.
 9.4.0,true,cloud,cloud.origin.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
-9.4.0,true,cloud,cloud.origin.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,cloud,cloud.origin.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,cloud,cloud.origin.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,cloud,cloud.origin.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,cloud,cloud.origin.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,cloud,cloud.origin.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,cloud,cloud.origin.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,cloud,cloud.origin.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,cloud,cloud.origin.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.origin.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.origin.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,cloud,cloud.origin.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,cloud,cloud.origin.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,cloud,cloud.origin.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,cloud,cloud.origin.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,cloud,cloud.origin.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.origin.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.origin.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,cloud,cloud.origin.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.origin.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,cloud,cloud.origin.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,cloud,cloud.origin.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,cloud,cloud.origin.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -102,18 +184,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,cloud,cloud.target.account.id,keyword,extended,,666777888999,The cloud account or organization id.
 9.4.0,true,cloud,cloud.target.account.name,keyword,extended,,elastic-dev,The cloud account name.
 9.4.0,true,cloud,cloud.target.availability_zone,keyword,extended,,us-east-1c,"Availability zone in which this host, resource, or service is located."
-9.4.0,true,cloud,cloud.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,cloud,cloud.target.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,cloud,cloud.target.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,cloud,cloud.target.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,cloud,cloud.target.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,cloud,cloud.target.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,cloud,cloud.target.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,cloud,cloud.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,cloud,cloud.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,cloud,cloud.target.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,cloud,cloud.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,cloud,cloud.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,cloud,cloud.target.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,cloud,cloud.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,cloud,cloud.target.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.target.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,cloud,cloud.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,cloud,cloud.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,cloud,cloud.target.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,cloud,cloud.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,cloud,cloud.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,cloud,cloud.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -283,32 +406,114 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,email,email.subject.text,match_only_text,extended,,Please see this important message.,The subject of the email message.
 9.4.0,true,email,email.to.address,keyword,extended,array,user1@example.com,Email address of recipient
 9.4.0,true,email,email.x_mailer,keyword,extended,,Spambot v2.5,Application that drafted email.
-9.4.0,true,entity,entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,entity,entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,entity,entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,entity,entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,entity,entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,entity,entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,entity,entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,entity,entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,entity,entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,entity,entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,entity,entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,entity,entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,entity,entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,entity,entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,entity,entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,entity,entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,entity,entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,entity,entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,entity,entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,entity,entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,entity,entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,entity,entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
-9.4.0,true,entity,entity.target.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,entity,entity.target.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,entity,entity.target.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,entity,entity.target.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,entity,entity.target.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,entity,entity.target.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,entity,entity.target.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,entity,entity.target.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,entity,entity.target.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,entity,entity.target.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,entity,entity.target.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,entity,entity.target.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,entity,entity.target.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,entity,entity.target.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,entity,entity.target.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,entity,entity.target.name,keyword,core,,,The name of the entity.
 9.4.0,true,entity,entity.target.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,entity,entity.target.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,entity,entity.target.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,entity,entity.target.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.target.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.target.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.target.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.target.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.target.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.target.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.target.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.target.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.target.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.target.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.target.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.target.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.target.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.target.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.target.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.target.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.target.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.target.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.target.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.target.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.target.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.target.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.target.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.target.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.target.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.target.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,entity,entity.target.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,entity,entity.target.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,entity,entity.target.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,entity,entity.target.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,entity,entity.target.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,entity,entity.target.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,entity,entity.target.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,entity,entity.target.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,entity,entity.target.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,entity,entity.target.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,entity,entity.target.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,entity,entity.target.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -533,18 +738,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,host,host.disk.read.bytes,long,extended,,,The number of bytes read by all disks.
 9.4.0,true,host,host.disk.write.bytes,long,extended,,,The number of bytes written on all disks.
 9.4.0,true,host,host.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
-9.4.0,true,host,host.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,host,host.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,host,host.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,host,host.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,host,host.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,host,host.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,host,host.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,host,host.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,host,host.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,host,host.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,host,host.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,host,host.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,host,host.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,host,host.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,host,host.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,host,host.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,host,host.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,host,host.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,host,host.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,host,host.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,host,host.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,host,host.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,host,host.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -590,18 +836,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,host,host.target.disk.read.bytes,long,extended,,,The number of bytes read by all disks.
 9.4.0,true,host,host.target.disk.write.bytes,long,extended,,,The number of bytes written on all disks.
 9.4.0,true,host,host.target.domain,keyword,extended,,CONTOSO,Name of the directory the group is a member of.
-9.4.0,true,host,host.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,host,host.target.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,host,host.target.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,host,host.target.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,host,host.target.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,host,host.target.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,host,host.target.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,host,host.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,host,host.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,host,host.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,host,host.target.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,host,host.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,host,host.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,host,host.target.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,host,host.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,host,host.target.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,host,host.target.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,host,host.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,host,host.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,host,host.target.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.target.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.target.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.target.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.target.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.target.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.target.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.target.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.target.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.target.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.target.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.target.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.target.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.target.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.target.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.target.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.target.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.target.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.target.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.target.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.target.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.target.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.target.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.target.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.target.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.target.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.target.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,host,host.target.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,host,host.target.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,host,host.target.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,host,host.target.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,host,host.target.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,host,host.target.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,host,host.target.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,host,host.target.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,host,host.target.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,host,host.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,host,host.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,host,host.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -742,18 +1029,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,orchestrator,orchestrator.cluster.name,keyword,extended,,,Name of the cluster.
 9.4.0,true,orchestrator,orchestrator.cluster.url,keyword,extended,,,URL of the API used to manage the cluster.
 9.4.0,true,orchestrator,orchestrator.cluster.version,keyword,extended,,,The version of the cluster.
-9.4.0,true,orchestrator,orchestrator.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,orchestrator,orchestrator.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,orchestrator,orchestrator.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,orchestrator,orchestrator.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,orchestrator,orchestrator.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,orchestrator,orchestrator.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,orchestrator,orchestrator.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,orchestrator,orchestrator.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,orchestrator,orchestrator.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,orchestrator,orchestrator.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,orchestrator,orchestrator.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,orchestrator,orchestrator.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,orchestrator,orchestrator.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,orchestrator,orchestrator.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,orchestrator,orchestrator.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,orchestrator,orchestrator.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,orchestrator,orchestrator.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,orchestrator,orchestrator.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -1273,18 +1601,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,server,server.user.name.text,match_only_text,core,,a.einstein,Short name or login of the user.
 9.4.0,true,server,server.user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 9.4.0,true,service,service.address,keyword,extended,,172.26.0.2:5432,Address of this service.
-9.4.0,true,service,service.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,service,service.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,service,service.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,service,service.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,service,service.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,service,service.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,service,service.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,service,service.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,service,service.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,service,service.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,service,service.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,service,service.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,service,service.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,service,service.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,service,service.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,service,service.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,service,service.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,service,service.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,service,service.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,service,service.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,service,service.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -1296,18 +1665,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,service,service.node.role,keyword,extended,,background_tasks,Deprecated role (singular) of the service node.
 9.4.0,true,service,service.node.roles,keyword,extended,array,"[""ui"", ""background_tasks""]",Roles of the service node.
 9.4.0,true,service,service.origin.address,keyword,extended,,172.26.0.2:5432,Address of this service.
-9.4.0,true,service,service.origin.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,service,service.origin.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,service,service.origin.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,service,service.origin.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,service,service.origin.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,service,service.origin.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,service,service.origin.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,service,service.origin.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,service,service.origin.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.origin.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.origin.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,service,service.origin.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,service,service.origin.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,service,service.origin.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,service,service.origin.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,service,service.origin.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,service,service.origin.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,service,service.origin.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,service,service.origin.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,service,service.origin.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.origin.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.origin.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.origin.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.origin.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.origin.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.origin.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.origin.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.origin.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.origin.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.origin.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.origin.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.origin.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.origin.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.origin.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.origin.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.origin.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.origin.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.origin.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.origin.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.origin.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.origin.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.origin.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.origin.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.origin.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.origin.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.origin.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.origin.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,service,service.origin.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,service,service.origin.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,service,service.origin.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -1323,18 +1733,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,service,service.origin.version,keyword,core,,3.2.4,Version of the service.
 9.4.0,true,service,service.state,keyword,core,,,Current state of the service.
 9.4.0,true,service,service.target.address,keyword,extended,,172.26.0.2:5432,Address of this service.
-9.4.0,true,service,service.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,service,service.target.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,service,service.target.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,service,service.target.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,service,service.target.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,service,service.target.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,service,service.target.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,service,service.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,service,service.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,service,service.target.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,service,service.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,service,service.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,service,service.target.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,service,service.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,service,service.target.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,service,service.target.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,service,service.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,service,service.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,service,service.target.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.target.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.target.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.target.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.target.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.target.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.target.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.target.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.target.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.target.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.target.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.target.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.target.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.target.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.target.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.target.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.target.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.target.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.target.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.target.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.target.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.target.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.target.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.target.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.target.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.target.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.target.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,service,service.target.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,service,service.target.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,service,service.target.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,service,service.target.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,service,service.target.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,service,service.target.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,service,service.target.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,service,service.target.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,service,service.target.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,service,service.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,service,service.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,service,service.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -1935,18 +2386,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,url,url.username,keyword,extended,,,Username of the request.
 9.4.0,true,user,user.changes.domain,keyword,extended,,,Name of the directory the user is a member of.
 9.4.0,true,user,user.changes.email,keyword,extended,,,User email address.
-9.4.0,true,user,user.changes.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,user,user.changes.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,user,user.changes.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,user,user.changes.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,user,user.changes.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,user,user.changes.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,user,user.changes.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,user,user.changes.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,user,user.changes.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.changes.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.changes.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,user,user.changes.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,user,user.changes.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,user,user.changes.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,user,user.changes.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,user,user.changes.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,user,user.changes.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,user,user.changes.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,user,user.changes.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,user,user.changes.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.changes.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.changes.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.changes.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.changes.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.changes.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.changes.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.changes.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.changes.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.changes.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.changes.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.changes.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.changes.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.changes.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.changes.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.changes.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.changes.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.changes.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.changes.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.changes.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.changes.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.changes.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.changes.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.changes.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.changes.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.changes.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.changes.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.changes.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,user,user.changes.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,user,user.changes.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,user,user.changes.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -1969,18 +2461,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,user,user.domain,keyword,extended,,,Name of the directory the user is a member of.
 9.4.0,true,user,user.effective.domain,keyword,extended,,,Name of the directory the user is a member of.
 9.4.0,true,user,user.effective.email,keyword,extended,,,User email address.
-9.4.0,true,user,user.effective.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,user,user.effective.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,user,user.effective.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,user,user.effective.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,user,user.effective.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,user,user.effective.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,user,user.effective.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,user,user.effective.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,user,user.effective.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.effective.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.effective.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,user,user.effective.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,user,user.effective.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,user,user.effective.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,user,user.effective.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,user,user.effective.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,user,user.effective.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,user,user.effective.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,user,user.effective.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,user,user.effective.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.effective.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.effective.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.effective.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.effective.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.effective.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.effective.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.effective.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.effective.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.effective.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.effective.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.effective.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.effective.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.effective.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.effective.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.effective.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.effective.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.effective.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.effective.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.effective.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.effective.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.effective.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.effective.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.effective.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.effective.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.effective.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.effective.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.effective.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,user,user.effective.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,user,user.effective.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,user,user.effective.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -2001,18 +2534,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,user,user.effective.risk.static_score_norm,float,extended,,83.0,A normalized risk score calculated by an external system.
 9.4.0,true,user,user.effective.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 9.4.0,true,user,user.email,keyword,extended,,,User email address.
-9.4.0,true,user,user.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,user,user.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,user,user.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,user,user.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,user,user.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,user,user.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,user,user.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,user,user.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,user,user.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,user,user.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,user,user.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,user,user.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,user,user.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,user,user.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,user,user.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,user,user.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,user,user.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,user,user.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,user,user.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,user,user.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,user,user.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
@@ -2034,18 +2608,59 @@ ECS_Version,Indexed,Field_Set,Field,Type,Level,Normalization,Example,Description
 9.4.0,true,user,user.roles,keyword,extended,array,"[""kibana_admin"", ""reporting_user""]",Array of user roles at the time of the event.
 9.4.0,true,user,user.target.domain,keyword,extended,,,Name of the directory the user is a member of.
 9.4.0,true,user,user.target.email,keyword,extended,,,User email address.
-9.4.0,true,user,user.target.entity.attributes,object,extended,,,A set of static or semi-static attributes of the entity.
+9.4.0,true,user,user.target.entity.attributes.known_redirects,keyword,extended,array,,Known redirect URIs or URLs associated with this entity.
+9.4.0,true,user,user.target.entity.attributes.managed,boolean,extended,,,Indicates whether the entity is managed by an external system.
+9.4.0,true,user,user.target.entity.attributes.mfa_enabled,boolean,extended,,,Indicates whether multi-factor authentication is enabled for this entity.
+9.4.0,true,user,user.target.entity.attributes.oauth_consent_restriction,keyword,extended,,,Restriction applied to OAuth consent for this entity.
+9.4.0,true,user,user.target.entity.attributes.permissions,keyword,extended,array,,Action-level permissions associated with this entity.
+9.4.0,true,user,user.target.entity.attributes.storage_class,keyword,extended,,,Storage tier or class assigned to an object storage resource.
 9.4.0,true,user,user.target.entity.behavior,object,extended,,,"A set of ephemeral characteristics of the entity, derived from observed behaviors during a specific time period."
 9.4.0,true,user,user.target.entity.display_name,keyword,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.target.entity.display_name.text,match_only_text,extended,,,An optional field used when a pretty name is desired for entity-centric operations.
 9.4.0,true,user,user.target.entity.id,keyword,core,,,Unique identifier for the entity.
 9.4.0,true,user,user.target.entity.last_seen_timestamp,date,extended,,,"Indicates the date/time when this entity was last ""seen."""
-9.4.0,true,user,user.target.entity.lifecycle,object,extended,,,A set of temporal characteristics of the entity.
+9.4.0,true,user,user.target.entity.lifecycle.last_activity,date,extended,,,Timestamp of the most recent action performed by or attributed to this entity.
 9.4.0,true,user,user.target.entity.metrics,object,extended,,,Field set for any fields containing numeric entity metrics.
 9.4.0,true,user,user.target.entity.name,keyword,core,,,The name of the entity.
 9.4.0,true,user,user.target.entity.name.text,match_only_text,core,,,The name of the entity.
 9.4.0,true,user,user.target.entity.raw,object,extended,,,"Original, unmodified fields from the source system."
 9.4.0,true,user,user.target.entity.reference,keyword,extended,,,"A URI, URL, or other direct reference to access or locate the entity."
+9.4.0,true,user,user.target.entity.relationships.administers.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.target.entity.relationships.administers.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.target.entity.relationships.administers.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.target.entity.relationships.administers.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.target.entity.relationships.administers.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.target.entity.relationships.administers.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.target.entity.relationships.administers.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.target.entity.relationships.administers.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.target.entity.relationships.administers.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.target.entity.relationships.depends_on.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.target.entity.relationships.depends_on.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.target.entity.relationships.depends_on.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.target.entity.relationships.depends_on.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.target.entity.relationships.depends_on.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.target.entity.relationships.depends_on.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.target.entity.relationships.depends_on.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.target.entity.relationships.depends_on.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.target.entity.relationships.depends_on.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.target.entity.relationships.owns.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.target.entity.relationships.owns.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.target.entity.relationships.owns.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.target.entity.relationships.owns.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.target.entity.relationships.owns.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.target.entity.relationships.owns.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.target.entity.relationships.owns.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.target.entity.relationships.owns.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.target.entity.relationships.owns.user.name,keyword,extended,array,,Referenced user short names or logins.
+9.4.0,true,user,user.target.entity.relationships.supervises.entity.id,keyword,extended,array,,Identifiers of referenced entities.
+9.4.0,true,user,user.target.entity.relationships.supervises.host.id,keyword,extended,array,,Referenced host ids.
+9.4.0,true,user,user.target.entity.relationships.supervises.host.name,keyword,extended,array,,Referenced host names.
+9.4.0,true,user,user.target.entity.relationships.supervises.service.id,keyword,extended,array,,Referenced service ids.
+9.4.0,true,user,user.target.entity.relationships.supervises.service.name,keyword,extended,array,,Referenced service names.
+9.4.0,true,user,user.target.entity.relationships.supervises.user.domain,keyword,extended,array,,Referenced user directory or AD/LDAP domain names.
+9.4.0,true,user,user.target.entity.relationships.supervises.user.email,keyword,extended,array,,Referenced user email addresses.
+9.4.0,true,user,user.target.entity.relationships.supervises.user.id,keyword,extended,array,,Referenced user ids.
+9.4.0,true,user,user.target.entity.relationships.supervises.user.name,keyword,extended,array,,Referenced user short names or logins.
 9.4.0,true,user,user.target.entity.source,keyword,core,,,Source module or integration that provided the entity data.
 9.4.0,true,user,user.target.entity.sub_type,keyword,extended,,aws_s3_bucket,The specific type designation for the entity as defined by its provider or system.
 9.4.0,true,user,user.target.entity.type,keyword,core,array,host,Standardized high-level classification of the entity.
