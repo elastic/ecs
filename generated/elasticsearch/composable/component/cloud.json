@@ -27,7 +27,30 @@
             "entity": {
               "properties": {
                 "attributes": {
-                  "type": "object"
+                  "properties": {
+                    "known_redirects": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "managed": {
+                      "type": "boolean"
+                    },
+                    "mfa_enabled": {
+                      "type": "boolean"
+                    },
+                    "oauth_consent_restriction": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "permissions": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    },
+                    "storage_class": {
+                      "ignore_above": 1024,
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "behavior": {
                   "type": "object"
@@ -49,7 +72,11 @@
                   "type": "date"
                 },
                 "lifecycle": {
-                  "type": "object"
+                  "properties": {
+                    "last_activity": {
+                      "type": "date"
+                    }
+                  }
                 },
                 "metrics": {
                   "type": "object"
@@ -69,6 +96,234 @@
                 "reference": {
                   "ignore_above": 1024,
                   "type": "keyword"
+                },
+                "relationships": {
+                  "properties": {
+                    "administers": {
+                      "properties": {
+                        "entity": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "host": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "service": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "user": {
+                          "properties": {
+                            "domain": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "email": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "depends_on": {
+                      "properties": {
+                        "entity": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "host": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "service": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "user": {
+                          "properties": {
+                            "domain": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "email": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "owns": {
+                      "properties": {
+                        "entity": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "host": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "service": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "user": {
+                          "properties": {
+                            "domain": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "email": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "supervises": {
+                      "properties": {
+                        "entity": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "host": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "service": {
+                          "properties": {
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        },
+                        "user": {
+                          "properties": {
+                            "domain": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "email": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "id": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            },
+                            "name": {
+                              "ignore_above": 1024,
+                              "type": "keyword"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 },
                 "source": {
                   "ignore_above": 1024,
@@ -125,7 +380,30 @@
                 "entity": {
                   "properties": {
                     "attributes": {
-                      "type": "object"
+                      "properties": {
+                        "known_redirects": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "managed": {
+                          "type": "boolean"
+                        },
+                        "mfa_enabled": {
+                          "type": "boolean"
+                        },
+                        "oauth_consent_restriction": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "permissions": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "storage_class": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
                     },
                     "behavior": {
                       "type": "object"
@@ -147,7 +425,11 @@
                       "type": "date"
                     },
                     "lifecycle": {
-                      "type": "object"
+                      "properties": {
+                        "last_activity": {
+                          "type": "date"
+                        }
+                      }
                     },
                     "metrics": {
                       "type": "object"
@@ -167,6 +449,234 @@
                     "reference": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "relationships": {
+                      "properties": {
+                        "administers": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "depends_on": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "owns": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "supervises": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     },
                     "source": {
                       "ignore_above": 1024,
@@ -281,7 +791,30 @@
                 "entity": {
                   "properties": {
                     "attributes": {
-                      "type": "object"
+                      "properties": {
+                        "known_redirects": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "managed": {
+                          "type": "boolean"
+                        },
+                        "mfa_enabled": {
+                          "type": "boolean"
+                        },
+                        "oauth_consent_restriction": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "permissions": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        },
+                        "storage_class": {
+                          "ignore_above": 1024,
+                          "type": "keyword"
+                        }
+                      }
                     },
                     "behavior": {
                       "type": "object"
@@ -303,7 +836,11 @@
                       "type": "date"
                     },
                     "lifecycle": {
-                      "type": "object"
+                      "properties": {
+                        "last_activity": {
+                          "type": "date"
+                        }
+                      }
                     },
                     "metrics": {
                       "type": "object"
@@ -323,6 +860,234 @@
                     "reference": {
                       "ignore_above": 1024,
                       "type": "keyword"
+                    },
+                    "relationships": {
+                      "properties": {
+                        "administers": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "depends_on": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "owns": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "supervises": {
+                          "properties": {
+                            "entity": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "host": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "service": {
+                              "properties": {
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            },
+                            "user": {
+                              "properties": {
+                                "domain": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "email": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "id": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                },
+                                "name": {
+                                  "ignore_above": 1024,
+                                  "type": "keyword"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
                     },
                     "source": {
                       "ignore_above": 1024,
