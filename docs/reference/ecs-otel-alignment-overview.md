@@ -122,7 +122,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | VCS Repository | · | [16](https://opentelemetry.io/docs/specs/semconv/attributes-registry/vcs) | · | · | · | · | · | · |  |
 | VLAN | [2](/reference/ecs-vlan.md) | · | · | · | · | · | · | · | · |
 | Volume | [16](/reference/ecs-volume.md) | · | · | · | · | · | · | · | · |
-| Vulnerability | [13](/reference/ecs-vulnerability.md) | · | · | · | · | · | · | · | · |
+| Vulnerability | [14](/reference/ecs-vulnerability.md) | · | · | · | · | · | · | · | · |
 | Web Engine | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/webengine) | · | · | · | · | · | · |  |
 | x509 Certificate | [24](/reference/ecs-x509.md) | · | · | · | · | · | · | · | · |
 | z/OS attributes | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/zos) | · | · | · | · | · | · |  |
