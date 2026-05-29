@@ -20386,3 +20386,19 @@
         prioritization regarding remediation. For example (https://nvd.nist.gov/vuln-metrics/cvss)
       example: Critical
       default_field: false
+    - name: status
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The lifecycle state of a vulnerability finding on an asset. Use
+        this field to distinguish between vulnerabilities that are currently present
+        and those that have been remediated.
+
+        Integrations that consume incremental or delta APIs should map their vendor-specific
+        status values to one of the allowed values below. Integrations that consume
+        full-snapshot APIs (where every record represents a currently open vulnerability)
+        should set this field to `open`. Full-snapshot sources never produce `fixed`
+        records — fixed vulnerabilities simply stop appearing in subsequent snapshots
+        and are eventually evicted by the transform''s retention policy.'
+      example: open
+      default_field: false

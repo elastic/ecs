@@ -36046,3 +36046,38 @@ vulnerability.severity:
   normalize: []
   short: Severity of the vulnerability.
   type: keyword
+vulnerability.status:
+  allowed_values:
+  - description: Vulnerability is currently present on the asset.
+    name: open
+  - description: Vulnerability has been remediated and is no longer present on the
+      asset.
+    name: fixed
+  - description: Vulnerability reappeared on the asset after previously being fixed.
+      From a filtering perspective this is treated the same as `open`, but it signals
+      a regression that matters for SLA tracking.
+    name: reopened
+  - description: The lifecycle state of the vulnerability cannot be determined. This
+      is the appropriate value for full-snapshot integrations that do not provide
+      lifecycle data, or when the source data does not include status information.
+    name: unknown
+  beta: This field is beta and subject to change.
+  dashed_name: vulnerability-status
+  description: 'The lifecycle state of a vulnerability finding on an asset. Use this
+    field to distinguish between vulnerabilities that are currently present and those
+    that have been remediated.
+
+    Integrations that consume incremental or delta APIs should map their vendor-specific
+    status values to one of the allowed values below. Integrations that consume full-snapshot
+    APIs (where every record represents a currently open vulnerability) should set
+    this field to `open`. Full-snapshot sources never produce `fixed` records — fixed
+    vulnerabilities simply stop appearing in subsequent snapshots and are eventually
+    evicted by the transform''s retention policy.'
+  example: open
+  flat_name: vulnerability.status
+  ignore_above: 1024
+  level: extended
+  name: status
+  normalize: []
+  short: Lifecycle state of a vulnerability finding.
+  type: keyword
