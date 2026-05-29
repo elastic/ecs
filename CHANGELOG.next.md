@@ -14,6 +14,8 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
+* Fix GenAI integer fields to use `long` datatype per ECS conventions. #2646
+
 #### Added
 
 * Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
