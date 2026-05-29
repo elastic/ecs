@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
+
 #### Improvements
 
 #### Deprecated
