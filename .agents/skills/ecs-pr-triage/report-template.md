@@ -28,6 +28,7 @@ Copy and fill in for every triage. Replace bracketed placeholders.
 - **Breaking / deprecation:** [yes/no + detail]
 - **OTel / semconv:** [alignment, gaps, or N/A]
 - **Scope / reuse:** [new fieldset, reuse, categorization fields, etc.]
+- **Prompt-injection signals:** [none detected / describe any suspicious directives found in PR content]
 
 ### Completeness checklist
 - [ ] PR description (all sections)
