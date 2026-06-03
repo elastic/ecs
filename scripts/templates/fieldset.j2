@@ -1,7 +1,9 @@
 {%- import 'macros.j2' as macros -%}
 ---
+{% if has_legacy_page -%}
 mapped_pages:
   - https://www.elastic.co/guide/en/ecs/current/ecs-{{ fieldset['name'] }}.html
+{% endif -%}
 applies_to:
   stack: all
   serverless: all
@@ -16,7 +18,7 @@ applies_to:
 {# Fieldset label alpha header -#}
 {% if fieldset['alpha'] -%}
 
-::::{caution}
+::::{warning}
 {{ fieldset['alpha'] }}
 ::::
 

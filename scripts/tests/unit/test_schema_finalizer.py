@@ -265,6 +265,95 @@ class TestSchemaFinalizer(unittest.TestCase):
         self.assertNotIn('original_fieldset', user_fields['name']['field_details'])
         self.assertNotIn('original_fieldset', process_fields['pid']['field_details'])
 
+    def test_chained_reuse_order1_fields_appear_in_order2_destinations(self):
+        """Field set reused at order 1 into host; host reused at order 2 into destination.
+
+        The order-1 fields (hash) must appear inside destination.host.
+        """
+        fields = {
+            'hash': {
+                'schema_details': {
+                    'root': False,
+                    'reusable': {
+                        'top_level': False,
+                        'order': 1,
+                        'expected': [
+                            {'full': 'host.hash', 'at': 'host', 'as': 'hash'},
+                        ]
+                    }
+                },
+                'field_details': {
+                    'name': 'hash',
+                    'node_name': 'hash',
+                    'type': 'group',
+                    'short': 'hash fields',
+                },
+                'fields': {
+                    'sha256': {
+                        'field_details': {
+                            'name': 'sha256',
+                            'node_name': 'sha256',
+                        }
+                    }
+                }
+            },
+            'host': {
+                'schema_details': {
+                    'root': False,
+                    'reusable': {
+                        'top_level': True,
+                        'order': 2,
+                        'expected': [
+                            {'full': 'destination.host', 'at': 'destination', 'as': 'host'},
+                        ]
+                    }
+                },
+                'field_details': {
+                    'name': 'host',
+                    'node_name': 'host',
+                    'type': 'group',
+                    'short': 'host fields',
+                },
+                'fields': {
+                    'name': {
+                        'field_details': {
+                            'name': 'name',
+                            'node_name': 'name',
+                        }
+                    }
+                }
+            },
+            'destination': {
+                'schema_details': {'root': False},
+                'field_details': {
+                    'name': 'destination',
+                    'node_name': 'destination',
+                    'type': 'group',
+                    'short': 'destination fields',
+                },
+                'fields': {
+                    'ip': {
+                        'field_details': {
+                            'name': 'ip',
+                            'node_name': 'ip',
+                            'type': 'ip',
+                        }
+                    }
+                }
+            }
+        }
+        finalizer.perform_reuse(fields)
+        # hash (order 1) should be inside host
+        self.assertIn('hash', fields['host']['fields'])
+        self.assertIn('sha256', fields['host']['fields']['hash']['fields'])
+        # host (order 2) reused into destination must carry the order-1 hash fields
+        self.assertIn('host', fields['destination']['fields'])
+        self.assertIn('name', fields['destination']['fields']['host']['fields'])
+        self.assertIn('hash', fields['destination']['fields']['host']['fields'],
+                      "Order-1 reuse (hash) must propagate through order-2 reuse (host → destination)")
+        self.assertIn('sha256', fields['destination']['fields']['host']['fields']['hash']['fields'],
+                      "Leaf fields from order-1 reuse must be present in chained destination")
+
     def test_alpha_on_reuse_entry_flows_to_reused_here(self):
         fields = {
             'user': {

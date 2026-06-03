@@ -18,6 +18,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+* Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
+
 #### Improvements
 
 #### Deprecated
@@ -42,10 +44,4 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-* Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
-* Document field stability definitions (alpha, beta, GA) in design principles. #2599
-
 #### Improvements
-
-* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
-* Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. #2599

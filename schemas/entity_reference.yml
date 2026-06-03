@@ -1,0 +1,121 @@
+# Licensed to Elasticsearch B.V. under one or more contributor
+# license agreements. See the NOTICE file distributed with
+# this work for additional information regarding copyright
+# ownership. Elasticsearch B.V. licenses this file to you under
+# the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# 	http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+---
+- name: entity_reference
+  title: Entity Reference
+  group: 2
+  short: Identifier fields for referencing other entities in relationships.
+  description: >
+    A reusable set of identifier fields used to reference other entities
+    in relationship contexts. Each field holds a keyword array of identifiers
+    following the same conventions as the corresponding ECS root field.
+    Only the fields defined in this field set might appear, ad-hoc or
+    integration-specific property names are not allowed.
+  type: group
+  alpha: This field set is alpha and subject to change.
+  reusable:
+    top_level: false
+    order: 1
+    expected:
+      - at: entity
+        as: relationships.administers
+        short_override: Entities this entity administers in an IAM or ops sense.
+      - at: entity
+        as: relationships.depends_on
+        short_override: Entities this entity requires for operation.
+      - at: entity
+        as: relationships.owns
+        short_override: Identifiers of assets or identities this entity owns.
+      - at: entity
+        as: relationships.supervises
+        short_override: Identities this entity supervises in a reporting or org-chart sense.
+  fields:
+    - name: entity.id
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      short: Identifiers of referenced entities.
+      description: >
+        Identifiers of referenced entities, using the same meaning as root
+        `entity.id` (stable id for correlation within scope).
+
+    - name: host.id
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced host ids.
+
+    - name: host.name
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced host names.
+
+    - name: service.id
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced service ids.
+
+    - name: service.name
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced service names.
+
+    - name: user.domain
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      short: Referenced user directory or AD/LDAP domain names.
+      description: >
+        Referenced user directory or AD/LDAP domain names (same semantics
+        as ECS `user.domain`).
+
+    - name: user.email
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced user email addresses.
+
+    - name: user.id
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced user ids.
+
+    - name: user.name
+      level: extended
+      type: keyword
+      normalize:
+        - array
+      description: >
+        Referenced user short names or logins.

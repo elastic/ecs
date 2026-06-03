@@ -50,7 +50,8 @@ The following table summarizes the alignment status by namespaces between ECS in
 | ELF Header | [38](/reference/ecs-elf.md) | · | · | · | · | · | · | · | · |
 | Email | [19](/reference/ecs-email.md) | · | · | · | · | · | · | · | · |
 | End User | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/enduser) | · | · | · | · | · | · |  |
-| Entity | [13](/reference/ecs-entity.md) | · | · | · | · | · | · | · | · |
+| Entity | [18](/reference/ecs-entity.md) | · | · | · | · | · | · | · | · |
+| Entity Reference | [9](/reference/ecs-entity_reference.md) | · | · | · | · | · | · | · | · |
 | Error | [5](/reference/ecs-error.md) | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/error) | 1 | 2 | · | · | · | · | · |
 | Event | [26](/reference/ecs-event.md) | · | · | · | · | · | · | · | · |
 | Exception | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/exception) | · | · | · | · | · | · |  |
@@ -121,7 +122,7 @@ The following table summarizes the alignment status by namespaces between ECS in
 | VCS Repository | · | [16](https://opentelemetry.io/docs/specs/semconv/attributes-registry/vcs) | · | · | · | · | · | · |  |
 | VLAN | [2](/reference/ecs-vlan.md) | · | · | · | · | · | · | · | · |
 | Volume | [16](/reference/ecs-volume.md) | · | · | · | · | · | · | · | · |
-| Vulnerability | [13](/reference/ecs-vulnerability.md) | · | · | · | · | · | · | · | · |
+| Vulnerability | [14](/reference/ecs-vulnerability.md) | · | · | · | · | · | · | · | · |
 | Web Engine | · | [3](https://opentelemetry.io/docs/specs/semconv/attributes-registry/webengine) | · | · | · | · | · | · |  |
 | x509 Certificate | [24](/reference/ecs-x509.md) | · | · | · | · | · | · | · | · |
 | z/OS attributes | · | [2](https://opentelemetry.io/docs/specs/semconv/attributes-registry/zos) | · | · | · | · | · | · |  |

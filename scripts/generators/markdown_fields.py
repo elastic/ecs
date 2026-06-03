@@ -31,6 +31,19 @@ import jinja2
 from generators import ecs_helpers
 from copy import deepcopy
 
+# Field sets that had pages on the legacy docs site (elastic.co/guide/en/ecs).
+# New field sets should NOT be added here — they have no legacy URL to redirect.
+LEGACY_FIELDSETS = frozenset({
+    'agent', 'as', 'base', 'client', 'cloud', 'code_signature', 'container',
+    'data_stream', 'destination', 'device', 'dll', 'dns', 'ecs', 'elf',
+    'email', 'entity', 'error', 'event', 'faas', 'file', 'gen_ai', 'geo',
+    'group', 'hash', 'host', 'http', 'interface', 'log', 'macho', 'network',
+    'observer', 'orchestrator', 'organization', 'os', 'package', 'pe',
+    'process', 'registry', 'related', 'risk', 'rule', 'server', 'service',
+    'source', 'threat', 'tls', 'tracing', 'url', 'user', 'user_agent',
+    'vlan', 'volume', 'vulnerability', 'x509',
+})
+
 
 def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, otel_generator, out_dir):
     """Generate all markdown docs: index, field reference, per-fieldset pages, and OTel alignment pages."""
@@ -49,8 +62,9 @@ def generate(nested, docs_only_nested, ecs_generated_version, semconv_version, o
     save_markdown(path.join(out_dir, 'ecs-field-reference.md'),
                   page_field_reference(ecs_generated_version, "Elasticsearch", fieldsets))
     for fieldset in fieldsets:
+        has_legacy_page = fieldset['name'] in LEGACY_FIELDSETS
         save_markdown(path.join(out_dir, f'ecs-{fieldset["name"]}.md'),
-                      page_fieldset(fieldset, nested, ecs_generated_version))
+                      page_fieldset(fieldset, nested, ecs_generated_version, has_legacy_page))
 
 # Helpers
 
@@ -155,7 +169,7 @@ def page_index(ecs_generated_version):
 
 
 @templated('fieldset.j2')
-def page_fieldset(fieldset, nested, ecs_generated_version):
+def page_fieldset(fieldset, nested, ecs_generated_version, has_legacy_page=True):
     """Render ecs-{fieldset.name}.md with fields, reuse, and nesting sections."""
     sorted_reuse_fields = render_fieldset_reuse_text(fieldset)
     render_nestings_reuse_fields = render_nestings_reuse_section(fieldset)
@@ -165,7 +179,8 @@ def page_fieldset(fieldset, nested, ecs_generated_version):
                 sorted_reuse_fields=sorted_reuse_fields,
                 render_nestings_reuse_section=render_nestings_reuse_fields,
                 sorted_fields=sorted_fields,
-                usage_doc=usage_doc)
+                usage_doc=usage_doc,
+                has_legacy_page=has_legacy_page)
 
 # Field Reference Page
 

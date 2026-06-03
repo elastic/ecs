@@ -3,6 +3,27 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.4.0](https://github.com/elastic/ecs/compare/v9.3.0...v9.4.0)
+
+### Schema Changes
+
+#### Added
+
+* Add `entity.attributes.*`, `entity.lifecycle.last_activity`, and `entity.relationships.*` fields from RFC 0054. Introduce reusable `entity_reference` field set for shared relationship identifier keys. #2598
+
+### Tooling and Artifact Changes
+
+#### Added
+
+* Add `alpha` field maturity attribute, mirroring `beta` with mutual exclusion. #2599
+* Document field stability definitions (alpha, beta, GA) in design principles. #2599
+
+#### Improvements
+
+* Increase composable template `total_fields.limit` from 2000 to 2500. #2584
+* Remove the `experimental/` build pipeline and unused `cgroup.*` fields; alpha and beta fields now live in `schemas/`. #2599
+
+
 ## [9.3.0](https://github.com/elastic/ecs/compare/v9.2.0...v9.3.0)
 
 ### Schema Changes
