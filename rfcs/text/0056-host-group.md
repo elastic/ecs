@@ -208,4 +208,4 @@ There is a real case where an agent's own grouping would differ from the host's:
 
 ### RFC Pull Requests
 
-* Proposal: https://github.com/elastic/ecs/pull/NNN
+* Proposal: https://github.com/elastic/ecs/pull/2670
