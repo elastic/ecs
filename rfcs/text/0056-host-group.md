@@ -6,7 +6,7 @@
 
 ## Summary
 
-Add `host.group`: a free-form keyword field that lets users assign an arbitrary label to a set of hosts (e.g. `APP-A_PROD`, `APP-A_DEV`). This plays the same role `data_stream.namespace` plays for data streams: a single field Security and Observability can search, alert, and grant access on by group.
+Add `host.group`: a free-form keyword field that lets users assign an arbitrary label to a set of hosts (e.g. `APP-A_PROD`, `APP-A_DEV`). This plays the same role `data_stream.namespace` plays for data streams: a single field Security and Observability can search, alert, and grant access based on the group.
 
 The originating issue also proposed a parallel `agent.group` field. This proposal drops it: see [Concerns](#concerns) for why the host is the right level and the agent is not.
 
