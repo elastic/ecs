@@ -1,17 +1,21 @@
 ---
 - name: host
   fields:
-    - name: group
+    - name: tags
       type: keyword
       level: extended
-      short: User-configurable label used to group a set of hosts.
+      short: User-configurable tags used to classify a host.
       description: >
-        A user-configurable, arbitrary label used to group a set of hosts
-        for search, alerting, and access control purposes.
+        User-configurable, arbitrary tags used to classify a host for
+        search, alerting, and access control purposes. A host can carry
+        more than one tag at a time, for example an environment tag and
+        a team or application tag.
 
-        This value is expected to be assigned by the entity that manages
-        the host's monitoring configuration (e.g. a Fleet policy or
-        configuration management system), not derived from data on the
-        host itself.
-      example: APP-A_PROD
+        These values are expected to be assigned by the entity that
+        manages the host's monitoring configuration (e.g. a Fleet
+        policy or configuration management system), not derived from
+        data on the host itself.
+      example: '["APP-A_PROD", "team-platform"]'
+      normalize:
+        - array
       alpha: This field is alpha and subject to change.
