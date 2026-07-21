@@ -46,6 +46,7 @@ The proposed field definition is in [`rfcs/text/0056/host.yml`](./0056/host.yml)
       example: '["APP-A_PROD", "team-platform"]'
       normalize:
         - array
+      synthetic_source_keep: "none"
       alpha: This field is alpha and subject to change.
 ```
 
