@@ -35,6 +35,7 @@ Thanks, you're awesome :-) -->
 #### Improvements
 
 * Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
+* Detect type conflicts when adding intermediate fields. #0000
 
 #### Deprecated
 
