@@ -19,6 +19,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 * Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
+* Add `host.tags` field. #2674
 
 #### Improvements
 
