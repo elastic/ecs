@@ -178,4 +178,4 @@ Some teams already repurpose `service.type` for grouping because nothing else fi
 
 ### RFC Pull Requests
 
-* Proposal: https://github.com/elastic/ecs/pull/NNN
+* Proposal: https://github.com/elastic/ecs/pull/2680
