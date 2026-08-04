@@ -1,0 +1,27 @@
+# Proposed addition to schemas/service.yml
+# Insert alphabetically after `name` and before `node.name`.
+
+    - name: namespace
+      level: extended
+      type: keyword
+      short: Namespace grouping service.name values by team, product, or business unit.
+      beta: This field is beta and subject to change.
+      example: shop
+      description: >
+        A namespace for `service.name`.
+
+        Namespace distinguishes a group of related services, for example
+        the team, product line, or business unit that owns them. Unlike
+        `service.name`, which identifies one service, `service.namespace`
+        identifies the group it belongs to. This lets services be
+        filtered, dashboarded, or access-controlled by owning group rather
+        than by individual name, and disambiguates `service.name` values
+        that are reused across different groups.
+
+        `service.namespace` is independent of `service.environment`.
+        Namespace identifies who owns a service; environment identifies
+        which deployment stage a running instance is in. The two can be
+        combined, for example the same namespace running in both
+        `production` and `staging`.
+      otel:
+        - relation: match
