@@ -3,6 +3,26 @@
 # CHANGELOG
 All notable changes to this project will be documented in this file based on the [Keep a Changelog](http://keepachangelog.com/) Standard. This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.5.0](https://github.com/elastic/ecs/compare/v9.4.0...v9.5.0)
+
+### Schema Changes
+
+#### Bugfixes
+
+* Fix GenAI integer fields to use `long` datatype per ECS conventions. #2646
+
+#### Added
+
+* Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
+* Add `host.tags` field. #2674
+
+### Tooling and Artifact Changes
+
+#### Improvements
+
+* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
+
+
 ## [9.4.0](https://github.com/elastic/ecs/compare/v9.3.0...v9.4.0)
 
 ### Schema Changes
