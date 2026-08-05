@@ -54,7 +54,7 @@ The proposed field definition is in [`rfcs/text/0057/service.yml`](./0057/servic
   type: keyword
   short: Namespace grouping service.name values by team, product, or business unit.
   beta: This field is beta and subject to change.
-  example: shop
+  example: elastiflix
   description: >
     A namespace for `service.name`.
 
@@ -66,11 +66,22 @@ The proposed field definition is in [`rfcs/text/0057/service.yml`](./0057/servic
     than by individual name, and disambiguates `service.name` values
     that are reused across different groups.
 
-    `service.namespace` is independent of `service.environment`.
-    Namespace identifies who owns a service; environment identifies
-    which deployment stage a running instance is in. The two can be
-    combined, for example the same namespace running in both
-    `production` and `staging`.
+    `service.namespace` is different from `service.type`. Take the
+    Elasticsearch cluster behind a streaming application called
+    Elastiflix: `service.namespace` is `elastiflix`, `service.name`
+    is `elastiflix-es`, and `service.type` is `elasticsearch`. The
+    API and web frontend that make up the rest of Elastiflix share
+    that same `service.namespace`, but carry their own `service.name`
+    and `service.type` values. Namespace says which application or
+    team a service belongs to, type says what the service is built
+    on, and one `service.type` such as `elasticsearch` can appear
+    under many different namespaces.
+
+    `service.namespace` is also independent of `service.environment`.
+    The Elastiflix Elasticsearch cluster above could have
+    `service.environment` set to `development`, and the same
+    `service.namespace` and `service.name` would apply just as well
+    if that cluster were running in `production`.
   otel:
     - relation: match
 ```
@@ -149,9 +160,9 @@ Teams running on AWS ECS/Fargate commonly tag tasks with an internal ownership o
 
 ## Concerns
 
-**Isn't this what `service.type` is for?** No, and it's worth spelling out since it's the workaround teams already reach for. `service.type` captures what kind of service something is, `elasticsearch`, `nginx`, `nodejs`, so every Elasticsearch cluster in a fleet shares the same `service.type` regardless of which team runs it ([#142](https://github.com/elastic/ecs/issues/142) covers the original design discussion, and the [field is documented](https://www.elastic.co/docs/reference/ecs/ecs-service#field-service-type) the same way today). Grouping by ownership needs the opposite property: one namespace like `payments` typically contains several different `service.type` values, a Node.js API, a Postgres database, a Redis cache, all owned by the same team. Overloading `type` to also carry a grouping role would break that assumption for anyone already using it as documented.
+**Isn't this what `service.type` is for?** No, and it's worth spelling out with an example since it's the workaround teams already reach for. Take Elastiflix, a streaming application made up of several components. Its Elasticsearch cluster has `service.namespace: elastiflix`, `service.name: elastiflix-es`, `service.type: elasticsearch`, and `service.environment: development`. The API and web frontend that round out Elastiflix share that same `service.namespace: elastiflix`, but carry their own `service.name` and `service.type` values, say `nodejs` and `nginx`. Meanwhile, an unrelated application could run its own Elasticsearch cluster with `service.type: elasticsearch` under a completely different namespace. `service.type` says what a service is built on ([#142](https://github.com/elastic/ecs/issues/142) covers the original design discussion, and the [field is documented](https://www.elastic.co/docs/reference/ecs/ecs-service#field-service-type) the same way today); it says nothing about which application or team a service belongs to, and the same `service.type` value routinely shows up across many namespaces.
 
-Some teams already repurpose `service.type` for grouping because nothing else fits, and that's a legitimate workaround if `type` isn't otherwise in use. But it stays a workaround, not a fix: the moment that team also needs to distinguish actual service types, the field can't do both jobs at once. `service.namespace` gives the grouping use case its own field instead.
+Some teams already repurpose `service.type` for grouping because nothing else fits, and that's a reasonable workaround if `type` isn't otherwise in use. But it stays a workaround, not a fix: the moment that team also needs to tell the Elasticsearch cluster apart from the Node.js API instead of lumping every component under one type, the field can't do both jobs at once. `service.namespace` gives the grouping use case its own field instead.
 
 **What about reusing `group.*`?** `group.*` models POSIX-style group membership (gid, user and process group), and its `reusable.expected` list in `schemas/group.yml` only covers `user` and `process`, not `service`. It also means something different: a Unix group has members with permissions, not a named set of services owned by a team. This exact question came up in [#508](https://github.com/elastic/ecs/issues/508), where the best available advice at the time was `group.*` or custom fields, and neither approach stuck.
 

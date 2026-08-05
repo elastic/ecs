@@ -6,7 +6,7 @@
       type: keyword
       short: Namespace grouping service.name values by team, product, or business unit.
       beta: This field is beta and subject to change.
-      example: shop
+      example: elastiflix
       description: >
         A namespace for `service.name`.
 
@@ -18,10 +18,21 @@
         than by individual name, and disambiguates `service.name` values
         that are reused across different groups.
 
-        `service.namespace` is independent of `service.environment`.
-        Namespace identifies who owns a service; environment identifies
-        which deployment stage a running instance is in. The two can be
-        combined, for example the same namespace running in both
-        `production` and `staging`.
+        `service.namespace` is different from `service.type`. Take the
+        Elasticsearch cluster behind a streaming application called
+        Elastiflix: `service.namespace` is `elastiflix`, `service.name`
+        is `elastiflix-es`, and `service.type` is `elasticsearch`. The
+        API and web frontend that make up the rest of Elastiflix share
+        that same `service.namespace`, but carry their own `service.name`
+        and `service.type` values. Namespace says which application or
+        team a service belongs to, type says what the service is built
+        on, and one `service.type` such as `elasticsearch` can appear
+        under many different namespaces.
+
+        `service.namespace` is also independent of `service.environment`.
+        The Elastiflix Elasticsearch cluster above could have
+        `service.environment` set to `development`, and the same
+        `service.namespace` and `service.name` would apply just as well
+        if that cluster were running in `production`.
       otel:
         - relation: match
