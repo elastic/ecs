@@ -13,9 +13,9 @@ on:
         required: true
         type: string
       model:
-        description: "AI model override (provider/model format). Leave empty to use LITELLM_MODEL secret."
+        description: "Bedrock model ID override. Leave empty to use the BEDROCK_MODEL variable."
         required: false
-        default: "llm-gateway/claude-opus-4-6"
+        default: "us.anthropic.claude-sonnet-4-6"
         type: string
 
 # Cancel in-progress when a new run starts for the same PR (e.g. new push).
@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   # ---------------------------------------------------------------------------
-  # Phase A: Triage — OpenCode + LiteLLM with read-only GitHub access.
+  # Phase A: Triage — OpenCode + AWS Bedrock.
   # ---------------------------------------------------------------------------
   triage:
     name: "Triage PR"
@@ -85,43 +85,33 @@ jobs:
         id: model
         env:
           INPUT_MODEL: ${{ inputs.model }}
-          LITELLM_MODEL: ${{ secrets.LITELLM_MODEL }}
-          DEFAULT_MODEL: ${{ vars.LITELLM_MODEL_DEFAULT || 'llm-gateway/claude-opus-4-6' }}
+          DEFAULT_MODEL: ${{ vars.BEDROCK_MODEL || 'us.anthropic.claude-sonnet-4-6' }}
         run: |
           if [ -n "${INPUT_MODEL:-}" ]; then
             echo "model=${INPUT_MODEL}" >> "$GITHUB_OUTPUT"
           else
-            echo "model=${LITELLM_MODEL:-${DEFAULT_MODEL}}" >> "$GITHUB_OUTPUT"
+            echo "model=${DEFAULT_MODEL}" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Configure OpenCode for LiteLLM
+      - name: Configure OpenCode for Bedrock
         env:
-          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
-          LITELLM_BASE_URL: ${{ secrets.LITELLM_BASE_URL }}
-          LITELLM_MODEL: ${{ steps.model.outputs.model }}
+          BEDROCK_MODEL: ${{ steps.model.outputs.model }}
+          AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION || 'us-east-1' }}
         run: |
           set -euo pipefail
-          LITELLM_BASE_URL="${LITELLM_BASE_URL:-https://elastic.litellm-prod.ai}"
-          if [ -z "${LITELLM_API_KEY:-}" ]; then
-            echo "::error::LITELLM_API_KEY secret is not set. Add it at Settings → Secrets → Actions."
-            exit 1
-          fi
-          echo "::add-mask::${LITELLM_API_KEY}"
           cat > "$GITHUB_WORKSPACE/opencode.json" <<OCEOF
           {
             "\$schema": "https://opencode.ai/config.json",
             "snapshot": false,
             "provider": {
-              "litellm": {
-                "npm": "@ai-sdk/openai-compatible",
-                "name": "LiteLLM",
+              "aws": {
+                "npm": "@ai-sdk/amazon-bedrock",
                 "options": {
-                  "baseURL": "${LITELLM_BASE_URL}",
-                  "apiKey": "${LITELLM_API_KEY}"
+                  "region": "${AWS_DEFAULT_REGION}"
                 },
                 "models": {
-                  "${LITELLM_MODEL}": {
-                    "name": "${LITELLM_MODEL}"
+                  "${BEDROCK_MODEL}": {
+                    "name": "${BEDROCK_MODEL}"
                   }
                 }
               }
@@ -131,8 +121,10 @@ jobs:
 
       - name: Build prompt and run triage
         env:
-          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
-          MODEL: litellm/${{ steps.model.outputs.model }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION || 'us-east-1' }}
+          MODEL: aws/${{ steps.model.outputs.model }}
           PR_NUMBER: ${{ steps.pr.outputs.number }}
           REPO: ${{ github.repository }}
         run: |
@@ -269,8 +261,6 @@ jobs:
 
       - name: Redact agent output
         continue-on-error: true
-        env:
-          LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
         run: |
           set -euo pipefail
           RUNTIME="$GITHUB_WORKSPACE/pr-triage-runtime"
@@ -281,7 +271,7 @@ jobs:
 
           root = Path(os.environ["GITHUB_WORKSPACE"]) / "pr-triage-runtime"
           files = [root / "pr-triage-report.md", root / "agent-transcript.md"]
-          env_keys = ["LITELLM_API_KEY"]
+          env_keys: list[str] = []
           patterns = [
               (r'(?i)(authorization\s*:\s*bearer)\s+[^\s]{12,}', r'\1 [REDACTED]'),
               (r'(?i)(api[_-]?key|token|secret)\s*[:=]\s*[\'"]?[a-z0-9._\-/+=]{12,}[\'"]?', r'\1=[REDACTED]'),
