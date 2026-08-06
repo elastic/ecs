@@ -23,6 +23,9 @@ concurrency:
   group: pr-triage-${{ github.event.pull_request.number || inputs.pr_number || github.run_id }}
   cancel-in-progress: true
 
+# Default deny — each job grants only what it needs.
+permissions: {}
+
 jobs:
   # ---------------------------------------------------------------------------
   # Phase A: Triage — OpenCode + AWS Bedrock.
@@ -103,6 +106,11 @@ jobs:
           {
             "\$schema": "https://opencode.ai/config.json",
             "snapshot": false,
+            "permission": {
+              "bash": "deny",
+              "webfetch": "deny",
+              "websearch": "deny"
+            },
             "provider": {
               "aws": {
                 "npm": "@ai-sdk/amazon-bedrock",
