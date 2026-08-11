@@ -117,13 +117,6 @@ Please follow these guidelines when submitting Issues:
 * Click `New issue`. Provide as many details as possible to help reviewers and other contributors understand your proposal.
 * Add your text, and click `Submit new issue`.
 
-## Feature freezes and branching
-
-For an upcoming release, ECS uses a feature freeze (FF) approach. A release branch is cut from `main` for an upcoming
-release. When a branch is frozen, changes are limited to bug fixes or doc updates.
-
-Any schema changes or tooling updates will be merged into `main` for the next ECS version.
-
 ### Changelogs
 
 ECS maintains two changelog files:
