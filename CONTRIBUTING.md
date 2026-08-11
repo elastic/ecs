@@ -96,7 +96,7 @@ We follow the [Github forking model](https://help.github.com/articles/fork-a-rep
 
 ### Commits and Merging
 
-* Use meaningful and helpful commit messages on your changes and an explanation of _why_ you made those changes.
+* Use conventional commit messages.
 * When merging, maintainers will squash your commits into a single commit.
 
 ### Pull Requests
