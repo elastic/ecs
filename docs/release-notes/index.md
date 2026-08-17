@@ -23,6 +23,19 @@ To check for security updates, go to [Security announcements for the Elastic sta
 % ### Fixes [ecs-next-fixes]
 % *
 
+## 9.5.0 [ecs-9-5-0-release-notes]
+
+### Features and enhancements [ecs-9-5-0-features-enhancements]
+
+* Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. [#2662](https://github.com/elastic/ecs/pull/2662)
+* Add `host.tags` field. [#2674](https://github.com/elastic/ecs/pull/2674)
+* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. [#2600](https://github.com/elastic/ecs/pull/2600)
+
+### Fixes [ecs-9-5-0-fixes]
+
+* Fix GenAI integer fields to use `long` datatype per ECS conventions. [#2646](https://github.com/elastic/ecs/pull/2646)
+
+
 ## 9.4.0 [ecs-9-4-0-release-notes]
 
 ### Features and enhancements [ecs-9-4-0-features-enhancements]
