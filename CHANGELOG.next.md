@@ -14,11 +14,7 @@ Thanks, you're awesome :-) -->
 
 #### Bugfixes
 
-* Fix GenAI integer fields to use `long` datatype per ECS conventions. #2646
-
 #### Added
-
-* Add `vulnerability.status` field with allowed values `open`, `fixed`, `reopened`, `unknown`. #2662
 
 #### Improvements
 
@@ -34,14 +30,4 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
-* Streamline RFC process from four stages (Strawperson, Draft, Candidate, Finished) to a single Proposal stage with target maturity. #2600
-
 #### Deprecated
-
-## 9.4.0 (Feature Freeze)
-
-### Tooling and Artifact Changes
-
-#### Added
-
-#### Improvements
