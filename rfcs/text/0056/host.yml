@@ -1,0 +1,22 @@
+---
+- name: host
+  fields:
+    - name: tags
+      type: keyword
+      level: extended
+      short: User-configurable tags used to classify a host.
+      description: >
+        User-configurable, arbitrary tags used to classify a host for
+        search, alerting, and access control purposes. A host can carry
+        more than one tag at a time, for example an environment tag and
+        a team or application tag.
+
+        These values are expected to be assigned by the entity that
+        manages the host's monitoring configuration (e.g. a Fleet
+        policy or configuration management system), not derived from
+        data on the host itself.
+      example: '["APP-A_PROD", "team-platform"]'
+      normalize:
+        - array
+      synthetic_source_keep: "none"
+      alpha: This field is alpha and subject to change.
