@@ -16,6 +16,8 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
+- Add `namespace` field to `service` schema. #0000
+
 #### Improvements
 
 #### Deprecated

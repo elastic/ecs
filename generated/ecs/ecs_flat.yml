@@ -23061,6 +23061,40 @@ service.origin.name:
   original_fieldset: service
   short: Name of the service.
   type: keyword
+service.origin.namespace:
+  beta: This field is beta and subject to change.
+  dashed_name: service-origin-namespace
+  description: 'A namespace for `service.name`.
+
+    Namespace distinguishes a group of related services, for example the team, product
+    line, or business unit that owns them. Unlike `service.name`, which identifies
+    one service, `service.namespace` identifies the group it belongs to. This lets
+    services be filtered, dashboarded, or access-controlled by owning group rather
+    than by individual name, and disambiguates `service.name` values that are reused
+    across different groups.
+
+    `service.namespace` is different from `service.type`. Take the Elasticsearch cluster
+    behind a streaming application called Elastiflix: `service.namespace` is `elastiflix`,
+    `service.name` is `elastiflix-es`, and `service.type` is `elasticsearch`. The
+    API and web frontend that make up the rest of Elastiflix share that same `service.namespace`,
+    but carry their own `service.name` and `service.type` values. Namespace says which
+    application or team a service belongs to, type says what the service is built
+    on, and one `service.type` such as `elasticsearch` can appear under many different
+    namespaces.
+
+    `service.namespace` is also independent of `service.environment`. The Elastiflix
+    Elasticsearch cluster above could have `service.environment` set to `development`,
+    and the same `service.namespace` and `service.name` would apply just as well if
+    that cluster were running in `production`.'
+  example: elastiflix
+  flat_name: service.origin.namespace
+  ignore_above: 1024
+  level: extended
+  name: namespace
+  normalize: []
+  original_fieldset: service
+  short: Namespace grouping service.name values by team, product, or business unit.
+  type: keyword
 service.origin.node.name:
   dashed_name: service-origin-node-name
   description: 'Name of a service node.
@@ -24035,6 +24069,40 @@ service.target.name:
   normalize: []
   original_fieldset: service
   short: Name of the service.
+  type: keyword
+service.target.namespace:
+  beta: This field is beta and subject to change.
+  dashed_name: service-target-namespace
+  description: 'A namespace for `service.name`.
+
+    Namespace distinguishes a group of related services, for example the team, product
+    line, or business unit that owns them. Unlike `service.name`, which identifies
+    one service, `service.namespace` identifies the group it belongs to. This lets
+    services be filtered, dashboarded, or access-controlled by owning group rather
+    than by individual name, and disambiguates `service.name` values that are reused
+    across different groups.
+
+    `service.namespace` is different from `service.type`. Take the Elasticsearch cluster
+    behind a streaming application called Elastiflix: `service.namespace` is `elastiflix`,
+    `service.name` is `elastiflix-es`, and `service.type` is `elasticsearch`. The
+    API and web frontend that make up the rest of Elastiflix share that same `service.namespace`,
+    but carry their own `service.name` and `service.type` values. Namespace says which
+    application or team a service belongs to, type says what the service is built
+    on, and one `service.type` such as `elasticsearch` can appear under many different
+    namespaces.
+
+    `service.namespace` is also independent of `service.environment`. The Elastiflix
+    Elasticsearch cluster above could have `service.environment` set to `development`,
+    and the same `service.namespace` and `service.name` would apply just as well if
+    that cluster were running in `production`.'
+  example: elastiflix
+  flat_name: service.target.namespace
+  ignore_above: 1024
+  level: extended
+  name: namespace
+  normalize: []
+  original_fieldset: service
+  short: Namespace grouping service.name values by team, product, or business unit.
   type: keyword
 service.target.node.name:
   dashed_name: service-target-node-name
