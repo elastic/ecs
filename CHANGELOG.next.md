@@ -16,7 +16,7 @@ Thanks, you're awesome :-) -->
 
 #### Added
 
-- Add `namespace` field to `service` schema. #0000
+- Add `namespace` field to `service` schema. #2688
 
 #### Improvements
 
