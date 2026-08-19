@@ -30,4 +30,6 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Detect type conflicts when adding intermediate fields. #2671
+
 #### Deprecated

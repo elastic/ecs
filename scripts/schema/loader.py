@@ -189,10 +189,13 @@ def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
             # Respect explicitly defined object fields
             if 'type' in field_details and field_details['type'] in ['object', 'nested']:
                 field_details.setdefault('intermediate', False)
-            else:
+            elif 'type' not in field_details:
                 field_details.setdefault('type', 'object')
                 field_details.setdefault('name', '.'.join(parent_fields[:idx + 1]))
                 field_details.setdefault('intermediate', True)
+            else:
+                msg = f"Type conflict detected when adding intermediate field '{level}' (adding: object, existing: {field_details['type']})"
+                raise ValueError(msg)
 
             # moving the nested_schema cursor deeper
             current_path.extend([level])
@@ -200,6 +203,9 @@ def nest_fields(field_array: List[Field]) -> Dict[str, Dict[str, FieldEntry]]:
         nested_schema.setdefault(leaf_field, {})
         # Overwrite 'name' with the leaf field's name. The flat_name is already computed.
         field['node_name'] = leaf_field
+        if 'field_details' in nested_schema[leaf_field] and nested_schema[leaf_field]['field_details']['type'] != field['type']:
+            msg = f"Type conflict detected when adding leaf field '{leaf_field}' (adding: {field['type']}, existing: {nested_schema[leaf_field]['field_details']['type']})"
+            raise ValueError(msg)
         nested_schema[leaf_field]['field_details'] = field
     return schema_root
 
