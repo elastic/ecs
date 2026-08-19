@@ -255,6 +255,19 @@ class TestSchemaLoader(unittest.TestCase):
         nested_fields = loader.nest_fields(process_fields)
         self.assertEqual(nested_fields, expected_nested_fields)
 
+    def test_nest_fields_incompatible_types(self):
+        test_fields = [
+            {'name': 'foo', 'type': 'keyword'},
+            {'name': 'foo.bar', 'type': 'keyword'},
+        ]
+        self.assertRaises(ValueError, loader.nest_fields, test_fields)
+
+        test_fields = [
+            {'name': 'foo.bar', 'type': 'keyword'},
+            {'name': 'foo', 'type': 'keyword'},
+        ]
+        self.assertRaises(ValueError, loader.nest_fields, test_fields)
+
     def test_nest_fields_recognizes_explicitly_defined_object_fields(self):
         dns_fields = [
             {'name': 'question.name', 'type': 'keyword'},
