@@ -89,7 +89,9 @@ class TestEcsSpec(unittest.TestCase):
         self.assertIn('user.entity.relationships.administers.entity.id', all_keys)
         self.assertIn('user.target.entity.relationships.administers.entity.id', all_keys)
         self.assertIn('host.entity.relationships.owns.entity.id', all_keys)
+        self.assertIn('host.target.entity.relationships.owns.entity.id', all_keys)
         self.assertIn('service.entity.relationships.owns.entity.id', all_keys)
+        self.assertIn('service.target.entity.relationships.owns.entity.id', all_keys)
 
     def test_nested_includes_reusable_fields(self):
         client_keys = sorted(self.ecs_nested['client']['fields'].keys())

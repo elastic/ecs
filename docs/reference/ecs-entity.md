@@ -40,7 +40,9 @@ The `entity` fields are expected to be nested at:
 
 * `entity.target`
 * `host.entity`
+* `host.target.entity`
 * `service.entity`
+* `service.target.entity`
 * `user.entity`
 * `user.target.entity`
 

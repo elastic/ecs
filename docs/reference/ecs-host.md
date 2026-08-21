@@ -55,3 +55,4 @@ Note also that the `host` fields may be used directly at the root of the events.
 | `host.os.*` | [os](/reference/ecs-os.md) | OS fields contain information about the operating system. |
 | `host.risk.*` | [risk](/reference/ecs-risk.md) | Fields for describing risk score and level. |
 | `host.target.*` | [host](/reference/ecs-host.md) | Targeted host of action taken. |
+| `host.target.entity.*` | [entity](/reference/ecs-entity.md) | Fields to describe various types of entities across IT environments. |
