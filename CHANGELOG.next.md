@@ -12,6 +12,8 @@ Thanks, you're awesome :-) -->
 
 #### Breaking changes
 
+* Narrow `entity` reuse: remove `cloud.entity`, `orchestrator.entity`, and self-nested copies such as `user.effective.entity` and `cloud.origin.entity`. #NNNN
+
 #### Bugfixes
 
 #### Added

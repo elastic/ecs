@@ -84,11 +84,12 @@ class TestEcsSpec(unittest.TestCase):
         self.assertIn('observer.os.name', all_keys)
         self.assertIn('user_agent.os.name', all_keys)
 
-        # entity_reference (chained: entity_reference → entity → cloud/user/host)
+        # entity_reference (chained: entity_reference → entity → user/host/service)
         self.assertIn('entity.relationships.administers.entity.id', all_keys)
-        self.assertIn('cloud.entity.relationships.administers.entity.id', all_keys)
         self.assertIn('user.entity.relationships.administers.entity.id', all_keys)
+        self.assertIn('user.target.entity.relationships.administers.entity.id', all_keys)
         self.assertIn('host.entity.relationships.owns.entity.id', all_keys)
+        self.assertIn('service.entity.relationships.owns.entity.id', all_keys)
 
     def test_nested_includes_reusable_fields(self):
         client_keys = sorted(self.ecs_nested['client']['fields'].keys())

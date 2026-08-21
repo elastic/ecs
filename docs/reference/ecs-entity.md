@@ -38,12 +38,11 @@ The entity fields provide a standardized way to represent and categorize differe
 
 The `entity` fields are expected to be nested at:
 
-* `cloud.entity`
 * `entity.target`
 * `host.entity`
-* `orchestrator.entity`
 * `service.entity`
 * `user.entity`
+* `user.target.entity`
 
 Note also that the `entity` fields may be used directly at the root of the events.
 
