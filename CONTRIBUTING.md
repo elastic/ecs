@@ -27,7 +27,6 @@ ECS is an open source project and we love to receive contributions from our comm
   - [Subset Files](#subset-files)
 - [Additional Resources](#additional-resources)
 
-
 ## How to contribute
 
 For significant changes—like new top-level fieldsets, use cases, or anything potentially controversial—follow the [ECS RFC process](rfcs/PROCESS.md).
