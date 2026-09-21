@@ -17,7 +17,7 @@ Thanks, you're awesome :-) -->
 #### Added
 
 - Add `namespace` field to `service` schema. #2688
-* Add `conversation.id` field to `gen_ai` schema. #0000
+* Add `conversation.id` field to `gen_ai` schema. #2697
 
 #### Improvements
 
