@@ -11,7 +11,7 @@ applies_to:
 
 Fields that capture the context of Generative Artificial Intelligence (GenAI) Models requests and responses
 
-This field group definition is based on the Gen AI namespace of the OpenTelemetry Semantic Conventions (https://opentelemetry.io/docs/specs/semconv/attributes-registry/gen-ai/).
+This field group definition is based on the Gen AI namespace of the OpenTelemetry Semantic Conventions (https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/registry/attributes/gen-ai.md).
 
 ## Gen AI field details [_gen_ai_field_details]
 
