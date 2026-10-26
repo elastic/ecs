@@ -214,7 +214,7 @@ base:
       otel:
       - attribute: k8s.pod.label
         relation: related
-        stability: development
+        stability: stable
       - attribute: container.label
         relation: related
         stability: development
@@ -3794,7 +3794,7 @@ container:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: stable
       short: Unique container id.
       type: keyword
     container.image.hash.all:
@@ -3812,7 +3812,7 @@ container:
       otel:
       - attribute: container.image.repo_digests
         relation: equivalent
-        stability: development
+        stability: stable
       short: An array of digests of the image the container was built on.
       type: keyword
     container.image.name:
@@ -3825,7 +3825,7 @@ container:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: stable
       short: Name of the image the container was built on.
       type: keyword
     container.image.tag:
@@ -3840,7 +3840,7 @@ container:
       otel:
       - attribute: container.image.tags
         relation: equivalent
-        stability: development
+        stability: stable
       short: Container image tags.
       synthetic_source_keep: none
       type: keyword
@@ -3869,7 +3869,7 @@ container:
       otel:
       - metric: container.memory.usage
         relation: metric
-        stability: development
+        stability: release_candidate
       scaling_factor: 1000
       short: Percent memory used, between 0 and 1.
       type: scaled_float
@@ -8745,6 +8745,10 @@ event:
       level: core
       name: original
       normalize: []
+      otel:
+      - attribute: log.record.original
+        relation: equivalent
+        stability: development
       short: Raw text message of entire event.
       type: keyword
     event.outcome:
@@ -11481,9 +11485,6 @@ gen_ai:
       level: extended
       name: token.type
       normalize: []
-      otel:
-      - relation: match
-        stability: development
       short: The type of token being counted.
       type: keyword
     gen_ai.tool.call.arguments:
@@ -17974,7 +17975,7 @@ process:
       otel:
       - attribute: process.command_args
         relation: equivalent
-        stability: development
+        stability: release_candidate
       short: Array of process arguments.
       type: keyword
     process.args_count:
@@ -17991,7 +17992,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Length of the process.args array.
       type: long
     process.code_signature.digest_algorithm:
@@ -18162,7 +18163,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Full command line that started the process.
       type: wildcard
     process.elf.architecture:
@@ -18616,6 +18617,10 @@ process:
       level: extended
       name: end
       normalize: []
+      otel:
+      - attribute: process.exit.time
+        relation: equivalent
+        stability: release_candidate
       short: The time the process ended.
       type: date
     process.entity_id:
@@ -19270,7 +19275,7 @@ process:
       otel:
       - attribute: process.executable.path
         relation: equivalent
-        stability: development
+        stability: release_candidate
       short: Absolute path to the process executable.
       type: keyword
     process.exit_code:
@@ -19284,6 +19289,10 @@ process:
       level: extended
       name: exit_code
       normalize: []
+      otel:
+      - attribute: process.exit.code
+        relation: equivalent
+        stability: release_candidate
       short: The exit code of the process.
       type: long
     process.group.id:
@@ -19466,7 +19475,7 @@ process:
       original_fieldset: process
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.group_leader.real_group.id:
@@ -19842,7 +19851,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Whether the process is connected to an interactive shell.
       type: boolean
     process.io:
@@ -20164,6 +20173,10 @@ process:
         type: match_only_text
       name: name
       normalize: []
+      otel:
+      - attribute: process.executable.name
+        relation: related
+        stability: release_candidate
       short: Process name.
       type: keyword
     process.parent.args:
@@ -21577,6 +21590,10 @@ process:
       name: pid
       normalize: []
       original_fieldset: process
+      otel:
+      - attribute: process.parent_pid
+        relation: equivalent
+        stability: release_candidate
       short: Process id.
       type: long
     process.parent.real_group.id:
@@ -22194,7 +22211,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.previous.args:
@@ -22278,7 +22295,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.real_user.name:
@@ -22297,7 +22314,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.saved_group.id:
@@ -22334,7 +22351,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.saved_user.name:
@@ -22353,7 +22370,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.session_leader.args:
@@ -22632,7 +22649,7 @@ process:
       original_fieldset: process
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.session_leader.real_group.id:
@@ -22905,6 +22922,10 @@ process:
       level: extended
       name: start
       normalize: []
+      otel:
+      - attribute: process.creation.time
+        relation: equivalent
+        stability: release_candidate
       short: The time the process started.
       type: date
     process.supplemental_groups.id:
@@ -22998,7 +23019,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process title.
       type: keyword
     process.tty:
@@ -23074,7 +23095,7 @@ process:
       otel:
       - metric: process.uptime
         relation: metric
-        stability: development
+        stability: release_candidate
       short: Seconds the process has been up.
       type: long
     process.user.id:
@@ -23089,7 +23110,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.user.name:
@@ -23108,7 +23129,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.vpid:
@@ -23126,7 +23147,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Virtual process id.
       type: long
     process.working_directory:
@@ -23144,7 +23165,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -25072,7 +25093,7 @@ service:
       otel:
       - attribute: deployment.environment.name
         relation: equivalent
-        stability: development
+        stability: stable
       short: Environment of the service.
       type: keyword
     service.ephemeral_id:
@@ -25152,7 +25173,7 @@ service:
       otel:
       - attribute: service.instance.id
         relation: equivalent
-        stability: development
+        stability: stable
       short: Name of the service node.
       type: keyword
     service.node.role:
@@ -39084,6 +39105,9 @@ user_agent:
       name: name
       normalize: []
       original_fieldset: os
+      otel:
+      - relation: match
+        stability: development
       short: Operating system name, without the version.
       type: keyword
     user_agent.os.platform:
@@ -39133,6 +39157,9 @@ user_agent:
       name: version
       normalize: []
       original_fieldset: os
+      otel:
+      - relation: match
+        stability: development
       short: Operating system version as a raw string.
       type: keyword
     user_agent.version:

@@ -33,6 +33,7 @@ Thanks, you're awesome :-) -->
 
 #### Improvements
 
+* Update OTel semantic conventions to 1.44.0, support the `definition/2` model format and load GenAI conventions from `semantic-conventions-genai`. #2708
 * Detect type conflicts when adding intermediate fields. #2671
 
 #### Deprecated
