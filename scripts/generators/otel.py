@@ -45,14 +45,21 @@ from ecs_types import (
 OTEL_SEMCONV_GIT = "https://github.com/open-telemetry/semantic-conventions.git"
 LOCAL_TARGET_DIR_OTEL_SEMCONV = "./build/otel-semconv/"
 
+# The GenAI conventions moved out of the main semconv repo (deprecated there since 1.44.0).
+# That repo has no release tags yet, so a commit is pinned; its registry depends on semconv 1.44.0.
+OTEL_SEMCONV_GENAI_GIT = "https://github.com/open-telemetry/semantic-conventions-genai.git"
+OTEL_SEMCONV_GENAI_REF = "20259355b9631e3f032dcc099d1b5a2666818c42"
+LOCAL_TARGET_DIR_OTEL_SEMCONV_GENAI = "./build/otel-semconv-genai/"
+
 
 def get_model_files(
     git_repo: str,
     semconv_version: str,
+    local_dir: str = LOCAL_TARGET_DIR_OTEL_SEMCONV,
 ) -> List[OTelModelFile]:
     """Load OTel semconv model YAML files from the git repo at the given version. Raises KeyError if 'model' dir absent."""
     target_dir = "model"
-    tree: git.objects.tree.Tree = get_tree_by_url(git_repo, semconv_version)
+    tree: git.objects.tree.Tree = get_tree_by_url(git_repo, semconv_version, local_dir)
     if ecs_helpers.path_exists_in_git_tree(tree, target_dir):
         return collectOTelModelFiles(tree[target_dir])
     else:
@@ -66,7 +73,12 @@ def get_attributes(
 
     attributes: Dict[str, OTelAttribute] = {}
     for model_file in model_files:
-        for group in model_file['groups']:
+        # Files in the 'definition/2' format list registry attributes at the top level, keyed by 'key'.
+        for attribute in model_file.get('attributes', []):
+            if 'key' in attribute and 'deprecated' not in attribute:
+                attribute['id'] = attribute['key']
+                attributes[attribute['id']] = attribute
+        for group in model_file.get('groups', []):
             if 'type' in group and group['type'] == 'attribute_group' and 'deprecated' not in group and 'attributes' in group:
                 for attribute in group['attributes']:
                     if 'id' in attribute and 'deprecated' not in attribute:
@@ -85,7 +97,12 @@ def get_metrics(
 
     metrics: Dict[str, OTelGroup] = {}
     for model_file in model_files:
-        for group in model_file['groups']:
+        # Files in the 'definition/2' format list metrics at the top level, identified by 'name'.
+        for metric in model_file.get('metrics', []):
+            if 'name' in metric and 'deprecated' not in metric:
+                metric['metric_name'] = metric['name']
+                metrics[metric['metric_name']] = metric
+        for group in model_file.get('groups', []):
             if 'type' in group and group['type'] == 'metric' and 'metric_name' in group and 'deprecated' not in group:
                 metrics[group['metric_name']] = group
     return metrics
@@ -110,22 +127,25 @@ def collectOTelModelFiles(
 def get_tree_by_url(
     url: str,
     git_ref: str,
+    local_dir: str = LOCAL_TARGET_DIR_OTEL_SEMCONV,
 ) -> git.objects.tree.Tree:
-    """Return git tree for url at git_ref, using cached clone in LOCAL_TARGET_DIR_OTEL_SEMCONV."""
+    """Return git tree for url at git_ref (tag, branch or commit), using the cached clone in local_dir."""
     repo: git.repo.base.Repo
     clone_from_remote = False
-    if os.path.exists(LOCAL_TARGET_DIR_OTEL_SEMCONV):
-        repo = git.Repo(LOCAL_TARGET_DIR_OTEL_SEMCONV)
+    if os.path.exists(local_dir):
+        repo = git.Repo(local_dir)
 
-        if not git_ref in repo.tags and not git_ref in repo.branches:
-            shutil.rmtree(LOCAL_TARGET_DIR_OTEL_SEMCONV)
+        try:
+            repo.commit(git_ref)
+        except (git.exc.BadName, ValueError):
+            shutil.rmtree(local_dir)
             clone_from_remote = True
     else:
         clone_from_remote = True
 
     if clone_from_remote:
         print(f'Loading OpenTelemetry Semantic Conventions version "{git_ref}"')
-        repo = git.Repo.clone_from(url, LOCAL_TARGET_DIR_OTEL_SEMCONV)
+        repo = git.Repo.clone_from(url, local_dir)
 
     repo.git.checkout(git_ref)
     return repo.head.commit.tree
@@ -187,6 +207,8 @@ class OTelGenerator:
     def __init__(self, semconv_version: str):
         """Load OTel semconv model files and extract attributes and metrics for the given version."""
         model_files = get_model_files(OTEL_SEMCONV_GIT, semconv_version)
+        model_files.extend(get_model_files(OTEL_SEMCONV_GENAI_GIT,
+                           OTEL_SEMCONV_GENAI_REF, LOCAL_TARGET_DIR_OTEL_SEMCONV_GENAI))
 
         self.attributes: Dict[str, OTelAttribute] = get_attributes(model_files)
         self.otel_attribute_names = list(self.attributes.keys())
