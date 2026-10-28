@@ -279,4 +279,4 @@ The following are the people that consulted on the contents of this RFC.
 
 ### RFC Pull Requests
 
-* Proposal: https://github.com/elastic/ecs/pull/NNN
+* Proposal: https://github.com/elastic/ecs/pull/2711
