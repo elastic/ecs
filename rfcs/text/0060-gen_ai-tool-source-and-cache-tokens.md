@@ -22,7 +22,7 @@ The tool source fields are new to both ECS and OTel; the cache token fields matc
 
 Detections for tool-definition poisoning and for tool impersonation or typosquatting (both under the OWASP Tool Misuse & Exploitation risk, ASI02) key on "same or similar name, different source" or "same source, changed definition". Both need a source identity, and this field is the prerequisite for detecting them across integrations rather than per integration.
 
-**Cache tokens.** Cache read and write volume separates normal cost from abusive or anomalous usage, and a cache write followed by reads can indicate a large reused context. Both values are already present in Bedrock invocation logs and in the OpenAI Responses API, but have no ECS field to land in.
+**Cache tokens.** Cache read and write volume separates normal cost from abusive or anomalous usage, and a cache write followed by reads can indicate a large reused context. Bedrock invocation logs report both cache reads and cache writes, and the OpenAI Responses API reports cache reads, but neither has an ECS field to land in.
 
 ## Fields
 
@@ -115,7 +115,7 @@ The tool source also applies to each entry of the existing `gen_ai.tool.definiti
 
 ## Source data
 
-The documents below are trimmed to the relevant fields. The AgentCore, LiteLLM, `claude_cowork`, ChatGPT Enterprise and OpenAI documents are shaped from the field descriptions in the integration sub-issues (elastic/integrations#20889, #20745, #20742, #20898, #20744) and are illustrative; the Bedrock document is an excerpt of a real invocation log with account, identity and request identifiers redacted.
+The documents below are trimmed to the relevant fields. The AgentCore, ChatGPT Enterprise, OTel MCP span and OpenAI documents are illustrative: they are shaped from the field descriptions in the integration sub-issues (elastic/integrations#20889, #20898, #20744) and from the OTel MCP conventions. The table of other integrations is taken from their sub-issues (#20745, #20741, #20742, #20898). The Bedrock document is an excerpt of a real invocation log with account, identity and request identifiers redacted.
 
 ### AWS Bedrock AgentCore gateway log (elastic/integrations#20889)
 
@@ -150,7 +150,7 @@ Several integrations already carry the source, folded into the tool name or in a
 | Integration | Source data in the native event |
 |---|---|
 | LiteLLM (#20745) | `mcp_namespaced_tool_name` in `/spend/logs/v2` (MCP tool calls only) |
-| `claude_code` (#20741) | `mcp_tool_name` parsed from the `tool_parameters` JSON blob (whether the server name is emitted separately is to be verified) |
+| `claude_code` (#20741) | `mcp_tool_name` and `mcp_server_name`, both parsed from the `tool_parameters` JSON blob by the ingest pipeline |
 | `claude_cowork` (#20742) | `mcp_tool.name`, a direct structured attribute |
 | ChatGPT Enterprise (#20898) | `app_name` (e.g. `Slack`, `gdrive`) and `app_type` (`MCP` or `SERVICE`) |
 
@@ -193,7 +193,7 @@ OTel MCP client spans carry the address of the server but not its name, so `gen_
 
 ### AWS Bedrock model invocation log (cache tokens)
 
-Bedrock invocation logs carry the cache counts, which today land only under `aws_bedrock.invocation.input.*`. Excerpt of a real log, redacted:
+Bedrock invocation logs carry the cache counts, which today land only under `aws_bedrock.invocation.input.*`. Excerpt of a real log, redacted (the cache counts are zero in this sample):
 
 ```json
 {
@@ -255,7 +255,7 @@ The OpenAI integration proposal already requests the cache read value, from `usa
 
 ## Concerns
 
-* **`server.*` is not the tool source:** On a tool-call event, `server.address` describes the GenAI service endpoint being called, not where the tool was offered from. Resolution: use a dedicated `gen_ai.tool.source.address` and declare the relation to `server.address` as `related`, with a note, instead of reusing the field.
+* **`server.*` is not the tool source:** `server.address` is a network field whose meaning depends on the event: the model endpoint on a GenAI request, the MCP server on an MCP client span. Tools listed in one event can come from several sources, so one event-level field cannot describe them. Resolution: use a dedicated `gen_ai.tool.source.address`, populated from `server.address` / `server.port` where an MCP client span provides it, and declare the relation to `server.address` as `related`, with a note, instead of reusing the field.
 * **`gen_ai.tool.source.name` has no OTel equivalent:** The OTel `mcp.*` attributes define no server name. Resolution: propose `gen_ai.tool.source.*` upstream in `open-telemetry/semantic-conventions-genai`, where `gen_ai.skill.source.uri` is a naming precedent, and declare `otel: na` for the name and type until then.
 * **`gen_ai.tool.source.type` could be confused with `gen_ai.tool.type`:** The OTel values (`function`, `extension`, `datastore`) describe how the tool executes. Resolution: keep the fields separate and state the difference in the field descriptions.
 * **Overlap of cache tokens with `gen_ai.usage.input_tokens`:** OTel states that cache values SHOULD be included in `input_tokens`. Resolution: copy that statement into both descriptions so consumers do not add the cache values on top of the input count. `gen_ai.token.type` does not cover them.
