@@ -38,8 +38,6 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
   example: XYZPROD001
   level: extended
   beta: This field is beta and subject to change.
-  otel:
-    - relation: na
 
 - name: tool.source.type
   type: keyword
@@ -54,8 +52,6 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
     - inline
   level: extended
   beta: This field is beta and subject to change.
-  otel:
-    - relation: na
 
 - name: tool.source.address
   type: keyword
@@ -256,7 +252,7 @@ The OpenAI integration proposal already requests the cache read value, from `usa
 ## Concerns
 
 * **`server.*` is not the tool source:** `server.address` is a network field whose meaning depends on the event: the model endpoint on a GenAI request, the MCP server on an MCP client span. Tools listed in one event can come from several sources, so one event-level field cannot describe them. Resolution: use a dedicated `gen_ai.tool.source.address`, populated from `server.address` / `server.port` where an MCP client span provides it, and declare the relation to `server.address` as `related`, with a note, instead of reusing the field.
-* **`gen_ai.tool.source.name` has no OTel equivalent:** The OTel `mcp.*` attributes define no server name. Resolution: propose `gen_ai.tool.source.*` upstream in `open-telemetry/semantic-conventions-genai`, where `gen_ai.skill.source.uri` is a naming precedent, and declare `otel: na` for the name and type until then.
+* **`gen_ai.tool.source.name` has no OTel equivalent:** The OTel `mcp.*` attributes define no server name. Resolution: propose `gen_ai.tool.source.*` upstream in `open-telemetry/semantic-conventions-genai`, where `gen_ai.skill.source.uri` is a naming precedent, and omit the `otel` mapping for the name and type until then.
 * **`gen_ai.tool.source.type` could be confused with `gen_ai.tool.type`:** The OTel values (`function`, `extension`, `datastore`) describe how the tool executes. Resolution: keep the fields separate and state the difference in the field descriptions.
 * **Naming overlap with the `source.*` fieldset:** ECS already has `source.*` for the network source of an event (for example `source.address`), so `gen_ai.tool.source.*` could be confused with it. Resolution: the fields sit under `gen_ai.tool.`, so the names cannot collide. The exact name is open for review, and an alternative such as `gen_ai.tool.origin.*` would not change the proposal.
 * **Overlap of cache tokens with `gen_ai.usage.input_tokens`:** OTel states that cache values SHOULD be included in `input_tokens`. Resolution: copy that statement into both descriptions so consumers do not add the cache values on top of the input count. `gen_ai.token.type` does not cover them.
