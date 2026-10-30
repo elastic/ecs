@@ -1,0 +1,65 @@
+---
+# Additive fields for schemas/gen_ai.yml (alphabetical within the gen_ai group: tool.source.* after tool.name,
+# usage.cache_* before usage.input_tokens).
+# Proposed for beta maturity, like the existing gen_ai fields.
+- name: tool.source.name
+  type: keyword
+  description: >
+    The name of the source the tool came from, such as an MCP server name,
+    a gateway target or a registry id. Identifies where a tool was offered
+    from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
+  example: XYZPROD001
+  level: extended
+  beta: This field is beta and subject to change.
+
+- name: tool.source.type
+  type: keyword
+  description: >
+    The type of the source the tool came from. This describes where the tool
+    was offered from, not how it executes (see `gen_ai.tool.type`).
+  example: gateway_target
+  expected_values:
+    - mcp_server
+    - gateway_target
+    - registry
+    - inline
+  level: extended
+  beta: This field is beta and subject to change.
+
+- name: tool.source.address
+  type: keyword
+  description: >
+    The address of the source the tool came from, when the source is
+    addressable, such as the URL of an MCP server.
+  example: https://mcp.example.com/sse
+  level: extended
+  beta: This field is beta and subject to change.
+  otel:
+    - relation: related
+      attribute: server.address
+      note: >
+        In OTel, `server.address` (with `server.port`) on an MCP client span is the address of the server
+        being called. `gen_ai.tool.source.address` is the address of the source the tool was offered from,
+        which is not always the endpoint of the GenAI service.
+
+- name: usage.cache_read.input_tokens
+  type: long
+  description: >
+    The number of input tokens served from a provider-managed cache.
+    This value SHOULD be included in `gen_ai.usage.input_tokens`.
+  example: 1024
+  level: extended
+  beta: This field is beta and subject to change.
+  otel:
+    - relation: match
+
+- name: usage.cache_write.input_tokens
+  type: long
+  description: >
+    The number of input tokens written to a provider-managed cache.
+    This value SHOULD be included in `gen_ai.usage.input_tokens`.
+  example: 2048
+  level: extended
+  beta: This field is beta and subject to change.
+  otel:
+    - relation: match
