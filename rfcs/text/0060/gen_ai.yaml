@@ -8,7 +8,8 @@
     The name of the source the tool came from, such as an MCP server name,
     a gateway target or a registry id. Identifies where a tool was offered
     from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
-  example: XYZPROD001
+    Not set for `inline` tools, which have no external source.
+  example: github; LambdaUsingSDK; ac.snag/snag
   level: extended
   beta: This field is beta and subject to change.
 
@@ -17,7 +18,14 @@
   description: >
     The type of the source the tool came from. This describes where the tool
     was offered from, not how it executes (see `gen_ai.tool.type`).
-  example: gateway_target
+    `mcp_server`: an MCP server. `gateway_target`: a target behind a tool
+    gateway. `registry`: an entry in a tool registry. `inline`: the tool
+    definition was sent in the request itself (for example a function tool
+    declared in the request's tool list), so no external source offered it.
+    The two fields vary independently: for example, `fetch_order_details` is
+    a `function` tool offered by a `gateway_target`, and `Slack` is an
+    `extension` tool offered by an `mcp_server`.
+  example: mcp_server; gateway_target; registry; inline
   expected_values:
     - mcp_server
     - gateway_target
@@ -31,16 +39,9 @@
   description: >
     The address of the source the tool came from, when the source is
     addressable, such as the URL of an MCP server.
-  example: https://mcp.example.com/sse
+  example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
   level: extended
   beta: This field is beta and subject to change.
-  otel:
-    - relation: related
-      attribute: server.address
-      note: >
-        In OTel, `server.address` (with `server.port`) on an MCP client span is the address of the server
-        being called. `gen_ai.tool.source.address` is the address of the source the tool was offered from,
-        which is not always the endpoint of the GenAI service.
 
 - name: usage.cache_read.input_tokens
   type: long

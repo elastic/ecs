@@ -8,7 +8,7 @@
 
 Add five fields to the existing `gen_ai` fieldset:
 
-- `gen_ai.tool.source.name`, `gen_ai.tool.source.type` and `gen_ai.tool.source.address`, which record where a tool came from (an MCP server, a gateway target, a registry entry or a request-defined tool). `gen_ai.tool.*` identifies a tool by name only, and nothing in ECS says which source offered it.
+- `gen_ai.tool.source.name`, `gen_ai.tool.source.type` and `gen_ai.tool.source.address`, which record where a tool came from (an MCP server, a gateway target, a registry entry or a request-defined tool, called `inline`). `gen_ai.tool.*` identifies a tool by name only, and nothing in ECS says which source offered it.
 - `gen_ai.usage.cache_read.input_tokens` and `gen_ai.usage.cache_write.input_tokens`, which exist in the OpenTelemetry GenAI semantic conventions but not in ECS, and which several providers already log.
 
 The tool source fields are new to both ECS and OTel; the cache token fields match OTel attributes of the same name.
@@ -35,7 +35,8 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
     The name of the source the tool came from, such as an MCP server name,
     a gateway target or a registry id. Identifies where a tool was offered
     from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
-  example: XYZPROD001
+    Not set for `inline` tools, which have no external source.
+  example: github; LambdaUsingSDK; ac.snag/snag
   level: extended
   beta: This field is beta and subject to change.
 
@@ -44,7 +45,14 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
   description: >
     The type of the source the tool came from. This describes where the tool
     was offered from, not how it executes (see `gen_ai.tool.type`).
-  example: gateway_target
+    `mcp_server`: an MCP server. `gateway_target`: a target behind a tool
+    gateway. `registry`: an entry in a tool registry. `inline`: the tool
+    definition was sent in the request itself (for example a function tool
+    declared in the request's tool list), so no external source offered it.
+    The two fields vary independently: for example, `fetch_order_details` is
+    a `function` tool offered by a `gateway_target`, and `Slack` is an
+    `extension` tool offered by an `mcp_server`.
+  example: mcp_server; gateway_target; registry; inline
   expected_values:
     - mcp_server
     - gateway_target
@@ -58,16 +66,9 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
   description: >
     The address of the source the tool came from, when the source is
     addressable, such as the URL of an MCP server.
-  example: https://mcp.example.com/sse
+  example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
   level: extended
   beta: This field is beta and subject to change.
-  otel:
-    - relation: related
-      attribute: server.address
-      note: >
-        In OTel, `server.address` (with `server.port`) on an MCP client span is the address of the server
-        being called. `gen_ai.tool.source.address` is the address of the source the tool was offered from,
-        which is not always the endpoint of the GenAI service.
 
 - name: usage.cache_read.input_tokens
   type: long
@@ -103,11 +104,35 @@ The tool source also applies to each entry of the existing `gen_ai.tool.definiti
 ]
 ```
 
+**Examples by source type.** One example for each of the four source types. The `example` values of the fields above come from this table. Registry content and product documentation change over time, so the values show the shape of the data and are not a stable list.
+
+| `gen_ai.tool.source.type` | Where the tool comes from | `gen_ai.tool.source.name` | `gen_ai.tool.source.address` |
+| --- | --- | --- | --- |
+| `mcp_server` | GitHub's remote MCP server | `github` | `https://api.githubcopilot.com/mcp/` |
+| `gateway_target` | an AgentCore gateway target that exposes the tool `get_order_tool` | `LambdaUsingSDK` | not in the gateway log |
+| `registry` | an entry of the official MCP Registry | `ac.snag/snag` | `https://mcp.snag.ac/mcp` |
+| `inline` | the request itself, for example an illustrative `get_weather` function | not set | not set |
+
+- `github` is the server ID in GitHub's documented MCP client configuration, and `https://api.githubcopilot.com/mcp/` is its documented remote URL.
+- `LambdaUsingSDK` is the target name in the AWS AgentCore Gateway documentation, where a gateway exposes the tool `get_order_tool` as `LambdaUsingSDK___get_order_tool`. As in the AgentCore example under Source data, the `target___` prefix is split off the tool name and the target becomes the source.
+- `ac.snag/snag` is an entry of the official MCP Registry, and `https://mcp.snag.ac/mcp` is the remote URL listed for it.
+- An `inline` tool has no source name or address, because the request itself is the source. The `get_weather` example is illustrative:
+
+```json
+{ "gen_ai": { "tool": { "name": "get_weather", "type": "function", "source": { "type": "inline" } } } }
+```
+
 **Field relationships.**
 
-- `gen_ai.tool.source.type` is distinct from `gen_ai.tool.type` (`function`, `extension`, `datastore`): the first says where the tool came from, the second how it executes.
-- `gen_ai.tool.source.address` is `related` to the OTel `server.address` / `server.port` of MCP client spans. The OTel `mcp.*` attributes (`mcp.method.name`, `mcp.session.id`, `mcp.resource.uri`, `mcp.protocol.version`) define no server name.
-- `gen_ai.tool.source.name` has no OTel equivalent; see Concerns.
+- `gen_ai.tool.source.type` is distinct from `gen_ai.tool.type` (`function`, `extension`, `datastore`): the first says where the tool came from, the second how it executes. The two vary independently:
+
+| Tool | `gen_ai.tool.type` (how it executes) | `gen_ai.tool.source.type` (where it came from) |
+| --- | --- | --- |
+| `fetch_order_details` (AgentCore gateway) | `function` | `gateway_target` |
+| `Slack` (ChatGPT Enterprise connector) | `extension` | `mcp_server` |
+| `get_weather` (declared in the request; illustrative) | `function` | `inline` |
+
+- `gen_ai.tool.source.*` has no OTel equivalent; see Concerns.
 
 ## Source data
 
@@ -172,7 +197,7 @@ maps to:
 
 ### OTel MCP client span
 
-OTel MCP client spans carry the address of the server but not its name, so `gen_ai.tool.source.address` can be mapped and `gen_ai.tool.source.name` needs a source from the integration or collector configuration.
+OTel MCP client spans carry the address of the server but not its name, so `gen_ai.tool.source.address` can be populated from `server.address` and `server.port` when the span describes a call to an MCP server. The match is conditional, so no `otel` relation is declared. `gen_ai.tool.source.name` needs a source from the integration or collector configuration.
 
 ```json
 {
@@ -251,9 +276,8 @@ The OpenAI integration proposal already requests the cache read value, from `usa
 
 ## Concerns
 
-* **`server.*` is not the tool source:** `server.address` is a network field whose meaning depends on the event: the model endpoint on a GenAI request, the MCP server on an MCP client span. Tools listed in one event can come from several sources, so one event-level field cannot describe them. Resolution: use a dedicated `gen_ai.tool.source.address`, populated from `server.address` / `server.port` where an MCP client span provides it, and declare the relation to `server.address` as `related`, with a note, instead of reusing the field.
-* **`gen_ai.tool.source.name` has no OTel equivalent:** The OTel `mcp.*` attributes define no server name. Resolution: propose `gen_ai.tool.source.*` upstream in `open-telemetry/semantic-conventions-genai`, where `gen_ai.skill.source.uri` is a naming precedent, and omit the `otel` mapping for the name and type until then.
-* **`gen_ai.tool.source.type` could be confused with `gen_ai.tool.type`:** The OTel values (`function`, `extension`, `datastore`) describe how the tool executes. Resolution: keep the fields separate and state the difference in the field descriptions.
+* **`gen_ai.tool.source.*` has no OTel equivalent:** The OTel `mcp.*` attributes define no server name. No OTel attribute matches one-to-one: `server.address` matches only conditionally, because on a GenAI request it is the model endpoint, not the tool source. Resolution: propose `gen_ai.tool.source.*` upstream in `open-telemetry/semantic-conventions-genai`, where `gen_ai.skill.source.uri` is a naming precedent, and omit the `otel` mapping for these fields until then.
+* **`gen_ai.tool.source.type` could be confused with `gen_ai.tool.type`:** The OTel values (`function`, `extension`, `datastore`) describe how the tool executes. Resolution: keep the fields separate, state the difference in the field descriptions, and show the two side by side with examples (see Field relationships).
 * **Naming overlap with the `source.*` fieldset:** ECS already has `source.*` for the network source of an event (for example `source.address`), so `gen_ai.tool.source.*` could be confused with it. Resolution: the fields sit under `gen_ai.tool.`, so the names cannot collide. The exact name is open for review, and an alternative such as `gen_ai.tool.origin.*` would not change the proposal.
 * **Overlap of cache tokens with `gen_ai.usage.input_tokens`:** OTel states that cache values SHOULD be included in `input_tokens`. Resolution: copy that statement into both descriptions so consumers do not add the cache values on top of the input count. `gen_ai.token.type` does not cover them.
 * **Cardinality and sensitivity of the source address:** Source addresses can be internal URLs. Resolution: the field is `level: extended`, optional, and populated only when the source is addressable.
