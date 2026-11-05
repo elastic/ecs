@@ -49,9 +49,10 @@ Proposed definitions (also in [`rfcs/text/0060/gen_ai.yaml`](./0060/gen_ai.yaml)
     gateway. `registry`: an entry in a tool registry. `inline`: the tool
     definition was sent in the request itself (for example a function tool
     declared in the request's tool list), so no external source offered it.
-    The two fields vary independently: for example, `fetch_order_details` is
-    a `function` tool offered by a `gateway_target`, and `Slack` is an
-    `extension` tool offered by an `mcp_server`.
+    `gen_ai.tool.source.type` and `gen_ai.tool.type` vary independently: for
+    example, `fetch_order_details` is a `function` tool (`gen_ai.tool.type`)
+    offered by a `gateway_target` (`gen_ai.tool.source.type`), and `Slack` is
+    an `extension` tool offered by an `mcp_server`.
   example: mcp_server; gateway_target; registry; inline
   expected_values:
     - mcp_server
