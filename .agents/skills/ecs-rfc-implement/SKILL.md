@@ -3,15 +3,15 @@ name: ecs-rfc-implement
 description: >-
   Implements a merged ECS RFC by extracting field definitions from the RFC
   markdown or its companion YAML fragment, writing proper schemas/*.yml,
-  running the build pipeline, and opening a follow-up PR with all generated
-  artifacts. Use when an RFC PR has been merged and its fields need to be
-  applied to the ECS schema, or when the user says "implement RFC",
+  running the build pipeline, and committing the result locally on a new
+  branch. It never pushes or opens a PR. Use when an RFC PR has been merged
+  and its fields need to be applied to the ECS schema, or when the user says "implement RFC",
   "apply RFC fields", or references a merged RFC PR number.
 ---
 
 # ECS RFC implementation
 
-Takes a merged RFC and turns it into a complete schema change: `schemas/*.yml` update, generated artifacts, changelog entry, and a PR.
+Takes a merged RFC and turns it into a complete schema change: `schemas/*.yml` update, generated artifacts, changelog entry, and a local commit. Pushing and opening the PR is left to the maintainer.
 
 ## Inputs
 
@@ -194,7 +194,7 @@ make test        # run unit tests
 
 After success, verify with `git diff --stat` that the changed files are in expected locations: `schemas/`, `generated/`, `docs/reference/`, and `CHANGELOG.next.md`.
 
-### 9. Commit and create PR
+### 9. Commit locally
 
 1. Create and switch to a new branch:
    ```bash
@@ -215,38 +215,9 @@ After success, verify with `git diff --stat` that the changed files are in expec
    )"
    ```
 
-3. **Stop and ask the maintainer for confirmation** before pushing. Show `git diff --stat` and the PR title, and wait for an explicit yes.
+3. **Stop here. Do not push and do not open a PR.** Pushing and PR creation are done by the maintainer, after they review the commit (`git show --stat HEAD`).
 
-4. Push and open a PR. Target the upstream repo explicitly (`--repo elastic/ecs`), since `origin` may be a fork:
-   ```bash
-   git push -u origin HEAD
-   gh pr create --repo elastic/ecs --title "Implement RFC <NNNN>: <short title>" --body "$(cat <<'EOF'
-   ## Summary
-
-   Applies the field definitions from RFC <NNNN> (`rfcs/text/<NNNN>-*.md`) to the
-   ECS schema and regenerates all artifacts.
-
-   - Schema changes in `schemas/<fieldset>.yml`
-   - All `generated/` and `docs/reference/` artifacts rebuilt via `make`
-   - Changelog entry added
-
-   ## References
-
-   - RFC: `rfcs/text/<NNNN>-*.md`
-   - RFC PR: #<original-PR-number>
-
-   ## Checklist
-
-   - [x] `schemas/*.yml` updated with proposed fields
-   - [x] `make generate` run and `generated/` committed
-   - [x] `make test` passes
-   - [x] `CHANGELOG.next.md` entry added
-   - [x] `docs/reference/` regenerated and committed
-   EOF
-   )"
-   ```
-
-5. Return the PR URL.
+4. Tell the maintainer the branch name and that the commit is local only. Suggest they review it, then push the branch and open the PR against the upstream ECS repo themselves.
 
 ## Important repo facts
 
