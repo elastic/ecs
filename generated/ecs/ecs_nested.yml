@@ -11571,6 +11571,61 @@ gen_ai:
         stability: development
       short: Name of the tool utilized by the agent.
       type: keyword
+    gen_ai.tool.source.address:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-address
+      description: The address of the source the tool came from, when the source is
+        addressable, such as the URL of an MCP server.
+      example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
+      flat_name: gen_ai.tool.source.address
+      ignore_above: 1024
+      level: extended
+      name: tool.source.address
+      normalize: []
+      short: The address of the source the tool came from, when the source is addressable,
+        such as the URL of an MCP server.
+      type: keyword
+    gen_ai.tool.source.name:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-name
+      description: The name of the source the tool came from, such as an MCP server
+        name, a gateway target or a registry id. Identifies where a tool was offered
+        from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
+        Not set for `inline` tools, which have no external source.
+      example: github; LambdaUsingSDK; ac.snag/snag
+      flat_name: gen_ai.tool.source.name
+      ignore_above: 1024
+      level: extended
+      name: tool.source.name
+      normalize: []
+      short: The name of the source the tool came from, such as an MCP server name.
+      type: keyword
+    gen_ai.tool.source.type:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-type
+      description: 'The type of the source the tool came from. This describes where
+        the tool was offered from, not how it executes (see `gen_ai.tool.type`). `mcp_server`:
+        an MCP server. `gateway_target`: a target behind a tool gateway. `registry`:
+        an entry in a tool registry. `inline`: the tool definition was sent in the
+        request itself (for example a function tool declared in the request''s tool
+        list), so no external source offered it. `gen_ai.tool.source.type` and `gen_ai.tool.type`
+        vary independently: for example, `fetch_order_details` is a `function` tool
+        (`gen_ai.tool.type`) offered by a `gateway_target` (`gen_ai.tool.source.type`),
+        and `Slack` is an `extension` tool offered by an `mcp_server`.'
+      example: mcp_server
+      expected_values:
+      - mcp_server
+      - gateway_target
+      - registry
+      - inline
+      flat_name: gen_ai.tool.source.type
+      ignore_above: 1024
+      level: extended
+      name: tool.source.type
+      normalize: []
+      short: The type of the source the tool came from, such as an MCP server or a
+        gateway target.
+      type: keyword
     gen_ai.tool.type:
       beta: This field is beta and subject to change.
       dashed_name: gen-ai-tool-type
@@ -11586,6 +11641,36 @@ gen_ai:
         stability: development
       short: Type of the tool utilized by the agent
       type: keyword
+    gen_ai.usage.cache_read.input_tokens:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-usage-cache-read-input-tokens
+      description: The number of input tokens served from a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 1024
+      flat_name: gen_ai.usage.cache_read.input_tokens
+      level: extended
+      name: usage.cache_read.input_tokens
+      normalize: []
+      otel:
+      - relation: match
+        stability: development
+      short: The number of input tokens served from a provider-managed cache.
+      type: long
+    gen_ai.usage.cache_write.input_tokens:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-usage-cache-write-input-tokens
+      description: The number of input tokens written to a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 2048
+      flat_name: gen_ai.usage.cache_write.input_tokens
+      level: extended
+      name: usage.cache_write.input_tokens
+      normalize: []
+      otel:
+      - relation: match
+        stability: development
+      short: The number of input tokens written to a provider-managed cache.
+      type: long
     gen_ai.usage.input_tokens:
       beta: This field is beta and subject to change.
       dashed_name: gen-ai-usage-input-tokens
