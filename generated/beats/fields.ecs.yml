@@ -5622,12 +5622,59 @@
       description: Name of the tool utilized by the agent.
       example: Flights
       default_field: false
+    - name: tool.source.address
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The address of the source the tool came from, when the source is
+        addressable, such as the URL of an MCP server.
+      example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
+      default_field: false
+    - name: tool.source.name
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: The name of the source the tool came from, such as an MCP server
+        name, a gateway target or a registry id. Identifies where a tool was offered
+        from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
+        Not set for `inline` tools, which have no external source.
+      example: github; LambdaUsingSDK; ac.snag/snag
+      default_field: false
+    - name: tool.source.type
+      level: extended
+      type: keyword
+      ignore_above: 1024
+      description: 'The type of the source the tool came from. This describes where
+        the tool was offered from, not how it executes (see `gen_ai.tool.type`). `mcp_server`:
+        an MCP server. `gateway_target`: a target behind a tool gateway. `registry`:
+        an entry in a tool registry. `inline`: the tool definition was sent in the
+        request itself (for example a function tool declared in the request''s tool
+        list), so no external source offered it. `gen_ai.tool.source.type` and `gen_ai.tool.type`
+        vary independently: for example, `fetch_order_details` is a `function` tool
+        (`gen_ai.tool.type`) offered by a `gateway_target` (`gen_ai.tool.source.type`),
+        and `Slack` is an `extension` tool offered by an `mcp_server`.'
+      example: mcp_server
+      default_field: false
     - name: tool.type
       level: extended
       type: keyword
       ignore_above: 1024
       description: Type of the tool utilized by the agent
       example: function; extension; datastore
+      default_field: false
+    - name: usage.cache_read.input_tokens
+      level: extended
+      type: long
+      description: The number of input tokens served from a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 1024
+      default_field: false
+    - name: usage.cache_write.input_tokens
+      level: extended
+      type: long
+      description: The number of input tokens written to a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 2048
       default_field: false
     - name: usage.input_tokens
       level: extended
