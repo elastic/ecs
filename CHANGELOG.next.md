@@ -18,6 +18,7 @@ Thanks, you're awesome :-) -->
 
 - Add `namespace` field to `service` schema. #2688
 * Add `conversation.id` field to `gen_ai` schema. #2697
+* Add `tool.source.name`, `tool.source.type`, `tool.source.address`, `usage.cache_read.input_tokens` and `usage.cache_write.input_tokens` fields to `gen_ai` schema from RFC 0060. #2711
 
 #### Improvements
 
