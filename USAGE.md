@@ -35,7 +35,7 @@ Here's a complete example that generates artifacts with:
 ```bash
 python scripts/generator.py \
   --ref v9.1.0 \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --subset ../my-project/fields/subset.yml \
   --include ../my-project/fields/custom/ \
   --out ../my-project/
@@ -47,7 +47,7 @@ This generates:
 * `my-project/generated/beats/` - Beats field definitions
 * `my-project/generated/csv/` - CSV field reference
 
-**Note**: The `--semconv-version` flag is required. Use the version from the `otel-semconv-version` file or a specific version like `v1.38.0`.
+**Note**: The `--semconv-version` flag is required. Use the version from the `otel-semconv-version` file or a specific version like `v1.44.0`.
 
 ## Setup and Install
 
@@ -69,7 +69,7 @@ Generate artifacts from the current ECS schema:
 ```bash
 make generate
 # or
-python scripts/generator.py --semconv-version v1.38.0
+python scripts/generator.py --semconv-version v1.44.0
 ```
 
 **Key points**:
@@ -92,7 +92,7 @@ Add custom fields to ECS schemas:
 
 ```bash
 python scripts/generator.py \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --include ../myproject/custom-fields/ \
   --out ../myproject/out/
 ```
@@ -125,7 +125,7 @@ Generate artifacts with only the fields you need (reduces mapping size):
 
 ```bash
 python scripts/generator.py \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --subset ../myproject/subset.yml
 ```
 
@@ -166,7 +166,7 @@ Generate artifacts from a specific ECS version:
 
 ```bash
 python scripts/generator.py \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --ref v9.0.0
 ```
 
@@ -175,7 +175,7 @@ python scripts/generator.py \
 ```bash
 # Generate from ECS v9.0.0 + custom fields
 python scripts/generator.py \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --ref v9.0.0 \
   --include ../myproject/fields/custom
 ```
@@ -186,17 +186,17 @@ Loads schemas from git history (tags, branches, commits). Requires git.
 
 **`--out <directory>`** - Output to custom directory
 ```bash
-python scripts/generator.py --semconv-version v1.38.0 --out ../myproject/
+python scripts/generator.py --semconv-version v1.44.0 --out ../myproject/
 ```
 
 **`--exclude <files>`** - Remove specific fields (for testing deprecation impact)
 ```bash
-python scripts/generator.py --semconv-version v1.38.0 --exclude deprecated-fields.yml
+python scripts/generator.py --semconv-version v1.44.0 --exclude deprecated-fields.yml
 ```
 
 **`--strict`** - Enable strict validation (required for CI/CD)
 ```bash
-python scripts/generator.py --semconv-version v1.38.0 --strict
+python scripts/generator.py --semconv-version v1.44.0 --strict
 ```
 
 Strict mode requires the following conditions, else the script exits on an exception:
@@ -208,7 +208,7 @@ Strict mode requires the following conditions, else the script exits on an excep
 
 Example error when running with `--strict`:
 ```
-$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.38.0 --strict
+$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.44.0 --strict
 Loading schemas from git ref v1.4.0
 Running generator. ECS version 1.4.0
 ...
@@ -220,7 +220,7 @@ Short description:
 
 Without `--strict`, the same issue produces a warning and the script continues:
 ```
-$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.38.0
+$ python scripts/generator.py --ref v1.4.0 --semconv-version v1.44.0
 Loading schemas from git ref v1.4.0
 Running generator. ECS version 1.4.0
 ~/dev/ecs/scripts/generators/ecs_helpers.py:176: UserWarning: Short descriptions must be single line, and under 120 characters (current length: 134).
@@ -234,7 +234,7 @@ This will cause an exception when running in strict mode.
 **`--template-settings`** / **`--mapping-settings`** - Custom Elasticsearch template settings
 ```bash
 python scripts/generator.py \
-  --semconv-version v1.38.0 \
+  --semconv-version v1.44.0 \
   --template-settings ../myproject/template.json \
   --mapping-settings ../myproject/mappings.json
 ```
