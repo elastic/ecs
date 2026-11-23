@@ -1,0 +1,67 @@
+---
+# Additive fields for schemas/gen_ai.yml (alphabetical within the gen_ai group: tool.source.* after tool.name,
+# usage.cache_* before usage.input_tokens).
+# Proposed for beta maturity, like the existing gen_ai fields.
+- name: tool.source.name
+  type: keyword
+  description: >
+    The name of the source the tool came from, such as an MCP server name,
+    a gateway target or a registry id. Identifies where a tool was offered
+    from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
+    Not set for `inline` tools, which have no external source.
+  example: github; LambdaUsingSDK; ac.snag/snag
+  level: extended
+  beta: This field is beta and subject to change.
+
+- name: tool.source.type
+  type: keyword
+  description: >
+    The type of the source the tool came from. This describes where the tool
+    was offered from, not how it executes (see `gen_ai.tool.type`).
+    `mcp_server`: an MCP server. `gateway_target`: a target behind a tool
+    gateway. `registry`: an entry in a tool registry. `inline`: the tool
+    definition was sent in the request itself (for example a function tool
+    declared in the request's tool list), so no external source offered it.
+    `gen_ai.tool.source.type` and `gen_ai.tool.type` vary independently: for
+    example, `fetch_order_details` is a `function` tool (`gen_ai.tool.type`)
+    offered by a `gateway_target` (`gen_ai.tool.source.type`), and `Slack` is
+    an `extension` tool offered by an `mcp_server`.
+  example: mcp_server; gateway_target; registry; inline
+  expected_values:
+    - mcp_server
+    - gateway_target
+    - registry
+    - inline
+  level: extended
+  beta: This field is beta and subject to change.
+
+- name: tool.source.address
+  type: keyword
+  description: >
+    The address of the source the tool came from, when the source is
+    addressable, such as the URL of an MCP server.
+  example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
+  level: extended
+  beta: This field is beta and subject to change.
+
+- name: usage.cache_read.input_tokens
+  type: long
+  description: >
+    The number of input tokens served from a provider-managed cache.
+    This value SHOULD be included in `gen_ai.usage.input_tokens`.
+  example: 1024
+  level: extended
+  beta: This field is beta and subject to change.
+  otel:
+    - relation: match
+
+- name: usage.cache_write.input_tokens
+  type: long
+  description: >
+    The number of input tokens written to a provider-managed cache.
+    This value SHOULD be included in `gen_ai.usage.input_tokens`.
+  example: 2048
+  level: extended
+  beta: This field is beta and subject to change.
+  otel:
+    - relation: match

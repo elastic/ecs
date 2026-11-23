@@ -6,6 +6,7 @@ from typing import (
 
 class OTelAttribute(TypedDict, total=False):
     id: str
+    key: str
     stability: str
     ref: str
     deprecated: str
@@ -24,6 +25,8 @@ class OTelGroup(TypedDict, total=False):
 
 class OTelModelFile(TypedDict, total=False):
     groups: List[OTelGroup]
+    attributes: List[OTelAttribute]
+    metrics: List[OTelGroup]
 
 
 class OTelMappingSummary(TypedDict, total=False):
