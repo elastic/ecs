@@ -86,6 +86,10 @@
       otel:
         - relation: match
       otel_reuse:
+        - ecs: process.parent.pid
+          mapping:
+            relation: equivalent
+            attribute: process.parent_pid
         - ecs: process.group_leader.pid
           mapping:
             relation: match
@@ -137,6 +141,9 @@
       multi_fields:
         - type: match_only_text
           name: text
+      otel:
+        - relation: related
+          attribute: process.executable.name
 
     - name: command_line
       level: extended
@@ -266,6 +273,9 @@
       example: "2016-05-23T08:05:34.853Z"
       description: >
         The time the process started.
+      otel:
+        - relation: equivalent
+          attribute: process.creation.time
 
     - name: uptime
       level: extended
@@ -299,6 +309,9 @@
 
         The field should be absent if there is no exit code for the event (e.g.
         process start).
+      otel:
+        - relation: equivalent
+          attribute: process.exit.code
 
     - name: end
       level: extended
@@ -306,6 +319,9 @@
       example: "2016-05-23T08:05:34.853Z"
       description: >
         The time the process ended.
+      otel:
+        - relation: equivalent
+          attribute: process.exit.time
 
     - name: interactive
       level: extended
