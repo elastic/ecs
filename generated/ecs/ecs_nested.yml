@@ -214,7 +214,7 @@ base:
       otel:
       - attribute: k8s.pod.label
         relation: related
-        stability: development
+        stability: stable
       - attribute: container.label
         relation: related
         stability: development
@@ -3794,7 +3794,7 @@ container:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: stable
       short: Unique container id.
       type: keyword
     container.image.hash.all:
@@ -3812,7 +3812,7 @@ container:
       otel:
       - attribute: container.image.repo_digests
         relation: equivalent
-        stability: development
+        stability: stable
       short: An array of digests of the image the container was built on.
       type: keyword
     container.image.name:
@@ -3825,7 +3825,7 @@ container:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: stable
       short: Name of the image the container was built on.
       type: keyword
     container.image.tag:
@@ -3840,7 +3840,7 @@ container:
       otel:
       - attribute: container.image.tags
         relation: equivalent
-        stability: development
+        stability: stable
       short: Container image tags.
       synthetic_source_keep: none
       type: keyword
@@ -3869,7 +3869,7 @@ container:
       otel:
       - metric: container.memory.usage
         relation: metric
-        stability: development
+        stability: release_candidate
       scaling_factor: 1000
       short: Percent memory used, between 0 and 1.
       type: scaled_float
@@ -8731,8 +8731,8 @@ event:
     event.original:
       dashed_name: event-original
       description: 'Raw text message of entire event. Used to demonstrate log integrity
-        or where the full log message (before splitting it up in multiple parts) may
-        be required, e.g. for reindex.
+        or where the full log message (before splitting it up in multiple parts) might
+        be required, for example for reindex.
 
         This field is not indexed and doc_values are disabled. It cannot be searched,
         but it can be retrieved from `_source`. If users wish to override this and
@@ -8745,6 +8745,10 @@ event:
       level: core
       name: original
       normalize: []
+      otel:
+      - attribute: log.record.original
+        relation: equivalent
+        stability: development
       short: Raw text message of entire event.
       type: keyword
     event.outcome:
@@ -11481,9 +11485,6 @@ gen_ai:
       level: extended
       name: token.type
       normalize: []
-      otel:
-      - relation: match
-        stability: development
       short: The type of token being counted.
       type: keyword
     gen_ai.tool.call.arguments:
@@ -11570,6 +11571,61 @@ gen_ai:
         stability: development
       short: Name of the tool utilized by the agent.
       type: keyword
+    gen_ai.tool.source.address:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-address
+      description: The address of the source the tool came from, when the source is
+        addressable, such as the URL of an MCP server.
+      example: https://api.githubcopilot.com/mcp/; https://mcp.snag.ac/mcp
+      flat_name: gen_ai.tool.source.address
+      ignore_above: 1024
+      level: extended
+      name: tool.source.address
+      normalize: []
+      short: The address of the source the tool came from, when the source is addressable,
+        such as the URL of an MCP server.
+      type: keyword
+    gen_ai.tool.source.name:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-name
+      description: The name of the source the tool came from, such as an MCP server
+        name, a gateway target or a registry id. Identifies where a tool was offered
+        from, as opposed to `gen_ai.tool.name`, which identifies the tool itself.
+        Not set for `inline` tools, which have no external source.
+      example: github; LambdaUsingSDK; ac.snag/snag
+      flat_name: gen_ai.tool.source.name
+      ignore_above: 1024
+      level: extended
+      name: tool.source.name
+      normalize: []
+      short: The name of the source the tool came from, such as an MCP server name.
+      type: keyword
+    gen_ai.tool.source.type:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-tool-source-type
+      description: 'The type of the source the tool came from. This describes where
+        the tool was offered from, not how it executes (see `gen_ai.tool.type`). `mcp_server`:
+        an MCP server. `gateway_target`: a target behind a tool gateway. `registry`:
+        an entry in a tool registry. `inline`: the tool definition was sent in the
+        request itself (for example a function tool declared in the request''s tool
+        list), so no external source offered it. `gen_ai.tool.source.type` and `gen_ai.tool.type`
+        vary independently: for example, `fetch_order_details` is a `function` tool
+        (`gen_ai.tool.type`) offered by a `gateway_target` (`gen_ai.tool.source.type`),
+        and `Slack` is an `extension` tool offered by an `mcp_server`.'
+      example: mcp_server
+      expected_values:
+      - mcp_server
+      - gateway_target
+      - registry
+      - inline
+      flat_name: gen_ai.tool.source.type
+      ignore_above: 1024
+      level: extended
+      name: tool.source.type
+      normalize: []
+      short: The type of the source the tool came from, such as an MCP server or a
+        gateway target.
+      type: keyword
     gen_ai.tool.type:
       beta: This field is beta and subject to change.
       dashed_name: gen-ai-tool-type
@@ -11585,6 +11641,36 @@ gen_ai:
         stability: development
       short: Type of the tool utilized by the agent
       type: keyword
+    gen_ai.usage.cache_read.input_tokens:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-usage-cache-read-input-tokens
+      description: The number of input tokens served from a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 1024
+      flat_name: gen_ai.usage.cache_read.input_tokens
+      level: extended
+      name: usage.cache_read.input_tokens
+      normalize: []
+      otel:
+      - relation: match
+        stability: development
+      short: The number of input tokens served from a provider-managed cache.
+      type: long
+    gen_ai.usage.cache_write.input_tokens:
+      beta: This field is beta and subject to change.
+      dashed_name: gen-ai-usage-cache-write-input-tokens
+      description: The number of input tokens written to a provider-managed cache.
+        This value SHOULD be included in `gen_ai.usage.input_tokens`.
+      example: 2048
+      flat_name: gen_ai.usage.cache_write.input_tokens
+      level: extended
+      name: usage.cache_write.input_tokens
+      normalize: []
+      otel:
+      - relation: match
+        stability: development
+      short: The number of input tokens written to a provider-managed cache.
+      type: long
     gen_ai.usage.input_tokens:
       beta: This field is beta and subject to change.
       dashed_name: gen-ai-usage-input-tokens
@@ -17974,7 +18060,7 @@ process:
       otel:
       - attribute: process.command_args
         relation: equivalent
-        stability: development
+        stability: release_candidate
       short: Array of process arguments.
       type: keyword
     process.args_count:
@@ -17991,7 +18077,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Length of the process.args array.
       type: long
     process.code_signature.digest_algorithm:
@@ -18162,7 +18248,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Full command line that started the process.
       type: wildcard
     process.elf.architecture:
@@ -18616,6 +18702,10 @@ process:
       level: extended
       name: end
       normalize: []
+      otel:
+      - attribute: process.exit.time
+        relation: equivalent
+        stability: release_candidate
       short: The time the process ended.
       type: date
     process.entity_id:
@@ -19270,7 +19360,7 @@ process:
       otel:
       - attribute: process.executable.path
         relation: equivalent
-        stability: development
+        stability: release_candidate
       short: Absolute path to the process executable.
       type: keyword
     process.exit_code:
@@ -19284,6 +19374,10 @@ process:
       level: extended
       name: exit_code
       normalize: []
+      otel:
+      - attribute: process.exit.code
+        relation: equivalent
+        stability: release_candidate
       short: The exit code of the process.
       type: long
     process.group.id:
@@ -19466,7 +19560,7 @@ process:
       original_fieldset: process
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.group_leader.real_group.id:
@@ -19842,7 +19936,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Whether the process is connected to an interactive shell.
       type: boolean
     process.io:
@@ -20164,6 +20258,10 @@ process:
         type: match_only_text
       name: name
       normalize: []
+      otel:
+      - attribute: process.executable.name
+        relation: related
+        stability: release_candidate
       short: Process name.
       type: keyword
     process.parent.args:
@@ -21577,6 +21675,10 @@ process:
       name: pid
       normalize: []
       original_fieldset: process
+      otel:
+      - attribute: process.parent_pid
+        relation: equivalent
+        stability: release_candidate
       short: Process id.
       type: long
     process.parent.real_group.id:
@@ -22194,7 +22296,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.previous.args:
@@ -22278,7 +22380,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.real_user.name:
@@ -22297,7 +22399,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.saved_group.id:
@@ -22334,7 +22436,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.saved_user.name:
@@ -22353,7 +22455,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.session_leader.args:
@@ -22632,7 +22734,7 @@ process:
       original_fieldset: process
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process id.
       type: long
     process.session_leader.real_group.id:
@@ -22905,6 +23007,10 @@ process:
       level: extended
       name: start
       normalize: []
+      otel:
+      - attribute: process.creation.time
+        relation: equivalent
+        stability: release_candidate
       short: The time the process started.
       type: date
     process.supplemental_groups.id:
@@ -22998,7 +23104,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Process title.
       type: keyword
     process.tty:
@@ -23074,7 +23180,7 @@ process:
       otel:
       - metric: process.uptime
         relation: metric
-        stability: development
+        stability: release_candidate
       short: Seconds the process has been up.
       type: long
     process.user.id:
@@ -23089,7 +23195,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Unique identifier of the user.
       type: keyword
     process.user.name:
@@ -23108,7 +23214,7 @@ process:
       original_fieldset: user
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Short name or login of the user.
       type: keyword
     process.vpid:
@@ -23126,7 +23232,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: Virtual process id.
       type: long
     process.working_directory:
@@ -23144,7 +23250,7 @@ process:
       normalize: []
       otel:
       - relation: match
-        stability: development
+        stability: release_candidate
       short: The working directory of the process.
       type: keyword
   group: 2
@@ -25072,7 +25178,7 @@ service:
       otel:
       - attribute: deployment.environment.name
         relation: equivalent
-        stability: development
+        stability: stable
       short: Environment of the service.
       type: keyword
     service.ephemeral_id:
@@ -25152,7 +25258,7 @@ service:
       otel:
       - attribute: service.instance.id
         relation: equivalent
-        stability: development
+        stability: stable
       short: Name of the service node.
       type: keyword
     service.node.role:
@@ -39084,6 +39190,9 @@ user_agent:
       name: name
       normalize: []
       original_fieldset: os
+      otel:
+      - relation: match
+        stability: development
       short: Operating system name, without the version.
       type: keyword
     user_agent.os.platform:
@@ -39133,6 +39242,9 @@ user_agent:
       name: version
       normalize: []
       original_fieldset: os
+      otel:
+      - relation: match
+        stability: development
       short: Operating system version as a raw string.
       type: keyword
     user_agent.version:
